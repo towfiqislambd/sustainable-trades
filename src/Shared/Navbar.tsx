@@ -13,9 +13,11 @@ import {
   TutorialSvg,
   VisionSvg,
   WorksSvg,
+  UpArrowSvg,
 } from "@/Components/Svg/SvgContainer";
 import Link from "next/link";
 import logo from "@/Assets/logo.svg";
+import ScrollToTop from "react-scroll-to-top";
 import Container from "@/Components/Common/Container";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -200,6 +202,12 @@ const Navbar = () => {
           </Container>
         </div>
       </nav>
+      <ScrollToTop
+        smooth={true}
+        top={50}
+        component={<UpArrowSvg />}
+        className="!bg-gray-300 grid place-items-center !size-12 !text-accent-white"
+      />
     </>
   );
 };

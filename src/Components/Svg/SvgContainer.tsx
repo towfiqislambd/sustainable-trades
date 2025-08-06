@@ -1063,30 +1063,30 @@ export function PricingTwoSvg() {
       <path
         d="M21 12C21 9.61305 20.0518 7.32387 18.364 5.63604C16.6761 3.94821 14.3869 3 12 3C9.48395 3.00947 7.06897 3.99122 5.26 5.74L3 8"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M3 3V8H8"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M3 12C3 14.3869 3.94821 16.6761 5.63604 18.364C7.32387 20.0518 9.61305 21 12 21C14.516 20.9905 16.931 20.0088 18.74 18.26L21 16"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M16 16H21V21"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -1104,9 +1104,9 @@ export function PricingThreeSvg() {
       <path
         d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -1141,30 +1141,30 @@ export function PricingFiveSvg() {
       <path
         d="M9 3H4C3.44772 3 3 3.44772 3 4V11C3 11.5523 3.44772 12 4 12H9C9.55228 12 10 11.5523 10 11V4C10 3.44772 9.55228 3 9 3Z"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M20 3H15C14.4477 3 14 3.44772 14 4V7C14 7.55228 14.4477 8 15 8H20C20.5523 8 21 7.55228 21 7V4C21 3.44772 20.5523 3 20 3Z"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M20 12H15C14.4477 12 14 12.4477 14 13V20C14 20.5523 14.4477 21 15 21H20C20.5523 21 21 20.5523 21 20V13C21 12.4477 20.5523 12 20 12Z"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M9 16H4C3.44772 16 3 16.4477 3 17V20C3 20.5523 3.44772 21 4 21H9C9.55228 21 10 20.5523 10 20V17C10 16.4477 9.55228 16 9 16Z"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -1199,44 +1199,44 @@ export function PricingSevenSvg() {
       <path
         d="M9 3.5H4C3.44772 3.5 3 3.94772 3 4.5V9.5C3 10.0523 3.44772 10.5 4 10.5H9C9.55228 10.5 10 10.0523 10 9.5V4.5C10 3.94772 9.55228 3.5 9 3.5Z"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M9 14.5H4C3.44772 14.5 3 14.9477 3 15.5V20.5C3 21.0523 3.44772 21.5 4 21.5H9C9.55228 21.5 10 21.0523 10 20.5V15.5C10 14.9477 9.55228 14.5 9 14.5Z"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M14 4.5H21"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M14 9.5H21"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M14 15.5H21"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M14 20.5H21"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -1254,37 +1254,37 @@ export function PricingEightSvg() {
       <path
         d="M14.5 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V7.5L14.5 2Z"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M14 2V8H20"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M12 18V14"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M8 18V16"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M16 18V12"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -1302,8 +1302,25 @@ export function PricingNineSvg() {
       <path
         d="M2.40039 4H14.4004C14.7715 4.0001 15.1272 4.14776 15.3896 4.41016C15.6522 4.67271 15.7998 5.02909 15.7998 5.40039V6.59961C15.7998 7.15183 16.2476 7.5995 16.7998 7.59961H18.7861L23 11.8135V16.4004H21.5996C21.2406 16.4005 20.9263 16.5898 20.75 16.874C20.6455 16.3272 20.3807 15.8194 19.9814 15.4199C19.4565 14.8946 18.7446 14.599 18.002 14.5986C17.6342 14.5985 17.2695 14.6709 16.9297 14.8115C16.5899 14.9522 16.2807 15.158 16.0205 15.418C15.7604 15.6779 15.5539 15.9874 15.4131 16.3271C15.3398 16.5041 15.2857 16.6878 15.25 16.875C15.0738 16.5904 14.7597 16.4005 14.4004 16.4004H9.59961C9.24058 16.4005 8.92627 16.5898 8.75 16.874C8.64549 16.3272 8.38066 15.8194 7.98145 15.4199C7.70997 15.1483 7.38799 14.9395 7.03809 14.7998H14.4004C14.9525 14.7996 15.4004 14.352 15.4004 13.7998V5.40039C15.4004 4.84824 14.9525 4.4006 14.4004 4.40039H2.40039C1.84811 4.40039 1.40039 4.84811 1.40039 5.40039V13.7998C1.40039 14.3521 1.84811 14.7998 2.40039 14.7998H4.96191C4.95131 14.804 4.94025 14.8072 4.92969 14.8115C4.58986 14.9522 4.28065 15.158 4.02051 15.418C3.76036 15.6779 3.55394 15.9874 3.41309 16.3271C3.33977 16.5041 3.28569 16.6878 3.25 16.875C3.07382 16.5904 2.75971 16.4005 2.40039 16.4004H1V5.40039C1 5.02909 1.14761 4.67271 1.41016 4.41016C1.67271 4.14761 2.02909 4 2.40039 4Z"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function UpArrowSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="21"
+      height="20"
+      viewBox="0 0 21 20"
+      fill="none"
+    >
+      <path
+        d="M3.36951 9.99138C3.12317 9.7579 3 9.46074 3 9.09991C3 8.73908 3.12317 8.44192 3.36951 8.20844L9.55034 2.35022C9.68471 2.22287 9.83027 2.13287 9.98703 2.08023C10.1438 2.02759 10.3118 2.00085 10.4909 2C10.6701 2 10.838 2.02674 10.9948 2.08023C11.1515 2.13372 11.2971 2.22372 11.4315 2.35022L17.6123 8.20844C17.8586 8.44192 17.9876 8.73398 17.9993 9.08463C18.0109 9.43527 17.8819 9.73752 17.6123 9.99138C17.366 10.2249 17.0524 10.3416 16.6717 10.3416C16.291 10.3416 15.9775 10.2249 15.7312 9.99138L10.4909 5.05646L5.25063 9.99138C5.00429 10.2249 4.69615 10.3471 4.32619 10.3582C3.95624 10.3692 3.63734 10.2469 3.36951 9.99138ZM3.36951 17.6325C3.12317 17.3991 3 17.1019 3 16.7411C3 16.3802 3.12317 16.0831 3.36951 15.8496L9.55034 9.99138C9.68471 9.86403 9.83027 9.77403 9.98703 9.72139C10.1438 9.66875 10.3118 9.64201 10.4909 9.64116C10.6701 9.64116 10.838 9.6679 10.9948 9.72139C11.1515 9.77488 11.2971 9.86487 11.4315 9.99138L17.6123 15.8496C17.8586 16.0831 17.9876 16.3751 17.9993 16.7258C18.0109 17.0764 17.8819 17.3787 17.6123 17.6325C17.366 17.866 17.0524 17.9828 16.6717 17.9828C16.291 17.9828 15.9775 17.866 15.7312 17.6325L10.4909 12.6976L5.25063 17.6325C5.00429 17.866 4.69615 17.9883 4.32619 17.9993C3.95624 18.0104 3.63734 17.8881 3.36951 17.6325Z"
+        fill="#274F45"
       />
     </svg>
   );
