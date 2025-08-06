@@ -116,7 +116,7 @@ const Navbar = () => {
 
               {/* Right */}
               <div className="flex gap-4 items-center">
-                <button className="px-3 py-2 rounded-lg bg-accent-red text-secondary-black cursor-pointer shadow-[0_3px_10px_0_rgba(0\,0\,0\,0.12),_0_3px_8px_0_rgba(0\,0\,0\,0.08)]">
+                <button className="px-3 py-2 rounded-lg bg-accent-red text-secondary-black cursor-pointer shadow-[0_3px_10px_0_rgba(0\,0\,0\,0.12),_0_3px_8px_0_rgba(0\,0\,0\,0.08)] duration-300 transition-all hover:text-accent-red hover:bg-transparent border border-accent-red">
                   Create a Shops
                 </button>
 
