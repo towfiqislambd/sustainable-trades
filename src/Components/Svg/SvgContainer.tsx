@@ -246,30 +246,30 @@ export function StorySvg() {
       <path
         d="M9 3L4 3C3.44772 3 3 3.44772 3 4L3 11C3 11.5523 3.44772 12 4 12L9 12C9.55228 12 10 11.5523 10 11L10 4C10 3.44772 9.55228 3 9 3Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M20 3L15 3C14.4477 3 14 3.44772 14 4L14 7C14 7.55228 14.4477 8 15 8L20 8C20.5523 8 21 7.55228 21 7L21 4C21 3.44772 20.5523 3 20 3Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M20 12L15 12C14.4477 12 14 12.4477 14 13L14 20C14 20.5523 14.4477 21 15 21L20 21C20.5523 21 21 20.5523 21 20L21 13C21 12.4477 20.5523 12 20 12Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M9 16L4 16C3.44772 16 3 16.4477 3 17L3 20C3 20.5523 3.44772 21 4 21L9 21C9.55228 21 10 20.5523 10 20L10 17C10 16.4477 9.55228 16 9 16Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -287,86 +287,86 @@ export function WorksSvg() {
       <path
         d="M2.97 12.92C2.67476 13.0974 2.43033 13.348 2.26039 13.6476C2.09045 13.9472 2.00075 14.2856 2 14.63L2 17.87C2.00075 18.2144 2.09045 18.5528 2.26039 18.8524C2.43033 19.152 2.67476 19.4026 2.97 19.58L5.97 21.38C6.28106 21.5669 6.63711 21.6656 7 21.6656C7.36289 21.6656 7.71894 21.5669 8.03 21.38L12 19L12 13.5L7 10.5L2.97 12.92Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M6.99781 16.5004L2.25781 13.6504"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M7 16.5L12 13.5"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M7 16.5L7 21.67"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M12 13.5L12 19L15.97 21.38C16.2811 21.5669 16.6371 21.6656 17 21.6656C17.3629 21.6656 17.7189 21.5669 18.03 21.38L21.03 19.58C21.3252 19.4026 21.5697 19.152 21.7396 18.8524C21.9096 18.5528 21.9992 18.2144 22 17.87L22 14.63C21.9992 14.2856 21.9096 13.9472 21.7396 13.6476C21.5697 13.348 21.3252 13.0974 21.03 12.92L17 10.5L12 13.5Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M17 16.5L12 13.5"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M17 16.5004L21.74 13.6504"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M17 16.5L17 21.67"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M7.97 4.4196C7.67476 4.59698 7.43033 4.84761 7.26039 5.14719C7.09045 5.44678 7.00075 5.78518 7 6.1296L7 10.4996L12 13.4996L17 10.4996L17 6.1296C16.9992 5.78518 16.9096 5.44678 16.7396 5.14719C16.5697 4.84761 16.3252 4.59698 16.03 4.4196L13.03 2.6196C12.7189 2.43272 12.3629 2.33398 12 2.33398C11.6371 2.33398 11.2811 2.43272 10.97 2.6196L7.97 4.4196Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M11.9978 8.00039L7.25781 5.15039"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M12 8.00039L16.74 5.15039"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M12 13.5L12 8"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -384,37 +384,37 @@ export function GuidelineSvg() {
       <path
         d="M14.5 2L6 2C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4L4 20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22L18 22C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20L20 7.5L14.5 2Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M14 2L14 8L20 8"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M12 18L12 14"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M8 18L8 16"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M16 18L16 12"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -433,37 +433,37 @@ export function TutorialSvg() {
         <path
           d="M19.5 2.4707H4.5C3.67158 2.4707 3 3.14228 3 3.9707V18.9707C3 19.7992 3.67158 20.4707 4.5 20.4707H19.5C20.3285 20.4707 21 19.7992 21 18.9707V3.9707C21 3.14228 20.3285 2.4707 19.5 2.4707Z"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M10.25 13.4706V10.4395L12.875 11.955L15.5 13.4706L12.875 14.9861L10.25 16.5017V13.4706Z"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M3 6.9707H21"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M16.5 2.4707L13.5 6.9707"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M10.5 2.4707L7.5 6.9707"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </g>
       <defs>
@@ -492,22 +492,22 @@ export function FAQSvg() {
       <path
         d="M5 22H19C19.5523 22 20 21.5523 20 21V7H15V2H5C4.44771 2 4 2.44771 4 3V21C4 21.5523 4.44771 22 5 22Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M12 15.5V14C13.1046 14 14 12.9927 14 11.75C14 10.5073 13.1046 9.5 12 9.5C10.8954 9.5 10 10.5073 10 11.75"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M12 17.25C12.5523 17.25 13 17.6977 13 18.25C13 18.8023 12.5523 19.25 12 19.25C11.4477 19.25 11 18.8023 11 18.25C11 17.6977 11.4477 17.25 12 17.25Z"
         fill="currentColor"
         stroke="currentColor"
-        stroke-width="0.5"
+        strokeWidth="0.5"
       />
     </svg>
   );
@@ -525,9 +525,9 @@ export function ContactSvg() {
       <path
         d="M5.33333 18.9999C5.40406 19 5.47696 19 5.55212 19H12M5.33333 18.9999C4.23525 18.9991 3.65926 18.9846 3.21311 18.7459C2.79497 18.5222 2.45526 18.1643 2.24221 17.7253C2 17.2262 2 16.5737 2 15.2669V8.73356C2 7.42677 2 6.77289 2.24221 6.27376C2.45526 5.83472 2.79497 5.47802 3.21311 5.25432C3.68847 5 4.31121 5 5.55577 5H18.4447C19.6892 5 20.3106 5 20.786 5.25432C21.2041 5.47802 21.545 5.83472 21.758 6.27376C22 6.7724 22 7.42549 22 8.72973V15.2703C22 16.5745 22 17.2267 21.758 17.7253C21.545 18.1643 21.2041 18.5222 20.786 18.7459C20.3111 19 19.69 19 18.4479 19H12M5.33333 18.9999C5.33338 17.7113 6.82574 16.6667 8.66667 16.6667C10.5076 16.6667 12 17.7113 12 19M5.33333 18.9999C5.33333 19 5.33333 18.9999 5.33333 18.9999ZM18.6667 14.3333H14.2222M18.6667 10.8333H15.3333M8.66667 13.1667C7.43937 13.1667 6.44444 12.122 6.44444 10.8333C6.44444 9.54467 7.43937 8.5 8.66667 8.5C9.89397 8.5 10.8889 9.54467 10.8889 10.8333C10.8889 12.122 9.89397 13.1667 8.66667 13.1667Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -545,37 +545,37 @@ export function TermsSvg() {
       <path
         d="M20 13.5V3C20 2.44771 19.5523 2 19 2H5C4.44771 2 4 2.44771 4 3V21C4 21.5523 4.44771 22 5 22H10.5"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M8.5 6H15.5"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M8.5 10H15.5"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M8.5 14H11.5"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M19.5 22L17.7677 20.2677M17.7677 20.2677C18.2202 19.8153 18.5 19.1903 18.5 18.5C18.5 17.1193 17.3807 16 16 16C14.6193 16 13.5 17.1193 13.5 18.5C13.5 19.8807 14.6193 21 16 21C16.6903 21 17.3153 20.7202 17.7677 20.2677Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -593,37 +593,37 @@ export function ReportSvg() {
       <path
         d="M20 13.5V3C20 2.44771 19.5523 2 19 2H5C4.44771 2 4 2.44771 4 3V21C4 21.5523 4.44771 22 5 22H10.5"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M8.5 6H15.5"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M8.5 10H15.5"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M8.5 14H11.5"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M19.5 22L17.7677 20.2677M17.7677 20.2677C18.2202 19.8153 18.5 19.1903 18.5 18.5C18.5 17.1193 17.3807 16 16 16C14.6193 16 13.5 17.1193 13.5 18.5C13.5 19.8807 14.6193 21 16 21C16.6903 21 17.3153 20.7202 17.7677 20.2677Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -642,23 +642,23 @@ export function WOneSvg() {
         d="M16.5574 48.639C15.5725 44.2024 15.7238 39.5889 16.9971 35.2264C18.2705 30.8638 20.6247 26.8934 23.8416 23.6833C27.0585 20.4731 31.0338 18.1272 35.3991 16.863C39.7643 15.5987 44.378 15.4572 48.8125 16.4514C51.2533 12.6341 54.6158 9.49263 58.5899 7.31661C62.5641 5.14058 67.0221 4 71.553 4C76.084 4 80.542 5.14058 84.5161 7.31661C88.4903 9.49263 91.8528 12.6341 94.2935 16.4514C98.7348 15.4528 103.356 15.5938 107.729 16.8611C112.101 18.1284 116.081 20.4808 119.3 23.6997C122.519 26.9185 124.872 30.8992 126.139 35.2713C127.406 39.6435 127.547 44.2652 126.549 48.7065C130.366 51.1472 133.507 54.5097 135.683 58.4839C137.859 62.458 139 66.916 139 71.447C139 75.9779 137.859 80.4359 135.683 84.4101C133.507 88.3842 130.366 91.7467 126.549 94.1875C127.543 98.622 127.401 103.236 126.137 107.601C124.873 111.966 122.527 115.942 119.317 119.158C116.107 122.375 112.136 124.73 107.774 126.003C103.411 127.276 98.7976 127.427 94.361 126.443C91.9234 130.274 88.5583 133.429 84.5774 135.615C80.5964 137.801 76.1283 138.947 71.5868 138.947C67.0452 138.947 62.5771 137.801 58.5962 135.615C54.6152 133.429 51.2501 130.274 48.8125 126.443C44.378 127.437 39.7643 127.295 35.3991 126.031C31.0338 124.767 27.0585 122.421 23.8416 119.211C20.6247 116.001 18.2705 112.03 16.9971 107.668C15.7238 103.305 15.5725 98.6915 16.5574 94.255C12.7108 91.8206 9.5424 88.4529 7.34686 84.4652C5.15132 80.4774 4 75.9992 4 71.447C4 66.8948 5.15132 62.4165 7.34686 58.4288C9.5424 54.441 12.7108 51.0733 16.5574 48.639Z"
         fill="#D4E2CB"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M98.5459 44.4551H58.0584C54.479 44.4551 51.0463 45.877 48.5153 48.4079C45.9844 50.9389 44.5625 54.3716 44.5625 57.9509C44.5625 61.5303 45.9844 64.963 48.5153 67.4939C51.0463 70.0249 54.479 71.4468 58.0584 71.4468H85.0501C88.6294 71.4468 92.0621 72.8687 94.5931 75.3996C97.124 77.9306 98.5459 81.3633 98.5459 84.9426C98.5459 88.522 97.124 91.9547 94.5931 94.4856C92.0621 97.0166 88.6294 98.4385 85.0501 98.4385H44.5625"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M71.5547 111.935V30.96"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -680,16 +680,16 @@ export function WTwoSvg() {
       <path
         d="M4 39.4545L34.87 8.18364C36.1724 6.85645 37.7212 5.80349 39.4272 5.08546C41.1332 4.36743 42.9626 3.99852 44.81 4H103.19C105.037 3.99852 106.867 4.36743 108.573 5.08546C110.279 5.80349 111.828 6.85645 113.13 8.18364L144 39.4545"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M17.6367 74V130C17.6367 133.713 19.1213 137.274 21.7638 139.899C24.4064 142.525 27.9905 144 31.7276 144H116.273C120.01 144 123.594 142.525 126.237 139.899C128.879 137.274 130.364 133.713 130.364 130V74"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M94.908 140.363V114.909C94.908 111.533 93.4394 108.296 90.8253 105.909C88.2111 103.523 84.6656 102.182 80.9686 102.182H67.0292C63.3323 102.182 59.7867 103.523 57.1726 105.909C54.5585 108.296 53.0898 111.533 53.0898 114.909V140.363"
@@ -698,9 +698,9 @@ export function WTwoSvg() {
       <path
         d="M94.908 140.363V114.909C94.908 111.533 93.4394 108.296 90.8253 105.909C88.2111 103.523 84.6656 102.182 80.9686 102.182H67.0292C63.3323 102.182 59.7867 103.523 57.1726 105.909C54.5585 108.296 53.0898 111.533 53.0898 114.909V140.363"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M144 39.4541V60.1814C144 63.8462 142.525 67.3609 139.899 69.9523C137.274 72.5437 133.713 73.9996 130 73.9996C125.91 73.7774 122.004 72.2498 118.87 69.6468C118.035 69.0511 117.03 68.7304 116 68.7304C114.97 68.7304 113.965 69.0511 113.13 69.6468C109.996 72.2498 106.09 73.7774 102 73.9996C97.9101 73.7774 94.0041 72.2498 90.87 69.6468C90.0348 69.0511 89.0305 68.7304 88 68.7304C86.9695 68.7304 85.9652 69.0511 85.13 69.6468C81.9959 72.2498 78.0899 73.7774 74 73.9996C69.9101 73.7774 66.0041 72.2498 62.87 69.6468C62.0348 69.0511 61.0305 68.7304 60 68.7304C58.9695 68.7304 57.9652 69.0511 57.13 69.6468C53.9959 72.2498 50.0899 73.7774 46 73.9996C41.9101 73.7774 38.0041 72.2498 34.87 69.6468C34.0348 69.0511 33.0305 68.7304 32 68.7304C30.9695 68.7304 29.9652 69.0511 29.13 69.6468C25.9959 72.2498 22.0899 73.7774 18 73.9996C14.287 73.9996 10.726 72.5437 8.1005 69.9523C5.475 67.3609 4 63.8462 4 60.1814V39.4541"
@@ -709,16 +709,16 @@ export function WTwoSvg() {
       <path
         d="M144 39.4541V60.1814C144 63.8462 142.525 67.3609 139.899 69.9523C137.274 72.5437 133.713 73.9996 130 73.9996C125.91 73.7774 122.004 72.2498 118.87 69.6468C118.035 69.0511 117.03 68.7304 116 68.7304C114.97 68.7304 113.965 69.0511 113.13 69.6468C109.996 72.2498 106.09 73.7774 102 73.9996C97.9101 73.7774 94.0041 72.2498 90.87 69.6468C90.0348 69.0511 89.0305 68.7304 88 68.7304C86.9695 68.7304 85.9652 69.0511 85.13 69.6468C81.9959 72.2498 78.0899 73.7774 74 73.9996C69.9101 73.7774 66.0041 72.2498 62.87 69.6468C62.0348 69.0511 61.0305 68.7304 60 68.7304C58.9695 68.7304 57.9652 69.0511 57.13 69.6468C53.9959 72.2498 50.0899 73.7774 46 73.9996C41.9101 73.7774 38.0041 72.2498 34.87 69.6468C34.0348 69.0511 33.0305 68.7304 32 68.7304C30.9695 68.7304 29.9652 69.0511 29.13 69.6468C25.9959 72.2498 22.0899 73.7774 18 73.9996C14.287 73.9996 10.726 72.5437 8.1005 69.9523C5.475 67.3609 4 63.8462 4 60.1814V39.4541"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M4 39.4541H144"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -740,16 +740,16 @@ export function WThreeSvg() {
       <path
         d="M62.125 111.654C56.5375 116.695 49.4812 119.701 41.8125 119.701C23.6906 119.701 9 102.911 9 82.2012C9 61.4918 23.6906 44.7012 41.8125 44.7012C59.9344 44.7012 69.9375 60.773 74.625 82.2012C79.3125 103.629 89.3156 119.701 107.438 119.701C125.559 119.701 140.25 102.911 140.25 82.2012C140.25 61.4918 125.559 44.7012 107.438 44.7012H102.75"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M102.751 34.0328C102.751 31.7359 100.367 30.2578 98.3701 31.3922C93.8233 33.9797 88.2701 37.6297 84.2858 41.1797C83.7793 41.6165 83.373 42.1573 83.0945 42.7654C82.816 43.3734 82.6719 44.0343 82.6719 44.7031C82.6719 45.3719 82.816 46.0328 83.0945 46.6408C83.373 47.2489 83.7793 47.7897 84.2858 48.2265C88.2701 51.7734 93.8233 55.4234 98.3701 58.0078C100.37 59.1453 102.751 57.6703 102.751 55.3703V34.0328Z"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -771,9 +771,9 @@ export function MOneSvg() {
       <path
         d="M10.375 85.1375C10.375 85.1375 29.125 77.125 44.75 77.125C55.7719 77.125 67.875 81.5562 75.9812 85.2094C82.2 88.0094 85.7781 89.7781 87.2 96.45C88.1906 101.084 84.8625 108.809 80.1375 109.191L76.8094 109.459M76.8094 109.459C69.1781 109.459 57.3656 107.197 57.3656 107.197M76.8094 109.459C87.3938 109.459 115.256 104.431 125.131 102.584C127.488 102.147 129.928 101.825 132.169 102.669C134.987 103.734 138.769 106.306 140.575 112.513C141.988 117.363 138.597 122.028 133.887 123.85C120.075 129.194 91.2719 139.625 76.8094 139.625C38.5 139.625 10.375 130.009 10.375 130.009"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M104.114 10.9781C104.421 10.4155 104.874 9.94594 105.426 9.61884C105.977 9.29175 106.607 9.11914 107.248 9.11914C107.889 9.11914 108.519 9.29175 109.07 9.61884C109.622 9.94594 110.075 10.4155 110.382 10.9781L117.495 23.9844C119.462 27.5801 122.418 30.5365 126.014 32.5031L139.02 39.6156C139.583 39.9231 140.052 40.3764 140.379 40.9279C140.706 41.4794 140.879 42.1088 140.879 42.75C140.879 43.3912 140.706 44.0206 140.379 44.5721C140.052 45.1236 139.583 45.5769 139.02 45.8844L126.014 52.9969C122.418 54.9635 119.462 57.9199 117.495 61.5156L110.382 74.5219C110.075 75.0845 109.622 75.5541 109.07 75.8812C108.519 76.2083 107.889 76.3809 107.248 76.3809C106.607 76.3809 105.977 76.2083 105.426 75.8812C104.874 75.5541 104.421 75.0845 104.114 74.5219L97.0012 61.5156C95.0345 57.9199 92.0781 54.9635 88.4824 52.9969L75.4762 45.8844C74.9135 45.5769 74.444 45.1236 74.1169 44.5721C73.7898 44.0206 73.6172 43.3912 73.6172 42.75C73.6172 42.1088 73.7898 41.4794 74.1169 40.9279C74.444 40.3764 74.9135 39.9231 75.4762 39.6156L88.4824 32.5031C92.0781 30.5365 95.0345 27.5801 97.0012 23.9844L104.114 10.9781Z"
@@ -782,7 +782,7 @@ export function MOneSvg() {
       <path
         d="M104.114 10.9781C104.421 10.4155 104.874 9.94594 105.426 9.61884C105.977 9.29175 106.607 9.11914 107.248 9.11914C107.889 9.11914 108.519 9.29175 109.07 9.61884C109.622 9.94594 110.075 10.4155 110.382 10.9781L117.495 23.9844C119.462 27.5801 122.418 30.5365 126.014 32.5031L139.02 39.6156C139.583 39.9231 140.052 40.3764 140.379 40.9279C140.706 41.4794 140.879 42.1088 140.879 42.75C140.879 43.3912 140.706 44.0206 140.379 44.5721C140.052 45.1236 139.583 45.5769 139.02 45.8844L126.014 52.9969C122.418 54.9635 119.462 57.9199 117.495 61.5156L110.382 74.5219C110.075 75.0845 109.622 75.5541 109.07 75.8812C108.519 76.2083 107.889 76.3809 107.248 76.3809C106.607 76.3809 105.977 76.2083 105.426 75.8812C104.874 75.5541 104.421 75.0845 104.114 74.5219L97.0012 61.5156C95.0345 57.9199 92.0781 54.9635 88.4824 52.9969L75.4762 45.8844C74.9135 45.5769 74.444 45.1236 74.1169 44.5721C73.7898 44.0206 73.6172 43.3912 73.6172 42.75C73.6172 42.1088 73.7898 41.4794 74.1169 40.9279C74.444 40.3764 74.9135 39.9231 75.4762 39.6156L88.4824 32.5031C92.0781 30.5365 95.0345 27.5801 97.0012 23.9844L104.114 10.9781Z"
         stroke="#274F45"
-        stroke-width="8"
+        strokeWidth="8"
       />
     </svg>
   );
@@ -812,44 +812,44 @@ export function MTwoSvg() {
       <path
         d="M54.9188 71.609C62.2313 63.0902 74.3562 51.5121 91.4812 43.2527C94.9906 41.5621 98.8875 43.784 99.1719 47.6652C99.4928 52.2998 99.644 56.9446 99.625 61.5902V67.0996C107.059 59.3059 117.85 50.1309 132.109 43.2527C135.616 41.5621 139.512 43.784 139.797 47.6652C140.118 52.2998 140.269 56.9446 140.25 61.5902V105.871C140.25 114.471 139.812 121.228 139.259 126.312C138.447 133.837 132.225 139 124.666 139.331C114.641 139.768 98.2906 140.246 74.625 140.246C50.9594 140.246 34.6094 139.768 24.5844 139.328C17.025 138.996 10.8031 133.837 9.99062 126.315C9.4375 121.228 9 114.468 9 105.875V73.0621C9 73.0621 24.3063 71.9684 54.9188 71.609Z"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M58.8798 140.175C58.9485 137.016 58.9985 132.947 58.9985 127.75C58.9985 120.25 58.8954 115.094 58.7767 111.635C58.6329 107.488 56.5267 103.791 52.4235 103.156C50.4618 102.87 48.481 102.735 46.4985 102.75C44.0985 102.75 42.1485 102.913 40.5735 103.156C36.4704 103.791 34.3642 107.488 34.2204 111.635C34.0553 117.005 33.9813 122.378 33.9985 127.75C33.9985 132.681 34.0423 136.597 34.1079 139.688"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M22.7278 18.4063C36.6778 4.45633 60.9747 10.1501 60.9747 10.1501C60.9747 10.1501 66.6685 34.447 52.7185 48.397C43.4747 57.6407 29.2653 58.422 20.9841 50.1407C12.7028 41.8595 13.4841 27.6501 22.7278 18.4032V18.4063Z"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M9 73.0625C10.5625 57.4375 25.6688 42.6844 40.25 30.875"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M115.25 102.75H84"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M115.25 118.375H84"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -875,37 +875,37 @@ export function MThreeSvg() {
       <path
         d="M87.165 48.2375C86.365 50.1844 85.6025 52.5938 85.1244 55.4469C83.8431 63.1313 89.44 70.5 97.2306 70.5C104.974 70.5 110.387 63.0531 108.903 55.4531C108.382 52.7438 107.545 50.1049 106.409 47.5906C104.809 44.075 101.09 42.375 97.2306 42.375C92.9431 42.375 88.7931 44.2719 87.165 48.2375Z"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M97.125 70.5V92.375"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M56.5 42.375V92.375"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M42.4375 42.375V55.6344C42.4375 61.9656 47.1844 67.2406 53.5125 67.35C55.504 67.3842 57.496 67.3842 59.4875 67.35C65.8187 67.2406 70.5625 61.9656 70.5625 55.6344V42.375"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M131.5 64.25C131.5 104.622 89.7813 133.4 78.2 140.613C77.3175 141.171 76.2945 141.468 75.25 141.468C74.2055 141.468 73.1825 141.171 72.3 140.613C60.7219 133.4 19 104.622 19 64.25C19 33.1844 44.1844 8 75.25 8C106.316 8 131.5 33.1844 131.5 64.25Z"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -943,37 +943,37 @@ export function MFourSvg() {
       <path
         d="M105.766 74.9999C105.872 72.2562 105.941 69.0905 105.941 65.4812V51.553C108.534 51.2312 110.734 50.8812 112.597 50.5343C117.806 49.5562 119.197 44.3718 115.516 40.5593C112.241 37.1655 107.444 32.5187 100.569 26.478C90.5311 17.6655 83.4499 13.303 79.3218 11.203C77.9855 10.5133 76.5036 10.1533 74.9999 10.1533C73.4961 10.1533 72.0142 10.5133 70.678 11.203C66.5499 13.303 59.4686 17.6687 49.4311 26.478C42.553 32.5187 37.7561 37.1655 34.4811 40.5593C30.803 44.3718 32.1905 49.5593 37.3968 50.5343C39.2593 50.8812 41.4593 51.2312 44.053 51.553V65.4812C44.053 69.0905 44.1155 72.2562 44.2249 74.9999"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M131.25 75C136.428 75 140.697 79.2187 139.966 84.3469C135.428 116.162 108.072 140.625 75 140.625C41.9313 140.625 14.5719 116.162 10.0344 84.3469C9.30628 79.2219 13.5719 75 18.7532 75H131.25Z"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M65.625 75.0002V74.0752C65.625 69.9627 65.6781 63.4096 65.725 58.3564C65.7656 54.0971 68.6938 50.3346 72.9469 50.0658C74.3143 49.9807 75.6857 49.9807 77.0531 50.0658C81.3031 50.3314 84.2344 54.0971 84.2719 58.3596C84.3219 63.4096 84.375 69.9627 84.375 74.0752V75.0002"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M48.5086 75C51.618 80.375 52.6648 86.1875 49.9992 92.1875C47.2773 98.3125 42.1805 100.584 37.0367 102.875C31.4898 105.35 25.8867 107.847 23.1523 115.234"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M76.3356 75C75.8731 90.2625 85.9981 92.9469 94.7106 95.2594C99.9012 96.6344 104.589 97.8781 106.248 101.562C107.467 105.225 104.779 108.409 101.714 112.047C96.9293 117.712 91.2231 124.472 97.9918 135.834"
         stroke="#274F45"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
