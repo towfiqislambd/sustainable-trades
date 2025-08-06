@@ -13,9 +13,11 @@ import {
   TutorialSvg,
   VisionSvg,
   WorksSvg,
+  UpArrowSvg,
 } from "@/Components/Svg/SvgContainer";
 import Link from "next/link";
 import logo from "@/Assets/logo.svg";
+import ScrollToTop from "react-scroll-to-top";
 import Container from "@/Components/Common/Container";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -116,7 +118,7 @@ const Navbar = () => {
 
               {/* Right */}
               <div className="flex gap-4 items-center">
-                <button className="px-3 py-2 rounded-lg bg-accent-red text-secondary-black cursor-pointer shadow-[0_3px_10px_0_rgba(0\,0\,0\,0.12),_0_3px_8px_0_rgba(0\,0\,0\,0.08)]">
+                <button className="px-3 py-2 rounded-lg bg-accent-red text-secondary-black cursor-pointer shadow-[0_3px_10px_0_rgba(0\,0\,0\,0.12),_0_3px_8px_0_rgba(0\,0\,0\,0.08)] duration-300 transition-all hover:text-accent-red hover:bg-transparent border border-accent-red">
                   Create a Shops
                 </button>
 
@@ -200,6 +202,12 @@ const Navbar = () => {
           </Container>
         </div>
       </nav>
+      <ScrollToTop
+        smooth={true}
+        top={50}
+        component={<UpArrowSvg />}
+        className="!bg-gray-300 grid place-items-center !size-12 !text-accent-white"
+      />
     </>
   );
 };
