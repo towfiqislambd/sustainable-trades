@@ -1,7 +1,12 @@
+import CommunityMember from "@/Components/PageComponents/mainPages/homePageComponents/CommunityMember";
+import ExploreProduct from "@/Components/PageComponents/mainPages/homePageComponents/ExploreProduct";
 import FeaturedShop from "@/Components/PageComponents/mainPages/homePageComponents/FeaturedShop";
 import HomeBanner from "@/Components/PageComponents/mainPages/homePageComponents/HomeBanner";
 import HowItWorks from "@/Components/PageComponents/mainPages/homePageComponents/HowItWorks";
 import MagicMarkers from "@/Components/PageComponents/mainPages/homePageComponents/MagicMarkers";
+import OurMission from "@/Components/PageComponents/mainPages/homePageComponents/OurMission";
+import Pricing from "@/Components/PageComponents/mainPages/homePageComponents/Pricing";
+import Subscribe from "@/Components/PageComponents/mainPages/homePageComponents/Subscribe";
 
 const Page = () => {
   return (
@@ -10,6 +15,11 @@ const Page = () => {
       <HowItWorks />
       <MagicMarkers />
       <FeaturedShop />
+      <ExploreProduct />
+      <OurMission />
+      <CommunityMember />
+      <Pricing />
+      <Subscribe />
     </>
   );
 };
