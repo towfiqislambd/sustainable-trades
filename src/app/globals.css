@@ -20,6 +20,10 @@
   --breakpoint-3xl: 1536px;
 }
 
+html {
+  @apply scroll-smooth;
+}
+
 body {
   @apply font-lato;
 }
