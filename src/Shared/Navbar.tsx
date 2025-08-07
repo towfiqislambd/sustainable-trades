@@ -161,9 +161,12 @@ const Navbar = () => {
                   );
                 })}
 
+                {/* Sub Menu */}
                 <div
                   onClick={e => e.stopPropagation()}
-                  className={`absolute top-10 -right-40 bg-white drop-shadow  w-[275px] py-7 px-5 border-gray-50 rounded-lg flex flex-col gap-7 ${
+                  className={`absolute top-12 ${
+                    activeSubMenu === 4 ? "-right-36" : "-right-60"
+                  } bg-white drop-shadow  w-[275px] py-7 px-5 border-gray-50 rounded-lg flex flex-col gap-7 ${
                     showMenu && (activeSubMenu === 4 || activeSubMenu === 5)
                       ? "block"
                       : "hidden"
@@ -202,6 +205,7 @@ const Navbar = () => {
           </Container>
         </div>
       </nav>
+
       <ScrollToTop
         smooth={true}
         top={50}

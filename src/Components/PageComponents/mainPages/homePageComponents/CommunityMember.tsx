@@ -1,9 +1,14 @@
+"use client";
 import Container from "@/Components/Common/Container";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import communityImage from "@/Assets/community.png";
+import Modal from "@/Components/Common/Modal";
+import MembershipApplicationModal from "@/Components/Modals/MembershipApplicationModal";
 
 const CommunityMember = () => {
+  const [isOpen, setOpen] = useState<boolean>(false);
+
   return (
     <section className="rounded-xl">
       <Container>
@@ -38,12 +43,20 @@ const CommunityMember = () => {
               View Their Shop
             </button>
 
-            <button className="w-[416px] duration-500 transition-all block border border-accent-white text-lg text-accent-white cursor-pointer py-3 rounded-lg shadow-lg hover:scale-105">
+            <button
+              onClick={() => setOpen(true)}
+              className="w-[416px] duration-500 transition-all block border border-accent-white text-lg text-accent-white cursor-pointer py-3 rounded-lg shadow-lg hover:scale-105"
+            >
               Apply for Community Spotlight
             </button>
           </div>
         </div>
       </Container>
+
+      {/* Modal */}
+      <Modal open={isOpen} onClose={() => setOpen(false)}>
+        <MembershipApplicationModal />
+      </Modal>
     </section>
   );
 };
