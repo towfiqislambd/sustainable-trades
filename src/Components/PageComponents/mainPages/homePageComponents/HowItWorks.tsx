@@ -1,6 +1,7 @@
 import React from "react";
 import Container from "@/Components/Common/Container";
 import { WOneSvg, WThreeSvg, WTwoSvg } from "@/Components/Svg/SvgContainer";
+import Link from "next/link";
 const data = [
   {
     id: 1,
@@ -42,9 +43,12 @@ const HowItWorks = () => {
           ))}
         </div>
 
-        <button className="w-[416px] hover:bg-primary-green hover:text-white duration-500 transition-all mx-auto block border text-lg text-secondary-black cursor-pointer py-4 rounded-lg shadow-lg hover:scale-105">
+        <Link
+          href="#membership_plan"
+          className="w-[416px] text-center hover:bg-primary-green hover:text-white duration-500 transition-all mx-auto block border text-lg text-secondary-black cursor-pointer py-4 rounded-lg shadow-lg hover:scale-105"
+        >
           View Membership Plans
-        </button>
+        </Link>
       </Container>
     </section>
   );

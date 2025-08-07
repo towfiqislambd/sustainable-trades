@@ -96,7 +96,7 @@ const Pricing = () => {
   const [activeTab, setActiveTab] = useState<string>("Monthly Billing");
 
   return (
-    <section className="py-20">
+    <section id="membership_plan" className="py-20">
       <Container>
         <h2 className="section_title text-center !mb-7">Plans & Benefits</h2>
 

@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import communityImage from "@/Assets/community.png";
 import Modal from "@/Components/Common/Modal";
 import MembershipApplicationModal from "@/Components/Modals/MembershipApplicationModal";
+import Link from "next/link";
 
 const CommunityMember = () => {
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -39,9 +40,12 @@ const CommunityMember = () => {
               worth signing up for.
             </p>
 
-            <button className="w-[416px] duration-500 transition-all block border text-lg text-secondary-black cursor-pointer py-3 bg-accent-white rounded-lg shadow-lg hover:scale-105">
+            <Link
+              href="/community-member-spotlight"
+              className="w-[416px] text-center block duration-500 transition-all border text-lg text-secondary-black cursor-pointer py-3 bg-accent-white rounded-lg shadow-lg hover:scale-105"
+            >
               View Their Shop
-            </button>
+            </Link>
 
             <button
               onClick={() => setOpen(true)}
