@@ -1,14 +1,14 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { ReactNode, useEffect } from "react";
 import { RxCross2 } from "react-icons/rx";
 
 type ModalProps = {
   open: boolean;
   onClose: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
-const Modal: React.FC<ModalProps> = ({ open, onClose, children }) => {
+const Modal = ({ open, onClose, children }: ModalProps) => {
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
