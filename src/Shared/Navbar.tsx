@@ -97,7 +97,11 @@ const Navbar = () => {
     <>
       {/* Top Navbar */}
       <div className="bg-accent-red text-secondary-black text-lg font-semibold text-center py-2">
-        <Container>Free Month Trial! Sign Up</Container>
+        <Container>
+          <Link href="/auth/register" className="">
+            Free Month Trial! Sign Up
+          </Link>
+        </Container>
       </div>
 
       <nav className="sticky top-0 z-50">
