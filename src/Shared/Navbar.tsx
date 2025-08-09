@@ -105,6 +105,7 @@ const Navbar = () => {
       </div>
 
       <nav className="sticky top-0 z-50">
+        
         {/* Upper Navbar */}
         <div className="bg-primary-green py-3">
           <Container>
