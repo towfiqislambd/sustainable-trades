@@ -1338,7 +1338,7 @@ export function RightSvg() {
       <path
         d="M6 4.5L10 8.5L6 12.5"
         stroke="currentColor"
-        stroke-width="2"
+        strokeWidth="2"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
@@ -1358,7 +1358,7 @@ export function DownSvg() {
       <path
         d="M6 9L12 15L18 9"
         stroke="white"
-        stroke-width="2"
+        strokeWidth="2"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
@@ -1392,7 +1392,7 @@ export function CheckSvg() {
       <path
         d="M2 8.5L6.66667 14L16 3"
         stroke="#FEFEFE"
-        stroke-width="2"
+        strokeWidth="2"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
