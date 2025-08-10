@@ -14,6 +14,7 @@ import {
   VisionSvg,
   WorksSvg,
   UpArrowSvg,
+  DownSvg,
 } from "@/Components/Svg/SvgContainer";
 import Link from "next/link";
 import logo from "@/Assets/logo.svg";
@@ -80,6 +81,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const [activeSubMenu, setActiveSubMenu] = useState<number>(0);
   const [showMenu, setShowMenu] = useState<boolean>(false);
+  const [showPopover, setShowPopover] = useState<boolean>(false);
 
   useEffect(() => {
     const handleWindowClick = () => {
@@ -126,8 +128,36 @@ const Navbar = () => {
                   Create a Shops
                 </button>
 
-                <button className="cursor-pointer">
+                <button
+                  onClick={() => setShowPopover(!showPopover)}
+                  className="cursor-pointer flex gap-2 items-center relative"
+                >
                   <ProfileSvg />
+                  <DownSvg />
+
+                  {/* Popover */}
+                  <div
+                    onClick={e => e.stopPropagation()}
+                    className={`absolute top-16 bg-white drop-shadow z-50 space-y-2 w-[100px] py-3 px-4 border-gray-50 rounded-lg ${
+                      showPopover ? "block" : "hidden"
+                    }`}
+                  >
+                    <Link
+                      href="/auth/register"
+                      onClick={() => setShowPopover(false)}
+                      className={`flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold`}
+                    >
+                      Sign Up
+                    </Link>
+
+                    <Link
+                      href="/auth/login"
+                      onClick={() => setShowPopover(false)}
+                      className={`flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold`}
+                    >
+                      Log In
+                    </Link>
+                  </div>
                 </button>
 
                 <button className="cursor-pointer">
