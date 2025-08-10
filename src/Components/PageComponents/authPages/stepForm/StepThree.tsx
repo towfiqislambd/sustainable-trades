@@ -11,7 +11,7 @@ type StepProps = {
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
 };
 
-const StepThree = ({ step, setStep, formData, setFormData }: StepProps) => {
+const StepThree = ({ step, setStep, totalSteps }: any) => {
   return (
     <section className="">
       <h2 className="auth_title">About Your Shop</h2>

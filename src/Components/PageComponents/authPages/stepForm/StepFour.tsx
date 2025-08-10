@@ -11,7 +11,7 @@ type StepProps = {
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
 };
 
-const StepFour = ({ step, setStep, formData, setFormData }: StepProps) => {
+const StepFour = ({ step, setStep, totalSteps }: any) => {
   return (
     <section className="">
       <h2 className="auth_title">Geo-Locator</h2>
