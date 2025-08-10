@@ -1338,7 +1338,7 @@ export function RightSvg() {
       <path
         d="M6 4.5L10 8.5L6 12.5"
         stroke="currentColor"
-        stroke-width="2"
+        strokeWidth="2"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
@@ -1358,7 +1358,41 @@ export function DownSvg() {
       <path
         d="M6 9L12 15L18 9"
         stroke="white"
-        stroke-width="2"
+        strokeWidth="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function StepSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
+      fill="none"
+    >
+      <circle cx="9" cy="9" r="6" fill="#FEFEFE" />
+    </svg>
+  );
+}
+
+export function CheckSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
+      fill="none"
+    >
+      <path
+        d="M2 8.5L6.66667 14L16 3"
+        stroke="#FEFEFE"
+        strokeWidth="2"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
