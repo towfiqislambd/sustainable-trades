@@ -4,14 +4,7 @@ type FormData = {
   email?: string;
 };
 
-type StepProps = {
-  step: number;
-  setStep: React.Dispatch<React.SetStateAction<number>>;
-  formData: FormData | null;
-  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
-};
-
-const StepTwo = ({ step, setStep, formData, setFormData }: StepProps) => {
+const StepTwo = ({ step, setStep, totalSteps }: any) => {
   return (
     <section className="">
       <h2 className="auth_title">Your Shop</h2>
