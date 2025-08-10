@@ -42,7 +42,7 @@ const page = () => {
       <Container>
         <div className="space-y-6">
           {data?.map(item => (
-            <div key={item?.id} className="rounded-xl flex items-center border">
+            <div key={item?.id} className="rounded-xl flex items-center border border-gray-300">
               {/* Left - Shop Image */}
               <figure className="w-[229px] h-[230px] shrink-0 rounded-l-xl relative">
                 <Image

@@ -1,15 +1,11 @@
-"use client";
-import React, { forwardRef, useImperativeHandle } from "react";
+"use state";
+import { StepProps } from "@/Types/type";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BsEyeFill } from "react-icons/bs";
 import { PiEyeClosed } from "react-icons/pi";
 
-export interface StepFormRef {
-  validate: () => Promise<boolean>;
-  getData: () => ProfileInfoFormData;
-}
-
-export interface ProfileInfoFormData {
+type FormData = {
   firstName: string;
   lastName: string;
   email: string;
@@ -17,50 +13,26 @@ export interface ProfileInfoFormData {
   password: string;
   rePassword: string;
   companyName: string;
-}
+};
 
-const ProfileInfo = forwardRef<StepFormRef>((props, ref) => {
+const StepOne = ({ step, setStep, formData, setFormData }: StepProps) => {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showRePassword, setShowRePassword] = useState<boolean>(false);
   const {
     register,
-    trigger,
+    handleSubmit,
     formState: { errors },
-    getValues,
-  } = useForm<ProfileInfoFormData>({
-    mode: "onTouched",
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      password: "",
-      rePassword: "",
-      companyName: "",
-    },
-  });
+  } = useForm<FormData>();
 
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [showRePassword, setShowRePassword] = React.useState(false);
-
-  useImperativeHandle(ref, () => ({
-    validate: async () => {
-      const valid = await trigger();
-      if (!valid) return false;
-      const { password, rePassword } = getValues();
-      if (password !== rePassword) {
-        alert("Passwords do not match");
-        return false;
-      }
-      return true;
-    },
-    getData: () => getValues(),
-  }));
+  const onSubmit = (data: FormData) => {
+    setFormData(prev => ({ ...prev, ...data }));
+    setStep(step + 1);
+  };
 
   return (
-    <section className="mt-[64px]">
-      <h2 className="text-[#274F45] text-[40px] font-lato font-bold text-center">
-        Profile Info
-      </h2>
-      <p className="font-lato text-[18px] font-normal max-w-[350px] w-full mx-auto text-center">
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <h2 className="auth_title">Profile Info</h2>
+      <p className="auth_description">
         Lets set up your shop! Fill in all required fields below to get started.
       </p>
       <div className="border border-[#A7A39C] rounded-[20px] my-[56px] p-20">
@@ -71,15 +43,10 @@ const ProfileInfo = forwardRef<StepFormRef>((props, ref) => {
           Note: Email and password entered here will be your login credentials
         </h6>
         <div className="mt-12">
-          <form
-            onSubmit={e => e.preventDefault()}
-            className="grid grid-cols-2 gap-x-[96px] gap-y-10 font-lato"
-          >
+          <div className="grid grid-cols-2 gap-x-[96px] gap-y-10 font-lato">
             {/* First Name */}
             <div className="form-group">
-              <p className="form-label">
-                First Name <span className="required">*</span>
-              </p>
+              <p className="form-label">First Name *</p>
               <input
                 type="text"
                 placeholder="First Name"
@@ -89,7 +56,9 @@ const ProfileInfo = forwardRef<StepFormRef>((props, ref) => {
                 })}
               />
               {errors.firstName && (
-                <p className="text-red-600">{errors.firstName.message}</p>
+                <p className="text-sm text-red-500 mt-1">
+                  {errors.firstName.message}
+                </p>
               )}
             </div>
 
@@ -221,13 +190,16 @@ const ProfileInfo = forwardRef<StepFormRef>((props, ref) => {
                 {...register("companyName")}
               />
             </div>
-          </form>
+          </div>
         </div>
       </div>
-    </section>
+
+      {/* Btns */}
+      <div className="flex justify-end">
+        <button className="auth-secondary-btn">Save and Continue</button>
+      </div>
+    </form>
   );
-});
+};
 
-ProfileInfo.displayName = "ProfileInfo";
-
-export default ProfileInfo;
+export default StepOne;

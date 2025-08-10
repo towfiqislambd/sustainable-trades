@@ -1,16 +1,14 @@
-import StepForm from "@/Components/Auth/StepForm";
 import Container from "@/Components/Common/Container";
+import StepForm from "@/Components/PageComponents/authPages/StepForm";
 import React from "react";
 
 const page = () => {
   return (
-    <div className="py-[56px]">
+    <section className="py-12">
       <Container>
-        <div className="">
-          <StepForm />
-        </div>
+        <StepForm />
       </Container>
-    </div>
+    </section>
   );
 };
 
