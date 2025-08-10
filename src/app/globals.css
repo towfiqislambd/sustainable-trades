@@ -36,8 +36,20 @@ body {
   @apply text-5xl text-primary-green mb-14;
 }
 
-.section_description {
-  @apply text-base;
+.auth-primary-btn {
+  @apply text-secondary-black bg-transparent px-14 font-semibold py-3 rounded-[6px] shadow border-2 border-secondary-black cursor-pointer;
+}
+
+.auth-secondary-btn {
+  @apply text-accent-white bg-primary-green px-4 py-3 rounded-[6px] shadow border-2 border-primary-green cursor-pointer;
+}
+
+.auth_title {
+  @apply text-[#274F45] text-[40px] font-lato font-bold text-center;
+}
+
+.auth_description {
+  @apply font-lato text-[18px] font-normal max-w-[350px] w-full mx-auto text-center;
 }
 
 /* For Swiper Slider */
@@ -165,31 +177,29 @@ body {
   }
 }
 
-
 .form-group {
   width: 100%;
 }
 
 .form-label {
   font-size: 16px;
-  color: #4B4A47;
+  color: #4b4a47;
   font-weight: 400;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   margin-bottom: 4px;
 }
 
 .required {
-  color: #8B200C;
+  color: #8b200c;
 }
 
 .form-input {
   width: 100%;
   padding: 12px 16px;
   border-radius: 8px;
-  background-color: #FFF;
-  border: 2px solid #67645F;
+  background-color: #fff;
+  border: 2px solid #67645f;
   font-family: inherit;
   font-size: 1rem;
   box-sizing: border-box;
 }
-

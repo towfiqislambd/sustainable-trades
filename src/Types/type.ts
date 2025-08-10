@@ -1,15 +1,6 @@
-export interface Demo {
-  id: number;
-  title: string;
-  description: string;
-}
-
-export interface Demo2 extends Demo {
-  sub_title: string;
-}
-
-export type Card = {
-  id: number;
-  title: string;
-  description: string;
+export type StepProps = {
+  step: number;
+  setStep: React.Dispatch<React.SetStateAction<number>>;
+  formData: Partial<FormData>;
+  setFormData: React.Dispatch<React.SetStateAction<Partial<FormData>>>;
 };
