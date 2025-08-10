@@ -14,6 +14,7 @@ import {
   VisionSvg,
   WorksSvg,
   UpArrowSvg,
+  DownSvg,
 } from "@/Components/Svg/SvgContainer";
 import Link from "next/link";
 import logo from "@/Assets/logo.svg";
@@ -80,6 +81,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const [activeSubMenu, setActiveSubMenu] = useState<number>(0);
   const [showMenu, setShowMenu] = useState<boolean>(false);
+  const [showPopover, setShowPopover] = useState<boolean>(false);
 
   useEffect(() => {
     const handleWindowClick = () => {
@@ -105,7 +107,6 @@ const Navbar = () => {
       </div>
 
       <nav className="sticky top-0 z-50">
-        
         {/* Upper Navbar */}
         <div className="bg-primary-green py-3">
           <Container>
@@ -127,8 +128,36 @@ const Navbar = () => {
                   Create a Shops
                 </button>
 
-                <button className="cursor-pointer">
+                <button
+                  onClick={() => setShowPopover(!showPopover)}
+                  className="cursor-pointer flex gap-2 items-center relative"
+                >
                   <ProfileSvg />
+                  <DownSvg />
+
+                  {/* Popover */}
+                  <div
+                    onClick={e => e.stopPropagation()}
+                    className={`absolute top-16 bg-white drop-shadow z-50 space-y-2 w-[100px] py-3 px-4 border-gray-50 rounded-lg ${
+                      showPopover ? "block" : "hidden"
+                    }`}
+                  >
+                    <Link
+                      href="/auth/register"
+                      onClick={() => setShowPopover(false)}
+                      className={`flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold`}
+                    >
+                      Sign Up
+                    </Link>
+
+                    <Link
+                      href="/auth/login"
+                      onClick={() => setShowPopover(false)}
+                      className={`flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold`}
+                    >
+                      Log In
+                    </Link>
+                  </div>
                 </button>
 
                 <button className="cursor-pointer">
@@ -154,9 +183,12 @@ const Navbar = () => {
                         isActive && "font-semibold "
                       }`}
                       key={item?.id}
-                      href={item?.id == 4 || item?.id == 5 ? "" : item?.path}
+                      href={item?.id == 4 || item?.id == 5 ? "#" : item?.path}
                       onClick={e => {
                         e.stopPropagation();
+                        if (item?.id == 4 || item?.id == 5) {
+                          e.preventDefault();
+                        }
                         setShowMenu(true);
                         setActiveSubMenu(item?.id);
                       }}
@@ -170,8 +202,8 @@ const Navbar = () => {
                 <div
                   onClick={e => e.stopPropagation()}
                   className={`absolute top-12 ${
-                    activeSubMenu === 4 ? "-right-36" : "-right-60"
-                  } bg-white drop-shadow  w-[275px] py-7 px-5 border-gray-50 rounded-lg flex flex-col gap-7 ${
+                    activeSubMenu === 4 ? "-right-32" : "-right-56"
+                  } bg-white drop-shadow  w-[260px] py-7 px-5 border-gray-50 rounded-lg flex flex-col gap-7 ${
                     showMenu && (activeSubMenu === 4 || activeSubMenu === 5)
                       ? "block"
                       : "hidden"
@@ -185,8 +217,9 @@ const Navbar = () => {
                           key={idx}
                           href={link?.path}
                           onClick={() => setShowMenu(false)}
-                          className={`flex gap-2.5 items-center text-secondary-black text-[17px] duration-300 transition-all hover:text-primary-green ${
-                            pathname === link?.path && "font-semibold "
+                          className={`flex gap-2.5 items-center text-[#77978F] text-[17px] duration-300 transition-all hover:text-primary-green ${
+                            pathname === link?.path &&
+                            "font-semibold text-primary-green"
                           }`}
                         >
                           <span>{link?.icon}</span>
