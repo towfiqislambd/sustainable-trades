@@ -41,9 +41,18 @@ const methods = useForm({
     facebookLink: "",
     instagramLink: "",
     pinterestLink: "",
+
+    // StepFour 
+    geoLocatorOption: null, 
+    address1: "",
+    address2: "",
+    city: "",
+    state: "",
+    zipcode: "",
   },
   mode: "onBlur",
 });
+
 
 
   const steps = [
