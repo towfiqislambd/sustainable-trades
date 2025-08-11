@@ -36,7 +36,7 @@ const Page = () => {
     if (!selectedId) {
       return toast.error("Please select a package");
     } else {
-      router.push("/auth/register");
+      router.push(`/auth/register?selectedId=${selectedId}`);
     }
   };
 

@@ -2,6 +2,7 @@
 import Image from "next/image";
 import React from "react";
 import shopBg from "@/Assets/sustainable_soppers.png";
+import magicBg from "@/Assets/magic_markers.png";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import {
@@ -9,6 +10,7 @@ import {
   FacebookLogoSvg,
   GoogleLogoSvg,
 } from "@/Components/Svg/SvgContainer";
+import { useSearchParams } from "next/navigation";
 
 type formData = {
   first_name: string;
@@ -20,6 +22,9 @@ type formData = {
 };
 
 const Page = () => {
+  const searchParams = useSearchParams();
+  const selectedId = Number(searchParams.get("selectedId"));
+
   const {
     register,
     handleSubmit,
@@ -39,7 +44,9 @@ const Page = () => {
         <div className="w-[700px] mx-auto my-10">
           <h2 className="auth-heading !text-4xl !mb-7">
             Welcome,{" "}
-            <span className="text-primary-green">Sustainable Shopper!</span>
+            <span className="text-primary-green">
+              {selectedId === 1 ? "Magic Maker!" : "Sustainable Shopper!"}
+            </span>
           </h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="flex gap-8 items-center">
@@ -174,7 +181,9 @@ const Page = () => {
               type="submit"
               className="px-10 py-4 border-2 border-primary-green rounded-lg bg-primary-green text-accent-white font-semibold cursor-pointer duration-500 transition-all hover:bg-transparent hover:text-primary-green text-lg block w-full"
             >
-              Join as Organic Shopper
+              {selectedId === 1
+                ? " Join as Magic Maker"
+                : " Join as Organic Shopper"}
             </button>
           </form>
 
@@ -212,7 +221,7 @@ const Page = () => {
       {/* Right - Image */}
       <div className="flex-1">
         <Image
-          src={shopBg}
+          src={selectedId === 1 ? shopBg : magicBg}
           alt="welcome_img"
           className="w-full h-full object-cover"
         />
