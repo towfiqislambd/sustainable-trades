@@ -4,3 +4,10 @@ export type StepProps = {
   formData: Partial<FormData>;
   setFormData: React.Dispatch<React.SetStateAction<Partial<FormData>>>;
 };
+export type AddressFormData = {
+  address1: string;
+  address2?: string;
+  city: string;
+  state: string;
+  zipcode: string;
+};
