@@ -29,6 +29,7 @@ const data = [
   },
 ];
 
+
 const Page = () => {
   const router = useRouter();
   const [selectedId, setSelectedId] = useState<null | number>(null);
