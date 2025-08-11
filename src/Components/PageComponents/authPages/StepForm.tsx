@@ -5,7 +5,7 @@ import StepTwo from "./stepForm/StepTwo";
 import StepThree from "./stepForm/StepThree";
 import StepFour from "./stepForm/StepFour";
 import StepFive from "./stepForm/StepFive";
-import { StepSvg } from "@/Components/Svg/SvgContainer";
+import { CheckSvg, StepSvg } from "@/Components/Svg/SvgContainer";
 import { useForm, FormProvider } from "react-hook-form";
 
 const StepForm = () => {
@@ -49,23 +49,26 @@ const StepForm = () => {
         {/* Step bar */}
         <div className="flex gap-28 justify-center items-center">
           {steps.map((item, index) => {
-            const stepNum = index + 1;
-            const isActive = step === stepNum;
+            const isActive = index + 1 === step;
+            const isCompleted = index + 1 < step;
+
             return (
               <div
-                key={stepNum}
+                key={index}
                 className={`text-center ${
                   isActive ? "text-primary-green" : "text-[#A7A39C]"
                 }`}
               >
                 <div
                   className={`rounded-full grid place-items-center mx-auto mb-2 ${
-                    isActive
+                    isActive || isCompleted
                       ? "bg-primary-green size-12"
                       : "bg-[#77978F] size-10"
-                  }`}
+                  }
+                    `}
                 >
                   {isActive && <StepSvg />}
+                  {isCompleted && <CheckSvg />}
                 </div>
                 <p>{item.label}</p>
               </div>
