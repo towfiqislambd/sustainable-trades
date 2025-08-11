@@ -14,7 +14,7 @@ const StepOne = ({ step, setStep, totalSteps }: any) => {
 
   return (
     <>
-      <h2 className="auth_title">Profile Info</h2>
+      <h2 className="auth_title mt-16">Profile Info</h2>
       <p className="auth_description">
         Lets set up your shop! Fill in all required fields below to get started.
       </p>
