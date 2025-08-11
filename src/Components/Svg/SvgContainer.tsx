@@ -1440,8 +1440,10 @@ export function Website() {
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
-        />
-      </svg>
+      />
+    </svg>
+  );
+}
 
 export function FacebookLogoSvg() {
   return (
@@ -1463,6 +1465,7 @@ export function FacebookLogoSvg() {
     </svg>
   );
 }
+
 export function Facebook() {
   return (
     <svg
@@ -1582,8 +1585,10 @@ export function Pinterest() {
           <rect width="24" height="24" fill="white" />
         </clipPath>
       </defs>
-</svg>
-    
+    </svg>
+  );
+}
+
 export function GoogleLogoSvg() {
   return (
     <svg
