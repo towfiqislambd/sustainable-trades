@@ -74,7 +74,11 @@ const Page = () => {
             <div className="py-3 flex justify-between items-center">
               {/* Remember me */}
               <div className="flex gap-3 items-start">
-                <input id="terms" type="checkbox" className="mt-1 size-5 cursor-pointer" />
+                <input
+                  id="terms"
+                  type="checkbox"
+                  className="mt-1 size-5 cursor-pointer"
+                />
                 <label
                   htmlFor="terms"
                   className="text-secondary-black max-w-[550px] cursor-pointer"
