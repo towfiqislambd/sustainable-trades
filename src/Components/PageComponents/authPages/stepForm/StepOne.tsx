@@ -57,17 +57,24 @@ const StepOne = ({ step, setStep, totalSteps }: any) => {
         <div className="mt-8">
           <p className="form-label">Profile Picture *</p>
           <div
-            className="bg-[#F0EEE9] h-[150px] w-[150px] rounded-full mt-4 flex flex-col justify-center items-center cursor-pointer overflow-hidden border border-[#A7A39C]"
+            className="relative bg-[#F0EEE9] h-[150px] w-[150px] rounded-full mt-4 flex flex-col justify-center items-center cursor-pointer overflow-hidden border border-[#A7A39C]"
             onClick={() =>
               document.getElementById("profilePhotoInput")?.click()
             }
           >
             {profilePhotoPreview ? (
-              <img
-                src={profilePhotoPreview}
-                alt="Profile Preview"
-                className="h-full w-full object-cover"
-              />
+              <>
+                <img
+                  src={profilePhotoPreview}
+                  alt="Profile Preview"
+                  className="h-full w-full object-cover"
+                />
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-black/10 bg-opacity-40 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-full">
+                  {/* You can use any icon here */}
+                  <Camera/>
+                </div>
+              </>
             ) : (
               <>
                 <Camera />

@@ -99,7 +99,6 @@ const StepTwo = ({ step, setStep, totalSteps }: any) => {
         </div>
       </div>
 
-      {/* Profile Photos */}
       <div className="border border-[#A7A39C] rounded-[20px] mt-8 mb-[56px] p-20">
         <div className="flex gap-x-8">
           {/* Shop Photo */}
@@ -108,15 +107,21 @@ const StepTwo = ({ step, setStep, totalSteps }: any) => {
               Add A Profile Photo *
             </p>
             <div
-              className="bg-[#F0EEE9] h-[270px] w-[270px] rounded-full mt-6 flex flex-col justify-center items-center cursor-pointer overflow-hidden"
+              className="relative bg-[#F0EEE9] h-[270px] w-[270px] rounded-full mt-6 flex flex-col justify-center items-center cursor-pointer overflow-hidden"
               onClick={() => document.getElementById("shopPhotoInput")?.click()}
             >
               {shopPhotoPreview ? (
-                <img
-                  src={shopPhotoPreview}
-                  alt="Shop Preview"
-                  className="h-full w-full object-cover"
-                />
+                <>
+                  <img
+                    src={shopPhotoPreview}
+                    alt="Shop Preview"
+                    className="h-full w-full object-cover"
+                  />
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-black/10 bg-opacity-40 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-full">
+                    <Camera />
+                  </div>
+                </>
               ) : (
                 <>
                   <Camera />
@@ -160,17 +165,23 @@ const StepTwo = ({ step, setStep, totalSteps }: any) => {
               Add A Cover Photo *
             </p>
             <div
-              className="bg-[#F0EEE9] h-[270px] w-full rounded-[8px] mt-6 flex flex-col justify-center items-center cursor-pointer overflow-hidden"
+              className="relative bg-[#F0EEE9] h-[270px] w-full rounded-[8px] mt-6 flex flex-col justify-center items-center cursor-pointer overflow-hidden"
               onClick={() =>
                 document.getElementById("coverPhotoInput")?.click()
               }
             >
               {coverPhotoPreview ? (
-                <img
-                  src={coverPhotoPreview}
-                  alt="Cover Preview"
-                  className="h-full w-full object-cover"
-                />
+                <>
+                  <img
+                    src={coverPhotoPreview}
+                    alt="Cover Preview"
+                    className="h-full w-full object-cover"
+                  />
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-black/10 bg-opacity-40 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-[8px]">
+                    <Camera />
+                  </div>
+                </>
               ) : (
                 <>
                   <Camera />
