@@ -34,11 +34,15 @@ body {
 }
 
 .auth-primary-btn {
-  @apply text-secondary-black bg-transparent px-14 font-semibold py-3 rounded-[6px] shadow border-2 border-secondary-black cursor-pointer;
+  @apply text-secondary-black bg-transparent px-14 font-semibold py-3 rounded-[6px] shadow border-2 border-secondary-black cursor-pointer hover:scale-95 duration-500 ease-in-out;
 }
 
 .auth-secondary-btn {
-  @apply text-accent-white bg-primary-green px-4 py-3 rounded-[6px] shadow border-2 border-primary-green cursor-pointer;
+  @apply text-accent-white bg-primary-green px-4 py-3 rounded-[6px] shadow border-2 border-primary-green hover:scale-95 duration-500 ease-in-out cursor-pointer;
+}
+
+.auth-heading {
+  @apply text-5xl font-semibold text-secondary-black mb-5;
 }
 
 .auth_title {
@@ -54,22 +58,11 @@ body {
 }
 
 .form-label {
-  font-size: 16px;
-  color: #4b4a47;
-  font-weight: 400;
-  font-family: "Lato", sans-serif;
-  margin-bottom: 4px;
+  @apply text-[#4b4a47] block w-full;
 }
 
 .form-input {
-  width: 100%;
-  padding: 12px 16px;
-  border-radius: 8px;
-  background-color: #fff;
-  border: 2px solid #67645f;
-  font-family: inherit;
-  font-size: 1rem;
-  box-sizing: border-box;
+  @apply w-full block mt-2 px-4 py-3 rounded-lg border-2 border-[#67645f];
 }
 
 /* For Swiper Slider */

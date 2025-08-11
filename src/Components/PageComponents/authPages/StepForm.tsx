@@ -12,18 +12,48 @@ const StepForm = () => {
   const [step, setStep] = useState(1);
 
   // Hook Form instance (shared for all steps)
-  const methods = useForm({
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      password: "",
-      rePassword: "",
-      companyName: "",
-    },
-    mode: "onBlur",
-  });
+const methods = useForm({
+  defaultValues: {
+    // StepOne
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    password: "",
+    rePassword: "",
+    companyName: "",
+    profilePhoto: null,
+    profilePhotoPreview: null,
+
+    // StepTwo
+    shopName: "",
+    cityState: "",
+    shopPhoto: null,
+    coverPhoto: null,
+    shopPhotoPreview: null,
+    coverPhotoPreview: null,
+
+    // StepThree
+    aboutShop: "",
+    shopPolicies: "",
+    faq: "",
+    websiteLink: "",
+    facebookLink: "",
+    instagramLink: "",
+    pinterestLink: "",
+
+    // StepFour 
+    geoLocatorOption: null, 
+    address1: "",
+    address2: "",
+    city: "",
+    state: "",
+    zipcode: "",
+  },
+  mode: "onBlur",
+});
+
+
 
   const steps = [
     { label: "Profile Info", component: StepOne },

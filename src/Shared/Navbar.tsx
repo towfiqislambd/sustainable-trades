@@ -100,7 +100,7 @@ const Navbar = () => {
       {/* Top Navbar */}
       <div className="bg-accent-red text-secondary-black text-lg font-semibold text-center py-2">
         <Container>
-          <Link href="/auth/register" className="">
+          <Link href="/auth/choose-package" className="">
             Free Month Trial! Sign Up
           </Link>
         </Container>
@@ -124,9 +124,12 @@ const Navbar = () => {
 
               {/* Right */}
               <div className="flex gap-4 items-center">
-                <button className="px-3 py-2 rounded-lg bg-accent-red text-secondary-black cursor-pointer shadow-[0_3px_10px_0_rgba(0\,0\,0\,0.12),_0_3px_8px_0_rgba(0\,0\,0\,0.08)] duration-300 transition-all hover:text-accent-red hover:bg-transparent border border-accent-red">
+                <Link
+                  href="/on_boarding/register"
+                  className="px-3 py-2 block rounded-lg bg-accent-red text-secondary-black cursor-pointer shadow-[0_3px_10px_0_rgba(0\,0\,0\,0.12),_0_3px_8px_0_rgba(0\,0\,0\,0.08)] duration-300 transition-all hover:text-accent-red hover:bg-transparent border border-accent-red"
+                >
                   Create a Shops
-                </button>
+                </Link>
 
                 <button
                   onClick={() => setShowPopover(!showPopover)}
@@ -143,7 +146,7 @@ const Navbar = () => {
                     }`}
                   >
                     <Link
-                      href="/auth/register"
+                      href="/auth/choose-package"
                       onClick={() => setShowPopover(false)}
                       className={`flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold`}
                     >
