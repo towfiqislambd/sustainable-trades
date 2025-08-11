@@ -14,7 +14,7 @@ const data = [
       "You want to create a shop and sell your magic to the world.",
       "You want to connect with like-minded individuals who share your passion for a sustainable future.",
       "You want to barter and trade with other members.",
-      "Your goods and services are good for the people and the planet. ",
+      "Your goods and services are good for the people and the planet.",
     ],
   },
   {
@@ -54,9 +54,7 @@ const Page = () => {
       {/* Right */}
       <div className="flex-1 flex flex-col justify-center overflow-y-auto">
         <div className="w-[650px] mx-auto my-10">
-          <h2 className="text-5xl font-semibold text-secondary-black mb-5">
-            Welcome!
-          </h2>
+          <h2 className="auth-heading">Welcome!</h2>
 
           <p className="text-xl font-semibold text-primary-green mb-7">
             Choose your member type:
@@ -119,9 +117,9 @@ const Page = () => {
           </div>
 
           <div className="flex justify-end gap-1 items-center text-lg text-secondary-black">
-            <p className="">Have an account?</p>
+            <p className="">Already have an account?</p>
             <Link
-              className="text-primary-green font-semibold"
+              className="text-primary-green font-semibold underline"
               href="/auth/login"
             >
               Sign In
