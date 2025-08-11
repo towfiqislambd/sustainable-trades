@@ -1618,6 +1618,7 @@ export function GoogleLogoSvg() {
   );
 }
 
+
 export function AppleLogoSvg() {
   return (
     <svg
