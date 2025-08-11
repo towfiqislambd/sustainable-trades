@@ -6,7 +6,7 @@ type FormData = {
 
 const StepTwo = ({ step, setStep, totalSteps }: any) => {
   return (
-    <section className="">
+    <section className="mt-16">
       <h2 className="auth_title">Your Shop</h2>
 
       {/* Btns */}
