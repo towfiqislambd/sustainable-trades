@@ -10,6 +10,8 @@ import { useForm, FormProvider } from "react-hook-form";
 
 const StepForm = () => {
   const [step, setStep] = useState(1);
+  const onNext = () => setStep(prev => Math.min(prev + 1, steps.length));
+  const onPrev = () => setStep(prev => Math.max(prev - 1, 1));
 
   // Hook Form instance (shared for all steps)
 const methods = useForm({
@@ -36,19 +38,20 @@ const methods = useForm({
     // StepThree
     aboutShop: "",
     shopPolicies: "",
-    faq: "",
+    faqs: [{ question: "", answer: "" }], // changed from faq: ""
     websiteLink: "",
     facebookLink: "",
     instagramLink: "",
     pinterestLink: "",
 
-    // StepFour 
-    geoLocatorOption: null, 
+    // StepFour
+    geoLocatorOption: null,
     address1: "",
     address2: "",
     city: "",
     state: "",
     zipcode: "",
+    
   },
   mode: "onBlur",
 });
@@ -112,6 +115,8 @@ const methods = useForm({
             step={step}
             setStep={setStep}
             totalSteps={steps.length}
+            onNext={onNext}
+            onPrev={onPrev}
           />
         </div>
       </form>
