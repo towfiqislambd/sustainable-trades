@@ -373,7 +373,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
                           <button
                             type="button"
                             onClick={() => handleDeleteFaq(index)}
-                            className="p-1 text-red-600 hover:bg-red-100 rounded"
+                            className="p-1 text-red-600 hover:bg-red-100 rounded cursor-pointer"
                           >
                             <svg
                               width="16"
