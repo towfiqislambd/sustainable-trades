@@ -448,7 +448,7 @@ export function TutorialSvg() {
       viewBox="0 0 24 22"
       fill="none"
     >
-      <g clip-path="url(#clip0_6771_219666)">
+      <g clipPath="url(#clip0_6771_219666)">
         <path
           d="M19.5 2.4707H4.5C3.67158 2.4707 3 3.14228 3 3.9707V18.9707C3 19.7992 3.67158 20.4707 4.5 20.4707H19.5C20.3285 20.4707 21 19.7992 21 18.9707V3.9707C21 3.14228 20.3285 2.4707 19.5 2.4707Z"
           stroke="currentColor"
@@ -1358,8 +1358,8 @@ export function RightSvg() {
         d="M6 4.5L10 8.5L6 12.5"
         stroke="currentColor"
         strokeWidth="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -1378,8 +1378,8 @@ export function DownSvg() {
         d="M6 9L12 15L18 9"
         stroke="white"
         strokeWidth="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -1412,8 +1412,8 @@ export function CheckSvg() {
         d="M2 8.5L6.66667 14L16 3"
         stroke="#FEFEFE"
         strokeWidth="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -1431,16 +1431,16 @@ export function Website() {
       <path
         d="M10 13C10.4295 13.5741 10.9774 14.0491 11.6066 14.3929C12.2357 14.7367 12.9315 14.9411 13.6467 14.9923C14.3618 15.0435 15.0796 14.9403 15.7513 14.6897C16.4231 14.4392 17.0331 14.047 17.54 13.54L20.54 10.54C21.4508 9.59695 21.9548 8.33394 21.9434 7.02296C21.932 5.71198 21.4061 4.45791 20.4791 3.53087C19.5521 2.60383 18.298 2.07799 16.987 2.0666C15.676 2.0552 14.413 2.55918 13.47 3.46997L11.75 5.17997"
         stroke="#13141D"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M13.9982 11.0002C13.5688 10.4261 13.0209 9.95104 12.3917 9.60729C11.7625 9.26353 11.0667 9.05911 10.3516 9.00789C9.63645 8.95667 8.91866 9.05986 8.2469 9.31044C7.57514 9.56103 6.96513 9.95316 6.45825 10.4602L3.45825 13.4602C2.54746 14.4032 2.04348 15.6662 2.05488 16.9772C2.06627 18.2882 2.59211 19.5423 3.51915 20.4693C4.44619 21.3964 5.70026 21.9222 7.01124 21.9336C8.32222 21.945 9.58524 21.441 10.5282 20.5302L12.2382 18.8202"
         stroke="#13141D"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -1476,7 +1476,7 @@ export function Facebook() {
       viewBox="0 0 24 24"
       fill="none"
     >
-      <g clip-path="url(#clip0_6212_223056)">
+      <g clipPath="url(#clip0_6212_223056)">
         <path
           d="M0.653961 3.27606C0 4.55953 0 6.23969 0 9.6V14.4C0 17.7603 0 19.4405 0.653961 20.7239C1.2292 21.8529 2.14708 22.7708 3.27606 23.346C4.55953 24 6.23969 24 9.6 24H11.8972V14.9022H8.4939V11.0704H11.8972V8.15005C11.8972 4.82785 13.8984 2.99277 16.9601 2.99277C18.4266 2.99277 19.9606 3.25167 19.9606 3.25167V6.5138H18.2704C16.6052 6.5138 16.086 7.53558 16.086 8.58386V11.0704H19.8035L19.2092 14.9022H16.086V23.996C18.3628 23.978 19.6757 23.8802 20.7239 23.346C21.8529 22.7708 22.7708 21.8529 23.346 20.7239C24 19.4405 24 17.7603 24 14.4V9.6C24 6.23969 24 4.55953 23.346 3.27606C22.7708 2.14708 21.8529 1.2292 20.7239 0.653961C19.4405 0 17.7603 0 14.4 0H9.6C6.23969 0 4.55953 0 3.27606 0.653961C2.14708 1.2292 1.2292 2.14708 0.653961 3.27606Z"
           fill="#1877F2"
@@ -1500,7 +1500,7 @@ export function Instagram() {
       viewBox="0 0 24 24"
       fill="none"
     >
-      <g clip-path="url(#clip0_6212_223059)">
+      <g clipPath="url(#clip0_6212_223059)">
         <path
           d="M14.9094 11.9996C14.9094 10.393 13.6069 9.09063 12.0004 9.09063C10.3938 9.09063 9.09144 10.393 9.09144 11.9996C9.09144 13.6061 10.3938 14.9086 12.0004 14.9086C13.6069 14.9086 14.9094 13.6061 14.9094 11.9996Z"
           fill="url(#paint0_linear_6212_223059)"
@@ -1527,10 +1527,10 @@ export function Instagram() {
           y2="21.8988"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#515BD4" />
-          <stop offset="0.26" stop-color="#9510B8" />
-          <stop offset="0.66" stop-color="#E51804" />
-          <stop offset="1" stop-color="#FFBF00" />
+          <stop stopColor="#515BD4" />
+          <stop offset="0.26" stopColor="#9510B8" />
+          <stop offset="0.66" stopColor="#E51804" />
+          <stop offset="1" stopColor="#FFBF00" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_6212_223059"
@@ -1540,10 +1540,10 @@ export function Instagram() {
           y2="21.8988"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#515BD4" />
-          <stop offset="0.26" stop-color="#9510B8" />
-          <stop offset="0.66" stop-color="#E51804" />
-          <stop offset="1" stop-color="#FFBF00" />
+          <stop stopColor="#515BD4" />
+          <stop offset="0.26" stopColor="#9510B8" />
+          <stop offset="0.66" stopColor="#E51804" />
+          <stop offset="1" stopColor="#FFBF00" />
         </linearGradient>
         <linearGradient
           id="paint2_linear_6212_223059"
@@ -1553,10 +1553,10 @@ export function Instagram() {
           y2="21.8988"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#515BD4" />
-          <stop offset="0.26" stop-color="#9510B8" />
-          <stop offset="0.66" stop-color="#E51804" />
-          <stop offset="1" stop-color="#FFBF00" />
+          <stop stopColor="#515BD4" />
+          <stop offset="0.26" stopColor="#9510B8" />
+          <stop offset="0.66" stopColor="#E51804" />
+          <stop offset="1" stopColor="#FFBF00" />
         </linearGradient>
         <clipPath id="clip0_6212_223059">
           <rect width="24" height="24" fill="white" />
@@ -1575,7 +1575,7 @@ export function Pinterest() {
       viewBox="0 0 24 24"
       fill="none"
     >
-      <g clip-path="url(#clip0_6212_223062)">
+      <g clipPath="url(#clip0_6212_223062)">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
