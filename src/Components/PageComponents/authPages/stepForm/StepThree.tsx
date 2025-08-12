@@ -172,7 +172,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
                 <button
                   type="button"
                   onClick={() => setEditingAbout(false)}
-                  className="px-3 py-1 bg-gray-300 text-gray-700 rounded text-sm"
+                  className="px-3 py-1 bg-gray-300 text-gray-700 rounded text-sm cursor-pointer"
                 >
                   Cancel
                 </button>
