@@ -321,7 +321,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
                 <button
                   type="button"
                   onClick={handleCancelFaq}
-                  className="px-4 py-2 bg-gray-300 text-gray-700 rounded text-sm hover:bg-gray-400"
+                  className="px-4 py-2 bg-gray-300 text-gray-700 rounded text-sm hover:bg-gray-400 cursor-pointer"
                 >
                   Cancel
                 </button>
