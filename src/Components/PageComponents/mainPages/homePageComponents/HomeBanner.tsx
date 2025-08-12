@@ -52,7 +52,7 @@ const HomeBanner = () => {
         spaceBetween={20}
         pagination={{ clickable: true }}
         autoplay={{
-          delay: 2500,
+          delay: 5000,
           disableOnInteraction: true,
           pauseOnMouseEnter: true,
         }}
