@@ -127,7 +127,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
             <button
               type="button"
               onClick={() => setEditingAbout(!editingAbout)}
-              className="p-2 text-[#67645F] hover:bg-gray-100 rounded"
+              className="p-2 text-[#67645F] hover:bg-gray-100 rounded cursor-pointer"
             >
               <svg
                 width="16"
