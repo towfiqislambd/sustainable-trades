@@ -9,9 +9,9 @@ import { useRouter } from "next/navigation";
 const data = [
   {
     id: 1,
-    package_name: "Magic Maker",
+    package_name: "Magic Maker (Shop Owner)",
     feathers: [
-      "You want to create a shop and sell your magic to the world.",
+      "You want to create a shop and sell your magic to your community.",
       "You want to connect with like-minded individuals who share your passion for a sustainable future.",
       "You want to barter and trade with other members.",
       "Your goods and services are good for the people and the planet.",
@@ -55,7 +55,7 @@ const Page = () => {
 
       {/* Right */}
       <div className="flex-1 grid place-items-center overflow-y-auto">
-        <div className="w-[740px] mx-auto p-10">
+        <div className="w-[750px] mx-auto p-10">
           <h2 className="auth-heading">Welcome!</h2>
 
           <p className="text-xl font-semibold text-primary-green mb-7">
@@ -72,7 +72,7 @@ const Page = () => {
                 }`}
               >
                 <div className="flex justify-between items-center mb-7">
-                  <h3 className="text-2xl font-semibold text-secondary-black">
+                  <h3 className="text-[22px] font-semibold text-secondary-black">
                     {item.package_name}
                   </h3>
 
