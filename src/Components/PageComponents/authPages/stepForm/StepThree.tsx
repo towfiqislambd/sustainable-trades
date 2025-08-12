@@ -273,7 +273,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
             <button
               type="button"
               onClick={handleAddFaq}
-              className="bg-primary-green text-white px-4 py-2 rounded text-sm font-medium hover:bg-green-700"
+              className="bg-primary-green text-white px-4 py-2 rounded text-sm font-medium hover:bg-green-700 cursor-pointer"
               disabled={fields.length >= 10}
             >
               Add FAQ
