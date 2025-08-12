@@ -73,3 +73,15 @@ body {
 .banner_swiper .swiper-pagination-bullet-active {
   @apply bg-primary-green scale-125 opacity-100;
 }
+
+.product_swiper .swiper-pagination-bullet {
+  @apply bg-white size-3 opacity-80;
+}
+
+.product_swiper .swiper-pagination-bullet-active {
+  @apply bg-primary-green scale-105 opacity-100;
+}
+
+.shop_detailed_heading {
+  @apply text-4xl text-secondary-black font-semibold mb-7;
+}

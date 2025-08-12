@@ -7,6 +7,7 @@ import f3 from "@/Assets/f3.jpg";
 import f4 from "@/Assets/f4.jpg";
 import Image from "next/image";
 import { IoLink } from "react-icons/io5";
+import Link from "next/link";
 
 const data = [
   {
@@ -50,7 +51,11 @@ const FeaturedShop = () => {
         <h2 className="section_title">Featured Shops</h2>
         <div className="grid grid-cols-4 gap-10">
           {data?.map(item => (
-            <div key={item?.id} className="text-center space-y-1.5">
+            <Link
+              href={`/shop-details/${item?.id}`}
+              key={item?.id}
+              className="text-center space-y-1.5"
+            >
               <figure className="size-64 mx-auto cursor-pointer rounded-full border border-gray-100 group relative">
                 <div className="absolute bg-black/50 size-full rounded-full inset-0 opacity-0 duration-500 transition-all group-hover:opacity-100 flex justify-center items-center group-hover:backdrop-blur-[1px]">
                   <IoLink className="text-white text-2xl" />
@@ -79,7 +84,7 @@ const FeaturedShop = () => {
               </div>
 
               <h4 className="text-secondary-black text-[15px]">{item?.desc}</h4>
-            </div>
+            </Link>
           ))}
         </div>
       </Container>

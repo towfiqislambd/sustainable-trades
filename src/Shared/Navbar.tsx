@@ -98,7 +98,11 @@ const Navbar = () => {
   return (
     <>
       {/* Top Navbar */}
-      <div className="bg-accent-red text-secondary-black text-lg font-semibold text-center py-2">
+      <div
+        className={`bg-accent-red text-secondary-black text-lg font-semibold text-center py-2 ${
+          pathname === "/" ? "block" : "hidden"
+        }`}
+      >
         <Container>
           <Link href="/auth/choose-package" className="">
             Free Month Trial! Sign Up
