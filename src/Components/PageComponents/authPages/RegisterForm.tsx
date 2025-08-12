@@ -40,8 +40,8 @@ export default function RegisterForm() {
   return (
     <section className="min-h-screen max-h-screen flex">
       {/* Left - Form */}
-      <div className="flex-1 flex flex-col justify-center overflow-y-auto">
-        <div className="w-[700px] mx-auto my-10">
+      <div className="flex-1 grid place-items-center overflow-y-auto">
+        <div className="w-[750px] mx-auto p-10">
           <h2 className="auth-heading !text-4xl !mb-7">
             Welcome,{" "}
             <span className="text-primary-green">
@@ -222,11 +222,13 @@ export default function RegisterForm() {
       </div>
 
       {/* Right - Image */}
-      <div className="flex-1">
+      <div className="flex-1 relative">
         <Image
           src={selectedId === 1 ? shopBg : magicBg}
           alt="welcome_img"
           className="w-full h-full object-cover"
+          fill
+          placeholder="blur"
         />
       </div>
     </section>

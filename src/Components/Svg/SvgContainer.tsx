@@ -44,6 +44,7 @@ export function CartSvg() {
     </svg>
   );
 }
+
 export function Camera() {
   return (
     <svg
@@ -1489,6 +1490,7 @@ export function Facebook() {
     </svg>
   );
 }
+
 export function Instagram() {
   return (
     <svg
@@ -1563,6 +1565,7 @@ export function Instagram() {
     </svg>
   );
 }
+
 export function Pinterest() {
   return (
     <svg
@@ -1617,7 +1620,6 @@ export function GoogleLogoSvg() {
     </svg>
   );
 }
-
 
 export function AppleLogoSvg() {
   return (
