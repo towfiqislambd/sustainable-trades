@@ -65,7 +65,7 @@ const StepFour = ({ step, setStep }: StepFourProps) => {
                     className="border-2 mt-2 cursor-pointer"
                   />
                   <div>
-                    <h3 className="text-[#13141D] font-semibold text-[30px] leading-8">
+                    <h3 className="text-[#13141D] font-semibold text-[25px] leading-8">
                       {opt === 1 && "Display my business’ exact address."}
                       {opt === 2 &&
                         "Display my location within a 10-mile radius of my address."}
@@ -76,7 +76,7 @@ const StepFour = ({ step, setStep }: StepFourProps) => {
                         "Anyone on Sustainable Trades can view your exact address."}
                       {opt === 2 && "Your exact location will remain private."}
                       {opt === 3 &&
-                        "Defaults to City/State. No one will see your exact location."}
+                        "Defaults to Zip Code. No one will be able to see where you are located. You can still choose to share your location when a trade or sale occurs."}
                     </p>
                   </div>
                 </div>
