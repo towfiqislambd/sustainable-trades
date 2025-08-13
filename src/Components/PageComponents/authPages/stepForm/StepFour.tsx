@@ -1,17 +1,47 @@
-import AddressForm from "@/Components/Modals/LocatorModal";
+"use client";
 import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";
+import AddressForm from "@/Components/Modals/LocatorModal";
 
 type StepFourProps = {
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   totalSteps: number;
+  onNext: () => void;
+  onPrev: () => void;
 };
 
-const StepFour = ({ step, setStep }: StepFourProps) => {
-  const { setValue, trigger } = useFormContext();
+const StepFour = ({ step, setStep, onNext, onPrev }: StepFourProps) => {
+  const { setValue, trigger, getValues } = useFormContext();
+
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState<{
+    lat: number;
+    lng: number;
+  } | null>(null);
+
+  // Google Geocoding API
+  const fetchLatLngFromAddress = async (address: string) => {
+    const API_KEY = "AIzaSyDmNO0nvvAkkxk6rYBDQEfVXVQPB9rKlsk";
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+      address
+    )}&key=${API_KEY}`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      if (data.status === "OK" && data.results.length > 0) {
+        return data.results[0].geometry.location;
+      } else {
+        alert("Address not found. Please enter a valid address.");
+        return null;
+      }
+    } catch (error) {
+      alert("Failed to fetch location. Please try again.");
+      return null;
+    }
+  };
 
   const handleCheckboxClick = (option: number) => {
     setSelectedOption(option);
@@ -19,16 +49,40 @@ const StepFour = ({ step, setStep }: StepFourProps) => {
     setIsModalOpen(true);
   };
 
-  const handleSave = async () => {
+  const handleSave = async (event: React.MouseEvent<HTMLButtonElement>) => {
+     event.preventDefault();
+     event.stopPropagation();
+    if (!selectedOption) return;
+
+    // Determine fields to validate
     const fieldsToValidate =
       selectedOption === 1 || selectedOption === 2
         ? ["address1", "city", "state", "zipcode"]
         : ["zipcode"];
 
     const isValid = await trigger(fieldsToValidate);
-    if (isValid) {
-      setIsModalOpen(false);
+    if (!isValid) {
+      alert("Please fill all required address fields.");
+      return;
     }
+
+    // Construct address
+    let address = "";
+    if (selectedOption === 1 || selectedOption === 2) {
+      const { address1, address2, city, state, zipcode } = getValues();
+      address = `${address1} ${address2 ?? ""}, ${city}, ${state} ${zipcode}`;
+    } else if (selectedOption === 3) {
+      const { zipcode } = getValues();
+      address = zipcode;
+    }
+
+    const location = await fetchLatLngFromAddress(address);
+    if (!location) return;
+
+    setSelectedLocation(location);
+    setValue("latitude", location.lat);
+    setValue("longitude", location.lng);
+    setIsModalOpen(false);
   };
 
   return (
@@ -44,14 +98,17 @@ const StepFour = ({ step, setStep }: StepFourProps) => {
       {/* Map */}
       <div className="relative">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18..."
-          className="top-0 left-0 filter brightness-75 relative w-full h-[1000px] rounded-lg overflow-hidden"
+          src={
+            selectedLocation
+              ? `https://www.google.com/maps/embed/v1/place?key=YOUR_GOOGLE_API_KEY&q=${selectedLocation.lat},${selectedLocation.lng}`
+              : "https://www.google.com/maps/embed?pb=!1m18..."
+          }
+          className="top-0 left-0 filter brightness-75 relative w-full h-[600px] rounded-lg overflow-hidden"
           style={{ border: 0 }}
           allowFullScreen
           loading="lazy"
           title="Google Map"
-        ></iframe>
-
+        />
         {/* Options */}
         <div className="absolute top-[56px] right-[112px] z-10 px-6 py-12 max-w-[528px] w-full text-white">
           <div className="bg-[#FFFDF8] bg-opacity-40 p-6 rounded-[8px]">
@@ -88,11 +145,21 @@ const StepFour = ({ step, setStep }: StepFourProps) => {
 
       {/* Navigation */}
       <div className="flex justify-between items-center mt-10">
-        <button onClick={() => setStep(step - 1)} className="auth-primary-btn">
+        <button onClick={onPrev} className="auth-primary-btn">
           Back
         </button>
         <button
-          onClick={() => setStep(step + 1)}
+          onClick={(e) => {
+             e.preventDefault();
+             e.stopPropagation();
+            const lat = getValues("latitude");
+            const lng = getValues("longitude");
+            if (!lat || !lng) {
+              alert("Please save your location before continuing.");
+              return;
+            }
+            onNext();
+          }}
           className="auth-secondary-btn"
         >
           Save and Continue
@@ -134,6 +201,7 @@ const StepFour = ({ step, setStep }: StepFourProps) => {
             <button
               onClick={() => setIsModalOpen(false)}
               className="absolute top-0 right-0 px-4 py-2 text-3xl text-gray-500 cursor-pointer"
+              aria-label="Close modal"
             >
               ×
             </button>

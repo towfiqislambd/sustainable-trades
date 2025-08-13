@@ -2,7 +2,7 @@ import React from "react";
 import { useFormContext } from "react-hook-form";
 
 type AddressFormProps = {
-  type: "full" | "zip"; 
+  type: "full" | "zip";
 };
 
 const AddressForm = ({ type }: AddressFormProps) => {
@@ -26,9 +26,7 @@ const AddressForm = ({ type }: AddressFormProps) => {
               placeholder="Address Line"
             />
             {errors.address1 && (
-              <span className="text-red-500">
-                {errors.address1.message as string}
-              </span>
+              <span className="text-red-500">{errors.address1.message}</span>
             )}
           </div>
           <div>
@@ -49,9 +47,7 @@ const AddressForm = ({ type }: AddressFormProps) => {
               placeholder="City"
             />
             {errors.city && (
-              <span className="text-red-500">
-                {errors.city.message as string}
-              </span>
+              <span className="text-red-500">{errors.city.message}</span>
             )}
           </div>
           <div className="flex gap-x-4">
@@ -64,9 +60,7 @@ const AddressForm = ({ type }: AddressFormProps) => {
                 placeholder="State"
               />
               {errors.state && (
-                <span className="text-red-500">
-                  {errors.state.message as string}
-                </span>
+                <span className="text-red-500">{errors.state.message}</span>
               )}
             </div>
             <div>
@@ -78,9 +72,7 @@ const AddressForm = ({ type }: AddressFormProps) => {
                 placeholder="Zipcode"
               />
               {errors.zipcode && (
-                <span className="text-red-500">
-                  {errors.zipcode.message as string}
-                </span>
+                <span className="text-red-500">{errors.zipcode.message}</span>
               )}
             </div>
           </div>
@@ -97,9 +89,7 @@ const AddressForm = ({ type }: AddressFormProps) => {
             placeholder="Zipcode"
           />
           {errors.zipcode && (
-            <span className="text-red-500">
-              {errors.zipcode.message as string}
-            </span>
+            <span className="text-red-500">{errors.zipcode.message}</span>
           )}
         </div>
       )}
