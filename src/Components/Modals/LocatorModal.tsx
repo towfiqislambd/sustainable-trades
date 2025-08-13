@@ -26,7 +26,7 @@ const AddressForm = ({ type }: AddressFormProps) => {
               placeholder="Address Line"
             />
             {errors.address1 && (
-              <span className="text-red-500">{errors.address1.message}</span>
+              <span className="text-red-500">{errors.address1.message as string}</span>
             )}
           </div>
           <div>
@@ -47,7 +47,7 @@ const AddressForm = ({ type }: AddressFormProps) => {
               placeholder="City"
             />
             {errors.city && (
-              <span className="text-red-500">{errors.city.message}</span>
+              <span className="text-red-500">{errors.city.message as string}</span>
             )}
           </div>
           <div className="flex gap-x-4">
@@ -60,7 +60,7 @@ const AddressForm = ({ type }: AddressFormProps) => {
                 placeholder="State"
               />
               {errors.state && (
-                <span className="text-red-500">{errors.state.message}</span>
+                <span className="text-red-500">{errors.state.message as string}</span>
               )}
             </div>
             <div>
@@ -72,7 +72,7 @@ const AddressForm = ({ type }: AddressFormProps) => {
                 placeholder="Zipcode"
               />
               {errors.zipcode && (
-                <span className="text-red-500">{errors.zipcode.message}</span>
+                <span className="text-red-500">{errors.zipcode.message as string}</span>
               )}
             </div>
           </div>
@@ -89,7 +89,7 @@ const AddressForm = ({ type }: AddressFormProps) => {
             placeholder="Zipcode"
           />
           {errors.zipcode && (
-            <span className="text-red-500">{errors.zipcode.message}</span>
+            <span className="text-red-500">{errors.zipcode.message as string}</span>
           )}
         </div>
       )}
