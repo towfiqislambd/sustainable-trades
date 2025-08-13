@@ -51,6 +51,7 @@ const HomeBanner = () => {
         modules={[Pagination, Autoplay]}
         spaceBetween={20}
         pagination={{ clickable: true }}
+        speed={1000}
         autoplay={{
           delay: 5000,
           disableOnInteraction: true,
