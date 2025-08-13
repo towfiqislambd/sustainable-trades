@@ -37,7 +37,7 @@ const Product = ({ product }: ProductProps) => {
         modules={[Pagination]}
         spaceBetween={20}
         pagination={{ clickable: true }}
-        className="product_swiper"
+        className="product_swiper rounded-lg"
       >
         {product?.product_image?.map((img, idx) => (
           <SwiperSlide key={idx}>

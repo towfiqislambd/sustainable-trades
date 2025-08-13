@@ -15,14 +15,27 @@ const DetailsTab = () => {
 
   return (
     <Container>
-      <div className="mt-8 mb-12 flex justify-between items-center">
+      <div className="mt-8 flex justify-between items-center">
         {/* Left - Tabs */}
         <div className="inline-flex items-center border border-gray-300 shadow rounded-lg">
           {tabs?.map(tab => (
             <Link
               key={tab?.id}
               href={`#${tab?.label}`}
-              onClick={() => setActiveTab(tab?.id)}
+              onClick={e => {
+                e.preventDefault();
+                setActiveTab(tab?.id);
+
+                const section = document.getElementById(tab?.label);
+                if (section) {
+                  const offset = 180;
+                  const y =
+                    section.getBoundingClientRect().top +
+                    window.scrollY -
+                    offset;
+                  window.scrollTo({ top: y, behavior: "smooth" });
+                }
+              }}
               className={`px-14 gap-3 py-4 font-semibold 
                   ${
                     activeTab === tab?.id

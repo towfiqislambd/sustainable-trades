@@ -50,7 +50,7 @@ const data = [
 
 const ShopListing = () => {
   return (
-    <section id="Listings">
+    <section id="Listings" className="mt-12">
       <Container>
         {/* Featured Listings */}
         <h2 className="shop_detailed_heading">Featured Listings</h2>
