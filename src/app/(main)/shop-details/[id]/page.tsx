@@ -6,6 +6,7 @@ import ShopPolicies from "@/Components/PageComponents/mainPages/shopDetailsCompo
 import ShopListing from "@/Components/PageComponents/mainPages/shopDetailsComponents/ShopListing";
 import ShopReviews from "@/Components/PageComponents/mainPages/shopDetailsComponents/ShopReviews";
 import DetailsTab from "@/Components/PageComponents/mainPages/shopDetailsComponents/DetailsTab";
+import EditShopBanner from "@/Components/PageComponents/mainPages/shopDetailsComponents/EditShopBanner";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -13,10 +14,11 @@ interface Props {
 
 const page = ({ params }: Props) => {
   const { id } = use(params);
+  const user = false;
 
   return (
     <section className="">
-      <ShopBanner />
+      {user ? <EditShopBanner /> : <ShopBanner />}
       <DetailsTab />
       <ShopListing />
       <ShopReviews />
