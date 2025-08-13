@@ -62,6 +62,7 @@ const AddressForm = ({ type }: AddressFormProps) => {
               {errors.state && (
                 <span className="text-red-500">{errors.state.message as string}</span>
               )}
+              
             </div>
             <div>
               <p className="form-label font-bold">Zipcode *</p>
