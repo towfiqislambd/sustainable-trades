@@ -91,8 +91,13 @@ const data = [
     ],
   },
 ];
+type PricingProps = {
+  description: string;
+  button1: string;
+  button2: string;
+};
 
-const Pricing = () => {
+const Pricing = ({ description, button1,button2 }: PricingProps) => {
   const [activeTab, setActiveTab] = useState<string>("Monthly Billing");
 
   return (
@@ -100,9 +105,7 @@ const Pricing = () => {
       <Container>
         <h2 className="section_title text-center !mb-7">Plans & Benefits</h2>
 
-        <p className="text-center text-xl text-[#4B4A47] mb-7">
-          No matter how you want to manage your shop, we got you covered!
-        </p>
+        <p className="text-center text-xl text-[#4B4A47] mb-7">{description}</p>
 
         {/* Tabs */}
         <div className="flex gap-5 p-3 rounded-xl shadow w-[350px] mx-auto bg-primary-green mb-14">
@@ -114,7 +117,7 @@ const Pricing = () => {
                 : "text-accent-white bg-transparent"
             }`}
           >
-            Monthly Billing
+            {button1}
           </button>
 
           <button
@@ -125,7 +128,7 @@ const Pricing = () => {
                 : "text-accent-white bg-transparent"
             }`}
           >
-            Annual Billing
+            {button2}
           </button>
         </div>
 
