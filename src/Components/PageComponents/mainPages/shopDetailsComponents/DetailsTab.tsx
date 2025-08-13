@@ -2,7 +2,6 @@
 import Link from "next/link";
 import Container from "@/Components/Common/Container";
 import React, { useState } from "react";
-import { SearchSvg } from "@/Components/Svg/SvgContainer";
 const tabs = [
   { id: 1, label: "Listings" },
   { id: 2, label: "About" },
@@ -16,7 +15,6 @@ const DetailsTab = () => {
   return (
     <Container>
       <div className="mt-8 flex justify-between items-center">
-        {/* Left - Tabs */}
         <div className="inline-flex items-center border border-gray-300 shadow rounded-lg">
           {tabs?.map(tab => (
             <Link
@@ -49,16 +47,6 @@ const DetailsTab = () => {
               {tab?.label}
             </Link>
           ))}
-        </div>
-
-        {/* Right - Search Bar */}
-        <div className="flex justify-end gap-1 items-center border border-gray-400 px-2 py-2 rounded-[6px] w-[280px]">
-          <SearchSvg />
-          <input
-            type="text"
-            placeholder="Search all listings..."
-            className="w-full border-none outline-none"
-          />
         </div>
       </div>
     </Container>

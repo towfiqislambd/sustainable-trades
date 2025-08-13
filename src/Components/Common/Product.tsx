@@ -18,17 +18,18 @@ type ProductData = {
 
 type ProductProps = {
   product: ProductData;
+  is_feathered?: boolean;
 };
 
-const Product = ({ product }: ProductProps) => {
+const Product = ({ product, is_feathered }: ProductProps) => {
   return (
     <div className="rounded-t-lg relative">
       {/* wishlist btn */}
       <button className="absolute z-40 top-4 right-5 size-9 rounded-full border border-gray-300 grid place-items-center bg-primary-green cursor-pointer">
         {product?.is_wishlist ? (
-          <FaHeart className="text-lg text-accent-red" />
+          <FaHeart className="text-accent-red" />
         ) : (
-          <FaHeart className="text-lg text-accent-white" />
+          <FaHeart className="text-accent-white" />
         )}
       </button>
 
@@ -41,7 +42,11 @@ const Product = ({ product }: ProductProps) => {
       >
         {product?.product_image?.map((img, idx) => (
           <SwiperSlide key={idx}>
-            <figure className="w-full h-[350px] rounded-lg border border-gray-100 relative">
+            <figure
+              className={`w-full rounded-lg border border-gray-100 relative ${
+                is_feathered ? "h-[260px]" : "h-[350px]"
+              }`}
+            >
               <div className="absolute inset-0 bg-black/20 rounded-lg" />
               <Image
                 src={img}
