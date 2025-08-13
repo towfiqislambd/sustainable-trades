@@ -1,4 +1,6 @@
 "use client";
+import "swiper/css";
+import "swiper/css/pagination";
 import Container from "@/Components/Common/Container";
 import React, { useState } from "react";
 import r1 from "@/Assets/r1.jpg";
@@ -13,11 +15,13 @@ import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 import { ReviewAuthorSvg, RightArrowSvg } from "@/Components/Svg/SvgContainer";
 import { FaRegStar } from "react-icons/fa";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
 
 const data = [
   {
     id: 1,
-    reviewed_img: r1,
+    reviewed_img: [r1, r2, r3, r4],
     author_name: "Review by Sarah M",
     review_count: 5,
     review_desc:
@@ -27,7 +31,7 @@ const data = [
   },
   {
     id: 2,
-    reviewed_img: r2,
+    reviewed_img: [r1, r2, r3, r4],
     author_name: "Review by Sarah M",
     review_count: 5,
     review_desc:
@@ -37,7 +41,7 @@ const data = [
   },
   {
     id: 3,
-    reviewed_img: r3,
+    reviewed_img: [r1, r2, r3, r4],
     author_name: "Review by Sarah M",
     review_count: 4,
     review_desc:
@@ -47,7 +51,7 @@ const data = [
   },
   {
     id: 4,
-    reviewed_img: r4,
+    reviewed_img: [r1, r2, r3, r4],
     author_name: "Review by Sarah M",
     review_count: 3,
     review_desc:
@@ -111,7 +115,7 @@ const ShopReviews = () => {
                     <p className="text-secondary-gray text-[15px]">
                       {showMore && item?.id === showMoreId
                         ? item?.review_desc
-                        : item?.review_desc?.slice(0, 140)}
+                        : item?.review_desc?.slice(0, 150)}
 
                       <button
                         onClick={() => {
@@ -120,28 +124,34 @@ const ShopReviews = () => {
                         }}
                         className="text-primary-green font-semibold cursor-pointer pl-2"
                       >
-                        {showMore ? "read less" : "read more...."}
+                        {showMore && item?.id === showMoreId
+                          ? "read less"
+                          : "read more...."}
                       </button>
                     </p>
                   </div>
 
                   {/* Reviewed Image */}
-                  <div className="flex gap-3 items-center">
-                    <figure className="w-[100px] h-[85px] rounded border border-gray-100">
-                      <Image
-                        src={item?.reviewed_img}
-                        alt="Reviewed img"
-                        className="w-full h-full rounded"
-                      />
-                    </figure>
-
-                    <figure className="w-[100px] h-[85px] rounded border border-gray-100">
-                      <Image
-                        src={item?.reviewed_img}
-                        alt="Reviewed img"
-                        className="w-full h-full rounded"
-                      />
-                    </figure>
+                  <div className="flex gap-3 items-center rounded-lg w-[130px] h-[100px] shrink-0">
+                    <Swiper
+                      modules={[Pagination]}
+                      spaceBetween={10}
+                      pagination={{ clickable: true }}
+                      className="review_swiper rounded-lg"
+                    >
+                      {item?.reviewed_img?.map((img, idx) => (
+                        <SwiperSlide key={idx}>
+                          <figure className="w-[130px] h-[100px] rounded-lg border border-gray-100 relative">
+                            <div className="absolute bg-black/10 inset-0 rounded-lg" />
+                            <Image
+                              src={img}
+                              alt="Reviewed img"
+                              className="w-full h-full rounded-lg"
+                            />
+                          </figure>
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
                   </div>
                 </div>
               </div>
