@@ -17,7 +17,6 @@
   --breakpoint-lg: 768px;
   --breakpoint-xl: 1024px;
   --breakpoint-2xl: 1280px;
-  --breakpoint-3xl: 1536px;
 }
 
 html {
@@ -79,6 +78,14 @@ body {
 }
 
 .product_swiper .swiper-pagination-bullet-active {
+  @apply bg-primary-green scale-105 opacity-100;
+}
+
+.review_swiper .swiper-pagination-bullet {
+  @apply bg-white size-2 opacity-80;
+}
+
+.review_swiper .swiper-pagination-bullet-active {
   @apply bg-primary-green scale-105 opacity-100;
 }
 
