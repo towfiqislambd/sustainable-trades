@@ -9,7 +9,7 @@ import DefaultNavbar from "./DefaultNavbar";
 import LowerNavbar from "./LowerNavbar";
 
 const Navbar = () => {
-  const user = false;
+  const user = true;
   const pathname = usePathname();
 
   return (
