@@ -23,6 +23,7 @@ const EditShopBanner = () => {
   const [shopProfile, setShopProfile] = useState<any>(null);
   const [shopCover, setShopCover] = useState<any>(null);
 
+  
   return (
     <section className="mb-20">
       {/* Shop Profile and Cover photo */}
