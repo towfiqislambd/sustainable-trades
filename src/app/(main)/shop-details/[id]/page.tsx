@@ -14,7 +14,7 @@ interface Props {
 
 const page = ({ params }: Props) => {
   const { id } = use(params);
-  const user = false;
+  const user = true;
 
   return (
     <section className="">

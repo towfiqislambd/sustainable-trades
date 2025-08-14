@@ -19,6 +19,7 @@ import award from "@/Assets/award.png";
 import badge from "@/Assets/badge.png";
 
 const EditShopBanner = () => {
+  const [open, isOpen] = useState<boolean>(false);
   const [shopProfile, setShopProfile] = useState<any>(null);
   const [shopCover, setShopCover] = useState<any>(null);
 
