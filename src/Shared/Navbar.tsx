@@ -78,6 +78,7 @@ const navLins = [
 ];
 
 const Navbar = () => {
+  const user = false;
   const pathname = usePathname();
   const [activeSubMenu, setActiveSubMenu] = useState<number>(0);
   const [showMenu, setShowMenu] = useState<boolean>(false);
@@ -129,10 +130,10 @@ const Navbar = () => {
               {/* Right */}
               <div className="flex gap-4 items-center">
                 <Link
-                  href="/on_boarding/register"
-                  className="px-3 py-2 block rounded-lg bg-accent-red text-secondary-black cursor-pointer shadow-[0_3px_10px_0_rgba(0\,0\,0\,0.12),_0_3px_8px_0_rgba(0\,0\,0\,0.08)] duration-300 transition-all hover:text-accent-red hover:bg-transparent border border-accent-red"
+                  href={user ? "/view-my-shop/1" : "/on_boarding/register"}
+                  className="px-4 py-2 block rounded-lg bg-accent-red text-secondary-black cursor-pointer shadow-[0_3px_10px_0_rgba(0\,0\,0\,0.12),_0_3px_8px_0_rgba(0\,0\,0\,0.08)] duration-300 transition-all hover:text-accent-red hover:bg-transparent border border-accent-red hover:scale-95"
                 >
-                  Create a Shops
+                  {user ? "View Shop" : "Create a Shops"}
                 </Link>
 
                 <button

@@ -19,13 +19,11 @@ import award from "@/Assets/award.png";
 import badge from "@/Assets/badge.png";
 
 const EditShopBanner = () => {
-  const [open, isOpen] = useState<boolean>(false);
   const [shopProfile, setShopProfile] = useState<any>(null);
   const [shopCover, setShopCover] = useState<any>(null);
 
-  
   return (
-    <section className="mb-20">
+    <section className="mb-12">
       {/* Shop Profile and Cover photo */}
       <div
         style={{
@@ -138,18 +136,6 @@ const EditShopBanner = () => {
                 <p className="text-secondary-black font-semibold">460 Trades</p>
               </div>
             </div>
-
-            <div className="flex gap-5 items-center mt-5">
-              <button className=" px-3 py-2 rounded-lg cursor-pointer shadow font-semibold text-secondary-black bg-transparent duration-300 transition-transform hover:scale-105 border border-gray-400 flex gap-2 items-center">
-                <LoveSvg />
-                Follow Shop
-              </button>
-
-              <button className="px-3 py-2 rounded-lg cursor-pointer shadow font-semibold text-primary-green bg-transparent duration-300 transition-transform hover:scale-105 border border-gray-400 flex gap-1 items-center underline">
-                <EditIconSvg />
-                Edit Shop
-              </button>
-            </div>
           </div>
 
           {/* Right */}
@@ -167,11 +153,6 @@ const EditShopBanner = () => {
                 className="size-14 rounded-full"
               />
             </div>
-
-            <button className="px-7 py-3 rounded-lg cursor-pointer shadow font-semibold text-secondary-black bg-transparent duration-300 transition-transform hover:scale-105 border border-gray-400 flex gap-3 items-center">
-              <MessSvg />
-              Message Seller
-            </button>
           </div>
         </div>
       </Container>
