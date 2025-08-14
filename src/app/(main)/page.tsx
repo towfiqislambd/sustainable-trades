@@ -18,7 +18,11 @@ const Page = () => {
       <ExploreProduct />
       <OurMission />
       <CommunityMember />
-      <Pricing description="sdgfg" button1="fggfd" button2="fgbvfdg"/>
+      <Pricing
+        description="No matter how you want to manage your shop, we got you covered!"
+        button1="Monthly Billing"
+        button2="Annual Billing"
+      />
       <Subscribe />
     </>
   );

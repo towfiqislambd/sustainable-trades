@@ -12,7 +12,7 @@ const ShopBanner = () => {
   return (
     <section
       style={{ backgroundImage: `url(${bannerBg.src})` }}
-      className="h-[600px] bg-no-repeat bg-center bg-cover bg-black/50 bg-blend-overlay py-10 bg-fixed"
+      className="h-[600px] bg-no-repeat bg-center bg-cover bg-black/50 bg-blend-overlay py-10 bg-fixed mb-10"
     >
       <Container>
         <div className="flex justify-between">
