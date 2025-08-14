@@ -12,7 +12,9 @@ import {
   PNineSvg,
   POneSvg,
   PSevenSvg,
+  PSeventeenSvg,
   PSixSvg,
+  PSixteenSvg,
   PTenSvg,
   PThirteenSvg,
   PThreeSvg,
@@ -103,7 +105,110 @@ const proNavLinks = [
   },
 ];
 
+const basicNavLinks = [
+  {
+    id: 16,
+    label: "Dashboard",
+    path: "/dashboard/basic/home",
+    icon: <POneSvg />,
+  },
+  {
+    id: 17,
+    label: "Listings",
+    path: "/dashboard/basic/listings",
+    icon: <PSixteenSvg />,
+  },
+  {
+    id: 18,
+    label: "Trades/Barter",
+    path: "/dashboard/basic/trades",
+    icon: <PThreeSvg />,
+  },
+  {
+    id: 19,
+    label: "Membership",
+    path: "/dashboard/basic/membership",
+    icon: <PSevenSvg />,
+  },
+  {
+    id: 20,
+    label: "Favorites",
+    path: "/dashboard/basic/favorites",
+    icon: <PTenSvg />,
+  },
+  {
+    id: 21,
+    label: "Member Spotlight",
+    path: "/dashboard/basic/member-spotlight",
+    icon: <PElevenSvg />,
+  },
+  {
+    id: 22,
+    label: "Notification",
+    path: "/dashboard/basic/notification",
+    icon: <PTwelveSvg />,
+  },
+  {
+    id: 23,
+    label: "Messages",
+    path: "/dashboard/basic/messages",
+    icon: <PThirteenSvg />,
+  },
+  {
+    id: 24,
+    label: "Settings",
+    path: "/dashboard/pro/settings",
+    icon: <PFifteenSvg />,
+  },
+];
+
+const customerNavLinks = [
+  {
+    id: 25,
+    label: "Orders",
+    path: "/dashboard/customer/orders",
+    icon: <PTwoSvg />,
+  },
+  {
+    id: 26,
+    label: "Favorites",
+    path: "/dashboard/customer/favorites",
+    icon: <PTenSvg />,
+  },
+  {
+    id: 27,
+    label: "Cart",
+    path: "/dashboard/customer/cart",
+    icon: <PSeventeenSvg />,
+  },
+  {
+    id: 28,
+    label: "Messages",
+    path: "/dashboard/customer/messages",
+    icon: <PThirteenSvg />,
+  },
+  {
+    id: 29,
+    label: "Membership",
+    path: "/dashboard/customer/membership",
+    icon: <PSevenSvg />,
+  },
+  {
+    id: 30,
+    label: "Reviews",
+    path: "/dashboard/customer/reviews",
+    icon: <PFourteenSvg />,
+  },
+  {
+    id: 31,
+    label: "Settings",
+    path: "/dashboard/customer/settings",
+    icon: <PFifteenSvg />,
+  },
+];
+
 export default function DashboardLayout({ children }: { children: ReactNode }) {
+  const user = "customer" as String;
   const [open, setOpen] = useState<boolean>(false);
 
   return (
@@ -112,12 +217,19 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       <Navbar />
 
       {/* Dashboard Content */}
+      {/* mt-[84px] h-[calc(100vh-84px)] */}
       <main className="flex overflow-x-hidden">
         {/* Left - Sidebar */}
         <DashboardSidebar
           open={open}
           setOpen={setOpen}
-          dashboardNavLinks={proNavLinks}
+          dashboardNavLinks={
+            user === "pro"
+              ? proNavLinks
+              : user === "basic"
+              ? basicNavLinks
+              : customerNavLinks
+          }
         />
 
         {/* Right - Outlet */}
