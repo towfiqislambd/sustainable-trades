@@ -432,7 +432,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
               />
             </div>
             <div className="flex gap-x-4 items-center">
-              <PinterestSvg />
+              <Pinterest/>
               <input
                 type="text"
                 placeholder="Type Your Pinterest link here"
