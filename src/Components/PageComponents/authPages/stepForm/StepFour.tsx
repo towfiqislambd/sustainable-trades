@@ -23,7 +23,7 @@ const StepFour = ({ step, setStep, onNext, onPrev }: StepFourProps) => {
 
   // Google Geocoding API
   const fetchLatLngFromAddress = async (address: string) => {
-    const API_KEY = "AIzaSyDmNO0nvvAkkxk6rYBDQEfVXVQPB9rKlsk";
+    const API_KEY = "AIzaSyBd0inSWCrbc_VfrUSb_kDr0VmbF2-dYdc"; 
     const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
       address
     )}&key=${API_KEY}`;
@@ -34,7 +34,7 @@ const StepFour = ({ step, setStep, onNext, onPrev }: StepFourProps) => {
       if (data.status === "OK" && data.results.length > 0) {
         return data.results[0].geometry.location;
       } else {
-        alert("Address not found. Please enter a valid address.");
+        alert("Address not found. Please enter a valid address or zip code.");
         return null;
       }
     } catch (error) {
@@ -50,11 +50,11 @@ const StepFour = ({ step, setStep, onNext, onPrev }: StepFourProps) => {
   };
 
   const handleSave = async (event: React.MouseEvent<HTMLButtonElement>) => {
-     event.preventDefault();
-     event.stopPropagation();
+    event.preventDefault();
+    event.stopPropagation();
     if (!selectedOption) return;
 
-    // Determine fields to validate
+    // Fields to validate based on option
     const fieldsToValidate =
       selectedOption === 1 || selectedOption === 2
         ? ["address1", "city", "state", "zipcode"]
@@ -66,22 +66,31 @@ const StepFour = ({ step, setStep, onNext, onPrev }: StepFourProps) => {
       return;
     }
 
-    // Construct address
+    // Construct full address
     let address = "";
     if (selectedOption === 1 || selectedOption === 2) {
-      const { address1, address2, city, state, zipcode } = getValues();
-      address = `${address1} ${address2 ?? ""}, ${city}, ${state} ${zipcode}`;
+      const { address1, address2, city, state, zipcode, country } = getValues();
+      address = `${address1} ${address2 ?? ""}, ${city}, ${state} ${zipcode}, ${
+        country ?? "USA"
+      }`;
     } else if (selectedOption === 3) {
-      const { zipcode } = getValues();
-      address = zipcode;
+      // Zip code only
+      const { zipcode, city, state, country } = getValues();
+      address = `${zipcode}${city ? ", " + city : ""}${
+        state ? ", " + state : ""
+      }, ${country ?? "USA"}`;
     }
 
+    // Fetch lat/lng
     const location = await fetchLatLngFromAddress(address);
     if (!location) return;
 
+    // Save location in form state
     setSelectedLocation(location);
     setValue("latitude", location.lat);
     setValue("longitude", location.lng);
+
+    // Close modal
     setIsModalOpen(false);
   };
 
@@ -100,7 +109,7 @@ const StepFour = ({ step, setStep, onNext, onPrev }: StepFourProps) => {
         <iframe
           src={
             selectedLocation
-              ? `https://www.google.com/maps/embed/v1/place?key=YOUR_GOOGLE_API_KEY&q=${selectedLocation.lat},${selectedLocation.lng}`
+              ? `https://www.google.com/maps/embed/v1/place?key=AIzaSyBd0inSWCrbc_VfrUSb_kDr0VmbF2-dYdc&q=${selectedLocation.lat},${selectedLocation.lng}`
               : "https://www.google.com/maps/embed?pb=!1m18..."
           }
           className="top-0 left-0 filter brightness-75 relative w-full h-[600px] rounded-lg overflow-hidden"
@@ -149,9 +158,9 @@ const StepFour = ({ step, setStep, onNext, onPrev }: StepFourProps) => {
           Back
         </button>
         <button
-          onClick={(e) => {
-             e.preventDefault();
-             e.stopPropagation();
+          onClick={e => {
+            e.preventDefault();
+            e.stopPropagation();
             const lat = getValues("latitude");
             const lng = getValues("longitude");
             if (!lat || !lng) {
