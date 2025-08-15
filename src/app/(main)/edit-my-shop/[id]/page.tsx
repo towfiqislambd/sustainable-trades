@@ -108,11 +108,6 @@ const page = () => {
             </div>
           </div>
         </div>
-        <div className="">
-          <h2 className=" text-[#274F45] text-[20px] font-semibold">
-            Your Shop
-          </h2>
-        </div>
       </Container>
     </section>
   );
