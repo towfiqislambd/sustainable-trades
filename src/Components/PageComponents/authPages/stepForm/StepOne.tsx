@@ -16,28 +16,6 @@ const StepOne = ({ step, setStep, totalSteps }: any) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showRePassword, setShowRePassword] = useState(false);
 
-  // Watch preview from RHF state
-  const profilePhotoPreview = watch("profilePhotoPreview");
-
-  const handleImageChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    field: "profilePhoto",
-    previewField: "profilePhotoPreview"
-  ) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setValue(field, file, { shouldValidate: true });
-
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setValue(previewField, reader.result as string, {
-          shouldValidate: true,
-        });
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   return (
     <>
       <h2 className="auth_title mt-16">Profile Info</h2>
@@ -52,61 +30,6 @@ const StepOne = ({ step, setStep, totalSteps }: any) => {
         <h6 className="text-[16px] text-[#4B4A47] font-normal font-lato">
           Note: Email and password entered here will be your login credentials
         </h6>
-
-        {/* Profile Picture Upload */}
-        <div className="mt-8">
-          <p className="form-label">Profile Picture *</p>
-          <div
-            className="relative bg-[#F0EEE9] h-[150px] w-[150px] rounded-full mt-4 flex flex-col justify-center items-center cursor-pointer overflow-hidden border border-[#A7A39C]"
-            onClick={() =>
-              document.getElementById("profilePhotoInput")?.click()
-            }
-          >
-            {profilePhotoPreview ? (
-              <>
-                <img
-                  src={profilePhotoPreview}
-                  alt="Profile Preview"
-                  className="h-full w-full object-cover"
-                />
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-black/10 bg-opacity-40 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-full">
-                  {/* You can use any icon here */}
-                  <Camera/>
-                </div>
-              </>
-            ) : (
-              <>
-                <Camera />
-                <p>Add Photo</p>
-              </>
-            )}
-          </div>
-          <input
-            type="file"
-            id="profilePhotoInput"
-            accept="image/*"
-            className="hidden"
-            {...register("profilePhoto", {
-              validate: (_, formValues) => {
-                if (formValues.profilePhoto instanceof File) return true;
-                if (formValues.profilePhotoPreview) return true;
-                return "Profile picture is required";
-              },
-            })}
-            onChange={e =>
-              handleImageChange(e, "profilePhoto", "profilePhotoPreview")
-            }
-          />
-          {errors.profilePhoto && (
-            <p className="text-red-600">
-              {errors.profilePhoto.message as string}
-            </p>
-          )}
-          <h5 className="text-[#67645F] text-[14px] mt-2">
-            Max file size: 10 MB
-          </h5>
-        </div>
 
         <div className="mt-12 grid grid-cols-2 gap-x-[96px] gap-y-10 font-lato">
           {/* First Name */}
