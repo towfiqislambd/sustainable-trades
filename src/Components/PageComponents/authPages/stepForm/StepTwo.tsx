@@ -32,15 +32,15 @@ const StepTwo = ({ step, setStep, totalSteps }: any) => {
   };
 
   return (
-    <section className="mt-16">
+    <section className="lg:mt-16 mt-5">
       <h2 className="auth_title">Your Shop</h2>
 
       {/* Shop Info */}
-      <div className="border border-[#A7A39C] rounded-[20px] my-[56px] p-20">
+      <div className="border border-[#A7A39C] rounded-[20px] lg:my-[56px] my-6 xl:p-20 p-10">
         <p className="text-[16px] text-[#4B4A47] font-normal font-lato">
           <span className="text-[#8B200C]">*</span>Indicates a required field
         </p>
-        <div className="mt-12 grid grid-cols-2 gap-x-[96px] items-center gap-y-10 font-lato">
+        <div className="xl:mt-12 mt-5 grid lg:grid-cols-2 grid-cols-1 xl:gap-x-[96px] gap-x-10 items-center lg:gap-y-10 gap-y-5 font-lato">
           {/* Shop Name */}
           <div>
             <p className="form-label">Name Your Shop *</p>
@@ -99,15 +99,15 @@ const StepTwo = ({ step, setStep, totalSteps }: any) => {
         </div>
       </div>
 
-      <div className="border border-[#A7A39C] rounded-[20px] mt-8 mb-[56px] p-20">
-        <div className="flex gap-x-8">
+      <div className="border border-[#A7A39C] rounded-[20px] mt-8 mb-[56px] xl:p-20 p-5 py-10">
+        <div className="lg:flex gap-x-8">
           {/* Shop Photo */}
           <div>
-            <p className="text-[18px] text-[#13141D] font-lato">
+            <p className="text-[18px] text-[#13141D] font-lato lg:text-start text-center">
               Add A Profile Photo *
             </p>
             <div
-              className="relative bg-[#F0EEE9] h-[270px] w-[270px] rounded-full mt-6 flex flex-col justify-center items-center cursor-pointer overflow-hidden"
+              className="relative bg-[#F0EEE9] sm:h-[270px] sm:w-[270px] w-[220px] h-[220px] rounded-full mt-6 flex flex-col justify-center items-center cursor-pointer overflow-hidden"
               onClick={() => document.getElementById("shopPhotoInput")?.click()}
             >
               {shopPhotoPreview ? (
@@ -160,9 +160,9 @@ const StepTwo = ({ step, setStep, totalSteps }: any) => {
           </div>
 
           {/* Cover Photo */}
-          <div className="w-full">
-            <p className="text-[18px] text-[#13141D] font-lato">
-              Add A Cover Photo *
+          <div className="w-full lg:mt-0 mt-10">
+            <p className="text-[18px] text-[#13141D] font-lato lg:text-start text-center">
+              Add A Shop Banner *
             </p>
             <div
               className="relative bg-[#F0EEE9] h-[270px] w-full rounded-[8px] mt-6 flex flex-col justify-center items-center cursor-pointer overflow-hidden"
@@ -222,15 +222,18 @@ const StepTwo = ({ step, setStep, totalSteps }: any) => {
       </div>
 
       {/* Buttons */}
-      <div className="flex justify-between items-center">
+      <div className="md:flex justify-between items-center">
         <button
           type="button"
           onClick={() => setStep(step - 1)}
-          className="auth-primary-btn"
+          className="auth-primary-btn w-full md:w-fit"
         >
           Back
         </button>
-        <button type="submit" className="auth-secondary-btn">
+        <button
+          type="submit"
+          className="auth-secondary-btn md:mt-0 mt-3 w-full md:w-fit"
+        >
           {step < totalSteps ? "Save and Continue" : "Submit"}
         </button>
       </div>

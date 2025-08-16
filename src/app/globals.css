@@ -94,5 +94,10 @@ body {
 }
 
 .side-scrollbar::-webkit-scrollbar {
-  display: none; 
+  display: none;
+}
+
+.product_img .swiper-button-prev::after,
+.product_img .swiper-button-next::after {
+  @apply text-primary-green;
 }

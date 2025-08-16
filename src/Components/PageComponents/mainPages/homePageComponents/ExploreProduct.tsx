@@ -7,6 +7,7 @@ import E4 from "@/Assets/e4.jpg";
 import E5 from "@/Assets/e5.png";
 import E6 from "@/Assets/e6.png";
 import Container from "@/Components/Common/Container";
+import Link from "next/link";
 
 const data = [
   {
@@ -61,7 +62,11 @@ const ExploreProduct = () => {
 
         <div className="grid grid-cols-4 gap-x-10 gap-y-16">
           {data?.map(item => (
-            <div key={item?.id} className="text-center">
+            <Link
+              href={`/product-details/${item?.id}`}
+              key={item?.id}
+              className="text-center"
+            >
               <figure className="size-52 mx-auto cursor-pointer rounded-full overflow-hidden">
                 <Image
                   src={item?.product_image}
@@ -73,7 +78,7 @@ const ExploreProduct = () => {
               <h3 className="mt-4 text-lg text-accent-white">
                 {item?.product_name}
               </h3>
-            </div>
+            </Link>
           ))}
         </div>
       </Container>
