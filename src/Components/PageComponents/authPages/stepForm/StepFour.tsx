@@ -171,7 +171,7 @@ const StepFour = ({ step, setStep, onNext, onPrev }: StepFourProps) => {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4">
-          <div className="bg-[#FEFEFE] rounded-lg p-6 max-w-lg w-full pt-[52px] px-6 sm:px-8 pb-8 relative">
+          <div className="bg-[#f7f7f7] rounded-lg p-6 max-w-lg w-full pt-[52px] px-6 sm:px-8 pb-8 relative">
             {selectedOption && (
               <>
                 <p className="mb-4 text-sm sm:text-base">
