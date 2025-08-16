@@ -10,6 +10,7 @@ import PaymentCardIcons, {
   Pinterest,
   Website,
 } from "@/Components/Svg/SvgContainer";
+import { LiaExclamationCircleSolid } from "react-icons/lia";
 
 interface StepThreeProps {
   onNext: () => void;
@@ -20,9 +21,11 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
   const {
     register,
     control,
+    handleSubmit,
     formState: { errors },
     watch,
     setValue,
+    trigger,
   } = useFormContext();
 
   const { fields, append, remove } = useFieldArray({
@@ -30,40 +33,29 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
     name: "faqs",
   });
 
-  const [showFaqForm, setShowFaqForm] = useState(false);
   const [newFaq, setNewFaq] = useState({ question: "", answer: "" });
   const [editingFaqIndex, setEditingFaqIndex] = useState<number | null>(null);
+  const [profileFile, setProfileFile] = useState<File | null>(null);
 
   const profilePhotoPreview = watch("profilePhotoPreview");
 
   // Handle profile image
-  const handleImageChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    field: "profilePhoto",
-    previewField: "profilePhotoPreview"
-  ) => {
-    const file = e.target.files?.[0];
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
     if (file) {
-      setValue(field, file, { shouldValidate: true });
+      setProfileFile(file);
       const reader = new FileReader();
       reader.onloadend = () => {
-        setValue(previewField, reader.result as string, {
+        setValue("profilePhotoPreview", reader.result as string, {
           shouldValidate: true,
         });
+        trigger("profilePhoto"); // trigger validation when preview updates
       };
       reader.readAsDataURL(file);
     }
   };
 
   // FAQ Handlers
-  const handleAddFaq = () => {
-    if (fields.length >= 10) {
-      alert("Maximum 10 FAQs allowed");
-      return;
-    }
-    setShowFaqForm(true);
-  };
-
   const handleSaveFaq = () => {
     if (newFaq.question.trim() && newFaq.answer.trim()) {
       if (editingFaqIndex !== null) {
@@ -75,39 +67,41 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
         append(newFaq);
       }
       setNewFaq({ question: "", answer: "" });
-      setShowFaqForm(false);
     } else {
       alert("Please fill both question and answer");
     }
-  };
-
-  const handleCancelFaq = () => {
-    setNewFaq({ question: "", answer: "" });
-    setShowFaqForm(false);
-    setEditingFaqIndex(null);
   };
 
   const handleEditFaq = (index: number) => {
     const faq = watch("faqs")[index];
     setNewFaq(faq);
     setEditingFaqIndex(index);
-    setShowFaqForm(true);
   };
 
   const handleDeleteFaq = (index: number) => {
     remove(index);
   };
-
   return (
     <section className="">
-      <h2 className="auth_title mt-16">About Your Shop</h2>
+      <h2 className="auth_title lg:mt-16 mt-8">About Your Shop</h2>
 
-      <div className="border border-[#A7A39C] rounded-[20px] my-[56px] p-20">
+      <div className="border border-[#A7A39C] rounded-[20px] lg:my-[56px] my-8 lg:p-20 py-10 px-5">
         {/* Profile Picture */}
         <div className="mt-8">
-          <p className="form-label">Profile Picture *</p>
+          <p className="form-label text-center lg:text-start">
+            About Your Shop Photo *
+          </p>
+          <div className="relative inline-block group">
+            <LiaExclamationCircleSolid className="cursor-pointer text-red-500 text-3xl lg:block hidden" />
+            <p className="absolute left-full top-1/2 -translate-y-1/2 ml-2 w-64 bg-white text-red-400 text-[14px] p-2 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out z-10">
+              This Photo will appear in your about shop section. Choose an image
+              that best represents the goods or services you offer. You can
+              change or update it anytime in my edit page.
+            </p>
+          </div>
+
           <div
-            className="relative bg-[#F0EEE9] h-[150px] w-[150px] rounded-full mt-4 flex flex-col justify-center items-center cursor-pointer overflow-hidden border border-[#A7A39C]"
+            className="relative bg-[#F0EEE9] lg:mx-0 mx-auto h-[150px] w-[150px] rounded-full mt-4 flex flex-col justify-center items-center cursor-pointer overflow-hidden border border-[#A7A39C]"
             onClick={() =>
               document.getElementById("profilePhotoInput")?.click()
             }
@@ -136,32 +130,28 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
             accept="image/*"
             className="hidden"
             {...register("profilePhoto", {
-              validate: (_, formValues) => {
-                if (formValues.profilePhoto instanceof File) return true;
-                if (formValues.profilePhotoPreview) return true;
+              validate: () => {
+                if (profileFile || profilePhotoPreview) return true;
                 return "Profile picture is required";
               },
             })}
-            onChange={e =>
-              handleImageChange(e, "profilePhoto", "profilePhotoPreview")
-            }
+            onChange={handleImageChange}
           />
           {errors.profilePhoto && (
             <p className="text-red-600">
               {errors.profilePhoto.message as string}
             </p>
           )}
-          <h5 className="text-[#67645F] text-[14px] mt-2">
+          <h5 className="text-[#67645F] text-[14px] mt-2 lg:text-start text-center">
             Max file size: 10 MB
           </h5>
         </div>
 
         {/* About Your Shop */}
-        <div className="my-8 border rounded-lg p-8">
+        <div className="my-8 border rounded-lg lg:p-8 p-4">
           <p className="text-[20px] font-normal text-[#13141D] mb-4">
             About Shop
           </p>
-
           <div className="mb-4">
             <label className="block text-[#4B4A47] font-semibold mb-1">
               Company Name
@@ -229,7 +219,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
         </div>
 
         {/* Shop Policies */}
-        <div className="border rounded-lg p-8">
+        <div className="border rounded-lg lg:p-8 p-4">
           <p className="text-[20px] font-normal text-[#13141D] mb-4">
             Shop Policies
           </p>
@@ -294,115 +284,96 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
           </div>
         </div>
 
-        {/* Add FAQ Button */}
-        <div className="mt-6">
-          <button
-            type="button"
-            onClick={handleAddFaq}
-            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-          >
-            + Add FAQ
-          </button>
-        </div>
-
         {/* FAQ Form */}
-        {showFaqForm && (
-          <div className="border p-4 rounded mt-4">
-            <input
-              type="text"
-              placeholder="Question"
-              value={newFaq.question}
-              onChange={e => setNewFaq({ ...newFaq, question: e.target.value })}
-              className="border p-2 rounded w-full mb-2"
-            />
-            <textarea
-              placeholder="Answer"
-              value={newFaq.answer}
-              onChange={e => setNewFaq({ ...newFaq, answer: e.target.value })}
-              className="border p-2 rounded w-full mb-2"
-            />
-            <div className="flex gap-2">
+        <div className="border p-4 rounded mt-6">
+          <h3 className="text-lg font-semibold mb-2">Add FAQ</h3>
+          <input
+            type="text"
+            placeholder="Question"
+            value={newFaq.question}
+            onChange={e => setNewFaq({ ...newFaq, question: e.target.value })}
+            className="border p-2 rounded w-full mb-2"
+          />
+          <textarea
+            placeholder="Answer"
+            value={newFaq.answer}
+            onChange={e => setNewFaq({ ...newFaq, answer: e.target.value })}
+            className="border p-2 rounded w-full mb-2"
+          />
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={handleSaveFaq}
+              className="bg-blue-600 text-white px-4 py-2 rounded"
+            >
+              {editingFaqIndex !== null ? "Update" : "Save"}
+            </button>
+            {editingFaqIndex !== null && (
               <button
                 type="button"
-                onClick={handleSaveFaq}
-                className="bg-blue-600 text-white px-4 py-2 rounded"
-              >
-                Save
-              </button>
-              <button
-                type="button"
-                onClick={handleCancelFaq}
+                onClick={() => {
+                  setNewFaq({ question: "", answer: "" });
+                  setEditingFaqIndex(null);
+                }}
                 className="bg-gray-300 text-gray-800 px-4 py-2 rounded"
               >
-                Cancel
+                Cancel Edit
               </button>
-            </div>
+            )}
           </div>
-        )}
+        </div>
 
         {/* FAQ List */}
-        {fields.length > 0 && (
-          <div className="border border-gray-200 rounded-lg overflow-hidden mt-4">
-            <div className="bg-gray-50 px-4 py-3 border-b border-gray-200">
-              <div className="grid grid-cols-12 gap-4 text-sm font-medium text-gray-700">
-                <div className="col-span-1">#</div>
-                <div className="col-span-4">Question</div>
-                <div className="col-span-5">Answer</div>
-                <div className="col-span-2">Actions</div>
+        <div className="mt-4">
+          {fields.length > 0 ? (
+            <div className="border border-gray-200 rounded-lg overflow-hidden">
+              <div className="bg-gray-50 px-4 py-3 border-b border-gray-200">
+                <div className="grid grid-cols-12 gap-4 text-sm font-medium text-gray-700">
+                  <div className="col-span-1">#</div>
+                  <div className="col-span-4">Question</div>
+                  <div className="col-span-5">Answer</div>
+                  <div className="col-span-2">Actions</div>
+                </div>
               </div>
-            </div>
-            <div className="divide-y divide-gray-200">
-              {fields.map((field, index) => {
-                const faq = watch("faqs")[index];
-                return (
-                  <div key={field.id} className="px-4 py-3">
-                    <div className="grid grid-cols-12 gap-4 items-center">
-                      <div className="col-span-1 text-sm text-gray-600">
-                        {index + 1}
-                      </div>
-                      <div className="col-span-4 text-sm text-gray-900">
-                        {faq?.question}
-                      </div>
-                      <div className="col-span-5 text-sm text-gray-600 truncate">
-                        {faq?.answer}
-                      </div>
-                      <div className="col-span-2 flex gap-2">
-                        <button
-                          type="button"
-                          onClick={() => handleEditFaq(index)}
-                          className="p-1 text-green-600 hover:bg-green-100 rounded cursor-pointer"
-                        >
-                          <svg
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
+              <div className="divide-y divide-gray-200">
+                {fields.map((field, index) => {
+                  const faq = watch("faqs")[index];
+                  return (
+                    <div key={field.id} className="px-4 py-3">
+                      <div className="grid grid-cols-12 gap-4 items-center">
+                        <div className="col-span-1 text-sm text-gray-600">
+                          {index + 1}
+                        </div>
+                        <div className="col-span-4 text-sm text-gray-900">
+                          {faq?.question}
+                        </div>
+                        <div className="col-span-5 text-sm text-gray-600 truncate">
+                          {faq?.answer}
+                        </div>
+                        <div className="col-span-2 flex gap-2">
+                          <button
+                            type="button"
+                            onClick={() => handleEditFaq(index)}
+                            className="p-1 text-green-600 hover:bg-green-100 rounded cursor-pointer"
                           >
-                            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
-                          </svg>
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleDeleteFaq(index)}
-                          className="p-1 text-red-600 hover:bg-red-100 rounded cursor-pointer"
-                        >
-                          <svg
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
+                            ✏️
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteFaq(index)}
+                            className="p-1 text-red-600 hover:bg-red-100 rounded cursor-pointer"
                           >
-                            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
-                          </svg>
-                        </button>
+                            🗑
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        )}
+          ) : null}
+        </div>
 
         <li className="text-[16px] text-[#4B4A47] font-semibold list-disc mt-2">
           You can add up to 10 FAQs ({fields.length}/10)
@@ -455,12 +426,20 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
       </div>
 
       {/* Buttons */}
-      <div className="flex justify-between items-center mt-8">
-        <button type="button" onClick={onPrev} className="auth-primary-btn">
+      <div className="md:flex justify-between items-center mt-8">
+        <button
+          type="button"
+          onClick={onPrev}
+          className="auth-primary-btn w-full md:w-fit"
+        >
           Back
         </button>
         <div className="flex gap-x-5">
-          <button type="button" onClick={onNext} className="auth-secondary-btn">
+          <button
+            type="button"
+            onClick={handleSubmit(onNext)}
+            className="auth-secondary-btn md:mt-0 mt-3 w-full md:w-fit"
+          >
             Save & Continue
           </button>
         </div>

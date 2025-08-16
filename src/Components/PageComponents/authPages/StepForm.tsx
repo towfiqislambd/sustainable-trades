@@ -8,64 +8,73 @@ import StepFive from "./stepForm/StepFive";
 import { CheckSvg, StepSvg } from "@/Components/Svg/SvgContainer";
 import { useForm, FormProvider } from "react-hook-form";
 
+// Step type
+type StepItem = {
+  smLabel: string;
+  lgLabel: string;
+  component: React.ComponentType<any>;
+};
+
 const StepForm = () => {
   const [step, setStep] = useState(1);
   const onNext = () => setStep(prev => Math.min(prev + 1, steps.length));
   const onPrev = () => setStep(prev => Math.max(prev - 1, 1));
 
   // Hook Form instance (shared for all steps)
-const methods = useForm({
-  defaultValues: {
-    // StepOne
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    password: "",
-    rePassword: "",
-    companyName: "",
-    profilePhoto: null,
-    profilePhotoPreview: null,
+  const methods = useForm({
+    defaultValues: {
+      // StepOne
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      password: "",
+      rePassword: "",
+      companyName: "",
+      profilePhoto: null,
+      profilePhotoPreview: null,
 
-    // StepTwo
-    shopName: "",
-    cityState: "",
-    shopPhoto: null,
-    coverPhoto: null,
-    shopPhotoPreview: null,
-    coverPhotoPreview: null,
+      // StepTwo
+      shopName: "",
+      cityState: "",
+      shopPhoto: null,
+      coverPhoto: null,
+      shopPhotoPreview: null,
+      coverPhotoPreview: null,
 
-    // StepThree
-    aboutShop: "",
-    shopPolicies: "",
-    faqs: [{ question: "", answer: "" }],
-    websiteLink: "",
-    facebookLink: "",
-    instagramLink: "",
-    pinterestLink: "",
+      // StepThree
+      aboutShop: "",
+      shopPolicies: "",
+      faqs: [],
+      websiteLink: "",
+      facebookLink: "",
+      instagramLink: "",
+      pinterestLink: "",
 
-    // StepFour
-    geoLocatorOption: null, // user's choice (1,2,3)
-    address1: "", // used for modal validation
-    address2: "",
-    city: "",
-    state: "",
-    zipcode: "",
-    latitude: null, // final data to submit
-    longitude: null, // final data to submit
-  },
-  mode: "onBlur",
-});
+      // StepFour
+      geoLocatorOption: null,
+      address1: "",
+      address2: "",
+      city: "",
+      state: "",
+      zipcode: "",
+      latitude: null,
+      longitude: null,
+    },
+    mode: "onBlur",
+  });
 
-
-
-
-  const steps = [
-    { label: "Profile Info", component: StepOne },
-    { label: "Your Shop", component: StepTwo },
-    { label: "About Your Shop", component: StepThree },
-    { label: "Geo-Locator", component: StepFour },
-    { label: "Choose A Membership", component: StepFive },
+  // Steps array
+  const steps: StepItem[] = [
+    { smLabel: "Profile", lgLabel: "Profile Info", component: StepOne },
+    { smLabel: "Shop", lgLabel: "Your Shop", component: StepTwo },
+    { smLabel: "About", lgLabel: "About Your Shop", component: StepThree },
+    { smLabel: "Locator", lgLabel: "Geo-Locator", component: StepFour },
+    {
+      smLabel: "Membership",
+      lgLabel: "Choose A Membership",
+      component: StepFive,
+    },
   ];
 
   const CurrentStep = steps[step - 1].component;
@@ -82,7 +91,7 @@ const methods = useForm({
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         {/* Step bar */}
-        <div className="flex gap-28 justify-center items-center">
+        <div className="flex 2xl:gap-28 xl:gap-x-20 gap-5 justify-center items-center">
           {steps.map((item, index) => {
             const isActive = index + 1 === step;
             const isCompleted = index + 1 < step;
@@ -97,15 +106,17 @@ const methods = useForm({
                 <div
                   className={`rounded-full grid place-items-center mx-auto mb-2 ${
                     isActive || isCompleted
-                      ? "bg-primary-green size-12"
-                      : "bg-[#77978F] size-10"
-                  }
-                    `}
+                      ? "bg-primary-green lg:size-12 size-6"
+                      : "bg-[#77978F] lg:size-10 size-5"
+                  }`}
                 >
                   {isActive && <StepSvg />}
                   {isCompleted && <CheckSvg />}
                 </div>
-                <p>{item.label}</p>
+                <p className="text-[12px] lg:text-[18px]">
+                  <span className="block lg:hidden">{item.smLabel}</span>
+                  <span className="hidden lg:block">{item.lgLabel}</span>
+                </p>
               </div>
             );
           })}
