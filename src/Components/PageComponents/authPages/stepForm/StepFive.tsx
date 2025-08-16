@@ -1,5 +1,6 @@
 import React from "react";
 import Pricing from "../../mainPages/homePageComponents/Pricing";
+import Link from "next/link";
 type FormData = {
   name?: string;
   email?: string;
@@ -29,7 +30,9 @@ const StepFive = ({ step, setStep, totalSteps }: any) => {
         <button onClick={() => setStep(step - 1)} className="auth-primary-btn">
           Back
         </button>
-        <button className="auth-secondary-btn">Save and Continue</button>
+        <Link href="/onBoarding">
+          <button className="auth-secondary-btn">Save and Continue</button>
+        </Link>
       </div>
     </section>
   );
