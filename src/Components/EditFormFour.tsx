@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 
 type FormValues = {
-  geoOption: string; // 'exact', 'radius', 'zip'
   country?: string;
   address?: string;
   city?: string;
@@ -13,20 +12,46 @@ type FormValues = {
 };
 
 const EditFormFour: React.FC = () => {
+  const [activeOption, setActiveOption] = useState<"exact" | "radius" | "zip">(
+    "exact"
+  );
+
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
+    reset,
+    watch,
   } = useForm<FormValues>({
-    defaultValues: { geoOption: "" },
+    defaultValues: {
+      country: "Bangladesh",
+      address: "Dhaka Street 123",
+      city: "Dhaka",
+      state: "Dhaka",
+      zipcode: "1000",
+    },
   });
-
-  const geoOption = watch("geoOption");
 
   const onSubmit = (data: FormValues) => {
     console.log("Geo form data:", data);
   };
+
+  // Reset form values when option changes
+  useEffect(() => {
+    if (activeOption === "zip") {
+      // Keep only zipcode
+      reset({ zipcode: watch("zipcode") || "" });
+    } else {
+      // Keep full address info
+      reset({
+        country: watch("country") || "",
+        address: watch("address") || "",
+        city: watch("city") || "",
+        state: watch("state") || "",
+        zipcode: watch("zipcode") || "",
+      });
+    }
+  }, [activeOption]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -38,8 +63,8 @@ const EditFormFour: React.FC = () => {
       <div className="flex gap-x-8 mb-8">
         <input
           type="checkbox"
-          value="exact"
-          {...register("geoOption", { required: "Choose a location option" })}
+          checked={activeOption === "exact"}
+          onChange={() => setActiveOption("exact")}
           className="border-2 mt-2 cursor-pointer size-5"
         />
         <div>
@@ -48,13 +73,15 @@ const EditFormFour: React.FC = () => {
           </h3>
           <p>Anyone on Sustainable Trades can view your exact address.</p>
 
-          {geoOption === "exact" && (
+          {activeOption === "exact" && (
             <div className="mt-8 space-y-4">
               <div>
                 <p className="form-label font-bold">Country/Region *</p>
                 <input
                   type="text"
-                  {...register("country", { required: "Country is required" })}
+                  {...register("country", {
+                    required: "Country is required",
+                  })}
                   className="form-input"
                   placeholder="Country/Region"
                 />
@@ -62,11 +89,14 @@ const EditFormFour: React.FC = () => {
                   <p className="text-red-600">{errors.country.message}</p>
                 )}
               </div>
+
               <div>
                 <p className="form-label font-bold">Address *</p>
                 <input
                   type="text"
-                  {...register("address", { required: "Address is required" })}
+                  {...register("address", {
+                    required: "Address is required",
+                  })}
                   className="form-input"
                   placeholder="Address"
                 />
@@ -74,6 +104,7 @@ const EditFormFour: React.FC = () => {
                   <p className="text-red-600">{errors.address.message}</p>
                 )}
               </div>
+
               <div className="flex gap-4">
                 <div>
                   <p className="form-label font-bold">City *</p>
@@ -87,6 +118,7 @@ const EditFormFour: React.FC = () => {
                     <p className="text-red-600">{errors.city.message}</p>
                   )}
                 </div>
+
                 <div>
                   <p className="form-label font-bold">State *</p>
                   <input
@@ -99,6 +131,7 @@ const EditFormFour: React.FC = () => {
                     <p className="text-red-600">{errors.state.message}</p>
                   )}
                 </div>
+
                 <div>
                   <p className="form-label font-bold">Zipcode *</p>
                   <input
@@ -123,8 +156,8 @@ const EditFormFour: React.FC = () => {
       <div className="flex gap-x-8 mb-8">
         <input
           type="checkbox"
-          value="radius"
-          {...register("geoOption")}
+          checked={activeOption === "radius"}
+          onChange={() => setActiveOption("radius")}
           className="border-2 mt-2 cursor-pointer size-5"
         />
         <div>
@@ -133,13 +166,15 @@ const EditFormFour: React.FC = () => {
           </h3>
           <p>Your exact location will remain private.</p>
 
-          {geoOption === "radius" && (
+          {activeOption === "radius" && (
             <div className="mt-8 space-y-4">
               <div>
                 <p className="form-label font-bold">Country/Region *</p>
                 <input
                   type="text"
-                  {...register("country", { required: "Country is required" })}
+                  {...register("country", {
+                    required: "Country is required",
+                  })}
                   className="form-input"
                   placeholder="Country/Region"
                 />
@@ -147,6 +182,7 @@ const EditFormFour: React.FC = () => {
                   <p className="text-red-600">{errors.country.message}</p>
                 )}
               </div>
+
               <div>
                 <p className="form-label font-bold">Address *</p>
                 <input
@@ -159,6 +195,7 @@ const EditFormFour: React.FC = () => {
                   <p className="text-red-600">{errors.address.message}</p>
                 )}
               </div>
+
               <div className="flex gap-4">
                 <div>
                   <p className="form-label font-bold">City *</p>
@@ -172,6 +209,7 @@ const EditFormFour: React.FC = () => {
                     <p className="text-red-600">{errors.city.message}</p>
                   )}
                 </div>
+
                 <div>
                   <p className="form-label font-bold">State *</p>
                   <input
@@ -184,6 +222,7 @@ const EditFormFour: React.FC = () => {
                     <p className="text-red-600">{errors.state.message}</p>
                   )}
                 </div>
+
                 <div>
                   <p className="form-label font-bold">Zipcode *</p>
                   <input
@@ -208,8 +247,8 @@ const EditFormFour: React.FC = () => {
       <div className="flex gap-x-8 mb-8">
         <input
           type="checkbox"
-          value="zip"
-          {...register("geoOption")}
+          checked={activeOption === "zip"}
+          onChange={() => setActiveOption("zip")}
           className="border-2 mt-2 cursor-pointer size-5"
         />
         <div>
@@ -217,12 +256,11 @@ const EditFormFour: React.FC = () => {
             Your exact location will remain private.
           </h3>
           <p>
-            Do not display my address your shop pin will appear within your zip
-            code area for privacy.You can still choose to share to exact
-            location when a trade or scale occurs
+            Do not display my address — your shop pin will appear within your
+            zip code area for privacy.
           </p>
 
-          {geoOption === "zip" && (
+          {activeOption === "zip" && (
             <div className="mt-8">
               <p className="form-label font-bold">Zipcode *</p>
               <input

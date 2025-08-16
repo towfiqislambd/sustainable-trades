@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { useForm, useFieldArray, Controller } from "react-hook-form";
-import {
+import { useForm, useFieldArray } from "react-hook-form";
+import PaymentCardIcons, {
   Website,
   Facebook,
   Instagram,
@@ -37,18 +37,30 @@ const EditFormThree: React.FC = () => {
     setValue,
   } = useForm<FormValues>({
     defaultValues: {
-      aboutShopTagline: "",
-      aboutShopStatement: "",
-      aboutShopStory: "",
-      shopPaymentMethods: "",
-      shopShippingInfo: "",
-      shopReturnsInfo: "",
-      faqs: [],
+      aboutShopTagline: "Your catchy tagline here",
+      aboutShopStatement: "Short two-sentence statement about your shop.",
+      aboutShopStory:
+        "Tell the story behind your shop, your journey, values, and passion.",
+      shopPaymentMethods: "Cash, PayPal, Venmo, Credit Card",
+      shopShippingInfo:
+        "Orders ship within 3 business days via USPS. Local pickup in Austin, TX available. Shipping to U.S. only.",
+      shopReturnsInfo:
+        "Returns accepted within 14 days of delivery. Items must be unused and in original packaging.",
+      faqs: [
+        {
+          question: "What is your return policy?",
+          answer: "14-day return policy.",
+        },
+        {
+          question: "Do you ship internationally?",
+          answer: "Currently only within the U.S.",
+        },
+      ],
       socialMedia: {
-        website: "",
-        facebook: "",
-        instagram: "",
-        pinterest: "",
+        website: "https://myshop.com",
+        facebook: "https://facebook.com/myshop",
+        instagram: "https://instagram.com/myshop",
+        pinterest: "https://pinterest.com/myshop",
       },
     },
   });
@@ -125,7 +137,6 @@ const EditFormThree: React.FC = () => {
             {...register("aboutShopTagline", {
               maxLength: { value: 120, message: "Max 15 words" },
             })}
-            placeholder="Write a short, memorable tagline that captures your business."
             className="form-input"
           />
           {errors.aboutShopTagline && (
@@ -144,7 +155,6 @@ const EditFormThree: React.FC = () => {
             {...register("aboutShopStatement", {
               maxLength: { value: 350, message: "Max 50 words" },
             })}
-            placeholder="In two sentences, tell shoppers who you are and what you offer."
             className="form-input"
           />
           {errors.aboutShopStatement && (
@@ -162,7 +172,6 @@ const EditFormThree: React.FC = () => {
             {...register("aboutShopStory", {
               maxLength: { value: 3000, message: "Max 450 words" },
             })}
-            placeholder="Tell the story behind your shop, your journey, values, and passion."
             className="form-input"
           />
           {errors.aboutShopStory && (
@@ -182,14 +191,12 @@ const EditFormThree: React.FC = () => {
             Accepted Payment Methods{" "}
             <span className="text-[#A7A39C]">(max 40 words)</span>
           </label>
-          {/* Replace with your actual PaymentCardIcons component */}
-          <div className="flex gap-2 mb-2">[PaymentCardIcons]</div>
+          <div className="flex gap-2 mb-2"><PaymentCardIcons/></div>
           <input
             type="text"
             {...register("shopPaymentMethods", {
               maxLength: { value: 250, message: "Max 40 words" },
             })}
-            placeholder="Example: Cash, PayPal, Venmo, Credit Card"
             className="form-input"
           />
           {errors.shopPaymentMethods && (
@@ -208,7 +215,6 @@ const EditFormThree: React.FC = () => {
             {...register("shopShippingInfo", {
               maxLength: { value: 500, message: "Max 75 words" },
             })}
-            placeholder="Example: Orders ship within 3 business days via USPS. Local pickup in Austin, TX available. Shipping to U.S. only."
             className="form-input"
           />
           {errors.shopShippingInfo && (
@@ -227,7 +233,6 @@ const EditFormThree: React.FC = () => {
             {...register("shopReturnsInfo", {
               maxLength: { value: 500, message: "Max 75 words" },
             })}
-            placeholder="Example: Returns accepted within 14 days of delivery. Items must be unused and in original packaging."
             className="form-input"
           />
           {errors.shopReturnsInfo && (
@@ -238,7 +243,7 @@ const EditFormThree: React.FC = () => {
         </div>
       </div>
 
-      {/* FAQ Form */}
+      {/* FAQ Section */}
       <div className="border p-4 rounded mt-6">
         <h3 className="text-lg font-semibold mb-2">Add FAQ</h3>
         <input
@@ -332,7 +337,7 @@ const EditFormThree: React.FC = () => {
         </li>
       </div>
 
-      {/* Link Your Shop Section */}
+      {/* Social Media Section */}
       <div className="mt-6">
         <p className="text-[20px] font-normal text-[#13141D] pb-4 pt-2">
           Link Your Shop <span className="text-[#67645F]">(Optional)</span>
@@ -376,7 +381,6 @@ const EditFormThree: React.FC = () => {
           </div>
         </div>
       </div>
-
     </form>
   );
 };

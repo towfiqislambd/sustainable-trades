@@ -1,14 +1,16 @@
 "use client";
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Camera } from "@/Components/Svg/SvgContainer";
+import Preview from "../Assets/cover.jpg";
 
 type FormValues = {
   shopPhoto: File | null;
   shopPhotoPreview: string;
   coverPhoto: File | null;
   coverPhotoPreview: string;
+  shopName: string;
+  cityState: string;
 };
 
 const EditFormTwo: React.FC = () => {
@@ -16,18 +18,22 @@ const EditFormTwo: React.FC = () => {
     control,
     handleSubmit,
     setValue,
+    register,
+    watch,
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
       shopPhoto: null,
-      shopPhotoPreview: "",
+      shopPhotoPreview: Preview.src,
       coverPhoto: null,
-      coverPhotoPreview: "",
+      coverPhotoPreview: Preview.src,
+      shopName: "My Shop Name",
+      cityState: "Dhaka, Bangladesh",
     },
   });
 
-  const [shopPhotoPreview, setShopPhotoPreview] = useState<string>("");
-  const [coverPhotoPreview, setCoverPhotoPreview] = useState<string>("");
+  const shopPhotoPreview = watch("shopPhotoPreview");
+  const coverPhotoPreview = watch("coverPhotoPreview");
 
   const handleImageChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -40,8 +46,6 @@ const EditFormTwo: React.FC = () => {
       reader.onloadend = () => {
         const result = reader.result as string;
         setValue(previewField, result, { shouldValidate: true });
-        if (previewField === "shopPhotoPreview") setShopPhotoPreview(result);
-        else setCoverPhotoPreview(result);
       };
       reader.readAsDataURL(file);
 
@@ -58,15 +62,20 @@ const EditFormTwo: React.FC = () => {
       <h2 className="mt-5 text-[#274F45] text-[20px] font-semibold">
         Your Shop
       </h2>
+
       <div className="mt-12 grid grid-cols-2 gap-x-[96px] items-center gap-y-10 font-lato">
         {/* Shop Name */}
         <div>
           <p className="form-label">Name Your Shop *</p>
           <input
             type="text"
+            {...register("shopName", { required: "Shop Name is required" })}
             className="form-input"
             placeholder="Name Your Shop *"
           />
+          {errors.shopName && (
+            <p className="text-red-600">{errors.shopName.message}</p>
+          )}
           <ul className="mt-[2px] text-[16px] text-[#4B4A47] ml-5">
             <li className="list-disc">Between 4-30 characters</li>
             <li className="list-disc">
@@ -79,9 +88,18 @@ const EditFormTwo: React.FC = () => {
           offered, this is the name that will show to others.
         </h5>
 
+        {/* City/State */}
         <div>
           <p className="form-label">City State *</p>
-          <input type="text" className="form-input" placeholder="City, State" />
+          <input
+            type="text"
+            {...register("cityState", { required: "City/State is required" })}
+            className="form-input"
+            placeholder="City, State"
+          />
+          {errors.cityState && (
+            <p className="text-red-600">{errors.cityState.message}</p>
+          )}
         </div>
         <h5 className="text-[16px] text-[#4B4A47]">
           This is so you show up in your local area on our Geo-locator map.{" "}
@@ -107,7 +125,7 @@ const EditFormTwo: React.FC = () => {
                     alt="Shop Preview"
                     className="h-full w-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-black/10 bg-opacity-40 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-full">
+                  <div className="absolute inset-0 bg-black/10 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-full">
                     <Camera />
                   </div>
                 </>
@@ -123,7 +141,7 @@ const EditFormTwo: React.FC = () => {
               name="shopPhoto"
               control={control}
               rules={{ required: "Shop profile photo is required" }}
-              render={({ field }) => (
+              render={() => (
                 <>
                   <input
                     type="file"
@@ -165,7 +183,7 @@ const EditFormTwo: React.FC = () => {
                     alt="Cover Preview"
                     className="h-full w-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-black/10 bg-opacity-40 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-[8px]">
+                  <div className="absolute inset-0 bg-black/10 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-[8px]">
                     <Camera />
                   </div>
                 </>
@@ -181,7 +199,7 @@ const EditFormTwo: React.FC = () => {
               name="coverPhoto"
               control={control}
               rules={{ required: "Cover photo is required" }}
-              render={({ field }) => (
+              render={() => (
                 <>
                   <input
                     type="file"
