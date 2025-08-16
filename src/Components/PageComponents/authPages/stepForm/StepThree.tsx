@@ -84,14 +84,14 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
   };
   return (
     <section className="">
-      <h2 className="auth_title mt-16">About Your Shop</h2>
+      <h2 className="auth_title lg:mt-16 mt-8">About Your Shop</h2>
 
-      <div className="border border-[#A7A39C] rounded-[20px] my-[56px] p-20">
+      <div className="border border-[#A7A39C] rounded-[20px] lg:my-[56px] my-8 lg:p-20 py-10 px-5">
         {/* Profile Picture */}
         <div className="mt-8">
-          <p className="form-label">About Your Shop Photo *</p>
+          <p className="form-label text-center lg:text-start">About Your Shop Photo *</p>
           <div className="relative inline-block group">
-            <LiaExclamationCircleSolid className="cursor-pointer text-red-500 text-3xl" />
+            <LiaExclamationCircleSolid className="cursor-pointer text-red-500 text-3xl lg:block hidden" />
             <p className="absolute left-full top-1/2 -translate-y-1/2 ml-2 w-64 bg-white text-red-400 text-[14px] p-2 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out z-10">
               This Photo will appear in your about shop section. Choose an image
               that best represents the goods or services you offer. You can
@@ -100,7 +100,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
           </div>
 
           <div
-            className="relative bg-[#F0EEE9] h-[150px] w-[150px] rounded-full mt-4 flex flex-col justify-center items-center cursor-pointer overflow-hidden border border-[#A7A39C]"
+            className="relative bg-[#F0EEE9] lg:mx-0 mx-auto h-[150px] w-[150px] rounded-full mt-4 flex flex-col justify-center items-center cursor-pointer overflow-hidden border border-[#A7A39C]"
             onClick={() =>
               document.getElementById("profilePhotoInput")?.click()
             }
@@ -141,13 +141,13 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
               {errors.profilePhoto.message as string}
             </p>
           )}
-          <h5 className="text-[#67645F] text-[14px] mt-2">
+          <h5 className="text-[#67645F] text-[14px] mt-2 lg:text-start text-center">
             Max file size: 10 MB
           </h5>
         </div>
 
         {/* About Your Shop */}
-        <div className="my-8 border rounded-lg p-8">
+        <div className="my-8 border rounded-lg lg:p-8 p-4">
           <p className="text-[20px] font-normal text-[#13141D] mb-4">
             About Shop
           </p>
@@ -218,7 +218,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
         </div>
 
         {/* Shop Policies */}
-        <div className="border rounded-lg p-8">
+        <div className="border rounded-lg lg:p-8 p-4">
           <p className="text-[20px] font-normal text-[#13141D] mb-4">
             Shop Policies
           </p>

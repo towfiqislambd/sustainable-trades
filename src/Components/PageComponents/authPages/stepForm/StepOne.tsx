@@ -18,12 +18,12 @@ const StepOne = ({ step, setStep, totalSteps }: any) => {
 
   return (
     <>
-      <h2 className="auth_title mt-16">Profile Info</h2>
+      <h2 className="auth_title lg:mt-16 mt-10">Profile Info</h2>
       <p className="auth_description">
         Lets set up your shop! Fill in all required fields below to get started.
       </p>
 
-      <div className="border border-[#A7A39C] rounded-[20px] my-[56px] p-20">
+      <div className="border border-[#A7A39C] rounded-[20px] my-[56px] lg:p-20 p-5">
         <p className="text-[16px] text-[#4B4A47] font-normal font-lato">
           <span className="text-[#8B200C]">*</span>Indicates a required field
         </p>
@@ -31,7 +31,7 @@ const StepOne = ({ step, setStep, totalSteps }: any) => {
           Note: Email and password entered here will be your login credentials
         </h6>
 
-        <div className="mt-12 grid grid-cols-2 gap-x-[96px] gap-y-10 font-lato">
+        <div className="mt-12 grid lg:grid-cols-2 grid-cols-1 gap-x-[96px] gap-y-10 font-lato">
           {/* First Name */}
           <div>
             <p className="form-label">First Name *</p>
