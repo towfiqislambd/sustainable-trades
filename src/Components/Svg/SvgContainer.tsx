@@ -1,9 +1,7 @@
 import Image from "next/image";
-import Visa from "../../Assets/visa.png"
-import Master from "../../Assets/master.png"
-import Amex from "../../Assets/amex.png"
-
-
+import Visa from "../../Assets/visa.png";
+import Master from "../../Assets/master.png";
+import Amex from "../../Assets/amex.png";
 
 export function ProfileSvg() {
   return (
@@ -1657,16 +1655,16 @@ export function LocationSvg() {
       <path
         d="M13.9902 7.6665C13.9902 12.3332 7.99023 16.3332 7.99023 16.3332C7.99023 16.3332 1.99023 12.3332 1.99023 7.6665C1.99023 6.07521 2.62238 4.54908 3.74759 3.42386C4.87281 2.29864 6.39894 1.6665 7.99023 1.6665C9.58153 1.6665 11.1077 2.29864 12.2329 3.42386C13.3581 4.54908 13.9902 6.07521 13.9902 7.6665Z"
         stroke="white"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M7.99023 9.6665C9.0948 9.6665 9.99023 8.77107 9.99023 7.6665C9.99023 6.56193 9.0948 5.6665 7.99023 5.6665C6.88566 5.6665 5.99023 6.56193 5.99023 7.6665C5.99023 8.77107 6.88566 9.6665 7.99023 9.6665Z"
         stroke="white"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -1702,16 +1700,16 @@ export function DollarSvg() {
         <path
           d="M7.99023 0.666504V15.3332"
           stroke="black"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M11.3236 3.3335H6.32357C5.70473 3.3335 5.11124 3.57933 4.67365 4.01691C4.23607 4.4545 3.99023 5.04799 3.99023 5.66683C3.99023 6.28567 4.23607 6.87916 4.67365 7.31675C5.11124 7.75433 5.70473 8.00016 6.32357 8.00016H9.6569C10.2757 8.00016 10.8692 8.246 11.3068 8.68358C11.7444 9.12117 11.9902 9.71466 11.9902 10.3335C11.9902 10.9523 11.7444 11.5458 11.3068 11.9834C10.8692 12.421 10.2757 12.6668 9.6569 12.6668H3.99023"
           stroke="black"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </g>
       <defs>
@@ -1741,23 +1739,23 @@ export function CartLogoSvg() {
         <path
           d="M13.3236 15.1668C13.6918 15.1668 13.9903 14.8684 13.9903 14.5002C13.9903 14.132 13.6918 13.8335 13.3236 13.8335C12.9555 13.8335 12.657 14.132 12.657 14.5002C12.657 14.8684 12.9555 15.1668 13.3236 15.1668Z"
           stroke="black"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M5.99015 15.1668C6.35834 15.1668 6.65682 14.8684 6.65682 14.5002C6.65682 14.132 6.35834 13.8335 5.99015 13.8335C5.62196 13.8335 5.32349 14.132 5.32349 14.5002C5.32349 14.8684 5.62196 15.1668 5.99015 15.1668Z"
           stroke="black"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M0.656982 1.1665H3.32365L5.11032 10.0932C5.17128 10.4001 5.33825 10.6758 5.58201 10.872C5.82577 11.0683 6.13078 11.1725 6.44365 11.1665H12.9236C13.2365 11.1725 13.5415 11.0683 13.7853 10.872C14.029 10.6758 14.196 10.4001 14.257 10.0932L15.3236 4.49984H3.99032"
           stroke="black"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </g>
       <defs>
@@ -1786,9 +1784,9 @@ export function RightArrowSvg() {
       <path
         d="M5.99023 12L9.99023 8L5.99023 4"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -1809,7 +1807,7 @@ export function ReviewAuthorSvg() {
         d="M31.9903 59.7001C47.0124 59.7001 59.1903 47.5222 59.1903 32.5C59.1903 17.4779 47.0124 5.30005 31.9903 5.30005C16.9681 5.30005 4.79028 17.4779 4.79028 32.5C4.79028 47.5222 16.9681 59.7001 31.9903 59.7001Z"
         fill="#F1F1F1"
         stroke="#727274"
-        stroke-width="3"
+        strokeWidth="3"
       />
       <path
         fill-rule="evenodd"
@@ -1820,8 +1818,8 @@ export function ReviewAuthorSvg() {
       <path
         d="M14.3901 53.3C18.4517 50.5741 23.8671 49.2111 26.5748 46.4852C29.2824 43.7593 21.1594 43.7593 21.1594 30.1296C21.1594 16.5 31.9901 16.5 31.9901 16.5C31.9901 16.5 42.8209 16.5 42.8209 30.1296C42.8209 43.7593 34.6978 43.7593 37.4055 46.4852C40.1132 49.2111 45.5286 50.5741 49.5901 53.3"
         stroke="#727274"
-        stroke-width="3"
-        stroke-linecap="round"
+        strokeWidth="3"
+        strokeLinecap="round"
       />
     </svg>
   );
@@ -1855,9 +1853,9 @@ export function UpperArrowSvg() {
       <path
         d="M17.9902 15L11.9902 9L5.99023 15"
         stroke="black"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -1874,9 +1872,9 @@ export function LowerArrowSvg() {
       <path
         d="M5.99023 9.49658L11.9902 15.4966L17.9902 9.49658"
         stroke="black"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -1894,9 +1892,9 @@ export function EditIconSvg() {
       <path
         d="M15.8679 5.15697C16.0665 4.95828 16.3024 4.80068 16.562 4.69315C16.8216 4.58562 17.0998 4.53027 17.3808 4.53027C17.6618 4.53027 17.9401 4.58562 18.1997 4.69315C18.4592 4.80068 18.6951 4.95828 18.8938 5.15697C19.0925 5.35566 19.2501 5.59153 19.3576 5.85113C19.4652 6.11073 19.5205 6.38896 19.5205 6.66995C19.5205 6.95094 19.4652 7.22917 19.3576 7.48877C19.2501 7.74837 19.0925 7.98424 18.8938 8.18293L8.6812 18.3955L4.52051 19.5303L5.65524 15.3696L15.8679 5.15697Z"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -1913,9 +1911,9 @@ export function EditIconDarkSvg() {
       <path
         d="M15.8679 5.15697C16.0665 4.95828 16.3024 4.80068 16.562 4.69315C16.8216 4.58562 17.0998 4.53027 17.3808 4.53027C17.6618 4.53027 17.9401 4.58562 18.1997 4.69315C18.4592 4.80068 18.6951 4.95828 18.8938 5.15697C19.0925 5.35566 19.2501 5.59153 19.3576 5.85113C19.4652 6.11073 19.5205 6.38896 19.5205 6.66995C19.5205 6.95094 19.4652 7.22917 19.3576 7.48877C19.2501 7.74837 19.0925 7.98424 18.8938 8.18293L8.6812 18.3955L4.52051 19.5303L5.65524 15.3696L15.8679 5.15697Z"
         stroke="#FEFEFE"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -1933,16 +1931,16 @@ export function LocationTwoSvg() {
       <path
         d="M13.9902 7.6665C13.9902 12.3332 7.99023 16.3332 7.99023 16.3332C7.99023 16.3332 1.99023 12.3332 1.99023 7.6665C1.99023 6.07521 2.62238 4.54908 3.74759 3.42386C4.87281 2.29864 6.39894 1.6665 7.99023 1.6665C9.58153 1.6665 11.1077 2.29864 12.2329 3.42386C13.3581 4.54908 13.9902 6.07521 13.9902 7.6665Z"
         stroke="#13141D"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M7.99023 9.6665C9.0948 9.6665 9.99023 8.77107 9.99023 7.6665C9.99023 6.56193 9.0948 5.6665 7.99023 5.6665C6.88566 5.6665 5.99023 6.56193 5.99023 7.6665C5.99023 8.77107 6.88566 9.6665 7.99023 9.6665Z"
         stroke="#13141D"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -1965,16 +1963,16 @@ export function DThreeSvg() {
         <path
           d="M6.61686 11.9112C6.02086 12.4489 5.2682 12.7695 4.4502 12.7695C2.5172 12.7695 0.950195 10.9785 0.950195 8.76953C0.950195 6.56053 2.5172 4.76953 4.4502 4.76953C6.3832 4.76953 7.4502 6.48386 7.9502 8.76953C8.4502 11.0552 9.5172 12.7695 11.4502 12.7695C13.3832 12.7695 14.9502 10.9785 14.9502 8.76953C14.9502 6.56053 13.3832 4.76953 11.4502 4.76953H10.9502"
           stroke="#274F45"
-          stroke-width="1.13778"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.13778"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M10.9504 3.63188C10.9504 3.38688 10.6961 3.22921 10.4831 3.35021C9.99807 3.62621 9.40574 4.01555 8.98074 4.39421C8.92672 4.44081 8.88339 4.4985 8.85368 4.56336C8.82397 4.62821 8.80859 4.69871 8.80859 4.77005C8.80859 4.84138 8.82397 4.91188 8.85368 4.97674C8.88339 5.0416 8.92672 5.09929 8.98074 5.14588C9.40574 5.52421 9.99807 5.91355 10.4831 6.18921C10.6964 6.31055 10.9504 6.15321 10.9504 5.90788V3.63188Z"
           stroke="#274F45"
-          stroke-width="1.13778"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.13778"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </g>
       <defs>
@@ -2002,9 +2000,9 @@ export function MessSvg() {
       <path
         d="M14.4902 10.5C14.4902 10.8536 14.3498 11.1928 14.0997 11.4428C13.8497 11.6929 13.5105 11.8333 13.1569 11.8333H5.1569L2.49023 14.5V3.83333C2.49023 3.47971 2.63071 3.14057 2.88076 2.89052C3.13081 2.64048 3.46995 2.5 3.82357 2.5H13.1569C13.5105 2.5 13.8497 2.64048 14.0997 2.89052C14.3498 3.14057 14.4902 3.47971 14.4902 3.83333V10.5Z"
         stroke="#13141D"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -2023,9 +2021,9 @@ export function LoveSvg() {
         <path
           d="M13.8833 3.57357C13.5428 3.23291 13.1385 2.96267 12.6936 2.7783C12.2486 2.59392 11.7716 2.49902 11.29 2.49902C10.8083 2.49902 10.3314 2.59392 9.88642 2.7783C9.44144 2.96267 9.03716 3.23291 8.69665 3.57357L7.98999 4.28024L7.28332 3.57357C6.59553 2.88578 5.66268 2.49938 4.68999 2.49938C3.7173 2.49938 2.78445 2.88578 2.09665 3.57357C1.40886 4.26137 1.02246 5.19422 1.02246 6.16691C1.02246 7.1396 1.40886 8.07245 2.09665 8.76024L2.80332 9.46691L7.98999 14.6536L13.1767 9.46691L13.8833 8.76024C14.224 8.41974 14.4942 8.01545 14.6786 7.57048C14.863 7.1255 14.9579 6.64857 14.9579 6.16691C14.9579 5.68525 14.863 5.20831 14.6786 4.76334C14.4942 4.31836 14.224 3.91408 13.8833 3.57357V3.57357Z"
           stroke="#13141D"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </g>
       <defs>
@@ -2075,7 +2073,7 @@ export function CartSvg2() {
       <path
         d="M9.94898 11.6072L6.30244 4.36785H22.9025C23.1129 4.36785 23.2618 4.4379 23.3492 4.578C23.4367 4.71896 23.4276 4.88055 23.3219 5.06277L19.7491 11.1869C19.6617 11.3184 19.5565 11.4215 19.4335 11.4963C19.3115 11.5702 19.1717 11.6072 19.0141 11.6072H9.94898ZM9.94898 11.6072H19.5128M8.25209 24.5C7.67553 24.5 7.1896 24.3139 6.7943 23.9417C6.3999 23.5687 6.20271 23.1102 6.20271 22.5661C6.20271 22.0229 6.3999 21.5647 6.7943 21.1917C7.1896 20.8187 7.67553 20.6322 8.25209 20.6322C8.82774 20.6322 9.31322 20.8187 9.70852 21.1917C10.1038 21.5647 10.3015 22.0229 10.3015 22.5661C10.3015 23.1102 10.1038 23.5687 9.70852 23.9417C9.31322 24.3139 8.82774 24.5 8.25209 24.5ZM21.073 24.5C20.4974 24.5 20.0119 24.3139 19.6166 23.9417C19.2213 23.5687 19.0237 23.1102 19.0237 22.5661C19.0237 22.0229 19.2213 21.5647 19.6166 21.1917C20.0119 20.8187 20.4974 20.6322 21.073 20.6322C21.6496 20.6322 22.1355 20.8187 22.5308 21.1917C22.9252 21.5647 23.1224 22.0229 23.1224 22.5661C23.1224 23.1102 22.9252 23.5687 22.5308 23.9417C22.1355 24.3139 21.6496 24.5 21.073 24.5ZM5.63434 3.07857H23.423C24.016 3.07857 24.4623 3.3072 24.7619 3.76446C25.0625 4.22087 25.0785 4.69146 24.8098 5.17623L20.905 11.8908C20.7073 12.2045 20.4505 12.4508 20.1344 12.6296C19.8184 12.8075 19.4709 12.8965 19.092 12.8965H9.33417L7.67417 15.7728C7.5339 15.9705 7.52934 16.1854 7.6605 16.4175C7.79166 16.6496 7.98886 16.7656 8.25209 16.7656H22.4393C22.6342 16.7656 22.7968 16.827 22.9271 16.95C23.0573 17.0729 23.1224 17.2259 23.1224 17.4089C23.1224 17.5929 23.0573 17.7463 22.9271 17.8692C22.7968 17.9921 22.6342 18.0536 22.4393 18.0536H8.25209C7.45511 18.0536 6.86033 17.7369 6.46776 17.1034C6.0761 16.4691 6.06654 15.8322 6.43907 15.1927L8.49392 11.7374L3.47019 1.78928H1.68313C1.48912 1.78928 1.32654 1.72783 1.19537 1.60492C1.06512 1.48114 1 1.32772 1 1.14464C1 0.961563 1.06512 0.808138 1.19537 0.684367C1.32654 0.561456 1.48912 0.5 1.68313 0.5H3.64098C3.85593 0.5 4.05131 0.552001 4.2271 0.656003C4.40198 0.760005 4.5377 0.905694 4.63424 1.09307L5.63434 3.07857Z"
         stroke="#FEFEFE"
-        stroke-width="0.5"
+        strokeWidth="0.5"
       />
     </svg>
   );
@@ -2110,19 +2108,21 @@ export function MessageSvg() {
       <path
         d="M21 15.5C21 16.0304 20.7893 16.5391 20.4142 16.9142C20.0391 17.2893 19.5304 17.5 19 17.5H7L3 21.5V5.5C3 4.96957 3.21071 4.46086 3.58579 4.08579C3.96086 3.71071 4.46957 3.5 5 3.5H19C19.5304 3.5 20.0391 3.71071 20.4142 4.08579C20.7893 4.46086 21 4.96957 21 5.5V15.5Z"
         stroke="#FEFEFE"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
 }
 
-const PaymentCardIcons = () => <div className="flex gap-2 mb-2">
-  <Image src={Visa} alt="visa" className="w-10 h-6"/>
-  <Image src={Master} alt="Master"/>
-  <Image src={Amex} alt="amex"/>
-</div>;
+const PaymentCardIcons = () => (
+  <div className="flex gap-2 mb-2">
+    <Image src={Visa} alt="visa" className="w-10 h-6" />
+    <Image src={Master} alt="Master" />
+    <Image src={Amex} alt="amex" />
+  </div>
+);
 
 export default PaymentCardIcons;
 
@@ -2138,30 +2138,30 @@ export function POneSvg() {
       <path
         d="M9 3H4C3.44772 3 3 3.44772 3 4V11C3 11.5523 3.44772 12 4 12H9C9.55228 12 10 11.5523 10 11V4C10 3.44772 9.55228 3 9 3Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M20 3H15C14.4477 3 14 3.44772 14 4V7C14 7.55228 14.4477 8 15 8H20C20.5523 8 21 7.55228 21 7V4C21 3.44772 20.5523 3 20 3Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M20 12H15C14.4477 12 14 12.4477 14 13V20C14 20.5523 14.4477 21 15 21H20C20.5523 21 21 20.5523 21 20V13C21 12.4477 20.5523 12 20 12Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M9 16H4C3.44772 16 3 16.4477 3 17V20C3 20.5523 3.44772 21 4 21H9C9.55228 21 10 20.5523 10 20V17C10 16.4477 9.55228 16 9 16Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -2179,44 +2179,44 @@ export function PTwoSvg() {
       <path
         d="M15 2H9C8.44772 2 8 2.44772 8 3V5C8 5.55228 8.44772 6 9 6H15C15.5523 6 16 5.55228 16 5V3C16 2.44772 15.5523 2 15 2Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M16 4H18C18.5304 4 19.0391 4.21071 19.4142 4.58579C19.7893 4.96086 20 5.46957 20 6V20C20 20.5304 19.7893 21.0391 19.4142 21.4142C19.0391 21.7893 18.5304 22 18 22H6C5.46957 22 4.96086 21.7893 4.58579 21.4142C4.21071 21.0391 4 20.5304 4 20V6C4 5.46957 4.21071 4.96086 4.58579 4.58579C4.96086 4.21071 5.46957 4 6 4H8"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M12 11H16"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M12 16H16"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M8 11H8.01"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M8 16H8.01"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -2234,30 +2234,30 @@ export function PThreeSvg() {
       <path
         d="M21 12C21 9.61305 20.0518 7.32387 18.364 5.63604C16.6761 3.94821 14.3869 3 12 3C9.48395 3.00947 7.06897 3.99122 5.26 5.74L3 8"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M3 3V8H8"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M3 12C3 14.3869 3.94821 16.6761 5.63604 18.364C7.32387 20.0518 9.61305 21 12 21C14.516 20.9905 16.931 20.0088 18.74 18.26L21 16"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M16 16H21V21"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -2275,30 +2275,30 @@ export function PFourSvg() {
       <path
         d="M16.9969 9.40023L8.04688 4.24023"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M21.5 15.9999V7.9999C21.4996 7.64918 21.4071 7.30471 21.2315 7.00106C21.056 6.69742 20.8037 6.44526 20.5 6.2699L13.5 2.2699C13.196 2.09437 12.8511 2.00195 12.5 2.00195C12.1489 2.00195 11.804 2.09437 11.5 2.2699L4.5 6.2699C4.19626 6.44526 3.94398 6.69742 3.76846 7.00106C3.59294 7.30471 3.50036 7.64918 3.5 7.9999V15.9999C3.50036 16.3506 3.59294 16.6951 3.76846 16.9987C3.94398 17.3024 4.19626 17.5545 4.5 17.7299L11.5 21.7299C11.804 21.9054 12.1489 21.9979 12.5 21.9979C12.8511 21.9979 13.196 21.9054 13.5 21.7299L20.5 17.7299C20.8037 17.5545 21.056 17.3024 21.2315 16.9987C21.4071 16.6951 21.4996 16.3506 21.5 15.9999Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M3.78906 7L12.4991 12L21.2091 7"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M12.5 22V12"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -2333,37 +2333,37 @@ export function PSixSvg() {
       <path
         d="M14.5 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V7.5L14.5 2Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M14 2V8H20"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M12 18V14"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M8 18V16"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M16 18V12"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -2399,23 +2399,23 @@ export function PEightSvg() {
       <path
         d="M11.5 5L6.5 9H2.5V15H6.5L11.5 19V5Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M16.0391 8.45996C16.9764 9.3976 17.503 10.6691 17.503 11.995C17.503 13.3208 16.9764 14.5923 16.0391 15.53"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M19.5703 4.93018C21.445 6.80545 22.4982 9.34853 22.4982 12.0002C22.4982 14.6518 21.445 17.1949 19.5703 19.0702"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -2434,8 +2434,8 @@ export function PNineSvg() {
         <path
           d="M2.90039 4H14.9004C15.2715 4.0001 15.6272 4.14776 15.8896 4.41016C16.1522 4.67271 16.2998 5.02909 16.2998 5.40039V6.59961C16.2998 7.15183 16.7476 7.5995 17.2998 7.59961H19.2861L23.5 11.8135V16.4004H22.0996C21.7406 16.4005 21.4263 16.5898 21.25 16.874C21.1455 16.3272 20.8807 15.8194 20.4814 15.4199C19.9565 14.8946 19.2446 14.599 18.502 14.5986C18.1342 14.5985 17.7695 14.6709 17.4297 14.8115C17.0899 14.9522 16.7807 15.158 16.5205 15.418C16.2604 15.6779 16.0539 15.9874 15.9131 16.3271C15.8398 16.5041 15.7857 16.6878 15.75 16.875C15.5738 16.5904 15.2597 16.4005 14.9004 16.4004H10.0996C9.74058 16.4005 9.42627 16.5898 9.25 16.874C9.14549 16.3272 8.88066 15.8194 8.48145 15.4199C8.20997 15.1483 7.88799 14.9395 7.53809 14.7998H14.9004C15.4525 14.7996 15.9004 14.352 15.9004 13.7998V5.40039C15.9004 4.84824 15.4525 4.4006 14.9004 4.40039H2.90039C2.34811 4.40039 1.90039 4.84811 1.90039 5.40039V13.7998C1.90039 14.3521 2.34811 14.7998 2.90039 14.7998H5.46191C5.45131 14.804 5.44025 14.8072 5.42969 14.8115C5.08986 14.9522 4.78065 15.158 4.52051 15.418C4.26036 15.6779 4.05394 15.9874 3.91309 16.3271C3.83977 16.5041 3.78569 16.6878 3.75 16.875C3.57382 16.5904 3.25971 16.4005 2.90039 16.4004H1.5V5.40039C1.5 5.02909 1.64761 4.67271 1.91016 4.41016C2.17271 4.14761 2.52909 4 2.90039 4Z"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinejoin="round"
         />
       </g>
       <defs>
@@ -2525,9 +2525,9 @@ export function PThirteenSvg() {
       <path
         d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -2563,16 +2563,16 @@ export function PFifteenSvg() {
       <path
         d="M12.222 2H11.782C11.2515 2 10.7428 2.21071 10.3677 2.58579C9.99267 2.96086 9.78195 3.46957 9.78195 4V4.18C9.7816 4.53073 9.68901 4.87519 9.51349 5.17884C9.33797 5.48248 9.08569 5.73464 8.78195 5.91L8.35196 6.16C8.04792 6.33554 7.70303 6.42795 7.35195 6.42795C7.00088 6.42795 6.65599 6.33554 6.35195 6.16L6.20195 6.08C5.74302 5.81526 5.19779 5.74344 4.68596 5.88031C4.17412 6.01717 3.73751 6.35154 3.47196 6.81L3.25196 7.19C2.98722 7.64893 2.9154 8.19416 3.05226 8.706C3.18913 9.21783 3.52349 9.65445 3.98196 9.92L4.13196 10.02C4.43423 10.1945 4.68557 10.4451 4.86101 10.7468C5.03644 11.0486 5.12985 11.391 5.13196 11.74V12.25C5.13335 12.6024 5.04161 12.949 4.866 13.2545C4.69039 13.5601 4.43716 13.8138 4.13196 13.99L3.98196 14.08C3.52349 14.3456 3.18913 14.7822 3.05226 15.294C2.9154 15.8058 2.98722 16.3511 3.25196 16.81L3.47196 17.19C3.73751 17.6485 4.17412 17.9828 4.68596 18.1197C5.19779 18.2566 5.74302 18.1847 6.20195 17.92L6.35195 17.84C6.65599 17.6645 7.00088 17.5721 7.35195 17.5721C7.70303 17.5721 8.04792 17.6645 8.35196 17.84L8.78195 18.09C9.08569 18.2654 9.33797 18.5175 9.51349 18.8212C9.68901 19.1248 9.7816 19.4693 9.78195 19.82V20C9.78195 20.5304 9.99267 21.0391 10.3677 21.4142C10.7428 21.7893 11.2515 22 11.782 22H12.222C12.7524 22 13.2611 21.7893 13.6362 21.4142C14.0112 21.0391 14.222 20.5304 14.222 20V19.82C14.2223 19.4693 14.3149 19.1248 14.4904 18.8212C14.6659 18.5175 14.9182 18.2654 15.222 18.09L15.652 17.84C15.956 17.6645 16.3009 17.5721 16.652 17.5721C17.003 17.5721 17.3479 17.6645 17.652 17.84L17.802 17.92C18.2609 18.1847 18.8061 18.2566 19.318 18.1197C19.8298 17.9828 20.2664 17.6485 20.532 17.19L20.752 16.8C21.0167 16.3411 21.0885 15.7958 20.9516 15.284C20.8148 14.7722 20.4804 14.3356 20.022 14.07L19.872 13.99C19.5667 13.8138 19.3135 13.5601 19.1379 13.2545C18.9623 12.949 18.8706 12.6024 18.872 12.25V11.75C18.8706 11.3976 18.9623 11.051 19.1379 10.7455C19.3135 10.4399 19.5667 10.1862 19.872 10.01L20.022 9.92C20.4804 9.65445 20.8148 9.21783 20.9516 8.706C21.0885 8.19416 21.0167 7.64893 20.752 7.19L20.532 6.81C20.2664 6.35154 19.8298 6.01717 19.318 5.88031C18.8061 5.74344 18.2609 5.81526 17.802 6.08L17.652 6.16C17.3479 6.33554 17.003 6.42795 16.652 6.42795C16.3009 6.42795 15.956 6.33554 15.652 6.16L15.222 5.91C14.9182 5.73464 14.6659 5.48248 14.4904 5.17884C14.3149 4.87519 14.2223 4.53073 14.222 4.18V4C14.222 3.46957 14.0112 2.96086 13.6362 2.58579C13.2611 2.21071 12.7524 2 12.222 2Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -2590,44 +2590,44 @@ export function PSixteenSvg() {
       <path
         d="M9.5 3H4.5C3.94772 3 3.5 3.44772 3.5 4V9C3.5 9.55228 3.94772 10 4.5 10H9.5C10.0523 10 10.5 9.55228 10.5 9V4C10.5 3.44772 10.0523 3 9.5 3Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M9.5 14H4.5C3.94772 14 3.5 14.4477 3.5 15V20C3.5 20.5523 3.94772 21 4.5 21H9.5C10.0523 21 10.5 20.5523 10.5 20V15C10.5 14.4477 10.0523 14 9.5 14Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M14.5 4H21.5"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M14.5 9H21.5"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M14.5 15H21.5"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M14.5 20H21.5"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
