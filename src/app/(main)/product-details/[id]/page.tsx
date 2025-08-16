@@ -144,6 +144,7 @@ const page = ({ params }: Props) => {
               </p>
             </div>
 
+            
             <div className="flex items-center justify-between mb-7">
               {/* Price */}
               <p className="text-4xl font-semibold">$30</p>
