@@ -1,5 +1,6 @@
 "use client";
 import Container from "@/Components/Common/Container";
+import EditFormTwo from "@/Components/EditFormTwo";
 import React, { useState } from "react";
 import { BsEyeFill } from "react-icons/bs";
 import { PiEyeClosed } from "react-icons/pi";
@@ -50,16 +51,6 @@ const page = () => {
               />
             </div>
 
-            {/* Phone */}
-            {/* <div>
-              <p className="form-label">Phone Number *</p>
-              <input
-                type="text"
-                className="form-input"
-                placeholder="Phone Number"
-              />
-            </div> */}
-
             {/* Password */}
             <div className="relative">
               <p className="form-label">Password *</p>
@@ -107,6 +98,9 @@ const page = () => {
               </button>
             </div>
           </div>
+        </div>
+        <div className="my-12">
+          <EditFormTwo/>
         </div>
       </Container>
     </section>

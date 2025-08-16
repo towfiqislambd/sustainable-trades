@@ -38,21 +38,21 @@ const methods = useForm({
     // StepThree
     aboutShop: "",
     shopPolicies: "",
-    faqs: [{ question: "", answer: "" }],
+    faqs: [],
     websiteLink: "",
     facebookLink: "",
     instagramLink: "",
     pinterestLink: "",
 
     // StepFour
-    geoLocatorOption: null, // user's choice (1,2,3)
-    address1: "", // used for modal validation
+    geoLocatorOption: null, 
+    address1: "", 
     address2: "",
     city: "",
     state: "",
     zipcode: "",
-    latitude: null, // final data to submit
-    longitude: null, // final data to submit
+    latitude: null,
+    longitude: null,
   },
   mode: "onBlur",
 });
