@@ -134,7 +134,7 @@ const StepFour = ({ step, setStep, onNext, onPrev }: StepFourProps) => {
                     <h3 className="text-[#13141D] font-semibold text-[25px] leading-8">
                       {opt === 1 && "Display my business’ exact address."}
                       {opt === 2 &&
-                        "Display my location within a 10-mile radius of my address."}
+                        "Display my location within a 0.5-mile radius of my address."}
                       {opt === 3 && "Do not display my address."}
                     </h3>
                     <p className="text-[#13141D] font-normal text-[18px] mt-1">
@@ -142,7 +142,7 @@ const StepFour = ({ step, setStep, onNext, onPrev }: StepFourProps) => {
                         "Anyone on Sustainable Trades can view your exact address."}
                       {opt === 2 && "Your exact location will remain private."}
                       {opt === 3 &&
-                        "Defaults to Zip Code. No one will be able to see where you are located. You can still choose to share your location when a trade or sale occurs."}
+                        "Do not display my address your shop pin will appear within your zip code area for privacy.You can still choose to share to exact location when a trade or scale occurs"}
                     </p>
                   </div>
                 </div>
@@ -191,7 +191,7 @@ const StepFour = ({ step, setStep, onNext, onPrev }: StepFourProps) => {
             {selectedOption === 2 && (
               <>
                 <p className="mb-4">
-                  If you wish to display your location within a 10-mile radius,
+                  If you wish to display your location within a 0.5 miles radius,
                   please enter your address.
                 </p>
                 <AddressForm type="full" />

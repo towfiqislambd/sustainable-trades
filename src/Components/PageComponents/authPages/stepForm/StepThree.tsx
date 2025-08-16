@@ -90,7 +90,15 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
         {/* Profile Picture */}
         <div className="mt-8">
           <p className="form-label">About Your Shop Photo *</p>
-          <h5></h5>
+          <div className="relative inline-block group">
+            <LiaExclamationCircleSolid className="cursor-pointer text-red-500 text-3xl" />
+            <p className="absolute left-full top-1/2 -translate-y-1/2 ml-2 w-64 bg-white text-red-400 text-[14px] p-2 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out z-10">
+              This Photo will appear in your about shop section. Choose an image
+              that best represents the goods or services you offer. You can
+              change or update it anytime in my edit page.
+            </p>
+          </div>
+
           <div
             className="relative bg-[#F0EEE9] h-[150px] w-[150px] rounded-full mt-4 flex flex-col justify-center items-center cursor-pointer overflow-hidden border border-[#A7A39C]"
             onClick={() =>
