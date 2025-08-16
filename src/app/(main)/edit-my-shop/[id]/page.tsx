@@ -1,5 +1,6 @@
 "use client";
 import Container from "@/Components/Common/Container";
+import EditFormFour from "@/Components/EditFormFour";
 import EditFormThree from "@/Components/EditFormThree";
 import EditFormTwo from "@/Components/EditFormTwo";
 import React, { useState } from "react";
@@ -107,6 +108,9 @@ const page = () => {
           </div>
           <div className="">
             <EditFormThree />
+          </div>
+          <div className="">
+            <EditFormFour />
           </div>
         </div>
       </Container>
