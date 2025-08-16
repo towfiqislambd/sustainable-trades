@@ -5,67 +5,24 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-import Container from "@/Components/Common/Container";
 import Image from "next/image";
 import d1 from "@/Assets/d1.jpg";
 import d2 from "@/Assets/d2.jpg";
 import d3 from "@/Assets/d3.jpg";
+import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+import Container from "@/Components/Common/Container";
+import {
+  AddToCartSvg,
+  LoveSvg,
+  MinSvg,
+  MyLocationSvg,
+  MyMsgSvg,
+} from "@/Components/Svg/SvgContainer";
+import { FaStar } from "react-icons/fa";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
-
-const PrevArrow = () => (
-  <div className="swiper-button-prev custom-prev-arrow">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="32"
-      viewBox="0 0 32 32"
-      fill="none"
-    >
-      <circle
-        cx="16"
-        cy="16"
-        r="15"
-        transform="rotate(-180 16 16)"
-        fill="white"
-        stroke="white"
-        strokeWidth="2"
-      />
-      <path
-        d="M17.1767 11.9053C16.9212 11.6498 16.5069 11.6499 16.2515 11.9053C15.9959 12.1609 15.9959 12.5751 16.2516 12.8307L18.7658 15.3449L11.485 15.3456C11.1237 15.3457 10.8308 15.6385 10.8308 16C10.8309 16.3614 11.1238 16.6542 11.4851 16.6542L18.7661 16.6535L16.2513 19.1681C15.9958 19.4237 15.9958 19.8381 16.2513 20.0935C16.3791 20.2212 16.5465 20.2852 16.714 20.2852C16.8814 20.2852 17.0488 20.2212 17.1766 20.0936L20.8083 16.462C20.9311 16.3393 21 16.1729 21 15.9993C20.9999 15.8257 20.931 15.6595 20.8082 15.5365L17.1767 11.9053Z"
-        fill="#007BFF"
-      />
-    </svg>
-  </div>
-);
-
-const NextArrow = () => (
-  <div className="swiper-button-next custom-next-arrow">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="32"
-      viewBox="0 0 32 32"
-      fill="none"
-    >
-      <circle
-        cx="16"
-        cy="16"
-        r="15"
-        fill="white"
-        stroke="white"
-        strokeWidth="2"
-      />
-      <path
-        d="M14.8233 20.0947C15.0788 20.3502 15.4931 20.3501 15.7485 20.0947C16.0041 19.8391 16.0041 19.4249 15.7484 19.1693L13.2342 16.6551L20.515 16.6544C20.8763 16.6543 21.1692 16.3615 21.1692 16C21.1691 15.6386 20.8762 15.3458 20.5149 15.3458L13.2339 15.3465L15.7487 12.8319C16.0042 12.5763 16.0042 12.1619 15.7487 11.9065C15.6209 11.7788 15.4535 11.7148 15.286 11.7148C15.1186 11.7148 14.9512 11.7788 14.8234 11.9064L11.1917 15.538C11.0689 15.6607 11 15.8271 11 16.0007C11.0001 16.1743 11.069 16.3405 11.1918 16.4635L14.8233 20.0947Z"
-        fill="#007BFF"
-      />
-    </svg>
-  </div>
-);
 
 const page = ({ params }: Props) => {
   const { id } = use(params);
@@ -76,42 +33,45 @@ const page = ({ params }: Props) => {
     <section className="py-10">
       <Container>
         <div className="grid grid-cols-2 gap-10">
-          {/* Left - Product Gallery */}
-          <div>
+          {/* Left - Thumbnail Gallery */}
+          <div className="flex gap-4">
             <Swiper
+              onSwiper={setThumbsSwiper}
+              direction="vertical"
               spaceBetween={10}
-              navigation={true}
-              thumbs={{ swiper: thumbsSwiper }}
+              slidesPerView={4}
+              freeMode={true}
+              watchSlidesProgress={true}
               modules={[FreeMode, Navigation, Thumbs]}
-              className="h-[450px] rounded-xl mb-8 product_img"
+              className="w-[120px] h-[450px] rounded-xl shrink-0"
             >
               {images.map((img, index) => (
                 <SwiperSlide key={index}>
                   <Image
                     src={img}
-                    alt="slider image"
-                    className="w-full h-full rounded-xl object-cover"
+                    alt="thumbnail"
+                    className="w-full h-[100px] object-cover cursor-pointer rounded-lg border"
                   />
                 </SwiperSlide>
               ))}
             </Swiper>
 
+            {/* Main Image */}
             <Swiper
-              onSwiper={setThumbsSwiper}
-              spaceBetween={30}
-              navigation={false}
-              freeMode={true}
-              watchSlidesProgress={true}
+              spaceBetween={10}
+              navigation={true}
+              speed={1000}
+              thumbs={{ swiper: thumbsSwiper }}
               modules={[FreeMode, Navigation, Thumbs]}
-              slidesPerView={4}
-              className="rounded-xl"
+              className="h-[445px] rounded-xl flex-1 relative"
             >
               {images.map((img, index) => (
                 <SwiperSlide key={index}>
                   <Image
                     src={img}
-                    alt="slider image"
-                    className="w-[200px] h-[120px] object-cover cursor-pointer rounded-xl"
+                    alt="main product"
+                    fill
+                    className="w-full h-full rounded-xl object-cover"
                   />
                 </SwiperSlide>
               ))}
@@ -119,7 +79,104 @@ const page = ({ params }: Props) => {
           </div>
 
           {/* Right - Product Description */}
-          <div className=""></div>
+          <div className="">
+            <div className="flex items-center justify-between mb-3">
+              {/* Shop Name */}
+              <h2 className="text-primary-green text-xl font-semibold">
+                Organic Bath Soaps
+              </h2>
+
+              {/* Wishlist */}
+              <LoveSvg />
+            </div>
+
+            <div className="flex justify-between items-center mb-5">
+              {/* Product Name */}
+              <h3 className="text-2xl font-semibold text-secondary-black">
+                Coconut Bar Soap
+              </h3>
+
+              {/* Cart */}
+              <button className="flex gap-2 items-center border border-secondary-black cursor-pointer rounded-lg px-4 py-2 hover:bg-secondary-black hover:text-accent-white duration-500 transition-all">
+                <span>Add to Cart</span>
+                <span>
+                  <AddToCartSvg />
+                </span>
+              </button>
+            </div>
+
+            {/* Product Description */}
+            <p className="text-primary-green text-xl font-semibold mb-3">
+              Product Description
+            </p>
+
+            <ul className="list-disc list-inside list space-y-1 text-secondary-gray mb-5">
+              <li>
+                Made with 100% organic coconut oil, ensuring a natural and
+                chemical-free cleansing experience.
+              </li>
+              <li>
+                Made with 100% organic coconut oil, ensuring a natural and
+                chemical-free cleansing experience.
+              </li>
+            </ul>
+
+            {/* Reviews */}
+            <div className="flex gap-3 items-center mb-2">
+              <p className="text-lg underline font-semibold text-secondary-black">
+                Organic Bath Soaps
+              </p>
+              <div className="flex gap-1 items-center">
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <FaStar key={index} className="text-primary-green text-sm" />
+                ))}
+              </div>
+            </div>
+
+            {/* Location */}
+            <div className="flex gap-3 items-center mb-10">
+              <p className="flex gap-2 items-center underline font-semibold text-secondary-black">
+                <MyLocationSvg />
+                <span>13 mi. away</span>
+              </p>
+              <p className="underline font-semibold text-secondary-black">
+                Denver, CO
+              </p>
+            </div>
+
+            <div className="flex items-center justify-between mb-7">
+              {/* Price */}
+              <p className="text-4xl font-semibold">$30</p>
+
+              {/* Quantity */}
+              <div className="flex gap-3 items-center border rounded-lg px-7 py-2 font-semibold border-primary-green">
+                <button className="cursor-pointer">
+                  <MinSvg />
+                </button>
+                <p className="text-secondary-gray">Qty:</p>
+                <p className="text-secondary-gray">1</p>
+                <button className="cursor-pointer">+</button>
+              </div>
+            </div>
+
+            {/* buy btn */}
+            <button className="mb-5 block w-full text-center duration-500 transition-all border-2 text-lg cursor-pointer py-3 bg-primary-green text-accent-white rounded-lg shadow hover:text-primary-green hover:bg-transparent font-semibold border-primary-green">
+              Buy it now
+            </button>
+
+            {/* Trade btn */}
+            <button className="mb-5 block w-full text-center duration-500 transition-all border-2 border-[#D4E2CB] text-lg cursor-pointer py-3 bg-[#D4E2CB] text-primary-green rounded-lg shadow hover:text-primary-green hover:bg-transparent font-semibold">
+              Trade
+            </button>
+
+            {/* Message btn */}
+            <button className="mb-5 w-full text-center duration-500 transition-all border-2 text-lg cursor-pointer py-3 text-primary-green rounded-lg shadow hover:text-accent-white hover:bg-primary-green font-semibold border-primary-green flex gap-2 items-center justify-center">
+              <span>
+                <MyMsgSvg />
+              </span>
+              <span> Message Seller</span>
+            </button>
+          </div>
         </div>
       </Container>
     </section>

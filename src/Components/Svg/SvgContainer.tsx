@@ -2653,3 +2653,129 @@ export function PSeventeenSvg() {
     </svg>
   );
 }
+
+export function AddToCartSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="17"
+      viewBox="0 0 16 17"
+      fill="none"
+    >
+      <g clip-path="url(#clip0_7405_396351)">
+        <path
+          d="M13.3346 15.1668C13.7028 15.1668 14.0013 14.8684 14.0013 14.5002C14.0013 14.132 13.7028 13.8335 13.3346 13.8335C12.9664 13.8335 12.668 14.132 12.668 14.5002C12.668 14.8684 12.9664 15.1668 13.3346 15.1668Z"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M5.9987 15.1668C6.36689 15.1668 6.66536 14.8684 6.66536 14.5002C6.66536 14.132 6.36689 13.8335 5.9987 13.8335C5.63051 13.8335 5.33203 14.132 5.33203 14.5002C5.33203 14.8684 5.63051 15.1668 5.9987 15.1668Z"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M0.667969 1.1665H3.33464L5.1213 10.0932C5.18227 10.4001 5.34924 10.6758 5.593 10.872C5.83676 11.0683 6.14177 11.1725 6.45464 11.1665H12.9346C13.2475 11.1725 13.5525 11.0683 13.7963 10.872C14.04 10.6758 14.207 10.4001 14.268 10.0932L15.3346 4.49984H4.0013"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_7405_396351">
+          <rect
+            width="16"
+            height="16"
+            fill="white"
+            transform="translate(0 0.5)"
+          />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+}
+
+export function MyLocationSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="14"
+      height="15"
+      viewBox="0 0 14 15"
+      fill="none"
+    >
+      <g clip-path="url(#clip0_7405_396366)">
+        <path
+          d="M12.25 6.33301C12.25 10.4163 7 13.9163 7 13.9163C7 13.9163 1.75 10.4163 1.75 6.33301C1.75 4.94062 2.30312 3.60526 3.28769 2.6207C4.27226 1.63613 5.60761 1.08301 7 1.08301C8.39239 1.08301 9.72774 1.63613 10.7123 2.6207C11.6969 3.60526 12.25 4.94062 12.25 6.33301Z"
+          fill="#D4E2CB"
+          stroke="#274F45"
+          stroke-width="1.75"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M7 8.08301C7.9665 8.08301 8.75 7.29951 8.75 6.33301C8.75 5.36651 7.9665 4.58301 7 4.58301C6.0335 4.58301 5.25 5.36651 5.25 6.33301C5.25 7.29951 6.0335 8.08301 7 8.08301Z"
+          stroke="black"
+          stroke-width="1.75"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_7405_396366">
+          <rect
+            width="14"
+            height="14"
+            fill="white"
+            transform="translate(0 0.5)"
+          />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+}
+
+export function MyMsgSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+      <path
+        d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function MinSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="11"
+      height="10"
+      viewBox="0 0 11 10"
+      fill="none"
+    >
+      <path
+        d="M2.62109 5H8.38109"
+        stroke="#13141D"
+        stroke-width="0.96"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+}
