@@ -92,3 +92,7 @@ body {
 .shop_detailed_heading {
   @apply text-4xl text-secondary-black font-semibold mb-7;
 }
+
+.side-scrollbar::-webkit-scrollbar {
+  display: none; 
+}
