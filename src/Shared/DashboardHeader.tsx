@@ -85,6 +85,7 @@ const DashboardHeader = () => {
   useEffect(() => {
     const handleWindowClick = () => {
       setShowMenu(false);
+      setShowPopover(false);
     };
 
     window.addEventListener("click", handleWindowClick);
@@ -193,7 +194,10 @@ const DashboardHeader = () => {
 
           {/* profile */}
           <button
-            onClick={() => setShowPopover(!showPopover)}
+            onClick={e => {
+              e.stopPropagation();
+              setShowPopover(!showPopover);
+            }}
             className="cursor-pointer flex gap-2 items-center relative"
           >
             <Image

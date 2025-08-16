@@ -86,6 +86,7 @@ const BasicNavbar = () => {
   useEffect(() => {
     const handleWindowClick = () => {
       setShowMenu(false);
+      setShowPopover(false);
     };
 
     window.addEventListener("click", handleWindowClick);
@@ -195,7 +196,10 @@ const BasicNavbar = () => {
 
             {/* profile */}
             <button
-              onClick={() => setShowPopover(!showPopover)}
+              onClick={e => {
+                e.stopPropagation();
+                setShowPopover(!showPopover);
+              }}
               className="cursor-pointer flex gap-2 items-center relative"
             >
               <Image
