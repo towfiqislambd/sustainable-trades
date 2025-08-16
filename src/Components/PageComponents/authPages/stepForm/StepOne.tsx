@@ -31,7 +31,7 @@ const StepOne = ({ step, setStep, totalSteps }: any) => {
           Note: Email and password entered here will be your login credentials
         </h6>
 
-        <div className="mt-12 grid lg:grid-cols-2 grid-cols-1 gap-x-[96px] gap-y-10 font-lato">
+        <div className="mt-12 grid lg:grid-cols-2 grid-cols-1 gap-x-[96px] lg:gap-y-10 gap-y-5 font-lato">
           {/* First Name */}
           <div>
             <p className="form-label">First Name *</p>
@@ -169,7 +169,7 @@ const StepOne = ({ step, setStep, totalSteps }: any) => {
       </div>
 
       <div className="flex justify-end">
-        <button type="submit" className="auth-secondary-btn">
+        <button type="submit" className="auth-secondary-btn w-full md:w-fit">
           {step < totalSteps ? "Save and Continue" : "Submit"}
         </button>
       </div>

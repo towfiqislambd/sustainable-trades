@@ -96,7 +96,7 @@ const StepFour = ({ step, setStep, onNext, onPrev }: StepFourProps) => {
 
   return (
     <section>
-      <div className="my-16">
+      <div className="lg:my-16 my-8">
         <h2 className="auth_title">Geo-Locator</h2>
         <p className="auth_description">
           Let’s decide how you want to show up on the map. Choose from the 3

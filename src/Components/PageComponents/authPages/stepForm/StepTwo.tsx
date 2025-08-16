@@ -107,7 +107,7 @@ const StepTwo = ({ step, setStep, totalSteps }: any) => {
               Add A Profile Photo *
             </p>
             <div
-              className="relative bg-[#F0EEE9] h-[270px] w-[270px] rounded-full mt-6 flex flex-col justify-center items-center cursor-pointer overflow-hidden"
+              className="relative bg-[#F0EEE9] sm:h-[270px] sm:w-[270px] w-[220px] h-[220px] rounded-full mt-6 flex flex-col justify-center items-center cursor-pointer overflow-hidden"
               onClick={() => document.getElementById("shopPhotoInput")?.click()}
             >
               {shopPhotoPreview ? (
@@ -222,15 +222,18 @@ const StepTwo = ({ step, setStep, totalSteps }: any) => {
       </div>
 
       {/* Buttons */}
-      <div className="flex justify-between items-center">
+      <div className="md:flex justify-between items-center">
         <button
           type="button"
           onClick={() => setStep(step - 1)}
-          className="auth-primary-btn"
+          className="auth-primary-btn w-full md:w-fit"
         >
           Back
         </button>
-        <button type="submit" className="auth-secondary-btn">
+        <button
+          type="submit"
+          className="auth-secondary-btn md:mt-0 mt-3 w-full md:w-fit"
+        >
           {step < totalSteps ? "Save and Continue" : "Submit"}
         </button>
       </div>

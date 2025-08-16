@@ -8,6 +8,13 @@ import StepFive from "./stepForm/StepFive";
 import { CheckSvg, StepSvg } from "@/Components/Svg/SvgContainer";
 import { useForm, FormProvider } from "react-hook-form";
 
+// Step type
+type StepItem = {
+  smLabel: string;
+  lgLabel: string;
+  component: React.ComponentType<any>;
+};
+
 const StepForm = () => {
   const [step, setStep] = useState(1);
   const onNext = () => setStep(prev => Math.min(prev + 1, steps.length));
@@ -57,12 +64,17 @@ const StepForm = () => {
     mode: "onBlur",
   });
 
-  const steps = [
-    { label: "Profile Info", component: StepOne },
-    { label: "Your Shop", component: StepTwo },
-    { label: "About Your Shop", component: StepThree },
-    { label: "Geo-Locator", component: StepFour },
-    { label: "Choose A Membership", component: StepFive },
+  // Steps array
+  const steps: StepItem[] = [
+    { smLabel: "Profile", lgLabel: "Profile Info", component: StepOne },
+    { smLabel: "Shop", lgLabel: "Your Shop", component: StepTwo },
+    { smLabel: "About", lgLabel: "About Your Shop", component: StepThree },
+    { smLabel: "Locator", lgLabel: "Geo-Locator", component: StepFour },
+    {
+      smLabel: "Membership",
+      lgLabel: "Choose A Membership",
+      component: StepFive,
+    },
   ];
 
   const CurrentStep = steps[step - 1].component;
@@ -96,13 +108,15 @@ const StepForm = () => {
                     isActive || isCompleted
                       ? "bg-primary-green lg:size-12 size-6"
                       : "bg-[#77978F] lg:size-10 size-5"
-                  }
-                    `}
+                  }`}
                 >
                   {isActive && <StepSvg />}
                   {isCompleted && <CheckSvg />}
                 </div>
-                <p className="text-[12px] lg:text-[18px]">{item.label}</p>
+                <p className="text-[12px] lg:text-[18px]">
+                  <span className="block lg:hidden">{item.smLabel}</span>
+                  <span className="hidden lg:block">{item.lgLabel}</span>
+                </p>
               </div>
             );
           })}
