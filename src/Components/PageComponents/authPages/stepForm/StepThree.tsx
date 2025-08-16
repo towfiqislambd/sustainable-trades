@@ -10,6 +10,8 @@ import PaymentCardIcons, {
   Pinterest,
   Website,
 } from "@/Components/Svg/SvgContainer";
+import { LiaExclamationCircleSolid } from "react-icons/lia";
+
 
 interface StepThreeProps {
   onNext: () => void;
@@ -87,7 +89,8 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
       <div className="border border-[#A7A39C] rounded-[20px] my-[56px] p-20">
         {/* Profile Picture */}
         <div className="mt-8">
-          <p className="form-label">Profile Picture *</p>
+          <p className="form-label">About Your Shop Photo *</p>
+          <h5></h5>
           <div
             className="relative bg-[#F0EEE9] h-[150px] w-[150px] rounded-full mt-4 flex flex-col justify-center items-center cursor-pointer overflow-hidden border border-[#A7A39C]"
             onClick={() =>
