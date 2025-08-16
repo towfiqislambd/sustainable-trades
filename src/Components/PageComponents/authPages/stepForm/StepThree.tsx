@@ -12,7 +12,6 @@ import PaymentCardIcons, {
 } from "@/Components/Svg/SvgContainer";
 import { LiaExclamationCircleSolid } from "react-icons/lia";
 
-
 interface StepThreeProps {
   onNext: () => void;
   onPrev: () => void;
@@ -89,7 +88,9 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
       <div className="border border-[#A7A39C] rounded-[20px] lg:my-[56px] my-8 lg:p-20 py-10 px-5">
         {/* Profile Picture */}
         <div className="mt-8">
-          <p className="form-label text-center lg:text-start">About Your Shop Photo *</p>
+          <p className="form-label text-center lg:text-start">
+            About Your Shop Photo *
+          </p>
           <div className="relative inline-block group">
             <LiaExclamationCircleSolid className="cursor-pointer text-red-500 text-3xl lg:block hidden" />
             <p className="absolute left-full top-1/2 -translate-y-1/2 ml-2 w-64 bg-white text-red-400 text-[14px] p-2 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out z-10">
@@ -425,16 +426,19 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
       </div>
 
       {/* Buttons */}
-      <div className="flex justify-between items-center mt-8">
-        <button type="button" onClick={onPrev} className="auth-primary-btn">
+      <div className="md:flex justify-between items-center mt-8">
+        <button
+          type="button"
+          onClick={onPrev}
+          className="auth-primary-btn w-full md:w-fit"
+        >
           Back
         </button>
         <div className="flex gap-x-5">
-          {/* Use handleSubmit to validate form */}
           <button
             type="button"
             onClick={handleSubmit(onNext)}
-            className="auth-secondary-btn"
+            className="auth-secondary-btn md:mt-0 mt-3 w-full md:w-fit"
           >
             Save & Continue
           </button>
