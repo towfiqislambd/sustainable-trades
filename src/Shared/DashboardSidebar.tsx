@@ -23,6 +23,8 @@ const DashboardSidebar = ({
 }: SidebarProps) => {
   const pathname = usePathname();
 
+  const navLabelClass = "text-secondary-black font-semibold text-lg mb-5";
+
   return (
     <aside
       className={`
@@ -34,19 +36,30 @@ const DashboardSidebar = ({
         {dashboardNavLinks?.map(item => {
           const isActive = pathname === item.path;
           return (
-            <Link
-              key={item.id}
-              href={item.path}
-              onClick={() => setOpen(false)}
-              className={`px-2 py-2 flex gap-3 items-center font-semibold border-l-2 hover:bg-gray-100 duration-300 transition-all hover:scale-[1.03] ${
-                isActive
-                  ? "text-primary-green border-primary-green"
-                  : "text-[#77978F] border-transparent"
-              }`}
-            >
-              {item?.icon}
-              {item.label}
-            </Link>
+            <div key={item.id}>
+              {(item?.id === 1 || item?.id === 16 || item?.id === 25) && (
+                <p className={navLabelClass}>Menu</p>
+              )}
+              {(item?.id === 12 || item?.id === 23) && (
+                <p className={navLabelClass}>Customer Notifications</p>
+              )}
+              {item?.id === 14 && (
+                <p className={navLabelClass}>Selling Tools</p>
+              )}
+
+              <Link
+                href={item.path}
+                onClick={() => setOpen(false)}
+                className={`ml-1 px-2 py-2 flex gap-3 items-center font-semibold border-l-2 hover:bg-gray-100 duration-300 transition-all hover:scale-[1.03] ${
+                  isActive
+                    ? "text-primary-green border-primary-green"
+                    : "text-[#77978F] border-transparent"
+                }`}
+              >
+                {item?.icon}
+                {item.label}
+              </Link>
+            </div>
           );
         })}
       </nav>

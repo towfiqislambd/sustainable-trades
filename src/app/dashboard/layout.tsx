@@ -1,6 +1,5 @@
 "use client";
 import React, { ReactNode, useState } from "react";
-import Navbar from "@/Shared/Navbar";
 import DashboardSidebar from "@/Shared/DashboardSidebar";
 import {
   PEightSvg,
@@ -21,6 +20,7 @@ import {
   PTwelveSvg,
   PTwoSvg,
 } from "@/Components/Svg/SvgContainer";
+import DashboardHeader from "@/Shared/DashboardHeader";
 
 const proNavLinks = [
   { id: 1, label: "Dashboard", path: "/dashboard/pro/home", icon: <POneSvg /> },
@@ -157,7 +157,7 @@ const basicNavLinks = [
   {
     id: 24,
     label: "Settings",
-    path: "/dashboard/pro/settings",
+    path: "/dashboard/basic/settings",
     icon: <PFifteenSvg />,
   },
 ];
@@ -207,19 +207,17 @@ const customerNavLinks = [
   },
 ];
 
-
 export default function DashboardLayout({ children }: { children: ReactNode }) {
-  const user = "customer" as String;
+  const user = "basic" as String;
   const [open, setOpen] = useState<boolean>(false);
 
   return (
     <section className="min-h-screen max-h-screen flex flex-col">
       {/* Dashboard Header */}
-      <Navbar />
-
+      <DashboardHeader />
       {/* Dashboard Content */}
-      {/* mt-[84px] h-[calc(100vh-84px)] */}
-      <main className="flex overflow-x-hidden">
+      {/* overflow-x-hidden h-[calc(100vh-84px)] */}
+      <main className="flex">
         {/* Left - Sidebar */}
         <DashboardSidebar
           open={open}
