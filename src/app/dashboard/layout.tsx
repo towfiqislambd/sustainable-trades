@@ -207,6 +207,7 @@ const customerNavLinks = [
   },
 ];
 
+
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const user = "customer" as String;
   const [open, setOpen] = useState<boolean>(false);
