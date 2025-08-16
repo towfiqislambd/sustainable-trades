@@ -208,16 +208,16 @@ const customerNavLinks = [
 ];
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
-  const user = "basic" as String;
+  const user = "pro" as String;
   const [open, setOpen] = useState<boolean>(false);
 
   return (
     <section className="min-h-screen max-h-screen flex flex-col">
       {/* Dashboard Header */}
       <DashboardHeader />
+
       {/* Dashboard Content */}
-      {/* overflow-x-hidden h-[calc(100vh-84px)] */}
-      <main className="flex">
+      <main className="flex overflow-x-hidden grow">
         {/* Left - Sidebar */}
         <DashboardSidebar
           open={open}

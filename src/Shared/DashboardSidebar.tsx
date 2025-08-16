@@ -23,7 +23,7 @@ const DashboardSidebar = ({
 }: SidebarProps) => {
   const pathname = usePathname();
 
-  const navLabelClass = "text-secondary-black font-semibold text-lg mb-5";
+  const navLabelClass = "text-secondary-black font-semibold text-lg mb-4";
 
   return (
     <aside
