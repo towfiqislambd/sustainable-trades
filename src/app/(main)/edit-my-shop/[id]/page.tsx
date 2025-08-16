@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Container from "@/Components/Common/Container";
 import React, { useState } from "react";
 import { BsEyeFill } from "react-icons/bs";
@@ -51,14 +51,14 @@ const page = () => {
             </div>
 
             {/* Phone */}
-            <div>
+            {/* <div>
               <p className="form-label">Phone Number *</p>
               <input
                 type="text"
                 className="form-input"
                 placeholder="Phone Number"
               />
-            </div>
+            </div> */}
 
             {/* Password */}
             <div className="relative">
@@ -81,6 +81,11 @@ const page = () => {
               </button>
             </div>
 
+            {/* Company Name */}
+            <div>
+              <p className="form-label">Company Name (optional)</p>
+              <input type="text" className="form-input" placeholder="Name" />
+            </div>
             {/* Re-enter Password */}
             <div className="relative">
               <p className="form-label">Re-enter Password *</p>
@@ -100,12 +105,6 @@ const page = () => {
                   <BsEyeFill size={20} />
                 )}
               </button>
-            </div>
-
-            {/* Company Name */}
-            <div>
-              <p className="form-label">Company Name (optional)</p>
-              <input type="text" className="form-input" placeholder="Name" />
             </div>
           </div>
         </div>

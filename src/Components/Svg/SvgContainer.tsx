@@ -1,3 +1,10 @@
+import Image from "next/image";
+import Visa from "../../Assets/visa.png"
+import Master from "../../Assets/master.png"
+import Amex from "../../Assets/amex.png"
+
+
+
 export function ProfileSvg() {
   return (
     <svg
@@ -2110,6 +2117,14 @@ export function MessageSvg() {
     </svg>
   );
 }
+
+const PaymentCardIcons = () => <div className="flex gap-2 mb-2">
+  <Image src={Visa} alt="visa" className="w-10 h-6"/>
+  <Image src={Master} alt="Master"/>
+  <Image src={Amex} alt="amex"/>
+</div>;
+
+export default PaymentCardIcons;
 
 export function POneSvg() {
   return (
