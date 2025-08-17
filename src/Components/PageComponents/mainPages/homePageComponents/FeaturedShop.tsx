@@ -44,7 +44,7 @@ const data = [
   },
 ];
 
-const FeaturedShop = () => {
+const FeaturedShops = () => {
   return (
     <section className="py-20">
       <Container>
@@ -92,4 +92,4 @@ const FeaturedShop = () => {
   );
 };
 
-export default FeaturedShop;
+export default FeaturedShops;

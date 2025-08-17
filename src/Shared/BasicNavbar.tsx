@@ -217,17 +217,17 @@ const BasicNavbar = () => {
                 }`}
               >
                 <Link
-                  href="/auth/choose-package"
+                  href=""
                   onClick={() => setShowPopover(false)}
-                  className={`flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold`}
+                  className="flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold"
                 >
                   Dashboard
                 </Link>
 
                 <Link
-                  href="/auth/login"
+                  href=""
                   onClick={() => setShowPopover(false)}
-                  className={`flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold`}
+                  className="flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold"
                 >
                   Log Out
                 </Link>
