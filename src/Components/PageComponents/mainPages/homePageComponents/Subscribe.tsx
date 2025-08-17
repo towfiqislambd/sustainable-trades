@@ -3,7 +3,7 @@ import React from "react";
 
 const Subscribe = () => {
   return (
-    <section className="pb-40">
+    <section className="pb-28">
       <Container>
         <h2 className="section_title text-center !mb-7">
           Stay Loop’d on the Eco-Front!
@@ -20,7 +20,7 @@ const Subscribe = () => {
             placeholder="email@sustainabletrades.com"
             className="outline-none border-2 border-primary-green px-3 py-3 rounded-lg w-[400px]"
           />
-          <button className="shrink-0 border-2 border-accent-red text-secondary-black bg-accent-red font-semibold px-10 py-3 rounded-lg cursor-pointer hover:scale-105 duration-300 transition-transform">
+          <button className="shrink-0 border-2 border-primary-green text-accent-white bg-primary-green font-semibold px-10 py-3 rounded-lg cursor-pointer hover:scale-105 duration-300 transition-transform">
             Subscribe
           </button>
         </div>
