@@ -15,6 +15,7 @@ interface Props {
 const page = ({ params }: Props) => {
   const { id } = use(params);
 
+
   return (
     <section className="py-10">
       <Container>
