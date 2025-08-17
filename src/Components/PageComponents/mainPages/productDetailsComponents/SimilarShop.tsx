@@ -1,41 +1,31 @@
 import React from "react";
 import p1 from "@/Assets/p1.jpg";
-import Product from "@/Components/Common/Product";
+import Shop from "@/Components/Common/Shop";
 const data = [
   {
     id: 1,
-    product_image: [p1, p1, p1, p1],
-    product_title: "Organic Coconut Soap",
-    product_price: "8.50",
-    is_wishlist: false,
+    shop_image: p1,
+    shop_name:
+      "Silk Skin CA Tower, new delhi, India CA Tower, new delhi, India CA Tower, new delhi, India",
+    shop_location: "CA Tower, new delhi, India",
   },
   {
     id: 2,
-    product_image: [p1, p1, p1, p1],
-    product_title: "Organic Coconut Soap",
-    product_price: "8.50",
-    is_wishlist: true,
+    shop_image: p1,
+    shop_name: "Silk Skin",
+    shop_location: "CA Tower, new delhi, India",
   },
   {
     id: 3,
-    product_image: [p1, p1, p1, p1],
-    product_title: "Organic Coconut Soap",
-    product_price: "8.50",
-    is_wishlist: true,
+    shop_image: p1,
+    shop_name: "Silk Skin",
+    shop_location: "CA Tower, new delhi, India",
   },
   {
     id: 4,
-    product_image: [p1, p1, p1, p1],
-    product_title: "Organic Coconut Soap",
-    product_price: "8.50",
-    is_wishlist: false,
-  },
-  {
-    id: 5,
-    product_image: [p1, p1, p1, p1],
-    product_title: "Organic Coconut Soap",
-    product_price: "8.50",
-    is_wishlist: true,
+    shop_image: p1,
+    shop_name: "Silk Skin",
+    shop_location: "CA Tower, new delhi, India",
   },
 ];
 
@@ -48,23 +38,16 @@ const SimilarShop = () => {
       </h3>
 
       {/* Map */}
-      <div className="grid grid-cols-5 gap-x-5 gap-y-10">
-        {data?.map(product => (
-          <Product
-            key={product?.id}
-            product={product}
-            is_feathered={true}
-            has_wishlist={false}
-            has_cart={false}
-            has_slider={false}
-          />
+      <div className="grid grid-cols-4 gap-x-6 gap-y-10">
+        {data?.map(shopInfo => (
+          <Shop key={shopInfo?.id} shop={shopInfo} />
         ))}
       </div>
 
       {/* view more btn */}
       <div className="flex items-center justify-end mt-8">
         <button className="text-primary-green font-semibold text-lg cursor-pointer">
-          View More....
+          View all....
         </button>
       </div>
     </section>

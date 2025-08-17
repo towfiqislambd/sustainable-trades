@@ -82,7 +82,7 @@ const Product = ({
       )}
 
       {/* Product Name */}
-      <h3 className="text-primary-green text-xl font-semibold py-3">
+      <h3 className="text-primary-green text-xl font-semibold py-3 truncate">
         {product?.product_title}
       </h3>
 

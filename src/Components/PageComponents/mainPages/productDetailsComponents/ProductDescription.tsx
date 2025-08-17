@@ -41,16 +41,11 @@ const ProductDescription = () => {
         Product Description
       </p>
 
-      <ul className="list-disc list-inside list space-y-1 text-secondary-gray mb-5">
-        <li>
-          Made with 100% organic coconut oil, ensuring a natural and
-          chemical-free cleansing experience.
-        </li>
-        <li>
-          Made with 100% organic coconut oil, ensuring a natural and
-          chemical-free cleansing experience.
-        </li>
-      </ul>
+      <p className="text-secondary-gray mb-5">
+        Made with 100% organic coconut oil, ensuring a natural and chemical-free
+        cleansing experience. Made with 100% organic coconut oil, ensuring a
+        natural and chemical-free cleansing experience.
+      </p>
 
       {/* Reviews */}
       <div className="flex gap-3 items-center mb-2">
@@ -65,15 +60,10 @@ const ProductDescription = () => {
       </div>
 
       {/* Location */}
-      <div className="flex gap-3 items-center mb-10">
-        <p className="flex gap-2 items-center underline font-semibold text-secondary-black">
-          <MyLocationSvg />
-          <span>13 mi. away</span>
-        </p>
-        <p className="underline font-semibold text-secondary-black">
-          Denver, CO
-        </p>
-      </div>
+      <p className="flex gap-2 items-center underline font-semibold text-secondary-black mb-10">
+        <MyLocationSvg />
+        <span> Denver, CO</span>
+      </p>
 
       <div className="flex items-center justify-between mb-7">
         {/* Price */}

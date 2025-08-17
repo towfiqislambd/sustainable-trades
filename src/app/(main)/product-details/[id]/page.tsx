@@ -3,11 +3,10 @@ import Container from "@/Components/Common/Container";
 import ProductGallery from "@/Components/PageComponents/mainPages/productDetailsComponents/ProductGallery";
 import ProductDescription from "@/Components/PageComponents/mainPages/productDetailsComponents/ProductDescription";
 import ProductReviews from "@/Components/PageComponents/mainPages/productDetailsComponents/ProductReviews";
-import Image from "next/image";
-import author from "@/Assets/shop_author.jpg";
-import { Love2Svg } from "@/Components/Svg/SvgContainer";
 import MoreProduct from "@/Components/PageComponents/mainPages/productDetailsComponents/MoreProduct";
 import SimilarShop from "@/Components/PageComponents/mainPages/productDetailsComponents/SimilarShop";
+import Subscribe from "@/Components/PageComponents/mainPages/homePageComponents/Subscribe";
+import ShopInfo from "@/Components/PageComponents/mainPages/productDetailsComponents/ShopInfo";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -19,46 +18,29 @@ const page = ({ params }: Props) => {
   return (
     <section className="py-10">
       <Container>
-        <div className="grid grid-cols-2 gap-10 mb-16">
-          {/* Left - Thumbnail Gallery */}
-          <ProductGallery />
+        <div className="grid grid-cols-2 gap-12 mb-16">
+          {/* Left */}
+          <div className="space-y-16">
+            {/* Thumbnail Gallery */}
+            <ProductGallery />
 
-          {/* Right - Product Description */}
-          <ProductDescription />
-        </div>
+            {/* Reviews */}
+            <ProductReviews />
+          </div>
 
-        <div className="grid grid-cols-2 gap-10">
-          {/* Left - Reviews */}
-          <ProductReviews />
+          {/* Right */}
+          <div className="space-y-16">
+            {/* Product Description */}
+            <ProductDescription />
 
-          {/* Right - Shop Info */}
-          <div>
-            <div className="flex gap-4 items-center mb-7">
-              <Image
-                src={author}
-                alt="author"
-                className="size-14 rounded-full"
-              />
-
-              <div>
-                <h3 className="font-semibold text-xl">
-                  Jimmy Shaw, Veterenarian
-                </h3>
-                <p className="text-secondary-gray">
-                  Organic Bath Soaps, Est. 2023, Location: Houston TX
-                </p>
-              </div>
-            </div>
-
-            <button className="bg-[#B0DEDB] text-xl font-semibold flex gap-3 items-center text-primary-green px-5 py-2 rounded-lg cursor-pointer hover:scale-95 transition-transform duration-500">
-              <span>Follow Shop</span>
-              <Love2Svg />
-            </button>
+            {/* Shop Info */}
+            <ShopInfo />
           </div>
         </div>
 
         <MoreProduct />
         <SimilarShop />
+        <Subscribe />
       </Container>
     </section>
   );

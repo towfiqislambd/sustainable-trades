@@ -13,10 +13,12 @@ import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 
 const ProductGallery = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
+  console.log(thumbsSwiper);
   const images = [d1, d2, d3, d1];
 
   return (
     <div className="flex gap-4">
+      {/* Side Images */}
       <Swiper
         onSwiper={setThumbsSwiper}
         direction="vertical"
@@ -29,11 +31,13 @@ const ProductGallery = () => {
       >
         {images.map((img, index) => (
           <SwiperSlide key={index}>
-            <Image
-              src={img}
-              alt="thumbnail"
-              className="w-full h-[100px] object-cover cursor-pointer rounded-lg border"
-            />
+            <figure className="w-full h-[100px] object-cover cursor-pointer rounded-lg border border-gray-100">
+              <Image
+                src={img}
+                alt="thumbnail"
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </figure>
           </SwiperSlide>
         ))}
       </Swiper>
@@ -41,7 +45,7 @@ const ProductGallery = () => {
       {/* Main Image */}
       <Swiper
         spaceBetween={10}
-        navigation={true}
+        // navigation={true}
         speed={1000}
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
