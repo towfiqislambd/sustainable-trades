@@ -7,6 +7,7 @@ import { CartLogoSvg, DollarSvg } from "../Svg/SvgContainer";
 import { FaHeart } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
+import p1 from "@/Assets/p1.jpg";
 
 type ProductData = {
   id: number;
@@ -19,44 +20,66 @@ type ProductData = {
 type ProductProps = {
   product: ProductData;
   is_feathered?: boolean;
+  has_wishlist?: boolean;
+  has_cart?: boolean;
+  has_slider?: boolean;
 };
 
-const Product = ({ product, is_feathered }: ProductProps) => {
+const Product = ({
+  product,
+  is_feathered,
+  has_wishlist = true,
+  has_cart = true,
+  has_slider = true,
+}: ProductProps) => {
   return (
     <div className="rounded-t-lg relative">
       {/* wishlist btn */}
-      <button className="absolute z-40 top-4 right-5 size-9 rounded-full border border-gray-300 grid place-items-center bg-primary-green cursor-pointer">
-        {product?.is_wishlist ? (
-          <FaHeart className="text-accent-red" />
-        ) : (
-          <FaHeart className="text-accent-white" />
-        )}
-      </button>
+      {has_wishlist && (
+        <button className="absolute z-40 top-4 right-5 size-9 rounded-full border border-gray-300 grid place-items-center bg-primary-green cursor-pointer">
+          {product?.is_wishlist ? (
+            <FaHeart className="text-accent-red" />
+          ) : (
+            <FaHeart className="text-accent-white" />
+          )}
+        </button>
+      )}
 
       {/* Product Image Gallery */}
-      <Swiper
-        modules={[Pagination]}
-        spaceBetween={20}
-        pagination={{ clickable: true }}
-        className="product_swiper rounded-lg"
-      >
-        {product?.product_image?.map((img, idx) => (
-          <SwiperSlide key={idx}>
-            <figure
-              className={`w-full rounded-lg border border-gray-100 relative ${
-                is_feathered ? "h-[260px]" : "h-[350px]"
-              }`}
-            >
-              <div className="absolute inset-0 bg-black/20 rounded-lg" />
-              <Image
-                src={img}
-                alt="product image"
-                className="w-full h-full object-cover rounded-lg"
-              />
-            </figure>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      {has_slider ? (
+        <Swiper
+          modules={[Pagination]}
+          spaceBetween={20}
+          pagination={{ clickable: true }}
+          className="product_swiper rounded-lg"
+        >
+          {product?.product_image?.map((img, idx) => (
+            <SwiperSlide key={idx}>
+              <figure
+                className={`w-full rounded-lg border border-gray-100 relative ${
+                  is_feathered ? "h-[260px]" : "h-[350px]"
+                }`}
+              >
+                <div className="absolute inset-0 bg-black/20 rounded-lg" />
+                <Image
+                  src={img}
+                  alt="product image"
+                  className="w-full h-full object-cover rounded-lg"
+                />
+              </figure>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      ) : (
+        <figure className="w-full h-[230px] rounded-lg border border-gray-100 relative">
+          <div className="absolute inset-0 bg-black/20 rounded-lg" />
+          <Image
+            src={p1}
+            alt="product image"
+            className="w-full h-full object-cover rounded-lg"
+          />
+        </figure>
+      )}
 
       {/* Product Name */}
       <h3 className="text-primary-green text-xl font-semibold py-3">
@@ -75,12 +98,14 @@ const Product = ({ product, is_feathered }: ProductProps) => {
         </p>
 
         {/* Cart btn */}
-        <button className="flex gap-2 items-center px-3 py-1.5 rounded-lg cursor-pointer border border-secondary-gray font-semibold text-secondary-gray">
-          <span>Add to Cart</span>
-          <span>
-            <CartLogoSvg />
-          </span>
-        </button>
+        {has_cart && (
+          <button className="flex gap-2 items-center px-3 py-1.5 rounded-lg cursor-pointer border border-secondary-gray font-semibold text-secondary-gray">
+            <span>Add to Cart</span>
+            <span>
+              <CartLogoSvg />
+            </span>
+          </button>
+        )}
       </div>
     </div>
   );
