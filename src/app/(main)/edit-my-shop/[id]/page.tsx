@@ -180,7 +180,7 @@ const Page: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 lg:top-[45px] top-[48px] cursor-pointer"
+                      className="absolute right-3  top-[48px] cursor-pointer"
                     >
                       {showPassword ? (
                         <PiEyeClosed size={20} />
@@ -209,7 +209,7 @@ const Page: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setShowRePassword(!showRePassword)}
-                      className="absolute right-3 lg:top-[45px] top-[48px] cursor-pointer"
+                      className="absolute right-3  top-[48px] cursor-pointer"
                     >
                       {showRePassword ? (
                         <PiEyeClosed size={20} />
