@@ -67,6 +67,7 @@ const Page: React.FC = () => {
     watch,
   } = methods;
 
+  
   const onSubmit = async (data: ProfileFormValues) => {
     console.log("Form data before geo lookup:", data);
 
