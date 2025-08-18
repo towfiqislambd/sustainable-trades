@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import AddressForm from "@/Components/Modals/LocatorModal";
+import toast, { Toaster } from "react-hot-toast";
 
 type StepFourProps = {
   step: number;
@@ -33,11 +34,11 @@ const StepFour = ({ step, setStep, onNext, onPrev }: StepFourProps) => {
       if (data.status === "OK" && data.results.length > 0) {
         return data.results[0].geometry.location;
       } else {
-        alert("Address not found. Please enter a valid address or zip code.");
+        toast("Address not found. Please enter a valid address or zip code.");
         return null;
       }
     } catch (error) {
-      alert("Failed to fetch location. Please try again.");
+      toast("Failed to fetch location. Please try again.");
       return null;
     }
   };
@@ -60,7 +61,7 @@ const StepFour = ({ step, setStep, onNext, onPrev }: StepFourProps) => {
 
     const isValid = await trigger(fieldsToValidate);
     if (!isValid) {
-      alert("Please fill all required address fields.");
+      toast("Please fill all required address fields.");
       return;
     }
 
@@ -88,6 +89,7 @@ const StepFour = ({ step, setStep, onNext, onPrev }: StepFourProps) => {
 
   return (
     <section className="px-4 lg:px-12">
+      <Toaster/>
       <div className="lg:my-16 my-8 text-center lg:text-left">
         <h2 className="auth_title text-2xl sm:text-3xl lg:text-4xl">
           Geo-Locator

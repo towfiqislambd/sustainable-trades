@@ -11,6 +11,7 @@ import PaymentCardIcons, {
   Website,
 } from "@/Components/Svg/SvgContainer";
 import { LiaExclamationCircleSolid } from "react-icons/lia";
+import toast from "react-hot-toast";
 
 interface StepThreeProps {
   onNext: () => void;
@@ -49,7 +50,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
         setValue("profilePhotoPreview", reader.result as string, {
           shouldValidate: true,
         });
-        trigger("profilePhoto"); // trigger validation when preview updates
+        trigger("profilePhoto");
       };
       reader.readAsDataURL(file);
     }
@@ -68,7 +69,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
       }
       setNewFaq({ question: "", answer: "" });
     } else {
-      alert("Please fill both question and answer");
+      toast("Please fill both question and answer");
     }
   };
 
