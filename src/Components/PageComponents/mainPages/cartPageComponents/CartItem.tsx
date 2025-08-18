@@ -61,7 +61,7 @@ const CartItem = ({ item }: cartItemProps) => {
       {/* Product Info */}
       <div className="space-y-6">
         {item?.products?.map(product => (
-          <div className="flex gap-5 border-b last:border-b-0 border-gray-300 pb-7 last:pb-0">
+          <div key={product.id} className="flex gap-5 border-b last:border-b-0 border-gray-300 pb-7 last:pb-0">
             {/* Product Image */}
             <figure className="w-[180px] h-[140px] shrink-0 rounded-lg border border-gray-100 relative">
               <div className="absolute inset-0 bg-black/20 rounded-lg" />
