@@ -272,7 +272,7 @@ const EditFormThree: React.FC = () => {
         <p className="text-[20px] font-normal text-[#13141D] pb-4 pt-2">
           Link Your Shop <span className="text-[#67645F]">(Optional)</span>
         </p>
-        <div className="flex flex-col lg:flex-row gap-4">
+        <div className="flex flex-col xl:flex-row gap-4">
           <div className="flex gap-x-4 items-center">
             <Website />
             <input

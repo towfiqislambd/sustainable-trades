@@ -125,7 +125,7 @@ const StepFour = ({ onNext, onPrev }: StepFourProps) => {
                   type="checkbox"
                   checked={selectedOption === opt}
                   onChange={() => handleCheckboxClick(opt)}
-                  className="border-2 mt-2 cursor-pointer w-5 h-5 sm:w-6 sm:h-6"
+                  className="mt-2 size-5 shrink-0"
                 />
                 <div>
                   <h3 className="text-[#13141D] font-semibold text-[20px] sm:text-[20px] lg:text-[25px] leading-6 sm:leading-7 lg:leading-8">

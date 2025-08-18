@@ -16,14 +16,12 @@ const EditFormFour: React.FC = () => {
     "exact"
   );
 
-
   const {
     register,
     formState: { errors },
     watch,
     setValue,
   } = useFormContext<FormValues>();
-
 
   useEffect(() => {
     if (activeOption === "zip") {
@@ -46,7 +44,7 @@ const EditFormFour: React.FC = () => {
           type="checkbox"
           checked={activeOption === "exact"}
           onChange={() => setActiveOption("exact")}
-          className="border-2 mt-2 cursor-pointer size-5"
+          className="shrink-0 size-5 mt-2"
         />
         <div>
           <h3 className="text-[#13141D] font-semibold lg:text-[25px] text-[20px] leading-8">
@@ -121,7 +119,6 @@ const EditFormFour: React.FC = () => {
                     <p className="text-red-600">{errors.zipcode.message}</p>
                   )}
                 </div>
-
               </div>
             </div>
           )}
@@ -134,7 +131,7 @@ const EditFormFour: React.FC = () => {
           type="checkbox"
           checked={activeOption === "radius"}
           onChange={() => setActiveOption("radius")}
-          className="border-2 mt-2 cursor-pointer size-5"
+          className="shrink-0 size-5 mt-2"
         />
         <div>
           <h3 className="text-[#13141D] font-semibold lg:text-[25px] text-[20px] leading-8">
@@ -221,7 +218,7 @@ const EditFormFour: React.FC = () => {
           type="checkbox"
           checked={activeOption === "zip"}
           onChange={() => setActiveOption("zip")}
-          className="border-2 mt-2 cursor-pointer size-5"
+          className="shrink-0 size-5 mt-2"
         />
         <div>
           <h3 className="text-[#13141D] font-semibold lg:text-[25px] text-[20px] leading-8">
