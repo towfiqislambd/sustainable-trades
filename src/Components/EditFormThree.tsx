@@ -272,11 +272,11 @@ const EditFormThree: React.FC = () => {
         <p className="text-[20px] font-normal text-[#13141D] pb-4 pt-2">
           Link Your Shop <span className="text-[#67645F]">(Optional)</span>
         </p>
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-col lg:flex-row gap-4  gap-4">
           <div className="flex gap-x-4 items-center">
             <Website />
             <input
-              defaultValue="www.com"
+              defaultValue="www.website.com"
               type="text"
               placeholder="Type Your Website link here"
               className="outline-0 underline w-fit text-[#67645F] font-bold"
@@ -287,7 +287,7 @@ const EditFormThree: React.FC = () => {
             <Facebook />
             <input
               type="text"
-              defaultValue="www.com"
+              defaultValue="www.facebook.com"
               placeholder="Type Your Facebook link here"
               className="outline-0 underline w-fit text-[#67645F] font-bold"
               {...register("socialMedia.facebook")}
@@ -297,7 +297,7 @@ const EditFormThree: React.FC = () => {
             <Instagram />
             <input
               type="text"
-              defaultValue="www.com"
+              defaultValue="www.instagram.com"
               placeholder="Type Your Instagram link here"
               className="outline-0 underline w-fit text-[#67645F] font-bold"
               {...register("socialMedia.instagram")}
@@ -307,7 +307,7 @@ const EditFormThree: React.FC = () => {
             <Pinterest />
             <input
               type="text"
-              defaultValue="www.com"
+              defaultValue="www.pinterest.com"
               placeholder="Type Your Pinterest link here"
               className="outline-0 underline w-fit text-[#67645F] font-bold"
               {...register("socialMedia.pinterest")}
