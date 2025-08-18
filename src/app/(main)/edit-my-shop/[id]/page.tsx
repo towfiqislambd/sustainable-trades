@@ -241,15 +241,15 @@ const Page: React.FC = () => {
               </div>
 
               {/* Child Forms */}
-              <div className="my-12">
+              {/* <div className="my-12">
                 <EditFormTwo />
-              </div>
-              <div className="my-12">
+              </div> */}
+              {/* <div className="my-12">
                 <EditFormThree />
-              </div>
-              <div className="my-12">
+              </div> */}
+              {/* <div className="my-12">
                 <EditFormFour />
-              </div>
+              </div> */}
 
               <div className="flex justify-end">
                 <button type="submit" className="auth-secondary-btn">
