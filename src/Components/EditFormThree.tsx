@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useForm, useFieldArray } from "react-hook-form";
+import { useFormContext, useFieldArray } from "react-hook-form";
 import PaymentCardIcons, {
   Website,
   Facebook,
@@ -31,39 +31,10 @@ const EditFormThree: React.FC = () => {
   const {
     register,
     control,
-    handleSubmit,
     watch,
     formState: { errors },
     setValue,
-  } = useForm<FormValues>({
-    defaultValues: {
-      aboutShopTagline: "Your catchy tagline here",
-      aboutShopStatement: "Short two-sentence statement about your shop.",
-      aboutShopStory:
-        "Tell the story behind your shop, your journey, values, and passion.",
-      shopPaymentMethods: "Cash, PayPal, Venmo, Credit Card",
-      shopShippingInfo:
-        "Orders ship within 3 business days via USPS. Local pickup in Austin, TX available. Shipping to U.S. only.",
-      shopReturnsInfo:
-        "Returns accepted within 14 days of delivery. Items must be unused and in original packaging.",
-      faqs: [
-        {
-          question: "What is your return policy?",
-          answer: "14-day return policy.",
-        },
-        {
-          question: "Do you ship internationally?",
-          answer: "Currently only within the U.S.",
-        },
-      ],
-      socialMedia: {
-        website: "https://myshop.com",
-        facebook: "https://facebook.com/myshop",
-        instagram: "https://instagram.com/myshop",
-        pinterest: "https://pinterest.com/myshop",
-      },
-    },
-  });
+  } = useFormContext<FormValues>();
 
   const { fields, append, remove, update } = useFieldArray({
     control,
@@ -100,34 +71,12 @@ const EditFormThree: React.FC = () => {
     }
   };
 
-  const onSubmit = (data: FormValues) => {
-    console.log("Form submitted", data);
-  };
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <div>
       <h4 className="mt-5 text-[#274F45] text-[20px] font-semibold">
         About Your Shop
       </h4>
-      <h2 className="mt-5 text-[#000] text-[20px] font-semibold">
-        About Your Shop (optional)
-      </h2>
-
-      {/* About Your Shop */}
       <div className="my-8 border rounded-lg p-8">
-        <p className="text-[20px] font-normal text-[#13141D] mb-4">
-          About Shop
-        </p>
-
-        <div className="mb-4">
-          <label className="block text-[#4B4A47] font-semibold mb-1">
-            Company Name
-          </label>
-          <div className="border border-gray-300 p-2 rounded bg-gray-100 text-[#13141D] w-fit">
-            {"companyName"}
-          </div>
-        </div>
-
         <div className="mb-4">
           <label className="block text-[#4B4A47] font-semibold mb-1">
             Tagline <span className="text-[#A7A39C]">(15 words max)</span>
@@ -139,9 +88,9 @@ const EditFormThree: React.FC = () => {
             })}
             className="form-input"
           />
-          {errors.aboutShopTagline && (
+          {errors.aboutShopTagline?.message && (
             <p className="text-red-600 mt-1">
-              {errors.aboutShopTagline.message}
+              {errors.aboutShopTagline.message as string}
             </p>
           )}
         </div>
@@ -157,9 +106,9 @@ const EditFormThree: React.FC = () => {
             })}
             className="form-input"
           />
-          {errors.aboutShopStatement && (
+          {errors.aboutShopStatement?.message && (
             <p className="text-red-600 mt-1">
-              {errors.aboutShopStatement.message}
+              {errors.aboutShopStatement.message as string}
             </p>
           )}
         </div>
@@ -174,24 +123,24 @@ const EditFormThree: React.FC = () => {
             })}
             className="form-input"
           />
-          {errors.aboutShopStory && (
-            <p className="text-red-600 mt-1">{errors.aboutShopStory.message}</p>
+          {errors.aboutShopStory?.message && (
+            <p className="text-red-600 mt-1">
+              {errors.aboutShopStory.message as string}
+            </p>
           )}
         </div>
       </div>
 
       {/* Shop Policies */}
-      <div className="border rounded-lg p-8">
-        <p className="text-[20px] font-normal text-[#13141D] mb-4">
-          Shop Policies
-        </p>
-
+      <div className="border rounded-lg p-8 mb-6">
         <div className="mb-4">
           <label className="block text-[#4B4A47] font-semibold mb-1">
             Accepted Payment Methods{" "}
             <span className="text-[#A7A39C]">(max 40 words)</span>
           </label>
-          <div className="flex gap-2 mb-2"><PaymentCardIcons/></div>
+          <div className="flex gap-2 mb-2">
+            <PaymentCardIcons />
+          </div>
           <input
             type="text"
             {...register("shopPaymentMethods", {
@@ -199,9 +148,9 @@ const EditFormThree: React.FC = () => {
             })}
             className="form-input"
           />
-          {errors.shopPaymentMethods && (
+          {errors.shopPaymentMethods?.message && (
             <p className="text-red-600 mt-1">
-              {errors.shopPaymentMethods.message}
+              {errors.shopPaymentMethods.message as string}
             </p>
           )}
         </div>
@@ -217,9 +166,9 @@ const EditFormThree: React.FC = () => {
             })}
             className="form-input"
           />
-          {errors.shopShippingInfo && (
+          {errors.shopShippingInfo?.message && (
             <p className="text-red-600 mt-1">
-              {errors.shopShippingInfo.message}
+              {errors.shopShippingInfo.message as string}
             </p>
           )}
         </div>
@@ -235,16 +184,16 @@ const EditFormThree: React.FC = () => {
             })}
             className="form-input"
           />
-          {errors.shopReturnsInfo && (
+          {errors.shopReturnsInfo?.message && (
             <p className="text-red-600 mt-1">
-              {errors.shopReturnsInfo.message}
+              {errors.shopReturnsInfo.message as string}
             </p>
           )}
         </div>
       </div>
 
       {/* FAQ Section */}
-      <div className="border p-4 rounded mt-6">
+      <div className="border p-4 rounded mb-4">
         <h3 className="text-lg font-semibold mb-2">Add FAQ</h3>
         <input
           type="text"
@@ -283,71 +232,53 @@ const EditFormThree: React.FC = () => {
       </div>
 
       {/* FAQ List */}
-      <div className="mt-4">
-        {fields.length > 0 && (
-          <div className="border border-gray-200 rounded-lg overflow-hidden">
-            <div className="bg-gray-50 px-4 py-3 border-b border-gray-200">
-              <div className="grid grid-cols-12 gap-4 text-sm font-medium text-gray-700">
-                <div className="col-span-1">#</div>
-                <div className="col-span-4">Question</div>
-                <div className="col-span-5">Answer</div>
-                <div className="col-span-2">Actions</div>
+      <div className="mb-4">
+        {fields.map((field, index) => {
+          const faq = watch("faqs")[index];
+          return (
+            <div
+              key={field.id}
+              className="flex justify-between items-center border-b py-2"
+            >
+              <div>
+                <strong>{index + 1}. </strong> {faq?.question} - {faq?.answer}
+              </div>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleEditFaq(index)}
+                  className="text-green-600"
+                >
+                  ✏️
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleDeleteFaq(index)}
+                  className="text-red-600"
+                >
+                  🗑
+                </button>
               </div>
             </div>
-            <div className="divide-y divide-gray-200">
-              {fields.map((field, index) => {
-                const faq = watch("faqs")[index];
-                return (
-                  <div key={field.id} className="px-4 py-3">
-                    <div className="grid grid-cols-12 gap-4 items-center">
-                      <div className="col-span-1 text-sm text-gray-600">
-                        {index + 1}
-                      </div>
-                      <div className="col-span-4 text-sm text-gray-900">
-                        {faq?.question}
-                      </div>
-                      <div className="col-span-5 text-sm text-gray-600 truncate">
-                        {faq?.answer}
-                      </div>
-                      <div className="col-span-2 flex gap-2">
-                        <button
-                          type="button"
-                          onClick={() => handleEditFaq(index)}
-                          className="p-1 text-green-600 hover:bg-green-100 rounded cursor-pointer"
-                        >
-                          ✏️
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleDeleteFaq(index)}
-                          className="p-1 text-red-600 hover:bg-red-100 rounded cursor-pointer"
-                        >
-                          🗑
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-        <li className="text-[16px] text-[#4B4A47] font-semibold list-disc mt-2">
+          );
+        })}
+        <p className="text-sm mt-2 text-gray-600">
           You can add up to 10 FAQs ({fields.length}/10)
-        </li>
+        </p>
       </div>
 
-      {/* Social Media Section */}
-      <div className="mt-6">
+      {/* Social Media */}
+      <div>
         <p className="text-[20px] font-normal text-[#13141D] pb-4 pt-2">
           Link Your Shop <span className="text-[#67645F]">(Optional)</span>
         </p>
-        <div className="flex gap-x-4">
+        <div className="flex flex-col xl:flex-row gap-4">
           <div className="flex gap-x-4 items-center">
             <Website />
             <input
+              defaultValue="www.website.com"
               type="text"
-              placeholder="Website"
+              placeholder="Type Your Website link here"
               className="outline-0 underline w-fit text-[#67645F] font-bold"
               {...register("socialMedia.website")}
             />
@@ -356,7 +287,8 @@ const EditFormThree: React.FC = () => {
             <Facebook />
             <input
               type="text"
-              placeholder="Facebook"
+              defaultValue="www.facebook.com"
+              placeholder="Type Your Facebook link here"
               className="outline-0 underline w-fit text-[#67645F] font-bold"
               {...register("socialMedia.facebook")}
             />
@@ -365,7 +297,8 @@ const EditFormThree: React.FC = () => {
             <Instagram />
             <input
               type="text"
-              placeholder="Instagram"
+              defaultValue="www.instagram.com"
+              placeholder="Type Your Instagram link here"
               className="outline-0 underline w-fit text-[#67645F] font-bold"
               {...register("socialMedia.instagram")}
             />
@@ -374,14 +307,15 @@ const EditFormThree: React.FC = () => {
             <Pinterest />
             <input
               type="text"
-              placeholder="Pinterest"
+              defaultValue="www.pinterest.com"
+              placeholder="Type Your Pinterest link here"
               className="outline-0 underline w-fit text-[#67645F] font-bold"
               {...register("socialMedia.pinterest")}
             />
           </div>
         </div>
       </div>
-    </form>
+    </div>
   );
 };
 
