@@ -11,7 +11,7 @@ const EditFormTwo: React.FC = () => {
     setValue,
     watch,
     formState: { errors },
-  } = useFormContext<any>(); // <- useFormContext instead of useForm
+  } = useFormContext<any>();
 
   const shopPhotoPreview = watch("shopPhotoPreview") || Preview.src;
   const coverPhotoPreview = watch("coverPhotoPreview") || Preview.src;
@@ -37,7 +37,7 @@ const EditFormTwo: React.FC = () => {
     <div className="mt-5">
       <h2 className="text-[#274F45] text-[20px] font-semibold">Your Shop</h2>
 
-      <div className="mt-12 grid grid-cols-2 gap-x-[96px] items-center gap-y-10 font-lato">
+      <div className="lg:mt-12 mt-5 grid lg:grid-cols-2 grid-cols-1 gap-x-[96px] items-center lg:gap-y-10 gap-y-5 font-lato">
         {/* Shop Name */}
         <div>
           <p className="form-label">Name Your Shop *</p>
@@ -81,14 +81,14 @@ const EditFormTwo: React.FC = () => {
         </h5>
       </div>
 
-      <div className=" mt-8 mb-[56px] flex gap-x-8">
+      <div className=" mt-8 mb-[56px] lg:flex gap-x-8">
         {/* Shop Photo */}
         <div>
           <p className="text-[18px] text-[#13141D] font-lato">
             Add A Profile Photo *
           </p>
           <div
-            className="relative bg-[#F0EEE9] h-[270px] w-[270px] rounded-full mt-6 flex flex-col justify-center items-center cursor-pointer overflow-hidden"
+            className="relative bg-[#F0EEE9] h-[270px] w-[270px] lg:mx-0 mx-auto rounded-full mt-6 flex flex-col justify-center items-center cursor-pointer overflow-hidden"
             onClick={() => document.getElementById("shopPhotoInput")?.click()}
           >
             {shopPhotoPreview ? (
@@ -113,7 +113,6 @@ const EditFormTwo: React.FC = () => {
           <Controller
             name="shopPhoto"
             control={control}
-  
             render={() => (
               <>
                 <input
@@ -167,7 +166,6 @@ const EditFormTwo: React.FC = () => {
           <Controller
             name="coverPhoto"
             control={control}
-         
             render={() => (
               <>
                 <input

@@ -28,7 +28,6 @@ type FormValues = {
 };
 
 const EditFormThree: React.FC = () => {
-  // Use the main form context
   const {
     register,
     control,
@@ -37,7 +36,6 @@ const EditFormThree: React.FC = () => {
     setValue,
   } = useFormContext<FormValues>();
 
-  // FAQ field array
   const { fields, append, remove, update } = useFieldArray({
     control,
     name: "faqs",
@@ -274,7 +272,7 @@ const EditFormThree: React.FC = () => {
         <p className="text-[20px] font-normal text-[#13141D] pb-4 pt-2">
           Link Your Shop <span className="text-[#67645F]">(Optional)</span>
         </p>
-        <div className="flex gap-4">
+        <div className="flex flex-wrap gap-4">
           <div className="flex gap-x-4 items-center">
             <Website />
             <input

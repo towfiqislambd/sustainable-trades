@@ -103,7 +103,7 @@ const Page: React.FC = () => {
   return (
     <section className="pt-[34px] pb-[96px]">
       <Container>
-        <div className="xl:px-[220px]">
+        <div className="2xl:px-[220px]">
           <h2 className="lg:text-[40px] text-[30px] lg:text-start text-center font-bold text-[#000]">
             Comprehensive Edit
           </h2>
@@ -238,15 +238,15 @@ const Page: React.FC = () => {
               </div>
 
               {/* Child Forms */}
-              {/* <div className="my-12">
+              <div className="my-12">
                 <EditFormTwo />
-              </div> */}
-              {/* <div className="my-12">
+              </div>
+              <div className="my-12">
                 <EditFormThree />
-              </div> */}
-              {/* <div className="my-12">
+              </div>
+              <div className="my-12">
                 <EditFormFour />
-              </div> */}
+              </div>
 
               <div className="flex justify-end">
                 <button
