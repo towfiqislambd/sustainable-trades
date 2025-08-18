@@ -96,7 +96,6 @@ const StepFour = ({ onNext, onPrev }: StepFourProps) => {
         <p className="auth_description mt-2 sm:mt-4 text-sm sm:text-base lg:text-lg">
           Let’s decide how you want to show up on the map. Choose from the 3
           options below
-          
         </p>
       </div>
 
