@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import p1 from "@/Assets/p1.jpg";
 import shopAuthor from "@/Assets/shop_author.jpg";
 import CartItem from "./CartItem";
@@ -41,6 +42,8 @@ const data = [
 ];
 
 const PaymentOptions = () => {
+  const [paymentMethod, setPaymentMethod] = useState("paypal");
+
   return (
     <section className="mb-10">
       <h3 className="section_sub_title">3 Items In Your Cart</h3>
@@ -65,9 +68,17 @@ const PaymentOptions = () => {
             You will not be charged until the review page of this order.
           </p>
 
-          <div className="flex justify-between items-center">
+          {/* PayPal Option */}
+          <div className="flex justify-between items-center mb-3">
             <p className="flex gap-3 items-center">
-              <input type="radio" className="scale-150" checked />
+              <input
+                type="radio"
+                className="scale-150"
+                name="payment"
+                value="paypal"
+                checked={paymentMethod === "paypal"}
+                onChange={e => setPaymentMethod(e.target.value)}
+              />
 
               <span className="text-secondary-gray font-semibold">
                 Pay with PayPal
@@ -76,7 +87,23 @@ const PaymentOptions = () => {
             <PaypalSvg />
           </div>
 
-          <div className="space-y-3 mt-5 mb-7">
+          {/* Cash Option */}
+          <div className="flex gap-3 items-center">
+            <input
+              type="radio"
+              className="scale-150"
+              name="payment"
+              value="cash"
+              checked={paymentMethod === "cash"}
+              onChange={e => setPaymentMethod(e.target.value)}
+            />
+
+            <span className="text-secondary-gray font-semibold">
+              Pay with Cash
+            </span>
+          </div>
+
+          <div className="space-y-3 mt-7 mb-7">
             <div className="flex items-center justify-between text-[17px] font-semibold text-primary-green">
               <p>Subtotal</p>
               <p>$105.00</p>
