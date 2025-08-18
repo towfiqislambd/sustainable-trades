@@ -3,7 +3,7 @@ import React from "react";
 
 const MagicMarkers = () => {
   return (
-    <section className="">
+    <section className="my-10">
       <Container>
         <div className="h-[500px] relative">
           {/* Iframe */}
@@ -28,11 +28,11 @@ const MagicMarkers = () => {
             <div className="flex gap-5 items-center">
               <input
                 type="text"
-                placeholder="Zipcode"
+                placeholder="Denver, CO 80012"
                 className="outline-none border-2 border-primary-green px-3 py-3 rounded w-[416px]"
               />
               <button className="shrink-0 border-2 border-primary-green text-accent-white bg-primary-green font-semibold px-10 py-3 rounded cursor-pointer">
-                Explore
+                Search
               </button>
             </div>
           </div>
