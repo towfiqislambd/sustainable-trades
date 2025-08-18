@@ -6,7 +6,7 @@ const ShopPolicies = () => {
   return (
     <section id="Shop_policies" className="mt-16">
       <Container>
-        <h2 className="shop_detailed_heading !mb-5">Shop Policies</h2>
+        <h2 className="section_sub_title !mb-5">Shop Policies</h2>
 
         <h3 className="text-lg font-semibold text-secondary-black mb-2">
           Accepted Payment Methods

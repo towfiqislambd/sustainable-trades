@@ -72,7 +72,7 @@ const Product = ({
           ))}
         </Swiper>
       ) : (
-        <figure className="w-full h-[230px] rounded-lg border border-gray-100 relative">
+        <figure className="w-full h-[250px] rounded-lg border border-gray-100 relative">
           <div className="absolute inset-0 bg-black/20 rounded-lg" />
           <Image
             src={p1}

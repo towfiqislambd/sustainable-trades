@@ -185,9 +185,9 @@ const BasicNavbar = () => {
             </button>
 
             {/* Cart */}
-            <button className="cursor-pointer">
+            <Link href="/cart" className="cursor-pointer">
               <CartSvg2 />
-            </button>
+            </Link>
 
             {/* Wishlist */}
             <button className="cursor-pointer">

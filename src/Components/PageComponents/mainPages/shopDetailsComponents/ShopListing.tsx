@@ -54,7 +54,7 @@ const ShopListing = () => {
     <section id="Listings" className="mt-10">
       <Container>
         {/* Featured Listings */}
-        <h2 className="shop_detailed_heading">Featured Listings</h2>
+        <h2 className="section_sub_title">Featured Listings</h2>
         <div className="grid grid-cols-3 gap-7 mb-10">
           {data?.slice(0, 3)?.map(product => (
             <Product key={product?.id} product={product} />
@@ -62,7 +62,7 @@ const ShopListing = () => {
         </div>
 
         {/* All Listings */}
-        <h2 className="shop_detailed_heading">All Listings</h2>
+        <h2 className="section_sub_title">All Listings</h2>
 
         {/* Filtering */}
         <div className="flex justify-between items-end mb-8">
