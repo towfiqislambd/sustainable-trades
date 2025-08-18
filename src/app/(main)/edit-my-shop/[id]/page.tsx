@@ -112,7 +112,7 @@ const Page: React.FC = () => {
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
               {/* Profile Info */}
-              <div className="mt-[45px]">
+              <div className="lg:mt-[45px] mt-[30px]">
                 <h2 className="mt-5 text-[#274F45] text-[20px] font-semibold">
                   Profile Info
                 </h2>
