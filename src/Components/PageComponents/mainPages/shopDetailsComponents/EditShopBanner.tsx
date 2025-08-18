@@ -17,6 +17,7 @@ import {
 } from "@/Components/Svg/SvgContainer";
 import award from "@/Assets/award.png";
 import badge from "@/Assets/badge.png";
+import Link from "next/link";
 
 const EditShopBanner = () => {
   const [shopProfile, setShopProfile] = useState<any>(null);
@@ -106,7 +107,7 @@ const EditShopBanner = () => {
             </div>
 
             {/* Location */}
-            <div className="flex gap-3 items-center py-3">
+            <div className="flex gap-3 items-center py-4">
               <LocationTwoSvg />
               <p className="text-secondary-gray text-lg">
                 1234 Washington Blvd, Denver, Colorado 12340
@@ -135,6 +136,13 @@ const EditShopBanner = () => {
                 </p>
                 <p className="text-secondary-black font-semibold">460 Trades</p>
               </div>
+
+              <Link
+                href="/edit-my-shop/1"
+                className="underline font-semibold text-primary-green duration-300 hover:scale-95 transition-transform"
+              >
+                Edit Shop
+              </Link>
             </div>
           </div>
 

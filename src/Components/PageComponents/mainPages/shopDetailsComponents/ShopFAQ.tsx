@@ -33,7 +33,7 @@ const ShopFAQ = () => {
   return (
     <section className="pt-12 pb-20">
       <Container>
-        <h2 className="shop_detailed_heading !mb-3">FAQs</h2>
+        <h2 className="section_sub_title !mb-3">FAQs</h2>
 
         <div>
           {data?.map(item => (
