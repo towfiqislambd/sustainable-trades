@@ -34,7 +34,9 @@ const StepFour = ({ onNext, onPrev }: StepFourProps) => {
       if (data.status === "OK" && data.results.length > 0) {
         return data.results[0].geometry.location;
       } else {
-        toast.error("Address not found. Please enter a valid address or zip code.");
+        toast.error(
+          "Address not found. Please enter a valid address or zip code."
+        );
         return null;
       }
     } catch (error) {
@@ -88,7 +90,7 @@ const StepFour = ({ onNext, onPrev }: StepFourProps) => {
   };
 
   return (
-    <section className="px-4 lg:px-12">
+    <section className="lg:px-12">
       <div className="lg:my-16 my-8 text-center lg:text-left">
         <h2 className="auth_title text-2xl sm:text-3xl lg:text-4xl">
           Geo-Locator
@@ -126,13 +128,13 @@ const StepFour = ({ onNext, onPrev }: StepFourProps) => {
                   className="border-2 mt-2 cursor-pointer w-5 h-5 sm:w-6 sm:h-6"
                 />
                 <div>
-                  <h3 className="text-[#13141D] font-semibold text-[16px] sm:text-[20px] lg:text-[25px] leading-6 sm:leading-7 lg:leading-8">
+                  <h3 className="text-[#13141D] font-semibold text-[20px] sm:text-[20px] lg:text-[25px] leading-6 sm:leading-7 lg:leading-8">
                     {opt === 1 && "Display my business’ exact address."}
                     {opt === 2 &&
                       "Display my location within a 0.5-mile radius of my address."}
                     {opt === 3 && "Do not display my address."}
                   </h3>
-                  <p className="text-[#13141D] text-[12px] sm:text-[14px] lg:text-[18px] mt-1">
+                  <p className="text-[#13141D] text-[14px] sm:text-[14px] lg:text-[18px] mt-1">
                     {opt === 1 &&
                       "Anyone on Sustainable Trades can view your exact address."}
                     {opt === 2 && "Your exact location will remain private."}
@@ -147,7 +149,7 @@ const StepFour = ({ onNext, onPrev }: StepFourProps) => {
       </div>
 
       {/* Navigation */}
-      <div className="flex flex-col sm:flex-row justify-between items-center lg:mt-6 sm:mt-10 gap-4 sm:gap-0  mt-[480px]">
+      <div className="flex flex-col sm:flex-row justify-between items-center lg:mt-6 gap-4 sm:gap-0 mt-[500px] sm:mt-[550px]">
         <button onClick={onPrev} className="auth-primary-btn w-full sm:w-auto">
           Back
         </button>
