@@ -67,7 +67,6 @@ const Page: React.FC = () => {
     watch,
   } = methods;
 
-
   const onSubmit = async (data: ProfileFormValues) => {
     console.log("Form data before geo lookup:", data);
 
@@ -82,7 +81,7 @@ const Page: React.FC = () => {
           fullAddress
         )}&key=AIzaSyDmNO0nvvAkkxk6rYBDQEfVXVQPB9rKlsk`
       );
-      
+
       const result = await response.json();
 
       if (result.status === "OK") {
@@ -104,7 +103,7 @@ const Page: React.FC = () => {
   return (
     <section className="pt-[34px] pb-[96px]">
       <Container>
-        <div className="lg:px-[220px]">
+        <div className="xl:px-[220px]">
           <h2 className="lg:text-[40px] text-[30px] lg:text-start text-center font-bold text-[#000]">
             Comprehensive Edit
           </h2>
@@ -121,7 +120,7 @@ const Page: React.FC = () => {
                   field
                 </p>
 
-                <div className="grid grid-cols-2 gap-x-7 gap-y-10">
+                <div className="grid lg:grid-cols-2 grid-cols-1 gap-x-7 lg:gap-y-10 gap-y-5">
                   {/* First Name */}
                   <div>
                     <p className="form-label">First Name *</p>
@@ -158,7 +157,6 @@ const Page: React.FC = () => {
                       className="form-input"
                       placeholder="Email"
                       {...register("email", {
-                       
                         pattern: {
                           value: /\S+@\S+\.\S+/,
                           message: "Invalid email",
@@ -182,7 +180,7 @@ const Page: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-[45px] cursor-pointer"
+                      className="absolute right-3 lg:top-[45px] top-[48px] cursor-pointer"
                     >
                       {showPassword ? (
                         <PiEyeClosed size={20} />
@@ -203,7 +201,6 @@ const Page: React.FC = () => {
                       className="form-input pr-10"
                       placeholder="Re-enter Password"
                       {...register("rePassword", {
-               
                         validate: value =>
                           value === watch("password") ||
                           "Passwords do not match",
@@ -212,7 +209,7 @@ const Page: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setShowRePassword(!showRePassword)}
-                      className="absolute right-3 top-[45px] cursor-pointer"
+                      className="absolute right-3 lg:top-[45px] top-[48px] cursor-pointer"
                     >
                       {showRePassword ? (
                         <PiEyeClosed size={20} />
@@ -252,7 +249,10 @@ const Page: React.FC = () => {
               </div> */}
 
               <div className="flex justify-end">
-                <button type="submit" className="auth-secondary-btn">
+                <button
+                  type="submit"
+                  className="auth-secondary-btn w-full md:w-fit"
+                >
                   Update Profile
                 </button>
               </div>
