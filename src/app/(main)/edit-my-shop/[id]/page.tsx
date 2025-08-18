@@ -104,8 +104,8 @@ const Page: React.FC = () => {
   return (
     <section className="pt-[34px] pb-[96px]">
       <Container>
-        <div className="px-[220px]">
-          <h2 className="text-[40px] font-bold text-[#000]">
+        <div className="lg:px-[220px]">
+          <h2 className="lg:text-[40px] text-[30px] lg:text-start text-center font-bold text-[#000]">
             Comprehensive Edit
           </h2>
 
