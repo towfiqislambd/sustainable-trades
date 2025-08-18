@@ -8,6 +8,7 @@ import { FaHeart } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import p1 from "@/Assets/p1.jpg";
+import Link from "next/link";
 
 type ProductData = {
   id: number;
@@ -82,9 +83,12 @@ const Product = ({
       )}
 
       {/* Product Name */}
-      <h3 className="text-primary-green text-xl font-semibold py-3 truncate">
+      <Link
+        href={`/product-details/1`}
+        className="text-primary-green text-xl font-semibold py-3 truncate hover:underline block"
+      >
         {product?.product_title}
-      </h3>
+      </Link>
 
       {/* Badge */}
       <p className="size-6 rounded-full bg-accent-red grid place-items-center">
