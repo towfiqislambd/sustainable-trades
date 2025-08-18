@@ -2,6 +2,7 @@ import Image, { StaticImageData } from "next/image";
 import React from "react";
 import { DollarSvg, LocationTwoSvg } from "../Svg/SvgContainer";
 import p1 from "@/Assets/p1.jpg";
+import Link from "next/link";
 
 type ShopData = {
   id: number;
@@ -16,7 +17,10 @@ type ShopProps = {
 
 const Shop = ({ shop }: ShopProps) => {
   return (
-    <div className="rounded-t-lg relative">
+    <Link
+      href={`/shop-details/1`}
+      className="rounded-t-lg relative block hover:-translate-y-2 duration-400 transition-transform"
+    >
       {/* Shop Image */}
       <figure className="w-full h-[260px] rounded-lg border border-gray-100 relative">
         <div className="absolute inset-0 bg-black/20 rounded-lg" />
@@ -42,7 +46,7 @@ const Shop = ({ shop }: ShopProps) => {
         <LocationTwoSvg />
         <p className="text-secondary-black">{shop?.shop_location}</p>
       </div>
-    </div>
+    </Link>
   );
 };
 

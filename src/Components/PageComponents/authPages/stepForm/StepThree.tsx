@@ -11,6 +11,7 @@ import PaymentCardIcons, {
   Website,
 } from "@/Components/Svg/SvgContainer";
 import { LiaExclamationCircleSolid } from "react-icons/lia";
+import toast from "react-hot-toast";
 
 interface StepThreeProps {
   onNext: () => void;
@@ -49,7 +50,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
         setValue("profilePhotoPreview", reader.result as string, {
           shouldValidate: true,
         });
-        trigger("profilePhoto"); // trigger validation when preview updates
+        trigger("profilePhoto");
       };
       reader.readAsDataURL(file);
     }
@@ -68,7 +69,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
       }
       setNewFaq({ question: "", answer: "" });
     } else {
-      alert("Please fill both question and answer");
+      toast("Please fill both question and answer");
     }
   };
 
@@ -85,9 +86,9 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
     <section className="">
       <h2 className="auth_title lg:mt-16 mt-8">About Your Shop</h2>
 
-      <div className="border border-[#A7A39C] rounded-[20px] lg:my-[56px] my-8 lg:p-20 py-10 px-5">
+      <div className="border border-[#A7A39C] rounded-[20px] lg:my-[56px] my-8 lg:p-20  px-5">
         {/* Profile Picture */}
-        <div className="mt-8">
+        <div className="lg:mt-8 mt-5">
           <p className="form-label text-center lg:text-start">
             About Your Shop Photo *
           </p>
@@ -101,7 +102,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
           </div>
 
           <div
-            className="relative bg-[#F0EEE9] lg:mx-0 mx-auto h-[150px] w-[150px] rounded-full mt-4 flex flex-col justify-center items-center cursor-pointer overflow-hidden border border-[#A7A39C]"
+            className="relative bg-[#F0EEE9] lg:mx-0 mx-auto h-[150px] w-[150px] rounded-full lg:mt-4 flex flex-col justify-center items-center cursor-pointer overflow-hidden border border-[#A7A39C]"
             onClick={() =>
               document.getElementById("profilePhotoInput")?.click()
             }
@@ -138,7 +139,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
             onChange={handleImageChange}
           />
           {errors.profilePhoto && (
-            <p className="text-red-600">
+            <p className="text-red-600 lg:text-start text-center">
               {errors.profilePhoto.message as string}
             </p>
           )}
@@ -171,7 +172,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
                 maxLength: { value: 120, message: "Max 15 words" },
               })}
               placeholder="Write a short, memorable tagline that captures your business."
-              className="form-input"
+              className="form-input lg:h-fit h-32"
             />
             {errors.aboutShopTagline && (
               <p className="text-red-600 mt-1">
@@ -190,7 +191,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
                 maxLength: { value: 350, message: "Max 50 words" },
               })}
               placeholder="In two sentences, tell shoppers who you are and what you offer."
-              className="form-input"
+              className="form-input lg:h-fit h-32"
             />
             {errors.aboutShopStatement && (
               <p className="text-red-600 mt-1">
@@ -208,7 +209,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
                 maxLength: { value: 3000, message: "Max 450 words" },
               })}
               placeholder="Tell the story behind your shop, your journey, values, and passion."
-              className="form-input"
+              className="form-input lg:h-fit h-32"
             />
             {errors.aboutShopStory && (
               <p className="text-red-600 mt-1">
@@ -236,7 +237,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
                 maxLength: { value: 250, message: "Max 40 words" },
               })}
               placeholder="Example: Cash, PayPal, Venmo, Credit Card"
-              className="form-input"
+              className="form-input lg:h-fit h-32"
             />
             {errors.shopPaymentMethods && (
               <p className="text-red-600 mt-1">
@@ -255,7 +256,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
                 maxLength: { value: 500, message: "Max 75 words" },
               })}
               placeholder="Example: Orders ship within 3 business days via USPS. Local pickup in Austin, TX available. Shipping to U.S. only."
-              className="form-input"
+              className="form-input lg:h-fit h-32"
             />
             {errors.shopShippingInfo && (
               <p className="text-red-600 mt-1">
@@ -274,7 +275,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
                 maxLength: { value: 500, message: "Max 75 words" },
               })}
               placeholder="Example: Returns accepted within 14 days of delivery. Items must be unused and in original packaging."
-              className="form-input"
+              className="form-input lg:h-fit h-32"
             />
             {errors.shopReturnsInfo && (
               <p className="text-red-600 mt-1">

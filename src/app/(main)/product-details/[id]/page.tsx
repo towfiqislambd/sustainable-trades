@@ -7,6 +7,8 @@ import MoreProduct from "@/Components/PageComponents/mainPages/productDetailsCom
 import SimilarShop from "@/Components/PageComponents/mainPages/productDetailsComponents/SimilarShop";
 import Subscribe from "@/Components/PageComponents/mainPages/homePageComponents/Subscribe";
 import ShopInfo from "@/Components/PageComponents/mainPages/productDetailsComponents/ShopInfo";
+import Link from "next/link";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -15,10 +17,16 @@ interface Props {
 const page = ({ params }: Props) => {
   const { id } = use(params);
 
-
   return (
     <section className="py-10">
       <Container>
+        {/* Breadcrumbs */}
+        <div className="flex gap-2 items-center mb-5 text-gray-600 font-semibold">
+          <Link href="/">Home</Link>
+          <MdKeyboardArrowRight className="text-lg" />
+          <button>Coconut Bar Soap</button>
+        </div>
+
         <div className="grid grid-cols-2 gap-12 mb-16">
           {/* Left */}
           <div className="space-y-16">

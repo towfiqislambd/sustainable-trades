@@ -8,7 +8,7 @@ const AboutShop = () => {
   return (
     <section id="About" className="mt-16">
       <Container>
-        <h2 className="shop_detailed_heading">About us</h2>
+        <h2 className="section_sub_title">About us</h2>
 
         <div className="flex gap-10 items-center">
           {/* Left - Shop Image */}
