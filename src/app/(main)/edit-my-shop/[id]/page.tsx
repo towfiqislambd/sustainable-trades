@@ -67,7 +67,7 @@ const Page: React.FC = () => {
     watch,
   } = methods;
 
-  
+
   const onSubmit = async (data: ProfileFormValues) => {
     console.log("Form data before geo lookup:", data);
 
@@ -82,6 +82,7 @@ const Page: React.FC = () => {
           fullAddress
         )}&key=AIzaSyDmNO0nvvAkkxk6rYBDQEfVXVQPB9rKlsk`
       );
+      
       const result = await response.json();
 
       if (result.status === "OK") {
