@@ -16,7 +16,7 @@ const EditFormFour: React.FC = () => {
     "exact"
   );
 
-  // Connect to main form state
+
   const {
     register,
     formState: { errors },
@@ -24,10 +24,9 @@ const EditFormFour: React.FC = () => {
     setValue,
   } = useFormContext<FormValues>();
 
-  // Reset form values when option changes
+
   useEffect(() => {
     if (activeOption === "zip") {
-      // Keep only zipcode
       setValue("country", "");
       setValue("address", "");
       setValue("city", "");
@@ -50,13 +49,13 @@ const EditFormFour: React.FC = () => {
           className="border-2 mt-2 cursor-pointer size-5"
         />
         <div>
-          <h3 className="text-[#13141D] font-semibold text-[25px] leading-8">
+          <h3 className="text-[#13141D] font-semibold lg:text-[25px] text-[20px] leading-8">
             Display my business’ exact address.
           </h3>
           <p>Anyone on Sustainable Trades can view your exact address.</p>
 
           {activeOption === "exact" && (
-            <div className="mt-8 space-y-4">
+            <div className="lg:mt-8 mt-5 space-y-4">
               <div>
                 <p className="form-label font-bold">Country/Region *</p>
                 <input
@@ -83,7 +82,7 @@ const EditFormFour: React.FC = () => {
                 )}
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex flex-wrap w-full gap-4">
                 <div>
                   <p className="form-label font-bold">City *</p>
                   <input
@@ -97,7 +96,7 @@ const EditFormFour: React.FC = () => {
                   )}
                 </div>
 
-                <div>
+                <div className="lg:my-0 my-2">
                   <p className="form-label font-bold">State *</p>
                   <input
                     type="text"
@@ -122,6 +121,7 @@ const EditFormFour: React.FC = () => {
                     <p className="text-red-600">{errors.zipcode.message}</p>
                   )}
                 </div>
+
               </div>
             </div>
           )}
@@ -137,7 +137,7 @@ const EditFormFour: React.FC = () => {
           className="border-2 mt-2 cursor-pointer size-5"
         />
         <div>
-          <h3 className="text-[#13141D] font-semibold text-[25px] leading-8">
+          <h3 className="text-[#13141D] font-semibold lg:text-[25px] text-[20px] leading-8">
             Display my location within a 0.5-mile radius of my address.
           </h3>
           <p>Your exact location will remain private.</p>
@@ -170,7 +170,7 @@ const EditFormFour: React.FC = () => {
                 )}
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex flex-wrap gap-4">
                 <div>
                   <p className="form-label font-bold">City *</p>
                   <input
@@ -184,7 +184,7 @@ const EditFormFour: React.FC = () => {
                   )}
                 </div>
 
-                <div>
+                <div className="lg:my-0 my-2">
                   <p className="form-label font-bold">State *</p>
                   <input
                     type="text"
@@ -224,7 +224,7 @@ const EditFormFour: React.FC = () => {
           className="border-2 mt-2 cursor-pointer size-5"
         />
         <div>
-          <h3 className="text-[#13141D] font-semibold text-[25px] leading-8">
+          <h3 className="text-[#13141D] font-semibold lg:text-[25px] text-[20px] leading-8">
             Your exact location will remain private.
           </h3>
           <p>

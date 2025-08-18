@@ -101,7 +101,7 @@ const Page: React.FC = () => {
   };
 
   return (
-    <section className="pt-[34px] pb-[96px]">
+    <section className="pt-[34px] lg:pb-[96px] pb-[40px]">
       <Container>
         <div className="2xl:px-[220px]">
           <h2 className="lg:text-[40px] text-[30px] lg:text-start text-center font-bold text-[#000]">
