@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 type FormValues = {
   country?: string;
@@ -16,45 +16,27 @@ const EditFormFour: React.FC = () => {
     "exact"
   );
 
+  // Connect to main form state
   const {
     register,
-    handleSubmit,
     formState: { errors },
-    reset,
     watch,
-  } = useForm<FormValues>({
-    defaultValues: {
-      country: "Bangladesh",
-      address: "Dhaka Street 123",
-      city: "Dhaka",
-      state: "Dhaka",
-      zipcode: "1000",
-    },
-  });
-
-  const onSubmit = (data: FormValues) => {
-    console.log("Geo form data:", data);
-  };
+    setValue,
+  } = useFormContext<FormValues>();
 
   // Reset form values when option changes
   useEffect(() => {
     if (activeOption === "zip") {
       // Keep only zipcode
-      reset({ zipcode: watch("zipcode") || "" });
-    } else {
-      // Keep full address info
-      reset({
-        country: watch("country") || "",
-        address: watch("address") || "",
-        city: watch("city") || "",
-        state: watch("state") || "",
-        zipcode: watch("zipcode") || "",
-      });
+      setValue("country", "");
+      setValue("address", "");
+      setValue("city", "");
+      setValue("state", "");
     }
-  }, [activeOption]);
+  }, [activeOption, setValue]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <div>
       <h4 className="mt-12 mb-5 text-[#274F45] text-[20px] font-semibold">
         Geo-Locator
       </h4>
@@ -79,9 +61,7 @@ const EditFormFour: React.FC = () => {
                 <p className="form-label font-bold">Country/Region *</p>
                 <input
                   type="text"
-                  {...register("country", {
-                    required: "Country is required",
-                  })}
+                  {...register("country")}
                   className="form-input"
                   placeholder="Country/Region"
                 />
@@ -94,9 +74,7 @@ const EditFormFour: React.FC = () => {
                 <p className="form-label font-bold">Address *</p>
                 <input
                   type="text"
-                  {...register("address", {
-                    required: "Address is required",
-                  })}
+                  {...register("address")}
                   className="form-input"
                   placeholder="Address"
                 />
@@ -110,7 +88,7 @@ const EditFormFour: React.FC = () => {
                   <p className="form-label font-bold">City *</p>
                   <input
                     type="text"
-                    {...register("city", { required: "City is required" })}
+                    {...register("city")}
                     className="form-input"
                     placeholder="City"
                   />
@@ -123,7 +101,7 @@ const EditFormFour: React.FC = () => {
                   <p className="form-label font-bold">State *</p>
                   <input
                     type="text"
-                    {...register("state", { required: "State is required" })}
+                    {...register("state")}
                     className="form-input"
                     placeholder="State"
                   />
@@ -136,9 +114,7 @@ const EditFormFour: React.FC = () => {
                   <p className="form-label font-bold">Zipcode *</p>
                   <input
                     type="text"
-                    {...register("zipcode", {
-                      required: "Zipcode is required",
-                    })}
+                    {...register("zipcode")}
                     className="form-input"
                     placeholder="Zipcode"
                   />
@@ -172,9 +148,7 @@ const EditFormFour: React.FC = () => {
                 <p className="form-label font-bold">Country/Region *</p>
                 <input
                   type="text"
-                  {...register("country", {
-                    required: "Country is required",
-                  })}
+                  {...register("country")}
                   className="form-input"
                   placeholder="Country/Region"
                 />
@@ -187,7 +161,7 @@ const EditFormFour: React.FC = () => {
                 <p className="form-label font-bold">Address *</p>
                 <input
                   type="text"
-                  {...register("address", { required: "Address is required" })}
+                  {...register("address")}
                   className="form-input"
                   placeholder="Address"
                 />
@@ -201,7 +175,7 @@ const EditFormFour: React.FC = () => {
                   <p className="form-label font-bold">City *</p>
                   <input
                     type="text"
-                    {...register("city", { required: "City is required" })}
+                    {...register("city")}
                     className="form-input"
                     placeholder="City"
                   />
@@ -214,7 +188,7 @@ const EditFormFour: React.FC = () => {
                   <p className="form-label font-bold">State *</p>
                   <input
                     type="text"
-                    {...register("state", { required: "State is required" })}
+                    {...register("state")}
                     className="form-input"
                     placeholder="State"
                   />
@@ -227,9 +201,7 @@ const EditFormFour: React.FC = () => {
                   <p className="form-label font-bold">Zipcode *</p>
                   <input
                     type="text"
-                    {...register("zipcode", {
-                      required: "Zipcode is required",
-                    })}
+                    {...register("zipcode")}
                     className="form-input"
                     placeholder="Zipcode"
                   />
@@ -265,7 +237,7 @@ const EditFormFour: React.FC = () => {
               <p className="form-label font-bold">Zipcode *</p>
               <input
                 type="text"
-                {...register("zipcode", { required: "Zipcode is required" })}
+                {...register("zipcode")}
                 className="form-input"
                 placeholder="Zipcode"
               />
@@ -276,7 +248,7 @@ const EditFormFour: React.FC = () => {
           )}
         </div>
       </div>
-    </form>
+    </div>
   );
 };
 
