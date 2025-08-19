@@ -1,5 +1,4 @@
 import React from "react";
-import MagicMarkers from "@/Components/PageComponents/mainPages/homePageComponents/MagicMarkers";
 import NearbyProducts from "@/Components/PageComponents/mainPages/shopPageComponents/NearbyProducts";
 import Container from "@/Components/Common/Container";
 import p1 from "@/Assets/p1.jpg";
@@ -7,6 +6,7 @@ import Shop from "@/Components/Common/Shop";
 import Product from "@/Components/Common/Product";
 import CommunityMember from "@/Components/PageComponents/mainPages/homePageComponents/CommunityMember";
 import Subscribe from "@/Components/PageComponents/mainPages/homePageComponents/Subscribe";
+import LocalMagicMarker from "@/Components/PageComponents/mainPages/shopPageComponents/LocalMagicMarker";
 const data = [
   {
     id: 1,
@@ -83,7 +83,7 @@ const data2 = [
 const page = () => {
   return (
     <>
-      <MagicMarkers />
+      <LocalMagicMarker />
       <NearbyProducts />
 
       {/* Organic Bath & Beauty */}
