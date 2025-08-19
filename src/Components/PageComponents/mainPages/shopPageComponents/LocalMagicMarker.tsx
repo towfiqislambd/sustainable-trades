@@ -5,7 +5,7 @@ import { SearchSvg } from "@/Components/Svg/SvgContainer";
 import s2 from "@/Assets/s2.jpg";
 import Image from "next/image";
 import { FaRegStar, FaStar } from "react-icons/fa";
-import shop from "@/Assets/shop.png";
+import { AiOutlineFileSearch } from "react-icons/ai";
 
 const data = [
   {
@@ -141,7 +141,7 @@ const LocalMagicMarker = () => {
                 ))}
               </div>
             ) : (
-              <div className="flex flex-col justify-center h-full p-8">
+              <div className="flex flex-col justify-center h-full p-8 bg-[#d4e2cb2f]">
                 <h3 className="text-3xl font-semibold text-secondary-black mb-5">
                   Search to find your local magic makers
                 </h3>
@@ -152,7 +152,7 @@ const LocalMagicMarker = () => {
                   discover nearby offerings.
                 </p>
 
-                <Image src={shop} alt="shop" />
+                <AiOutlineFileSearch className="text-5xl" />
               </div>
             )}
 
