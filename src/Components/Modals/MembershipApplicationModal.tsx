@@ -13,10 +13,6 @@ type formData = {
 
 const MembershipApplicationModal = () => {
   const [imageFile, setImageFile] = useState<string>("");
-  const inputClass =
-    "block w-full outline-none rounded-[5px] px-3 py-2 border border-secondary-black";
-  const labelClass =
-    "font-semibold text-secondary-black block tracking-[0.16px] mb-1.5";
 
   const {
     register,
@@ -37,7 +33,7 @@ const MembershipApplicationModal = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         {/* Full Name */}
         <div>
-          <label htmlFor="full_name" className={labelClass}>
+          <label htmlFor="full_name" className="form-label">
             Full Name
           </label>
           <input
@@ -45,18 +41,16 @@ const MembershipApplicationModal = () => {
             id="full_name"
             placeholder="Jane Doe"
             {...register("full_name", { required: "Full Name is required" })}
-            className={inputClass}
+            className="form-input"
           />
           {errors.full_name && (
-            <span className="text-red-500 text-sm block mt-1.5">
-              {errors.full_name.message}
-            </span>
+            <span className="form-error">{errors.full_name.message}</span>
           )}
         </div>
 
         {/* Upload Photo */}
         <div>
-          <label className={labelClass}>Upload Photo or Logo</label>
+          <label className="form-label">Upload Photo or Logo</label>
           <div>
             <label
               htmlFor="upload_photo"
@@ -83,9 +77,7 @@ const MembershipApplicationModal = () => {
               />
             </label>
             {errors.photo && (
-              <p className="text-red-500 text-sm block mt-1.5">
-                {errors.photo.message}
-              </p>
+              <p className="form-error">{errors.photo.message}</p>
             )}
             {imageFile && (
               <p className="text-sm text-green-500 mt-1.5">{imageFile}</p>
@@ -95,7 +87,7 @@ const MembershipApplicationModal = () => {
 
         {/* Business/Shop Name */}
         <div>
-          <label htmlFor="shop_name" className={labelClass}>
+          <label htmlFor="shop_name" className="form-label">
             Business/Shop Name
           </label>
           <input
@@ -105,30 +97,28 @@ const MembershipApplicationModal = () => {
             {...register("shop_name", {
               required: "Business Name is required",
             })}
-            className={inputClass}
+            className="form-input"
           />
           {errors.shop_name && (
-            <span className="text-red-500 text-sm block mt-1.5">
-              {errors.shop_name.message}
-            </span>
+            <span className="form-error">{errors.shop_name.message}</span>
           )}
         </div>
 
         {/* Business/Shop Description */}
         <div>
-          <label htmlFor="shop_name" className={labelClass}>
+          <label htmlFor="shop_name" className="form-label">
             Business/Shop Description
           </label>
           <textarea
             id="shop_description"
-            className={`h-20 ${inputClass}`}
+            className={`h-20 form-input`}
             placeholder="Write a short description"
             {...register("shop_description", {
               required: "Shop Description is required",
             })}
           ></textarea>
           {errors.shop_description && (
-            <span className="text-red-500 text-sm block mt-1.5">
+            <span className="form-error">
               {errors.shop_description.message}
             </span>
           )}
@@ -136,12 +126,12 @@ const MembershipApplicationModal = () => {
 
         {/* Why important */}
         <div>
-          <label htmlFor="why_important" className={labelClass}>
+          <label htmlFor="why_important" className="form-label">
             Why is sustainability important to you and how do you practice it?
           </label>
           <textarea
             id="why_important"
-            className={`h-20 ${inputClass}`}
+            className={`h-20 form-input`}
             placeholder="Write 2-3 lines"
             {...register("why_important")}
           ></textarea>
@@ -149,12 +139,12 @@ const MembershipApplicationModal = () => {
 
         {/* What Impact */}
         <div>
-          <label htmlFor="what_impact" className={labelClass}>
+          <label htmlFor="what_impact" className="form-label">
             What impact does your business have on the community?
           </label>
           <textarea
             id="what_impact"
-            className={`h-20 ${inputClass}`}
+            className={`h-20 form-input`}
             placeholder="Write 2-3 lines"
             {...register("what_impact")}
           ></textarea>
@@ -162,12 +152,12 @@ const MembershipApplicationModal = () => {
 
         {/* What Type */}
         <div>
-          <label htmlFor="what_type" className={labelClass}>
+          <label htmlFor="what_type" className="form-label">
             What types of community engagement are you involved in?
           </label>
           <textarea
             id="what_type"
-            className={`h-20 ${inputClass}`}
+            className={`h-20 form-input`}
             placeholder="Write 2-3 lines"
             {...register("what_type")}
           ></textarea>
