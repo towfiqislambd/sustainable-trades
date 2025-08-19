@@ -7,7 +7,7 @@ import Modal from "@/Components/Common/Modal";
 import MembershipApplicationModal from "@/Components/Modals/MembershipApplicationModal";
 import Link from "next/link";
 
-const CommunityMember = () => {
+const CommunityMember = ({ has_community }: any) => {
   const [isOpen, setOpen] = useState<boolean>(false);
 
   return (
@@ -47,12 +47,14 @@ const CommunityMember = () => {
               View Their Shop
             </Link>
 
-            <button
-              onClick={() => setOpen(true)}
-              className="w-[416px] duration-500 transition-all block border border-accent-white text-lg text-accent-white cursor-pointer py-3 rounded-lg shadow-lg hover:scale-105"
-            >
-              Apply for Community Spotlight
-            </button>
+            {has_community && (
+              <button
+                onClick={() => setOpen(true)}
+                className="w-[416px] duration-500 transition-all block border border-accent-white text-lg text-accent-white cursor-pointer py-3 rounded-lg shadow-lg hover:scale-105"
+              >
+                Apply for Community Spotlight
+              </button>
+            )}
           </div>
         </div>
       </Container>

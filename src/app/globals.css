@@ -29,7 +29,7 @@ body {
 
 /* Custom CSS */
 .section_title {
-  @apply text-5xl text-primary-green mb-14;
+  @apply text-[45px] text-primary-green mb-12;
 }
 
 .section_sub_title {
