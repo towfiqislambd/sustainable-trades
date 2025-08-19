@@ -17,7 +17,7 @@ const Page = () => {
       <FeaturedShops />
       <ExploreProduct />
       <OurMission />
-      <CommunityMember />
+      <CommunityMember has_community={true} />
       <Pricing
         description="No matter how you want to manage your shop, we got you covered!"
         button1="Monthly Billing"

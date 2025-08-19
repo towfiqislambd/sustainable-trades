@@ -2799,3 +2799,23 @@ export function Love2Svg() {
     </svg>
   );
 }
+
+export function BigMessageSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="41"
+      height="41"
+      viewBox="0 0 41 41"
+      fill="none"
+    >
+      <path
+        d="M35.5 25.293C35.5 26.177 35.1488 27.0249 34.5237 27.65C33.8986 28.2751 33.0507 28.6263 32.1667 28.6263H12.1667L5.5 35.293V8.6263C5.5 7.74225 5.85119 6.8944 6.47631 6.26928C7.10143 5.64416 7.94928 5.29297 8.83333 5.29297H32.1667C33.0507 5.29297 33.8986 5.64416 34.5237 6.26928C35.1488 6.8944 35.5 7.74225 35.5 8.6263V25.293Z"
+        stroke="#274F45"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+}

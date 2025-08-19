@@ -4,6 +4,10 @@ import p1 from "@/Assets/p1.jpg";
 import shopAuthor from "@/Assets/shop_author.jpg";
 import CartItem from "./CartItem";
 import { PaypalSvg } from "@/Components/Svg/SvgContainer";
+import Modal from "@/Components/Common/Modal";
+import ShippingOptionsModal from "@/Components/Modals/ShippingOptionsModal";
+import ShippingAddress from "@/Components/Modals/ShippingAddress";
+import SuccessModal from "../../../Modals/SuccessModal";
 const data = [
   {
     id: 1,
@@ -42,6 +46,9 @@ const data = [
 ];
 
 const PaymentOptions = () => {
+  const [shippingOptionsOpen, setShippingOptionsOpen] = useState(false);
+  const [shippingAddressOpen, setShippingAddressOpen] = useState(false);
+  const [successOpen, setSuccessOpen] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("paypal");
 
   return (
@@ -88,7 +95,7 @@ const PaymentOptions = () => {
           </div>
 
           {/* Cash Option */}
-          <div className="flex gap-3 items-center">
+          <p className="flex gap-3 items-center">
             <input
               type="radio"
               className="scale-150"
@@ -101,7 +108,7 @@ const PaymentOptions = () => {
             <span className="text-secondary-gray font-semibold">
               Pay with Cash
             </span>
-          </div>
+          </p>
 
           <div className="space-y-3 mt-7 mb-7">
             <div className="flex items-center justify-between text-[17px] font-semibold text-primary-green">
@@ -128,7 +135,10 @@ const PaymentOptions = () => {
           </div>
 
           {/* Checkout btn */}
-          <button className="block w-full py-3 bg-primary-green text-accent-white font-semibold text-lg duration-300 transition-all hover:scale-95 rounded-lg shadow cursor-pointer hover:bg-transparent hover:text-primary-green border-2 border-primary-green">
+          <button
+            onClick={() => setShippingOptionsOpen(true)}
+            className="primary_btn"
+          >
             Proceed to Checkout
           </button>
 
@@ -137,6 +147,34 @@ const PaymentOptions = () => {
           </p>
         </div>
       </div>
+
+      {/* Modals */}
+      <Modal
+        open={shippingOptionsOpen}
+        onClose={() => setShippingOptionsOpen(false)}
+      >
+        <ShippingOptionsModal
+          onProceed={() => {
+            setShippingOptionsOpen(false);
+            setShippingAddressOpen(true);
+          }}
+          onSuccess={() => {
+            setShippingOptionsOpen(false);
+            setSuccessOpen(true);
+          }}
+        />
+      </Modal>
+
+      <Modal
+        open={shippingAddressOpen}
+        onClose={() => setShippingAddressOpen(false)}
+      >
+        <ShippingAddress />
+      </Modal>
+
+      <Modal open={successOpen} onClose={() => setSuccessOpen(false)}>
+        <SuccessModal />
+      </Modal>
     </section>
   );
 };
