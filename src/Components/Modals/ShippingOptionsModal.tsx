@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -9,8 +8,17 @@ type formData = {
   message: string;
 };
 
-const ShippingOptionsModal = () => {
+type ShippingOptionsProps = {
+  onProceed: () => void;
+  onSuccess: () => void;
+};
+
+const ShippingOptionsModal = ({
+  onProceed,
+  onSuccess,
+}: ShippingOptionsProps) => {
   const [shippingMethod, setShippingMethod] = useState("proceed");
+
   const {
     register,
     handleSubmit,
@@ -19,10 +27,11 @@ const ShippingOptionsModal = () => {
 
   const onSubmit = (data: formData) => {
     console.log(data);
+    onSuccess();
   };
 
   return (
-    <div>
+    <>
       <h3 className="text-light-green font-semibold text-lg mb-3">
         Shipping Options
       </h3>
@@ -48,9 +57,9 @@ const ShippingOptionsModal = () => {
         </p>
 
         {shippingMethod === "proceed" && (
-          <Link href="" className="primary_btn">
+          <button onClick={onProceed} className="primary_btn">
             Proceed to Shipping
-          </Link>
+          </button>
         )}
 
         <p className="flex gap-3 items-center mb-3">
@@ -145,7 +154,7 @@ const ShippingOptionsModal = () => {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 

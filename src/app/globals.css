@@ -42,7 +42,7 @@ body {
 }
 
 .primary_btn {
-  @apply block w-full py-3 bg-primary-green text-accent-white font-semibold text-lg duration-300 transition-all hover:scale-[0.97] rounded-lg shadow cursor-pointer hover:bg-transparent hover:text-primary-green border-2 border-primary-green text-center;
+  @apply block w-full py-3 bg-primary-green text-accent-white font-semibold text-[17px] duration-300 transition-all hover:scale-[0.97] rounded-lg shadow cursor-pointer hover:bg-transparent hover:text-primary-green border-2 border-primary-green text-center;
 }
 
 .auth-secondary-btn {

@@ -6,6 +6,8 @@ import CartItem from "./CartItem";
 import { PaypalSvg } from "@/Components/Svg/SvgContainer";
 import Modal from "@/Components/Common/Modal";
 import ShippingOptionsModal from "@/Components/Modals/ShippingOptionsModal";
+import ShippingAddress from "@/Components/Modals/ShippingAddress";
+import SuccessModal from "../../../Modals/SuccessModal";
 const data = [
   {
     id: 1,
@@ -44,7 +46,9 @@ const data = [
 ];
 
 const PaymentOptions = () => {
-  const [open, setOpen] = useState(false);
+  const [shippingOptionsOpen, setShippingOptionsOpen] = useState(false);
+  const [shippingAddressOpen, setShippingAddressOpen] = useState(false);
+  const [successOpen, setSuccessOpen] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("paypal");
 
   return (
@@ -131,7 +135,10 @@ const PaymentOptions = () => {
           </div>
 
           {/* Checkout btn */}
-          <button onClick={() => setOpen(true)} className="primary_btn">
+          <button
+            onClick={() => setShippingOptionsOpen(true)}
+            className="primary_btn"
+          >
             Proceed to Checkout
           </button>
 
@@ -141,9 +148,32 @@ const PaymentOptions = () => {
         </div>
       </div>
 
-      {/* Modal */}
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <ShippingOptionsModal />
+      {/* Modals */}
+      <Modal
+        open={shippingOptionsOpen}
+        onClose={() => setShippingOptionsOpen(false)}
+      >
+        <ShippingOptionsModal
+          onProceed={() => {
+            setShippingOptionsOpen(false);
+            setShippingAddressOpen(true);
+          }}
+          onSuccess={() => {
+            setShippingOptionsOpen(false);
+            setSuccessOpen(true);
+          }}
+        />
+      </Modal>
+
+      <Modal
+        open={shippingAddressOpen}
+        onClose={() => setShippingAddressOpen(false)}
+      >
+        <ShippingAddress />
+      </Modal>
+
+      <Modal open={successOpen} onClose={() => setSuccessOpen(false)}>
+        <SuccessModal />
       </Modal>
     </section>
   );
