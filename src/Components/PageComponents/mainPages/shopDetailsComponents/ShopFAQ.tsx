@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Container from "@/Components/Common/Container";
-import { LowerArrowSvg, UpperArrowSvg } from "@/Components/Svg/SvgContainer";
+import { UpperArrowSvg } from "@/Components/Svg/SvgContainer";
 const data = [
   {
     id: 1,
@@ -47,20 +47,20 @@ const ShopFAQ = () => {
                 <h3 className="text-xl font-semibold text-primary-green">
                   {item.question}
                 </h3>
-                <span className="text-2xl text-secondary-black">
-                  {activeAccordion === item.id ? (
-                    <UpperArrowSvg />
-                  ) : (
-                    <LowerArrowSvg />
-                  )}
+                <span
+                  className={`text-2xl text-secondary-black duration-500 ${
+                    activeAccordion === item.id ? "rotate-180" : "rotate-0"
+                  }`}
+                >
+                  <UpperArrowSvg />
                 </span>
               </div>
 
               {/* Answer */}
               <div
-                className={`px-3 transition-all duration-300 overflow-hidden ${
+                className={`grid transition-all duration-500 overflow-hidden ${
                   activeAccordion === item.id
-                    ? "max-h-96 opacity-100 mt-2"
+                    ? "max-h-auto opacity-100 mt-2"
                     : "max-h-0 opacity-0"
                 }`}
               >
