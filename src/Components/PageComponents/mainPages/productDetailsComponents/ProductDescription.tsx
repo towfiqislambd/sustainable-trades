@@ -10,9 +10,11 @@ import {
 import { FaStar } from "react-icons/fa";
 import Modal from "@/Components/Common/Modal";
 import TradeOfferModal from "@/Components/Modals/TradeOfferModal";
+import MessageToSellerModal from "@/Components/Modals/MessageToSellerModal";
 
 const ProductDescription = () => {
-  const [open, setOpen] = useState(false);
+  const [tradeOpen, setTradeOpen] = useState(false);
+  const [msgOpen, setMsgOpen] = useState(false);
 
   return (
     <div>
@@ -92,23 +94,28 @@ const ProductDescription = () => {
 
       {/* Trade btn */}
       <button
-        onClick={() => setOpen(true)}
+        onClick={() => setTradeOpen(true)}
         className="mb-5 block w-full text-center duration-500 transition-all border-2 border-[#D4E2CB] text-lg cursor-pointer py-3 bg-[#D4E2CB] text-primary-green rounded-lg shadow hover:text-primary-green hover:bg-transparent font-semibold"
       >
         Trade
       </button>
 
       {/* Message btn */}
-      <button className="mb-5 w-full text-center duration-500 transition-all border-2 text-lg cursor-pointer py-3 text-primary-green rounded-lg shadow hover:text-accent-white hover:bg-primary-green font-semibold border-primary-green flex gap-2 items-center justify-center">
-        <span>
-          <MyMsgSvg />
-        </span>
+      <button
+        onClick={() => setMsgOpen(true)}
+        className="mb-5 w-full text-center duration-500 transition-all border-2 text-lg cursor-pointer py-3 text-primary-green rounded-lg shadow hover:text-accent-white hover:bg-primary-green font-semibold border-primary-green flex gap-2 items-center justify-center"
+      >
+        <MyMsgSvg />
         <span> Message Seller</span>
       </button>
 
-      {/* Modal */}
-      <Modal open={open} onClose={() => setOpen(false)}>
+      {/* Modals */}
+      <Modal open={tradeOpen} onClose={() => setTradeOpen(false)}>
         <TradeOfferModal />
+      </Modal>
+
+      <Modal open={msgOpen} onClose={() => setMsgOpen(false)}>
+        <MessageToSellerModal />
       </Modal>
     </div>
   );

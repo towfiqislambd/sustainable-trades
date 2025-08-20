@@ -1,8 +1,14 @@
 import React from "react";
 import { FaStar } from "react-icons/fa";
-import { LocationTwoSvg, SaveSvg, SendSvg } from "../Svg/SvgContainer";
+import {
+  BackSvg,
+  LocationTwoSvg,
+  MessageSvg,
+  SaveSvg,
+  SendSvg,
+} from "../Svg/SvgContainer";
 
-const TradeOfferModal = () => {
+const MessageToSellerModal = () => {
   return (
     <>
       <h3 className="text-light-green font-semibold text-lg mb-2">
@@ -19,9 +25,16 @@ const TradeOfferModal = () => {
         ))}
       </div>
 
-      <div className="flex gap-1 items-center mb-3">
+      <div className="flex gap-1 items-center">
         <LocationTwoSvg />
         <span className="text-light-green">13 mi. away</span>
+      </div>
+
+      <hr className="my-3 text-gray-300" />
+
+      <div className="flex justify-between items-center mb-2 text-lg font-semibold text-secondary-black">
+        <p>Coconut Bar Soap</p>
+        <p>$30.00</p>
       </div>
 
       <div className="mb-5">
@@ -41,16 +54,16 @@ const TradeOfferModal = () => {
 
       <div className="flex gap-4 items-center">
         <button className="primary_btn flex-1 !flex gap-2 items-center justify-center">
-          <SaveSvg />
-          <span>Save offer</span>
+          <BackSvg />
+          <span>Go back</span>
         </button>
         <button className="primary_btn flex-1 !flex gap-2 items-center justify-center">
-          <SendSvg />
-          <span>Send offer</span>
+          <MessageSvg />
+          <span>Send message</span>
         </button>
       </div>
     </>
   );
 };
 
-export default TradeOfferModal;
+export default MessageToSellerModal;

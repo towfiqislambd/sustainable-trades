@@ -173,7 +173,7 @@ const DashboardHeader = () => {
         {/* Right */}
         <div className="flex gap-5 items-center">
           {/* Message */}
-          <button className="cursor-pointer">
+          <button className="cursor-pointer text-accent-white">
             <MessageSvg />
           </button>
 
