@@ -103,7 +103,7 @@ const Product = ({
 
         {/* Cart btn */}
         {has_cart && (
-          <button className="flex gap-2 items-center px-3 py-1.5 rounded-lg cursor-pointer border border-secondary-gray font-semibold text-secondary-gray">
+          <button className="flex gap-2 items-center px-3 py-1.5 rounded-[5px] cursor-pointer border border-secondary-gray font-semibold text-secondary-gray duration-500 transition-all hover:bg-primary-green hover:text-accent-white hover:scale-95">
             <span>Add to Cart</span>
             <span>
               <CartLogoSvg />
