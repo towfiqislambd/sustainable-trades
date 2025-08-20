@@ -102,11 +102,16 @@ body {
   @apply bg-primary-green scale-105 opacity-100;
 }
 
+.product_img .swiper-button-prev::after,
+.product_img .swiper-button-next::after {
+  @apply text-primary-green;
+}
+
+/* For Custom Scrollbar */
 .side-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
-.product_img .swiper-button-prev::after,
-.product_img .swiper-button-next::after {
-  @apply text-primary-green;
+.notification_container {
+  scrollbar-width: thin;
 }

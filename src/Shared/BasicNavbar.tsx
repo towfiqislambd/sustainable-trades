@@ -76,10 +76,55 @@ const navLins = [
     ],
   },
 ];
+const notificationData = [
+  {
+    id: 1,
+    label: "Item Sold",
+    description: "Shipping to 3 buyers today.",
+    author: author,
+  },
+  {
+    id: 2,
+    label: "Item Sold",
+    description: "Shipping to 3 buyers today.",
+    author: author,
+  },
+  {
+    id: 3,
+    label: "Item Sold",
+    description: "Shipping to 3 buyers today.",
+    author: author,
+  },
+  {
+    id: 4,
+    label: "Item Sold",
+    description: "Shipping to 3 buyers today.",
+    author: author,
+  },
+  {
+    id: 5,
+    label: "Item Sold",
+    description: "Shipping to 3 buyers today.",
+    author: author,
+  },
+  {
+    id: 6,
+    label: "Item Sold",
+    description: "Shipping to 3 buyers today.",
+    author: author,
+  },
+  {
+    id: 7,
+    label: "Item Sold",
+    description: "Shipping to 3 buyers today.",
+    author: author,
+  },
+];
 
 const BasicNavbar = () => {
   const pathname = usePathname();
   const [showMenu, setShowMenu] = useState<boolean>(false);
+  const [showNotification, setShowNotification] = useState<boolean>(false);
   const [showPopover, setShowPopover] = useState<boolean>(false);
   const [activeSubMenu, setActiveSubMenu] = useState<number>(0);
 
@@ -87,6 +132,7 @@ const BasicNavbar = () => {
     const handleWindowClick = () => {
       setShowMenu(false);
       setShowPopover(false);
+      setShowNotification(false);
     };
 
     window.addEventListener("click", handleWindowClick);
@@ -175,14 +221,54 @@ const BasicNavbar = () => {
           {/* Right */}
           <div className="flex gap-5 items-center">
             {/* Message */}
-            <button className="cursor-pointer">
+            <button className="cursor-pointer text-accent-white">
               <MessageSvg />
             </button>
 
             {/* Notification */}
-            <button className="cursor-pointer">
-              <NotificationSvg />
-            </button>
+            <div className="relative">
+              <button
+                onClick={e => {
+                  e.stopPropagation();
+                  setShowNotification(!showNotification);
+                }}
+                className="cursor-pointer"
+              >
+                <NotificationSvg />
+              </button>
+
+              {showNotification && (
+                <div className="notification_container absolute w-[340px] h-[380px] overflow-y-auto bg-white border border-gray-50 rounded-lg top-14 shadow-[0_3px_10px_0_rgba(0,0,0,0.1)] py-4 px-5">
+                  <h3 className="text-lg font-semibold text-left mb-4">
+                    Notifications
+                  </h3>
+
+                  <div className="space-y-4">
+                    {notificationData?.map(item => (
+                      <div
+                        key={item?.id}
+                        className="flex gap-3 items-center border-b border-gray-300 pb-4 last:border-b-0 last:pb-0"
+                      >
+                        <Image
+                          src={item?.author}
+                          alt="author"
+                          className="size-12 rounded-full border border-gray-50"
+                        />
+
+                        <div>
+                          <h4 className="text-left font-semibold text-secondary-black mb-1">
+                            {item?.label}
+                          </h4>
+                          <p className="text-left text-secondary-gray text-sm">
+                            {item?.description}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
 
             {/* Cart */}
             <Link href="/cart" className="cursor-pointer">
@@ -194,45 +280,47 @@ const BasicNavbar = () => {
               <LoveSvg2 />
             </button>
 
-            {/* profile */}
-            <button
-              onClick={e => {
-                e.stopPropagation();
-                setShowPopover(!showPopover);
-              }}
-              className="cursor-pointer flex gap-2 items-center relative"
-            >
-              <Image
-                src={author}
-                alt="author"
-                className="size-10 rounded-full border-2 border-white"
-              />
-              <DownSvg />
+            {/* Profile */}
+            <div className="relative">
+              <button
+                onClick={e => {
+                  e.stopPropagation();
+                  setShowPopover(!showPopover);
+                }}
+                className="cursor-pointer flex gap-2 items-center"
+              >
+                <Image
+                  src={author}
+                  alt="author"
+                  className="size-10 rounded-full border-2 border-white"
+                />
+                <DownSvg />
+              </button>
 
               {/* Popover */}
-              <div
-                onClick={e => e.stopPropagation()}
-                className={`absolute top-16 bg-white drop-shadow z-50 space-y-2 w-[120px] py-3 px-4 border-gray-50 rounded-lg ${
-                  showPopover ? "block" : "hidden"
-                }`}
-              >
-                <Link
-                  href=""
-                  onClick={() => setShowPopover(false)}
-                  className="flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold"
+              {showPopover && (
+                <div
+                  onClick={e => e.stopPropagation()}
+                  className="absolute top-16 bg-white drop-shadow z-50 space-y-2 w-[120px] py-3 px-4 border-gray-50 rounded-lg"
                 >
-                  Dashboard
-                </Link>
+                  <Link
+                    href=""
+                    onClick={() => setShowPopover(false)}
+                    className="flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold"
+                  >
+                    Dashboard
+                  </Link>
 
-                <Link
-                  href=""
-                  onClick={() => setShowPopover(false)}
-                  className="flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold"
-                >
-                  Log Out
-                </Link>
-              </div>
-            </button>
+                  <Link
+                    href=""
+                    onClick={() => setShowPopover(false)}
+                    className="flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold"
+                  >
+                    Log Out
+                  </Link>
+                </div>
+              )}
+            </div>
 
             {/* View shop */}
             <Link
