@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import {
   AddToCartSvg,
   LoveSvg,
@@ -7,8 +8,12 @@ import {
   MyMsgSvg,
 } from "@/Components/Svg/SvgContainer";
 import { FaStar } from "react-icons/fa";
+import Modal from "@/Components/Common/Modal";
+import TradeOfferModal from "@/Components/Modals/TradeOfferModal";
 
 const ProductDescription = () => {
+  const [open, setOpen] = useState(false);
+
   return (
     <div>
       <div className="flex items-center justify-between mb-3">
@@ -86,7 +91,10 @@ const ProductDescription = () => {
       </button>
 
       {/* Trade btn */}
-      <button className="mb-5 block w-full text-center duration-500 transition-all border-2 border-[#D4E2CB] text-lg cursor-pointer py-3 bg-[#D4E2CB] text-primary-green rounded-lg shadow hover:text-primary-green hover:bg-transparent font-semibold">
+      <button
+        onClick={() => setOpen(true)}
+        className="mb-5 block w-full text-center duration-500 transition-all border-2 border-[#D4E2CB] text-lg cursor-pointer py-3 bg-[#D4E2CB] text-primary-green rounded-lg shadow hover:text-primary-green hover:bg-transparent font-semibold"
+      >
         Trade
       </button>
 
@@ -97,6 +105,11 @@ const ProductDescription = () => {
         </span>
         <span> Message Seller</span>
       </button>
+
+      {/* Modal */}
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <TradeOfferModal />
+      </Modal>
     </div>
   );
 };
