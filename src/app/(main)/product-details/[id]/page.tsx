@@ -14,6 +14,7 @@ interface Props {
   params: Promise<{ id: string }>;
 }
 
+
 const page = ({ params }: Props) => {
   const { id } = use(params);
 
