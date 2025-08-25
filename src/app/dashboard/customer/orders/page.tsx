@@ -2,17 +2,22 @@
 import React, { useState } from "react";
 import DashBoardHeader from "@/Components/Common/DashBoardHeader";
 import DashboardOrders from "@/Components/PageComponents/dashboardPages/DashboardOrders";
+import BuyAgain from "@/Components/PageComponents/dashboardPages/BuyAgain";
+import NotShipted from "@/Components/PageComponents/dashboardPages/NotShipted";
+import CancelOrders from "@/Components/PageComponents/dashboardPages/CancelOrders";
 
 const page = () => {
   const [isActive, setIsActive] = useState("Orders");
+
   const tabs: string[] = [
     "Orders",
     "Buy Again",
-    " Not Shipped",
-    " Cancelled Orders",
+    "Not Shipped",
+    "Cancelled Orders",
   ];
+
   return (
-    <section className="mb-[1000px] ">
+    <section className="">
       <DashBoardHeader heading="Yours Orders" placeholder="Search Orders" />
       <div className="py-6">
         <ul className="flex gap-x-6">
@@ -31,7 +36,12 @@ const page = () => {
           ))}
         </ul>
       </div>
-      <div className="">{isActive === "Orders" && <DashboardOrders />}</div>
+      <div className="">
+        {isActive === "Orders" && <DashboardOrders />}
+        {isActive === "Buy Again" && <BuyAgain />}
+        {isActive === "Not Shipped" && <NotShipted />}
+        {isActive === "Cancelled Orders" && <CancelOrders />}
+      </div>
     </section>
   );
 };
