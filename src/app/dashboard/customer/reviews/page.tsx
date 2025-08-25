@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import { FaCamera, FaStar } from "react-icons/fa";
-import DashBoardHeader from "@/Components/Common/DashBoardHeader";
+import { FaStar } from "react-icons/fa";
 import { Camera } from "@/Components/Svg/SvgContainer";
+import DashBoardHeader from "@/Components/Common/DashBoardHeader";
 
 const Page = () => {
   const [rating, setRating] = useState<number>(0);
