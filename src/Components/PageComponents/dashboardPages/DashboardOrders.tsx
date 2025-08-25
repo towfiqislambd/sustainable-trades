@@ -80,7 +80,7 @@ const DashboardOrders = () => {
                   Track Package
                 </button>
                 <Link
-                  href={`/dashboard/customer/orders/View_Orders/${order.id}`}
+                  href={`/dashboard/customer/orders/${order.id}`}
                 >
                   <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[16px] font-normal text-[#000] cursor-pointer w-[250px] hover:scale-105 duration-500 ease-in-out">
                     View Order
