@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { orders } from "@/Components/Data/data";
 import { Again } from "@/Components/Svg/SvgContainer";
+import Link from "next/link";
 
 const DashboardOrders = () => {
 
@@ -66,7 +67,7 @@ const DashboardOrders = () => {
                     <h5 className="text-[20px] font-bold text-[#000]">
                       {order.productName}
                     </h5>
-                    
+
                     <button className="p-2 rounded-[8px] w-fit bg-[#D4E2CB] flex gap-x-2 text-[16px] font-normal text-[#000] cursor-pointer group">
                       <Again className="transition-transform duration-500 group-hover:rotate-[260deg]" />
                       Buy it again
@@ -78,9 +79,13 @@ const DashboardOrders = () => {
                 <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[16px] font-normal text-[#000] cursor-pointer w-[250px] hover:scale-105 duration-500 ease-in-out">
                   Track Package
                 </button>
-                <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[16px] font-normal text-[#000] cursor-pointer w-[250px] hover:scale-105 duration-500 ease-in-out">
-                  View Order
-                </button>
+                <Link
+                  href={`/dashboard/customer/orders/View_Orders/${order.id}`}
+                >
+                  <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[16px] font-normal text-[#000] cursor-pointer w-[250px] hover:scale-105 duration-500 ease-in-out">
+                    View Order
+                  </button>
+                </Link>
                 <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[16px] font-normal text-[#000] cursor-pointer w-[250px] hover:scale-105 duration-500 ease-in-out">
                   Get Help
                 </button>
