@@ -1,9 +1,9 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 
 const page = () => {
   const [notifications, setNotifications] = useState(true);
-  const [language, setLanguage] = useState("English");
+  const [language, setLanguage] = useState(false);
   const [cookies, setCookies] = useState(false);
   return (
     <>
@@ -11,7 +11,7 @@ const page = () => {
         Account
       </h2>
       <div className="mt-6 flex gap-x-[145px]">
-        <div className="w-full">
+        <div className="w-1/2">
           <form action="" className="flex flex-col gap-3 ">
             <div className="w-full">
               <p className="form-label font-bold">Name</p>
@@ -71,17 +71,17 @@ const page = () => {
             </div>
           </form>
         </div>
-        <div className="flex justify-center shrink-0">
+        <div className="flex justify-end shrink-0">
           <div className="w-full mt-20 flex flex-col gap-y-6">
             {/* Push Notifications */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-center gap-x-16">
               <h3 className="text-[16px] font-semibold">Push Notifications</h3>
-              <div className="flex items-center gap-x-2">
-                <span className="text-sm">OFF</span>
+              <div className="flex items-center gap-x-5">
+                <span className="text-[16px] font-bold">OFF</span>
                 <button
                   onClick={() => setNotifications(!notifications)}
-                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition ${
-                    notifications ? "bg-green-300" : "bg-gray-300"
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition cursor-pointer ${
+                    notifications ? "bg-[#D4E2CB]" : "bg-gray-300"
                   }`}
                 >
                   <span
@@ -90,42 +90,36 @@ const page = () => {
                     }`}
                   />
                 </button>
-                <span className="text-sm">ON</span>
+                <span className="text-[16px] font-bold">ON</span>
               </div>
             </div>
-
-            {/* Language Toggle */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-center gap-x-[108px]">
               <h3 className="text-[16px] font-semibold">Language</h3>
-              <div className="flex items-center gap-x-2">
-                <span className="text-sm">English</span>
+              <div className="flex items-center gap-x-5">
+                <span className="text-[16px] font-bold">English</span>
                 <button
-                  onClick={() =>
-                    setLanguage(language === "English" ? "Spanish" : "English")
-                  }
-                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition ${
-                    language === "Spanish" ? "bg-green-300" : "bg-gray-300"
+                  onClick={() => setLanguage(!language)}
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition cursor-pointer ${
+                    language ? "bg-[#D4E2CB]" : "bg-gray-300"
                   }`}
                 >
                   <span
                     className={`inline-block h-4 w-4 transform rounded-full bg-white transition ${
-                      language === "Spanish" ? "translate-x-6" : "translate-x-1"
+                      language ? "translate-x-6" : "translate-x-1"
                     }`}
                   />
                 </button>
-                <span className="text-sm">Spanish</span>
+                <span className="text-[16px] font-bold">Spanish</span>
               </div>
             </div>
-
-            {/* Enable Cookies */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-center gap-x-22">
               <h3 className="text-[16px] font-semibold">Enable Cookies</h3>
-              <div className="flex items-center gap-x-2">
-                <span className="text-sm">OFF</span>
+              <div className="flex items-center gap-x-5">
+                <span className="text-[16px] font-bold">OFF</span>
                 <button
                   onClick={() => setCookies(!cookies)}
-                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition ${
-                    cookies ? "bg-green-300" : "bg-gray-300"
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition cursor-pointer ${
+                    cookies ? "bg-[#D4E2CB]" : "bg-gray-300"
                   }`}
                 >
                   <span
@@ -134,7 +128,7 @@ const page = () => {
                     }`}
                   />
                 </button>
-                <span className="text-sm">ON</span>
+                <span className="text-[16px] font-bold">ON</span>
               </div>
             </div>
           </div>
