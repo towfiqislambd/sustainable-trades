@@ -45,7 +45,7 @@ const Page = () => {
         <div className="w-full mx-auto my-8">
           <label
             htmlFor="fileUpload"
-            className="border border-dashed border-[#67645F] rounded-[8px] w-full h-[200px] flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 transition"
+            className="border border-dashed border-[#67645F] rounded-[8px] w-full h-[100px] flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 transition"
           >
             {preview ? (
               <img
