@@ -2890,3 +2890,30 @@ export function BackSvg() {
     </svg>
   );
 }
+export function Again(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      {...props} 
+    >
+      <path
+        d="M22 12C22 18 17.61 22 12.194 22C7.792 22 4.24 19.665 3 16M2 12C2 6 6.39 2 11.807 2C16.208 2 19.758 4.335 21 8"
+        stroke="currentColor" // ✅ use currentColor so Tailwind text color works
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M7 17L3 16L2 20M17 7L21 8L22 4"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}

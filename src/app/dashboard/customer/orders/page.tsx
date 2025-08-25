@@ -1,7 +1,49 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
+import DashBoardHeader from "@/Components/Common/DashBoardHeader";
+import DashboardOrders from "@/Components/PageComponents/dashboardPages/DashboardOrders";
+import BuyAgain from "@/Components/PageComponents/dashboardPages/BuyAgain";
+import NotShipted from "@/Components/PageComponents/dashboardPages/NotShipted";
+import CancelOrders from "@/Components/PageComponents/dashboardPages/CancelOrders";
 
 const page = () => {
-  return <section className="mb-[1000px]">Orders</section>;
+  const [isActive, setIsActive] = useState("Orders");
+
+  const tabs: string[] = [
+    "Orders",
+    "Buy Again",
+    "Not Shipped",
+    "Cancelled Orders",
+  ];
+
+  return (
+    <section className="">
+      <DashBoardHeader heading="Yours Orders" placeholder="Search Orders" />
+      <div className="py-6">
+        <ul className="flex gap-x-6">
+          {tabs.map((tab: string, index: number) => (
+            <li
+              key={tab}
+              onClick={() => setIsActive(tab)}
+              className={`text-[20px] font-bold text-[#000] px-6 py-2  shrink-0 cursor-pointer ${
+                isActive === tab
+                  ? "border-b-[3px] border-[#77978F]"
+                  : "border-b border-[#BFBEBE]"
+              } ${index === tabs.length - 1 ? "flex-1" : "shrink-0"}`}
+            >
+              {tab}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="">
+        {isActive === "Buy Again" && <BuyAgain />}
+        {isActive === "Not Shipped" && <NotShipted />}
+        {isActive === "Orders" && <DashboardOrders />}
+        {isActive === "Cancelled Orders" && <CancelOrders />}
+      </div>
+    </section>
+  );
 };
 
 export default page;
