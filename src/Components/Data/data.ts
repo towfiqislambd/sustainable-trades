@@ -1,6 +1,4 @@
-import OrderImage from "../../Assets/orderimage.png"
-
-
+import OrderImage from "../../Assets/orderimage.png";
 
 // All Fake Data
 export const data = [
@@ -21,7 +19,6 @@ export const data = [
   },
 ];
 
-
 export const orders = [
   {
     id: "114-4026893",
@@ -31,6 +28,7 @@ export const orders = [
     packageNote: "Your package was left near the front door or porch.",
     productName: "Organic Soap",
     productImage: OrderImage,
+    status: "Buy Again",
   },
   {
     id: "114-4026894",
@@ -40,6 +38,7 @@ export const orders = [
     packageNote: "Your package was left at the reception.",
     productName: "Handmade Lotion",
     productImage: OrderImage,
+    status: "Cancelled Orders",
   },
   {
     id: "114-4026895",
@@ -49,6 +48,6 @@ export const orders = [
     packageNote: "Delivered to your mailbox.",
     productName: "Shampoo Set",
     productImage: OrderImage,
+    status: "Not Shipped",
   },
 ];
-
