@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import AosProvider from "@/Provider/AosProvider/AosProvider";
-import UseSiteSettings from "@/Components/UseSiteSettings/UseSiteSettings";
 import QueryProvider from "@/Provider/QueryProvider/QueryProvider";
 import AuthProvider from "@/Provider/AuthProvider/AuthProvider";
 

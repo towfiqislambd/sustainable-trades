@@ -187,12 +187,12 @@ const customerNavLinks = [
     path: "/dashboard/customer/messages",
     icon: <PThirteenSvg />,
   },
-  {
-    id: 29,
-    label: "Membership",
-    path: "/dashboard/customer/membership",
-    icon: <PSevenSvg />,
-  },
+  // {
+  //   id: 29,
+  //   label: "Membership",
+  //   path: "/dashboard/customer/membership",
+  //   icon: <PSevenSvg />,
+  // },
   {
     id: 30,
     label: "Reviews",
@@ -232,7 +232,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         />
 
         {/* Right - Outlet */}
-        <section className="flex-1 p-5 bg-[#FFFCF9] overflow-y-auto">
+        <section className="flex-1 px-16 pt-10 pb-[100px] bg-[#FFFCF9] overflow-y-auto">
           {children}
         </section>
 

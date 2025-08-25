@@ -71,7 +71,6 @@ const CartItem = ({ item }: cartItemProps) => {
                 className="w-full h-full object-cover rounded-lg"
               />
             </figure>
-
             <div className="grow">
               <div className="flex justify-between items-center mb-3">
                 {/* Product Name */}
