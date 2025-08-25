@@ -4,9 +4,9 @@ import DashBoardHeader from "@/Components/Common/DashBoardHeader";
 import DashboardOrders from "@/Components/PageComponents/dashboardPages/DashboardOrders";
 
 const page = () => {
-  const [isActive, setIsActive] = useState("orders");
+  const [isActive, setIsActive] = useState("Orders");
   const tabs: string[] = [
-    "orders",
+    "Orders",
     "Buy Again",
     " Not Shipped",
     " Cancelled Orders",
@@ -31,9 +31,7 @@ const page = () => {
           ))}
         </ul>
       </div>
-      <div className="">
-        {isActive === "orders" && <DashboardOrders/>}
-      </div>
+      <div className="">{isActive === "Orders" && <DashboardOrders />}</div>
     </section>
   );
 };
