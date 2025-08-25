@@ -187,12 +187,12 @@ const customerNavLinks = [
     path: "/dashboard/customer/messages",
     icon: <PThirteenSvg />,
   },
-  {
-    id: 29,
-    label: "Membership",
-    path: "/dashboard/customer/membership",
-    icon: <PSevenSvg />,
-  },
+  // {
+  //   id: 29,
+  //   label: "Membership",
+  //   path: "/dashboard/customer/membership",
+  //   icon: <PSevenSvg />,
+  // },
   {
     id: 30,
     label: "Reviews",
