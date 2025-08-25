@@ -1,12 +1,39 @@
+"use client";
+import React, { useState } from "react";
 import DashBoardHeader from "@/Components/Common/DashBoardHeader";
-import DashboardHeader from "@/Shared/DashboardHeader";
-import React from "react";
-import { FaSearch } from "react-icons/fa";
+import DashboardOrders from "@/Components/PageComponents/dashboardPages/DashboardOrders";
 
-const page = () => {
+const page: React.FC = () => {
+  const [isActive, setIsActive] = useState("orders");
+  const tabs: string[] = [
+    "orders",
+    "Buy Again",
+    " Not Shipped",
+    " Cancelled Orders",
+  ];
   return (
-    <section className="mb-[1000px]">
+    <section className="mb-[1000px] ">
       <DashBoardHeader heading="Yours Orders" placeholder="Search Orders" />
+      <div className="py-6">
+        <ul className="flex gap-x-6">
+          {tabs.map((tab: string, index: number) => (
+            <li
+              key={tab}
+              onClick={() => setIsActive(tab)}
+              className={`text-[20px] font-bold text-[#000] px-6 py-2  shrink-0 cursor-pointer ${
+                isActive === tab
+                  ? "border-b-2 border-[#77978F]"
+                  : "border-b border-[#BFBEBE]"
+              } ${index === tabs.length - 1 ? "flex-1" : "shrink-0"}`}
+            >
+              {tab}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="">
+        {isActive === "orders" && <DashboardOrders/>}
+      </div>
     </section>
   );
 };
