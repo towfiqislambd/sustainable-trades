@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import DashBoardHeader from "@/Components/Common/DashBoardHeader";
 import DashboardOrders from "@/Components/PageComponents/dashboardPages/DashboardOrders";
 
-const page: React.FC = () => {
+const page = () => {
   const [isActive, setIsActive] = useState("orders");
   const tabs: string[] = [
     "orders",
@@ -22,7 +22,7 @@ const page: React.FC = () => {
               onClick={() => setIsActive(tab)}
               className={`text-[20px] font-bold text-[#000] px-6 py-2  shrink-0 cursor-pointer ${
                 isActive === tab
-                  ? "border-b-2 border-[#77978F]"
+                  ? "border-b-[3px] border-[#77978F]"
                   : "border-b border-[#BFBEBE]"
               } ${index === tabs.length - 1 ? "flex-1" : "shrink-0"}`}
             >
