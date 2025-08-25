@@ -139,7 +139,6 @@ const OrderDetailsPage = () => {
                 <h5 className="text-[20px] font-bold text-[#000]">
                   {order.productName}
                 </h5>
-
                 <button className="p-2 rounded-[8px] w-fit bg-[#D4E2CB] flex gap-x-2 text-[16px] font-normal text-[#000] cursor-pointer group">
                   <Again className="transition-transform duration-500 group-hover:rotate-[260deg]" />
                   Buy it again
