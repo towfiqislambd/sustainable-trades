@@ -37,9 +37,9 @@ const page = () => {
         </ul>
       </div>
       <div className="">
-        {isActive === "Orders" && <DashboardOrders />}
         {isActive === "Buy Again" && <BuyAgain />}
         {isActive === "Not Shipped" && <NotShipted />}
+        {isActive === "Orders" && <DashboardOrders />}
         {isActive === "Cancelled Orders" && <CancelOrders />}
       </div>
     </section>
