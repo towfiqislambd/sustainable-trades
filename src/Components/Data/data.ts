@@ -1,4 +1,5 @@
 import OrderImage from "../../Assets/orderimage.png";
+import p1 from "@/Assets/p1.jpg";
 
 // All Fake Data
 export const data = [
@@ -51,3 +52,34 @@ export const orders = [
     status: "Not Shipped",
   },
 ];
+
+  export const data2 = [
+    {
+      id: 1,
+      product_image: [p1, p1, p1, p1],
+      product_title: "Organic Coconut Soap",
+      product_price: "8.50",
+      is_wishlist: true,
+    },
+    {
+      id: 2,
+      product_image: [p1, p1, p1, p1],
+      product_title: "Organic Coconut Soap",
+      product_price: "8.50",
+      is_wishlist: true,
+    },
+    {
+      id: 3,
+      product_image: [p1, p1, p1, p1],
+      product_title: "Organic Coconut Soap",
+      product_price: "8.50",
+      is_wishlist: true,
+    },
+    {
+      id: 4,
+      product_image: [p1, p1, p1, p1],
+      product_title: "Organic Coconut Soap",
+      product_price: "8.50",
+      is_wishlist: true,
+    }
+  ];
