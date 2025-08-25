@@ -72,7 +72,7 @@ const page = () => {
           </form>
         </div>
         <div className="flex justify-end shrink-0">
-          <div className="w-full mt-20 flex flex-col gap-y-6">
+          <div className="w-full mt-20 flex flex-col gap-y-10">
             {/* Push Notifications */}
             <div className="flex items-center gap-x-16">
               <h3 className="text-[16px] font-semibold">Push Notifications</h3>
