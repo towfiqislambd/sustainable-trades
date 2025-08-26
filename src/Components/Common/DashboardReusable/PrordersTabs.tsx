@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 const ProordersTabs = () => {
-  const tabs: string[] = ["All Orders", "Pending", "Shipped", "Completed"];
+  const tabs = ["All Orders", "Pending", "Shipped", "Completed"];
   const [isActive, setIsActive] = useState("All Orders");
   return (
     <div>
@@ -21,7 +21,9 @@ const ProordersTabs = () => {
           </h3>
         ))}
       </div>
-      <div className="">{isActive === "All Orders" && "hello"}</div>
+      <div className="pt-12">
+        {isActive === "All Orders" && "hello"}
+      </div>
     </div>
   );
 };
