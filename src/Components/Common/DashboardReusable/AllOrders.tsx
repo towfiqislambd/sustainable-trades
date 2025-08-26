@@ -125,9 +125,9 @@ const statusColors = {
 };
 
 const AllOrders = () => {
-  
-  const [currentPage, setCurrentPage] = useState(1);
+
   const itemsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(ordersData.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
