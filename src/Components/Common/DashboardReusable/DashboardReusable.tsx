@@ -248,10 +248,10 @@ const DashboardReusable = () => {
             </div>
           </div>
         </div>
+      </div>
         <div className="pt-8 pb-16">
           <ProDashboardMessage/>
         </div>
-      </div>
     </div>
   );
 };
