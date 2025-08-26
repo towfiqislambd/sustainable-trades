@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 
 const ProordersTabs = () => {
@@ -21,6 +21,7 @@ const ProordersTabs = () => {
           </h3>
         ))}
       </div>
+      <div className="">{isActive === "All Orders" && "hello"}</div>
     </div>
   );
 };
