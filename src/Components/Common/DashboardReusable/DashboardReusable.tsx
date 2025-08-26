@@ -122,7 +122,7 @@ const DashboardReusable = () => {
                       LHandmade Cocoa Butter
                     </h4>
                     <h4 className="text-[14px] text-[#274F45] font-semibold">
-                      134 items
+                      2 items left
                     </h4>
                   </div>
 
@@ -148,7 +148,7 @@ const DashboardReusable = () => {
                     Cold-pressed Rosemary Oil
                   </h4>
                   <h4 className="text-[14px] text-[#274F45] font-semibold">
-                    134 items
+                    76 items
                   </h4>
                 </div>
 
