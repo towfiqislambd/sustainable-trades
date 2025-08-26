@@ -158,6 +158,11 @@ const OrderDetailsPage = () => {
             <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[16px] font-normal text-[#000] cursor-pointer w-[250px] hover:scale-105 duration-500 ease-in-out">
               Get Help
             </button>
+            <Link href={`/dashboard/customer/reviews/${order.id}`}>
+              <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[16px] font-normal text-[#000] cursor-pointer w-[250px] hover:scale-105 duration-500 ease-in-out">
+                Write a Review
+              </button>
+            </Link>
           </div>
         </div>
       </div>
