@@ -5,8 +5,6 @@ import { Again } from "@/Components/Svg/SvgContainer";
 import Link from "next/link";
 
 const DashboardOrders = () => {
-
-
   return (
     <div className="flex flex-col gap-6">
       {orders.map(order => (
@@ -79,16 +77,20 @@ const DashboardOrders = () => {
                 <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[16px] font-normal text-[#000] cursor-pointer w-[250px] hover:scale-105 duration-500 ease-in-out">
                   Track Package
                 </button>
-                <Link
-                  href={`/dashboard/customer/orders/${order.id}`}
-                >
+                <Link href={`/dashboard/customer/orders/${order.id}`}>
                   <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[16px] font-normal text-[#000] cursor-pointer w-[250px] hover:scale-105 duration-500 ease-in-out">
                     View Order
                   </button>
                 </Link>
+
                 <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[16px] font-normal text-[#000] cursor-pointer w-[250px] hover:scale-105 duration-500 ease-in-out">
                   Get Help
                 </button>
+                <Link href={`/dashboard/customer/reviews/${order.id}`}>
+                  <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[16px] font-normal text-[#000] cursor-pointer w-[250px] hover:scale-105 duration-500 ease-in-out">
+                    Write a Review
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
