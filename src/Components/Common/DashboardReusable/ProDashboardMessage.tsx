@@ -6,8 +6,8 @@ import Image from "next/image";
 
 const ProDashboardMessage = () => {
   return (
-    <div className="flex gap-x-8">
-      <div className="border border-[#A7A39C] rounded-[8px] w-1/2">
+    <div className="flex justify-between">
+      <div className="border border-[#A7A39C] rounded-[8px] w-3/5">
         <div className="flex justify-between p-4">
           <h5 className="text-[16px] text-[#000] font-semibold text-center">
             Recent Activity
@@ -118,11 +118,15 @@ const ProDashboardMessage = () => {
           </div>
         </div>
       </div>
-      <div className="bg-[#274F45] px-4 py-5 rounded-[10px] h-fit w-1/2">
+      <div className="bg-[#274F45] px-4 py-5 rounded-[10px] h-fit w-1/3">
         <div className="flex justify-between">
-          <h5>Need Help?</h5>
-          <RxCross1 />
+          <h5 className="text-[14px] text-white font-semibold">Need Help?</h5>
+          <RxCross1 className="text-[14px] text-white font-bold cursor-pointer" />
         </div>
+        <p className="py-4 text-[14px] text-white">
+          Read articles or reach out to a Sustainable Trade’s member for help.
+        </p>
+        <h6 className="text-[14px] text-white font-semibold underline cursor-pointer">FAQs</h6>
       </div>
     </div>
   );
