@@ -25,7 +25,7 @@ const page = () => {
             <select
               name=""
               id=""
-              className="border border-[#A7A39C] rounded-[8px] cursor-pointer appearance-none outline-0 px-2 py-3 w-[190px] text-[#274F45] text-[14px] font-normal"
+              className="border border-[#A7A39C] rounded-[8px] cursor-pointer appearance-none outline-0 px-2 py-[10px] w-[190px] text-[#274F45] text-[14px] font-normal"
             >
               <option value="">Filter</option>
               <option value="">Delivered</option>
