@@ -117,7 +117,7 @@ const ordersData: Order[] = [
   },
 ];
 
-const statusColors: Record<Order["status"], string> = {
+const statusColors = {
   Pending: "bg-[#E48872] text-[#fff] text-[14px] font-semibold",
   Shipped: "bg-[#D4E2CB] text-[14px] font-semibold text-[#000]",
   Delivered: "bg-[#274F45] text-white",
@@ -125,6 +125,7 @@ const statusColors: Record<Order["status"], string> = {
 };
 
 const AllOrders = () => {
+  
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
@@ -136,7 +137,7 @@ const AllOrders = () => {
     <div className="p-6">
       <table className="w-full border-collapse">
         <thead>
-          <tr className="border-b-2 border-gray-300">
+          <tr className="border-b-2 border-gray-300 text-[#13141D] text-[16px] font-semibold">
             <th className="py-3 px-4 text-left">Order #</th>
             <th className="py-3 px-4 text-left">Order Date</th>
             <th className="py-3 px-4 text-left">Customer</th>
