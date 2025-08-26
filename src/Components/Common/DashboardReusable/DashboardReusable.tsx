@@ -3,6 +3,7 @@ import React from "react";
 import { FaAngleDown, FaAngleRight, FaSearch } from "react-icons/fa";
 import Inventory from "../../../Assets/inventory.png";
 import Activity from "../../../Assets/activity.png";
+import ProDashboardMessage from "./ProDashboardMessage";
 
 const DashboardReusable = () => {
   return (
@@ -246,6 +247,9 @@ const DashboardReusable = () => {
               </p>
             </div>
           </div>
+        </div>
+        <div className="pt-8 pb-16">
+          <ProDashboardMessage/>
         </div>
       </div>
     </div>
