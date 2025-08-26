@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import AllOrders from "./AllOrders";
 
 const ProordersTabs = () => {
   const tabs = ["All Orders", "Pending", "Shipped", "Completed"];
@@ -22,7 +23,7 @@ const ProordersTabs = () => {
         ))}
       </div>
       <div className="pt-12">
-        {isActive === "All Orders" && "hello"}
+        {isActive === "All Orders" && <AllOrders/>}
       </div>
     </div>
   );
