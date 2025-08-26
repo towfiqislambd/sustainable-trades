@@ -118,10 +118,10 @@ const ordersData: Order[] = [
 ];
 
 const statusColors: Record<Order["status"], string> = {
-  Pending: "bg-red-200 text-red-800",
-  Shipped: "bg-green-200 text-green-800",
-  Delivered: "bg-emerald-900 text-white",
-  Canceled: "bg-red-700 text-white",
+  Pending: "bg-[#E48872] text-[#fff] text-[14px] font-semibold",
+  Shipped: "bg-[#D4E2CB] text-[14px] font-semibold text-[#000]",
+  Delivered: "bg-[#274F45] text-white",
+  Canceled: "bg-[#8B200C] text-white",
 };
 
 const AllOrders = () => {
@@ -149,7 +149,10 @@ const AllOrders = () => {
         </thead>
         <tbody>
           {paginatedData.map((order, i) => (
-            <tr key={i} className="border-b">
+            <tr
+              key={i}
+              className="border-b border-gray-300 text-[#13141D] text-[14px] font-semibold"
+            >
               <td className="py-3 px-4">{order.id}</td>
               <td className="py-3 px-4">{order.date}</td>
               <td className="py-3 px-4">
@@ -187,21 +190,21 @@ const AllOrders = () => {
         </p>
         <div className="flex items-center gap-3">
           <button
-            className="px-2 py-1 text-gray-600 disabled:opacity-50"
+            className="px-2 py-1 text-gray-600 disabled:opacity-50 cursor-pointer"
             onClick={() => setCurrentPage(p => Math.max(p - 1, 1))}
             disabled={currentPage === 1}
           >
-           <FaAngleDoubleLeft/>
+            <FaAngleDoubleLeft />
           </button>
           <span className="text-sm">
             Page {currentPage} of {totalPages}
           </span>
           <button
-            className="px-2 py-1 text-gray-600 disabled:opacity-50"
+            className="px-2 py-1 text-gray-600 disabled:opacity-50 cursor-pointer"
             onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))}
             disabled={currentPage === totalPages}
           >
-           <FaAngleDoubleRight/>
+            <FaAngleDoubleRight />
           </button>
         </div>
       </div>
