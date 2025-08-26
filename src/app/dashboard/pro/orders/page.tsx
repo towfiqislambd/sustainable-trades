@@ -1,3 +1,4 @@
+import ProordersTabs from "@/Components/Common/DashboardReusable/PrordersTabs";
 import React from "react";
 import { FaAngleDown, FaSearch } from "react-icons/fa";
 
@@ -33,6 +34,9 @@ const page = () => {
             <FaAngleDown className="absolute top-4 right-3" />
           </div>
         </div>
+      </div>
+      <div className="pt-9 pb-12">
+        <ProordersTabs/>
       </div>
     </>
   );
