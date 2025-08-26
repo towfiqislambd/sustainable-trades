@@ -30,6 +30,42 @@ const DashboardReusable = () => {
           Edit Shop
         </button>
       </div>
+      <div className="border border-[#A7A39C] py-3 rounded-[8px]">
+        <div className="flex justify-between items-center">
+          <div className="px-[65px]">
+            <p className="text-[16px] text-[#67645F] font-semibold text-center">
+              Orders
+            </p>
+            <h4 className="text-[40px] text-[#274F45] font-semibold text-center">
+              12
+            </h4>
+          </div>
+          <div className="px-[65px]">
+            <p className="text-[16px] text-[#67645F] font-semibold text-center">
+              Trades
+            </p>
+            <h4 className="text-[40px] text-[#274F45] font-semibold text-center">
+              4
+            </h4>
+          </div>
+          <div className="px-[65px]">
+            <p className="text-[16px] text-[#67645F] font-semibold text-center">
+              Revenue
+            </p>
+            <h4 className="text-[40px] text-[#274F45] font-semibold text-center">
+              $458.32
+            </h4>
+          </div>
+          <div className="px-[65px]">
+            <p className="text-[16px] text-[#67645F] font-semibold text-center">
+              Visits
+            </p>
+            <h4 className="text-[40px] text-[#274F45] font-semibold text-center">
+              32
+            </h4>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
