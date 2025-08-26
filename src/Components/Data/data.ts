@@ -82,4 +82,32 @@ export const orders = [
       product_price: "8.50",
       is_wishlist: true,
     }
-  ];
+];
+  
+export const shopdata = [
+  {
+    id: 1,
+    shop_image: p1,
+    shop_name:
+      "Silk Skin CA Tower, new delhi, India CA Tower, new delhi, India CA Tower, new delhi, India",
+    shop_location: "CA Tower, new delhi, India",
+  },
+  {
+    id: 2,
+    shop_image: p1,
+    shop_name: "Silk Skin",
+    shop_location: "CA Tower, new delhi, India",
+  },
+  {
+    id: 3,
+    shop_image: p1,
+    shop_name: "Silk Skin",
+    shop_location: "CA Tower, new delhi, India",
+  },
+  {
+    id: 4,
+    shop_image: p1,
+    shop_name: "Silk Skin",
+    shop_location: "CA Tower, new delhi, India",
+  },
+];

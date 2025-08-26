@@ -1,8 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import { data2 } from "@/Components/Data/data";
+import { data2, shopdata } from "@/Components/Data/data";
 import Product from "@/Components/Common/Product";
 import DashBoardHeader from "@/Components/Common/DashBoardHeader";
+import Shop from "@/Components/Common/Shop";
 
 const page = () => {
   const tabs: string[] = ["Follow ShopLists", "WishLists"];
@@ -20,17 +21,24 @@ const page = () => {
             key={tab}
             onClick={() => setIsActive(tab)}
             className={`text-[20px] font-bold    shrink-0 cursor-pointer ${
-              isActive === tab ? "text-[#000]" : "text-[#77978F]"
+              isActive === tab ? "text-[#000] border-b-2" : "text-[#77978F]"
             }`}
           >
             {tab}
           </h3>
         ))}
       </div>
-      {isActive === "Follow ShopLists" && (
+      {isActive === "WishLists" && (
         <div className="grid grid-cols-4 gap-x-6 gap-y-10 mt-10">
           {data2?.map(product => (
             <Product key={product?.id} product={product} is_feathered={true} />
+          ))}
+        </div>
+      )}
+      {isActive === "Follow ShopLists" && (
+        <div className="grid grid-cols-4 gap-x-6 gap-y-10 mb-14 mt-10">
+          {shopdata?.map(shopInfo => (
+            <Shop key={shopInfo?.id} shop={shopInfo} />
           ))}
         </div>
       )}
