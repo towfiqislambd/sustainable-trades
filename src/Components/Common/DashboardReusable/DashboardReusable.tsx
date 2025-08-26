@@ -1,7 +1,8 @@
 import Image from "next/image";
 import React from "react";
-import { FaAngleRight, FaSearch } from "react-icons/fa";
+import { FaAngleDown, FaAngleRight, FaSearch } from "react-icons/fa";
 import Inventory from "../../../Assets/inventory.png";
+import Activity from "../../../Assets/activity.png";
 
 const DashboardReusable = () => {
   return (
@@ -156,6 +157,93 @@ const DashboardReusable = () => {
                   Running Low
                 </h6>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="border border-[#A7A39C] rounded-[8px]">
+        <div className="flex justify-between p-4">
+          <h5 className="text-[16px] text-[#000] font-semibold text-center">
+            Recent Activity
+          </h5>
+          <div className="relative">
+            <select
+              name=""
+              id=""
+              className="border border-[#A7A39C] rounded-[8px] cursor-pointer appearance-none outline-0 px-2 w-[90px]"
+            >
+              <option value="">All</option>
+            </select>
+            <FaAngleDown className="absolute top-1 right-3" />
+          </div>
+        </div>
+        <div className="border-t border-b border-[#A7A39C] py-4">
+          <div className="flex gap-x-[200px] px-4 items-center">
+            <div className="flex gap-x-2 items-center">
+              <Image src={Activity} alt="Activity" width={40} height={40} />
+              <div className="">
+                <h5 className="text-[14px] text-[#000] font-semibold">You</h5>
+                <p className="text-[14px] text-[#67645F] font-normal">
+                  Sent 2 hours ago{" "}
+                </p>
+              </div>
+            </div>
+            <div className="">
+              <h5 className="text-[14px] text-[#000] font-semibold">
+                Trade: You began a trade with Rebecca Bennett
+              </h5>
+              <p className="text-[14px] text-[#67645F] font-normal">
+                {" "}
+                Rebecca Bennett: So glad that we agreed on ....
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="py-4">
+          <div className="flex gap-x-[200px] px-4 items-center">
+            <div className="flex gap-x-2 items-center">
+              <Image src={Activity} alt="Activity" width={40} height={40} />
+              <div className="">
+                <h5 className="text-[14px] text-[#000] font-semibold">
+                  Taylor Lesnicki
+                </h5>
+                <p className="text-[14px] text-[#67645F] font-normal">
+                  Sent 3 hours ago
+                </p>
+              </div>
+            </div>
+            <div className="">
+              <h5 className="text-[14px] text-[#000] font-semibold">
+                Trade: You began a trade with Rebecca Bennett
+              </h5>
+              <p className="text-[14px] text-[#67645F] font-normal">
+                {" "}
+                Rebecca Bennett: So glad that we agreed on ....
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="py-4 border-t border-[#A7A39C]">
+          <div className="flex gap-x-[200px] px-4 items-center">
+            <div className="flex gap-x-2 items-center">
+              <Image src={Activity} alt="Activity" width={40} height={40} />
+              <div className="">
+                <h5 className="text-[14px] text-[#000] font-semibold">
+                  Audrey Leitner
+                </h5>
+                <p className="text-[14px] text-[#67645F] font-normal">
+                  Sent 2 hours ago{" "}
+                </p>
+              </div>
+            </div>
+            <div className="">
+              <h5 className="text-[14px] text-[#000] font-semibold">
+                Trade: You began a trade with Rebecca Bennett
+              </h5>
+              <p className="text-[14px] text-[#67645F] font-normal">
+                {" "}
+                Rebecca Bennett: So glad that we agreed on ....
+              </p>
             </div>
           </div>
         </div>
