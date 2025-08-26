@@ -1,5 +1,7 @@
+import Image from "next/image";
 import React from "react";
-import { FaSearch } from "react-icons/fa";
+import { FaAngleRight, FaSearch } from "react-icons/fa";
+import Inventory from "../../../Assets/inventory.png";
 
 const DashboardReusable = () => {
   return (
@@ -63,6 +65,98 @@ const DashboardReusable = () => {
             <h4 className="text-[40px] text-[#274F45] font-semibold text-center">
               32
             </h4>
+          </div>
+        </div>
+      </div>
+      <div className="pt-[77px] pb-8">
+        <div className="border border-[#A7A39C] rounded-[10px] w-fit">
+          <div className="p-3">
+            <div className="flex justify-between">
+              <h5 className="text-[16px] text-[#000] font-semibold text-center">
+                Inventory
+              </h5>
+              <h6 className="text-[16px] text-[#000] font-semibold text-center flex gap-x-1 items-center cursor-pointer">
+                More
+                <FaAngleRight />
+              </h6>
+            </div>
+            <div className="pt-6 pb-3 flex gap-x-2 items-center">
+              <Image
+                src={Inventory}
+                alt="Inventory"
+                height={60}
+                width={80}
+                className="shrink-0"
+              />
+              <div className="">
+                <div className="flex justify-between shrink-0">
+                  <h4 className="text-[14px] text-[#000] font-semibold">
+                    Lavender Soap Bars
+                  </h4>
+                  <h4 className="text-[14px] text-[#274F45] font-semibold">
+                    134 items
+                  </h4>
+                </div>
+                <p className="text-[12px] text-[#000] font-normal py-1">
+                  Handmade soap bars infused with lavender essential oils...
+                </p>
+                <h6 className="text-[10px] text-[#000] font-semibold">
+                  In Stock
+                </h6>
+              </div>
+            </div>
+          </div>
+          <div className="border-t border-b border-[#C8C8C8]">
+            <div className="p-3 w-full">
+              <div className="flex gap-x-2">
+                <Image
+                  src={Inventory}
+                  alt="Inventory"
+                  height={60}
+                  width={80}
+                  className="shrink-0"
+                />
+                <div className="w-full">
+                  <div className="flex justify-between shrink-0 w-full">
+                    <h4 className="text-[14px] text-[#000] font-semibold">
+                      LHandmade Cocoa Butter
+                    </h4>
+                    <h4 className="text-[14px] text-[#274F45] font-semibold">
+                      134 items
+                    </h4>
+                  </div>
+
+                  <h6 className="text-[10px] text-[#000] font-semibold  pt-10">
+                    In Stock
+                  </h6>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="p-3 w-full">
+            <div className="flex gap-x-2">
+              <Image
+                src={Inventory}
+                alt="Inventory"
+                height={60}
+                width={80}
+                className="shrink-0"
+              />
+              <div className="w-full">
+                <div className="flex justify-between shrink-0 w-full">
+                  <h4 className="text-[14px] text-[#000] font-semibold">
+                    Cold-pressed Rosemary Oil
+                  </h4>
+                  <h4 className="text-[14px] text-[#274F45] font-semibold">
+                    134 items
+                  </h4>
+                </div>
+
+                <h6 className="text-[10px] text-[#E48872] font-semibold mt-10">
+                  Running Low
+                </h6>
+              </div>
+            </div>
           </div>
         </div>
       </div>
