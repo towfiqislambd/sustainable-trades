@@ -1,9 +1,15 @@
-import React from 'react'
+import { ordersData } from "@/Components/Data/data";
+import React from "react";
+import OrderReusableTable from "../OrderReusableTable";
 
 const ShippedOrders = () => {
-  return (
-    <div>ShippedOrders</div>
-  )
-}
+  const shippedorders = ordersData.filter(order => order.status === "Shipped");
 
-export default ShippedOrders
+  return (
+    <>
+      <OrderReusableTable data={shippedorders} />
+    </>
+  );
+};
+
+export default ShippedOrders;

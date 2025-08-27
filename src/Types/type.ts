@@ -11,3 +11,16 @@ export type AddressFormData = {
   state: string;
   zipcode: string;
 };
+export type OrderStatus = "Pending" | "Shipped" | "Delivered" | "Canceled";
+export type Order = {
+  id: string;
+  date: string;
+  customer: string;
+  email: string;
+  optIn: string;
+  items: number;
+  amount: string; 
+  status: OrderStatus;
+};
+
+
