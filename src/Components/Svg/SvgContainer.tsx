@@ -2917,3 +2917,27 @@ export function Again(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export function Google() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="51"
+      height="38"
+      viewBox="0 0 51 38"
+      fill="none"
+    >
+      <rect width="51" height="38" fill="#FFFDF8" />
+      <rect
+        x="1.5"
+        y="1.5"
+        width="48"
+        height="35"
+        rx="4.5"
+        fill="#FFFDF8"
+        stroke="#274F45"
+        stroke-width="3"
+      />
+    </svg>
+  );
+}
