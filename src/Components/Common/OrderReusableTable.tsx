@@ -5,21 +5,22 @@ import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
 import { statusColors } from "../Data/data";
 
 type OrdersTableProps = {
-  title?: string;
   data: Order[];
   itemsPerPage?: number;
 };
 
 const OrdersTable: React.FC<OrdersTableProps> = ({
-  title,
   data,
   itemsPerPage = 5,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [openRow, setOpenRow] = useState<number | null>(null); 
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedData = data.slice(startIndex, startIndex + itemsPerPage);
+
+
 
   return (
     <div className="">
@@ -62,8 +63,31 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
                   {order.status}
                 </span>
               </td>
-              <td className="py-3 px-4 text-center">
-                <BsThreeDotsVertical className="inline-block cursor-pointer" />
+              <td className="py-3 px-4 text-center relative">
+                <BsThreeDotsVertical
+            
+                  className="inline-block cursor-pointer"
+                />
+                
+                  {/* <div className="absolute right-0 mt-2 w-28 bg-white rounded shadow-lg z-10">
+                    <button
+                      className="w-full text-left px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                      onClick={() => {
+                        setOpenRow(null);
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-500 cursor-pointer"
+                      onClick={() => {
+                        setOpenRow(null);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div> */}
+   
               </td>
             </tr>
           ))}
