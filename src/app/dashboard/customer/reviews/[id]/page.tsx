@@ -13,9 +13,7 @@ const Page = () => {
   const [preview, setPreview] = useState<string | null>(null);
   const params = useParams();
   const orderId = params.id;
-  console.log(orderId);
   const product = orders.find(orders => orders.id === orderId);
-  console.log(product);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -23,9 +21,11 @@ const Page = () => {
       setPreview(URL.createObjectURL(file));
     }
   };
+
   if (!product) {
     return <p className="text-red-500">Order not found</p>;
   }
+  
   return (
     <>
       <DashBoardHeader heading="Tell Us What You Think!" placeholder="Search" />

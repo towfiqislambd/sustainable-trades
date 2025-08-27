@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import p1 from "@/Assets/p1.jpg";
 import shopAuthor from "@/Assets/shop_author.jpg";
 import CartItem from "./CartItem";
-import { PaypalSvg } from "@/Components/Svg/SvgContainer";
+import { Google, PaypalSvg } from "@/Components/Svg/SvgContainer";
 import Modal from "@/Components/Common/Modal";
 import ShippingOptionsModal from "@/Components/Modals/ShippingOptionsModal";
 import ShippingAddress from "@/Components/Modals/ShippingAddress";
@@ -92,6 +92,82 @@ const PaymentOptions = () => {
               </span>
             </p>
             <PaypalSvg />
+          </div>
+          <div className="flex justify-between items-center mb-3">
+            <p className="flex gap-3 items-center">
+              <input
+                type="radio"
+                className="scale-150"
+                name="Gpay"
+                value="Gpay"
+                checked={paymentMethod === "Gpay"}
+                onChange={e => setPaymentMethod(e.target.value)}
+              />
+
+              <span className="text-secondary-gray font-semibold">
+                Pay with Google
+              </span>
+            </p>
+            <div className="bg-[#274F45] p-2 rounded-md font-bold text-white">
+              Gpay
+            </div>
+          </div>
+          <div className="flex justify-between items-center mb-3">
+            <p className="flex gap-3 items-center">
+              <input
+                type="radio"
+                className="scale-150"
+                name="Cash"
+                value="Cash"
+                checked={paymentMethod === "Cash"}
+                onChange={e => setPaymentMethod(e.target.value)}
+              />
+
+              <span className="text-secondary-gray font-semibold">
+                Pay with Cash App
+              </span>
+            </p>
+            <div className="bg-[#274F45] p-2 rounded-md font-bold text-white">
+              $pay
+            </div>
+          </div>
+          <div className="flex justify-between items-center mb-3">
+            <p className="flex gap-3 items-center">
+              <input
+                type="radio"
+                className="scale-150"
+                name="Venmo"
+                value="Venmo"
+                checked={paymentMethod === "Venmo"}
+                onChange={e => setPaymentMethod(e.target.value)}
+              />
+
+              <span className="text-secondary-gray font-semibold">
+                Pay with Venmo
+              </span>
+            </p>
+            <div className="bg-[#274F45] p-2 rounded-md text-white font-bold">
+              Vpay
+            </div>
+          </div>
+          <div className="flex justify-between items-center mb-3">
+            <p className="flex gap-3 items-center">
+              <input
+                type="radio"
+                className="scale-150"
+                name="payment"
+                value="apple"
+                checked={paymentMethod === "apple"}
+                onChange={e => setPaymentMethod(e.target.value)}
+              />
+
+              <span className="text-secondary-gray font-semibold">
+                Pay with Apple
+              </span>
+            </p>
+            <div className="bg-[#274F45] p-2 rounded-md font-bold text-white">
+              Apple
+            </div>
           </div>
 
           {/* Cash Option */}
