@@ -24,6 +24,9 @@ const ProordersTabs = () => {
       </div>
       <div className="pt-12">
         {isActive === "All Orders" && <AllOrders/>}
+        {isActive === "All Orders" && <AllOrders/>}
+        {isActive === "All Orders" && <AllOrders/>}
+        {isActive === "All Orders" && <AllOrders/>}
       </div>
     </div>
   );
