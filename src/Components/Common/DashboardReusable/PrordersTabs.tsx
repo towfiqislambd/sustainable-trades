@@ -1,6 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import AllOrders from "./AllOrders";
+import PendingOrders from "./PendingOrders";
+import DeliveredOrders from "./DeliveredOrders";
+import ShippedOrders from "./ShippedOrders";
 
 const ProordersTabs = () => {
   const tabs = ["All Orders", "Pending", "Shipped", "Completed"];
@@ -23,10 +26,10 @@ const ProordersTabs = () => {
         ))}
       </div>
       <div className="pt-12">
-        {isActive === "All Orders" && <AllOrders/>}
-        {isActive === "All Orders" && <AllOrders/>}
-        {isActive === "All Orders" && <AllOrders/>}
-        {isActive === "All Orders" && <AllOrders/>}
+        {isActive === "All Orders" && <AllOrders />}
+        {isActive === "Pending" && <PendingOrders />}
+        {isActive === "Shipped" && <ShippedOrders />}
+        {isActive === "Completed" && <DeliveredOrders />}
       </div>
     </div>
   );
