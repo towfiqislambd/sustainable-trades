@@ -81,6 +81,14 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
                       Edit
                     </button>
                     <button
+                      className="w-full text-left px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                      onClick={() => {
+                        setOpenRow(null);
+                      }}
+                    >
+                      View Details
+                    </button>
+                    <button
                       className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-500 cursor-pointer"
                       onClick={() => {
                         setOpenRow(null);
