@@ -145,3 +145,123 @@ export const testimonial = [
     date: "2025-08-24",
   },
 ];
+
+interface Order {
+  id: string;
+  date: string;
+  customer: string;
+  email: string;
+  optIn: string;
+  items: number;
+  amount: string;
+  status: "Pending" | "Shipped" | "Delivered" | "Canceled";
+}
+export const ordersData: Order[] = [
+  {
+    id: "#155496",
+    date: "Jun 25, 2024",
+    customer: "Amy Woods",
+    email: "email@gmail.com",
+    optIn: "Yes",
+    items: 3,
+    amount: "$16.78",
+    status: "Pending",
+  },
+  {
+    id: "#147605",
+    date: "Jun 23, 2024",
+    customer: "Erick Jones",
+    email: "email@gmail.com",
+    optIn: "No",
+    items: 2,
+    amount: "$10.56",
+    status: "Pending",
+  },
+  {
+    id: "#147586",
+    date: "Jun 22, 2024",
+    customer: "Rebecca Garcia",
+    email: "email@gmail.com",
+    optIn: "Yes",
+    items: 6,
+    amount: "$26.76",
+    status: "Pending",
+  },
+  {
+    id: "#142501",
+    date: "Jun 19, 2024",
+    customer: "Ariana Ortiz",
+    email: "email@gmail.com",
+    optIn: "Yes",
+    items: 4,
+    amount: "$19.27",
+    status: "Shipped",
+  },
+  {
+    id: "#141989",
+    date: "Jun 19, 2024",
+    customer: "Jody Mason",
+    email: "email@gmail.com",
+    optIn: "Yes",
+    items: 9,
+    amount: "$42.77",
+    status: "Shipped",
+  },
+  {
+    id: "#140989",
+    date: "Jun 19, 2024",
+    customer: "Dilon Hester",
+    email: "email@gmail.com",
+    optIn: "Yes",
+    items: 9,
+    amount: "$42.77",
+    status: "Shipped",
+  },
+  {
+    id: "#135496",
+    date: "Jun 10, 2024",
+    customer: "Nia Howard",
+    email: "email@gmail.com",
+    optIn: "Yes",
+    items: 7,
+    amount: "$39.78",
+    status: "Delivered",
+  },
+  {
+    id: "#134877",
+    date: "Jun 7, 2024",
+    customer: "Vincent Ramos",
+    email: "email@gmail.com",
+    optIn: "No",
+    items: 6,
+    amount: "$39.32",
+    status: "Canceled",
+  },
+  {
+    id: "#133476",
+    date: "Jun 7, 2024",
+    customer: "Becca Hart",
+    email: "email@gmail.com",
+    optIn: "No",
+    items: 6,
+    amount: "$39.32",
+    status: "Canceled",
+  },
+  {
+    id: "#129116",
+    date: "Jun 2, 2024",
+    customer: "Peyton McClaire",
+    email: "email@gmail.com",
+    optIn: "Yes",
+    items: 10,
+    amount: "$77.09",
+    status: "Delivered",
+  },
+];
+
+export const statusColors = {
+  Pending: "bg-[#E48872] text-[#fff] text-[14px] font-semibold",
+  Shipped: "bg-[#D4E2CB] text-[14px] font-semibold text-[#000]",
+  Delivered: "bg-[#274F45] text-white",
+  Canceled: "bg-[#8B200C] text-white",
+};
