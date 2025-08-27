@@ -1,15 +1,10 @@
 "use client";
-import { ordersData } from "@/Components/Data/data";
+import { ordersData, statusColors } from "@/Components/Data/data";
 import React, { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
 
-const statusColors = {
-  Pending: "bg-[#E48872] text-[#fff] text-[14px] font-semibold",
-  Shipped: "bg-[#D4E2CB] text-[14px] font-semibold text-[#000]",
-  Delivered: "bg-[#274F45] text-white",
-  Canceled: "bg-[#8B200C] text-white",
-};
+
 
 const AllOrders = () => {
 
