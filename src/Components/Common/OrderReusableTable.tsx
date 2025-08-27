@@ -14,13 +14,15 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
   itemsPerPage = 5,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [openRow, setOpenRow] = useState<number | null>(null); 
+  const [openRow, setOpenRow] = useState<number | null>(null); // track which row dropdown is open
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedData = data.slice(startIndex, startIndex + itemsPerPage);
 
-
+  const toggleDropdown = (index: number) => {
+    setOpenRow(openRow === index ? null : index);
+  };
 
   return (
     <div className="">
@@ -65,11 +67,11 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
               </td>
               <td className="py-3 px-4 text-center relative">
                 <BsThreeDotsVertical
-            
+                  onClick={() => toggleDropdown(i)}
                   className="inline-block cursor-pointer"
                 />
-                
-                  {/* <div className="absolute right-0 mt-2 w-28 bg-white rounded shadow-lg z-10">
+                {openRow === i && (
+                  <div className="absolute right-0 mt-2 w-28 bg-white rounded shadow-lg z-10">
                     <button
                       className="w-full text-left px-4 py-2 hover:bg-gray-100 cursor-pointer"
                       onClick={() => {
@@ -86,8 +88,8 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
                     >
                       Delete
                     </button>
-                  </div> */}
-   
+                  </div>
+                )}
               </td>
             </tr>
           ))}
@@ -98,7 +100,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
       {totalPages > 1 && (
         <div className="flex justify-between items-center mt-4">
           <p className="text-sm text-gray-600">
-            {startIndex + 1}-{Math.min(startIndex + itemsPerPage, data.length)}
+            {startIndex + 1}-{Math.min(startIndex + itemsPerPage, data.length)}{" "}
             of {data.length} orders
           </p>
 
