@@ -8,7 +8,7 @@ const PendingOrders = () => {
 const pendingorders = ordersData.filter(order => order.status === "Pending");
 
   return (
-    <OrderReusableTable data={pendingorders} itemsPerPage={1}/>
+    <OrderReusableTable data={pendingorders} itemsPerPage={5}/>
   );
 };
 

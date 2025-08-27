@@ -7,7 +7,7 @@ const DeliveredOrders = () => {
 
   return (
     <>
-      <OrderReusableTable data={deliveredorders} />
+      <OrderReusableTable data={deliveredorders} itemsPerPage={5}/>
     </>
   );
 }
