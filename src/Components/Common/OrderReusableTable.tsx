@@ -14,7 +14,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
   itemsPerPage = 5,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [openRow, setOpenRow] = useState<number | null>(null); // track which row dropdown is open
+  const [openRow, setOpenRow] = useState<number | null>(null); 
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
