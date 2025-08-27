@@ -4,10 +4,6 @@ import React, { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
 
-
-
-
-
 const statusColors = {
   Pending: "bg-[#E48872] text-[#fff] text-[14px] font-semibold",
   Shipped: "bg-[#D4E2CB] text-[14px] font-semibold text-[#000]",
