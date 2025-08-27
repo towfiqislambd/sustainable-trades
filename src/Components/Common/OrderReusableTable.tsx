@@ -100,7 +100,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
       {totalPages > 1 && (
         <div className="flex justify-between items-center mt-4">
           <p className="text-sm text-gray-600">
-            {startIndex + 1}-{Math.min(startIndex + itemsPerPage, data.length)}{" "}
+            {startIndex + 1}-{Math.min(startIndex + itemsPerPage, data.length)}
             of {data.length} orders
           </p>
 
