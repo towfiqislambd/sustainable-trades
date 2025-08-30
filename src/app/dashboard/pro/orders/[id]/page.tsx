@@ -1,12 +1,16 @@
 "use client";
+
 import OrderSummary from "@/Components/Prodashboardcomponents/OrderSummary";
 import Proorderproduct from "@/Components/Prodashboardcomponents/Proorderproduct";
 import { Pen } from "@/Components/Svg/SvgContainer";
-import React, { useState } from "react";
+// import ModalOrderNote from "@/Components/Prodashboardcomponents/ModalOrderNote";
+import React, { useEffect, useRef, useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 
-const page = () => {
+const Page = () => {
   const [status, setStatus] = useState("Order Confirmed");
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const steps = [
     { label: "Order Confirmed", date: "25 Jun 2024" },
@@ -17,8 +21,80 @@ const page = () => {
 
   const currentStep = steps.findIndex(step => step.label === status);
 
+  // refs for sidebar accordion
+  const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [heights, setHeights] = useState<Array<string>>([]);
+
+  useEffect(() => {
+    const newHeights = contentRefs.current.map((ref, idx) => {
+      if (!ref) return "0px";
+      return openIndex === idx ? `${ref.scrollHeight}px` : "0px";
+    });
+    setHeights(newHeights);
+  }, [openIndex]);
+
+  const accordionData = [
+    {
+      title: "Customer Details",
+      content: (
+        <div className="text-[#4B4A47] text-[14px] py-2">
+          <p>
+            <strong>Name:</strong> John Doe
+          </p>
+          <p>
+            <strong>Email:</strong> john@example.com
+          </p>
+          <p>
+            <strong>Phone:</strong> +1234567890
+          </p>
+          <p>
+            <strong>Address:</strong> 123 Street, City, Country
+          </p>
+        </div>
+      ),
+    },
+    {
+      title: "Shipping Address",
+      content: (
+        <div className="text-[#4B4A47] text-[14px] py-2">
+          <p>
+            <strong>Name:</strong> John Doe
+          </p>
+          <p>
+            <strong>Phone:</strong> +1234567890
+          </p>
+          <p>
+            <strong>Address:</strong> 123 Street, City, Country
+          </p>
+        </div>
+      ),
+    },
+    {
+      title: "Billing Address",
+      content: (
+        <div className="text-[#4B4A47] text-[14px] py-2">
+          <p>
+            <strong>Name:</strong> John Doe
+          </p>
+          <p>
+            <strong>Phone:</strong> +1234567890
+          </p>
+          <p>
+            <strong>Address:</strong> 456 Street, City, Country
+          </p>
+        </div>
+      ),
+    },
+    {
+      title: "Order Note",
+      content: <></>,
+      isModal: true,
+    },
+  ];
+
   return (
-    <div>
+    <div className="px-6 py-4">
+      {/* Header */}
       <div className="flex justify-between">
         <h3 className="text-[40px] font-semibold text-[#000]">Order Details</h3>
         <div className="flex gap-x-3">
@@ -31,8 +107,11 @@ const page = () => {
         </div>
       </div>
 
-      <div className="pt-8 flex justify-between">
+      {/* Main Content */}
+      <div className="pt-8 flex justify-between gap-x-6">
+        {/* Left Side */}
         <div className="w-[75%]">
+          {/* Order Status Dropdown */}
           <h4 className="text-[#000] font-bold text-[16px]">Order Status</h4>
           <div className="relative my-3">
             <select
@@ -49,6 +128,7 @@ const page = () => {
             <FaAngleDown className="absolute top-3 left-40 size-5" />
           </div>
 
+          {/* Progress Bar */}
           <div className="flex items-center my-6">
             {steps.map((step, index) => (
               <React.Fragment key={step.label}>
@@ -78,6 +158,7 @@ const page = () => {
             ))}
           </div>
 
+          {/* Step Labels */}
           <div className="flex gap-x-[70px]">
             {steps.map(step => (
               <div key={step.label}>
@@ -92,11 +173,15 @@ const page = () => {
               </div>
             ))}
           </div>
-          <div className="">
+
+          {/* Products */}
+          <div className="mt-6">
             <Proorderproduct />
           </div>
+
+          {/* Step Buttons (only if delivered) */}
           {status === "Package Delivered" && (
-            <div className="my-6 flex justify-between stepbutton">
+            <div className="my-6 flex justify-between stepbutton gap-x-3">
               <button className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-green-500 duration-300 ease-in-out w-[175px]">
                 Track Package
               </button>
@@ -111,14 +196,70 @@ const page = () => {
               </button>
             </div>
           )}
-          <div className="">
+
+          {/* Order Summary */}
+          <div className="mt-6">
             <OrderSummary />
           </div>
         </div>
-        <div className="w-[20%]">right</div>
+
+        {/* Right Sidebar */}
+        <div className="w-[21%] space-y-4">
+          {accordionData.map((item, idx) => (
+            <div
+              key={item.title}
+              className="border border-[#E1E2E2] rounded-lg overflow-hidden"
+            >
+              {/* Header */}
+              <div
+                className="flex justify-between items-center p-3 cursor-pointer"
+                onClick={() => {
+                  if (item.isModal) {
+                    setModalOpen(true);
+                  } else {
+                    setOpenIndex(openIndex === idx ? null : idx);
+                  }
+                }}
+              >
+                <h4 className="text-[#000] font-bold text-[16px]">
+                  {item.title}
+                </h4>
+                {item.isModal ? (
+                  <Pen className="text-[#000]" />
+                ) : (
+                  <FaAngleDown
+                    className={`transition-transform duration-300 ${
+                      openIndex === idx ? "rotate-180" : "rotate-0"
+                    }`}
+                  />
+                )}
+              </div>
+
+              {/* Content */}
+              {!item.isModal && (
+                <div
+                  ref={(el: HTMLDivElement | null): void => {
+                    contentRefs.current[idx] = el;
+                  }}
+                  style={{ maxHeight: heights[idx] }}
+                  className="overflow-hidden transition-all duration-500 ease-in-out px-3"
+                >
+                  {item.content}
+                </div>
+              )}
+            </div>
+          ))}
+
+          <button className="py-2 px-6 w-full rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-green-500 duration-300 ease-in-out">
+            Send Message
+          </button>
+        </div>
       </div>
+
+      {/* Order Note Modal */}
+      {/* {modalOpen && <ModalOrderNote onClose={() => setModalOpen(false)} />} */}
     </div>
   );
 };
 
-export default page;
+export default Page;
