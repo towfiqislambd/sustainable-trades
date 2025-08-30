@@ -1,6 +1,6 @@
-import ProordersTabs from "@/Components/Common/DashboardReusable/PrordersTabs";
 import React from "react";
 import { FaAngleDown, FaSearch } from "react-icons/fa";
+import ProordersTabs from "@/Components/Common/DashboardReusable/PrordersTabs";
 
 const page = () => {
   return (
@@ -27,16 +27,16 @@ const page = () => {
               id=""
               className="border border-[#A7A39C] rounded-[8px] cursor-pointer appearance-none outline-0 px-2 py-[10px] w-[190px] text-[#274F45] text-[14px] font-normal"
             >
-              <option value="">Filter</option>
-              <option value="">Delivered</option>
-              <option value="">Pending</option>
+              <option value="Last 30 Days">Last 30 Days</option>
+              <option value="Last 6 Month">Last 6 Month</option>
+              <option value="Last Year">Last Year</option>
             </select>
             <FaAngleDown className="absolute top-4 right-3" />
           </div>
         </div>
       </div>
       <div className="pt-9 pb-12">
-        <ProordersTabs/>
+        <ProordersTabs />
       </div>
     </>
   );

@@ -154,11 +154,12 @@ interface Order {
   optIn: string;
   items: number;
   amount: string;
-  status: "Pending" | "Shipped" | "Delivered" | "Canceled";
+  fullfill: string;
+  status: "Pending" | "Shipped" | "Delivered" | "Canceled" | "Local";
 }
 export const ordersData: Order[] = [
   {
-    id: "#155496",
+    id: "155496",
     date: "Jun 25, 2024",
     customer: "Amy Woods",
     email: "email@gmail.com",
@@ -166,9 +167,10 @@ export const ordersData: Order[] = [
     items: 3,
     amount: "$16.78",
     status: "Pending",
+    fullfill: "Shipping",
   },
   {
-    id: "#147605",
+    id: "147605",
     date: "Jun 23, 2024",
     customer: "Erick Jones",
     email: "email@gmail.com",
@@ -176,9 +178,10 @@ export const ordersData: Order[] = [
     items: 2,
     amount: "$10.56",
     status: "Pending",
+    fullfill: "Local Pickup",
   },
   {
-    id: "#147586",
+    id: "147586",
     date: "Jun 22, 2024",
     customer: "Rebecca Garcia",
     email: "email@gmail.com",
@@ -186,9 +189,10 @@ export const ordersData: Order[] = [
     items: 6,
     amount: "$26.76",
     status: "Pending",
+    fullfill: "Local Pickup",
   },
   {
-    id: "#142501",
+    id: "142501",
     date: "Jun 19, 2024",
     customer: "Ariana Ortiz",
     email: "email@gmail.com",
@@ -196,9 +200,10 @@ export const ordersData: Order[] = [
     items: 4,
     amount: "$19.27",
     status: "Shipped",
+    fullfill: "Shipping",
   },
   {
-    id: "#141989",
+    id: "141989",
     date: "Jun 19, 2024",
     customer: "Jody Mason",
     email: "email@gmail.com",
@@ -206,9 +211,10 @@ export const ordersData: Order[] = [
     items: 9,
     amount: "$42.77",
     status: "Shipped",
+    fullfill: "Local Pickup",
   },
   {
-    id: "#140989",
+    id: "140989",
     date: "Jun 19, 2024",
     customer: "Dilon Hester",
     email: "email@gmail.com",
@@ -216,9 +222,10 @@ export const ordersData: Order[] = [
     items: 9,
     amount: "$42.77",
     status: "Shipped",
+    fullfill: "Local Pickup",
   },
   {
-    id: "#135496",
+    id: "135496",
     date: "Jun 10, 2024",
     customer: "Nia Howard",
     email: "email@gmail.com",
@@ -226,9 +233,10 @@ export const ordersData: Order[] = [
     items: 7,
     amount: "$39.78",
     status: "Delivered",
+    fullfill: "Shipping",
   },
   {
-    id: "#134877",
+    id: "134877",
     date: "Jun 7, 2024",
     customer: "Vincent Ramos",
     email: "email@gmail.com",
@@ -236,9 +244,10 @@ export const ordersData: Order[] = [
     items: 6,
     amount: "$39.32",
     status: "Canceled",
+    fullfill: "Local Pickup",
   },
   {
-    id: "#133476",
+    id: "133476",
     date: "Jun 7, 2024",
     customer: "Becca Hart",
     email: "email@gmail.com",
@@ -246,16 +255,18 @@ export const ordersData: Order[] = [
     items: 6,
     amount: "$39.32",
     status: "Canceled",
+    fullfill: "Local Pickup",
   },
   {
-    id: "#129116",
+    id: "129116",
     date: "Jun 2, 2024",
     customer: "Peyton McClaire",
     email: "email@gmail.com",
     optIn: "Yes",
     items: 10,
     amount: "$77.09",
-    status: "Delivered",
+    status: "Local",
+    fullfill: "Shipping",
   },
 ];
 
@@ -264,4 +275,5 @@ export const statusColors = {
   Shipped: "bg-[#D4E2CB] text-[14px] font-semibold text-[#000]",
   Delivered: "bg-[#274F45] text-white",
   Canceled: "bg-[#8B200C] text-white",
+  Local: "bg-[#E48872] text-white",
 };
