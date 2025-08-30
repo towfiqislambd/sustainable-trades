@@ -1,6 +1,6 @@
-import ProordersTabs from "@/Components/Common/DashboardReusable/PrordersTabs";
 import React from "react";
 import { FaAngleDown, FaSearch } from "react-icons/fa";
+import ProordersTabs from "@/Components/Common/DashboardReusable/PrordersTabs";
 
 const page = () => {
   return (
