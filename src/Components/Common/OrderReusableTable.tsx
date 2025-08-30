@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
 import { statusColors } from "../Data/data";
+import { useRouter } from "next/navigation";
 
 type OrdersTableProps = {
   data: Order[];
@@ -15,6 +16,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [openRow, setOpenRow] = useState<number | null>(null);
+    const router = useRouter();
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -86,6 +88,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
                       className="w-full text-left px-4 py-2 hover:bg-gray-100 cursor-pointer"
                       onClick={() => {
                         setOpenRow(null);
+                       router.push(`/dashboard/pro/orders/${order.id}`);
                       }}
                     >
                       View Details
