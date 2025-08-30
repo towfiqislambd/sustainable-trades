@@ -95,7 +95,7 @@ const page = () => {
             <Proorderproduct />
           </div>
         </div>
-        <div className="w-[20%">right</div>
+        <div className="w-[20%]">right</div>
       </div>
     </div>
   );

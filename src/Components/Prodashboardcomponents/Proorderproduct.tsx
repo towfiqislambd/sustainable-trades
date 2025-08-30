@@ -1,5 +1,6 @@
 import React from "react";
 import Thumbnail from "../../Assets/Thumbnail.png";
+import Thumbnail1 from "../../Assets/Thumbnail (1).png";
 import Image from "next/image";
 
 const Proorderproduct = () => {
@@ -41,9 +42,9 @@ const Proorderproduct = () => {
           <div className="border border-[#CCCED0]"></div>
           <div className="flex justify-between items-center  px-6 py-4">
             <div className="flex gap-x-6 items-center">
-              <Image src={Thumbnail} alt="Thumbnail" />
+              <Image src={Thumbnail1} alt="Thumbnail" />
               <h3 className="text-[20px] font-semibold text-[#13141D]">
-                Handmade Cocoa Butter
+                Lavender Soap Bars
               </h3>
             </div>
             <div className="">
