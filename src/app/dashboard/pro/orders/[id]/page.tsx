@@ -1,8 +1,22 @@
+
+"use client"
 import { Pen } from "@/Components/Svg/SvgContainer";
-import React from "react";
+import React, { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 
 const page = () => {
+  const [status, setStatus] = useState("Order Confirmed");
+
+  const steps = [
+    { label: "Order Confirmed", date: "25 Jun 2024" },
+    { label: "Order Packaged", date: "25 Jun 2024" },
+    { label: "Package Shipped", date: "" },
+    { label: "Package Delivered", date: "" },
+  ];
+
+  // Get current step index
+  const currentStep = steps.findIndex(step => step.label === status);
+
   return (
     <div>
       <div className="flex justify-between">
@@ -16,42 +30,70 @@ const page = () => {
           </button>
         </div>
       </div>
-      <div className="pt-8 flex gapx-8">
-        <div className="">
+
+      <div className="pt-8 flex gap-x-8">
+        <div>
           <h4 className="text-[#000] font-bold text-[16px]">Order Status</h4>
           <div className="relative my-3">
             <select
-              name=""
-              id=""
+              value={status}
+              onChange={e => setStatus(e.target.value)}
               className="border border-[#A7A39C] rounded-[8px] cursor-pointer appearance-none outline-0 px-2 py-[10px] w-[190px] text-[#274F45] text-[14px] font-normal"
             >
-              <option value="Order Confirmed">Order Confirmed</option>
-              <option value="Order Packaged">Order Packaged</option>
-              <option value="Package Shipped">Package Shipped</option>
-              <option value="Package Delivered">Package Delivered</option>
+              {steps.map(step => (
+                <option key={step.label} value={step.label}>
+                  {step.label}
+                </option>
+              ))}
             </select>
             <FaAngleDown className="absolute top-3 left-40 size-5" />
           </div>
-          <div className="flex items-center my-10">
-            <div className="p-[1px] w-6 h-6  border-2 rounded-full border-[#274F45] flex justify-center items-center">
-              <div className=" w-4 h-4 bg-[#274F45] rounded-full"></div>
-            </div>
-            <div className="border-dashed border-t border-[#274F45] w-[190px]"></div>
-            <div className="p-[1px] w-6 h-6  border-2 rounded-full border-[#274F45] flex justify-center items-center">
-              <div className=" w-4 h-4 bg-[#274F45] rounded-full"></div>
-            </div>
-            <div className="border-dashed border-t border-[#274F45] w-[190px]"></div>
-            <div className="p-[1px] w-6 h-6  border-2 rounded-full border-[#A7A39C] flex justify-center items-center">
-              <div className=" w-4 h-4 bg-[#A7A39C] rounded-full"></div>
-            </div>
-            <div className="border-dashed border-t border-[#274F45] w-[190px]"></div>
-            <div className="p-[1px] w-6 h-6  border-2 rounded-full border-[#A7A39C] flex justify-center items-center">
-              <div className=" w-4 h-4 bg-[#A7A39C] rounded-full"></div>
-            </div>
+
+          <div className="flex items-center my-6">
+            {steps.map((step, index) => (
+              <React.Fragment key={step.label}>
+                <div
+                  className={`p-[1px] w-6 h-6 border-2 rounded-full flex justify-center items-center ${
+                    index <= currentStep
+                      ? "border-[#274F45]"
+                      : "border-[#A7A39C]"
+                  }`}
+                >
+                  <div
+                    className={`w-4 h-4 rounded-full ${
+                      index <= currentStep ? "bg-[#274F45]" : "bg-[#A7A39C]"
+                    }`}
+                  ></div>
+                </div>
+                {index !== steps.length - 1 && (
+                  <div
+                    className={`border-dashed border-t w-[190px] ${
+                      index < currentStep
+                        ? "border-[#274F45]"
+                        : "border-[#A7A39C]"
+                    }`}
+                  ></div>
+                )}
+              </React.Fragment>
+            ))}
           </div>
-          <div className="flex gap-x-[53px]"></div>
+
+          {/* Step Labels */}
+          <div className="flex gap-x-[70px]">
+            {steps.map(step => (
+              <div key={step.label}>
+                <h5 className="text-[16px] font-normal text-[#000] font-sans">
+                  {step.label}
+                </h5>
+                {step.date && (
+                  <p className="text-[14px] font-normal text-[#4B4A47]">
+                    {step.date}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
-        <div className=""></div>
       </div>
     </div>
   );
