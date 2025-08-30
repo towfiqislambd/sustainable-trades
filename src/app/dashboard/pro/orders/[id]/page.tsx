@@ -1,16 +1,22 @@
 "use client";
 
+import OrderNote from "@/Components/Modals/OrderNote";
 import OrderSummary from "@/Components/Prodashboardcomponents/OrderSummary";
 import Proorderproduct from "@/Components/Prodashboardcomponents/Proorderproduct";
 import { Pen } from "@/Components/Svg/SvgContainer";
-// import ModalOrderNote from "@/Components/Prodashboardcomponents/ModalOrderNote";
 import React, { useEffect, useRef, useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
+// import EditOrderModal from "@/Components/Modals/EditOrderModal";
+// import SendMessageModal from "@/Components/Modals/SendMessageModal";
 
 const Page = () => {
   const [status, setStatus] = useState("Order Confirmed");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const [modalOpen, setModalOpen] = useState(false);
+
+  // Separate modal states
+  const [noteModalOpen, setNoteModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [messageModalOpen, setMessageModalOpen] = useState(false);
 
   const steps = [
     { label: "Order Confirmed", date: "25 Jun 2024" },
@@ -98,10 +104,16 @@ const Page = () => {
       <div className="flex justify-between">
         <h3 className="text-[40px] font-semibold text-[#000]">Order Details</h3>
         <div className="flex gap-x-3">
-          <button className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-green-500 duration-300 ease-in-out">
-            Track Package
+          <button
+            className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-green-500 duration-300 ease-in-out"
+            onClick={() => setMessageModalOpen(true)}
+          >
+            Send Message
           </button>
-          <button className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-green-500 duration-300 ease-in-out flex gap-x-1 items-center">
+          <button
+            className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-green-500 duration-300 ease-in-out flex gap-x-1 items-center"
+            onClick={() => setEditModalOpen(true)}
+          >
             <Pen /> Edit Order
           </button>
         </div>
@@ -179,7 +191,7 @@ const Page = () => {
             <Proorderproduct />
           </div>
 
-          {/* Step Buttons (only if delivered) */}
+          {/* Step Buttons */}
           {status === "Package Delivered" && (
             <div className="my-6 flex justify-between stepbutton gap-x-3">
               <button className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-green-500 duration-300 ease-in-out w-[175px]">
@@ -210,15 +222,11 @@ const Page = () => {
               key={item.title}
               className="border border-[#E1E2E2] rounded-lg overflow-hidden"
             >
-              {/* Header */}
               <div
                 className="flex justify-between items-center p-3 cursor-pointer"
                 onClick={() => {
-                  if (item.isModal) {
-                    setModalOpen(true);
-                  } else {
-                    setOpenIndex(openIndex === idx ? null : idx);
-                  }
+                  if (item.isModal) setNoteModalOpen(true);
+                  else setOpenIndex(openIndex === idx ? null : idx);
                 }}
               >
                 <h4 className="text-[#000] font-bold text-[16px]">
@@ -235,7 +243,6 @@ const Page = () => {
                 )}
               </div>
 
-              {/* Content */}
               {!item.isModal && (
                 <div
                   ref={(el: HTMLDivElement | null): void => {
@@ -250,13 +257,10 @@ const Page = () => {
             </div>
           ))}
 
-          <button className="py-2 px-6 w-full rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-green-500 duration-300 ease-in-out">
-            Send Message
-          </button>
           {status === "Package Delivered" ? (
             ""
           ) : (
-            <div className="mt-[500px]">
+            <div className="mt-[560px]">
               <button className="py-4 px-6 rounded-[8px] border border-[#8E2F2F] bg-[#FFE8E8] text-[16px] font-semibold text-[#8E2F2F] cursor-pointer hover:border-green-500 duration-300 ease-in-out w-full">
                 Cancel Order
               </button>
@@ -264,8 +268,21 @@ const Page = () => {
           )}
         </div>
       </div>
-      {/* Order Note Modal */}
-      {/* {modalOpen && <ModalOrderNote onClose={() => setModalOpen(false)} />} */}
+
+      {/* Modals */}
+      <OrderNote
+        isOpen={noteModalOpen}
+        onClose={() => setNoteModalOpen(false)}
+        note="This is the detailed order note info."
+      />
+      {/* <EditOrderModal
+        isOpen={editModalOpen}
+        onClose={() => setEditModalOpen(false)}
+      />
+      <SendMessageModal
+        isOpen={messageModalOpen}
+        onClose={() => setMessageModalOpen(false)}
+      /> */}
     </div>
   );
 };

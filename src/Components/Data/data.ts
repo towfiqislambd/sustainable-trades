@@ -154,8 +154,8 @@ interface Order {
   optIn: string;
   items: number;
   amount: string;
-  fullfill: string
-  status: "Pending" | "Shipped" | "Delivered" | "Canceled"| "Local";
+  fullfill: string;
+  status: "Pending" | "Shipped" | "Delivered" | "Canceled" | "Local";
 }
 export const ordersData: Order[] = [
   {
