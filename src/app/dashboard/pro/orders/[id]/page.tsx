@@ -1,5 +1,5 @@
-
-"use client"
+"use client";
+import Proorderproduct from "@/Components/Prodashboardcomponents/Proorderproduct";
 import { Pen } from "@/Components/Svg/SvgContainer";
 import React, { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
@@ -14,7 +14,6 @@ const page = () => {
     { label: "Package Delivered", date: "" },
   ];
 
-  // Get current step index
   const currentStep = steps.findIndex(step => step.label === status);
 
   return (
@@ -31,8 +30,8 @@ const page = () => {
         </div>
       </div>
 
-      <div className="pt-8 flex gap-x-8">
-        <div>
+      <div className="pt-8 flex justify-between">
+        <div className="w-[75%]">
           <h4 className="text-[#000] font-bold text-[16px]">Order Status</h4>
           <div className="relative my-3">
             <select
@@ -78,7 +77,6 @@ const page = () => {
             ))}
           </div>
 
-          {/* Step Labels */}
           <div className="flex gap-x-[70px]">
             {steps.map(step => (
               <div key={step.label}>
@@ -93,7 +91,11 @@ const page = () => {
               </div>
             ))}
           </div>
+          <div className="">
+            <Proorderproduct />
+          </div>
         </div>
+        <div className="w-[20%">right</div>
       </div>
     </div>
   );

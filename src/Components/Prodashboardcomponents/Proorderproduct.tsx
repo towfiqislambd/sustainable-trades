@@ -1,9 +1,64 @@
-import React from 'react'
+import React from "react";
+import Thumbnail from "../../Assets/Thumbnail.png";
+import Image from "next/image";
 
 const Proorderproduct = () => {
   return (
-    <div>Proorderproduct</div>
-  )
-}
+    <div className="pt-10 pb-6">
+      <div className="flex justify-between">
+        <div className="flex gap-x-1 items-center">
+          <h5 className="text-[16px] font-bold text-[#67645F]">Amy Woods</h5>
+          <p className="text-[14px] font-normal text-[#000]">#155496</p>
+        </div>
+        <div className="flex gap-x-1 items-center">
+          <h5 className="text-[16px] font-bold text-[#67645F]">Date Ordered</h5>
+          <p className="text-[14px] font-normal text-[#000]">Jun 25, 2024</p>
+        </div>
+        <div className="flex gap-x-1 items-center">
+          <button className="py-2 px-4 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-green-500 duration-300 ease-in-out">
+            View Invoice
+          </button>
+        </div>
+      </div>
+      <div className="mt-6 border border-[#CCCED0]">
+        <div className="flex flex-col">
+          <div className="flex justify-between items-center  px-6 py-4">
+            <div className="flex gap-x-6 items-center">
+              <Image src={Thumbnail} alt="Thumbnail" />
+              <h3 className="text-[20px] font-semibold text-[#13141D]">
+                Handmade Cocoa Butter
+              </h3>
+            </div>
+            <div className="">
+              <h3 className="text-[20px] font-semibold text-[#13141D] pb-1">
+                $8.46
+              </h3>
+              <h4 className="text-[18px] font-semibold text-[#13141D]">
+                Qty: 2
+              </h4>
+            </div>
+          </div>
+          <div className="border border-[#CCCED0]"></div>
+          <div className="flex justify-between items-center  px-6 py-4">
+            <div className="flex gap-x-6 items-center">
+              <Image src={Thumbnail} alt="Thumbnail" />
+              <h3 className="text-[20px] font-semibold text-[#13141D]">
+                Handmade Cocoa Butter
+              </h3>
+            </div>
+            <div className="">
+              <h3 className="text-[20px] font-semibold text-[#13141D] pb-1">
+                $8.46
+              </h3>
+              <h4 className="text-[18px] font-semibold text-[#13141D]">
+                Qty: 2
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-export default Proorderproduct
+export default Proorderproduct;
