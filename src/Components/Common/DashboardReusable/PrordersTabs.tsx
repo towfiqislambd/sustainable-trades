@@ -4,9 +4,10 @@ import AllOrders from "./AllOrders";
 import PendingOrders from "./PendingOrders";
 import DeliveredOrders from "./DeliveredOrders";
 import ShippedOrders from "./ShippedOrders";
+import Fullfillmentorder from "./Fullfillmentorder";
 
 const ProordersTabs = () => {
-  const tabs = ["All Orders", "Pending", "Shipped", "Completed"];
+  const tabs = ["All Orders", "Pending", "Shipped","Local Pickup", "Completed"];
   const [isActive, setIsActive] = useState("All Orders");
   return (
     <div>
@@ -29,6 +30,7 @@ const ProordersTabs = () => {
         {isActive === "All Orders" && <AllOrders />}
         {isActive === "Pending" && <PendingOrders />}
         {isActive === "Shipped" && <ShippedOrders />}
+        {isActive === "Local Pickup" && <Fullfillmentorder />}
         {isActive === "Completed" && <DeliveredOrders />}
       </div>
     </div>

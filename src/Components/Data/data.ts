@@ -154,7 +154,8 @@ interface Order {
   optIn: string;
   items: number;
   amount: string;
-  status: "Pending" | "Shipped" | "Delivered" | "Canceled";
+  fullfill: string
+  status: "Pending" | "Shipped" | "Delivered" | "Canceled"| "Local";
 }
 export const ordersData: Order[] = [
   {
@@ -166,6 +167,7 @@ export const ordersData: Order[] = [
     items: 3,
     amount: "$16.78",
     status: "Pending",
+    fullfill: "Shipping",
   },
   {
     id: "#147605",
@@ -176,6 +178,7 @@ export const ordersData: Order[] = [
     items: 2,
     amount: "$10.56",
     status: "Pending",
+    fullfill: "Local Pickup",
   },
   {
     id: "#147586",
@@ -186,6 +189,7 @@ export const ordersData: Order[] = [
     items: 6,
     amount: "$26.76",
     status: "Pending",
+    fullfill: "Local Pickup",
   },
   {
     id: "#142501",
@@ -196,6 +200,7 @@ export const ordersData: Order[] = [
     items: 4,
     amount: "$19.27",
     status: "Shipped",
+    fullfill: "Shipping",
   },
   {
     id: "#141989",
@@ -206,6 +211,7 @@ export const ordersData: Order[] = [
     items: 9,
     amount: "$42.77",
     status: "Shipped",
+    fullfill: "Local Pickup",
   },
   {
     id: "#140989",
@@ -216,6 +222,7 @@ export const ordersData: Order[] = [
     items: 9,
     amount: "$42.77",
     status: "Shipped",
+    fullfill: "Local Pickup",
   },
   {
     id: "#135496",
@@ -226,6 +233,7 @@ export const ordersData: Order[] = [
     items: 7,
     amount: "$39.78",
     status: "Delivered",
+    fullfill: "Shipping",
   },
   {
     id: "#134877",
@@ -236,6 +244,7 @@ export const ordersData: Order[] = [
     items: 6,
     amount: "$39.32",
     status: "Canceled",
+    fullfill: "Local Pickup",
   },
   {
     id: "#133476",
@@ -246,6 +255,7 @@ export const ordersData: Order[] = [
     items: 6,
     amount: "$39.32",
     status: "Canceled",
+    fullfill: "Local Pickup",
   },
   {
     id: "#129116",
@@ -255,7 +265,8 @@ export const ordersData: Order[] = [
     optIn: "Yes",
     items: 10,
     amount: "$77.09",
-    status: "Delivered",
+    status: "Local",
+    fullfill: "Shipping",
   },
 ];
 
@@ -264,4 +275,5 @@ export const statusColors = {
   Shipped: "bg-[#D4E2CB] text-[14px] font-semibold text-[#000]",
   Delivered: "bg-[#274F45] text-white",
   Canceled: "bg-[#8B200C] text-white",
+  Local: "bg-[#E48872] text-white",
 };

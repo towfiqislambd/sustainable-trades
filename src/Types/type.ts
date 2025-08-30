@@ -11,7 +11,7 @@ export type AddressFormData = {
   state: string;
   zipcode: string;
 };
-export type OrderStatus = "Pending" | "Shipped" | "Delivered" | "Canceled";
+export type OrderStatus = "Pending" | "Shipped" | "Delivered" | "Canceled" | "Local";
 export type Order = {
   id: string;
   date: string;
@@ -21,6 +21,7 @@ export type Order = {
   items: number;
   amount: string; 
   status: OrderStatus;
+  fullfill: string
 };
 
 

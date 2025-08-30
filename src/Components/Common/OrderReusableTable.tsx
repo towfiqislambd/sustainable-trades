@@ -14,7 +14,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
   itemsPerPage = 5,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [openRow, setOpenRow] = useState<number | null>(null); 
+  const [openRow, setOpenRow] = useState<number | null>(null);
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -36,6 +36,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
             <th className="py-3 px-4 text-left">Items</th>
             <th className="py-3 px-4 text-left">Amount</th>
             <th className="py-3 px-4 text-left">Status</th>
+            <th className="py-3 px-4 text-left">FullFillment</th>
             <th className="py-3 px-4 text-center">Action</th>
           </tr>
         </thead>
@@ -65,6 +66,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
                   {order.status}
                 </span>
               </td>
+              <td className="py-3 px-4">{order.fullfill}</td>
               <td className="py-3 px-4 text-center relative">
                 <BsThreeDotsVertical
                   onClick={() => toggleDropdown(i)}
