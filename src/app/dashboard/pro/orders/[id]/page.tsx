@@ -253,9 +253,17 @@ const Page = () => {
           <button className="py-2 px-6 w-full rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-green-500 duration-300 ease-in-out">
             Send Message
           </button>
+          {status === "Package Delivered" ? (
+            ""
+          ) : (
+            <div className="mt-[500px]">
+              <button className="py-4 px-6 rounded-[8px] border border-[#8E2F2F] bg-[#FFE8E8] text-[16px] font-semibold text-[#8E2F2F] cursor-pointer hover:border-green-500 duration-300 ease-in-out w-full">
+                Cancel Order
+              </button>
+            </div>
+          )}
         </div>
       </div>
-
       {/* Order Note Modal */}
       {/* {modalOpen && <ModalOrderNote onClose={() => setModalOpen(false)} />} */}
     </div>
