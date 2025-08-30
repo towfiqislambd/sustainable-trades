@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
 import { statusColors } from "../Data/data";
+import { useRouter } from "next/navigation";
 
 type OrdersTableProps = {
   data: Order[];
@@ -14,7 +15,8 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
   itemsPerPage = 5,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [openRow, setOpenRow] = useState<number | null>(null); 
+  const [openRow, setOpenRow] = useState<number | null>(null);
+    const router = useRouter();
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -36,6 +38,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
             <th className="py-3 px-4 text-left">Items</th>
             <th className="py-3 px-4 text-left">Amount</th>
             <th className="py-3 px-4 text-left">Status</th>
+            <th className="py-3 px-4 text-left">FullFillment</th>
             <th className="py-3 px-4 text-center">Action</th>
           </tr>
         </thead>
@@ -65,6 +68,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
                   {order.status}
                 </span>
               </td>
+              <td className="py-3 px-4">{order.fullfill}</td>
               <td className="py-3 px-4 text-center relative">
                 <BsThreeDotsVertical
                   onClick={() => toggleDropdown(i)}
@@ -84,6 +88,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
                       className="w-full text-left px-4 py-2 hover:bg-gray-100 cursor-pointer"
                       onClick={() => {
                         setOpenRow(null);
+                       router.push(`/dashboard/pro/orders/${order.id}`);
                       }}
                     >
                       View Details

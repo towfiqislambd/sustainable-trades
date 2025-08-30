@@ -2812,9 +2812,9 @@ export function BigMessageSvg() {
       <path
         d="M35.5 25.293C35.5 26.177 35.1488 27.0249 34.5237 27.65C33.8986 28.2751 33.0507 28.6263 32.1667 28.6263H12.1667L5.5 35.293V8.6263C5.5 7.74225 5.85119 6.8944 6.47631 6.26928C7.10143 5.64416 7.94928 5.29297 8.83333 5.29297H32.1667C33.0507 5.29297 33.8986 5.64416 34.5237 6.26928C35.1488 6.8944 35.5 7.74225 35.5 8.6263V25.293Z"
         stroke="#274F45"
-        stroke-width="3"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -2832,9 +2832,9 @@ export function SaveSvg() {
       <path
         d="M15 19L8 14L1 19V3C1 2.46957 1.21071 1.96086 1.58579 1.58579C1.96086 1.21071 2.46957 1 3 1H13C13.5304 1 14.0391 1.21071 14.4142 1.58579C14.7893 1.96086 15 2.46957 15 3V19Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -2856,16 +2856,16 @@ export function SendSvg() {
       <path
         d="M9.94141 17.8648C9.04741 18.6713 7.91841 19.1523 6.69141 19.1523C3.79191 19.1523 1.44141 16.4658 1.44141 13.1523C1.44141 9.83884 3.79191 7.15234 6.69141 7.15234C9.59091 7.15234 11.1914 9.72384 11.9414 13.1523C12.6914 16.5808 14.2919 19.1523 17.1914 19.1523C20.0909 19.1523 22.4414 16.4658 22.4414 13.1523C22.4414 9.83884 20.0909 7.15234 17.1914 7.15234H16.4414"
         stroke="currentColor"
-        stroke-width="1.28"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.28"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M16.4393 5.44538C16.4393 5.07788 16.0578 4.84138 15.7383 5.02288C15.0108 5.43688 14.1223 6.02088 13.4848 6.58888C13.4038 6.65877 13.3388 6.74531 13.2942 6.84259C13.2496 6.93988 13.2266 7.04563 13.2266 7.15263C13.2266 7.25964 13.2496 7.36538 13.2942 7.46267C13.3388 7.55995 13.4038 7.64649 13.4848 7.71638C14.1223 8.28388 15.0108 8.86788 15.7383 9.28138C16.0583 9.46338 16.4393 9.22738 16.4393 8.85938V5.44538Z"
         stroke="currentColor"
-        stroke-width="1.28"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.28"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -2883,9 +2883,9 @@ export function BackSvg() {
       <path
         d="M14.75 8L10.75 12L14.75 16"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -2936,7 +2936,31 @@ export function Google() {
         rx="4.5"
         fill="#FFFDF8"
         stroke="#274F45"
-        stroke-width="3"
+        strokeWidth="3"
+      />
+    </svg>
+  );
+}
+type PenProps = {
+  className?: string; 
+};
+
+export function Pen({ className }: PenProps) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      className={className}
+    >
+      <path
+        d="M10.0001 16.6664H17.5001M13.6468 3.01811C13.9786 2.68637 14.4285 2.5 14.8976 2.5C15.3668 2.5 15.8167 2.68637 16.1485 3.01811C16.4802 3.34985 16.6666 3.79979 16.6666 4.26895C16.6666 4.7381 16.4802 5.18804 16.1485 5.51978L6.14014 15.5289C5.94189 15.7272 5.69683 15.8722 5.42764 15.9506L3.03431 16.6489C2.9626 16.6699 2.88659 16.6711 2.81423 16.6526C2.74188 16.634 2.67583 16.5964 2.62302 16.5436C2.5702 16.4908 2.53255 16.4247 2.51401 16.3524C2.49547 16.28 2.49673 16.204 2.51764 16.1323L3.21598 13.7389C3.29449 13.4701 3.43952 13.2253 3.63764 13.0273L13.6468 3.01811Z"
+        stroke="#1A1A1A"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
