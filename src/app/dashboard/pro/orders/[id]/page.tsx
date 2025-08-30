@@ -1,4 +1,5 @@
 "use client";
+import OrderSummary from "@/Components/Prodashboardcomponents/OrderSummary";
 import Proorderproduct from "@/Components/Prodashboardcomponents/Proorderproduct";
 import { Pen } from "@/Components/Svg/SvgContainer";
 import React, { useState } from "react";
@@ -93,6 +94,9 @@ const page = () => {
           </div>
           <div className="">
             <Proorderproduct />
+          </div>
+          <div className="">
+            <OrderSummary />
           </div>
         </div>
         <div className="w-[20%]">right</div>
