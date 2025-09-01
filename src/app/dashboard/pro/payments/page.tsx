@@ -1,5 +1,8 @@
 "use client";
 import AllPaymentTable from "@/Components/Common/DashboardReusable/AllPaymentTable";
+import FailedPayment from "@/Components/Common/DashboardReusable/FailedPayment";
+import PaidPayments from "@/Components/Common/DashboardReusable/PaidPayments";
+import PendingPaymnet from "@/Components/Common/DashboardReusable/PendingPaymnet";
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
@@ -52,9 +55,9 @@ const page = () => {
         </ul>
         <div className="mt-8">
           {isactive === "All Payments" && <AllPaymentTable />}
-          {isactive === "Pending" && <AllPaymentTable />}
-          {isactive === "Paid" && <AllPaymentTable />}
-          {isactive === "Failed" && <AllPaymentTable />}
+          {isactive === "Pending" && <PendingPaymnet />}
+          {isactive === "Paid" && <PaidPayments />}
+          {isactive === "Failed" && <FailedPayment />}
         </div>
       </div>
     </>
