@@ -1,5 +1,6 @@
 "use client";
 
+import EditOrderModal from "@/Components/Modals/EditOrderModal";
 import OrderNote from "@/Components/Modals/OrderNote";
 import OrderSummary from "@/Components/Prodashboardcomponents/OrderSummary";
 import Proorderproduct from "@/Components/Prodashboardcomponents/Proorderproduct";
@@ -210,7 +211,7 @@ const Page = () => {
           )}
 
           {/* Order Summary */}
-          <div className="mt-6">
+          <div className="mt-20">
             <OrderSummary />
           </div>
         </div>
@@ -270,7 +271,7 @@ const Page = () => {
             </div>
             <textarea
               placeholder="Enter Message"
-              className="py-2 px-6 rounded-[8px] border border-[#8E2F2F]  text-[16px] font-normal text-[#000] cursor-pointer hover:border-green-500 duration-300 ease-in-out w-full mt-5 h-[280px]"
+              className="py-2 px-3 rounded-[8px] border border-[#8E2F2F]  text-[16px] font-normal text-[#000] cursor-pointer hover:border-green-500 duration-300 ease-in-out w-full mt-5 h-[280px]"
             />
             <div className="flex flex-col gap-y-3 mt-5">
               <button className="auth-secondary-btn">Send Messages</button>
@@ -296,11 +297,11 @@ const Page = () => {
         onClose={() => setNoteModalOpen(false)}
         note="This is the detailed order note info."
       />
-      {/* <EditOrderModal
+      <EditOrderModal
         isOpen={editModalOpen}
         onClose={() => setEditModalOpen(false)}
       />
-      <SendMessageModal
+      {/* <SendMessageModal
         isOpen={messageModalOpen}
         onClose={() => setMessageModalOpen(false)}
       /> */}
