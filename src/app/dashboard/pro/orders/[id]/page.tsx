@@ -272,8 +272,9 @@ const Page = () => {
               placeholder="Enter Message"
               className="py-2 px-6 rounded-[8px] border border-[#8E2F2F]  text-[16px] font-normal text-[#000] cursor-pointer hover:border-green-500 duration-300 ease-in-out w-full mt-5 h-[280px]"
             />
-            <div className="flex justify-end mt-5">
+            <div className="flex flex-col gap-y-3 mt-5">
               <button className="auth-secondary-btn">Send Messages</button>
+              <button className="auth-primary-btn">Go to Messages</button>
             </div>
           </div>
 
