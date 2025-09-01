@@ -1,9 +1,16 @@
-import React from 'react'
+import React from "react";
+import { paymentData } from "@/Components/Data/data";
+import PaymentTableReusable from "./PaymentTableReusable";
 
 const PendingPaymnet = () => {
-  return (
-    <div>PendingPaymnet</div>
-  )
-}
+  const pendingpayment = paymentData.filter(data => data.status === "Pending");
+  console.log(pendingpayment);
 
-export default PendingPaymnet
+  return (
+    <div>
+      <PaymentTableReusable data={pendingpayment} itemsPerPage={5} />
+    </div>
+  );
+};
+
+export default PendingPaymnet;

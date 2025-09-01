@@ -10,7 +10,7 @@ type paymentdataprops = {
   itemsPerPage?: number;
 };
 
-const OrdersTable: React.FC<paymentdataprops> = ({
+const PaymentTableReusable: React.FC<paymentdataprops> = ({
   data,
   itemsPerPage = 5,
 }) => {
@@ -20,7 +20,7 @@ const OrdersTable: React.FC<paymentdataprops> = ({
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedData = paymentData.slice(
+  const paginatedData = data.slice(
     startIndex,
     startIndex + itemsPerPage
   );
@@ -145,4 +145,4 @@ const OrdersTable: React.FC<paymentdataprops> = ({
   );
 };
 
-export default OrdersTable;
+export default PaymentTableReusable;

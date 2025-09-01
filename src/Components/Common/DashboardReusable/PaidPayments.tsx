@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import PaymentTableReusable from "./PaymentTableReusable";
+import { paymentData } from "@/Components/Data/data";
 
 const PaidPayments = () => {
+  const paidpayementsdata = paymentData.filter(paid => paid.status === "Paid");
   return (
-    <div>PaidPayments</div>
-  )
-}
+    <div>
+      <PaymentTableReusable data={paidpayementsdata} />
+    </div>
+  );
+};
 
-export default PaidPayments
+export default PaidPayments;
