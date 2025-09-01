@@ -1,4 +1,6 @@
+import { getStatusColor, paymentData } from "@/Components/Data/data";
 import React from "react";
+import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaDotCircle } from "react-icons/fa";
 
 const PaymentTableReusable = () => {
@@ -16,15 +18,28 @@ const PaymentTableReusable = () => {
         </tr>
       </thead>
       <tbody>
-        <tr className="border-b border-gray-300 text-[#13141D] text-[14px] font-semibold">
-          <td className="py-3 px-4">#INV-5496</td>
-          <td className="py-3 px-4">Jun 25, 2024</td>
-          <td className="py-3 px-4">Amy Woods</td>
-          <td className="py-3 px-4">$16.78</td>
-          <td className="py-3 px-4">Pending</td>
-          <td className="py-3 px-4">Stripe</td>
-          <td className="py-3 px-4 flex justify-center"><FaDotCircle /></td>
-        </tr>
+        {paymentData.map((item, index) => (
+          <tr
+            key={index}
+            className="border-b border-gray-300 text-[#13141D] text-[14px] font-semibold"
+          >
+            <td className="py-3 px-4">{item.invoice}</td>
+            <td className="py-3 px-4">{item.purchaseDate}</td>
+            <td className="py-3 px-4">{item.billingTo}</td>
+            <td className="py-3 px-4">{item.amount}</td>
+            <td className="py-3 px-4">{item.paymentMethod}</td>
+            <td
+              className={`py-3 px-4 font-semibold ${getStatusColor(
+                item.status
+              )}`}
+            >
+              {item.status}
+            </td>
+            <td className="py-3 px-4 text-center  flex justify-center">
+              <BsThreeDotsVertical className="text-gray-500 cursor-pointer" />
+            </td>
+          </tr>
+        ))}
       </tbody>
     </table>
   );
