@@ -17,7 +17,7 @@ const AccountTable:React.FC<titleprops> = ({ title}) => {
       </div>
       <table className="w-full mt-5">
         <thead>
-          <tr className="border-2 border-gray-300 bg-[#274F45] text-[#fff] text-[16px] font-semibold">
+          <tr className=" bg-[#274F45] text-[#fff] text-[16px] font-semibold">
             <th className="py-1 px-4 text-left">Order #</th>
             <th className="py-1 px-4 text-left">Revenue</th>
             <th className="py-1 px-4 text-left">Profit</th>

@@ -27,7 +27,7 @@ const page = () => {
       <div className="mt-14">
         <AccountTable title="Sales" />
       </div>
-      <div className="mt-8">
+      <div className="mt-10">
         <AccountTable title="Barters and Trades" />
       </div>
     </>
