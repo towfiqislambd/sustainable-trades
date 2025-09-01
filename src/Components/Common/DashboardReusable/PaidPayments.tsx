@@ -6,7 +6,7 @@ const PaidPayments = () => {
   const paidpayementsdata = paymentData.filter(paid => paid.status === "Paid");
   return (
     <div>
-      <PaymentTableReusable data={paidpayementsdata} />
+      <PaymentTableReusable data={paidpayementsdata}  itemsPerPage={5}/>
     </div>
   );
 };
