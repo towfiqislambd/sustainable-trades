@@ -277,3 +277,99 @@ export const statusColors = {
   Canceled: "bg-[#8B200C] text-white",
   Local: "bg-[#E48872] text-white",
 };
+
+const paymentData = [
+  {
+    invoice: "#INV-5496",
+    purchaseDate: "Jun 25, 2024",
+    billingTo: "Amy Woods",
+    amount: "$16.78",
+    paymentMethod: "Stripe",
+    status: "Pending",
+  },
+  {
+    invoice: "#INV-7605",
+    purchaseDate: "Jun 23, 2024",
+    billingTo: "Erick Jones",
+    amount: "$10.56",
+    paymentMethod: "PayPal",
+    status: "Paid",
+  },
+  {
+    invoice: "#INV-7586",
+    purchaseDate: "Jun 22, 2024",
+    billingTo: "Rebecca Garcia",
+    amount: "$26.76",
+    paymentMethod: "Square",
+    status: "Paid",
+  },
+  {
+    invoice: "#INV-2501",
+    purchaseDate: "Jun 19, 2024",
+    billingTo: "Ariana Ortiz",
+    amount: "$19.27",
+    paymentMethod: "Visa 9278",
+    status: "Failed",
+  },
+  {
+    invoice: "#INV-0899",
+    purchaseDate: "Jun 13, 2024",
+    billingTo: "Dilon Hiester",
+    amount: "$42.77",
+    paymentMethod: "Visa 4213",
+    status: "Paid",
+  },
+  {
+    invoice: "#INV-7456",
+    purchaseDate: "Jun 13, 2024",
+    billingTo: "Mina Nixon",
+    amount: "$57.62",
+    paymentMethod: "PayPal",
+    status: "Paid",
+  },
+  {
+    invoice: "#INV-5496",
+    purchaseDate: "Jun 10, 2024",
+    billingTo: "Nia Howard",
+    amount: "$39.78",
+    paymentMethod: "Visa 9485",
+    status: "Paid",
+  },
+  {
+    invoice: "#INV-3477",
+    purchaseDate: "Jun 7, 2024",
+    billingTo: "Vincent Ramos",
+    amount: "$39.32",
+    paymentMethod: "Stripe",
+    status: "Paid",
+  },
+  {
+    invoice: "#INV-1241",
+    purchaseDate: "Jun 6, 2024",
+    billingTo: "Sam Zavala",
+    amount: "$12.99",
+    paymentMethod: "Visa 6457",
+    status: "Paid",
+  },
+  {
+    invoice: "#INV-9116",
+    purchaseDate: "Jun 2, 2024",
+    billingTo: "Peyton McClarie",
+    amount: "$77.09",
+    paymentMethod: "Venmo",
+    status: "Paid",
+  },
+];
+
+const getStatusColor = status => {
+  switch (status) {
+    case "Paid":
+      return "text-green-600";
+    case "Pending":
+      return "text-yellow-500";
+    case "Failed":
+      return "text-red-600";
+    default:
+      return "text-gray-600";
+  }
+};
