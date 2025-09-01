@@ -61,7 +61,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
               <td className="py-3 px-4">{order.amount}</td>
               <td className="py-3 px-4">
                 <span
-                  className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  className={`min-w-[100px] inline-block text-center px-3 py-1 rounded-full text-sm font-medium  ${
                     statusColors[order.status] ?? "bg-gray-300 text-black"
                   }`}
                 >
@@ -88,7 +88,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
                       className="w-full text-left px-4 py-2 hover:bg-gray-100 cursor-pointer"
                       onClick={() => {
                         setOpenRow(null);
-                       router.push(`/dashboard/pro/orders/${order.id}`);
+                        router.push(`/dashboard/pro/orders/${order.id}`);
                       }}
                     >
                       View Details
