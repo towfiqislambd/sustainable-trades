@@ -256,12 +256,31 @@ const Page = () => {
               )}
             </div>
           ))}
-          <div className="">sdfhgklfdh</div>
+          <div className="border p-4 rounded-lg">
+            <h2 className="text-[24px] font-normal text-[#000]">
+              Message to Buyer
+            </h2>
+            <div className="pt-5">
+              <h4 className="text-[16px] font-semibold text-[#000]">
+                Amy Woods
+              </h4>
+              <h5 className="text-[16px] font-semibold text-[#000]">
+                Order Number: #155796{" "}
+              </h5>
+            </div>
+            <textarea
+              placeholder="Enter Message"
+              className="py-2 px-6 rounded-[8px] border border-[#8E2F2F]  text-[16px] font-normal text-[#000] cursor-pointer hover:border-green-500 duration-300 ease-in-out w-full mt-5 h-[280px]"
+            />
+            <div className="flex justify-end mt-5">
+              <button className="auth-secondary-btn">Send Messages</button>
+            </div>
+          </div>
 
           {status === "Package Delivered" ? (
             ""
           ) : (
-            <div className="mt-[560px]">
+            <div className="mt-12">
               <button className="py-4 px-6 rounded-[8px] border border-[#8E2F2F] bg-[#FFE8E8] text-[16px] font-semibold text-[#8E2F2F] cursor-pointer hover:border-green-500 duration-300 ease-in-out w-full">
                 Cancel Order
               </button>
