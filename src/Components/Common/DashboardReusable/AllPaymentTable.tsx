@@ -1,8 +1,9 @@
 import React from 'react'
+import PaymentTableReusable from './PaymentTableReusable'
 
 const AllPaymentTable = () => {
   return (
-    <div>AllPaymentTable</div>
+    <div><PaymentTableReusable/></div>
   )
 }
 
