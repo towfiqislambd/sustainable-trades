@@ -16,7 +16,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [openRow, setOpenRow] = useState<number | null>(null);
-    const router = useRouter();
+  const router = useRouter();
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
