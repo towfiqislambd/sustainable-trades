@@ -99,7 +99,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
                         setOpenRow(null);
                       }}
                     >
-                      Delete
+                      Canceled
                     </button>
                   </div>
                 )}
