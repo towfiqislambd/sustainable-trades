@@ -2,7 +2,9 @@ import React from 'react'
 
 const PaymentTableReusable = () => {
   return (
-    <div>PaymentTableReusable</div>
+    <div>
+      
+    </div>
   )
 }
 
