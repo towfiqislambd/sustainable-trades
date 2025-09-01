@@ -277,6 +277,7 @@ export const statusColors = {
   Canceled: "bg-[#8B200C] text-white",
   Local: "bg-[#E48872] text-white",
 };
+
 type PaymentData = {
   invoice: string;
   purchaseDate: string;
@@ -285,6 +286,7 @@ type PaymentData = {
   paymentMethod: string;
   status: "Paid" | "Pending" | "Failed";
 };
+
 export const paymentData: PaymentData[] = [
   {
     invoice: "#INV-5496",
@@ -368,13 +370,13 @@ export const paymentData: PaymentData[] = [
   },
 ];
 
- export const getStatusColor = (status: PaymentData["status"]) => {
+export const getStatusColor = (status: PaymentData["status"]) => {
   switch (status) {
     case "Paid":
-      return "text-green-600";
+      return "bg-[#E48872] text-[#fff] text-[14px] font-semibold";
     case "Pending":
-      return "text-yellow-500";
+      return "bg-yellow-500 text-[14px] font-semibold";
     case "Failed":
-      return "text-red-600";
+      return "bg-red-600 text-white text-[14px] font-semibold";
   }
 };

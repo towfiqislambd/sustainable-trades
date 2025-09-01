@@ -1,7 +1,6 @@
 import { getStatusColor, paymentData } from "@/Components/Data/data";
 import React from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { FaDotCircle } from "react-icons/fa";
 
 const PaymentTableReusable = () => {
   return (
@@ -28,13 +27,16 @@ const PaymentTableReusable = () => {
             <td className="py-3 px-4">{item.billingTo}</td>
             <td className="py-3 px-4">{item.amount}</td>
             <td className="py-3 px-4">{item.paymentMethod}</td>
-            <td
-              className={`py-3 px-4 font-semibold ${getStatusColor(
-                item.status
-              )}`}
-            >
-              {item.status}
+            <td className="py-3 px-4">
+              <span
+                className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  getStatusColor(item.status) ?? "bg-gray-300 text-black"
+                }`}
+              >
+                {item.status}
+              </span>
             </td>
+
             <td className="py-3 px-4 text-center  flex justify-center">
               <BsThreeDotsVertical className="text-gray-500 cursor-pointer" />
             </td>
