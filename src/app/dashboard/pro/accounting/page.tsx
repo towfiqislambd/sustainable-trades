@@ -1,3 +1,4 @@
+import AccountTable from "@/Components/Common/DashboardReusable/AccountTable";
 import { Download, Pen } from "@/Components/Svg/SvgContainer";
 import React from "react";
 import { FaAngleRight } from "react-icons/fa";
@@ -23,7 +24,12 @@ const page = () => {
           </button>
         </div>
       </div>
-      <div className=""></div>
+      <div className="mt-14">
+        <AccountTable title="Sales" />
+      </div>
+      <div className="mt-8">
+        <AccountTable title="Barters and Trades" />
+      </div>
     </>
   );
 };
