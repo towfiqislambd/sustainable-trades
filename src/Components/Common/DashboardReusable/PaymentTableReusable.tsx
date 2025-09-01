@@ -60,7 +60,7 @@ const PaymentTableReusable: React.FC<paymentdataprops> = ({
               <td className="py-3 px-4">{order.paymentMethod}</td>
               <td className="py-3 px-4">
                 <span
-                  className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  className={`min-w-[100px] inline-block text-center px-3 py-1 rounded-full text-sm font-medium ${
                     getStatusColor(order.status) ?? "bg-gray-300 text-black"
                   }`}
                 >
