@@ -278,7 +278,7 @@ export const statusColors = {
   Local: "bg-[#E48872] text-white",
 };
 
-type PaymentData = {
+export type PaymentData = {
   invoice: string;
   purchaseDate: string;
   billingTo: string;
@@ -373,10 +373,10 @@ export const paymentData: PaymentData[] = [
 export const getStatusColor = (status: PaymentData["status"]) => {
   switch (status) {
     case "Paid":
-      return "bg-[#E48872] text-[#fff] text-[14px] font-semibold";
+      return "border border-[#274F45] text-[#274F45] text-[14px] font-semibold";
     case "Pending":
-      return "bg-yellow-500 text-[14px] font-semibold";
+      return "border border-yellow-500 text-[14px] text-yellow-500 font-semibold";
     case "Failed":
-      return "bg-red-600 text-white text-[14px] font-semibold";
+      return "border-red-600 border text-red-600 text-[14px] font-semibold";
   }
 };
