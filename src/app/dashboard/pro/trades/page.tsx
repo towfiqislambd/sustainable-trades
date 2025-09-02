@@ -9,9 +9,7 @@ import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
 const Page = () => {
-
-
-
+  
   const [isActive, setIsActive] = useState("Pending");
 
   return (
