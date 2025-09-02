@@ -59,6 +59,15 @@ const Page = () => {
           ))}
         </ul>
       </div>
+      <div className="py-6 flex gap-x-1 items-center">
+        <h3 className="font-semibold text-[16px] text-[#A7A39C]">
+          32 Trades - <span className="text-[#274F45]">3 New Offers!</span>
+        </h3>
+      </div>
+      {isActive === "Pending" && "pending"}
+      {isActive === "Sent" && "Sent"}
+      {isActive === "Previous" && "Previous"}
+      {isActive === "Canceled" && "Canceled"}
     </div>
   );
 };
