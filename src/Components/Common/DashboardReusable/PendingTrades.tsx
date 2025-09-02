@@ -1,9 +1,16 @@
-import React from 'react'
+import React from "react";
+import TradesTabs from "./TradesTabs";
+import { tradeRequests } from "@/Components/Data/data";
 
 const PendingTrades = () => {
+  const PendingtradesData = tradeRequests.filter(
+    Pending => Pending.status === "Pending"
+  );
   return (
-    <div>PendingTrades</div>
-  )
-}
+    <>
+      <TradesTabs tradeRequests={PendingtradesData} />
+    </>
+  );
+};
 
-export default PendingTrades
+export default PendingTrades;
