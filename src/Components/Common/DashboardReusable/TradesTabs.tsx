@@ -24,7 +24,6 @@ type TradesTabsProps = {
 };
 
 const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
-  const [rotateId, setRotateId] = useState<number | null>(null);
 
   return (
     <>
@@ -72,8 +71,8 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
                   <Image
                     src={item.image}
                     alt={item.title}
-                    height={150}
-                    width={150}
+                    height={100}
+                    width={100}
                     className="object-cover rounded-md"
                   />
                   <div className="flex flex-col">
@@ -102,9 +101,7 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
               <div className="bg-[#BFBEBE] w-full h-[1px]"></div>
               <div className="inline-block">
                 <Reload
-                  className={`cursor-pointer transform transition-transform duration-500 ease-in-out ${
-                    rotateId === trade.id ? "rotate-180" : ""
-                  }`}
+                  className={`cursor-pointer transform transition-transform hover:rotate-180 duration-500 ease-in-out`}
                 />
               </div>
               <div className="bg-[#BFBEBE] w-full h-[1px]"></div>
