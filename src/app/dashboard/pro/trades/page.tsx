@@ -1,4 +1,8 @@
 "use client";
+import CanceledTrades from "@/Components/Common/DashboardReusable/CanceledTrades";
+import PendingTrades from "@/Components/Common/DashboardReusable/PendingTrades";
+import PreviousTrades from "@/Components/Common/DashboardReusable/PreviousTrades";
+import SentTrades from "@/Components/Common/DashboardReusable/SentTrades";
 import TradesTabs from "@/Components/Common/DashboardReusable/TradesTabs";
 import { tradeRequests } from "@/Components/Data/data";
 import React, { useState } from "react";
@@ -68,10 +72,10 @@ const Page = () => {
         </h3>
       </div>
 
-      {isActive === "Pending" && <TradesTabs tradeRequests={tradeRequests} />}
-      {isActive === "Sent" && "Sent"}
-      {isActive === "Previous" && "Previous"}
-      {isActive === "Canceled" && "Canceled"}
+      {isActive === "Pending" && <PendingTrades />}
+      {isActive === "Sent" && <SentTrades />}
+      {isActive === "Previous" && <PreviousTrades />}
+      {isActive === "Canceled" && <CanceledTrades />}
     </div>
   );
 };
