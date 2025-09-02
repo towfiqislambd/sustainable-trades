@@ -2,16 +2,19 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
-const page = () => {
+const Page = () => {
   const tradetabs = [
-    { label: "Pending", count: 5 },
-    { label: "Sent", count: 3 },
-    { label: "Previous", count: 12 },
-    { label: "Canceled", count: 1 },
+    { label: "Pending", count: 7 },
+    { label: "Sent", count: 48 },
+    { label: "Previous", count: 378 },
+    { label: "Canceled", count: 8 },
   ];
+
   const [isActive, setIsActive] = useState("Pending");
+
   return (
     <div>
+      {/* Header */}
       <div className="flex justify-between items-center">
         <h3 className="text-[40px] font-semibold text-[#000]">Trades</h3>
         <div className="relative">
@@ -26,25 +29,38 @@ const page = () => {
           <div className="absolute top-0 right-10 w-[2px] bg-[#BFBEBE] h-[45px]"></div>
         </div>
       </div>
+
+      {/* Tabs */}
       <div className="mt-14">
-        <div className="">
-          <ul className="flex justify-between px-20">
-            {tradetabs.map(tab => (
-              <li
-                key={tab.label}
-                className={`flex gap-x-3 items-center text-[16px] font-normal text-[#13141D] pb-3 ${isActive === tab.label ? "font-semibold border-b-8 rounded-[8px]" : ""}`}
+        <ul className="flex justify-between  relative after:content-[''] after:block after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:p-[3px] after:border after:border-[#A7A39C] after:rounded-lg">
+          {tradetabs.map(tab => (
+            <li
+              key={tab.label}
+              onClick={() => setIsActive(tab.label)}
+              className={`flex gap-x-3 items-center text-[16px] cursor-pointer pb-5 w-[250px] justify-center
+                ${
+                  isActive === tab.label
+                    ? "font-semibold text-[#000] relative after:content-[''] after:block after:absolute after:bottom-0 after:left-0 after:w-full after:h-[8px]  after:bg-[#274F45] after:rounded-lg"
+                    : "text-[#13141D]"
+                }`}
+            >
+              {tab.label}
+              <span
+                className={`border rounded-[8px] px-2 py-[2px] text-sm border-[#000]
+                  ${
+                    isActive === tab.label
+                      ? " bg-[#D4E2CB] text-[#6D2D4E2CB8D9]"
+                      : "text-[#13141D]"
+                  }`}
               >
-                {tab.label}{" "}
-                <span className="border border-[#13141D] rounded-[8px] px-1 py-[2px]">
-                  {tab.count}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
+                {tab.count}
+              </span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
 };
 
-export default page;
+export default Page;
