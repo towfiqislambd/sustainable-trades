@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import TradesTabs from "./TradesTabs";
+import { tradeRequests } from "@/Components/Data/data";
 
 const SentTrades = () => {
+  const senttradedata = tradeRequests.filter(sent => sent.status === "Sent");
   return (
-    <div>SentTrades</div>
-  )
-}
+    <>
+      <TradesTabs tradeRequests={senttradedata} />
+    </>
+  );
+};
 
-export default SentTrades
+export default SentTrades;
