@@ -1,4 +1,6 @@
 "use client";
+import TradesTabs from "@/Components/Common/DashboardReusable/TradesTabs";
+import { tradeRequests } from "@/Components/Data/data";
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
@@ -66,7 +68,7 @@ const Page = () => {
         </h3>
       </div>
 
-      {isActive === "Pending" && "pending"}
+      {isActive === "Pending" && <TradesTabs tradeRequests={tradeRequests} />}
       {isActive === "Sent" && "Sent"}
       {isActive === "Previous" && "Previous"}
       {isActive === "Canceled" && "Canceled"}

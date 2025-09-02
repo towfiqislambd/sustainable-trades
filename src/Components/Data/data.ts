@@ -382,78 +382,162 @@ export const getStatusColor = (status: PaymentData["status"]) => {
 };
 
 
-type TradeTab = {
+type TradeItem = {
   image: string;
-  status: "Pending" | "Sent" | "Previous" | "Canceled";
   title: string;
+  store: string;
+  quantity: string;
+  totalAmount: number; 
 };
-const tradetabs: TradeTab[] = [
-  {
-    image: "../../Assets/e2.jpg",
-    status: "Pending",
-    title: "Apple iPhone 15 Pro",
-  },
-  {
-    image: "/images/product2.png",
-    status: "Pending",
-    title: "Google Pixel 8 Pro",
-  },
-  {
-    image: "/images/product3.png",
-    status: "Pending",
-    title: "MacBook Pro 16-inch",
-  },
 
-  {
-    image: "/images/product4.png",
-    status: "Sent",
-    title: "Samsung Galaxy S23 Ultra",
-  },
-  {
-    image: "/images/product5.png",
-    status: "Sent",
-    title: "Asus ROG Gaming Laptop",
-  },
-  {
-    image: "/images/product6.png",
-    status: "Sent",
-    title: "Bose QuietComfort Earbuds II",
-  },
+export type TradeRequest = {
+  id: number;
+  date: string; 
+  inquiryNumber: number;
+  status: "Pending" | "Sent" | "Previous" | "Canceled";
+  items: TradeItem[];
+};
 
+// Sample JSON data (v8 style) with 8 trade requests
+export const tradeRequests: TradeRequest[] = [
   {
-    image: "/images/product7.png",
+    id: 378,
+    date: "11/28/2023",
+    inquiryNumber: 378,
+    status: "Pending",
+    items: [
+      {
+        image: "/images/soap.png",
+        title: "8oz Watermelon Sustainable Bar Soap",
+        store: "The Soap Shop",
+        quantity: "20 Jars",
+        totalAmount: 30,
+      },
+      {
+        image: "/images/waste.png",
+        title: "Yard Waste Service",
+        store: "Earths Essence",
+        quantity: "3 hours work",
+        totalAmount: 30,
+      },
+    ],
+  },
+  {
+    id: 379,
+    date: "11/27/2023",
+    inquiryNumber: 379,
+    status: "Sent",
+    items: [
+      {
+        image: "/images/candle.png",
+        title: "Lavender Scented Candle",
+        store: "Candle Co",
+        quantity: "10 Pieces",
+        totalAmount: 50,
+      },
+      {
+        image: "/images/waste.png",
+        title: "Yard Waste Service",
+        store: "Earths Essence",
+        quantity: "3 hours work",
+        totalAmount: 30,
+      },
+    ],
+  },
+  {
+    id: 380,
+    date: "11/26/2023",
+    inquiryNumber: 380,
     status: "Previous",
-    title: "Sony WH-1000XM5 Headphones",
+    items: [
+      {
+        image: "/images/soap.png",
+        title: "Lemongrass Sustainable Bar Soap",
+        store: "The Soap Shop",
+        quantity: "15 Bars",
+        totalAmount: 25,
+      },
+    ],
   },
   {
-    image: "/images/product8.png",
+    id: 381,
+    date: "11/25/2023",
+    inquiryNumber: 381,
+    status: "Canceled",
+    items: [
+      {
+        image: "/images/waste.png",
+        title: "Garden Waste Pickup",
+        store: "Earths Essence",
+        quantity: "5 hours work",
+        totalAmount: 40,
+      },
+    ],
+  },
+  {
+    id: 382,
+    date: "11/24/2023",
+    inquiryNumber: 382,
+    status: "Pending",
+    items: [
+      {
+        image: "/images/candle.png",
+        title: "Vanilla Scented Candle",
+        store: "Candle Co",
+        quantity: "12 Pieces",
+        totalAmount: 60,
+      },
+    ],
+  },
+  {
+    id: 383,
+    date: "11/23/2023",
+    inquiryNumber: 383,
+    status: "Sent",
+    items: [
+      {
+        image: "/images/soap.png",
+        title: "Rose Sustainable Bar Soap",
+        store: "The Soap Shop",
+        quantity: "18 Bars",
+        totalAmount: 35,
+      },
+    ],
+  },
+  {
+    id: 384,
+    date: "11/22/2023",
+    inquiryNumber: 384,
     status: "Previous",
-    title: "Canon EOS R6 Camera",
+    items: [
+      {
+        image: "/images/waste.png",
+        title: "Compost Waste Collection",
+        store: "Earths Essence",
+        quantity: "4 hours work",
+        totalAmount: 28,
+      },
+    ],
   },
   {
-    image: "/images/product9.png",
-    status: "Previous",
-    title: "LG OLED CX 55” TV",
-  },
-
-  {
-    image: "/images/product10.png",
+    id: 385,
+    date: "11/21/2023",
+    inquiryNumber: 385,
     status: "Canceled",
-    title: "Dell XPS 13 Laptop",
-  },
-  {
-    image: "/images/product11.png",
-    status: "Canceled",
-    title: "Nintendo Switch OLED",
-  },
-  {
-    image: "/images/product12.png",
-    status: "Canceled",
-    title: "HP Spectre x360",
+    items: [
+      {
+        image: "/images/candle.png",
+        title: "Citrus Scented Candle",
+        store: "Candle Co",
+        quantity: "8 Pieces",
+        totalAmount: 45,
+      },
+    ],
   },
 ];
 
-export const tradegetStatusColor = (status: TradeTab["status"]): string => {
+
+export const tradegetStatusColor = (status: TradeRequest["status"]): string => {
   switch (status) {
     case "Pending":
       return "bg-yellow-100 text-yellow-800";
@@ -464,6 +548,7 @@ export const tradegetStatusColor = (status: TradeTab["status"]): string => {
     case "Canceled":
       return "bg-red-100 text-red-800";
     default:
-      return "bg-gray-100 text-gray-800"; 
+      return "bg-gray-100 text-gray-800";
   }
 };
+
