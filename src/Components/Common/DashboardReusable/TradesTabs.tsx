@@ -27,7 +27,7 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
 
   return (
     <>
-      <div className="h-screen overflow-y-auto p-6 flex flex-col gap-6">
+      <div className="h-[600px] overflow-y-auto p-6 flex flex-col gap-6">
         {tradeRequests.map(trade => (
           <div
             key={trade.id}
