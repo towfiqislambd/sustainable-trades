@@ -37,7 +37,7 @@ const Page = () => {
             <li
               key={tab.label}
               onClick={() => setIsActive(tab.label)}
-              className={`flex gap-x-3 items-center text-[16px] cursor-pointer pb-5 w-[250px] justify-center
+              className={`flex gap-x-3 items-center text-[16px] cursor-pointer pb-5 px-20 justify-center
                 ${
                   isActive === tab.label
                     ? "font-semibold text-[#000] relative after:content-[''] after:block after:absolute after:bottom-0 after:left-0 after:w-full after:h-[8px]  after:bg-[#274F45] after:rounded-lg"
@@ -59,11 +59,13 @@ const Page = () => {
           ))}
         </ul>
       </div>
+
       <div className="py-6 flex gap-x-1 items-center">
         <h3 className="font-semibold text-[16px] text-[#A7A39C]">
           32 Trades - <span className="text-[#274F45]">3 New Offers!</span>
         </h3>
       </div>
+
       {isActive === "Pending" && "pending"}
       {isActive === "Sent" && "Sent"}
       {isActive === "Previous" && "Previous"}
