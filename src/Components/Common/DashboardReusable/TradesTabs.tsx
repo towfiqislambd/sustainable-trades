@@ -24,6 +24,13 @@ type TradesTabsProps = {
   tradeRequests: TradeRequest[];
 };
 
+const actionButtons: Record<TradeRequest["status"], string[]> = {
+  Pending: ["Approve", "Deny", "Counter", "Message"],
+  Sent: ["Message"],
+  Previous: ["Message", "Write A review"],
+  Canceled: ["Message"],
+};
+
 const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -114,22 +121,17 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex justify-between items-center">
-              <div className="flex gap-x-5 flex-wrap">
-                {["Approve", "Deny", "Counter", "Message"].map((btn, i) => (
-                  <button
-                    key={i}
-                    className={`relative cursor-pointer py-[10px] border px-4 rounded-md font-lato font-semibold overflow-hidden
-                  hover:scale-110 duration-500 ease-in-out
-                  after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0 after:bg-[#274F45] after:transition-all after:duration-500 hover:after:h-full hover:after:left-0 hover:text-white`}
-                  >
-                    <span className="relative z-10">{btn}</span>
-                  </button>
-                ))}
-              </div>
-              <div className="bg-gray-200 px-3 py-2 flex justify-center items-center cursor-pointer">
-                <FaAngleRight />
-              </div>
+            <div className="flex gap-x-5 flex-wrap">
+              {actionButtons[trade.status].map((btn, i) => (
+                <button
+                  key={i}
+                  className={`relative cursor-pointer py-[10px] border px-4 rounded-md font-lato font-semibold overflow-hidden
+      hover:scale-110 duration-500 ease-in-out
+      after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0 after:bg-[#274F45] after:transition-all after:duration-500 hover:after:h-full hover:after:left-0 hover:text-white`}
+                >
+                  <span className="relative z-10">{btn}</span>
+                </button>
+              ))}
             </div>
           </div>
         ))}
