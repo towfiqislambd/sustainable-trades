@@ -380,3 +380,90 @@ export const getStatusColor = (status: PaymentData["status"]) => {
       return "border-red-600 border text-red-600 text-[14px] font-semibold";
   }
 };
+
+
+type TradeTab = {
+  image: string;
+  status: "Pending" | "Sent" | "Previous" | "Canceled";
+  title: string;
+};
+const tradetabs: TradeTab[] = [
+  {
+    image: "../../Assets/e2.jpg",
+    status: "Pending",
+    title: "Apple iPhone 15 Pro",
+  },
+  {
+    image: "/images/product2.png",
+    status: "Pending",
+    title: "Google Pixel 8 Pro",
+  },
+  {
+    image: "/images/product3.png",
+    status: "Pending",
+    title: "MacBook Pro 16-inch",
+  },
+
+  {
+    image: "/images/product4.png",
+    status: "Sent",
+    title: "Samsung Galaxy S23 Ultra",
+  },
+  {
+    image: "/images/product5.png",
+    status: "Sent",
+    title: "Asus ROG Gaming Laptop",
+  },
+  {
+    image: "/images/product6.png",
+    status: "Sent",
+    title: "Bose QuietComfort Earbuds II",
+  },
+
+  {
+    image: "/images/product7.png",
+    status: "Previous",
+    title: "Sony WH-1000XM5 Headphones",
+  },
+  {
+    image: "/images/product8.png",
+    status: "Previous",
+    title: "Canon EOS R6 Camera",
+  },
+  {
+    image: "/images/product9.png",
+    status: "Previous",
+    title: "LG OLED CX 55” TV",
+  },
+
+  {
+    image: "/images/product10.png",
+    status: "Canceled",
+    title: "Dell XPS 13 Laptop",
+  },
+  {
+    image: "/images/product11.png",
+    status: "Canceled",
+    title: "Nintendo Switch OLED",
+  },
+  {
+    image: "/images/product12.png",
+    status: "Canceled",
+    title: "HP Spectre x360",
+  },
+];
+
+export const tradegetStatusColor = (status: TradeTab["status"]): string => {
+  switch (status) {
+    case "Pending":
+      return "bg-yellow-100 text-yellow-800";
+    case "Sent":
+      return "bg-blue-100 text-blue-800";
+    case "Previous":
+      return "bg-gray-100 text-gray-800";
+    case "Canceled":
+      return "bg-red-100 text-red-800";
+    default:
+      return "bg-gray-100 text-gray-800"; 
+  }
+};
