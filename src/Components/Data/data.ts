@@ -553,3 +553,18 @@ export const tradegetStatusColor = (status: TradeRequest["status"]): string => {
   }
 };
 
+export const tradetabs = [
+  { label: "Pending", count: tradeRequests.filter(ln => ln.status === "Pending").length }, 
+  {
+    label: "Sent",
+    count: tradeRequests.filter(ln => ln.status === "Sent").length,
+  },
+  {
+    label: "Previous",
+    count: tradeRequests.filter(ln => ln.status === "Previous").length,
+  },
+  {
+    label: "Canceled",
+    count: tradeRequests.filter(ln => ln.status === "Canceled").length,
+  },
+];

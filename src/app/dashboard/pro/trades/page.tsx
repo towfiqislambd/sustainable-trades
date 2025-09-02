@@ -4,17 +4,13 @@ import PendingTrades from "@/Components/Common/DashboardReusable/PendingTrades";
 import PreviousTrades from "@/Components/Common/DashboardReusable/PreviousTrades";
 import SentTrades from "@/Components/Common/DashboardReusable/SentTrades";
 import TradesTabs from "@/Components/Common/DashboardReusable/TradesTabs";
-import { tradeRequests } from "@/Components/Data/data";
+import { tradeRequests, tradetabs } from "@/Components/Data/data";
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
 const Page = () => {
-  const tradetabs = [
-    { label: "Pending", count: 7 },
-    { label: "Sent", count: 48 },
-    { label: "Previous", count: 378 },
-    { label: "Canceled", count: 8 },
-  ];
+
+
 
   const [isActive, setIsActive] = useState("Pending");
 
