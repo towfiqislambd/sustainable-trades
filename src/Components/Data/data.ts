@@ -568,3 +568,27 @@ export const tradetabs = [
     count: tradeRequests.filter(ln => ln.status === "Canceled").length,
   },
 ];
+
+
+type Tip = {
+  question: string;
+  answer: string;
+};
+
+export const tips: Tip[] = [
+  {
+    question: "Knowing what your service is worth",
+    answer:
+      "Understanding the true value of your service helps you negotiate better and ensure you get fair compensation.",
+  },
+  {
+    question: "Building Trust in Trading: Communication is Key",
+    answer:
+      "Clear and honest communication with trading partners fosters trust and long-term relationships.",
+  },
+  {
+    question: "Crafting Compelling Trade Listings: Dos and Don'ts",
+    answer:
+      "Present your items clearly, use accurate descriptions, and avoid misleading information to attract serious buyers.",
+  },
+];

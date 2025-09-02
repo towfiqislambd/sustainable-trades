@@ -1,7 +1,8 @@
 import Image, { StaticImageData } from "next/image";
 import React, { useState } from "react";
 import { Reload } from "@/Components/Svg/SvgContainer";
-import { FaAngleRight } from "react-icons/fa";
+import { FaAngleDown, FaAngleRight } from "react-icons/fa";
+import { tips } from "@/Components/Data/data";
 
 export type TradeItem = {
   image: StaticImageData;
@@ -24,6 +25,11 @@ type TradesTabsProps = {
 };
 
 const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const toggle = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
 
   return (
     <>
@@ -128,7 +134,39 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
           </div>
         ))}
       </div>
-      <div className="w-1/2 mt-10 border border-gray-300 rounded-lg p-6 ml-5"></div>
+      <div className="w-2/5 mt-10 border border-gray-300 rounded-lg p-6 ml-5">
+        <h3 className="text-[#13141D] text-[16px] font-semibold">
+          Tips for Trading
+        </h3>
+
+        <div className="mt-4 space-y-2">
+          {tips.map((tip, index) => (
+            <div key={index} className="border-b border-gray-400">
+              <div
+                className="flex justify-between items-center cursor-pointer py-2"
+                onClick={() => toggle(index)}
+              >
+                <h4 className="text-[#13141D] text-[14px] font-normal">
+                  {tip.question}
+                </h4>
+                <FaAngleDown
+                  className={`transition-transform duration-300 ${
+                    openIndex === index ? "rotate-180" : ""
+                  }`}
+                />
+              </div>
+              <div
+                className={`overflow-hidden transition-[max-height] duration-500 ease-in-out`}
+                style={{
+                  maxHeight: openIndex === index ? "200px" : "0px",
+                }}
+              >
+                <p className="mt-2 text-[#4B4A47] text-[14px]">{tip.answer}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </>
   );
 };
