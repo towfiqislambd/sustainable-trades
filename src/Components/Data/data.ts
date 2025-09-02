@@ -1,3 +1,4 @@
+import { StaticImageData } from "next/image";
 import OrderImage from "../../Assets/orderimage.png";
 import p1 from "@/Assets/p1.jpg";
 
@@ -383,16 +384,16 @@ export const getStatusColor = (status: PaymentData["status"]) => {
 
 
 type TradeItem = {
-  image: string;
+  image: StaticImageData; // use StaticImageData for imported images
   title: string;
   store: string;
   quantity: string;
-  totalAmount: number; 
+  totalAmount: number;
 };
 
-export type TradeRequest = {
+type TradeRequest = {
   id: number;
-  date: string; 
+  date: string;
   inquiryNumber: number;
   status: "Pending" | "Sent" | "Previous" | "Canceled";
   items: TradeItem[];
@@ -407,14 +408,14 @@ export const tradeRequests: TradeRequest[] = [
     status: "Pending",
     items: [
       {
-        image: "/images/soap.png",
+        image: OrderImage,
         title: "8oz Watermelon Sustainable Bar Soap",
         store: "The Soap Shop",
         quantity: "20 Jars",
         totalAmount: 30,
       },
       {
-        image: "/images/waste.png",
+        image: OrderImage,
         title: "Yard Waste Service",
         store: "Earths Essence",
         quantity: "3 hours work",
@@ -429,14 +430,14 @@ export const tradeRequests: TradeRequest[] = [
     status: "Sent",
     items: [
       {
-        image: "/images/candle.png",
+        image: OrderImage,
         title: "Lavender Scented Candle",
         store: "Candle Co",
         quantity: "10 Pieces",
         totalAmount: 50,
       },
       {
-        image: "/images/waste.png",
+        image: OrderImage,
         title: "Yard Waste Service",
         store: "Earths Essence",
         quantity: "3 hours work",
@@ -451,7 +452,7 @@ export const tradeRequests: TradeRequest[] = [
     status: "Previous",
     items: [
       {
-        image: "/images/soap.png",
+        image: OrderImage,
         title: "Lemongrass Sustainable Bar Soap",
         store: "The Soap Shop",
         quantity: "15 Bars",
@@ -466,7 +467,7 @@ export const tradeRequests: TradeRequest[] = [
     status: "Canceled",
     items: [
       {
-        image: "/images/waste.png",
+        image: OrderImage,
         title: "Garden Waste Pickup",
         store: "Earths Essence",
         quantity: "5 hours work",
@@ -481,7 +482,7 @@ export const tradeRequests: TradeRequest[] = [
     status: "Pending",
     items: [
       {
-        image: "/images/candle.png",
+        image: OrderImage,
         title: "Vanilla Scented Candle",
         store: "Candle Co",
         quantity: "12 Pieces",
@@ -496,7 +497,7 @@ export const tradeRequests: TradeRequest[] = [
     status: "Sent",
     items: [
       {
-        image: "/images/soap.png",
+        image: OrderImage,
         title: "Rose Sustainable Bar Soap",
         store: "The Soap Shop",
         quantity: "18 Bars",
@@ -511,7 +512,7 @@ export const tradeRequests: TradeRequest[] = [
     status: "Previous",
     items: [
       {
-        image: "/images/waste.png",
+        image: OrderImage,
         title: "Compost Waste Collection",
         store: "Earths Essence",
         quantity: "4 hours work",
@@ -526,7 +527,7 @@ export const tradeRequests: TradeRequest[] = [
     status: "Canceled",
     items: [
       {
-        image: "/images/candle.png",
+        image: OrderImage,
         title: "Citrus Scented Candle",
         store: "Candle Co",
         quantity: "8 Pieces",

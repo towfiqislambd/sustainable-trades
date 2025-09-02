@@ -1,10 +1,10 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import React, { useState } from "react";
 import { Reload } from "@/Components/Svg/SvgContainer";
 import { FaAngleRight } from "react-icons/fa";
 
 export type TradeItem = {
-  image: string;
+  image: StaticImageData;
   title: string;
   store: string;
   quantity: string;
