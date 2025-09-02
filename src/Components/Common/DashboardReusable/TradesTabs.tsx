@@ -1,8 +1,11 @@
+"use client";
 import Image, { StaticImageData } from "next/image";
 import React, { useState } from "react";
 import { Reload } from "@/Components/Svg/SvgContainer";
 import { FaAngleDown, FaAngleRight } from "react-icons/fa";
 import { tips } from "@/Components/Data/data";
+import { FaAnglesRight } from "react-icons/fa6";
+import Link from "next/link";
 
 export type TradeItem = {
   image: StaticImageData;
@@ -121,17 +124,26 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex gap-x-5 flex-wrap">
-              {actionButtons[trade.status].map((btn, i) => (
-                <button
-                  key={i}
-                  className={`relative cursor-pointer py-[10px] border px-4 rounded-md font-lato font-semibold overflow-hidden
+            <div className="flex justify-between items-end">
+              <div className="flex gap-x-5 flex-wrap">
+                {actionButtons[trade.status].map((btn, i) => (
+                  <button
+                    key={i}
+                    className={`relative cursor-pointer py-[10px] border px-4 rounded-md font-lato font-semibold overflow-hidden
       hover:scale-110 duration-500 ease-in-out
       after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0 after:bg-[#274F45] after:transition-all after:duration-500 hover:after:h-full hover:after:left-0 hover:text-white`}
-                >
-                  <span className="relative z-10">{btn}</span>
-                </button>
-              ))}
+                  >
+                    <span className="relative z-10">{btn}</span>
+                  </button>
+                ))}
+              </div>
+              <Link
+                href={`/dashboard/pro/trades/${trade.id}?tab=${trade.status}`}
+              >
+                <div className="bg-gray-200 px-3 py-2 cursor-pointer flex items-center justify-center">
+                  <FaAnglesRight />
+                </div>
+              </Link>
             </div>
           </div>
         ))}
