@@ -1,10 +1,10 @@
 "use client";
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation"; 
 import { FaAnglesRight } from "react-icons/fa6";
 import Image, { StaticImageData } from "next/image";
 import { Reload } from "@/Components/Svg/SvgContainer";
-import { useRouter } from "next/navigation"; 
 
 export type TradeItem = {
   image: StaticImageData;
