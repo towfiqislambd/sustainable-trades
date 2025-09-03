@@ -1,11 +1,9 @@
 "use client";
-import Image, { StaticImageData } from "next/image";
-import React, { useState } from "react";
-import { Reload } from "@/Components/Svg/SvgContainer";
-import { FaAngleDown, FaAngleRight } from "react-icons/fa";
-import { tips } from "@/Components/Data/data";
-import { FaAnglesRight } from "react-icons/fa6";
 import Link from "next/link";
+import React, { useState } from "react";
+import { FaAnglesRight } from "react-icons/fa6";
+import Image, { StaticImageData } from "next/image";
+import { Reload } from "@/Components/Svg/SvgContainer";
 
 export type TradeItem = {
   image: StaticImageData;
