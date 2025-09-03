@@ -1,6 +1,6 @@
 import React from "react";
-import PaymentTableReusable from "./PaymentTableReusable";
 import { paymentData } from "@/Components/Data/data";
+import PaymentTableReusable from "./PaymentTableReusable";
 
 const PaidPayments = () => {
   const paidpayementsdata = paymentData.filter(paid => paid.status === "Paid");

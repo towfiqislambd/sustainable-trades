@@ -1,10 +1,10 @@
 "use client";
 import React, { ReactNode, useState } from "react";
-import { tips, tradetabs } from "@/Components/Data/data";
 import { FaAngleDown, FaSearch } from "react-icons/fa";
+import { tips, tradetabs } from "@/Components/Data/data";
 
 type TradeLayoutProps = {
-  children: ReactNode[]; // must be an array: [Pending, Sent, Previous, Canceled]
+  children: React.ReactNode[];
   initialTab: "Pending" | "Sent" | "Previous" | "Canceled";
 };
 
@@ -73,12 +73,7 @@ const TradeLayout = ({ children, initialTab }: TradeLayoutProps) => {
         </ul>
       </div>
 
-      {/* Optional Subheader */}
-      {/* <div className="py-6 flex gap-x-1 items-center">
-        <h3 className="font-semibold text-[16px] text-[#A7A39C]">
-          32 Trades - <span className="text-[#274F45]">3 New Offers!</span>
-        </h3>
-      </div> */}
+
 
       {/* Render only the active child */}
       <div>{children[tabIndexMap[activeTab]]}</div>

@@ -1,14 +1,14 @@
 "use client";
 import "swiper/css";
-import "swiper/css/pagination";
-import Image, { StaticImageData } from "next/image";
 import React from "react";
-import { CartLogoSvg, DollarSvg } from "../Svg/SvgContainer";
-import { FaHeart } from "react-icons/fa";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
-import p1 from "@/Assets/p1.jpg";
 import Link from "next/link";
+import "swiper/css/pagination";
+import p1 from "@/Assets/p1.jpg";
+import { FaHeart } from "react-icons/fa";
+import { Pagination } from "swiper/modules";
+import Image, { StaticImageData } from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { CartLogoSvg, DollarSvg } from "../Svg/SvgContainer";
 
 type ProductData = {
   id: number;

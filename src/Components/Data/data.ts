@@ -592,3 +592,4 @@ export const tips: Tip[] = [
       "Present your items clearly, use accurate descriptions, and avoid misleading information to attract serious buyers.",
   },
 ];
+
