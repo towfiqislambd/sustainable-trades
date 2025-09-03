@@ -1,3 +1,4 @@
+import { StaticImageData } from "next/image";
 import OrderImage from "../../Assets/orderimage.png";
 import p1 from "@/Assets/p1.jpg";
 
@@ -277,3 +278,317 @@ export const statusColors = {
   Canceled: "bg-[#8B200C] text-white",
   Local: "bg-[#E48872] text-white",
 };
+
+export type PaymentData = {
+  invoice: string;
+  purchaseDate: string;
+  billingTo: string;
+  amount: string;
+  paymentMethod: string;
+  status: "Paid" | "Pending" | "Failed";
+};
+
+export const paymentData: PaymentData[] = [
+  {
+    invoice: "#INV-5496",
+    purchaseDate: "Jun 25, 2024",
+    billingTo: "Amy Woods",
+    amount: "$16.78",
+    paymentMethod: "Stripe",
+    status: "Pending",
+  },
+  {
+    invoice: "#INV-7605",
+    purchaseDate: "Jun 23, 2024",
+    billingTo: "Erick Jones",
+    amount: "$10.56",
+    paymentMethod: "PayPal",
+    status: "Paid",
+  },
+  {
+    invoice: "#INV-7586",
+    purchaseDate: "Jun 22, 2024",
+    billingTo: "Rebecca Garcia",
+    amount: "$26.76",
+    paymentMethod: "Square",
+    status: "Paid",
+  },
+  {
+    invoice: "#INV-2501",
+    purchaseDate: "Jun 19, 2024",
+    billingTo: "Ariana Ortiz",
+    amount: "$19.27",
+    paymentMethod: "Visa 9278",
+    status: "Failed",
+  },
+  {
+    invoice: "#INV-0899",
+    purchaseDate: "Jun 13, 2024",
+    billingTo: "Dilon Hiester",
+    amount: "$42.77",
+    paymentMethod: "Visa 4213",
+    status: "Paid",
+  },
+  {
+    invoice: "#INV-7456",
+    purchaseDate: "Jun 13, 2024",
+    billingTo: "Mina Nixon",
+    amount: "$57.62",
+    paymentMethod: "PayPal",
+    status: "Paid",
+  },
+  {
+    invoice: "#INV-5496",
+    purchaseDate: "Jun 10, 2024",
+    billingTo: "Nia Howard",
+    amount: "$39.78",
+    paymentMethod: "Visa 9485",
+    status: "Paid",
+  },
+  {
+    invoice: "#INV-3477",
+    purchaseDate: "Jun 7, 2024",
+    billingTo: "Vincent Ramos",
+    amount: "$39.32",
+    paymentMethod: "Stripe",
+    status: "Paid",
+  },
+  {
+    invoice: "#INV-1241",
+    purchaseDate: "Jun 6, 2024",
+    billingTo: "Sam Zavala",
+    amount: "$12.99",
+    paymentMethod: "Visa 6457",
+    status: "Paid",
+  },
+  {
+    invoice: "#INV-9116",
+    purchaseDate: "Jun 2, 2024",
+    billingTo: "Peyton McClarie",
+    amount: "$77.09",
+    paymentMethod: "Venmo",
+    status: "Paid",
+  },
+];
+
+export const getStatusColor = (status: PaymentData["status"]) => {
+  switch (status) {
+    case "Paid":
+      return "border border-[#274F45] text-[#274F45] text-[14px] font-semibold";
+    case "Pending":
+      return "border border-yellow-500 text-[14px] text-yellow-500 font-semibold";
+    case "Failed":
+      return "border-red-600 border text-red-600 text-[14px] font-semibold";
+  }
+};
+
+
+type TradeItem = {
+  image: StaticImageData; // use StaticImageData for imported images
+  title: string;
+  store: string;
+  quantity: string;
+  totalAmount: number;
+};
+
+type TradeRequest = {
+  id: number;
+  date: string;
+  inquiryNumber: number;
+  status: "Pending" | "Sent" | "Previous" | "Canceled";
+  items: TradeItem[];
+};
+
+// Sample JSON data (v8 style) with 8 trade requests
+export const tradeRequests: TradeRequest[] = [
+  {
+    id: 378,
+    date: "11/28/2023",
+    inquiryNumber: 378,
+    status: "Pending",
+    items: [
+      {
+        image: OrderImage,
+        title: "8oz Watermelon Sustainable Bar Soap",
+        store: "The Soap Shop",
+        quantity: "20 Jars",
+        totalAmount: 30,
+      },
+      {
+        image: OrderImage,
+        title: "Yard Waste Service",
+        store: "Earths Essence",
+        quantity: "3 hours work",
+        totalAmount: 30,
+      },
+    ],
+  },
+  {
+    id: 379,
+    date: "11/27/2023",
+    inquiryNumber: 379,
+    status: "Sent",
+    items: [
+      {
+        image: OrderImage,
+        title: "Lavender Scented Candle",
+        store: "Candle Co",
+        quantity: "10 Pieces",
+        totalAmount: 50,
+      },
+      {
+        image: OrderImage,
+        title: "Yard Waste Service",
+        store: "Earths Essence",
+        quantity: "3 hours work",
+        totalAmount: 30,
+      },
+    ],
+  },
+  {
+    id: 380,
+    date: "11/26/2023",
+    inquiryNumber: 380,
+    status: "Previous",
+    items: [
+      {
+        image: OrderImage,
+        title: "Lemongrass Sustainable Bar Soap",
+        store: "The Soap Shop",
+        quantity: "15 Bars",
+        totalAmount: 25,
+      },
+    ],
+  },
+  {
+    id: 381,
+    date: "11/25/2023",
+    inquiryNumber: 381,
+    status: "Canceled",
+    items: [
+      {
+        image: OrderImage,
+        title: "Garden Waste Pickup",
+        store: "Earths Essence",
+        quantity: "5 hours work",
+        totalAmount: 40,
+      },
+    ],
+  },
+  {
+    id: 382,
+    date: "11/24/2023",
+    inquiryNumber: 382,
+    status: "Pending",
+    items: [
+      {
+        image: OrderImage,
+        title: "Vanilla Scented Candle",
+        store: "Candle Co",
+        quantity: "12 Pieces",
+        totalAmount: 60,
+      },
+    ],
+  },
+  {
+    id: 383,
+    date: "11/23/2023",
+    inquiryNumber: 383,
+    status: "Sent",
+    items: [
+      {
+        image: OrderImage,
+        title: "Rose Sustainable Bar Soap",
+        store: "The Soap Shop",
+        quantity: "18 Bars",
+        totalAmount: 35,
+      },
+    ],
+  },
+  {
+    id: 384,
+    date: "11/22/2023",
+    inquiryNumber: 384,
+    status: "Previous",
+    items: [
+      {
+        image: OrderImage,
+        title: "Compost Waste Collection",
+        store: "Earths Essence",
+        quantity: "4 hours work",
+        totalAmount: 28,
+      },
+    ],
+  },
+  {
+    id: 385,
+    date: "11/21/2023",
+    inquiryNumber: 385,
+    status: "Canceled",
+    items: [
+      {
+        image: OrderImage,
+        title: "Citrus Scented Candle",
+        store: "Candle Co",
+        quantity: "8 Pieces",
+        totalAmount: 45,
+      },
+    ],
+  },
+];
+
+
+export const tradegetStatusColor = (status: TradeRequest["status"]): string => {
+  switch (status) {
+    case "Pending":
+      return "bg-yellow-100 text-yellow-800";
+    case "Sent":
+      return "bg-blue-100 text-blue-800";
+    case "Previous":
+      return "bg-gray-100 text-gray-800";
+    case "Canceled":
+      return "bg-red-100 text-red-800";
+    default:
+      return "bg-gray-100 text-gray-800";
+  }
+};
+
+export const tradetabs = [
+  { label: "Pending", count: tradeRequests.filter(ln => ln.status === "Pending").length }, 
+  {
+    label: "Sent",
+    count: tradeRequests.filter(ln => ln.status === "Sent").length,
+  },
+  {
+    label: "Previous",
+    count: tradeRequests.filter(ln => ln.status === "Previous").length,
+  },
+  {
+    label: "Canceled",
+    count: tradeRequests.filter(ln => ln.status === "Canceled").length,
+  },
+];
+
+
+type Tip = {
+  question: string;
+  answer: string;
+};
+
+export const tips: Tip[] = [
+  {
+    question: "Knowing what your service is worth",
+    answer:
+      "Understanding the true value of your service helps you negotiate better and ensure you get fair compensation.",
+  },
+  {
+    question: "Building Trust in Trading: Communication is Key",
+    answer:
+      "Clear and honest communication with trading partners fosters trust and long-term relationships.",
+  },
+  {
+    question: "Crafting Compelling Trade Listings: Dos and Don'ts",
+    answer:
+      "Present your items clearly, use accurate descriptions, and avoid misleading information to attract serious buyers.",
+  },
+];

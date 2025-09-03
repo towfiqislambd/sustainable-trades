@@ -2,15 +2,15 @@ import { Order } from "@/Types/type";
 import React, { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
-import { statusColors } from "../Data/data";
 import { useRouter } from "next/navigation";
+import { getStatusColor, PaymentData, paymentData } from "@/Components/Data/data";
 
-type OrdersTableProps = {
-  data: Order[];
+type paymentdataprops = {
+  data: PaymentData[];
   itemsPerPage?: number;
 };
 
-const OrdersTable: React.FC<OrdersTableProps> = ({
+const PaymentTableReusable: React.FC<paymentdataprops> = ({
   data,
   itemsPerPage = 5,
 }) => {
@@ -20,7 +20,10 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedData = data.slice(startIndex, startIndex + itemsPerPage);
+  const paginatedData = data.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
 
   const toggleDropdown = (index: number) => {
     setOpenRow(openRow === index ? null : index);
@@ -31,14 +34,12 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
       <table className="w-full border-collapse">
         <thead>
           <tr className="border-b-2 border-gray-300 text-[#13141D] text-[16px] font-semibold">
-            <th className="py-3 px-4 text-left">Order #</th>
-            <th className="py-3 px-4 text-left">Order Date</th>
-            <th className="py-3 px-4 text-left">Customer</th>
-            <th className="py-3 px-4 text-left">Opt In</th>
-            <th className="py-3 px-4 text-left">Items</th>
+            <th className="py-3 px-4 text-left">Invoice #</th>
+            <th className="py-3 px-4 text-left">Purchase Date</th>
+            <th className="py-3 px-4 text-left">Billing to</th>
             <th className="py-3 px-4 text-left">Amount</th>
+            <th className="py-3 px-4 text-left">Payment Method</th>
             <th className="py-3 px-4 text-left">Status</th>
-            <th className="py-3 px-4 text-left">FullFillment</th>
             <th className="py-3 px-4 text-center">Action</th>
           </tr>
         </thead>
@@ -48,27 +49,24 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
               key={i}
               className="border-b border-gray-300 text-[#13141D] text-[14px] font-semibold"
             >
-              <td className="py-3 px-4">{order.id}</td>
-              <td className="py-3 px-4">{order.date}</td>
+              <td className="py-3 px-4">{order.invoice}</td>
+              <td className="py-3 px-4">{order.purchaseDate}</td>
               <td className="py-3 px-4">
                 <div className="flex flex-col">
-                  <span>{order.customer}</span>
-                  <span className="text-sm text-gray-500">{order.email}</span>
+                  <span>{order.billingTo}</span>
                 </div>
               </td>
-              <td className="py-3 px-4">{order.optIn}</td>
-              <td className="py-3 px-4">{order.items}</td>
               <td className="py-3 px-4">{order.amount}</td>
+              <td className="py-3 px-4">{order.paymentMethod}</td>
               <td className="py-3 px-4">
                 <span
-                  className={`min-w-[100px] inline-block text-center px-3 py-1 rounded-full text-sm font-medium  ${
-                    statusColors[order.status] ?? "bg-gray-300 text-black"
+                  className={`min-w-[100px] inline-block text-center px-3 py-1 rounded-full text-sm font-medium ${
+                    getStatusColor(order.status) ?? "bg-gray-300 text-black"
                   }`}
                 >
                   {order.status}
                 </span>
               </td>
-              <td className="py-3 px-4">{order.fullfill}</td>
               <td className="py-3 px-4 text-center relative">
                 <BsThreeDotsVertical
                   onClick={() => toggleDropdown(i)}
@@ -88,7 +86,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
                       className="w-full text-left px-4 py-2 hover:bg-gray-100 cursor-pointer"
                       onClick={() => {
                         setOpenRow(null);
-                        router.push(`/dashboard/pro/orders/${order.id}`);
+                        router.push(`/dashboard/pro/orders/${order.invoice}`);
                       }}
                     >
                       View Details
@@ -144,4 +142,4 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
   );
 };
 
-export default OrdersTable;
+export default PaymentTableReusable;

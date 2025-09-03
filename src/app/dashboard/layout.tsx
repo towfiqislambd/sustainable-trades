@@ -27,7 +27,7 @@ const proNavLinks = [
   { id: 2, label: "Orders", path: "/dashboard/pro/orders", icon: <PTwoSvg /> },
   {
     id: 3,
-    label: "Trades/Barter",
+    label: "Trades",
     path: "/dashboard/pro/trades",
     icon: <PThreeSvg />,
   },
