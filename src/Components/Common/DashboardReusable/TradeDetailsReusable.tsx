@@ -2,7 +2,12 @@ import React from "react";
 import DetailsImage from "../../../Assets/e1.jpg";
 import Image from "next/image";
 import { FaLocationArrow, FaStar } from "react-icons/fa";
-import { FaLocationDot, FaLocationPin, FaRegStar } from "react-icons/fa6";
+import {
+  FaAngleDown,
+  FaLocationDot,
+  FaLocationPin,
+  FaRegStar,
+} from "react-icons/fa6";
 import { LocationSvg1 } from "@/Components/Svg/SvgContainer";
 
 const TradeDetailsReusable = () => {
@@ -66,7 +71,50 @@ const TradeDetailsReusable = () => {
           </div>
         </div>
         <div className="">
-          <h4>Organic Bath Soaps</h4>
+          <h4 className="text-[20px] font-semibold text-[#274F45]">
+            Organic Bath Soaps
+          </h4>
+          <h3 className="text-[32px] font-semibold text-[#000] py-3">
+            Coconut Bar Soap
+          </h3>
+          <ul>
+            <li className="text-[20px] font-semibold text-[#274F45]">
+              Product Description
+            </li>
+            <li className="text-[16px] font-semibold text-[#13141D] list-disc ml-5">
+              Made with 100% organic coconut oil, ensuring a natural and
+              chemical-free cleansing experience.
+            </li>
+            <li className="text-[16px] font-semibold text-[#13141D] list-disc ml-5">
+              Free from synthetic additives, parabens, and harsh chemicals for a
+              gentle and nourishing bath.
+            </li>
+          </ul>
+          <div className="flex gap-x-2 mt-4 items-center">
+            <h4 className="text-[14px] font-bold text-[#000] underline">
+              Organic Bath Soaps
+            </h4>
+            <div className="flex gap-x-[2px]">
+              <FaRegStar className="fill-green-950" />
+              <FaRegStar className="fill-green-950" />
+              <FaRegStar className="fill-green-950" />
+              <FaRegStar className="fill-green-950" />
+              <FaRegStar className="fill-green-950" />
+            </div>
+          </div>
+          <div className="flex gap-x-2 items-center mt-1">
+            <LocationSvg1 />
+            <h5 className="text-[14px] underline cursor-pointer text-[#000] font-lato">
+              13 mi. away -
+            </h5>
+            <h5 className="text-[14px] underline cursor-pointer text-[#000] font-lato">
+              Denver, CO
+            </h5>
+          </div>
+          <div className="flex justify-between py-4 cursor-pointer border-b items-center">
+            <h5 className="text-[20px] font-normal text-[#274F45]">Shop FAQ</h5>
+            <FaAngleDown />
+          </div>
         </div>
       </div>
     </div>
