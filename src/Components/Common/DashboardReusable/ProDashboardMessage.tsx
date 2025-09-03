@@ -10,7 +10,7 @@ const ProDashboardMessage = () => {
       <div className="border border-[#A7A39C] rounded-[8px] w-3/5">
         <div className="flex justify-between p-4">
           <h5 className="text-[16px] text-[#000] font-semibold text-center">
-            Recent Activity
+            Messages
           </h5>
           <div className="relative">
             <select
@@ -36,7 +36,7 @@ const ProDashboardMessage = () => {
             </div>
             <div className="">
               <h5 className="text-[14px] text-[#000] font-semibold">
-                Trade: You began a trade with Rebecca Bennett
+                Re: Order#123456
               </h5>
               <p className="text-[14px] text-[#67645F] font-normal">
                 {" "}
@@ -60,7 +60,7 @@ const ProDashboardMessage = () => {
             </div>
             <div className="">
               <h5 className="text-[14px] text-[#000] font-semibold">
-                Trade: You began a trade with Rebecca Bennett
+                Re: Order#123456
               </h5>
               <p className="text-[14px] text-[#67645F] font-normal">
                 {" "}
@@ -84,7 +84,7 @@ const ProDashboardMessage = () => {
             </div>
             <div className="">
               <h5 className="text-[14px] text-[#000] font-semibold">
-                Trade: You began a trade with Rebecca Bennett
+                Re: Order#123456
               </h5>
               <p className="text-[14px] text-[#67645F] font-normal">
                 {" "}
@@ -108,7 +108,7 @@ const ProDashboardMessage = () => {
             </div>
             <div className="">
               <h5 className="text-[14px] text-[#000] font-semibold">
-                Trade: You began a trade with Rebecca Bennett
+                Re: Order#123456
               </h5>
               <p className="text-[14px] text-[#67645F] font-normal">
                 {" "}
@@ -126,7 +126,9 @@ const ProDashboardMessage = () => {
         <p className="py-4 text-[14px] text-white">
           Read articles or reach out to a Sustainable Trade’s member for help.
         </p>
-        <h6 className="text-[14px] text-white font-semibold underline cursor-pointer">FAQs</h6>
+        <h6 className="text-[14px] text-white font-semibold underline cursor-pointer">
+          FAQs
+        </h6>
       </div>
     </div>
   );
