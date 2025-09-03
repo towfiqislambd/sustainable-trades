@@ -1,8 +1,8 @@
-import Image, { StaticImageData } from "next/image";
 import React from "react";
-import { DollarSvg, LocationTwoSvg } from "../Svg/SvgContainer";
-import p1 from "@/Assets/p1.jpg";
 import Link from "next/link";
+import p1 from "@/Assets/p1.jpg";
+import Image, { StaticImageData } from "next/image";
+import { DollarSvg, LocationTwoSvg } from "../Svg/SvgContainer";
 
 type ShopData = {
   id: number;

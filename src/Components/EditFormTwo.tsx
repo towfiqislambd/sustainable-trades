@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import { useFormContext, Controller } from "react-hook-form";
-import { Camera } from "@/Components/Svg/SvgContainer";
 import Preview from "../Assets/cover.jpg";
+import { Camera } from "@/Components/Svg/SvgContainer";
+import { useFormContext, Controller } from "react-hook-form";
 
 const EditFormTwo: React.FC = () => {
   const {
