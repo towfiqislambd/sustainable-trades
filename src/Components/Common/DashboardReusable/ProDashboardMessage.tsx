@@ -1,8 +1,8 @@
 import React from "react";
-import Activity from "../../../Assets/activity.png";
-import { FaAngleDown } from "react-icons/fa";
-import { RxCross1 } from "react-icons/rx";
 import Image from "next/image";
+import { RxCross1 } from "react-icons/rx";
+import { FaAngleDown } from "react-icons/fa";
+import Activity from "../../../Assets/activity.png";
 
 const ProDashboardMessage = () => {
   return (
