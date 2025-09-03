@@ -1,11 +1,11 @@
 "use client";
+import Image from "next/image";
 import React, { useState } from "react";
 import DetailsImage from "../../../Assets/e1.jpg";
-import Image from "next/image";
+import { useParams, useRouter } from "next/navigation";
+import TradeDetaillsBottom from "./TradeDetaillsBottom";
 import { FaAngleDown, FaRegStar } from "react-icons/fa6";
 import { LocationSvg1, Reload } from "@/Components/Svg/SvgContainer";
-import TradeDetaillsBottom from "./TradeDetaillsBottom";
-import { useParams, useRouter } from "next/navigation";
 
 const TradeDetailsReusable = () => {
   const actionButtons = ["Approve", "Deny", "Counter"];
