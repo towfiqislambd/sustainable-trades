@@ -210,6 +210,7 @@ const TradeDetailsReusable = () => {
           </button>
         ))}
       </div>
+      <div className=""></div>
     </div>
   );
 };

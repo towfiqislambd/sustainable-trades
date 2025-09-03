@@ -1678,21 +1678,21 @@ export function LocationSvg1() {
       viewBox="0 0 14 15"
       fill="none"
     >
-      <g clip-path="url(#clip0_7408_398958)">
+      <g clipPath="url(#clip0_7408_398958)">
         <path
           d="M12.25 6.33337C12.25 10.4167 7 13.9167 7 13.9167C7 13.9167 1.75 10.4167 1.75 6.33337C1.75 4.94099 2.30312 3.60563 3.28769 2.62106C4.27226 1.6365 5.60761 1.08337 7 1.08337C8.39239 1.08337 9.72774 1.6365 10.7123 2.62106C11.6969 3.60563 12.25 4.94099 12.25 6.33337Z"
           fill="#D4E2CB"
           stroke="#A7A39C"
-          stroke-width="1.75"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M7 8.08337C7.9665 8.08337 8.75 7.29987 8.75 6.33337C8.75 5.36688 7.9665 4.58337 7 4.58337C6.0335 4.58337 5.25 5.36688 5.25 6.33337C5.25 7.29987 6.0335 8.08337 7 8.08337Z"
           stroke="#A7A39C"
-          stroke-width="1.75"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </g>
       <defs>
@@ -3017,9 +3017,9 @@ export function Download() {
       <path
         d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15M7 10L12 15M12 15L17 10M12 15V3"
         stroke="#274F45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
