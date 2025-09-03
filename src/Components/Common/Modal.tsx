@@ -1,6 +1,6 @@
 "use client";
-import React, { ReactNode, useEffect } from "react";
 import { RxCross2 } from "react-icons/rx";
+import React, { ReactNode, useEffect } from "react";
 
 type ModalProps = {
   open: boolean;
