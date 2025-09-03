@@ -1669,6 +1669,45 @@ export function LocationSvg() {
     </svg>
   );
 }
+export function LocationSvg1() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="14"
+      height="15"
+      viewBox="0 0 14 15"
+      fill="none"
+    >
+      <g clip-path="url(#clip0_7408_398958)">
+        <path
+          d="M12.25 6.33337C12.25 10.4167 7 13.9167 7 13.9167C7 13.9167 1.75 10.4167 1.75 6.33337C1.75 4.94099 2.30312 3.60563 3.28769 2.62106C4.27226 1.6365 5.60761 1.08337 7 1.08337C8.39239 1.08337 9.72774 1.6365 10.7123 2.62106C11.6969 3.60563 12.25 4.94099 12.25 6.33337Z"
+          fill="#D4E2CB"
+          stroke="#A7A39C"
+          stroke-width="1.75"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M7 8.08337C7.9665 8.08337 8.75 7.29987 8.75 6.33337C8.75 5.36688 7.9665 4.58337 7 4.58337C6.0335 4.58337 5.25 5.36688 5.25 6.33337C5.25 7.29987 6.0335 8.08337 7 8.08337Z"
+          stroke="#A7A39C"
+          stroke-width="1.75"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_7408_398958">
+          <rect
+            width="14"
+            height="14"
+            fill="white"
+            transform="translate(0 0.5)"
+          />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+}
 
 export function StarSvg() {
   return (

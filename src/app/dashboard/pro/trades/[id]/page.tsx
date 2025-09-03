@@ -1,4 +1,5 @@
 "use client";
+import TradeDetailsReusable from "@/Components/Common/DashboardReusable/TradeDetailsReusable";
 import TradeLayout from "../TradeLayout";
 import { useSearchParams } from "next/navigation";
 
@@ -15,7 +16,7 @@ const TradeDetailsPage = () => {
     <TradeLayout initialTab={tabParam ?? "Pending"}>
       {[
         tabParam === "Pending" ? (
-          <div>Pending Trade details page</div>
+          <div><TradeDetailsReusable/></div>
         ) : (
           <div></div>
         ),
