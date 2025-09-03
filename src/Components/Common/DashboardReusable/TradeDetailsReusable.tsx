@@ -17,7 +17,7 @@ const TradeDetailsReusable = () => {
           Inquiry <span># 378</span>
         </h5>
       </div>
-      <div className="flex gap-x-6 my-10">
+      <div className="flex justify-between my-10">
         <div className="flex gap-x-4">
           <Image
             src={DetailsImage}
@@ -56,8 +56,17 @@ const TradeDetailsReusable = () => {
               <li className="flex gap-x-2 te4xt-[16px] font-normal text-[#4B4A47] items-center">
                 Qty: <span className="font-bold">3 Bars </span>
               </li>
+              <li className="flex gap-x-2 te4xt-[16px] font-normal text-[#4B4A47] items-center">
+                Item Price: <span className="font-bold">$10</span>
+              </li>
+              <li className="flex gap-x-2 te4xt-[16px] font-normal text-[#4B4A47] items-center">
+                Total amount: <span className="font-bold">$30 </span>
+              </li>
             </ul>
           </div>
+        </div>
+        <div className="">
+          <h4>Organic Bath Soaps</h4>
         </div>
       </div>
     </div>
