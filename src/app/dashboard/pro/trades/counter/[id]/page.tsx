@@ -263,8 +263,6 @@ const page = () => {
                   onClick={() => {
                     if (btn === "Go Back") {
                       router.push(`/dashboard/pro/trades`);
-                    } else {
-                      console.log(`${btn}`);
                     }
                   }}
                   className={`relative cursor-pointer py-[10px] border px-4 rounded-md font-lato font-semibold overflow-hidden
