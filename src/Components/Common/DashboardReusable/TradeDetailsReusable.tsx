@@ -28,7 +28,7 @@ const TradeDetailsReusable = () => {
             alt="DetailsImage"
             height={100}
             width={100}
-            className="h-[100px] w-[100px]"
+            className="h-[100px] w-[100px] rounded-lg"
           />
           <div className="flex flex-col gap-y-1">
             <h3 className="text-[20px] font-semibold text-[#13141D]">
@@ -157,7 +157,7 @@ const TradeDetailsReusable = () => {
             alt="DetailsImage"
             height={100}
             width={100}
-            className="h-[100px] w-[100px]"
+            className="h-[100px] w-[100px] rounded-lg"
           />
           <div className="flex flex-col gap-y-1">
             <h3 className="text-[20px] font-semibold text-[#13141D]">

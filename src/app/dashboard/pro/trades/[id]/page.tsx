@@ -16,18 +16,30 @@ const TradeDetailsPage = () => {
     <TradeLayout initialTab={tabParam ?? "Pending"}>
       {[
         tabParam === "Pending" ? (
-          <div><TradeDetailsReusable/></div>
+          <div>
+            <TradeDetailsReusable />
+          </div>
         ) : (
           <div></div>
         ),
-        tabParam === "Sent" ? <div>Sent Trade details page</div> : <div></div>,
+        tabParam === "Sent" ? (
+          <div>
+            <TradeDetailsReusable />
+          </div>
+        ) : (
+          <div></div>
+        ),
         tabParam === "Previous" ? (
-          <div>Previous Trade details page</div>
+          <div>
+            <TradeDetailsReusable />
+          </div>
         ) : (
           <div></div>
         ),
         tabParam === "Canceled" ? (
-          <div>Canceled Trade details page</div>
+          <div>
+            <TradeDetailsReusable />
+          </div>
         ) : (
           <div></div>
         ),

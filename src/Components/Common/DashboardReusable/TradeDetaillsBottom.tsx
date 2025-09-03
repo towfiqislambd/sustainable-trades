@@ -119,7 +119,7 @@ const TradeDetailsBottom = () => {
   return (
     <div className="flex gap-x-10 max-w-full">
       {/* Chat Section */}
-      <div className="w-1/2 border rounded-lg shadow-sm flex flex-col bg-white">
+      <div className="w-1/2 border  rounded-lg shadow-sm flex flex-col bg-white">
         {/* Header */}
         <div className="bg-[#E6F0EC] px-4 py-3 border-b flex items-center gap-3 rounded-t-lg">
           <img
@@ -157,7 +157,7 @@ const TradeDetailsBottom = () => {
         </div>
 
         {/* Input */}
-        <div className="border-t px-3 py-3 flex items-center gap-2">
+        <div className="border-t px-3 py-3 flex items-center gap-2 mt-20">
           <button className="text-gray-400 hover:text-gray-600 p-2">
             <FaPlus size={16} />
           </button>
@@ -229,7 +229,7 @@ const TradeDetailsBottom = () => {
               </div>
               <div className="flex flex-col items-end gap-2 min-w-[80px]">
                 <span
-                  className={`px-3 py-1 rounded-full text-sm font-medium w-full text-center ${getStatusColor(
+                  className={`px-3 py-1 rounded-full text-lg font-medium w-full text-center ${getStatusColor(
                     trade.status
                   )}`}
                 >
