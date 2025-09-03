@@ -1,11 +1,11 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
-import React, { useState } from "react";
-import TradeLayout from "../../TradeLayout";
-import { LocationSvg1, Reload } from "@/Components/Svg/SvgContainer";
-import { FaRegStar } from "react-icons/fa";
 import Image from "next/image";
+import React, { useState } from "react";
+import { FaRegStar } from "react-icons/fa";
+import TradeLayout from "../../TradeLayout";
 import DetailsImage from "../../../../../../Assets/e1.jpg";
+import { useRouter, useSearchParams } from "next/navigation";
+import { LocationSvg1, Reload } from "@/Components/Svg/SvgContainer";
 import CounterBottom from "@/Components/Common/DashboardReusable/CounterBottom";
 import CounterProductlist from "@/Components/Common/DashboardReusable/CounterProductlist";
 
@@ -24,13 +24,6 @@ const page = () => {
     setCount(prev => (prev > 1 ? prev - 1 : 1));
   };
 
-  const handleClick = (btn: string) => {
-    if (btn === "Go") {
-      router.push(`/dashboard/pro/trades`);
-    } else {
-      console.log(`${btn} clicked`);
-    }
-  };
   return (
     <div>
       <TradeLayout initialTab={tabParam ?? "Pending"}>
