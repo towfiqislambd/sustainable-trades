@@ -255,7 +255,7 @@ const page = () => {
               </div>
             </div>
           </div>
-          <div className="pb-6 border-b rounded-lg">
+          <div className="pb-6 border-b border-[#BFBEBE] rounded-lg">
             <div className="flex gap-x-5 flex-wrap mt-6">
               {actionButtons.map((btn, i) => (
                 <button
