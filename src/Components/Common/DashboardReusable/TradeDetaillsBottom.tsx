@@ -14,7 +14,9 @@ interface Message {
 
 const TradeDetailsBottom = () => {
   const [message, setMessage] = useState("");
+  
   const [visibleTrades, setVisibleTrades] = useState(5);
+
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,

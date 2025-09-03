@@ -4,7 +4,7 @@ import React from "react";
 import { FaAnglesRight } from "react-icons/fa6";
 import Image, { StaticImageData } from "next/image";
 import { Reload } from "@/Components/Svg/SvgContainer";
-import { useRouter } from "next/navigation"; // ✅ Correct import
+import { useRouter } from "next/navigation"; 
 
 export type TradeItem = {
   image: StaticImageData;

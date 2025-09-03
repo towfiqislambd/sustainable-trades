@@ -6,6 +6,8 @@ import { LocationSvg1, Reload } from "@/Components/Svg/SvgContainer";
 import { FaRegStar } from "react-icons/fa";
 import Image from "next/image";
 import DetailsImage from "../../../../../../Assets/e1.jpg";
+import CounterBottom from "@/Components/Common/DashboardReusable/CounterBottom";
+import CounterProductlist from "@/Components/Common/DashboardReusable/CounterProductlist";
 
 const page = () => {
   const actionButtons = ["Go Back", "Cancel", "Send Counter"];
@@ -277,6 +279,12 @@ const page = () => {
               Sending a message with a counter offer gives you a better chance
               of getting it accepted.{" "}
             </li>
+          </div>
+          <div className="mt-4">
+            <CounterBottom />
+          </div>
+          <div className="">
+            <CounterProductlist />
           </div>
         </div>
         <div className=""></div>

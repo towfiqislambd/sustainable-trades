@@ -5,9 +5,14 @@ import Image from "next/image";
 import { FaAngleDown, FaRegStar } from "react-icons/fa6";
 import { LocationSvg1, Reload } from "@/Components/Svg/SvgContainer";
 import TradeDetaillsBottom from "./TradeDetaillsBottom";
+import { useParams, useRouter } from "next/navigation";
 
 const TradeDetailsReusable = () => {
   const actionButtons = ["Approve", "Deny", "Counter"];
+  const params = useParams();
+  const router = useRouter();
+  const tradeId = params?.id;
+
 
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -203,9 +208,18 @@ const TradeDetailsReusable = () => {
         {actionButtons.map((btn, i) => (
           <button
             key={i}
+            onClick={() => {
+              if (btn === "Counter") {
+                router.push(`/dashboard/pro/trades/counter/${tradeId}`);
+              } else if (btn === "Approve") {
+                router.push(`/dashboard/pro/trades/approve/${tradeId}`);
+              } else if (btn === "Deny") {
+                router.push(`/dashboard/pro/trades/deny/${tradeId}`);
+              }
+            }}
             className={`relative cursor-pointer py-[10px] border px-4 rounded-md font-lato font-semibold overflow-hidden
-      hover:scale-110 duration-500 ease-in-out
-      after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0 after:bg-[#274F45] after:transition-all after:duration-500 hover:after:h-full hover:after:left-0 hover:text-white`}
+            hover:scale-110 duration-500 ease-in-out
+            after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0 after:bg-[#274F45] after:transition-all after:duration-500 hover:after:h-full hover:after:left-0 hover:text-white`}
           >
             <span className="relative z-10">{btn}</span>
           </button>
