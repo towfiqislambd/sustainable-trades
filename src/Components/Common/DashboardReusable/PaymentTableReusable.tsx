@@ -1,8 +1,8 @@
 import { Order } from "@/Types/type";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
-import { useRouter } from "next/navigation";
 import { getStatusColor, PaymentData, paymentData } from "@/Components/Data/data";
 
 type paymentdataprops = {
