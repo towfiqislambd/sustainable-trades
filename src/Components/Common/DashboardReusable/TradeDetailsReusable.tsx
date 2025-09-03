@@ -8,13 +8,13 @@ import { FaAngleDown, FaRegStar } from "react-icons/fa6";
 import { LocationSvg1, Reload } from "@/Components/Svg/SvgContainer";
 
 const TradeDetailsReusable = () => {
-  const actionButtons = ["Approve", "Deny", "Counter"];
   const params = useParams();
   const router = useRouter();
   const tradeId = params?.id;
-
-
   const [isOpen, setIsOpen] = useState(false);
+  const actionButtons = ["Approve", "Deny", "Counter"];
+
+
   return (
     <div>
       <div className="flex gap-x-5 items-center mt-6">
