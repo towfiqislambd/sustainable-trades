@@ -1,9 +1,9 @@
 import { Order } from "@/Types/type";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { statusColors } from "../Data/data";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
-import { statusColors } from "../Data/data";
-import { useRouter } from "next/navigation";
 
 type OrdersTableProps = {
   data: Order[];

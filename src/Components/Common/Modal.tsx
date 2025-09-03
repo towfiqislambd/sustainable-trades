@@ -16,7 +16,6 @@ const Modal = ({ open, onClose, children }: ModalProps) => {
       document.body.style.overflow = "";
     }
   }, [open]);
-
   if (!open) return null;
 
   return (
