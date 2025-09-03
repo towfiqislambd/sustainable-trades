@@ -1,7 +1,7 @@
 "use client";
 import React, { ReactNode, useState } from "react";
-import { tips, tradetabs } from "@/Components/Data/data";
 import { FaAngleDown, FaSearch } from "react-icons/fa";
+import { tips, tradetabs } from "@/Components/Data/data";
 
 type TradeLayoutProps = {
   children: ReactNode[]; // must be an array: [Pending, Sent, Previous, Canceled]

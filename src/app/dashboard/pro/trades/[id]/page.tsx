@@ -1,6 +1,6 @@
 "use client";
-import { useSearchParams } from "next/navigation";
 import TradeLayout from "../TradeLayout";
+import { useSearchParams } from "next/navigation";
 
 const TradeDetailsPage = () => {
   const searchParams = useSearchParams();
