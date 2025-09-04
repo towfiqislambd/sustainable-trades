@@ -48,8 +48,9 @@ const actionButtonStyles: Record<
   },
   Message: { border: "border-gray-200", text: "text-black" },
   "Write A review": {
-    bg: "#5B867B",
-    text: "text-black",
+    bg: "bg-[#5B867B]",
+    text: "text-white",
+    border: "border-[#5B867B]",
   },
 };
 
