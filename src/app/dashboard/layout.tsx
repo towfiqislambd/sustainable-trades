@@ -36,12 +36,31 @@ const proNavLinks = [
     label: "Listings & Inventory",
     path: "/dashboard/pro/listing",
     icon: <PFourSvg />,
+    children: [
+      { id: 41, label: "All Listings", path: "/dashboard/pro/listing/all" },
+      // { id: 42, label: "Add New Listing", path: "/dashboard/pro/listing/add" },
+      // { id: 43, label: "Inventory", path: "/dashboard/pro/listing/inventory" },
+    ],
   },
   {
     id: 5,
     label: "Payments",
     path: "/dashboard/pro/payments",
     icon: <PFiveSvg />,
+    children: [
+      {
+        id: 51,
+        label: "Payment History",
+        path: "/dashboard/pro/payments/history",
+        icon: <PFiveSvg />,
+      },
+      { id: 52, label: "Payouts", path: "/dashboard/pro/payments/payouts" },
+      {
+        id: 53,
+        label: "Payment Settings",
+        path: "/dashboard/pro/payments/settings",
+      },
+    ],
   },
   {
     id: 6,
@@ -187,12 +206,6 @@ const customerNavLinks = [
     path: "/dashboard/customer/messages",
     icon: <PThirteenSvg />,
   },
-  // {
-  //   id: 29,
-  //   label: "Membership",
-  //   path: "/dashboard/customer/membership",
-  //   icon: <PSevenSvg />,
-  // },
   {
     id: 30,
     label: "Reviews",
@@ -208,8 +221,8 @@ const customerNavLinks = [
 ];
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
-  const user = "pro" as String;
-  const [open, setOpen] = useState<boolean>(false);
+  const user = "pro";
+  const [open, setOpen] = useState(false);
 
   return (
     <section className="min-h-screen max-h-screen flex flex-col">
