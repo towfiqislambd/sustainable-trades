@@ -13,6 +13,17 @@ const page = () => {
           Back
         </h4>
       </div>
+      <div className="pt-8 pb-12">
+        <h4 className="text-[20px] font-normal text-[#13141D]">Name</h4>
+        <input
+          type="text"
+          placeholder="Example: 15% Off Order"
+          className="px-4 py-2 border-2 border-[#67645F] rounded-[8px] text-[16px] font-bold text-[#67645F] my-3 w-[750px]"
+        />
+        <p className="text-[16px] font-bold text-[#13141D]">
+          The name that shoppers will see at checkout.
+        </p>
+      </div>
     </div>
   );
 };
