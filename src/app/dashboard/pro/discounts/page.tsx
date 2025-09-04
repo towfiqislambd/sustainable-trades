@@ -117,18 +117,18 @@ const Page = () => {
           Discount Limits
         </h4>
         <div className="mt-3 flex flex-col gap-2">
-          <label className="flex items-center gap-2">
-            <input type="checkbox" className="w-4 h-4" />
+          <label className="flex items-center gap-2 text-[16px] font-semibold text-[#13141D]">
+            <input type="checkbox" className="w-4 h-4 " />
             Limit One Per Shopper
           </label>
-          <label className="flex items-center gap-2">
-            <input type="checkbox" className="w-4 h-4" />
+          <label className="flex items-center gap-2 text-[16px] font-semibold text-[#13141D]">
+            <input type="checkbox" className="w-4 h-4 " />
             Limit number of times this discount can be used in total
           </label>
           <input
             type="number"
             placeholder="Enter usage limit (ex: 5)"
-            className="border-2 border-[#67645F] rounded-md px-4 py-2 w-[300px]"
+            className="px-4 py-5 border border-[#3D3D3D] rounded-[8px] text-[16px] font-bold text-[#67645F] my-1 w-[750px]"
           />
         </div>
       </div>
@@ -139,8 +139,10 @@ const Page = () => {
         <div className="grid grid-cols-2 gap-6 mt-3 w-[800px]">
           {/* Start Date */}
           <div>
-            <label className="block text-sm mb-2">Start Date</label>
-            <div className="flex items-center border-2 border-[#67645F] rounded-md px-3 py-2 gap-2 bg-[#EAF0EA]">
+            <label className="block text-[16px] font-normal text-[#13141D] mb-2">
+              Start Date
+            </label>
+            <div className="flex items-center border border-[#67645F] rounded-md px-4 py-5 gap-2 bg-[#E6F5F4]">
               <FiCalendar />
               <input
                 type="date"
@@ -149,8 +151,10 @@ const Page = () => {
             </div>
           </div>
           <div>
-            <label className="block text-sm mb-2">Start Time (PDT)</label>
-            <div className="flex items-center border-2 border-[#67645F] rounded-md px-3 py-2 gap-2 bg-[#EAF0EA]">
+            <label className="block text-[16px] font-normal text-[#13141D] mb-2">
+              Start Time (PDT)
+            </label>
+            <div className="flex items-center border border-[#67645F] rounded-md px-4 py-5 gap-2 bg-[#E6F5F4]">
               <FiClock />
               <input
                 type="time"
@@ -161,8 +165,10 @@ const Page = () => {
 
           {/* End Date */}
           <div>
-            <label className="block text-sm mb-2">End Date</label>
-            <div className="flex items-center border-2 border-[#67645F] rounded-md px-3 py-2 gap-2 bg-[#EAF0EA]">
+            <label className="block text-[16px] font-normal text-[#13141D] mb-2">
+              End Date
+            </label>
+            <div className="flex items-center border border-[#67645F] rounded-md px-4 py-5 gap-2 bg-[#E6F5F4]">
               <FiCalendar />
               <input
                 type="date"
@@ -171,12 +177,14 @@ const Page = () => {
             </div>
           </div>
           <div>
-            <label className="block text-sm mb-2">End Time (PDT)</label>
-            <div className="flex items-center border-2 border-[#67645F] rounded-md px-3 py-2 gap-2 bg-[#EAF0EA]">
+            <label className="block text-[16px] font-normal text-[#13141D] mb-2">
+              End Time (PDT)
+            </label>
+            <div className="flex items-center border border-[#67645F] rounded-md px-4 py-5 gap-2 bg-[#E6F5F4]">
               <FiClock />
               <input
                 type="time"
-                className="flex-1 bg-transparent outline-none"
+                className="flex-1 bg-transparent outline-none "
               />
             </div>
           </div>
