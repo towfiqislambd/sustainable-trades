@@ -105,7 +105,7 @@ const Page = () => {
       {/* Applies To */}
       <div className="pb-8">
         <h4 className="text-[20px] font-normal text-[#13141D]">Applies To</h4>
-        <select className="mt-3 border-2 border-[#67645F] rounded-md px-4 py-2 w-[750px] bg-[#EAF0EA]">
+        <select className="mt-3 border border-[#3D3D3D] rounded-md px-4 py-5  w-[750px] bg-[#D4E2CB] text-[16px] font-bold text-[#274F45]">
           <option>Any Order</option>
           <option>Single Product</option>
         </select>
