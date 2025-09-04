@@ -6,7 +6,7 @@ const SentTrades = () => {
   const senttradedata = tradeRequests.filter(sent => sent.status === "Sent");
   return (
     <>
-      <TradesTabs tradeRequests={senttradedata} />
+      <TradesTabs tradeRequests={tradeRequests} />
     </>
   );
 };

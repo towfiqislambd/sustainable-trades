@@ -18,7 +18,7 @@ export type TradeRequest = {
   id: number;
   date: string;
   inquiryNumber: number;
-  status: "Pending" | "Sent" | "Previous" | "Canceled";
+  status: "Pending" | "Sent" | "Approved" | "Canceled";
   items: TradeItem[];
 };
 
@@ -29,7 +29,7 @@ type TradesTabsProps = {
 const actionButtons: Record<TradeRequest["status"], string[]> = {
   Pending: ["Approve", "Deny", "Counter", "Message"],
   Sent: ["Message"],
-  Previous: ["Message", "Write A review"],
+  Approved: ["Message", "Write A review"],
   Canceled: ["Message"],
 };
 
@@ -62,7 +62,7 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
                   ? "bg-[#E48872]"
                   : trade.status === "Sent"
                   ? "bg-blue-500"
-                  : trade.status === "Previous"
+                  : trade.status === "Approved"
                   ? "bg-gray-400"
                   : "bg-red-500"
               }`}

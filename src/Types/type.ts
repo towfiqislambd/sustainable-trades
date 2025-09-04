@@ -17,6 +17,7 @@ export type OrderStatus =
   | "Delivered"
   | "Canceled"
   | "Local";
+  
 export type Order = {
   id: string;
   date: string;
