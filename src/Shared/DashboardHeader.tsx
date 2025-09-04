@@ -1,7 +1,7 @@
 "use client";
 import logo from "@/Assets/logo.svg";
-import React, { useEffect, useState } from "react";
 import author from "@/Assets/shop_author.jpg";
+import React, { useEffect, useState } from "react";
 import {
   CartSvg2,
   ContactSvg,
