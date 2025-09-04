@@ -184,7 +184,7 @@ const Page = () => {
               <FiClock />
               <input
                 type="time"
-                className="flex-1 bg-transparent outline-none "
+                className="flex-1 bg-transparent outline-none"
               />
             </div>
           </div>
