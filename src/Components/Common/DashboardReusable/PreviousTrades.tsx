@@ -2,15 +2,12 @@ import React from "react";
 import TradesTabs from "./TradesTabs";
 import { tradeRequests } from "@/Components/Data/data";
 
-const PreviousTrades = () => {
-  const prevtradesdata = tradeRequests.filter(
-    Previous => Previous.status === "Previous"
+const ApprovedTrades = () => {
+  const approvedTrades = tradeRequests.filter(
+    trade => trade.status === "Approved"
   );
-  return (
-    <>
-      <TradesTabs tradeRequests={prevtradesdata} />
-    </>
-  );
+
+  return <TradesTabs tradeRequests={approvedTrades} />;
 };
 
-export default PreviousTrades;
+export default ApprovedTrades;

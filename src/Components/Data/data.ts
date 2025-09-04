@@ -395,7 +395,7 @@ type TradeRequest = {
   id: number;
   date: string;
   inquiryNumber: number;
-  status: "Pending" | "Sent" | "Previous" | "Canceled";
+  status: "Pending" | "Sent" | "Approved" | "Canceled";
   items: TradeItem[];
 };
 
@@ -449,7 +449,7 @@ export const tradeRequests: TradeRequest[] = [
     id: 380,
     date: "11/26/2023",
     inquiryNumber: 380,
-    status: "Previous",
+    status: "Approved",
     items: [
       {
         image: OrderImage,
@@ -509,7 +509,7 @@ export const tradeRequests: TradeRequest[] = [
     id: 384,
     date: "11/22/2023",
     inquiryNumber: 384,
-    status: "Previous",
+    status: "Approved",
     items: [
       {
         image: OrderImage,
@@ -544,7 +544,7 @@ export const tradegetStatusColor = (status: TradeRequest["status"]): string => {
       return "bg-yellow-100 text-yellow-800";
     case "Sent":
       return "bg-blue-100 text-blue-800";
-    case "Previous":
+    case "Approved":
       return "bg-gray-100 text-gray-800";
     case "Canceled":
       return "bg-red-100 text-red-800";
@@ -554,14 +554,17 @@ export const tradegetStatusColor = (status: TradeRequest["status"]): string => {
 };
 
 export const tradetabs = [
-  { label: "Pending", count: tradeRequests.filter(ln => ln.status === "Pending").length }, 
+  {
+    label: "Pending",
+    count: tradeRequests.filter(ln => ln.status === "Pending").length,
+  },
   {
     label: "Sent",
     count: tradeRequests.filter(ln => ln.status === "Sent").length,
   },
   {
-    label: "Previous",
-    count: tradeRequests.filter(ln => ln.status === "Previous").length,
+    label: "Approved",
+    count: tradeRequests.filter(ln => ln.status === "Approved").length,
   },
   {
     label: "Canceled",

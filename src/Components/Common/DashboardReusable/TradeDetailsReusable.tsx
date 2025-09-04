@@ -12,8 +12,28 @@ const TradeDetailsReusable = () => {
   const router = useRouter();
   const tradeId = params?.id;
   const [isOpen, setIsOpen] = useState(false);
-  const actionButtons = ["Approve", "Deny", "Counter"];
-
+  const actionButtons = ["Approve", "Counter", "Deny"];
+  const actionButtonStyles: Record<
+    string,
+    { bg?: string; border?: string; text: string }
+  > = {
+    Approve: {
+      bg: "bg-[#274F45]",
+      text: "text-white",
+      border: "#274F45",
+    },
+    Deny: { border: "border-[#8B200C]", text: "text-[#8B200C]" },
+    Counter: {
+      bg: "bg-[#E48872]",
+      text: "text-black",
+      border: "border-[#E48872]",
+    },
+    Message: { border: "border-gray-200", text: "text-black" },
+    "Write A review": {
+      bg: "#5B867B",
+      text: "text-black",
+    },
+  };
 
   return (
     <div>
@@ -205,25 +225,38 @@ const TradeDetailsReusable = () => {
         </div>
       </div>
       <div className="flex gap-x-5 flex-wrap mt-6">
-        {actionButtons.map((btn, i) => (
-          <button
-            key={i}
-            onClick={() => {
-              if (btn === "Counter") {
-                router.push(`/dashboard/pro/trades/counter/${tradeId}`);
-              } else if (btn === "Approve") {
-                router.push(`/dashboard/pro/trades/approve/${tradeId}`);
-              } else if (btn === "Deny") {
-                router.push(`/dashboard/pro/trades/deny/${tradeId}`);
-              }
-            }}
-            className={`relative cursor-pointer py-[10px] border px-4 rounded-md font-lato font-semibold overflow-hidden
-            hover:scale-110 duration-500 ease-in-out
-            after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0 after:bg-[#274F45] after:transition-all after:duration-500 hover:after:h-full hover:after:left-0 hover:text-white`}
-          >
-            <span className="relative z-10">{btn}</span>
-          </button>
-        ))}
+        {actionButtons.map((btn, i) => {
+          const style = actionButtonStyles[btn] || {
+            text: "text-black",
+          };
+
+          return (
+            <button
+              key={i}
+              onClick={() => {
+                if (btn === "Counter") {
+                  router.push(`/dashboard/pro/trades/counter/${tradeId}`);
+                } else if (btn === "Approve") {
+                  router.push(`/dashboard/pro/trades/approve/${tradeId}`);
+                } else if (btn === "Deny") {
+                  router.push(`/dashboard/pro/trades/deny/${tradeId}`);
+                } else {
+                  console.log(`${btn} clicked for trade ${tradeId}`);
+                }
+              }}
+              className={`relative cursor-pointer py-[10px] border px-4 rounded-md font-lato font-semibold overflow-hidden
+        hover:scale-110 duration-500 ease-in-out
+        ${style.bg || ""} ${
+                style.border
+                  ? `border-2 ${style.border}`
+                  : "border-2 border-gray-300"
+              } ${style.text}
+        after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0 after:bg-[#274F45] after:transition-all after:duration-500 hover:after:h-full hover:text-white`}
+            >
+              <span className="relative z-10">{btn}</span>
+            </button>
+          );
+        })}
       </div>
       <div className="my-20">
         <TradeDetaillsBottom />

@@ -14,7 +14,6 @@ interface Message {
 
 const TradeDetailsBottom = () => {
   const [message, setMessage] = useState("");
-  
   const [visibleTrades, setVisibleTrades] = useState(5);
 
   const [messages, setMessages] = useState<Message[]>([
@@ -110,9 +109,9 @@ const TradeDetailsBottom = () => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Pending":
-        return "bg-[#FDE2E2] text-[#C0392B]";
+        return "bg-[#E48872] text-[#fff]";
       case "Sent":
-        return "bg-[#E2F7E2] text-[#27AE60]";
+        return "bg-[#274F45] text-[#fff]";
       default:
         return "bg-gray-200 text-gray-600";
     }

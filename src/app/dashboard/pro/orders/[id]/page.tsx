@@ -205,7 +205,7 @@ const Page = () => {
                 Get Help
               </button>
               <button className="py-4 px-6  rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-green-500 duration-300 ease-in-out">
-                Pass a Review
+                Request a Review
               </button>
             </div>
           )}

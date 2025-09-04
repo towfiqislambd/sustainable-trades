@@ -8,7 +8,7 @@ const TradeDetailsPage = () => {
   const tabParam = searchParams.get("tab") as
     | "Pending"
     | "Sent"
-    | "Previous"
+    | "Approved"
     | "Canceled"
     | null;
 
@@ -29,7 +29,7 @@ const TradeDetailsPage = () => {
         ) : (
           <div></div>
         ),
-        tabParam === "Previous" ? (
+        tabParam === "Approved" ? (
           <div>
             <TradeDetailsReusable />
           </div>
