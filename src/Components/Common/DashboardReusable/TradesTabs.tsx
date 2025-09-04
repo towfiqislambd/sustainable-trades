@@ -57,14 +57,14 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
               </h5>
             </div>
             <button
-              className={`px-2 py-1 rounded-[8px] text-white min-w-[100px] inline-block  cursor-pointer ${
+              className={`px-2 py-1 rounded-[8px] min-w-[100px] inline-block  cursor-pointer ${
                 trade.status === "Pending"
-                  ? "bg-[#E48872]"
+                  ? "bg-[#E48872] text-white"
                   : trade.status === "Sent"
                   ? "bg-blue-500"
                   : trade.status === "Approved"
-                  ? "bg-gray-400"
-                  : "bg-red-500"
+                  ? "bg-[#B0DEDB] text-black"
+                  : "bg-[#8B200C] text-white"
               }`}
             >
               {trade.status}
