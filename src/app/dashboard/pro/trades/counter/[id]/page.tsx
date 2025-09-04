@@ -11,6 +11,23 @@ import CounterProductlist from "@/Components/Common/DashboardReusable/CounterPro
 
 const page = () => {
   const actionButtons = ["Go Back", "Cancel", "Send Counter"];
+  const actionButtonStyles: Record<
+    string,
+    { bg?: string; border?: string; text: string }
+  > = {
+    "Go Back": {
+      border: "border-gray-200",
+      text: "Text-black",
+    },
+    Cancel: {
+      border: "border-gray-200",
+      text: "Text-black",
+    },
+    "Send Counter": {
+      bg: "bg-[#E48872]",
+      text: "text-white",
+    },
+  };
   const searchParams = useSearchParams();
   const tabParam = searchParams.get("tab") as "Pending";
   const [count, setCount] = useState(1);
@@ -252,22 +269,39 @@ const page = () => {
           </div>
           <div className="pb-6 border-b border-[#BFBEBE] rounded-lg">
             <div className="flex gap-x-5 flex-wrap mt-6">
-              {actionButtons.map((btn, i) => (
-                <button
-                  key={i}
-                  onClick={() => {
-                    if (btn === "Go Back") {
-                      router.push(`/dashboard/pro/trades`);
-                    }
-                  }}
-                  className={`relative cursor-pointer py-[10px] border px-4 rounded-md font-lato font-semibold overflow-hidden
-                    hover:scale-110 duration-500 ease-in-out
-                    after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0 after:bg-[#274F45] after:transition-all after:duration-500 hover:after:h-full hover:after:left-0 hover:text-white`}
-                >
-                  <span className="relative z-10">{btn}</span>
-                </button>
-              ))}
+              {actionButtons.map((btn, i) => {
+                const style = actionButtonStyles[btn] || {
+                  bg: "bg-gray-200",
+                  border: "border-gray-400",
+                  text: "text-black",
+                };
+
+                return (
+                  <button
+                    key={i}
+                    onClick={() => {
+                      if (btn === "Go Back") {
+                        router.push(`/dashboard/pro/trades`);
+                      } else if (btn === "Cancel") {
+                        console.log("Cancel clicked");
+                      } else if (btn === "Send Counter") {
+                        console.log("Send Counter clicked");
+                      }
+                    }}
+                    className={`relative cursor-pointer py-[10px] px-4 rounded-md font-lato font-semibold overflow-hidden
+          hover:scale-110 duration-500 ease-in-out
+          ${style.bg || ""} ${style.border || "border-2"} ${style.text}
+          border-2
+          after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0 
+          after:bg-[#274F45] after:transition-all after:duration-500
+          hover:after:h-full hover:text-white`}
+                  >
+                    <span className="relative z-10">{btn}</span>
+                  </button>
+                );
+              })}
             </div>
+
             <li className="text-[#13141D] font-normal text-[16px] list-disc pt-4">
               Sending a message with a counter offer gives you a better chance
               of getting it accepted.{" "}

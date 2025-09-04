@@ -5,7 +5,7 @@ import { tips, tradetabs } from "@/Components/Data/data";
 
 type TradeLayoutProps = {
   children: React.ReactNode[];
-  initialTab: "Pending" | "Sent" | "Previous" | "Canceled";
+  initialTab: "Pending" | "Sent" | "Approved" | "Canceled";
 };
 
 const TradeLayout = ({ children, initialTab }: TradeLayoutProps) => {
@@ -21,7 +21,7 @@ const TradeLayout = ({ children, initialTab }: TradeLayoutProps) => {
   const tabIndexMap: Record<typeof initialTab, number> = {
     Pending: 0,
     Sent: 1,
-    Previous: 2,
+    Approved: 2,
     Canceled: 3,
   };
 

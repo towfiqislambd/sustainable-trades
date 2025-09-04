@@ -3,7 +3,12 @@ import TradesTabs from "./TradesTabs";
 import { tradeRequests } from "@/Components/Data/data";
 
 const SentTrades = () => {
-  const senttradedata = tradeRequests.filter(sent => sent.status === "Sent");
+const senttradedata = tradeRequests.filter(
+  trade =>
+    trade.status === "Pending" ||
+    trade.status === "Approved" ||
+    trade.status === "Canceled" 
+);
   return (
     <>
       <TradesTabs tradeRequests={senttradedata} />

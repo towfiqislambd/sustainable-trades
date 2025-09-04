@@ -1,7 +1,7 @@
 "use client";
 import logo from "@/Assets/logo.svg";
-import React, { useEffect, useState } from "react";
 import author from "@/Assets/shop_author.jpg";
+import React, { useEffect, useState } from "react";
 import {
   CartSvg2,
   ContactSvg,
@@ -19,8 +19,8 @@ import {
   VisionSvg,
   WorksSvg,
 } from "@/Components/Svg/SvgContainer";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 const navLins = [
   { id: 1, label: "Home", path: "/" },
