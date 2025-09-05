@@ -374,17 +374,17 @@ export const paymentData: PaymentData[] = [
 export const getStatusColor = (status: PaymentData["status"]) => {
   switch (status) {
     case "Paid":
-      return "border border-[#274F45] text-[#274F45] text-[14px] font-semibold";
+      return "border-2 border-[#274F45] text-[#274F45] text-[14px] font-semibold";
     case "Pending":
-      return "border border-yellow-500 text-[14px] text-yellow-500 font-semibold";
+      return "border-2 border-[#E48872] text-[14px] text-[#E48872] font-semibold";
     case "Failed":
-      return "border-red-600 border text-red-600 text-[14px] font-semibold";
+      return "border-2 border-[#8B200C] text-[#8B200C] text-[14px] font-semibold";
   }
 };
 
 
 type TradeItem = {
-  image: StaticImageData; // use StaticImageData for imported images
+  image: StaticImageData;
   title: string;
   store: string;
   quantity: string;

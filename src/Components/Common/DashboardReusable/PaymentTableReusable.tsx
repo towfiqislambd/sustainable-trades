@@ -73,14 +73,7 @@ const PaymentTableReusable: React.FC<paymentdataprops> = ({
                 />
                 {openRow === i && (
                   <div className="absolute right-0 mt-2 w-28 bg-white rounded shadow-lg z-10">
-                    <button
-                      className="w-full text-left px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                      onClick={() => {
-                        setOpenRow(null);
-                      }}
-                    >
-                      Edit
-                    </button>
+                   
                     <button
                       className="w-full text-left px-4 py-2 hover:bg-gray-100 cursor-pointer"
                       onClick={() => {
@@ -96,7 +89,7 @@ const PaymentTableReusable: React.FC<paymentdataprops> = ({
                         setOpenRow(null);
                       }}
                     >
-                      Canceled
+                      Cancel
                     </button>
                   </div>
                 )}
