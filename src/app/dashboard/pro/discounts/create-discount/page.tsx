@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { FaAngleLeft } from "react-icons/fa";
 import { FiCalendar, FiClock } from "react-icons/fi";
 
-const Page = () => {
+const CreateDiscount = () => {
   const [discountType, setDiscountType] = useState("code");
 
   return (
@@ -209,4 +209,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default CreateDiscount;
