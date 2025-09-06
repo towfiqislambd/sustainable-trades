@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { useState } from "react";
 import { FaAngleLeft } from "react-icons/fa";
 import { FiCalendar, FiClock } from "react-icons/fi";
@@ -198,9 +199,11 @@ const Page = () => {
         <button className="text-[#274F45] border-[#274F45] border rounded-[8px] px-16 py-4 text-[20px] font-semibold cursor-pointer hover:bg-[#D4E2CB] duration-500 ease-in-out">
           Discrad
         </button>
-        <button className="hover:border-[#D4E2CB] hover:border border hover:bg-transparent rounded-[8px] px-16 py-4 text-[20px] font-semibold cursor-pointer bg-[#D4E2CB] text-[#274F45] duration-500 ease-in-out">
-          Save Discount
-        </button>
+        <Link href={"/dashboard/pro/discounts"}>
+          <button className="hover:border-[#D4E2CB] hover:border border hover:bg-transparent rounded-[8px] px-16 py-4 text-[20px] font-semibold cursor-pointer bg-[#D4E2CB] text-[#274F45] duration-500 ease-in-out">
+            Save Discount
+          </button>
+        </Link>
       </div>
     </div>
   );

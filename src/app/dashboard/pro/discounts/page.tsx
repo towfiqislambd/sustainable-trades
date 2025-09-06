@@ -125,7 +125,7 @@ const DiscountsPage = () => {
 
           {/* Create button */}
           <Link href="/dashboard/pro/discounts/create-discount">
-            <button className="hover:border-[#D4E2CB] hover:border border hover:bg-transparent rounded-[8px] p-4 text-[20px] font-semibold cursor-pointer bg-[#D4E2CB] text-[#274F45] duration-500 ease-in-out">
+            <button className="hover:border-[#D4E2CB] hover:border border hover:bg-transparent rounded-[8px] py-3 px-5 text-[20px] font-semibold cursor-pointer bg-[#D4E2CB] text-[#274F45] duration-500 ease-in-out">
               Create Discount
             </button>
           </Link>
@@ -175,7 +175,7 @@ const DiscountsPage = () => {
                   <p className="text-[#67645F] font-bold text-[16px]">
                     {d.description}
                   </p>
-                  <div className="mt-5 text-md">
+                  <div className="mt-7 text-md">
                     <span className="font-bold text-[16px] text-[#13141D]">
                       STARTS
                     </span>{" "}
@@ -193,7 +193,7 @@ const DiscountsPage = () => {
                 <div className="text-[20px] font-bold text-[#13141D]">
                   {d.code}
                 </div>
-                <div className="flex justify-end">
+                <div className="flex justify-end my-2">
                   <button className="p-3 text-sm rounded bg-[#D4E2CB] text-[#274F45] cursor-pointer flex gap-x-2 font-semibold">
                     <Pen />
                     Edit
