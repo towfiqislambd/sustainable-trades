@@ -194,6 +194,14 @@ const Page = () => {
           Never Expires
         </label>
       </div>
+      <div className="flex justify-end mt-12 gap-x-10">
+        <button className="text-[#274F45] border-[#274F45] border rounded-[8px] px-16 py-4 text-[20px] font-semibold cursor-pointer hover:bg-[#D4E2CB] duration-500 ease-in-out">
+          Discrad
+        </button>
+        <button className="hover:border-[#D4E2CB] hover:border border hover:bg-transparent rounded-[8px] px-16 py-4 text-[20px] font-semibold cursor-pointer bg-[#D4E2CB] text-[#274F45] duration-500 ease-in-out">
+          Save Discount
+        </button>
+      </div>
     </div>
   );
 };
