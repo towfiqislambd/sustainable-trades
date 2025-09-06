@@ -194,12 +194,16 @@ const DiscountsPage = () => {
                   {d.code}
                 </div>
                 <div className="flex justify-end my-2">
-                  <button className="p-3 text-sm rounded bg-[#D4E2CB] text-[#274F45] cursor-pointer flex gap-x-2 font-semibold">
-                    <Pen />
-                    Edit
-                  </button>
+                  <Link href={`/dashboard/pro/discounts/create-discount/${d.id}`}>
+                    <button className="p-3 text-sm rounded bg-[#D4E2CB] text-[#274F45] cursor-pointer flex gap-x-2 font-semibold">
+                      <Pen />
+                      Edit
+                    </button>
+                  </Link>
                 </div>
-                <div className="text-[16px]] text-[#13141D] font-bold">{d.uses}</div>
+                <div className="text-[16px]] text-[#13141D] font-bold">
+                  {d.uses}
+                </div>
               </div>
             </div>
           ))
