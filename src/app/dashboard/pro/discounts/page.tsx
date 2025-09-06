@@ -1,6 +1,6 @@
 "use client";
 
-import { Delete } from "@/Components/Svg/SvgContainer";
+import { Delete, Pen } from "@/Components/Svg/SvgContainer";
 import Link from "next/link";
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
@@ -133,16 +133,16 @@ const DiscountsPage = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2">
+      <div className="flex gap-2 border-t border-b border-[#BFBEBE] py-4">
         {tabs.map((tab, idx) => (
           <button
             key={idx}
             onClick={() =>
               tab.action ? tab.action() : setActiveTab(tab.label)
             }
-            className={`flex items-center justify-center gap-2 border border-[#274F45] rounded-[6px] px-4 py-2 font-medium duration-300 ${
+            className={`flex items-center justify-center gap-2 border-2 font-semibold border-[#274F45] rounded-[6px] px-4 py-2 duration-300 cursor-pointer ${
               activeTab === tab.label
-                ? "bg-[#274F45] text-white"
+                ? "bg-[#D4E2CB] text-[#274F45]"
                 : "text-[#274F45] hover:bg-[#D4E2CB]"
             }`}
           >
@@ -169,22 +169,37 @@ const DiscountsPage = () => {
                   className="mt-2"
                 />
                 <div>
-                  <h3 className="text-[18px] font-semibold">{d.title}</h3>
-                  <p className="text-[#555]">{d.description}</p>
-                  <div className="mt-2 text-sm">
-                    <span className="font-semibold">STARTS</span> {d.starts}{" "}
-                    <span className="ml-4 font-semibold">ENDS</span> {d.ends}
+                  <h3 className="text-[20px] font-bold text-[#13141D]">
+                    {d.title}
+                  </h3>
+                  <p className="text-[#67645F] font-bold text-[16px]">
+                    {d.description}
+                  </p>
+                  <div className="mt-5 text-md">
+                    <span className="font-bold text-[16px] text-[#13141D]">
+                      STARTS
+                    </span>{" "}
+                    {d.starts}{" "}
+                    <span className="ml-4 font-bold text-[16px] text-[#13141D]">
+                      ENDS
+                    </span>{" "}
+                    {d.ends}
                   </div>
                 </div>
               </div>
 
               {/* Right side */}
               <div className="text-right space-y-2">
-                <div className="font-semibold">{d.code}</div>
-                <button className="px-4 py-1 text-sm rounded bg-[#D4E2CB] text-[#274F45]">
-                  Edit
-                </button>
-                <div className="text-sm text-[#555]">{d.uses}</div>
+                <div className="text-[20px] font-bold text-[#13141D]">
+                  {d.code}
+                </div>
+                <div className="flex justify-end">
+                  <button className="p-3 text-sm rounded bg-[#D4E2CB] text-[#274F45] cursor-pointer flex gap-x-2 font-semibold">
+                    <Pen />
+                    Edit
+                  </button>
+                </div>
+                <div className="text-[16px]] text-[#13141D] font-bold">{d.uses}</div>
               </div>
             </div>
           ))
