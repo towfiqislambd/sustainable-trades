@@ -1,6 +1,6 @@
+import p1 from "@/Assets/p1.jpg";
 import { StaticImageData } from "next/image";
 import OrderImage from "../../Assets/orderimage.png";
-import p1 from "@/Assets/p1.jpg";
 
 // All Fake Data
 export const data = [
