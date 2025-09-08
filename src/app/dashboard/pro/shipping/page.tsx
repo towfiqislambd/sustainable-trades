@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import { FaAngleLeft } from "react-icons/fa6";
+import { MdDelete } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
 
 const Page = () => {
@@ -180,17 +181,80 @@ const Page = () => {
       {/* Modal for Depending on Weight */}
       {selectedOption === "Depending on Weight" && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg w-[400px]">
-            <h2 className="text-xl font-bold mb-4">Depending on Weight</h2>
-            <p>
-              Let the shipping cost depend on the total weight of the purchase.
-            </p>
-            <button
-              onClick={closeModal}
-              className="mt-4 px-4 py-2 bg-gray-300 rounded"
-            >
-              Close
-            </button>
+          <div className="bg-white p-6 rounded-lg w-[800px]">
+            <div className="">
+              <div className="flex justify-end">
+                <RxCross1 onClick={closeModal} className="cursor-pointer" />
+              </div>
+              <h3 className="text-[#3D3D3D] text-[24px] font-bold text-center pb-4 border-b border-[#3D3D3D]">
+                WEIGHT RANGE RATE
+              </h3>
+              <div className="my-10">
+                <p className="form-label font-bold">Option Name *</p>
+                <input
+                  type="text"
+                  className="form-input"
+                  placeholder="“FedEx Next Day”, “USPS Express Mail”"
+                />
+              </div>
+              <h4 className="text-[20px] font-semibold text-[#274F45]">
+                Weight Ranges
+              </h4>
+              <p className="font-normal text-[16px] text-[#3D3D3D]">
+                Depending on the total weight, you can charge different amounts
+                for shipping.
+              </p>
+              <table className="w-full border-collapse my-5 px-5">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left py-2 text-[18px] font-medium text-[#13141D]">
+                      Weight (lbs)
+                    </th>
+                    <th className="text-left py-2 text-[18px] font-medium text-[#13141D]">
+                      Cost
+                    </th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className=" group hover:bg-[#C2D5D0]">
+                    <td className="p-2 text-sm text-[#13141D]">0.00 to 1.00</td>
+                    <td className="py-2 text-sm text-[#13141D]">$1.00</td>
+                    <td className="px-5 text-right">
+                      <button className="text-gray-500 hover:text-red-600 opacity-0 group-hover:opacity-100 transition">
+                        <MdDelete />
+                      </button>
+                    </td>
+                  </tr>
+                  <tr className=" group hover:bg-[#C2D5D0]">
+                    <td className="p-2 text-sm text-[#13141D]">0.00 to 1.00</td>
+                    <td className="py-2 text-sm text-[#13141D]">$1.00</td>
+                    <td className="px-5 text-right">
+                      <button className="text-gray-500 hover:text-red-600 opacity-0 group-hover:opacity-100 transition">
+                        <MdDelete />
+                      </button>
+                    </td>
+                  </tr>
+                  <tr className=" group hover:bg-[#C2D5D0]">
+                    <td className="p-2 text-sm text-[#13141D]">0.00 to 1.00</td>
+                    <td className="py-2 text-sm text-[#13141D]">$1.00</td>
+                    <td className="px-5 text-right">
+                      <button className="text-gray-500 hover:text-red-600 opacity-0 group-hover:opacity-100 transition">
+                        <MdDelete />
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div className="flex justify-end">
+              <button
+                onClick={closeModal}
+                className="mt-8 px-4 py-4 text-white font-semibold bg-[#274F45] rounded cursor-pointer w-[190px]"
+              >
+                Save
+              </button>
+            </div>
           </div>
         </div>
       )}
