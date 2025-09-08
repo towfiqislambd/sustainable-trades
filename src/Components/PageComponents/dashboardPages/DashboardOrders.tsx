@@ -1,8 +1,8 @@
 import React from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { orders } from "@/Components/Data/data";
 import { Again } from "@/Components/Svg/SvgContainer";
-import Link from "next/link";
 
 const DashboardOrders = () => {
   return (
