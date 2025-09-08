@@ -66,7 +66,7 @@ const Page = () => {
           <div className="relative w-fit">
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="bg-[#274F45] text-white px-4 py-2 rounded-lg w-full font-semibold flex gap-x-5 items-center"
+              className="bg-[#274F45] text-white px-4 py-2 rounded-lg w-full font-semibold flex gap-x-5 items-center cursor-pointer"
             >
               <FaAngleDown />
               Add Shipping Option
@@ -128,17 +128,51 @@ const Page = () => {
                 EDIT FLAT RATE
               </h3>
             </div>
-            <div className="mt-8">
+            <div className="mt-5 flex flex-col gap-y-5">
               <h5 className="text-[#3D3D3D] font-semibold text-[16px] text-center pb-4 border-b border-[#3D3D3D]">
                 Formula
               </h5>
+              <div>
+                <p className="form-label font-bold">Option Name *</p>
+                <input
+                  type="text"
+                  className="form-input"
+                  placeholder="“FedEx Next Day”, “USPS Express Mail”"
+                />
+              </div>
+              <div className="flex gap-x-10">
+                <div className="w-full">
+                  <p className="form-label font-bold">Per Order Fee </p>
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="$ XXX"
+                  />
+                  <p className="text-[16px] font-normal text-[#67645F] pt-3">
+                    A base fee for every order places
+                  </p>
+                </div>
+                <div className="w-full">
+                  <p className="form-label font-bold">Fee per item </p>
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="$ XXX"
+                  />
+                  <p className="text-[16px] font-normal text-[#67645F] pt-3">
+                    An additional fee for each physical item in the order
+                  </p>
+                </div>
+              </div>
             </div>
-            <button
-              onClick={closeModal}
-              className="mt-4 px-4 py-2 bg-gray-300 rounded"
-            >
-              Close
-            </button>
+            <div className="flex justify-end">
+              <button
+                onClick={closeModal}
+                className="mt-8 px-4 py-4 text-white font-semibold bg-[#274F45] rounded cursor-pointer w-[190px]"
+              >
+                Save
+              </button>
+            </div>
           </div>
         </div>
       )}
