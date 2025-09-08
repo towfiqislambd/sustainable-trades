@@ -1,5 +1,5 @@
-import { ordersData } from '@/Components/Data/data';
 import React from 'react'
+import { ordersData } from '@/Components/Data/data';
 import OrderReusableTable from "../OrderReusableTable";
 
 const DeliveredOrders = () => {
