@@ -1,201 +1,216 @@
 "use client";
-import React, { useState } from "react";
-import { FaAngleLeft } from "react-icons/fa";
-import { FiCalendar, FiClock } from "react-icons/fi";
 
-const Page = () => {
-  const [discountType, setDiscountType] = useState("code");
+import { Delete, Pen } from "@/Components/Svg/SvgContainer";
+import Link from "next/link";
+import React, { useState } from "react";
+import { FaSearch } from "react-icons/fa";
+
+const DiscountsPage = () => {
+  const [activeTab, setActiveTab] = useState("Active");
+  const [selected, setSelected] = useState<string[]>([]);
+
+  // All discounts
+  const discounts = [
+    {
+      id: "d1",
+      title: "15% Off Order",
+      description: "15% off the shopper’s entire order",
+      starts: "Jan 1, 2024 at 9:00am",
+      ends: "July 1, 2024 at 9:00am",
+      code: "SUSTAIN15",
+      uses: "0 of 100 Uses",
+      status: "Active",
+    },
+    {
+      id: "d2",
+      title: "New Member Code",
+      description: "10% off entire order for new shoppers",
+      starts: "Jan 1, 2024 at 9:00am",
+      ends: "Never Expires",
+      code: "NEWMEMBER10",
+      uses: "Unlimited Uses",
+      status: "Scheduled",
+    },
+    {
+      id: "d3",
+      title: "Free Shipping Over $100",
+      description:
+        "Free Shipping will be applied when a shopper makes a purchase of over $100",
+      starts: "Jan 1, 2024 at 9:00am",
+      ends: "Never Expires",
+      code: "SHIPPING100",
+      uses: "Unlimited Uses",
+      status: "Inactive",
+    },
+    {
+      id: "d4",
+      title: "Free Shipping Over $100",
+      description:
+        "Free Shipping will be applied when a shopper makes a purchase of over $100",
+      starts: "Jan 1, 2024 at 9:00am",
+      ends: "Never Expires",
+      code: "SHIPPING100",
+      uses: "Unlimited Uses",
+      status: "Inactive",
+    },
+    {
+      id: "d5",
+      title: "Free Shipping Over $100",
+      description:
+        "Free Shipping will be applied when a shopper makes a purchase of over $100",
+      starts: "Jan 1, 2024 at 9:00am",
+      ends: "Never Expires",
+      code: "SHIPPING100",
+      uses: "Unlimited Uses",
+      status: "Inactive",
+    },
+    {
+      id: "d6",
+      title: "Free Shipping Over $100",
+      description:
+        "Free Shipping will be applied when a shopper makes a purchase of over $100",
+      starts: "Jan 1, 2024 at 9:00am",
+      ends: "Never Expires",
+      code: "SHIPPING100",
+      uses: "Unlimited Uses",
+      status: "Active",
+    },
+  ];
+
+  // Filtered discounts by active tab
+  const filtered = discounts.filter(d => d.status === activeTab);
+
+  // Handle selection
+  const toggleSelect = (id: string) => {
+    setSelected(prev =>
+      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+    );
+  };
+
+  // Handle delete
+  const handleDelete = () => {
+    if (selected.length === 0) return;
+    alert(`Deleting discounts: ${selected.join(", ")}`);
+    setSelected([]);
+  };
+
+  const tabs = [
+    { label: "Active" },
+    { label: "Scheduled" },
+    { label: "Inactive" },
+    { label: "", icon: <Delete className="w-5 h-5" />, action: handleDelete },
+  ];
 
   return (
-    <div className="p-8">
-      {/* Title */}
-      <h2 className="text-[40px] font-semibold text-[#13141D]">
-        Create Discount
-      </h2>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex justify-between items-center">
+        <h2 className="text-[40px] font-lato font-semibold text-[#000]">
+          Discounts
+        </h2>
 
-      {/* Back */}
-      <div className="border-b border-gray-300">
-        <h4 className="flex gap-x-1 items-center text-[#13141D] font-normal py-4 cursor-pointer">
-          <FaAngleLeft />
-          Back
-        </h4>
-      </div>
-
-      {/* Name */}
-      <div className="pt-8 pb-12">
-        <h4 className="text-[20px] font-normal text-[#13141D]">Name</h4>
-        <input
-          type="text"
-          placeholder="Example: 15% Off Order"
-          className="px-4 py-5 border-2 border-[#67645F] rounded-[8px] text-[16px] font-bold text-[#67645F] my-3 w-[750px]"
-        />
-        <p className="text-[16px] font-bold text-[#13141D]">
-          The name that shoppers will see at checkout.
-        </p>
-      </div>
-
-      {/* Discount Type */}
-      <div className="pb-8">
-        <h4 className="text-[20px] font-normal text-[#13141D]">
-          Discount Type
-        </h4>
-        <div className="flex mt-3 ">
-          <button
-            onClick={() => setDiscountType("code")}
-            className={`px-4 py-[18px] rounded-l-md cursor-pointer text-[20px] text-[#274F45] font-semibold ${
-              discountType === "code"
-                ? "bg-[#D4E2CB] border-2 border-[#274F45] "
-                : "bg-white border-2 border-[#67645F]"
-            }`}
-          >
-            Discount Code
-          </button>
-          <button
-            onClick={() => setDiscountType("auto")}
-            className={`px-6 py-2 rounded-r-md cursor-pointer  text-[20px] text-[#274F45] font-semibold ${
-              discountType === "auto"
-                ? "bg-[#D4E2CB] border-2 border-[#274F45] "
-                : "bg-white border-2 border-[#67645F]"
-            }`}
-          >
-            Automatic Discount
-          </button>
-        </div>
-      </div>
-
-      {/* Discount Code */}
-      {discountType === "code" && (
-        <div className="pb-8">
-          <h4 className="text-[20px] font-normal text-[#13141D]">
-            Discount Code
-          </h4>
-          <div className="flex gap-2 mt-3 w-[750px] relative">
+        <div className="flex gap-x-4 items-center">
+          {/* Search */}
+          <div className="relative">
             <input
-              type="text"
-              placeholder="Discount Code (Ex. SALE15)"
-              className="px-4 py-5 border-2 border-[#67645F] rounded-[8px] text-[16px] font-bold text-[#67645F] my-3 w-[750px]"
+              placeholder="Search discounts..."
+              type="search"
+              className="py-[10px] pl-4 outline-0 border border-[#BFBEBE] rounded-[8px] text-[16px] text-[#67645F] font-normal w-[300px]"
             />
-            <button className="absolute top-[35px] right-5 cursor-pointer text-[#5C7F60] font-bold text-[16px]">
-              Generate Code
+            <div className="absolute top-4 right-3">
+              <FaSearch />
+            </div>
+            <div className="absolute top-0 right-10 w-[2px] bg-[#BFBEBE] h-[45px]"></div>
+          </div>
+
+          {/* Create button */}
+          <Link href="/dashboard/pro/discounts/create-discount">
+            <button className="hover:border-[#D4E2CB] hover:border border hover:bg-transparent rounded-[8px] py-3 px-5 text-[20px] font-semibold cursor-pointer bg-[#D4E2CB] text-[#274F45] duration-500 ease-in-out">
+              Create Discount
             </button>
-          </div>
-          <p className="text-[16px] font-bold text-[#13141D]">
-            Shoppers enter this code at checkout.
-          </p>
-        </div>
-      )}
-
-      {/* Promotion */}
-      <div className="pb-8">
-        <h4 className="text-[20px] font-normal text-[#13141D]">Promotion</h4>
-        <div className="flex mt-3 w-[750px] border border-[#67645F]  rounded-md ">
-          <select className="px-4 py-5 w-full bg-[#D4E2CB] rounded-l-md text-[#5C7F60] font-bold text-[16px] outline-0">
-            <option>Percent Off</option>
-            <option>Fixed Amount</option>
-            <option>Free Shipping</option>
-          </select>
-          <input
-            type="number"
-            placeholder="0%"
-            className="rounded-md px-4 py-2 flex- text-[#13141D] font-bold text-[16px] outline-0"
-          />
+          </Link>
         </div>
       </div>
 
-      {/* Applies To */}
-      <div className="pb-8">
-        <h4 className="text-[20px] font-normal text-[#13141D]">Applies To</h4>
-        <select className="mt-3 border border-[#3D3D3D] rounded-md px-4 py-5  w-[750px] bg-[#D4E2CB] text-[16px] font-bold text-[#274F45]">
-          <option>Any Order</option>
-          <option>Single Product</option>
-        </select>
+      {/* Tabs */}
+      <div className="flex gap-2 border-t border-b border-[#BFBEBE] py-4">
+        {tabs.map((tab, idx) => (
+          <button
+            key={idx}
+            onClick={() =>
+              tab.action ? tab.action() : setActiveTab(tab.label)
+            }
+            className={`flex items-center justify-center gap-2 border-2 font-semibold border-[#274F45] rounded-[6px] px-4 py-2 duration-300 cursor-pointer ${
+              activeTab === tab.label
+                ? "bg-[#D4E2CB] text-[#274F45]"
+                : "text-[#274F45] hover:bg-[#D4E2CB]"
+            }`}
+          >
+            {tab.icon ? tab.icon : tab.label}
+          </button>
+        ))}
       </div>
 
-      {/* Discount Limits */}
-      <div className="pb-8">
-        <h4 className="text-[20px] font-normal text-[#13141D]">
-          Discount Limits
-        </h4>
-        <div className="mt-3 flex flex-col gap-2">
-          <label className="flex items-center gap-2 text-[16px] font-semibold text-[#13141D]">
-            <input type="checkbox" className="w-4 h-4 " />
-            Limit One Per Shopper
-          </label>
-          <label className="flex items-center gap-2 text-[16px] font-semibold text-[#13141D]">
-            <input type="checkbox" className="w-4 h-4 " />
-            Limit number of times this discount can be used in total
-          </label>
-          <input
-            type="number"
-            placeholder="Enter usage limit (ex: 5)"
-            className="px-4 py-5 border border-[#3D3D3D] rounded-[8px] text-[16px] font-bold text-[#67645F] my-1 w-[750px]"
-          />
-        </div>
-      </div>
+      {/* Discounts list */}
+      <div className="divide-y">
+        {filtered.length === 0 ? (
+          <div className="py-6 text-center text-gray-500">
+            No discounts in {activeTab}.
+          </div>
+        ) : (
+          filtered.map(d => (
+            <div key={d.id} className="py-4 flex items-start justify-between">
+              {/* Left side */}
+              <div className="flex gap-3">
+                <input
+                  type="checkbox"
+                  checked={selected.includes(d.id)}
+                  onChange={() => toggleSelect(d.id)}
+                  className="mt-2"
+                />
+                <div>
+                  <h3 className="text-[20px] font-bold text-[#13141D]">
+                    {d.title}
+                  </h3>
+                  <p className="text-[#67645F] font-bold text-[16px]">
+                    {d.description}
+                  </p>
+                  <div className="mt-7 text-md">
+                    <span className="font-bold text-[16px] text-[#13141D]">
+                      STARTS
+                    </span>{" "}
+                    {d.starts}{" "}
+                    <span className="ml-4 font-bold text-[16px] text-[#13141D]">
+                      ENDS
+                    </span>{" "}
+                    {d.ends}
+                  </div>
+                </div>
+              </div>
 
-      {/* Active Dates */}
-      <div className="pb-8">
-        <h4 className="text-[20px] font-normal text-[#13141D]">Active Dates</h4>
-        <div className="grid grid-cols-2 gap-6 mt-3 w-[800px]">
-          {/* Start Date */}
-          <div>
-            <label className="block text-[16px] font-normal text-[#13141D] mb-2">
-              Start Date
-            </label>
-            <div className="flex items-center border border-[#67645F] rounded-md px-4 py-5 gap-2 bg-[#E6F5F4]">
-              <FiCalendar />
-              <input
-                type="date"
-                className="flex-1 bg-transparent outline-none"
-              />
+              {/* Right side */}
+              <div className="text-right space-y-2">
+                <div className="text-[20px] font-bold text-[#13141D]">
+                  {d.code}
+                </div>
+                <div className="flex justify-end my-2">
+                  <Link href={`/dashboard/pro/discounts/create-discount/${d.id}`}>
+                    <button className="p-3 text-sm rounded bg-[#D4E2CB] text-[#274F45] cursor-pointer flex gap-x-2 font-semibold">
+                      <Pen />
+                      Edit
+                    </button>
+                  </Link>
+                </div>
+                <div className="text-[16px]] text-[#13141D] font-bold">
+                  {d.uses}
+                </div>
+              </div>
             </div>
-          </div>
-          <div>
-            <label className="block text-[16px] font-normal text-[#13141D] mb-2">
-              Start Time (PDT)
-            </label>
-            <div className="flex items-center border border-[#67645F] rounded-md px-4 py-5 gap-2 bg-[#E6F5F4]">
-              <FiClock />
-              <input
-                type="time"
-                className="flex-1 bg-transparent outline-none"
-              />
-            </div>
-          </div>
-
-          {/* End Date */}
-          <div>
-            <label className="block text-[16px] font-normal text-[#13141D] mb-2">
-              End Date
-            </label>
-            <div className="flex items-center border border-[#67645F] rounded-md px-4 py-5 gap-2 bg-[#E6F5F4]">
-              <FiCalendar />
-              <input
-                type="date"
-                className="flex-1 bg-transparent outline-none"
-              />
-            </div>
-          </div>
-          <div>
-            <label className="block text-[16px] font-normal text-[#13141D] mb-2">
-              End Time (PDT)
-            </label>
-            <div className="flex items-center border border-[#67645F] rounded-md px-4 py-5 gap-2 bg-[#E6F5F4]">
-              <FiClock />
-              <input
-                type="time"
-                className="flex-1 bg-transparent outline-none"
-              />
-            </div>
-          </div>
-        </div>
-        <label className="flex items-center gap-2 mt-3">
-          <input type="checkbox" className="w-4 h-4" />
-          Never Expires
-        </label>
+          ))
+        )}
       </div>
     </div>
   );
 };
 
-export default Page;
+export default DiscountsPage;
