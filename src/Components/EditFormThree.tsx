@@ -97,7 +97,7 @@ const EditFormThree: React.FC = () => {
 
         <div className="mb-4">
           <label className="block text-[#4B4A47] font-semibold mb-1">
-            Two-Sentence Statement{" "}
+            Two-Sentence Statement
             <span className="text-[#A7A39C]">(50 words max)</span>
           </label>
           <textarea
@@ -135,7 +135,7 @@ const EditFormThree: React.FC = () => {
       <div className="border rounded-lg p-8 mb-6">
         <div className="mb-4">
           <label className="block text-[#4B4A47] font-semibold mb-1">
-            Accepted Payment Methods{" "}
+            Accepted Payment Methods
             <span className="text-[#A7A39C]">(max 40 words)</span>
           </label>
           <div className="flex gap-2 mb-2">
@@ -175,7 +175,7 @@ const EditFormThree: React.FC = () => {
 
         <div className="mb-4">
           <label className="block text-[#4B4A47] font-semibold mb-1">
-            Returns & Exchanges{" "}
+            Returns & Exchanges
             <span className="text-[#A7A39C]">(max 75 words)</span>
           </label>
           <textarea
