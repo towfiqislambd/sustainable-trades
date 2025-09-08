@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import { FaAngleLeft } from "react-icons/fa6";
+import { RxCross1 } from "react-icons/rx";
 
 const Page = () => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -62,7 +63,7 @@ const Page = () => {
           </div>
 
           {/* Dropdown button */}
-          <div className="relative max-w-[250px]">
+          <div className="relative w-fit">
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               className="bg-[#274F45] text-white px-4 py-2 rounded-lg w-full font-semibold flex gap-x-5 items-center"
@@ -118,8 +119,20 @@ const Page = () => {
       {/* Modal for Flat Rate */}
       {selectedOption === "Flat Rate" && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg">
-            <div className="flex justify-between items-center"></div>
+          <div className="bg-white p-6 rounded-lg max-w-[850px] w-full">
+            <div className="">
+              <div className="flex justify-end">
+                <RxCross1 onClick={closeModal} className="cursor-pointer" />
+              </div>
+              <h3 className="text-[#3D3D3D] text-[24px] font-bold text-center">
+                EDIT FLAT RATE
+              </h3>
+            </div>
+            <div className="mt-8">
+              <h5 className="text-[#3D3D3D] font-semibold text-[16px] text-center pb-4 border-b border-[#3D3D3D]">
+                Formula
+              </h5>
+            </div>
             <button
               onClick={closeModal}
               className="mt-4 px-4 py-2 bg-gray-300 rounded"
