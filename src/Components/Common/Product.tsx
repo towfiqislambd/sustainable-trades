@@ -6,8 +6,8 @@ import "swiper/css/pagination";
 import p1 from "@/Assets/p1.jpg";
 import { FaHeart } from "react-icons/fa";
 import { Pagination } from "swiper/modules";
-import Image, { StaticImageData } from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Image, { StaticImageData } from "next/image";
 import { CartLogoSvg, DollarSvg } from "../Svg/SvgContainer";
 
 type ProductData = {
