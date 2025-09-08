@@ -261,19 +261,66 @@ const Page = () => {
 
       {/* Modal for Connect ShipStation */}
       {selectedOption === "Connect ShipStation" && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg w-[400px]">
-            <h2 className="text-xl font-bold mb-4">Connect ShipStation</h2>
-            <p>
-              Automatically sync your orders with a shipping solution to
-              streamline your fulfillment workflow.
-            </p>
-            <button
-              onClick={closeModal}
-              className="mt-4 px-4 py-2 bg-gray-300 rounded"
-            >
-              Close
-            </button>
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg w-[650px] shadow-lg">
+            {/* Header */}
+            <div className="flex justify-between items-center px-6 py-4 border-b">
+              <div className="flex items-center gap-3">
+                {/* Icon box */}
+                <div className="w-10 h-10 flex items-center justify-center bg-[#274F45] rounded">
+                  <span className="text-green-400 text-xl">⚙️</span>
+                </div>
+                <h2 className="text-lg font-bold text-[#13141D] uppercase">
+                  CONNECT TO SHIPSTATION
+                </h2>
+              </div>
+              <button
+                onClick={closeModal}
+                className="text-gray-500 hover:text-black text-lg"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Body */}
+            <div className="px-6 py-6 space-y-5">
+              {/* Pricing */}
+              <p className="font-semibold text-[#13141D]">
+                Only $9.00 per month (paid directly to ShipStation)
+              </p>
+
+              {/* Features list */}
+              <ul className="list-disc list-inside space-y-1 text-[#13141D] text-[15px]">
+                <li>
+                  Easily import and manage orders from all your sales channels.
+                </li>
+                <li>
+                  Access the lowest shipping rates, no matter how much you ship.
+                </li>
+                <li>
+                  Streamline your processes with powerful automation tools to
+                  save time and boost efficiency.
+                </li>
+              </ul>
+
+              {/* Description */}
+              <p className="text-sm text-[#13141D] leading-relaxed">
+                ShipStation is the world’s leading web-based shipping solution
+                for ecommerce retailers. It allows users to import, organize,
+                and ship orders efficiently across multiple sales platforms.
+                With over 180 integrations—including marketplaces, carriers, and
+                fulfillment providers—ShipStation offers features like automatic
+                shipping preference, customizable automation rules,
+                multi-carrier rate calculators, and more.
+              </p>
+            </div>
+
+            {/* Footer */}
+            <div className="flex justify-end px-6 py-4 border-t">
+              <button className="bg-[#0B3C32] text-white px-6 py-2 rounded-md font-medium hover:bg-[#094C40] transition">
+                Connect to ShipStation
+              </button>
+            </div>
           </div>
         </div>
       )}
