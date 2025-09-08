@@ -1,13 +1,13 @@
 "use client";
-import React, { useState } from "react";
 import p1 from "@/Assets/p1.jpg";
-import shopAuthor from "@/Assets/shop_author.jpg";
 import CartItem from "./CartItem";
-import { Google, PaypalSvg } from "@/Components/Svg/SvgContainer";
+import React, { useState } from "react";
 import Modal from "@/Components/Common/Modal";
-import ShippingOptionsModal from "@/Components/Modals/ShippingOptionsModal";
-import ShippingAddress from "@/Components/Modals/ShippingAddress";
+import shopAuthor from "@/Assets/shop_author.jpg";
 import SuccessModal from "../../../Modals/SuccessModal";
+import { Google, PaypalSvg } from "@/Components/Svg/SvgContainer";
+import ShippingAddress from "@/Components/Modals/ShippingAddress";
+import ShippingOptionsModal from "@/Components/Modals/ShippingOptionsModal";
 const data = [
   {
     id: 1,

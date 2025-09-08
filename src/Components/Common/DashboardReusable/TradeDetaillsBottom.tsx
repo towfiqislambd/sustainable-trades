@@ -1,9 +1,9 @@
 "use client";
 import type React from "react";
-import { useState } from "react";
-import { FaPaperPlane, FaMicrophone, FaPlus } from "react-icons/fa";
-import DetailsImage from "../../../Assets/e1.jpg";
 import Image from "next/image";
+import { useState } from "react";
+import DetailsImage from "../../../Assets/e1.jpg";
+import { FaPaperPlane, FaMicrophone, FaPlus } from "react-icons/fa";
 
 interface Message {
   id: number;

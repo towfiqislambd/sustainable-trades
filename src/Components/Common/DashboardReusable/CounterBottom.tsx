@@ -1,6 +1,7 @@
-import { LocationSvg1, Reload } from "@/Components/Svg/SvgContainer";
 import Image from "next/image";
 import React, { useState } from "react";
+import DetailsImage from "../../../Assets/e1.jpg";
+import { LocationSvg1, Reload } from "@/Components/Svg/SvgContainer";
 import {
   FaAngleDown,
   FaMicrophone,
@@ -8,7 +9,6 @@ import {
   FaPlus,
   FaRegStar,
 } from "react-icons/fa";
-import DetailsImage from "../../../Assets/e1.jpg";
 
 interface Message {
   id: number;

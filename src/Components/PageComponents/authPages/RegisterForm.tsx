@@ -1,16 +1,16 @@
 "use client";
-import Image from "next/image";
 import React from "react";
-import shopBg from "@/Assets/sustainable_soppers.png";
-import magicBg from "@/Assets/magic_markers.png";
-import { useForm } from "react-hook-form";
 import Link from "next/link";
+import Image from "next/image";
+import { useForm } from "react-hook-form";
+import magicBg from "@/Assets/magic_markers.png";
+import { useSearchParams } from "next/navigation";
+import shopBg from "@/Assets/sustainable_soppers.png";
 import {
   AppleLogoSvg,
   FacebookLogoSvg,
   GoogleLogoSvg,
 } from "@/Components/Svg/SvgContainer";
-import { useSearchParams } from "next/navigation";
 
 type formData = {
   first_name: string;
