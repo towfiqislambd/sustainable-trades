@@ -5,8 +5,8 @@ import StepTwo from "./stepForm/StepTwo";
 import StepThree from "./stepForm/StepThree";
 import StepFour from "./stepForm/StepFour";
 import StepFive from "./stepForm/StepFive";
-import { CheckSvg, StepSvg } from "@/Components/Svg/SvgContainer";
 import { useForm, FormProvider } from "react-hook-form";
+import { CheckSvg, StepSvg } from "@/Components/Svg/SvgContainer";
 
 // Step type
 type StepItem = {
