@@ -1,10 +1,10 @@
-import Image from "next/image";
 import React from "react";
-import { FaAngleDown, FaAngleRight, FaSearch } from "react-icons/fa";
-import Inventory from "../../../Assets/inventory.png";
+import Image from "next/image";
 import Activity from "../../../Assets/activity.png";
+import Inventory from "../../../Assets/inventory.png";
 import ProDashboardMessage from "./ProDashboardMessage";
 import ProdashboardStatistics from "./ProdashboardStatistics";
+import { FaAngleDown, FaAngleRight, FaSearch } from "react-icons/fa";
 
 const DashboardReusable = () => {
   return (
