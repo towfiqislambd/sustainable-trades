@@ -3,6 +3,7 @@
 import { FaSearch } from "react-icons/fa";
 import { FiMoreVertical } from "react-icons/fi";
 import React, { useEffect, useRef, useState } from "react";
+import { productsData, statusColorsinventory, visibilityColors } from "@/Components/Data/data";
 
 type Product = {
   id: number;
@@ -16,52 +17,7 @@ type Product = {
   image: string;
 };
 
-const productsData: Product[] = [
-  {
-    id: 1,
-    name: "Lavender Soap Bars",
-    status: "Approved",
-    sku: "12345678",
-    stock: 3,
-    price: 6.78,
-    cost: 3.55,
-    visibility: "Active",
-    image: "https://via.placeholder.com/50",
-  },
-  {
-    id: 2,
-    name: "Cold-pressed Rosemary Oil",
-    status: "Pending",
-    sku: "12345678",
-    stock: 5,
-    price: 9.34,
-    cost: 4.75,
-    visibility: "Active",
-    image: "https://via.placeholder.com/50",
-  },
-  {
-    id: 3,
-    name: "Handmade Cocoa Butter",
-    status: "Denied",
-    sku: "12345678",
-    stock: 3,
-    price: 8.46,
-    cost: 4.15,
-    visibility: "Inactive",
-    image: "https://via.placeholder.com/50",
-  },
-];
 
-const statusColors: Record<Product["status"], string> = {
-  Approved: "bg-green-700 text-white",
-  Pending: "bg-gray-500 text-white",
-  Denied: "bg-red-700 text-white",
-};
-
-const visibilityColors: Record<Product["visibility"], string> = {
-  Active: "bg-green-800 text-white",
-  Inactive: "bg-gray-400 text-white",
-};
 
 export default function Page() {
   const [products, setProducts] = useState<Product[]>(productsData);
@@ -207,7 +163,7 @@ export default function Page() {
                 <td>
                   <span
                     className={`px-3 py-1 rounded-full text-sm ${
-                      statusColors[p.status]
+                      statusColorsinventory[p.status]
                     }`}
                   >
                     {p.status}
