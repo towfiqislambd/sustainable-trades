@@ -1,7 +1,12 @@
-import React from 'react';
+import React from "react";
+import Review from "../../customer/reviews/page";
 
 const page = () => {
-  return <div>reviews</div>;
+  return (
+    <div>
+      <Review />
+    </div>
+  );
 };
 
 export default page;
