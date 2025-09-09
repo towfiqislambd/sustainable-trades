@@ -5,6 +5,7 @@ import Inventory from "../../../Assets/inventory.png";
 import ProDashboardMessage from "./ProDashboardMessage";
 import ProdashboardStatistics from "./ProdashboardStatistics";
 import { FaAngleDown, FaAngleRight, FaSearch } from "react-icons/fa";
+import Link from "next/link";
 
 const DashboardReusable = () => {
   return (
@@ -31,9 +32,11 @@ const DashboardReusable = () => {
             Here’s your store: Earth’s Essence
           </h3>
         </div>
-        <button className="px-[58px] py-4 rounded-[8px] bg-[#E48872] text-[18px] font-semibold text-[#13141D] cursor-pointer hover:bg-transparent duration-500 ease-in-out border border-[#E48872]">
-          Edit Shop
-        </button>
+        <Link href={"/view-my-shop/id"}>
+          <button className="px-[58px] py-4 rounded-[8px] bg-[#E48872] text-[18px] font-semibold text-[#13141D] cursor-pointer hover:bg-transparent duration-500 ease-in-out border border-[#E48872]">
+            Edit Shop
+          </button>
+        </Link>
       </div>
       <div className="border border-[#A7A39C] py-3 rounded-[8px]">
         <div className="flex justify-between items-center">
@@ -261,3 +264,10 @@ const DashboardReusable = () => {
 };
 
 export default DashboardReusable;
+
+
+
+
+
+
+

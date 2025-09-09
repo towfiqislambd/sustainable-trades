@@ -7,7 +7,7 @@ import { useParams } from "next/navigation";
 import { orders } from "@/Components/Data/data";
 import Image from "next/image";
 
-const Page = () => {
+const ReviewDetails = () => {
   const [rating, setRating] = useState<number>(0);
   const [hover, setHover] = useState<number>(0);
   const [preview, setPreview] = useState<string | null>(null);
@@ -114,4 +114,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default ReviewDetails;

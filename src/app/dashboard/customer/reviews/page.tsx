@@ -4,7 +4,7 @@ import DashBoardHeader from "@/Components/Common/DashBoardHeader";
 import { testimonial } from "@/Components/Data/data";
 import Image from "next/image";
 
-const Page = () => {
+const Review = () => {
   return (
     <>
       <DashBoardHeader heading="Your Reviews" placeholder="Search" />
@@ -42,4 +42,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Review;
