@@ -8,7 +8,7 @@ const Settings = () => {
   return (
     <>
       <h2 className="text-[40px] font-lato font-semibold text-[#000]">
-        Account
+        Settings
       </h2>
       <div className="mt-6 flex gap-x-[145px]">
         <div className="w-1/2">
