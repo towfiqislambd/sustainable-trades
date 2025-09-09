@@ -1,10 +1,10 @@
 "use client";
-import AllPaymentTable from "@/Components/Common/DashboardReusable/AllPaymentTable";
-import FailedPayment from "@/Components/Common/DashboardReusable/FailedPayment";
-import PaidPayments from "@/Components/Common/DashboardReusable/PaidPayments";
-import PendingPaymnet from "@/Components/Common/DashboardReusable/PendingPaymnet";
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import PaidPayments from "@/Components/Common/DashboardReusable/PaidPayments";
+import FailedPayment from "@/Components/Common/DashboardReusable/FailedPayment";
+import PendingPaymnet from "@/Components/Common/DashboardReusable/PendingPaymnet";
+import AllPaymentTable from "@/Components/Common/DashboardReusable/AllPaymentTable";
 
 const page = () => {
   const tabs = ["All Payments", "Pending", "Paid", "Failed"];
