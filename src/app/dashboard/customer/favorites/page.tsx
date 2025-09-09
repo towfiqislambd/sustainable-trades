@@ -5,7 +5,7 @@ import Product from "@/Components/Common/Product";
 import DashBoardHeader from "@/Components/Common/DashBoardHeader";
 import Shop from "@/Components/Common/Shop";
 
-const page = () => {
+const Favourites = () => {
   const tabs: string[] = ["Follow ShopLists", "WishLists"];
   const [isActive, setIsActive] = useState("Follow ShopLists");
 
@@ -46,4 +46,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Favourites;

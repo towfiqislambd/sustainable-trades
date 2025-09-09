@@ -1,9 +1,10 @@
-import React from 'react';
+import React from "react";
+import Favourites from "../../customer/favorites/page";
 
 const page = () => {
   return (
     <div>
-      favorites
+      <Favourites />
     </div>
   );
 };
