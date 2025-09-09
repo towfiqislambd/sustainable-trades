@@ -127,17 +127,31 @@ export default function Page() {
       <div className="mt-10">
         {/* Bulk action bar */}
         {selected.length > 0 && (
-          <div className="flex justify-between items-center bg-[#F4F4F4] p-3 mb-4 rounded">
-            <span className="font-medium">{selected.length} Selected</span>
-            <div className="flex gap-6">
-              <button onClick={deselectAll} className="text-gray-700">
+          <div className="flex justify-between items-center bg-[#F0EEE9] py-8 px-10 mb-10 rounded">
+            <span className="flex items-center gap-x-6 font-bold text-[#274F45] text-[14px]">
+              <input type="checkbox" className="" />
+              {selected.length} Selected
+            </span>
+            <div className="flex gap-x-10">
+              <button
+                onClick={deselectAll}
+                className="font-bold text-[#274F45]/50 text-[16px]"
+              >
                 Deselect All
               </button>
-              <button onClick={selectAll} className="text-blue-600">
+              <button
+                onClick={selectAll}
+                className="font-bold text-[#274F45]/50 text-[16px]"
+              >
                 Select All
               </button>
-              <button className="text-gray-700">Export</button>
-              <button onClick={deleteSelected} className="text-red-600">
+              <button className="font-bold text-[#274F45]/50 text-[16px]">
+                Export
+              </button>
+              <button
+                onClick={deleteSelected}
+                className="font-bold text-[#274F45] text-[16px]"
+              >
                 Delete
               </button>
             </div>
@@ -147,21 +161,34 @@ export default function Page() {
         {/* Table */}
         <table className="w-full border-collapse">
           <thead>
-            <tr className="text-left border-b">
+            <tr className="text-left border-b border-[#A7A39C]">
               <th />
-              <th>Product</th>
-              <th>Approval Status</th>
-              <th>SKU</th>
-              <th>Stock</th>
-              <th>Price</th>
-              <th>Cost</th>
-              <th>Visibility</th>
+              <th className="text-[#13141D] font-semibold text-[16px]">
+                Product
+              </th>
+              <th className="text-[#13141D] font-semibold text-[16px]">
+                Approval Status
+              </th>
+              <th className="text-[#13141D] font-semibold text-[16px]">SKU</th>
+              <th className="text-[#13141D] font-semibold text-[16px]">
+                Stock
+              </th>
+              <th className="text-[#13141D] font-semibold text-[16px]">
+                Price
+              </th>
+              <th className="text-[#13141D] font-semibold text-[16px]">Cost</th>
+              <th className="text-[#13141D] font-semibold text-[16px]">
+                Visibility
+              </th>
               <th />
             </tr>
           </thead>
           <tbody>
             {filteredProducts.map(p => (
-              <tr key={p.id} className="border-b hover:bg-gray-50">
+              <tr
+                key={p.id}
+                className="border-b border-[#A7A39C] hover:bg-gray-50"
+              >
                 <td>
                   <input
                     type="checkbox"
@@ -169,7 +196,7 @@ export default function Page() {
                     onChange={() => toggleSelect(p.id)}
                   />
                 </td>
-                <td className="flex items-center gap-3 py-2">
+                <td className="flex items-center gap-3 py-5">
                   <img
                     src={p.image}
                     alt={p.name}
