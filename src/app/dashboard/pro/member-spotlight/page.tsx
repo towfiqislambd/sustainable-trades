@@ -1,7 +1,12 @@
-import React from 'react';
+import Community from "@/app/(main)/community-member-spotlight/page";
+import React from "react";
 
 const page = () => {
-  return <div>member-spotlight</div>;
+  return (
+    <div>
+      <Community />
+    </div>
+  );
 };
 
 export default page;

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-const page = () => {
+const Settings = () => {
   const [notifications, setNotifications] = useState(true);
   const [language, setLanguage] = useState(false);
   const [cookies, setCookies] = useState(false);
@@ -142,4 +142,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Settings;
