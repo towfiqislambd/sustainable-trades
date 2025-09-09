@@ -36,7 +36,7 @@ const data = [
   },
 ];
 
-const page = () => {
+const Community = () => {
   return (
     <section className="py-10">
       <Container>
@@ -86,4 +86,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Community;

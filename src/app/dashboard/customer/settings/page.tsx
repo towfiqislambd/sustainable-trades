@@ -1,14 +1,14 @@
 "use client";
 import React, { useState } from "react";
 
-const page = () => {
+const Settings = () => {
   const [notifications, setNotifications] = useState(true);
   const [language, setLanguage] = useState(false);
   const [cookies, setCookies] = useState(false);
   return (
     <>
       <h2 className="text-[40px] font-lato font-semibold text-[#000]">
-        Account
+        Settings
       </h2>
       <div className="mt-6 flex gap-x-[145px]">
         <div className="w-1/2">
@@ -142,4 +142,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Settings;
