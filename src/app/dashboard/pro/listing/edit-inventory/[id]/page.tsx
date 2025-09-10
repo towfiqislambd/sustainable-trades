@@ -61,7 +61,7 @@ const CreateListing = () => {
             <h5 className="text-[16px] text-[#13141D]">Add a Listing</h5>
           </div>
         </div>
-        <button className="text-[#13141D] text-[16px] font-semibold flex gap-x-1 items-center border-2 border-[#13141D] rounded-lg py-3 px-6 hover:bg-black hover:text-white duration-300">
+        <button className="text-[#13141D] text-[16px] font-semibold flex gap-x-1 items-center border-2 border-[#13141D] rounded-lg py-3 px-6 hover:bg-black hover:text-white duration-300 cursor-pointer">
           <MdArrowOutward />
           View Listings
         </button>
