@@ -190,8 +190,9 @@ export default function Page() {
                     {p.visibility}
                   </span>
                 </td>
-                <td className="relative">
+                <td className="relative ">
                   <button
+                    className="cursor-pointer"
                     onClick={() => setOpenMenu(openMenu === p.id ? null : p.id)}
                   >
                     <FiMoreVertical />
@@ -206,7 +207,7 @@ export default function Page() {
                       >
                         <button
                           onClick={() => setOpenMenu(null)}
-                          className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                          className="block w-full text-left px-4 py-2 hover:bg-gray-100 cursor-pointer"
                         >
                           Edit
                         </button>
@@ -217,7 +218,7 @@ export default function Page() {
                           setProducts(products.filter(x => x.id !== p.id));
                           setOpenMenu(null);
                         }}
-                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600"
+                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600 cursor-pointer"
                       >
                         Delete
                       </button>
