@@ -22,7 +22,6 @@ const CreateListing = () => {
         URL.createObjectURL(file)
       );
 
-      // Set first uploaded image as preview if none yet
       if (!mainImage) {
         setMainImage(fileArray[0]);
       }
