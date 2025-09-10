@@ -81,6 +81,30 @@ const PaymentOptions = () => {
               <input
                 type="radio"
                 className="scale-150"
+                name="Card"
+                value="Card"
+                checked={paymentMethod === "Card"}
+                onChange={e => setPaymentMethod(e.target.value)}
+              />
+
+              <span className="text-secondary-gray font-semibold">
+                 Card
+              </span>
+            </p>
+            <div className="flex gap-x-4">
+              <div className="bg-[#274F45] p-2 rounded-md font-bold text-white">
+                Devit Card
+              </div>
+              <div className="bg-[#274F45] p-2 rounded-md font-bold text-white">
+                Credit Card
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-between items-center mb-3">
+            <p className="flex gap-3 items-center">
+              <input
+                type="radio"
+                className="scale-150"
                 name="payment"
                 value="paypal"
                 checked={paymentMethod === "paypal"}
@@ -124,7 +148,7 @@ const PaymentOptions = () => {
               />
 
               <span className="text-secondary-gray font-semibold">
-                Pay with Cash App
+                Pay later
               </span>
             </p>
             <div className="bg-[#274F45] p-2 rounded-md font-bold text-white">
