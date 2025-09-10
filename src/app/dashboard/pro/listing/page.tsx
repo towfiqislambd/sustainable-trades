@@ -227,6 +227,7 @@ export default function Page() {
                 </td>
               </tr>
             ))}
+            
           </tbody>
         </table>
 
