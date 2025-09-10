@@ -110,11 +110,11 @@ const CreateListing = () => {
                   key={idx}
                   src={src}
                   alt="preview"
-                  className="w-20 h-20 object-cover rounded-lg border cursor-pointer hover:opacity-80"
+                  className="w-24 h-24 object-cover rounded-lg border cursor-pointer hover:opacity-80"
                   onClick={() => setMainImage(src)}
                 />
               ))}
-              <label className="w-20 h-20 flex items-center justify-center bg-[#F5F5F5] rounded-lg cursor-pointer">
+              <label className="w-28 h-26 flex items-center justify-center bg-[#F5F5F5] rounded-lg cursor-pointer">
                 <FaPlus />
                 <input
                   type="file"
@@ -203,42 +203,37 @@ const CreateListing = () => {
               </span>
             </p>
           </div>
-
-          {/* Delete */}
-          <button className="text-red-600 flex items-center gap-1 mt-4 cursor-pointer">
-            <MdDelete /> Delete Listing
-          </button>
         </div>
 
         {/* Right Column */}
         <div className="flex flex-col gap-8">
           {/* Price */}
           <div>
-            <h3 className="text-[20px] font-semibold text-[#13141D]">Price</h3>
+            <h3 className="text-[24px] font-semibold text-[#13141D]">Price</h3>
             <input
               type="text"
               defaultValue="$2.99/lb"
-              className="w-full border border-gray-300 rounded-lg p-3 mt-2"
+              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
             />
           </div>
 
           {/* Description */}
           <div>
-            <h3 className="text-[20px] font-semibold text-[#13141D]">
+            <h3 className="text-[24px] font-semibold text-[#13141D]">
               Description
             </h3>
             <textarea
               rows={5}
               defaultValue="Grown using organic farming practices, our cherry tomatoes are free from pesticides and artificial additives, ensuring a pure and wholesome experience."
-              className="w-full border border-gray-300 rounded-lg p-3 mt-2"
+              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
             />
           </div>
 
           <div>
-            <h3 className="text-[20px] font-semibold text-[#13141D]">
+            <h3 className="text-[24px] font-semibold text-[#13141D]">
               Category
             </h3>
-            <select className="w-full border border-gray-300 rounded-lg p-3 mt-2">
+            <select className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2">
               <option>Select Category</option>
               <option>Vegetables</option>
               <option>Fruits</option>
@@ -247,10 +242,10 @@ const CreateListing = () => {
           </div>
 
           <div>
-            <h3 className="text-[20px] font-semibold text-[#13141D]">
+            <h3 className="text-[24px] font-semibold text-[#13141D]">
               Fulfillment
             </h3>
-            <select className="w-full border border-gray-300 rounded-lg p-3 mt-2">
+            <select className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2">
               <option>Select Fulfillment</option>
               <option>Advance Shipping</option>
               <option>Pickup</option>
@@ -258,7 +253,7 @@ const CreateListing = () => {
           </div>
 
           <div>
-            <h3 className="text-[20px] font-semibold text-[#13141D]">
+            <h3 className="text-[24px] font-semibold text-[#13141D]">
               Meta Tags
             </h3>
             <div className="flex flex-wrap gap-2 mt-2">
@@ -272,16 +267,16 @@ const CreateListing = () => {
                 </span>
               ))}
             </div>
-            <div className="flex gap-2 mt-2">
+            <div className="flex gap-2 mt-2 relative">
               <input
                 type="text"
                 value={newTag}
                 onChange={e => setNewTag(e.target.value)}
-                className="flex-1 border border-gray-300 rounded-lg p-2"
+                className="flex-1  border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 pl-10 mt-2"
               />
               <button
                 onClick={handleAddTag}
-                className="px-4 py-2 border rounded-lg"
+                className="absolute top-7 left-5 cursor-pointer"
               >
                 +
               </button>
@@ -289,10 +284,10 @@ const CreateListing = () => {
           </div>
 
           <div>
-            <h3 className="text-[20px] font-semibold text-[#13141D]">
+            <h3 className="text-[24px] font-semibold text-[#13141D]">
               Selling Option
             </h3>
-            <select className="w-full border border-gray-300 rounded-lg p-3 mt-2">
+            <select className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2">
               <option>Choose Below</option>
               <option>Retail</option>
               <option>Wholesale</option>
@@ -300,10 +295,15 @@ const CreateListing = () => {
           </div>
 
           {/* Save */}
-          <button className="bg-[#C75B4A] text-white py-3 rounded-lg font-semibold hover:bg-[#a34739] mt-6">
-            Save Listing
-          </button>
         </div>
+      </div>
+      <div className="flex justify-between mt-10 items-center">
+        <button className="text-red-600 flex items-center gap-1 mt-4 cursor-pointer">
+          <MdDelete /> Delete Listing
+        </button>
+        <button className="bg-[#E48872] text-white py-5 px-12 cursor-pointer rounded-lg font-semibold hover:bg-[#a34739] mt-6">
+          Save Listing
+        </button>
       </div>
     </div>
   );
