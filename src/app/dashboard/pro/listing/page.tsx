@@ -9,6 +9,7 @@ import {
   visibilityColors,
 } from "@/Components/Data/data";
 import Image, { StaticImageData } from "next/image";
+import Link from "next/link";
 
 type Product = {
   id: number;
@@ -200,12 +201,16 @@ export default function Page() {
                       ref={menuRef}
                       className="absolute right-0 mt-2 bg-white border rounded shadow-lg w-40 z-10"
                     >
-                      <button
-                        onClick={() => setOpenMenu(null)}
-                        className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                      <Link
+                        href={`/dashboard/pro/listing/edit-inventory/${p.id}`}
                       >
-                        Edit
-                      </button>
+                        <button
+                          onClick={() => setOpenMenu(null)}
+                          className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                        >
+                          Edit
+                        </button>
+                      </Link>
 
                       <button
                         onClick={() => {
