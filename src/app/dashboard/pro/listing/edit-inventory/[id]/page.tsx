@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { FaAngleRight, FaPlus } from "react-icons/fa";
 import { MdArrowOutward, MdDelete } from "react-icons/md";
+import Preview from "../../../../../../Assets/tomato.png";
+import Image from "next/image";
 
 const CreateListing = () => {
   const [images, setImages] = useState<string[]>([]);
@@ -77,21 +79,27 @@ const CreateListing = () => {
             <input
               type="text"
               defaultValue="Organic Cherry Tomatoes"
-              className="w-full border border-gray-300 rounded-lg p-3 mt-2"
+              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
             />
           </div>
 
           {/* Main Preview Image */}
           <div>
             {mainImage ? (
-              <img
+              <Image
                 src={mainImage}
+                width={500}
+                height={500}
                 alt="Main Preview"
-                className="w-full h-64 object-cover rounded-lg border"
+                className="w-full h-[500px] object-cover rounded-lg border"
               />
             ) : (
-              <div className="w-full h-64 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg text-gray-400">
-                No image uploaded
+              <div className="w-full h-[500px] flex items-center justify-center  rounded-lg text-gray-400">
+                <Image
+                  src={Preview}
+                  alt="Main Preview"
+                  className="w-full h-full object-cover rounded-lg border"
+                />
               </div>
             )}
 
@@ -106,7 +114,7 @@ const CreateListing = () => {
                   onClick={() => setMainImage(src)}
                 />
               ))}
-              <label className="w-20 h-20 flex items-center justify-center border border-dashed border-gray-400 rounded-lg cursor-pointer">
+              <label className="w-20 h-20 flex items-center justify-center bg-[#F5F5F5] rounded-lg cursor-pointer">
                 <FaPlus />
                 <input
                   type="file"
@@ -121,48 +129,52 @@ const CreateListing = () => {
 
           {/* Quantity */}
           <div>
-            <h3 className="text-[20px] font-semibold text-[#13141D]">
+            <h3 className="text-[24px] font-semibold text-[#13141D]">
               Quantity
             </h3>
             <input
               type="text"
               value={quantity}
               onChange={e => setQuantity(e.target.value)}
-              className="w-full border border-gray-300 rounded-lg p-3 mt-2"
+              className="w-[350px] border border-[#A7A39C] rounded-lg p-4 mt-2 text-[20px] text-[#13141D] font-normal"
             />
-            <div className="flex items-center gap-4 mt-2">
-              <label className="flex items-center gap-2">
+            <div className="flex flex-col gap-4 mt-2">
+              <label className="flex items-center gap-2 text-[24px] text-[#13141D] font-semibold">
+                Unlimited Stock
                 <input
                   type="checkbox"
                   checked={unlimitedStock}
                   onChange={() => setUnlimitedStock(!unlimitedStock)}
                 />
-                Unlimited Stock
               </label>
-              <label className="flex items-center gap-2">
+              <label className="flex items-center gap-2 text-[24px] text-[#13141D] font-semibold">
+                Out of Stock
                 <input
                   type="checkbox"
                   checked={outOfStock}
                   onChange={() => setOutOfStock(!outOfStock)}
                 />
-                Out of Stock
               </label>
+              <p className="text-[16px] text-[#13141D] font-normal max-w-[400px]">
+                Status automatically changes to “Out of Inventory” when zero
+                inventory is reached
+              </p>
             </div>
           </div>
 
           {/* Listing Approval */}
           <div>
-            <h3 className="text-[20px] font-semibold text-[#13141D]">
+            <h3 className="text-[24px] text-[#13141D] font-semibold">
               Listing Approval Process
             </h3>
-            <p className="text-sm text-gray-600 mt-2">
+            <p className="text-[16px]] text-[#67645F] mt-2 max-w-[400px]">
               To ensure all products and services on Sustainable Trades meet our
               sustainability standards, each listing must be approved before it
               goes live. Please upload a short video introducing yourself and
               your product or service.
             </p>
             <div className="flex gap-4 mt-3">
-              <label className="px-4 py-2 border rounded-lg cursor-pointer">
+              <label className="px-8 py-5 bg-[#F0EEE9] rounded-lg cursor-pointer text-[16px] text-[#13141D">
                 Upload video
                 <input
                   type="file"
@@ -184,22 +196,22 @@ const CreateListing = () => {
 
           {/* Listing Status */}
           <div>
-            <p className="font-semibold">
+            <p className="font-semibold text-[24px] text-[#13141D]">
               Listing Status:{" "}
-              <span className="px-2 py-1 text-sm rounded bg-gray-200">
+              <span className="px-3 py-2 text-white text-sm rounded-full bg-[#757575] text-white]">
                 Pending
               </span>
             </p>
           </div>
 
           {/* Delete */}
-          <button className="text-red-600 flex items-center gap-1 mt-4">
+          <button className="text-red-600 flex items-center gap-1 mt-4 cursor-pointer">
             <MdDelete /> Delete Listing
           </button>
         </div>
 
         {/* Right Column */}
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-8">
           {/* Price */}
           <div>
             <h3 className="text-[20px] font-semibold text-[#13141D]">Price</h3>
