@@ -234,7 +234,6 @@ const CreateListing = () => {
             />
           </div>
 
-          {/* Category */}
           <div>
             <h3 className="text-[20px] font-semibold text-[#13141D]">
               Category
@@ -247,7 +246,6 @@ const CreateListing = () => {
             </select>
           </div>
 
-          {/* Fulfillment */}
           <div>
             <h3 className="text-[20px] font-semibold text-[#13141D]">
               Fulfillment
@@ -259,7 +257,6 @@ const CreateListing = () => {
             </select>
           </div>
 
-          {/* Meta Tags */}
           <div>
             <h3 className="text-[20px] font-semibold text-[#13141D]">
               Meta Tags
@@ -291,7 +288,6 @@ const CreateListing = () => {
             </div>
           </div>
 
-          {/* Selling Option */}
           <div>
             <h3 className="text-[20px] font-semibold text-[#13141D]">
               Selling Option
