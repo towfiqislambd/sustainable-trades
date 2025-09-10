@@ -3,7 +3,13 @@
 import { FaSearch } from "react-icons/fa";
 import { FiMoreVertical } from "react-icons/fi";
 import React, { useEffect, useRef, useState } from "react";
-import { productsData, statusColorsinventory, visibilityColors } from "@/Components/Data/data";
+import {
+  productsData,
+  statusColorsinventory,
+  visibilityColors,
+} from "@/Components/Data/data";
+import Image, { StaticImageData } from "next/image";
+import Link from "next/link";
 
 type Product = {
   id: number;
@@ -14,10 +20,8 @@ type Product = {
   price: number;
   cost: number;
   visibility: "Active" | "Inactive";
-  image: string;
+  image: string | StaticImageData;
 };
-
-
 
 export default function Page() {
   const [products, setProducts] = useState<Product[]>(productsData);
@@ -152,38 +156,43 @@ export default function Page() {
                     onChange={() => toggleSelect(p.id)}
                   />
                 </td>
-                <td className="flex items-center gap-3 py-5">
-                  <img
-                    src={p.image}
-                    alt={p.name}
-                    className="w-12 h-12 rounded"
-                  />
+                <td className="flex items-center gap-3 py-5 text-[#13141D] font-semibold text-[14px]">
+                  <Image src={p.image} alt={p.name} height={60} width={60} />
                   {p.name}
                 </td>
                 <td>
                   <span
-                    className={`px-3 py-1 rounded-full text-sm ${
+                    className={`px-3 py-2 rounded-full text-sm ${
                       statusColorsinventory[p.status]
                     }`}
                   >
                     {p.status}
                   </span>
                 </td>
-                <td>{p.sku}</td>
-                <td>{p.stock}</td>
-                <td>${p.price.toFixed(2)}</td>
-                <td>${p.cost.toFixed(2)}</td>
+                <td className="text-[#13141D] font-semibold text-[14px]">
+                  {p.sku}
+                </td>
+                <td className="text-[#13141D] font-semibold text-[14px]">
+                  {p.stock}
+                </td>
+                <td className="text-[#13141D] font-semibold text-[14px]">
+                  ${p.price.toFixed(2)}
+                </td>
+                <td className="text-[#13141D] font-semibold text-[14px]">
+                  ${p.cost.toFixed(2)}
+                </td>
                 <td>
                   <span
-                    className={`px-3 py-1 rounded-full text-sm ${
+                    className={`px-3 py-2 rounded-full text-sm ${
                       visibilityColors[p.visibility]
                     }`}
                   >
                     {p.visibility}
                   </span>
                 </td>
-                <td className="relative">
+                <td className="relative ">
                   <button
+                    className="cursor-pointer"
                     onClick={() => setOpenMenu(openMenu === p.id ? null : p.id)}
                   >
                     <FiMoreVertical />
@@ -193,30 +202,23 @@ export default function Page() {
                       ref={menuRef}
                       className="absolute right-0 mt-2 bg-white border rounded shadow-lg w-40 z-10"
                     >
-                      <button
-                        onClick={() => setOpenMenu(null)}
-                        className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                      <Link
+                        href={`/dashboard/pro/listing/edit-inventory/${p.id}`}
                       >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => setOpenMenu(null)}
-                        className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                      >
-                        Duplicate
-                      </button>
-                      <button
-                        onClick={() => setOpenMenu(null)}
-                        className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                      >
-                        Edit Meta Tags
-                      </button>
+                        <button
+                          onClick={() => setOpenMenu(null)}
+                          className="block w-full text-left px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                        >
+                          Edit
+                        </button>
+                      </Link>
+
                       <button
                         onClick={() => {
                           setProducts(products.filter(x => x.id !== p.id));
                           setOpenMenu(null);
                         }}
-                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600"
+                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600 cursor-pointer"
                       >
                         Delete
                       </button>
@@ -230,10 +232,10 @@ export default function Page() {
 
         {/* Pagination */}
         <div className="flex justify-between items-center mt-4 text-sm">
-          <span>
+          <span className="text-[#13141D] font-semibold text-[14px]">
             {filteredProducts.length} of {products.length} products
           </span>
-          <div className="flex gap-2">
+          <div className="flex gap-2 text-[#13141D] font-semibold text-[14px]">
             <button>{"<<"}</button>
             <button>{"<"}</button>
             <span>Page 1 of 1</span>

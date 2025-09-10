@@ -382,7 +382,6 @@ export const getStatusColor = (status: PaymentData["status"]) => {
   }
 };
 
-
 type TradeItem = {
   image: StaticImageData;
   title: string;
@@ -537,7 +536,6 @@ export const tradeRequests: TradeRequest[] = [
   },
 ];
 
-
 export const tradegetStatusColor = (status: TradeRequest["status"]): string => {
   switch (status) {
     case "Pending":
@@ -572,7 +570,6 @@ export const tradetabs = [
   },
 ];
 
-
 type Tip = {
   question: string;
   answer: string;
@@ -605,9 +602,8 @@ type Product = {
   price: number;
   cost: number;
   visibility: "Active" | "Inactive";
-  image: string;
-}
-
+  image: string | StaticImageData;
+};
 
 export const productsData: Product[] = [
   {
@@ -619,7 +615,7 @@ export const productsData: Product[] = [
     price: 6.78,
     cost: 3.55,
     visibility: "Active",
-    image: "https://via.placeholder.com/50",
+    image: OrderImage,
   },
   {
     id: 2,
@@ -630,7 +626,7 @@ export const productsData: Product[] = [
     price: 9.34,
     cost: 4.75,
     visibility: "Active",
-    image: "https://via.placeholder.com/50",
+    image: OrderImage,
   },
   {
     id: 3,
@@ -641,17 +637,17 @@ export const productsData: Product[] = [
     price: 8.46,
     cost: 4.15,
     visibility: "Inactive",
-    image: "https://via.placeholder.com/50",
+    image: OrderImage,
   },
 ];
 
 export const statusColorsinventory: Record<Product["status"], string> = {
-  Approved: "bg-green-700 text-white",
-  Pending: "bg-gray-500 text-white",
-  Denied: "bg-red-700 text-white",
+  Approved: "bg-[#3C665B] text-white font-semibold",
+  Pending: "bg-[#757575] text-white font-semibold",
+  Denied: "bg-[#8B200C] text-white font-semibold",
 };
 
 export const visibilityColors: Record<Product["visibility"], string> = {
-  Active: "bg-green-800 text-white",
-  Inactive: "bg-gray-400 text-white",
+  Active: "bg-[#3C665B] text-white font-semibold",
+  Inactive: "bg-[#757575] text-white font-semibold",
 };
