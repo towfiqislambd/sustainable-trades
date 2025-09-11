@@ -1,7 +1,11 @@
 import React from 'react';
 
 const page = () => {
-  return <div>notification</div>;
+  return (
+    <>
+      
+    </>
+  );
 };
 
 export default page;
