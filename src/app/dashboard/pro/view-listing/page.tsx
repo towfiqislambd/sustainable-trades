@@ -103,7 +103,7 @@ const Page = () => {
         {products.map(product => (
           <div
             key={product.id}
-            className="relative border border-[#e5e5e5] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300"
+            className="relative border border-[#e5e5e5] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300 group cursor-pointer"
           >
             {/* Image */}
             <div className="relative w-full h-[250px]">
@@ -113,7 +113,11 @@ const Page = () => {
                 fill
                 className="object-cover"
               />
-              <button className="absolute top-3 right-3 bg-white rounded-full p-2 shadow hover:bg-gray-100 cursor-pointer border border-[##274F45]">
+              <button
+                className="absolute top-3 right-3 bg-white rounded-full p-2 shadow cursor-pointer border border-[#274F45] 
+      opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 
+      transition-all duration-300 ease-in-out"
+              >
                 <FiEdit2 size={18} className="text-[#274F45]" />
               </button>
             </div>
