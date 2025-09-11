@@ -9,9 +9,6 @@ const page = () => {
             Notifications
           </h3>
         </div>
-        <ul>
-          <li></li>
-        </ul>
       </div>
     </>
   );
