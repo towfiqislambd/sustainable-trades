@@ -47,7 +47,40 @@ const CreateListing = () => {
   const handleRemoveTag = (tag: string) => {
     setMetaTags(metaTags.filter(t => t !== tag));
   };
+    const [category, setCategory] = useState("");
+    const [subcategory, setSubcategory] = useState("");
 
+    const categories: { [key: string]: string[] } = {
+      "Farm to Table": [
+        "Acupuncture",
+        "Akashic Record",
+        "Coaching",
+        "Cranial Sacral",
+        "Qi Gong",
+        "Somatic Practices",
+        "Trauma Resolution",
+        "Yoga",
+        "Reiki",
+        "Sound/Light Healing Therapy",
+        "Hypnosis",
+      ],
+      "Arts & Artisans": [],
+      "Bath & Beauty": [],
+      "Books & Literature": [],
+      "Healing & Wellness": [
+        "Acupuncture",
+        "Akashic Record",
+        "Coaching",
+        "Cranial Sacral",
+        "Qi Gong",
+        "Somatic Practices",
+        "Trauma Resolution",
+        "Yoga",
+        "Reiki",
+        "Sound/Light Healing Therapy",
+        "Hypnosis",
+      ],
+    };
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -255,25 +288,56 @@ const CreateListing = () => {
           </div>
 
           <div>
+            {/* Category Dropdown */}
             <h3 className="text-[24px] font-semibold text-[#13141D]">
               Category
             </h3>
-            <select className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2">
-              <option>Select Category</option>
-              <option>Vegetables</option>
-              <option>Fruits</option>
-              <option>Grains</option>
+            <select
+              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
+              value={category}
+              onChange={e => {
+                setCategory(e.target.value);
+                setSubcategory("");
+              }}
+            >
+              <option value="">Select Category</option>
+              {Object.keys(categories).map(cat => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
             </select>
-          </div>
 
+            {/* Subcategory Dropdown */}
+            {category && categories[category].length > 0 && (
+              <div className="mt-4">
+                <h3 className="text-[24px] font-semibold text-[#13141D]">
+                  Subcategory
+                </h3>
+                <select
+                  className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
+                  value={subcategory}
+                  onChange={e => setSubcategory(e.target.value)}
+                >
+                  <option value="">Select Subcategory</option>
+                  {categories[category].map(sub => (
+                    <option key={sub} value={sub}>
+                      {sub}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+          </div>
           <div>
             <h3 className="text-[24px] font-semibold text-[#13141D]">
               Fulfillment
             </h3>
             <select className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2">
               <option>Select Fulfillment</option>
-              <option>Advance Shipping</option>
-              <option>Pickup</option>
+              <option>Arrange local Pickup</option>
+              <option>Shipping</option>
+              <option>Arrang local pickup or shipping</option>
             </select>
           </div>
 
@@ -314,8 +378,9 @@ const CreateListing = () => {
             </h3>
             <select className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2">
               <option>Choose Below</option>
-              <option>Retail</option>
-              <option>Wholesale</option>
+              <option>Trade</option>
+              <option>For Sale</option>
+              <option>For sale & Trade</option>
             </select>
           </div>
 
