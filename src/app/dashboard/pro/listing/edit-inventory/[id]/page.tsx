@@ -5,6 +5,7 @@ import { FaAngleRight, FaPlus } from "react-icons/fa";
 import { MdArrowOutward, MdDelete } from "react-icons/md";
 import Preview from "../../../../../../Assets/tomato.png";
 import Image from "next/image";
+import Link from "next/link";
 
 const CreateListing = () => {
   const [images, setImages] = useState<string[]>([]);
@@ -13,10 +14,10 @@ const CreateListing = () => {
   const [quantity, setQuantity] = useState<string>("12 lbs");
   const [unlimitedStock, setUnlimitedStock] = useState(false);
   const [outOfStock, setOutOfStock] = useState(false);
+  const [Featured, setFeatured] = useState(false);
   const [metaTags, setMetaTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState("");
 
-  
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const fileArray = Array.from(e.target.files).map(file =>
@@ -47,7 +48,40 @@ const CreateListing = () => {
   const handleRemoveTag = (tag: string) => {
     setMetaTags(metaTags.filter(t => t !== tag));
   };
+  const [category, setCategory] = useState("");
+  const [subcategory, setSubcategory] = useState("");
 
+  const categories: { [key: string]: string[] } = {
+    "Farm to Table": [
+      "Acupuncture",
+      "Akashic Record",
+      "Coaching",
+      "Cranial Sacral",
+      "Qi Gong",
+      "Somatic Practices",
+      "Trauma Resolution",
+      "Yoga",
+      "Reiki",
+      "Sound/Light Healing Therapy",
+      "Hypnosis",
+    ],
+    "Arts & Artisans": [],
+    "Bath & Beauty": [],
+    "Books & Literature": [],
+    "Healing & Wellness": [
+      "Acupuncture",
+      "Akashic Record",
+      "Coaching",
+      "Cranial Sacral",
+      "Qi Gong",
+      "Somatic Practices",
+      "Trauma Resolution",
+      "Yoga",
+      "Reiki",
+      "Sound/Light Healing Therapy",
+      "Hypnosis",
+    ],
+  };
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -61,10 +95,12 @@ const CreateListing = () => {
             <h5 className="text-[16px] text-[#13141D]">Add a Listing</h5>
           </div>
         </div>
-        <button className="text-[#13141D] text-[16px] font-semibold flex gap-x-1 items-center border-2 border-[#13141D] rounded-lg py-3 px-6 hover:bg-black hover:text-white duration-300 cursor-pointer">
-          <MdArrowOutward />
-          View Listings
-        </button>
+        <Link href="/dashboard/pro/view-listing">
+          <button className="text-[#13141D] text-[16px] font-semibold flex gap-x-1 items-center border-2 border-[#13141D] rounded-lg py-3 px-6 hover:bg-black hover:text-white duration-300 cursor-pointer">
+            <MdArrowOutward />
+            View Listings
+          </button>
+        </Link>
       </div>
 
       {/* Form */}
@@ -148,6 +184,15 @@ const CreateListing = () => {
                 />
               </label>
               <label className="flex items-center gap-2 text-[24px] text-[#13141D] font-semibold">
+                Feature
+                <input
+                  type="checkbox"
+                  checked={Featured}
+                  onChange={() => setFeatured(!Featured)}
+                  className="mt-1"
+                />
+              </label>
+              <label className="flex items-center gap-2 text-[24px] text-[#13141D] font-semibold">
                 Out of Stock
                 <input
                   type="checkbox"
@@ -216,6 +261,22 @@ const CreateListing = () => {
               className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
             />
           </div>
+          <div>
+            <h3 className="text-[24px] font-semibold text-[#13141D]">Cost</h3>
+            <input
+              type="text"
+              defaultValue="$5.99/lb"
+              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
+            />
+          </div>
+          <div>
+            <h3 className="text-[24px] font-semibold text-[#13141D]">Weight</h3>
+            <input
+              type="text"
+              defaultValue="20 KG"
+              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
+            />
+          </div>
 
           {/* Description */}
           <div>
@@ -230,25 +291,56 @@ const CreateListing = () => {
           </div>
 
           <div>
+            {/* Category Dropdown */}
             <h3 className="text-[24px] font-semibold text-[#13141D]">
               Category
             </h3>
-            <select className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2">
-              <option>Select Category</option>
-              <option>Vegetables</option>
-              <option>Fruits</option>
-              <option>Grains</option>
+            <select
+              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
+              value={category}
+              onChange={e => {
+                setCategory(e.target.value);
+                setSubcategory("");
+              }}
+            >
+              <option value="">Select Category</option>
+              {Object.keys(categories).map(cat => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
             </select>
-          </div>
 
+            {/* Subcategory Dropdown */}
+            {category && categories[category].length > 0 && (
+              <div className="mt-4">
+                <h3 className="text-[24px] font-semibold text-[#13141D]">
+                  Subcategory
+                </h3>
+                <select
+                  className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
+                  value={subcategory}
+                  onChange={e => setSubcategory(e.target.value)}
+                >
+                  <option value="">Select Subcategory</option>
+                  {categories[category].map(sub => (
+                    <option key={sub} value={sub}>
+                      {sub}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+          </div>
           <div>
             <h3 className="text-[24px] font-semibold text-[#13141D]">
               Fulfillment
             </h3>
             <select className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2">
               <option>Select Fulfillment</option>
-              <option>Advance Shipping</option>
-              <option>Pickup</option>
+              <option>Arrange local Pickup</option>
+              <option>Shipping</option>
+              <option>Arrang local pickup or shipping</option>
             </select>
           </div>
 
@@ -289,8 +381,9 @@ const CreateListing = () => {
             </h3>
             <select className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2">
               <option>Choose Below</option>
-              <option>Retail</option>
-              <option>Wholesale</option>
+              <option>Trade</option>
+              <option>For Sale</option>
+              <option>For sale & Trade</option>
             </select>
           </div>
 
