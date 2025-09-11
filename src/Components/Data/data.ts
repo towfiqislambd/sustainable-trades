@@ -643,7 +643,7 @@ export const productsData: Product[] = [
 
 export const statusColorsinventory: Record<Product["status"], string> = {
   Approved: "bg-[#3C665B] text-white font-semibold",
-  Pending: "bg-[#757575] text-white font-semibold",
+  Pending: "bg-[#E48872] text-white font-semibold",
   Denied: "bg-[#8B200C] text-white font-semibold",
 };
 

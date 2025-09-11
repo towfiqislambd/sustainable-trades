@@ -13,10 +13,10 @@ const CreateListing = () => {
   const [quantity, setQuantity] = useState<string>("12 lbs");
   const [unlimitedStock, setUnlimitedStock] = useState(false);
   const [outOfStock, setOutOfStock] = useState(false);
+  const [Featured, setFeatured] = useState(false);
   const [metaTags, setMetaTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState("");
 
-  
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const fileArray = Array.from(e.target.files).map(file =>
@@ -148,6 +148,15 @@ const CreateListing = () => {
                 />
               </label>
               <label className="flex items-center gap-2 text-[24px] text-[#13141D] font-semibold">
+                Feature
+                <input
+                  type="checkbox"
+                  checked={Featured}
+                  onChange={() => setFeatured(!Featured)}
+                  className="mt-1"
+                />
+              </label>
+              <label className="flex items-center gap-2 text-[24px] text-[#13141D] font-semibold">
                 Out of Stock
                 <input
                   type="checkbox"
@@ -213,6 +222,22 @@ const CreateListing = () => {
             <input
               type="text"
               defaultValue="$2.99/lb"
+              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
+            />
+          </div>
+          <div>
+            <h3 className="text-[24px] font-semibold text-[#13141D]">Cost</h3>
+            <input
+              type="text"
+              defaultValue="$5.99/lb"
+              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
+            />
+          </div>
+          <div>
+            <h3 className="text-[24px] font-semibold text-[#13141D]">Weight</h3>
+            <input
+              type="text"
+              defaultValue="20 KG"
               className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
             />
           </div>
