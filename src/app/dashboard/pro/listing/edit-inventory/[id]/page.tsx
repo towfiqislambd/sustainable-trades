@@ -5,6 +5,7 @@ import { FaAngleRight, FaPlus } from "react-icons/fa";
 import { MdArrowOutward, MdDelete } from "react-icons/md";
 import Preview from "../../../../../../Assets/tomato.png";
 import Image from "next/image";
+import Link from "next/link";
 
 const CreateListing = () => {
   const [images, setImages] = useState<string[]>([]);
@@ -47,40 +48,40 @@ const CreateListing = () => {
   const handleRemoveTag = (tag: string) => {
     setMetaTags(metaTags.filter(t => t !== tag));
   };
-    const [category, setCategory] = useState("");
-    const [subcategory, setSubcategory] = useState("");
+  const [category, setCategory] = useState("");
+  const [subcategory, setSubcategory] = useState("");
 
-    const categories: { [key: string]: string[] } = {
-      "Farm to Table": [
-        "Acupuncture",
-        "Akashic Record",
-        "Coaching",
-        "Cranial Sacral",
-        "Qi Gong",
-        "Somatic Practices",
-        "Trauma Resolution",
-        "Yoga",
-        "Reiki",
-        "Sound/Light Healing Therapy",
-        "Hypnosis",
-      ],
-      "Arts & Artisans": [],
-      "Bath & Beauty": [],
-      "Books & Literature": [],
-      "Healing & Wellness": [
-        "Acupuncture",
-        "Akashic Record",
-        "Coaching",
-        "Cranial Sacral",
-        "Qi Gong",
-        "Somatic Practices",
-        "Trauma Resolution",
-        "Yoga",
-        "Reiki",
-        "Sound/Light Healing Therapy",
-        "Hypnosis",
-      ],
-    };
+  const categories: { [key: string]: string[] } = {
+    "Farm to Table": [
+      "Acupuncture",
+      "Akashic Record",
+      "Coaching",
+      "Cranial Sacral",
+      "Qi Gong",
+      "Somatic Practices",
+      "Trauma Resolution",
+      "Yoga",
+      "Reiki",
+      "Sound/Light Healing Therapy",
+      "Hypnosis",
+    ],
+    "Arts & Artisans": [],
+    "Bath & Beauty": [],
+    "Books & Literature": [],
+    "Healing & Wellness": [
+      "Acupuncture",
+      "Akashic Record",
+      "Coaching",
+      "Cranial Sacral",
+      "Qi Gong",
+      "Somatic Practices",
+      "Trauma Resolution",
+      "Yoga",
+      "Reiki",
+      "Sound/Light Healing Therapy",
+      "Hypnosis",
+    ],
+  };
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -94,10 +95,12 @@ const CreateListing = () => {
             <h5 className="text-[16px] text-[#13141D]">Add a Listing</h5>
           </div>
         </div>
-        <button className="text-[#13141D] text-[16px] font-semibold flex gap-x-1 items-center border-2 border-[#13141D] rounded-lg py-3 px-6 hover:bg-black hover:text-white duration-300 cursor-pointer">
-          <MdArrowOutward />
-          View Listings
-        </button>
+        <Link href="/dashboard/pro/view-listing">
+          <button className="text-[#13141D] text-[16px] font-semibold flex gap-x-1 items-center border-2 border-[#13141D] rounded-lg py-3 px-6 hover:bg-black hover:text-white duration-300 cursor-pointer">
+            <MdArrowOutward />
+            View Listings
+          </button>
+        </Link>
       </div>
 
       {/* Form */}
