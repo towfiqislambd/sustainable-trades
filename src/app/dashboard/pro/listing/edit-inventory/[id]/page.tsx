@@ -460,9 +460,9 @@ const CreateListing = () => {
             </h3>
             <select className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2">
               <option>Choose Below</option>
-              <option>Trade</option>
+              <option>Trade/Barter</option>
+              <option>For Sale or Trade Barter</option>
               <option>For Sale</option>
-              <option>For sale & Trade</option>
             </select>
           </div>
 
