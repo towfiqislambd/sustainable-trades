@@ -213,10 +213,10 @@ const CreateListing = () => {
               Listing Approval Process
             </h3>
             <p className="text-[16px]] text-[#67645F] mt-2 max-w-[400px]">
-              To ensure all products and services on Sustainable Trades meet our
-              sustainability standards, each listing must be approved before it
-              goes live. Please upload a short video introducing yourself and
-              your product or service.
+              In the video, share details about how and
+              where your product was made, how your food was grown, and how it
+              aligns with our sustainability guidelines. This helps us maintain
+              the quality and integrity of our marketplace.
             </p>
             <div className="flex gap-4 mt-3">
               <label className="px-8 py-5 bg-[#F0EEE9] rounded-lg cursor-pointer text-[16px] text-[#13141D">
