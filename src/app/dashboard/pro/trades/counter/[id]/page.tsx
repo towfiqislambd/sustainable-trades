@@ -302,7 +302,7 @@ const page = () => {
 
             <li className="text-[#13141D] font-normal text-[16px] list-disc pt-4">
               Sending a message with a counter offer gives you a better chance
-              of getting it accepted.{" "}
+              of getting it accepted.
             </li>
           </div>
           <div className="mt-4">
