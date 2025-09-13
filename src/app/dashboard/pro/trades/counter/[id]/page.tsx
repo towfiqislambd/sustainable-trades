@@ -292,9 +292,7 @@ const page = () => {
           hover:scale-110 duration-500 ease-in-out
           ${style.bg || ""} ${style.border || "border-2"} ${style.text}
           border-2
-          after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0 
-          after:bg-[#274F45] after:transition-all after:duration-500
-          hover:after:h-full hover:text-white`}
+        `}
                   >
                     <span className="relative z-10">{btn}</span>
                   </button>
@@ -304,7 +302,7 @@ const page = () => {
 
             <li className="text-[#13141D] font-normal text-[16px] list-disc pt-4">
               Sending a message with a counter offer gives you a better chance
-              of getting it accepted.{" "}
+              of getting it accepted.
             </li>
           </div>
           <div className="mt-4">
