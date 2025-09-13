@@ -106,13 +106,13 @@ const Page = () => {
         <h3 className="text-[40px] font-semibold text-[#000]">Order Details</h3>
         <div className="flex gap-x-3">
           <button
-            className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-green-500 duration-300 ease-in-out"
+            className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-[#274F45] duration-300 ease-in-out"
             onClick={() => setMessageModalOpen(true)}
           >
             Track Package
           </button>
           <button
-            className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-green-500 duration-300 ease-in-out flex gap-x-1 items-center"
+            className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-[#274F45]duration-300 ease-in-out flex gap-x-1 items-center"
             onClick={() => setEditModalOpen(true)}
           >
             <Pen /> Edit Order
@@ -195,16 +195,16 @@ const Page = () => {
           {/* Step Buttons */}
           {status === "Package Delivered" && (
             <div className="my-6 flex justify-between stepbutton gap-x-3">
-              <button className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-green-500 duration-300 ease-in-out w-[175px]">
+              <button className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-[#274F45] duration-300 ease-in-out w-[175px]">
                 Track Package
               </button>
-              <button className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-green-500 duration-300 ease-in-out w-[175px]">
+              <button className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-[#274F45] duration-300 ease-in-out w-[175px]">
                 Return or replace
               </button>
-              <button className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-green-500 duration-300 ease-in-out w-[175px]">
+              <button className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-[#274F45] duration-300 ease-in-out w-[175px]">
                 Get Help
               </button>
-              <button className="py-4 px-6  rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-green-500 duration-300 ease-in-out">
+              <button className="py-4 px-6  rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-[#274F45] duration-300 ease-in-out">
                 Request a Review
               </button>
             </div>
@@ -283,7 +283,7 @@ const Page = () => {
             ""
           ) : (
             <div className="mt-12">
-              <button className="py-4 px-6 rounded-[8px] border border-[#8E2F2F] bg-[#FFE8E8] text-[16px] font-semibold text-[#8E2F2F] cursor-pointer hover:border-green-500 duration-300 ease-in-out w-full">
+              <button className="py-4 px-6 rounded-[8px] border border-[#8E2F2F] bg-[#FFE8E8] text-[16px] font-semibold text-[#8E2F2F] cursor-pointer hover:border-[#274F45] duration-300 ease-in-out w-full">
                 Cancel Order
               </button>
             </div>

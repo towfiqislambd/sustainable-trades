@@ -6,6 +6,7 @@ import { FiCalendar, FiClock } from "react-icons/fi";
 
 const CreateDiscount = () => {
   const [discountType, setDiscountType] = useState("code");
+  const [appliesTo, setAppliesTo] = useState("Any Order");
 
   return (
     <div className="p-8">
@@ -106,10 +107,29 @@ const CreateDiscount = () => {
       {/* Applies To */}
       <div className="pb-8">
         <h4 className="text-[20px] font-normal text-[#13141D]">Applies To</h4>
-        <select className="mt-3 border border-[#3D3D3D] rounded-md px-4 py-5  w-[750px] bg-[#D4E2CB] text-[16px] font-bold text-[#274F45]">
-          <option>Any Order</option>
-          <option>Single Product</option>
+        <select
+          className="mt-3 border border-[#3D3D3D] rounded-md px-4 py-5 w-[750px] bg-[#D4E2CB] text-[16px] font-bold text-[#274F45]"
+          value={appliesTo}
+          onChange={e => setAppliesTo(e.target.value)}
+        >
+          <option value="Any Order">Any Order</option>
+          <option value="Single Product">Single Product</option>
         </select>
+
+        {/* Show product selection dropdown if Single Product is selected */}
+        {appliesTo === "Single Product" && (
+          <div className="mt-4 w-[750px]">
+            <h5 className="text-[16px] font-semibold text-[#13141D] mb-2">
+              Select Product
+            </h5>
+            <select className="w-full border border-[#67645F] rounded-md px-4 py-5 text-[16px] font-bold text-[#13141D]">
+              <option>Product 1</option>
+              <option>Product 2</option>
+              <option>Product 3</option>
+              <option>Product 4</option>
+            </select>
+          </div>
+        )}
       </div>
 
       {/* Discount Limits */}
