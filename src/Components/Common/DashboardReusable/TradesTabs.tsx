@@ -163,7 +163,7 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
                     className={`relative cursor-pointer py-[10px] border px-4 rounded-md font-lato font-semibold overflow-hidden
             hover:scale-110 duration-500 ease-in-out
             ${style.bg || ""} ${style.border || "border-2"} ${style.text}
-            after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0 after:bg-[#274F45] after:transition-all after:duration-500 hover:after:h-full hover:text-white`}
+           `}
                   >
                     <span className="relative z-10">{btn}</span>
                   </button>
