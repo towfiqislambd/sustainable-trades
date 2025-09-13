@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { FaAngleRight, FaPlus } from "react-icons/fa";
+import React, { useMemo, useRef, useState } from "react";
+import { FaAngleRight, FaPlay, FaPlus } from "react-icons/fa";
 import { MdArrowOutward, MdDelete } from "react-icons/md";
 import Preview from "../../../../../../Assets/tomato.png";
 import Image from "next/image";
@@ -11,6 +11,8 @@ const CreateListing = () => {
   const [images, setImages] = useState<string[]>([]);
   const [mainImage, setMainImage] = useState<string | null>(null);
   const [video, setVideo] = useState<File | null>(null);
+  const [showPlayButton, setShowPlayButton] = useState(true);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const [quantity, setQuantity] = useState<string>("12 lbs");
   const [unlimitedStock, setUnlimitedStock] = useState(false);
   const [outOfStock, setOutOfStock] = useState(false);
@@ -32,9 +34,49 @@ const CreateListing = () => {
     }
   };
 
+  const videoURL = useMemo(
+    () => (video ? URL.createObjectURL(video) : null),
+    [video]
+  );
+
+  // Handle video upload
   const handleVideoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setVideo(e.target.files[0]);
+      const file = e.target.files[0];
+      setVideo(file);
+      setShowPlayButton(true);
+
+      // Ensure video is loaded
+      setTimeout(() => {
+        videoRef.current?.load();
+      }, 0);
+    }
+  };
+
+  // Play video (single click)
+  const handlePlay = () => {
+    if (!videoRef.current) return;
+    videoRef.current
+      .play()
+      .then(() => setShowPlayButton(false))
+      .catch(err => console.error("Playback failed:", err));
+  };
+
+  // Pause video
+  const handlePause = () => {
+    if (!videoRef.current) return;
+    videoRef.current.pause();
+    setShowPlayButton(true);
+  };
+
+  // Toggle play/pause
+  const handlePlayPause = () => {
+    if (!videoRef.current) return;
+
+    if (videoRef.current.paused) {
+      handlePlay();
+    } else {
+      handlePause();
     }
   };
 
@@ -213,28 +255,65 @@ const CreateListing = () => {
               Listing Approval Process
             </h3>
             <p className="text-[16px]] text-[#67645F] mt-2 max-w-[400px]">
-              In the video, share details about how and
-              where your product was made, how your food was grown, and how it
-              aligns with our sustainability guidelines. This helps us maintain
-              the quality and integrity of our marketplace.
+              In the video, share details about how and where your product was
+              made, how your food was grown, and how it aligns with our
+              sustainability guidelines. This helps us maintain the quality and
+              integrity of our marketplace.
             </p>
-            <div className="flex gap-4 mt-3">
-              <label className="px-8 py-5 bg-[#F0EEE9] rounded-lg cursor-pointer text-[16px] text-[#13141D">
-                Upload video
-                <input
-                  type="file"
-                  accept="video/*"
-                  className="hidden"
-                  onChange={handleVideoUpload}
-                />
-              </label>
-              {video && (
-                <button
-                  className="px-4 py-2 border rounded-lg"
-                  onClick={() => setVideo(null)}
-                >
-                  Remove video
-                </button>
+            <div>
+              <div className="flex gap-4 mt-3">
+                <label className="px-8 py-5 bg-[#F0EEE9] rounded-lg cursor-pointer text-[16px] text-[#13141D]">
+                  Upload video
+                  <input
+                    type="file"
+                    accept="video/*"
+                    className="hidden"
+                    onChange={handleVideoUpload}
+                  />
+                </label>
+
+                {video && (
+                  <button
+                    className="px-4 py-2 border rounded-lg"
+                    onClick={() => setVideo(null)}
+                  >
+                    Remove video
+                  </button>
+                )}
+              </div>
+
+              {video && videoURL && (
+                <div className="mt-4 w-[300px] relative">
+                  <video
+                    ref={videoRef}
+                    src={videoURL}
+                    className="h-[250px] w-full rounded-lg object-cover"
+                    onClick={handlePlayPause} // clicking video toggles play/pause
+                  />
+
+                  {/* Overlay play button */}
+                  {showPlayButton && (
+                    <button
+                      className="h-24 w-24 bg-[#626161] text-white rounded-full absolute cursor-pointer top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 flex justify-center items-center"
+                      onClick={e => {
+                        e.stopPropagation();
+                        handlePlay();
+                      }}
+                    >
+                      <FaPlay className="size-10" />
+                    </button>
+                  )}
+
+                  {/* Dedicated pause button */}
+                  {!showPlayButton && (
+                    <button
+                      className="absolute top-2 right-2 px-3 py-1 bg-black text-white rounded"
+                      onClick={handlePause}
+                    >
+                      Pause
+                    </button>
+                  )}
+                </div>
               )}
             </div>
           </div>
