@@ -138,7 +138,10 @@ const CreateListing = () => {
           </div>
         </div>
         <Link href="/dashboard/pro/view-listing">
-          <button className="text-[#13141D] text-[16px] font-semibold flex gap-x-1 items-center border-2 border-[#13141D] rounded-lg py-3 px-6 hover:bg-black hover:text-white duration-300 cursor-pointer">
+          <button
+            className="text-[#000] text-[16px] font-semibold flex gap-x-1 items-center border-2 border-[#13141D] rounded-lg py-3 px-6
+           hover:bg-[#E48872] hover:text-white duration-300 cursor-pointer"
+          >
             <MdArrowOutward />
             View Listings
           </button>
@@ -157,7 +160,7 @@ const CreateListing = () => {
             <input
               type="text"
               defaultValue="Organic Cherry Tomatoes"
-              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
+              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2 outline-none"
             />
           </div>
 
@@ -172,7 +175,7 @@ const CreateListing = () => {
                 className="w-full h-[500px] object-cover rounded-lg border"
               />
             ) : (
-              <div className="w-full h-[500px] flex items-center justify-center  rounded-lg text-gray-400">
+              <div className="w-full h-[500px] flex items-center justify-center  rounded-lg text-gray-400 outline-none">
                 <Image
                   src={Preview}
                   alt="Main Preview"
@@ -214,7 +217,7 @@ const CreateListing = () => {
               type="text"
               value={quantity}
               onChange={e => setQuantity(e.target.value)}
-              className="w-[350px] border border-[#A7A39C] rounded-lg p-4 mt-2 text-[20px] text-[#13141D] font-normal"
+              className="w-[350px] border border-[#A7A39C] rounded-lg p-4 mt-2 text-[20px] text-[#13141D] font-normal outline-0"
             />
             <div className="flex flex-col gap-4 mt-2">
               <label className="flex items-center gap-2 text-[24px] text-[#13141D] font-semibold">
@@ -223,6 +226,7 @@ const CreateListing = () => {
                   type="checkbox"
                   checked={unlimitedStock}
                   onChange={() => setUnlimitedStock(!unlimitedStock)}
+                  className="mt-1 accent-[#274F45]"
                 />
               </label>
               <label className="flex items-center gap-2 text-[24px] text-[#13141D] font-semibold">
@@ -231,7 +235,7 @@ const CreateListing = () => {
                   type="checkbox"
                   checked={Featured}
                   onChange={() => setFeatured(!Featured)}
-                  className="mt-1"
+                  className="mt-1 accent-[#274F45]"
                 />
               </label>
               <label className="flex items-center gap-2 text-[24px] text-[#13141D] font-semibold">
@@ -240,6 +244,7 @@ const CreateListing = () => {
                   type="checkbox"
                   checked={outOfStock}
                   onChange={() => setOutOfStock(!outOfStock)}
+                  className="mt-1 accent-[#274F45]"
                 />
               </label>
               <p className="text-[16px] text-[#13141D] font-normal max-w-[400px]">
@@ -337,7 +342,7 @@ const CreateListing = () => {
             <input
               type="text"
               defaultValue="$2.99/lb"
-              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
+              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2 outline-0"
             />
           </div>
           <div>
@@ -345,7 +350,7 @@ const CreateListing = () => {
             <input
               type="text"
               defaultValue="$5.99/lb"
-              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
+              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2 outline-0"
             />
           </div>
           <div>
@@ -353,7 +358,7 @@ const CreateListing = () => {
             <input
               type="text"
               defaultValue="20 KG"
-              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
+              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2 outline-0"
             />
           </div>
 
@@ -365,7 +370,7 @@ const CreateListing = () => {
             <textarea
               rows={5}
               defaultValue="Grown using organic farming practices, our cherry tomatoes are free from pesticides and artificial additives, ensuring a pure and wholesome experience."
-              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
+              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2 outline-0"
             />
           </div>
 
@@ -412,9 +417,7 @@ const CreateListing = () => {
             )}
           </div>
           <div>
-            <h3 className="text-[24px] font-semibold text-[#13141D]">
-              Fulfillment
-            </h3>
+            <h3 className="text-[24px] font-semibold text-[#13141D]">Fulfillment</h3>
             <select className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2">
               <option>Select Fulfillment</option>
               <option>Arrange Local Pickup</option>

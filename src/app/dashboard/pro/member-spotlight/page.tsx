@@ -9,7 +9,7 @@ const page = () => {
           Member Spotlight
         </h3>
         <div className="">
-          <button className="py-4 px-6 bg-[#D4E2CB] rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-green-500 duration-300 ease-in-out  h-[50px] flex items-center justify-center">
+          <button className="py-4 px-6 bg-[#D4E2CB] rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:translate-y-1 duration-300 ease-in-out  h-[50px] flex items-center justify-center">
             Apply for Community Member Spotlight
           </button>
         </div>
