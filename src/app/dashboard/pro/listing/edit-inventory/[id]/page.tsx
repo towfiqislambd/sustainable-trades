@@ -417,9 +417,7 @@ const CreateListing = () => {
             )}
           </div>
           <div>
-            <h3 className="text-[24px] font-semibold text-[#13141D]">
-              Fulfillment
-            </h3>
+            <h3 className="text-[24px] font-semibold text-[#13141D]">Fulfillment</h3>
             <select className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2">
               <option>Select Fulfillment</option>
               <option>Arrange Local Pickup</option>
