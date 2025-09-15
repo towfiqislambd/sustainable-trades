@@ -342,7 +342,7 @@ const CreateListing = () => {
             <input
               type="text"
               defaultValue="$2.99/lb"
-              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
+              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2 outline-0"
             />
           </div>
           <div>
@@ -350,7 +350,7 @@ const CreateListing = () => {
             <input
               type="text"
               defaultValue="$5.99/lb"
-              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
+              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2 outline-0"
             />
           </div>
           <div>
@@ -358,7 +358,7 @@ const CreateListing = () => {
             <input
               type="text"
               defaultValue="20 KG"
-              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
+              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2 outline-0"
             />
           </div>
 
@@ -370,7 +370,7 @@ const CreateListing = () => {
             <textarea
               rows={5}
               defaultValue="Grown using organic farming practices, our cherry tomatoes are free from pesticides and artificial additives, ensuring a pure and wholesome experience."
-              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
+              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2 outline-0"
             />
           </div>
 
