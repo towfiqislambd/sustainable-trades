@@ -14,12 +14,12 @@ const page = () => {
           <p className="text-[16px] text-gray-400">$USD</p>
           <button
             className="py px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer
-           hover:border-green-500 duration-300 ease-in-out flex gap-x-2 items-center h-[50px]"
+            duration-300 ease-in-out flex gap-x-2 items-center h-[50px] hover:translate-y-1"
           >
             <Download />
             Download File
           </button>
-          <button className="py-4 px-6 bg-[#D4E2CB] rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-green-500 duration-300 ease-in-out w-[170px] h-[50px] flex items-center justify-center">
+          <button className="py-4 px-6 bg-[#D4E2CB] rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:translate-y-1 duration-300 ease-in-out w-[170px] h-[50px] flex items-center justify-center">
             Change
           </button>
         </div>

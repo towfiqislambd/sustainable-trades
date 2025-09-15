@@ -115,3 +115,8 @@ body {
 .notification_container {
   scrollbar-width: thin;
 }
+
+
+option:hover {
+  background: #D4E2CB !important;
+}
