@@ -60,7 +60,7 @@ const page = () => {
     );
   };
 
-  const addProductRowAfter = (afterId: number) => {
+  const addProductRowAfter = (afterId: number, selectedProduct: string) => {
     const newId = Math.max(...productRows.map(row => row.id)) + 1;
     const insertIndex = productRows.findIndex(row => row.id === afterId) + 1;
 
@@ -68,7 +68,7 @@ const page = () => {
       const newRows = [...prev];
       newRows.splice(insertIndex, 0, {
         id: newId,
-        selectedProduct: "Coconut",
+        selectedProduct: selectedProduct, // Use the passed selected product instead of hardcoded "Coconut"
         count: 1,
         price: 30,
       });
@@ -122,10 +122,7 @@ const page = () => {
                       <div className="flex gap-x-2 items-center">
                         <LocationSvg1 />
                         <h5 className="text-[14px] underline cursor-pointer text-[#A7A39C] font-lato">
-                          13 mi. away -
-                        </h5>
-                        <h5 className="text-[14px] underline cursor-pointer text-[#A7A39C] font-lato">
-                          Denver, CO
+                          13 mi. away - Denver, CO
                         </h5>
                       </div>
                     </div>
@@ -193,7 +190,9 @@ const page = () => {
                     </h5>
                     <div
                       className="flex gap-x-5 items-center justify-end cursor-pointer hover:opacity-70 transition-opacity"
-                      onClick={() => addProductRowAfter(row.id)}
+                      onClick={() =>
+                        addProductRowAfter(row.id, row.selectedProduct)
+                      } // Pass the current row's selected product
                     >
                       <h6 className="text-[16px] font-semibold text-[#A7A39C]">
                         +
