@@ -60,12 +60,20 @@ const page = () => {
     );
   };
 
-  const addProductRow = () => {
+  const addProductRowAfter = (afterId: number) => {
     const newId = Math.max(...productRows.map(row => row.id)) + 1;
-    setProductRows(prev => [
-      ...prev,
-      { id: newId, selectedProduct: "Coconut", count: 1, price: 30 },
-    ]);
+    const insertIndex = productRows.findIndex(row => row.id === afterId) + 1;
+
+    setProductRows(prev => {
+      const newRows = [...prev];
+      newRows.splice(insertIndex, 0, {
+        id: newId,
+        selectedProduct: "Coconut",
+        count: 1,
+        price: 30,
+      });
+      return newRows;
+    });
   };
 
   const handleProductChange = (id: number, selectedProduct: string) => {
@@ -177,29 +185,27 @@ const page = () => {
                         </button>
                       </div>
                     </div>
-                    <h5 className="flex gap-x-2 te4xt-[16px] font-semibold text-[#4B4A47] items-center justify-end py-2">
+                    <h5 className="flex gap-x-2 text-[16px] font-semibold text-[#4B4A47] items-center justify-end py-2">
                       Total amount:{" "}
                       <span className="text-[20px]">
                         ${row.price * row.count}
                       </span>
                     </h5>
-                    {index === productRows.length - 1 && (
-                      <div
-                        className="flex gap-x-5 items-center justify-end cursor-pointer hover:opacity-70 transition-opacity"
-                        onClick={addProductRow}
-                      >
-                        <h6 className="text-[16px] font-semibold text-[#A7A39C]">
-                          +
-                        </h6>
-                        <p className="text-[16px] font-semibold text-[#A7A39C]">
-                          Add another product/service
-                        </p>
-                      </div>
-                    )}
+                    <div
+                      className="flex gap-x-5 items-center justify-end cursor-pointer hover:opacity-70 transition-opacity"
+                      onClick={() => addProductRowAfter(row.id)}
+                    >
+                      <h6 className="text-[16px] font-semibold text-[#A7A39C]">
+                        +
+                      </h6>
+                      <p className="text-[16px] font-semibold text-[#A7A39C]">
+                        Add another product/service
+                      </p>
+                    </div>
                   </div>
                 </div>
                 {index < productRows.length - 1 && (
-                  <div className="flex gap-x-5 items-center px-10">
+                  <div className="flex gap-x-5 items-center px-10 mt-4">
                     <div className="bg-[#BFBEBE] w-full h-[1px]"></div>
                     <div className="inline-block">
                       <Reload
