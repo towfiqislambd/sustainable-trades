@@ -251,7 +251,7 @@ const TradeDetailsReusable = () => {
                   ? `border-2 ${style.border}`
                   : "border-2 border-gray-300"
               } ${style.text}
-        after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0 after:bg-[#274F45] after:transition-all after:duration-500 hover:after:h-full hover:text-white`}
+       `}
             >
               <span className="relative z-10">{btn}</span>
             </button>

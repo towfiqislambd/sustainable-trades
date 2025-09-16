@@ -10,6 +10,7 @@ import {
 } from "@/Components/Data/data";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
+import { Download, Export, Import } from "@/Components/Svg/SvgContainer";
 
 type Product = {
   id: number;
@@ -61,23 +62,30 @@ export default function Page() {
   return (
     <div className="">
       <div className="flex justify-between items-center">
-        <div className="relative">
+        <div className="relative max-w-[500px] w-full">
           <input
             placeholder="Search by product, tags, categories"
             type="search"
-            className="py-[10px] pl-4 outline-0 border-2 border-[#274F45] rounded-[8px] text-[16px] text-[#67645F] font-normal w-[700px]"
+            className="py-[10px] pl-4 pr-12 outline-0 border-2 border-[#274F45] rounded-[8px] text-[16px] text-[#67645F] font-normal w-full"
           />
-          <div className="absolute top-4 right-3">
+
+          {/* Search Icon */}
+          <div className="absolute top-1/2 right-4 transform -translate-y-1/2 text-[#67645F] cursor-pointer">
             <FaSearch />
           </div>
-          <div className="absolute top-0 right-10 w-[2px] bg-[#274F45] h-[45px]"></div>
+
+          {/* Divider */}
+          <div className="absolute top-1/2 right-14 transform -translate-y-1/2 w-[2px] bg-[#274F45] h-full"></div>
         </div>
+
         <div className="flex gap-x-8 items-center">
-          <h4 className="text-black text-[14px] font-sans font-medium">
+          <h4 className="text-white text-[20px] font-sans font-medium bg-[#274F45] px-5 py-2 rounded-lg cursor-pointer flex gap-x-2 items-center">
             Import
+            <Import />
           </h4>
-          <h4 className="text-black text-[14px] font-sans font-medium">
+          <h4 className="text-[#274F45] text-[20px] font-sans font-medium border border-[#274F45] px-5 py-2 rounded-lg cursor-pointer flex gap-x-2 items-center">
             Export
+            <Export />
           </h4>
           <button className="h-[60px] rounded-[8px] bg-[#E48872] text-[18px] font-semibold text-[#13141D] cursor-pointer hover:bg-transparent duration-500 ease-in-out border border-[#E48872] w-[190px]">
             Add Product
