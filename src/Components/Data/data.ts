@@ -408,14 +408,14 @@ export const tradeRequests: TradeRequest[] = [
     items: [
       {
         image: OrderImage,
-        title: "8oz Watermelon Sustainable Bar Soap",
-        store: "The Soap Shop",
-        quantity: "20 Jars",
-        totalAmount: 30,
+        title: "Organic Musk Bath",
+        store: "Holistic",
+        quantity: "10 Jars  ",
+        totalAmount: 20,
       },
       {
         image: OrderImage,
-        title: "Yard Waste Service",
+        title: "Nutrition Work Shop",
         store: "Earths Essence",
         quantity: "3 hours work",
         totalAmount: 30,
@@ -482,8 +482,15 @@ export const tradeRequests: TradeRequest[] = [
     items: [
       {
         image: OrderImage,
-        title: "Vanilla Scented Candle",
-        store: "Candle Co",
+        title: "8oz Watermelon Sustainable Bar Soap",
+        store: "The Soap Shop",
+        quantity: "12 Pieces",
+        totalAmount: 60,
+      },
+      {
+        image: OrderImage,
+        title: "Yard Waste Service",
+        store: "Earths Essence",
         quantity: "12 Pieces",
         totalAmount: 60,
       },
