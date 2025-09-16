@@ -36,12 +36,31 @@ const proNavLinks = [
     label: "Listings & Inventory",
     path: "/dashboard/pro/listing",
     icon: <PFourSvg />,
+    subMenus: [
+      {
+        label: "Listings",
+        path: "/dashboard/pro/view-listing",
+        icon: <PFourSvg />,
+      },
+    ],
   },
   {
     id: 5,
     label: "Payments",
     path: "/dashboard/pro/payments",
     icon: <PFiveSvg />,
+    subMenus: [
+      {
+        label: "Payment Integration",
+        path: "/dashboard/pro/payment-method",
+        icon: <PFiveSvg />,
+      },
+      {
+        label: "Sales Tax",
+        path: "/dashboard/pro/taxes",
+        icon: <PFiveSvg />,
+      },
+    ],
   },
   {
     id: 6,
