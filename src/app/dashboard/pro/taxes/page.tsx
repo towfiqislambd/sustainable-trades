@@ -21,7 +21,7 @@ export default function Home() {
 
   return (
     <main className="h-fit mx-auto flex justify-cente">
-      <div className="w-full max-w-md mx-auto mt-28 bg-[#FFFCF9] shadow-2xl rounded-[20px] p-8">
+      <div className="w-full max-w-md mx-auto mt-20 bg-[#FFFCF9] shadow-2xl rounded-[20px] p-8">
         {/* Header */}
         <div className="">
           <h2 className="text-[24px] font-bold text-[#000000]">Add Tax Rate</h2>
@@ -84,7 +84,7 @@ export default function Home() {
 
           {/* State Field */}
           <div className="space-y-2">
-            <label className="text-[16px] font-semibold text-[#13141D]">
+            <label className="text-[20px] font-semibold text-[#13141D]">
               State *
             </label>
             <div className="relative">
@@ -133,8 +133,8 @@ export default function Home() {
           </div>
 
           {/* State Rate */}
-          <div className="flex justify-between items-center">
-            <span className="text-[16px] font-semibold text-[#13141D]">
+          <div className="flex justify-between items-center border-b-2 pb-3 border-[#A7A39C]">
+            <span className="text-[20px] font-semibold text-[#13141D]">
               State Rate
             </span>
             <span className="text-[16px] font-semibold text-[#13141D]">0%</span>
@@ -142,10 +142,10 @@ export default function Home() {
 
           {/* Toggle Switches */}
           <div className="space-y-6">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between border-b py-5 border-[#A7A39C]">
               <div className="flex-1 pr-4">
-                <label className="text-[16px] font-medium text-[#13141D]">
-                  Charge taxes on services and digital products
+                <label className="text-[20px] font-semibold text-[#000]">
+                  Charge taxes on services and <br /> digital products
                 </label>
               </div>
               <button
@@ -162,9 +162,9 @@ export default function Home() {
               </button>
             </div>
 
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between border-b pt-2 pb-5 border-[#A7A39C]">
               <div className="flex-1 pr-4">
-                <label className="text-[16px] font-medium text-[#13141D]">
+                <label className="text-[20px] font-semibold text-[#000]">
                   Charge taxes on shipping
                 </label>
               </div>
@@ -185,7 +185,7 @@ export default function Home() {
 
           {/* ZIP Code Rate Link */}
           <div className="pt-4">
-            <button className="text-[16px] font-semibold text-[#000] hover:text-[#374151] uppercase tracking-wider">
+            <button className="text-[20px] font-semibold text-[#000] hover:text-[#374151] uppercase tracking-wider">
               ADD A ZIP CODE RATE
             </button>
           </div>
