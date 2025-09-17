@@ -248,7 +248,7 @@ const page = () => {
               </div>
 
               {/* Products in this section */}
-              {section.products.map((product, productIndex) => (
+              {section.products.map((product) => (
                 <div key={product.id}>
                   <div className="py-4 border-t border-b border-[#BFBEBE]">
                     <div className="flex justify-between">
