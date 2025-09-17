@@ -1,18 +1,204 @@
-import React from "react";
-import { RxCross2 } from "react-icons/rx";
+"use client";
 
-const page = () => {
+import { useState } from "react";
+
+export default function Home() {
+  const [country, setCountry] = useState("");
+  const [state, setState] = useState("");
+  const [chargeOnServices, setChargeOnServices] = useState(true);
+  const [chargeOnShipping, setChargeOnShipping] = useState(false);
+  const [countryOpen, setCountryOpen] = useState(false);
+  const [stateOpen, setStateOpen] = useState(false);
+
+  const handleSave = () => {
+    console.log("Saving tax rate:", {
+      country,
+      state,
+      chargeOnServices,
+      chargeOnShipping,
+    });
+  };
+
   return (
-    <div className=" flex justify-center items-center h-full">
-      <div className="bg-[#FFFCF9] p-8 shadow-2xl rounded-[20px]">
-        <div className="flex justify-between items-center">
-          <h4 className="text-[24px] text-[#000] font-bold">Add Tax Rate</h4>
-          <RxCross2 className="mt-1 size-5" />
+    <main className="h-screen flex items-center justify-center">
+      <div className="w-full max-w-md bg-[#FFFCF9] shadow-2xl rounded-[20px] p-8">
+        {/* Header */}
+        <div className="">
+          <h2 className="text-lg font-semibold text-[#000] text-[24px] font-bols">
+            Add Tax Rate
+          </h2>
         </div>
-        <form action="" className="mt-8"></form>
-      </div>
-    </div>
-  );
-};
 
-export default page;
+        {/* Content */}
+        <div className="py-8 space-y-6">
+          {/* Country Field */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">
+              Country *
+            </label>
+            <div className="relative">
+              <button
+                onClick={() => setCountryOpen(!countryOpen)}
+                className="w-full px-3 py-2 text-left bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              >
+                <span className={country ? "text-gray-900" : "text-gray-500"}>
+                  {country || "Country"}
+                </span>
+                <svg
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+              {countryOpen && (
+                <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
+                  <div className="py-1">
+                    {[
+                      "United States",
+                      "Canada",
+                      "United Kingdom",
+                      "Australia",
+                    ].map(option => (
+                      <button
+                        key={option}
+                        onClick={() => {
+                          setCountry(option);
+                          setCountryOpen(false);
+                        }}
+                        className="w-full px-3 py-2 text-left text-gray-900 hover:bg-gray-100"
+                      >
+                        {option}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* State Field */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">State *</label>
+            <div className="relative">
+              <button
+                onClick={() => setStateOpen(!stateOpen)}
+                className="w-full px-3 py-2 text-left bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              >
+                <span className={state ? "text-gray-900" : "text-gray-500"}>
+                  {state || "State"}
+                </span>
+                <svg
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+              {stateOpen && (
+                <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
+                  <div className="py-1">
+                    {["California", "New York", "Texas", "Florida"].map(
+                      option => (
+                        <button
+                          key={option}
+                          onClick={() => {
+                            setState(option);
+                            setStateOpen(false);
+                          }}
+                          className="w-full px-3 py-2 text-left text-gray-900 hover:bg-gray-100"
+                        >
+                          {option}
+                        </button>
+                      )
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* State Rate */}
+          <div className="flex justify-between items-center">
+            <span className="text-sm font-medium text-gray-700">
+              State Rate
+            </span>
+            <span className="text-sm font-medium text-gray-900">0%</span>
+          </div>
+
+          {/* Toggle Switches */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="space-y-0.5">
+                <label className="text-sm font-medium text-gray-700">
+                  Charge taxes on services and digital products
+                </label>
+              </div>
+              <button
+                onClick={() => setChargeOnServices(!chargeOnServices)}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+                  chargeOnServices ? "bg-green-600" : "bg-gray-200"
+                }`}
+              >
+                <span
+                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                    chargeOnServices ? "translate-x-6" : "translate-x-1"
+                  }`}
+                />
+              </button>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div className="space-y-0.5">
+                <label className="text-sm font-medium text-gray-700">
+                  Charge taxes on shipping
+                </label>
+              </div>
+              <button
+                onClick={() => setChargeOnShipping(!chargeOnShipping)}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+                  chargeOnShipping ? "bg-green-600" : "bg-gray-200"
+                }`}
+              >
+                <span
+                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                    chargeOnShipping ? "translate-x-6" : "translate-x-1"
+                  }`}
+                />
+              </button>
+            </div>
+          </div>
+
+          {/* ZIP Code Rate Link */}
+          <div className="pt-2">
+            <button className="text-sm font-medium text-gray-600 hover:text-gray-800 uppercase tracking-wide">
+              ADD A ZIP CODE RATE
+            </button>
+          </div>
+
+          {/* Save Button */}
+          <button
+            onClick={handleSave}
+            className="w-full bg-green-700 hover:bg-green-800 text-white font-medium py-3 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+          >
+            Save Tax Rate
+          </button>
+        </div>
+      </div>
+    </main>
+  );
+}
