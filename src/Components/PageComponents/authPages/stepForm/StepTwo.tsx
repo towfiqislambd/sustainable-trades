@@ -53,8 +53,8 @@ const StepTwo = ({ step, setStep, totalSteps }: any) => {
                 minLength: { value: 4, message: "Minimum 4 characters" },
                 maxLength: { value: 30, message: "Maximum 30 characters" },
                 pattern: {
-                  value: /^[A-Za-z0-9]+$/,
-                  message: "No special characters, spaces, or accented letters",
+                  value: /^[A-Za-z0-9 ]+$/,
+                  message: "Only letters, numbers, and spaces allowed",
                 },
               })}
             />
