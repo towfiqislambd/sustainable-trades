@@ -37,7 +37,7 @@ export default function Home() {
             <div className="relative">
               <button
                 onClick={() => setCountryOpen(!countryOpen)}
-                className="w-full px-4 py-3 mt-2 text-left bg-white border-2 border-[#67645F] rounded-[8px] focus:outline-none focus:border-[#67645F] text-[16px]"
+                className="w-full px-4 py-3 mt-2 text-left bg-white border-2 border-[#67645F] cursor-pointer rounded-[8px] focus:outline-none focus:border-[#67645F] text-[16px]"
               >
                 <span className={country ? "text-[#13141D]" : "text-[#9CA3AF]"}>
                   {country || "Country"}
@@ -57,7 +57,7 @@ export default function Home() {
                 </svg>
               </button>
               {countryOpen && (
-                <div className="absolute z-10 w-full mt-1 bg-white border-2 border-[#67645F] rounded-[8px] shadow-lg p-2">
+                <div className="absolute z-10 w-full mt-1 bg-white border-2 border-[#67645F] rounded-[8px] shadow-lg p-2 cursor-pointer">
                   <div className="py-1">
                     {[
                       "United States",
@@ -90,7 +90,7 @@ export default function Home() {
             <div className="relative">
               <button
                 onClick={() => setStateOpen(!stateOpen)}
-                className="w-full px-4 py-3 text-left mt-2 bg-white border-2 border-[#67645F ] rounded-[8px] focus:outline-none focus:border-[#67645F] text-[16px]"
+                className="w-full px-4 py-3 text-left mt-2 bg-white border-2 border-[#67645F] cursor-pointer rounded-[8px] focus:outline-none focus:border-[#67645F] text-[16px]"
               >
                 <span className={state ? "text-[#13141D]" : "text-[#9CA3AF]"}>
                   {state || "State"}
@@ -110,7 +110,7 @@ export default function Home() {
                 </svg>
               </button>
               {stateOpen && (
-                <div className="absolute z-10 w-full mt-1 bg-white border-2 border-[#67645F] rounded-[8px] shadow-lg p-2">
+                <div className="absolute z-10 w-full mt-1 bg-white border-2 border-[#67645F] rounded-[8px] shadow-lg p-2 cursor-pointer">
                   <div className="py-1">
                     {["California", "New York", "Texas", "Florida"].map(
                       option => (
