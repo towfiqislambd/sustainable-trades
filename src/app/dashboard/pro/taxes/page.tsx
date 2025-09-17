@@ -21,7 +21,7 @@ export default function Home() {
 
   return (
     <main className="h-fit mx-auto flex justify-cente">
-      <div className="w-full max-w-md mx-auto mt-20 bg-[#FFFCF9] shadow-2xl rounded-[20px] p-8">
+      <div className="w-full max-w-md mx-auto mt-28 bg-[#FFFCF9] shadow-2xl rounded-[20px] p-8">
         {/* Header */}
         <div className="">
           <h2 className="text-[24px] font-bold text-[#000000]">Add Tax Rate</h2>
