@@ -28,7 +28,7 @@ export default function Home() {
         </div>
 
         {/* Content */}
-        <div className="py-8 space-y-6">
+        <div className="space-y-6">
           {/* Country Field */}
           <div className="space-y-2">
             <label className="text-[16px] font-semibold text-[#13141D]">
@@ -37,7 +37,7 @@ export default function Home() {
             <div className="relative">
               <button
                 onClick={() => setCountryOpen(!countryOpen)}
-                className="w-full px-4 py-3 mt-2 text-left bg-white border-2 border-[#67645F] cursor-pointer rounded-[8px] focus:outline-none focus:border-[#67645F] text-[16px]"
+                className="w-full px-4 py-3 mt-2 text-left bg-white border-2 border-[#67645F] cursor-pointer rounded-[8px] focus:outline-none focus:border-[#67645F] text-[16px] text-[#67645F]"
               >
                 <span className={country ? "text-[#13141D]" : "text-[#9CA3AF]"}>
                   {country || "Country"}
@@ -71,7 +71,7 @@ export default function Home() {
                           setCountry(option);
                           setCountryOpen(false);
                         }}
-                        className="w-full px-3 py-2 text-left text-[#13141D] hover:bg-gray-50 rounded-md text-[16px]"
+                        className="w-full px-3 py-2 text-left text-[#67645F] hover:bg-gray-50 rounded-md text-[16px]"
                       >
                         {option}
                       </button>
@@ -120,7 +120,7 @@ export default function Home() {
                             setState(option);
                             setStateOpen(false);
                           }}
-                          className="w-full px-3 py-2 text-left text-[#13141D] hover:bg-gray-50 rounded-md text-[16px]"
+                          className="w-full px-3 py-2 text-left text-[#67645F] hover:bg-gray-50 rounded-md text-[16px]"
                         >
                           {option}
                         </button>
