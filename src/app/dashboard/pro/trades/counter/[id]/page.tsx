@@ -2,12 +2,12 @@
 import Image from "next/image";
 import { useState } from "react";
 import { FaRegStar } from "react-icons/fa";
+import TradeLayout from "../../TradeLayout";
 import DetailsImage from "../../../../../../Assets/e1.jpg";
 import { useRouter, useSearchParams } from "next/navigation";
 import { LocationSvg1, Reload } from "@/Components/Svg/SvgContainer";
 import CounterBottom from "@/Components/Common/DashboardReusable/CounterBottom";
 import CounterProductlist from "@/Components/Common/DashboardReusable/CounterProductlist";
-import TradeLayout from "../../TradeLayout";
 
 interface ProductRow {
   id: number;
