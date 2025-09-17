@@ -37,7 +37,8 @@ export default function Home() {
             <div className="relative">
               <button
                 onClick={() => setCountryOpen(!countryOpen)}
-                className="w-full px-4 py-3 mt-2 text-left bg-white border-2 border-[#67645F] cursor-pointer rounded-[8px] focus:outline-none focus:border-[#67645F] text-[16px] text-[#67645F]"
+                className="w-full px-4 py-3 mt-2 text-left bg-white border-2 border-[#67645F] 
+                cursor-pointer rounded-[8px] focus:outline-none focus:border-[#67645F] text-[16px] text-[#67645F]"
               >
                 <span className={country ? "text-[#13141D]" : "text-[#9CA3AF]"}>
                   {country || "Country"}
