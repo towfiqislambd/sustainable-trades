@@ -91,13 +91,15 @@ const data = [
     ],
   },
 ];
+type pricingData = {};
 type PricingProps = {
   description: string;
   button1: string;
   button2: string;
+  data?: pricingData;
 };
 
-const Pricing = ({ description, button1,button2 }: PricingProps) => {
+const Pricing = ({ description, button1, button2 }: PricingProps) => {
   const [activeTab, setActiveTab] = useState<string>("Monthly Billing");
 
   return (
