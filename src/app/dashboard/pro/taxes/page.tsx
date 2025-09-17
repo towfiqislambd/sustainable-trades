@@ -185,7 +185,7 @@ export default function Home() {
 
           {/* ZIP Code Rate Link */}
           <div className="pt-4">
-            <button className="text-[20px] font-semibold text-[#000] hover:text-[#374151] uppercase tracking-wider">
+            <button className="text-[16px] font-semibold text-[#000] hover:text-[#374151] uppercase tracking-wider">
               ADD A ZIP CODE RATE
             </button>
           </div>
