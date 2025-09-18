@@ -1,13 +1,13 @@
 "use client";
-import React from "react";
+import type React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FaAnglesRight } from "react-icons/fa6";
-import Image, { StaticImageData } from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import { Reload } from "@/Components/Svg/SvgContainer";
 
 export type TradeItem = {
-  image: StaticImageData;
+  image: StaticImageData | string;
   title: string;
   store: string;
   quantity: string;
@@ -65,7 +65,7 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
           className="border border-[#BFBEBE] p-6 rounded-[8px] flex flex-col gap-4"
         >
           {/* Header */}
-          <div className="flex justify-between pb-4">
+          <div className="flex justify-between pb-4 border-b border-[#BFBEBE]">
             <div className="flex gap-x-5 items-center">
               <h3 className="font-semibold text-[16px] text-[#274F45]">
                 Trade Request
@@ -94,52 +94,50 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
 
           {/* Items */}
           {trade.items.map((item, idx) => (
-            <div
-              key={idx}
-              className="pt-4 border-t border-[#BFBEBE] flex justify-between items-end"
-            >
-              <div className="flex gap-x-10">
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  height={100}
-                  width={100}
-                  className="object-cover rounded-md"
-                />
-                <div className="flex flex-col">
-                  <h3 className="text-[20px] font-semibold text-[#13141D]">
-                    {item.title}
-                  </h3>
-                  <h4 className="text-[20px] font-normal text-[#4B4A47]">
-                    {item.store}
-                  </h4>
-                  <h5 className="text-[#13141D] font-normal text-[16px] mt-3">
-                    Qty: {item.quantity}
-                  </h5>
+            <div key={idx}>
+              <div className=" flex justify-between items-end">
+                <div className="flex gap-x-10">
+                  <Image
+                    src={item.image || "/placeholder.svg"}
+                    alt={item.title}
+                    height={100}
+                    width={100}
+                    className="object-cover rounded-md"
+                  />
+                  <div className="flex flex-col">
+                    <h3 className="text-[20px] font-semibold text-[#13141D]">
+                      {item.title}
+                    </h3>
+                    <h4 className="text-[20px] font-normal text-[#4B4A47]">
+                      {item.store}
+                    </h4>
+                    <h5 className="text-[#13141D] font-normal text-[16px] mt-3">
+                      Qty: {item.quantity}
+                    </h5>
+                  </div>
                 </div>
+                <h2 className="text-[20px] font-normal text-[#4B4A47]">
+                  Total amount:{" "}
+                  <span className="font-semibold text-[#13141D]">
+                    ${item.totalAmount}
+                  </span>
+                </h2>
               </div>
-              <h2 className="text-[20px] font-normal text-[#4B4A47]">
-                Total amount:{" "}
-                <span className="font-semibold text-[#13141D]">
-                  ${item.totalAmount}
-                </span>
-              </h2>
+
+              {idx < trade.items.length - 1 && (
+                <div className="flex gap-x-5 items-center mt-4 mb-2">
+                  <div className="bg-[#BFBEBE] w-full h-[1px]"></div>
+                  <div className="inline-block">
+                    <Reload className="cursor-pointer transform transition-transform hover:rotate-180 duration-500 ease-in-out" />
+                  </div>
+                  <div className="bg-[#BFBEBE] w-full h-[1px]"></div>
+                </div>
+              )}
             </div>
           ))}
 
-          {/* Reload Line */}
-          <div className="flex gap-x-5 items-center">
-            <div className="bg-[#BFBEBE] w-full h-[1px]"></div>
-            <div className="inline-block">
-              <Reload
-                className={`cursor-pointer transform transition-transform hover:rotate-180 duration-500 ease-in-out`}
-              />
-            </div>
-            <div className="bg-[#BFBEBE] w-full h-[1px]"></div>
-          </div>
-
           {/* Action Buttons */}
-          <div className="flex justify-between items-end">
+          <div className="flex justify-between items-end border-t border-[#BFBEBE] pt-3">
             <div className="flex gap-x-5 flex-wrap">
               {actionButtons[trade.status].map((btn, i) => {
                 const style = actionButtonStyles[btn] || {
@@ -163,7 +161,7 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
                     className={`relative cursor-pointer py-[10px] border px-4 rounded-md font-lato font-semibold overflow-hidden
             hover:scale-110 duration-500 ease-in-out
             ${style.bg || ""} ${style.border || "border-2"} ${style.text}
-            after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0 after:bg-[#274F45] after:transition-all after:duration-500 hover:after:h-full hover:text-white`}
+           `}
                   >
                     <span className="relative z-10">{btn}</span>
                   </button>

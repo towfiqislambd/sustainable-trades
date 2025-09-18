@@ -22,6 +22,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+
 const navLins = [
   { id: 1, label: "Home", path: "/" },
   { id: 2, label: "Shop", path: "/shop" },
@@ -81,25 +82,25 @@ const DashboardHeader = () => {
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [showPopover, setShowPopover] = useState<boolean>(false);
   const [activeSubMenu, setActiveSubMenu] = useState<number>(0);
+  const [navOpen, setNavOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const handleWindowClick = () => {
       setShowMenu(false);
       setShowPopover(false);
+      setNavOpen(false);
     };
-
     window.addEventListener("click", handleWindowClick);
-
     return () => {
       window.removeEventListener("click", handleWindowClick);
     };
   }, []);
 
   return (
-    <header className="bg-primary-green py-3 px-20">
+    <header className="bg-primary-green py-3 px-6 2xl:px-20 relative">
       <div className="flex justify-between items-center">
         {/* Left */}
-        <div className="flex gap-12 items-center">
+        <div className="flex gap-6 xl:gap-12 items-center">
           {/* Logo */}
           <Link href="/">
             <figure className="size-14">
@@ -111,11 +112,26 @@ const DashboardHeader = () => {
             </figure>
           </Link>
 
+          {/* Toggle Button (for < xl) */}
+          <button
+            className="xl:hidden text-white text-2xl"
+            onClick={e => {
+              e.stopPropagation();
+              setNavOpen(!navOpen);
+            }}
+          >
+            ☰
+          </button>
+
           {/* NavLinks */}
-          <div className="flex gap-10 items-center relative">
+          <div
+            className={`fixed xl:static top-0 left-0 h-full xl:h-auto w-64 xl:w-auto bg-primary-green xl:bg-transparent transform transition-transform duration-300 ease-in-out z-40 flex flex-col xl:flex-row gap-6 xl:gap-10 items-start xl:items-center p-6 xl:p-0 ${
+              navOpen ? "translate-x-0" : "-translate-x-full xl:translate-x-0"
+            }`}
+            onClick={e => e.stopPropagation()}
+          >
             {navLins?.map(item => {
               const isActive = pathname === item?.path;
-
               return (
                 <Link
                   className={`text-lg text-[#FEFEFE] ${
@@ -142,7 +158,7 @@ const DashboardHeader = () => {
               onClick={e => e.stopPropagation()}
               className={`absolute top-12 ${
                 activeSubMenu === 4 ? "-right-32" : "-right-56"
-              } bg-white drop-shadow  w-[260px] py-7 px-5 border-gray-50 rounded-lg flex flex-col gap-7 ${
+              } bg-white drop-shadow w-[260px] py-7 px-5 border-gray-50 rounded-lg flex flex-col gap-7 ${
                 showMenu && (activeSubMenu === 4 || activeSubMenu === 5)
                   ? "block"
                   : "hidden"
@@ -172,22 +188,15 @@ const DashboardHeader = () => {
 
         {/* Right */}
         <div className="flex gap-5 items-center">
-          {/* Message */}
           <button className="cursor-pointer text-accent-white">
             <MessageSvg />
           </button>
-
-          {/* Notification */}
           <button className="cursor-pointer">
             <NotificationSvg />
           </button>
-
-          {/* Cart */}
           <button className="cursor-pointer">
             <CartSvg2 />
           </button>
-
-          {/* Wishlist */}
           <button className="cursor-pointer">
             <LoveSvg2 />
           </button>
@@ -217,25 +226,23 @@ const DashboardHeader = () => {
               <Link
                 href="/auth/choose-package"
                 onClick={() => setShowPopover(false)}
-                className={`flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold`}
+                className="flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold"
               >
                 Dashboard
               </Link>
-
               <Link
                 href="/auth/login"
                 onClick={() => setShowPopover(false)}
-                className={`flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold`}
+                className="flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold"
               >
                 Log Out
               </Link>
             </div>
           </button>
 
-          {/* View shop */}
           <Link
             href="/shop-details/1"
-            className="px-5 py-2 block rounded-lg bg-accent-red text-secondary-black cursor-pointer shadow-[0_3px_10px_0_rgba(0\,0\,0\,0.12),_0_3px_8px_0_rgba(0\,0\,0\,0.08)] duration-300 transition-all hover:text-accent-red hover:bg-transparent border border-accent-red hover:scale-95"
+            className="px-5 py-2 block rounded-lg bg-accent-red text-secondary-black cursor-pointer shadow-[0_3px_10px_0_rgba(0,0,0,0.12),_0_3px_8px_0_rgba(0,0,0,0.08)] duration-300 transition-all hover:text-accent-red hover:bg-transparent border border-accent-red hover:scale-95"
           >
             View Shop
           </Link>
