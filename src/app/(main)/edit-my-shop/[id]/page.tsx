@@ -1,9 +1,9 @@
 "use client";
 
 import Container from "@/Components/Common/Container";
-import EditFormFour from "@/Components/EditFormFour";
-import EditFormThree from "@/Components/EditFormThree";
-import EditFormTwo from "@/Components/EditFormTwo";
+import EditFormFour from "@/Components/PageComponents/EditForm/EditFormFour";
+import EditFormThree from "@/Components/PageComponents/EditForm/EditFormThree";
+import EditFormTwo from "@/Components/PageComponents/EditForm/EditFormTwo";
 import React, { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { BsEyeFill } from "react-icons/bs";
