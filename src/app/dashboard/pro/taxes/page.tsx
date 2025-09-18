@@ -2,33 +2,291 @@
 
 import { useState } from "react";
 
-export default function Home() {
-  const [state, setState] = useState("");
+export default function TaxRatePage() {
   const [country, setCountry] = useState("");
-  const [stateOpen, setStateOpen] = useState(false);
-  const [countryOpen, setCountryOpen] = useState(false);
+  const [state, setState] = useState("");
+  const [localTaxRate, setLocalTaxRate] = useState("0");
   const [chargeOnServices, setChargeOnServices] = useState(true);
   const [chargeOnShipping, setChargeOnShipping] = useState(false);
+  const [countryOpen, setCountryOpen] = useState(false);
+  const [stateOpen, setStateOpen] = useState(false);
+
+  const countries = [
+    "United States", // US at top for easy access
+    "Afghanistan",
+    "Albania",
+    "Algeria",
+    "Andorra",
+    "Angola",
+    "Antigua and Barbuda",
+    "Argentina",
+    "Armenia",
+    "Australia",
+    "Austria",
+    "Azerbaijan",
+    "Bahamas",
+    "Bahrain",
+    "Bangladesh",
+    "Barbados",
+    "Belarus",
+    "Belgium",
+    "Belize",
+    "Benin",
+    "Bhutan",
+    "Bolivia",
+    "Bosnia and Herzegovina",
+    "Botswana",
+    "Brazil",
+    "Brunei",
+    "Bulgaria",
+    "Burkina Faso",
+    "Burundi",
+    "Cabo Verde",
+    "Cambodia",
+    "Cameroon",
+    "Canada",
+    "Central African Republic",
+    "Chad",
+    "Chile",
+    "China",
+    "Colombia",
+    "Comoros",
+    "Congo",
+    "Costa Rica",
+    "Croatia",
+    "Cuba",
+    "Cyprus",
+    "Czech Republic",
+    "Denmark",
+    "Djibouti",
+    "Dominica",
+    "Dominican Republic",
+    "Ecuador",
+    "Egypt",
+    "El Salvador",
+    "Equatorial Guinea",
+    "Eritrea",
+    "Estonia",
+    "Eswatini",
+    "Ethiopia",
+    "Fiji",
+    "Finland",
+    "France",
+    "Gabon",
+    "Gambia",
+    "Georgia",
+    "Germany",
+    "Ghana",
+    "Greece",
+    "Grenada",
+    "Guatemala",
+    "Guinea",
+    "Guinea-Bissau",
+    "Guyana",
+    "Haiti",
+    "Honduras",
+    "Hungary",
+    "Iceland",
+    "India",
+    "Indonesia",
+    "Iran",
+    "Iraq",
+    "Ireland",
+    "Israel",
+    "Italy",
+    "Jamaica",
+    "Japan",
+    "Jordan",
+    "Kazakhstan",
+    "Kenya",
+    "Kiribati",
+    "Kuwait",
+    "Kyrgyzstan",
+    "Laos",
+    "Latvia",
+    "Lebanon",
+    "Lesotho",
+    "Liberia",
+    "Libya",
+    "Liechtenstein",
+    "Lithuania",
+    "Luxembourg",
+    "Madagascar",
+    "Malawi",
+    "Malaysia",
+    "Maldives",
+    "Mali",
+    "Malta",
+    "Marshall Islands",
+    "Mauritania",
+    "Mauritius",
+    "Mexico",
+    "Micronesia",
+    "Moldova",
+    "Monaco",
+    "Mongolia",
+    "Montenegro",
+    "Morocco",
+    "Mozambique",
+    "Myanmar",
+    "Namibia",
+    "Nauru",
+    "Nepal",
+    "Netherlands",
+    "New Zealand",
+    "Nicaragua",
+    "Niger",
+    "Nigeria",
+    "North Korea",
+    "North Macedonia",
+    "Norway",
+    "Oman",
+    "Pakistan",
+    "Palau",
+    "Palestine",
+    "Panama",
+    "Papua New Guinea",
+    "Paraguay",
+    "Peru",
+    "Philippines",
+    "Poland",
+    "Portugal",
+    "Qatar",
+    "Romania",
+    "Russia",
+    "Rwanda",
+    "Saint Kitts and Nevis",
+    "Saint Lucia",
+    "Saint Vincent and the Grenadines",
+    "Samoa",
+    "San Marino",
+    "Sao Tome and Principe",
+    "Saudi Arabia",
+    "Senegal",
+    "Serbia",
+    "Seychelles",
+    "Sierra Leone",
+    "Singapore",
+    "Slovakia",
+    "Slovenia",
+    "Solomon Islands",
+    "Somalia",
+    "South Africa",
+    "South Korea",
+    "South Sudan",
+    "Spain",
+    "Sri Lanka",
+    "Sudan",
+    "Suriname",
+    "Sweden",
+    "Switzerland",
+    "Syria",
+    "Taiwan",
+    "Tajikistan",
+    "Tanzania",
+    "Thailand",
+    "Timor-Leste",
+    "Togo",
+    "Tonga",
+    "Trinidad and Tobago",
+    "Tunisia",
+    "Turkey",
+    "Turkmenistan",
+    "Tuvalu",
+    "Uganda",
+    "Ukraine",
+    "United Arab Emirates",
+    "United Kingdom",
+    "United States",
+    "Uruguay",
+    "Uzbekistan",
+    "Vanuatu",
+    "Vatican City",
+    "Venezuela",
+    "Vietnam",
+    "Yemen",
+    "Zambia",
+    "Zimbabwe",
+  ];
+
+  const usStates = [
+    "Alabama",
+    "Alaska",
+    "Arizona",
+    "Arkansas",
+    "California",
+    "Colorado",
+    "Connecticut",
+    "Delaware",
+    "Florida",
+    "Georgia",
+    "Hawaii",
+    "Idaho",
+    "Illinois",
+    "Indiana",
+    "Iowa",
+    "Kansas",
+    "Kentucky",
+    "Louisiana",
+    "Maine",
+    "Maryland",
+    "Massachusetts",
+    "Michigan",
+    "Minnesota",
+    "Mississippi",
+    "Missouri",
+    "Montana",
+    "Nebraska",
+    "Nevada",
+    "New Hampshire",
+    "New Jersey",
+    "New Mexico",
+    "New York",
+    "North Carolina",
+    "North Dakota",
+    "Ohio",
+    "Oklahoma",
+    "Oregon",
+    "Pennsylvania",
+    "Rhode Island",
+    "South Carolina",
+    "South Dakota",
+    "Tennessee",
+    "Texas",
+    "Utah",
+    "Vermont",
+    "Virginia",
+    "Washington",
+    "West Virginia",
+    "Wisconsin",
+    "Wyoming",
+  ];
 
   const handleSave = () => {
     console.log("Saving tax rate:", {
       country,
       state,
+      localTaxRate,
       chargeOnServices,
       chargeOnShipping,
     });
   };
 
   return (
-    <main className="h-fit mx-auto flex justify-cente">
+    <main className="h-fit mx-auto flex justify-center">
       <div className="w-full max-w-md mx-auto mt-20 bg-[#FFFCF9] shadow-2xl rounded-[20px] p-8">
         {/* Header */}
         <div className="">
           <h2 className="text-[24px] font-bold text-[#000000]">Add Tax Rate</h2>
+          <p className="text-[14px] text-[#67645F] mt-2 leading-relaxed">
+            The sales tax rate manually entered here will only apply at checkout
+            when both 'Arrange Local Pickup' and 'Pay with Cash' are selected by
+            the buyer.
+          </p>
         </div>
 
         {/* Content */}
-        <div className="space-y-6">
+        <div className="space-y-6 mt-6">
           {/* Country Field */}
           <div className="space-y-2">
             <label className="text-[16px] font-semibold text-[#13141D]">
@@ -58,21 +316,29 @@ export default function Home() {
                 </svg>
               </button>
               {countryOpen && (
-                <div className="absolute z-10 w-full mt-1 bg-white border-2 border-[#67645F] rounded-[8px] shadow-lg p-2 cursor-pointer">
-                  <div className="py-1">
-                    {[
-                      "United States",
-                      "Canada",
-                      "United Kingdom",
-                      "Australia",
-                    ].map(option => (
+                <div
+                  className="absolute z-50 w-full mt-1 bg-white border-2 border-[#67645F] rounded-[8px] shadow-2xl"
+                  style={{ maxHeight: "400px" }}
+                >
+                  <div
+                    className="overflow-y-auto"
+                    style={{ maxHeight: "400px" }}
+                  >
+                    {countries.map(option => (
                       <button
                         key={option}
                         onClick={() => {
-                          setCountry(option);
-                          setCountryOpen(false);
+                          if (option === "United States") {
+                            setCountry(option);
+                            setCountryOpen(false);
+                          }
                         }}
-                        className="w-full px-3 py-2 text-left text-[#67645F] hover:bg-gray-50 rounded-md text-[16px]"
+                        className={`w-full px-4 py-3 text-left text-[16px] border-b border-gray-100 last:border-b-0 ${
+                          option === "United States"
+                            ? "text-[#13141D] hover:bg-[#F3F4F6] cursor-pointer font-medium"
+                            : "text-[#9CA3AF] cursor-not-allowed bg-gray-50"
+                        }`}
+                        disabled={option !== "United States"}
                       >
                         {option}
                       </button>
@@ -111,34 +377,48 @@ export default function Home() {
                 </svg>
               </button>
               {stateOpen && (
-                <div className="absolute z-10 w-full mt-1 bg-white border-2 border-[#67645F] rounded-[8px] shadow-lg p-2 cursor-pointer">
-                  <div className="py-1">
-                    {["California", "New York", "Texas", "Florida"].map(
-                      option => (
-                        <button
-                          key={option}
-                          onClick={() => {
-                            setState(option);
-                            setStateOpen(false);
-                          }}
-                          className="w-full px-3 py-2 text-left text-[#67645F] hover:bg-gray-50 rounded-md text-[16px]"
-                        >
-                          {option}
-                        </button>
-                      )
-                    )}
+                <div
+                  className="absolute z-50 w-full mt-1 bg-white border-2 border-[#67645F] rounded-[8px] shadow-2xl"
+                  style={{ maxHeight: "400px" }}
+                >
+                  <div
+                    className="overflow-y-auto"
+                    style={{ maxHeight: "400px" }}
+                  >
+                    {usStates.map(option => (
+                      <button
+                        key={option}
+                        onClick={() => {
+                          setState(option);
+                          setStateOpen(false);
+                        }}
+                        className="w-full px-4 py-3 text-left text-[#13141D] hover:bg-[#F3F4F6] border-b border-gray-100 last:border-b-0 text-[16px] font-medium"
+                      >
+                        {option}
+                      </button>
+                    ))}
                   </div>
                 </div>
               )}
             </div>
           </div>
 
-          {/* State Rate */}
-          <div className="flex justify-between items-center border-b-2 pb-3 border-[#A7A39C]">
-            <span className="text-[20px] font-semibold text-[#13141D]">
-              State Rate
-            </span>
-            <span className="text-[16px] font-semibold text-[#13141D]">0%</span>
+          <div className="space-y-2">
+            <label className="text-[20px] font-semibold text-[#13141D]">
+              Local Sales Tax Rate
+            </label>
+            <div className="flex items-center border-b-2 pb-3 border-[#A7A39C]">
+              <input
+                type="text"
+                value={localTaxRate}
+                onChange={e => setLocalTaxRate(e.target.value)}
+                className="flex-1 text-[16px] font-semibold text-[#13141D] bg-transparent border-none outline-none"
+                placeholder="0"
+              />
+              <span className="text-[16px] font-semibold text-[#13141D]">
+                %
+              </span>
+            </div>
           </div>
 
           {/* Toggle Switches */}
@@ -182,13 +462,6 @@ export default function Home() {
                 />
               </button>
             </div>
-          </div>
-
-          {/* ZIP Code Rate Link */}
-          <div className="pt-4">
-            <button className="text-[16px] font-semibold text-[#000] hover:text-[#374151] uppercase tracking-wider">
-              ADD A ZIP CODE RATE
-            </button>
           </div>
 
           {/* Save Button */}
