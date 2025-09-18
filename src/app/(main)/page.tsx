@@ -1,3 +1,4 @@
+import { getMissionData, getPricingData } from "@/Hooks/api/cms_api";
 import CommunityMember from "@/Components/PageComponents/mainPages/homePageComponents/CommunityMember";
 import ExploreProduct from "@/Components/PageComponents/mainPages/homePageComponents/ExploreProduct";
 import FeaturedShops from "@/Components/PageComponents/mainPages/homePageComponents/FeaturedShop";
@@ -7,7 +8,6 @@ import MagicMarkers from "@/Components/PageComponents/mainPages/homePageComponen
 import OurMission from "@/Components/PageComponents/mainPages/homePageComponents/OurMission";
 import Pricing from "@/Components/PageComponents/mainPages/homePageComponents/Pricing";
 import Subscribe from "@/Components/PageComponents/mainPages/homePageComponents/Subscribe";
-import { getMissionData, getPricingData } from "@/Hooks/api/cms_api";
 
 const Page = async () => {
   const missionData = await getMissionData();
@@ -26,7 +26,7 @@ const Page = async () => {
         description="No matter how you want to manage your shop, we got you covered!"
         button1="Monthly Billing"
         button2="Annual Billing"
-        // data={pricingData?.data}
+        data={pricingData?.data}
       />
       <Subscribe />
     </>
