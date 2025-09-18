@@ -79,15 +79,24 @@ export default function Page() {
         </div>
 
         <div className="flex gap-x-8 items-center">
-          <h4 className="text-white text-[20px] font-sans font-medium bg-[#274F45] px-5 py-2 rounded-lg cursor-pointer flex gap-x-2 items-center">
+          <h4
+            className="text-white text-[20px] font-sans font-medium bg-[#274F45] px-5 py-2
+           rounded-lg cursor-pointer flex gap-x-2 items-center"
+          >
             Import
             <Import />
           </h4>
-          <h4 className="text-[#274F45] text-[20px] font-sans font-medium border border-[#274F45] px-5 py-2 rounded-lg cursor-pointer flex gap-x-2 items-center">
+          <h4
+            className="text-[#274F45] text-[20px] font-sans font-medium border border-[#274F45] px-5 py-2
+           rounded-lg cursor-pointer flex gap-x-2 items-center"
+          >
             Export
             <Export />
           </h4>
-          <button className="h-[60px] rounded-[8px] bg-[#E48872] text-[18px] font-semibold text-[#13141D] cursor-pointer hover:bg-transparent duration-500 ease-in-out border border-[#E48872] w-[190px]">
+          <button
+            className="h-[60px] rounded-[8px] bg-[#E48872] text-[18px] font-semibold text-[#13141D] cursor-pointer
+           hover:bg-transparent duration-500 ease-in-out border border-[#E48872] w-[190px]"
+          >
             Add Product
           </button>
         </div>
