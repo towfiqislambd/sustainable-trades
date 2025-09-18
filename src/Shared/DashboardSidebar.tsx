@@ -66,7 +66,8 @@ const DashboardSidebar = ({
               )}
 
               {/* Main Menu */}
-              <button
+              <Link
+                href={item?.path}
                 onClick={() =>
                   item.subMenus ? toggleMenu(item.id) : setOpen(false)
                 }
@@ -78,7 +79,7 @@ const DashboardSidebar = ({
               >
                 {item?.icon}
                 {item.label}
-              </button>
+              </Link>
 
               {/* SubMenus */}
               {item?.subMenus && isOpen && (

@@ -7,8 +7,12 @@ import MagicMarkers from "@/Components/PageComponents/mainPages/homePageComponen
 import OurMission from "@/Components/PageComponents/mainPages/homePageComponents/OurMission";
 import Pricing from "@/Components/PageComponents/mainPages/homePageComponents/Pricing";
 import Subscribe from "@/Components/PageComponents/mainPages/homePageComponents/Subscribe";
+import { getMissionData, getPricingData } from "@/Hooks/api/cms_api";
 
-const Page = () => {
+const Page = async () => {
+  const missionData = await getMissionData();
+  const pricingData = await getPricingData();
+
   return (
     <>
       <HomeBanner />
@@ -16,12 +20,13 @@ const Page = () => {
       <MagicMarkers />
       <FeaturedShops />
       <ExploreProduct />
-      <OurMission />
+      <OurMission data={missionData?.data} />
       <CommunityMember has_community={true} />
       <Pricing
         description="No matter how you want to manage your shop, we got you covered!"
         button1="Monthly Billing"
         button2="Annual Billing"
+        // data={pricingData?.data}
       />
       <Subscribe />
     </>
