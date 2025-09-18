@@ -214,8 +214,11 @@ const page = () => {
         "8oz Watermelon Sustainable Bar Soap",
         "Coconut Oil Soap",
         "Organic Lavender Soap",
+        "Variety Pack Soap (10 different scents)",
+        "Gift Baskets with Lotion & Bath Bombs",
         "Shea Butter Soap Bar",
         "Tea Tree Oil Soap",
+        "Patchouli Soap",
       ];
     }
   };
@@ -248,7 +251,7 @@ const page = () => {
               </div>
 
               {/* Products in this section */}
-              {section.products.map((product) => (
+              {section.products.map(product => (
                 <div key={product.id}>
                   <div className="py-4 border-t border-b border-[#BFBEBE]">
                     <div className="flex justify-between">
@@ -298,7 +301,6 @@ const page = () => {
                               )
                             }
                             className="px-4 py-2 rounded-[10px] border border-[#A7A39C] w-[500px]"
-                            disabled={!section.isOwnShop}
                           >
                             {getProductOptions(section.isOwnShop).map(
                               option => (
@@ -318,7 +320,6 @@ const page = () => {
                                 handleDecrement(sectionIndex, product.id)
                               }
                               className="font-bold text-[20px] text-[#000] cursor-pointer"
-                              disabled={!section.isOwnShop}
                             >
                               -
                             </button>
@@ -330,7 +331,6 @@ const page = () => {
                                 handleIncrement(sectionIndex, product.id)
                               }
                               className="font-bold text-[20px] text-[#000] cursor-pointer"
-                              disabled={!section.isOwnShop}
                             >
                               +
                             </button>
@@ -343,22 +343,20 @@ const page = () => {
                           </span>
                         </h5>
                         <div className="flex gap-x-5 items-center justify-end">
-                          {section.isOwnShop && (
-                            <div
-                              className="flex gap-x-2 items-center cursor-pointer hover:opacity-70 transition-opacity"
-                              onClick={() =>
-                                addProductToSection(sectionIndex, product.id)
-                              }
-                            >
-                              <h6 className="text-[16px] font-semibold text-[#A7A39C]">
-                                +
-                              </h6>
-                              <p className="text-[16px] font-semibold text-[#A7A39C]">
-                                Add another product/service
-                              </p>
-                            </div>
-                          )}
-                          {section.isOwnShop && section.products.length > 1 && (
+                          <div
+                            className="flex gap-x-2 items-center cursor-pointer hover:opacity-70 transition-opacity"
+                            onClick={() =>
+                              addProductToSection(sectionIndex, product.id)
+                            }
+                          >
+                            <h6 className="text-[16px] font-semibold text-[#A7A39C]">
+                              +
+                            </h6>
+                            <p className="text-[16px] font-semibold text-[#A7A39C]">
+                              Add another product/service
+                            </p>
+                          </div>
+                          {section.products.length > 1 && (
                             <button
                               onClick={() =>
                                 removeProduct(sectionIndex, product.id)
