@@ -15,6 +15,7 @@ const Listing = () => {
   const [quantity, setQuantity] = useState<string>("12 lbs");
   const [unlimitedStock, setUnlimitedStock] = useState(false);
   const [outOfStock, setOutOfStock] = useState(false);
+  
   const [Featured, setFeatured] = useState(false);
   const [metaTags, setMetaTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState("");
