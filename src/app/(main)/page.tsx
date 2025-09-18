@@ -26,7 +26,7 @@ const Page = async () => {
         description="No matter how you want to manage your shop, we got you covered!"
         button1="Monthly Billing"
         button2="Annual Billing"
-        // data={pricingData?.data}
+        data={pricingData?.data}
       />
       <Subscribe />
     </>
