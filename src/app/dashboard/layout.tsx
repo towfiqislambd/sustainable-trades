@@ -227,7 +227,7 @@ const customerNavLinks = [
 ];
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
-  const user = "basic" as String;
+  const user = "pro" as String;
   const [open, setOpen] = useState<boolean>(false);
 
   return (
@@ -251,9 +251,9 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         />
 
         {/* Right - Outlet */}
-        <section className="flex-1 px-16 pt-10 pb-[100px] bg-[#FFFCF9] overflow-y-auto">
+        {/* <section className="flex-1 px-16 pt-10 pb-[100px] bg-[#FFFCF9] overflow-y-auto">
           {children}
-        </section>
+        </section> */}
 
         {/* Blur Overlay */}
         <div
