@@ -3,12 +3,12 @@
 import { useState } from "react";
 
 export default function Home() {
-  const [country, setCountry] = useState("");
   const [state, setState] = useState("");
+  const [country, setCountry] = useState("");
+  const [stateOpen, setStateOpen] = useState(false);
+  const [countryOpen, setCountryOpen] = useState(false);
   const [chargeOnServices, setChargeOnServices] = useState(true);
   const [chargeOnShipping, setChargeOnShipping] = useState(false);
-  const [countryOpen, setCountryOpen] = useState(false);
-  const [stateOpen, setStateOpen] = useState(false);
 
   const handleSave = () => {
     console.log("Saving tax rate:", {
