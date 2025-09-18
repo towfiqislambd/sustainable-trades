@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Preview from "../Assets/cover.jpg";
+import Preview from "@/Assets/cover.jpg";
 import { Camera } from "@/Components/Svg/SvgContainer";
 import { useFormContext, Controller } from "react-hook-form";
 
