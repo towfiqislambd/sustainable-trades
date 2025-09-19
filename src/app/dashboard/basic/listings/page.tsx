@@ -30,11 +30,11 @@ const ListingsPage = () => {
       </div>
 
       {/* Empty state box */}
-      <div className="flex flex-col items-center justify-center border-3 border-dashed border-[#13141D] rounded-lg h-[350px] bg-[#F0EEE9]">
-        <p className="text-[#13141D] text-[20px] mb-4">
+      <div className="flex flex-col items-center justify-center border-2 border-dashed border-[#A7A39C] rounded-lg h-[250px]">
+        <p className="text-[#6B6B6B] text-[16px] mb-4">
           Oops, you don’t have any listings yet!
         </p>
-        <button className="bg-[#E07C6C] text-black px-6 py-5 rounded-lg hover:bg-[#d9655a] transition text-[16px] font-semibold cursor-pointer">
+        <button className="bg-[#E48872] text-white px-6 py-2 rounded-lg hover:bg-[#d9655a] transition">
           + Add New Listing
         </button>
       </div>
