@@ -1,14 +1,15 @@
 "use client";
 
+import Link from "next/link";
 import type React from "react";
 import { useMemo, useRef, useState } from "react";
+import { MdArrowOutward } from "react-icons/md";
 
 interface CreateListingProps {
   membershipType?: "basic" | "pro";
 }
 
 const CreateListing = ({ membershipType = "basic" }: CreateListingProps) => {
-  const [images, setImages] = useState<string[]>([]);
   const [mainImage, setMainImage] = useState<string | null>(null);
   const [video, setVideo] = useState<File | null>(null);
   const [showPlayButton, setShowPlayButton] = useState(true);
@@ -23,16 +24,9 @@ const CreateListing = ({ membershipType = "basic" }: CreateListingProps) => {
   const isBasicMember = membershipType === "basic";
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const fileArray = Array.from(e.target.files).map(file =>
-        URL.createObjectURL(file)
-      );
-
-      if (!mainImage) {
-        setMainImage(fileArray[0]);
-      }
-
-      setImages(prev => [...prev, ...fileArray]);
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setMainImage(URL.createObjectURL(file));
     }
   };
 
@@ -41,21 +35,18 @@ const CreateListing = ({ membershipType = "basic" }: CreateListingProps) => {
     [video]
   );
 
-  // Handle video upload
   const handleVideoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       setVideo(file);
       setShowPlayButton(true);
 
-      // Ensure video is loaded
       setTimeout(() => {
         videoRef.current?.load();
       }, 0);
     }
   };
 
-  // Play video (single click)
   const handlePlay = () => {
     if (!videoRef.current) return;
     videoRef.current
@@ -64,14 +55,12 @@ const CreateListing = ({ membershipType = "basic" }: CreateListingProps) => {
       .catch(err => console.error("Playback failed:", err));
   };
 
-  // Pause video
   const handlePause = () => {
     if (!videoRef.current) return;
     videoRef.current.pause();
     setShowPlayButton(true);
   };
 
-  // Toggle play/pause
   const handlePlayPause = () => {
     if (!videoRef.current) return;
 
@@ -141,15 +130,15 @@ const CreateListing = ({ membershipType = "basic" }: CreateListingProps) => {
             <h5 className="text-[16px] text-[#13141D]">Add a Listing</h5>
           </div>
         </div>
-        <a href="/dashboard/pro/view-listing">
+        <Link href="/dashboard/pro/view-listing">
           <button
-            className="text-[#000] text-[16px] font-semibold flex gap-x-1 items-center border-2 border-[#13141D] rounded-lg py-3 px-6 
-          hover:bg-[#E48872] hover:text-white duration-300 cursor-pointer"
+            className="text-[#000] text-[16px] font-semibold flex gap-x-1 items-center border-2 border-[#13141D] rounded-lg py-3 px-6
+           hover:bg-[#E48872] hover:text-white duration-300 cursor-pointer"
           >
-            <span className="inline-block w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[6px] border-b-current -rotate-45"></span>
+            <MdArrowOutward />
             View Listings
           </button>
-        </a>
+        </Link>
       </div>
 
       {isBasicMember && (
@@ -161,11 +150,8 @@ const CreateListing = ({ membershipType = "basic" }: CreateListingProps) => {
         </div>
       )}
 
-      {/* Form */}
       <div className="grid grid-cols-2 gap-8 mt-8">
-        {/* Left Column */}
         <div className="flex flex-col gap-6">
-          {/* Product Name */}
           <div>
             <h3 className="text-[20px] font-semibold text-[#13141D]">
               Product Name / Service
@@ -193,23 +179,25 @@ const CreateListing = ({ membershipType = "basic" }: CreateListingProps) => {
               </div>
             )}
 
-            {/* Thumbnails */}
-            <div className="flex gap-2 flex-wrap mt-3">
-              {images.map((src, idx) => (
-                <img
-                  key={idx}
-                  src={src || "/placeholder.svg"}
-                  alt="preview"
-                  className="w-24 h-24 object-cover rounded-lg border cursor-pointer hover:opacity-80"
-                  onClick={() => setMainImage(src)}
-                />
-              ))}
-              <label className="w-28 h-26 flex items-center justify-center bg-[#F5F5F5] rounded-lg cursor-pointer">
-                <span className="text-2xl text-gray-600">+</span>
+            <div className="mt-3">
+              <label className="flex items-center justify-center gap-2 w-full py-4 bg-[#F5F5F5] rounded-lg cursor-pointer border-2 border-dashed border-gray-300 hover:bg-gray-100 transition-colors">
+                <svg
+                  className="w-6 h-6 text-gray-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+                <span className="text-gray-600 font-medium">Upload Image</span>
                 <input
                   type="file"
                   accept="image/*"
-                  multiple
                   className="hidden"
                   onChange={handleImageUpload}
                 />
@@ -281,7 +269,6 @@ const CreateListing = ({ membershipType = "basic" }: CreateListingProps) => {
             </div>
           </div>
 
-          {/* Listing Approval */}
           <div>
             <h3 className="text-[24px] text-[#13141D] font-semibold">
               Listing Approval Process
@@ -323,7 +310,6 @@ const CreateListing = ({ membershipType = "basic" }: CreateListingProps) => {
                     onClick={handlePlayPause}
                   />
 
-                  {/* Overlay play button */}
                   {showPlayButton && (
                     <button
                       className="h-24 w-24 bg-[#626161] text-white rounded-full absolute cursor-pointer top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 flex justify-center items-center"
@@ -336,7 +322,6 @@ const CreateListing = ({ membershipType = "basic" }: CreateListingProps) => {
                     </button>
                   )}
 
-                  {/* Dedicated pause button */}
                   {!showPlayButton && (
                     <button
                       className="absolute top-2 right-2 px-3 py-1 bg-black text-white rounded"
@@ -350,7 +335,6 @@ const CreateListing = ({ membershipType = "basic" }: CreateListingProps) => {
             </div>
           </div>
 
-          {/* Listing Status */}
           <div>
             <p className="font-semibold text-[24px] text-[#13141D]">
               Listing Status:{" "}
@@ -361,9 +345,7 @@ const CreateListing = ({ membershipType = "basic" }: CreateListingProps) => {
           </div>
         </div>
 
-        {/* Right Column */}
         <div className="flex flex-col gap-8">
-          {/* Price */}
           <div>
             <h3 className="text-[24px] font-semibold text-[#13141D]">Price</h3>
             <input
@@ -413,7 +395,6 @@ const CreateListing = ({ membershipType = "basic" }: CreateListingProps) => {
             />
           </div>
 
-          {/* Description */}
           <div>
             <h3 className="text-[24px] font-semibold text-[#13141D]">
               Description
@@ -426,7 +407,6 @@ const CreateListing = ({ membershipType = "basic" }: CreateListingProps) => {
           </div>
 
           <div>
-            {/* Category Dropdown */}
             <h3 className="text-[24px] font-semibold text-[#13141D]">
               Category
             </h3>
@@ -446,7 +426,6 @@ const CreateListing = ({ membershipType = "basic" }: CreateListingProps) => {
               ))}
             </select>
 
-            {/* Subcategory Dropdown */}
             {category && categories[category].length > 0 && (
               <div className="mt-4">
                 <h3 className="text-[24px] font-semibold text-[#13141D]">
@@ -521,8 +500,6 @@ const CreateListing = ({ membershipType = "basic" }: CreateListingProps) => {
               <option>For Sale</option>
             </select>
           </div>
-
-          {/* Save */}
         </div>
       </div>
       <div className="flex justify-between mt-10 items-center">
