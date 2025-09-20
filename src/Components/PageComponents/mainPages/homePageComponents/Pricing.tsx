@@ -93,9 +93,9 @@ const data = [
 ];
 type pricingData = {};
 type PricingProps = {
-  description: string;
-  button1: string;
-  button2: string;
+  description?: string;
+  button1?: string;
+  button2?: string;
   data?: pricingData;
 };
 
