@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const ListingsPage = () => {
@@ -34,9 +35,11 @@ const ListingsPage = () => {
         <p className="text-[#13141D] text-[20px] mb-4">
           Oops, you don’t have any listings yet!
         </p>
-        <button className="bg-[#E48872] text-black px-6 py-5 rounded-lg hover:bg-[#d9655a] transition text-[16px] font-semibold cursor-pointer">
-          + Add New Listing
-        </button>
+        <Link href={"/dashboard/basic/create-listing"}>
+          <button className="bg-[#E48872] text-black px-6 py-5 rounded-lg hover:bg-[#d9655a] transition text-[16px] font-semibold cursor-pointer">
+            + Add New Listing
+          </button>
+        </Link>
       </div>
     </div>
   );
