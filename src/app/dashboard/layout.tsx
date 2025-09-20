@@ -139,7 +139,7 @@ const basicNavLinks = [
   },
   {
     id: 18,
-    label: "Trades/Barter",
+    label: "Trades",
     path: "/dashboard/basic/trades",
     icon: <PThreeSvg />,
   },
