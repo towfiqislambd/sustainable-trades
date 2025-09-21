@@ -1,43 +1,41 @@
 import React from "react";
-import Container from "@/Components/Common/Container";
-import { WOneSvg, WThreeSvg, WTwoSvg } from "@/Components/Svg/SvgContainer";
 import Link from "next/link";
-const data = [
-  {
-    id: 1,
-    title: "Buy",
-    description:
-      "Explore local goods and services sorted by geographical proximity. Coordinate pickup or shipping with sellers.",
-    icon: <WOneSvg />,
-  },
-  {
-    id: 2,
-    title: "Sell",
-    description:
-      "Got sustainable goods or badass skills? Join Sustainable Trades, get unlimited listings! Members pay an annual fee and keep 100% of their cash sales.",
-    icon: <WTwoSvg />,
-  },
-  {
-    id: 3,
-    title: "Trade",
-    description:
-      "Members can barter and trade for quality goods and services, how fun!",
-    icon: <WThreeSvg />,
-  },
-];
+import Container from "@/Components/Common/Container";
+import Image from "next/image";
 
-const HowItWorks = () => {
+type workItem = {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+};
+
+interface worksProps {
+  data: workItem[];
+}
+
+const HowItWorks = ({ data }: worksProps) => {
   return (
-    <section className="py-20">
+    <section id="how-it-works" className="py-20">
       <Container>
         <h2 className="section_title text-center">How It Works</h2>
+
         <div className="grid grid-cols-3 gap-10 text-center mb-10">
           {data?.map(item => (
             <div key={item?.id} className="space-y-3">
-              <p className="size-40 mx-auto">{item?.icon}</p>
+              <figure className="size-40 mx-auto relative">
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_SITE_URL}/${item?.image}`}
+                  alt="logo"
+                  className="size-full object-cover"
+                  fill
+                />
+              </figure>
+
               <h3 className="text-3xl font-semibold text-primary-green">
                 {item?.title}
               </h3>
+
               <p className="text-lg text-primary-green">{item?.description}</p>
             </div>
           ))}

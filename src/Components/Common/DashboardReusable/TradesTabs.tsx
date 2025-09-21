@@ -152,7 +152,7 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
                     onClick={() => {
                       if (btn === "Counter") {
                         router.push(
-                          `/dashboard/pro/trades/counter/${trade.id}`
+                          `/dashboard/basic/trades/counter/${trade.id}`
                         );
                       } else {
                         console.log(`${btn} clicked for trade ${trade.id}`);
