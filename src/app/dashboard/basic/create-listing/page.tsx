@@ -1,15 +1,10 @@
 "use client";
-
 import Link from "next/link";
 import type React from "react";
-import { useMemo, useRef, useState } from "react";
 import { MdArrowOutward } from "react-icons/md";
+import { useMemo, useRef, useState } from "react";
 
-interface CreateListingProps {
-  membershipType?: "basic" | "pro";
-}
-
-const CreateListing = ({ membershipType = "basic" }: CreateListingProps) => {
+const CreateListing = ({ membershipType = "basic" }: any) => {
   const [mainImage, setMainImage] = useState<string | null>(null);
   const [video, setVideo] = useState<File | null>(null);
   const [showPlayButton, setShowPlayButton] = useState(true);
@@ -20,7 +15,6 @@ const CreateListing = ({ membershipType = "basic" }: CreateListingProps) => {
   const [Featured, setFeatured] = useState(false);
   const [metaTags, setMetaTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState("");
-
   const isBasicMember = membershipType === "basic";
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
