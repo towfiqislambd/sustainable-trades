@@ -14,5 +14,6 @@ export async function useServerApi<T = any>(
     throw new Error(`Failed to fetch ${endpoint} — ${res.status}`);
   }
 
+  
   return res.json();
 }
