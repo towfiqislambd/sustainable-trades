@@ -1,7 +1,12 @@
-import React from 'react';
+import Membershipreusable from '@/Components/Common/DashboardReusable/Membershipreusable';
+import React from 'react'
 
 const page = () => {
-  return <div>membership</div>;
-};
+  return (
+    <div>
+      <Membershipreusable membershipType="Pro" />
+    </div>
+  );
+}
 
-export default page;
+export default page

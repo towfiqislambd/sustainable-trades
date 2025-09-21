@@ -139,7 +139,7 @@ const basicNavLinks = [
   },
   {
     id: 18,
-    label: "Trades/Barter",
+    label: "Trades",
     path: "/dashboard/basic/trades",
     icon: <PThreeSvg />,
   },
@@ -227,7 +227,7 @@ const customerNavLinks = [
 ];
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
-  const user = "pro" as String;
+  const user = "customer" as String;
   const [open, setOpen] = useState<boolean>(false);
 
   return (
