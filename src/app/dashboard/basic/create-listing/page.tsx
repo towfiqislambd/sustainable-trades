@@ -4,6 +4,7 @@ import type React from "react";
 import { MdArrowOutward } from "react-icons/md";
 import { useMemo, useRef, useState } from "react";
 
+
 const CreateListing = ({ membershipType = "basic" }: any) => {
   const [mainImage, setMainImage] = useState<string | null>(null);
   const [video, setVideo] = useState<File | null>(null);
