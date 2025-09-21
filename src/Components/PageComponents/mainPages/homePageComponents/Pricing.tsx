@@ -16,6 +16,7 @@ type pricingData = {
   description: string;
   price: string;
   interval: string;
+  image: string;
   subscription_benefit: benefitItem[];
 };
 
@@ -65,7 +66,15 @@ const Pricing = ({ data, description, button1, button2 }: PricingProps) => {
         <div className="flex gap-10 justify-center">
           {data?.map(
             (
-              { id, name, description, price, interval, subscription_benefit },
+              {
+                id,
+                name,
+                description,
+                price,
+                interval,
+                subscription_benefit,
+                image,
+              },
               idx
             ) => (
               <div
@@ -75,7 +84,14 @@ const Pricing = ({ data, description, button1, button2 }: PricingProps) => {
                 }`}
               >
                 <div>
-                  <p className="size-12 rounded-full border">Icon</p>
+                  <figure className="size-12 rounded-full bg-[#B0DEDB] grid place-items-center">
+                    <Image
+                      src={`${process.env.NEXT_PUBLIC_SITE_URL}/${image}`}
+                      alt="logo"
+                      width={45}
+                      height={45}
+                    />
+                  </figure>
 
                   <h3 className="py-3 text-2xl font-semibold text-secondary-black">
                     {name}
@@ -101,12 +117,13 @@ const Pricing = ({ data, description, button1, button2 }: PricingProps) => {
                         benefit_description,
                         benefit_icon,
                       }) => (
-                        <div key={id} className="flex gap-3 items-center">
-                          <figure className="size-10 rounded-full bg-[#B0DEDB] grid place-items-center relative">
+                        <div key={id} className="flex gap-3">
+                          <figure className="size-10 rounded-full bg-[#B0DEDB] grid place-items-center shrink-0">
                             <Image
                               src={`${process.env.NEXT_PUBLIC_SITE_URL}/${benefit_icon}`}
                               alt="image"
-                              fill
+                              width={24}
+                              height={24}
                             />
                           </figure>
 
