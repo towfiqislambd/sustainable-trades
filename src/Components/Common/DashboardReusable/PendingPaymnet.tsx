@@ -4,7 +4,6 @@ import PaymentTableReusable from "./PaymentTableReusable";
 
 const PendingPaymnet = () => {
   const pendingpayment = paymentData.filter(data => data.status === "Pending");
-  console.log(pendingpayment);
 
   return (
     <div>
