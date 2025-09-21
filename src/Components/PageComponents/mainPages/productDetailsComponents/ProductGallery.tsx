@@ -1,19 +1,18 @@
 "use client";
-import React, { useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import "swiper/css/thumbs";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
-import "swiper/css/thumbs";
 import Image from "next/image";
 import d1 from "@/Assets/d1.jpg";
 import d2 from "@/Assets/d2.jpg";
 import d3 from "@/Assets/d3.jpg";
+import React, { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 
 const ProductGallery = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
-  console.log(thumbsSwiper);
   const images = [d1, d2, d3, d1];
 
   return (

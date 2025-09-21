@@ -1,6 +1,7 @@
 import React from "react";
 import { FaAngleDown, FaSearch } from "react-icons/fa";
 import ProordersTabs from "@/Components/Common/DashboardReusable/PrordersTabs";
+import { Download } from "@/Components/Svg/SvgContainer";
 
 const page = () => {
   return (
@@ -10,6 +11,13 @@ const page = () => {
           Orders
         </h2>
         <div className="flex gap-x-4 items-center">
+          <button
+            className="py px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer
+                      duration-300 ease-in-out flex gap-x-2 items-center h-[50px] hover:translate-y-1"
+          >
+            <Download />
+            Download File
+          </button>
           <div className="relative">
             <input
               placeholder="Search Orders"

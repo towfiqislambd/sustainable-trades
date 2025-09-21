@@ -3,7 +3,6 @@ export async function useServerApi<T = any>(
   revalidate = 3600
 ): Promise<T> {
   const baseURL = `${process.env.NEXT_PUBLIC_SITE_URL}${endpoint}`;
-  console.log("BASE URL:", baseURL);
 
   const res = await fetch(baseURL, {
     cache: "force-cache", // SSR cache
@@ -14,6 +13,5 @@ export async function useServerApi<T = any>(
     throw new Error(`Failed to fetch ${endpoint} — ${res.status}`);
   }
 
-  
   return res.json();
 }
