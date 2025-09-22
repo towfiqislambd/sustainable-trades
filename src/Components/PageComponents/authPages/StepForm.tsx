@@ -45,12 +45,10 @@ const StepForm = () => {
       payment_methods: [],
       shipping_information: "",
       return_policy: "",
-
-      faqs: [],
-      websiteLink: "",
-      facebookLink: "",
-      instagramLink: "",
-      pinterestLink: "",
+      pinterest_url: "",
+      instagram_url: "",
+      website_url: "",
+      facebook_url: "",
 
       // StepFour
       geoLocatorOption: null,
@@ -81,6 +79,11 @@ const StepForm = () => {
   const CurrentStep = steps[step - 1].component;
 
   const onSubmit = (data: any) => {
+    if (data.faqs && Array.isArray(data.faqs)) {
+      data.questions = data.faqs.map((faq: any) => faq.question);
+      data.answers = data.faqs.map((faq: any) => faq.answer);
+    }
+
     console.log(data);
     if (step < steps.length) {
       setStep(step + 1);

@@ -392,7 +392,7 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
               type="text"
               placeholder="Type Your Website link here"
               className="outline-0 underline w-fit text-[#67645F] font-bold"
-              {...register("socialMedia.website")}
+              {...register("website_url")}
             />
           </div>
           <div className="flex gap-x-4 items-center">
@@ -401,7 +401,7 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
               type="text"
               placeholder="Type Your Facebook link here"
               className="outline-0 underline w-fit text-[#67645F] font-bold"
-              {...register("socialMedia.facebook")}
+              {...register("facebook_url")}
             />
           </div>
           <div className="flex gap-x-4 items-center">
@@ -410,7 +410,7 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
               type="text"
               placeholder="Type Your Instagram link here"
               className="outline-0 underline w-fit text-[#67645F] font-bold"
-              {...register("socialMedia.instagram")}
+              {...register("instagram_url")}
             />
           </div>
           <div className="flex gap-x-4 items-center">
@@ -419,7 +419,7 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
               type="text"
               placeholder="Type Your Pinterest link here"
               className="outline-0 underline w-fit text-[#67645F] font-bold"
-              {...register("socialMedia.pinterest")}
+              {...register("pinterest_url")}
             />
           </div>
         </div>
