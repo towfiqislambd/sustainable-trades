@@ -48,7 +48,7 @@ export const getPricingData = (interval: string) => {
   });
 };
 
-// newsLetter
+// NewsLetter
 export const useNewsletter = () => {
   return useClientApi({
     method: "post",

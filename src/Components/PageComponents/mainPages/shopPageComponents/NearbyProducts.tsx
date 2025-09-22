@@ -1,18 +1,18 @@
 "use client";
+import "swiper/css";
 import React from "react";
+import Link from "next/link";
 import Image from "next/image";
+import "swiper/css/navigation";
 import E1 from "@/Assets/e1.jpg";
 import E2 from "@/Assets/e2.jpg";
 import E3 from "@/Assets/e3.png";
 import E4 from "@/Assets/e4.jpg";
 import E5 from "@/Assets/e5.png";
 import E6 from "@/Assets/e6.png";
-import Container from "@/Components/Common/Container";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import Link from "next/link";
+import { Swiper, SwiperSlide } from "swiper/react";
+import Container from "@/Components/Common/Container";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const data = [
