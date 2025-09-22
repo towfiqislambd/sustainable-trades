@@ -1,4 +1,6 @@
 import { useServerApi } from "@/Hooks/useServerApi";
+import useClientApi from "@/Hooks/useClientApi";
+import toast from "react-hot-toast";
 
 // =======================================================
 //  SSR (Server Side Rendering)
@@ -29,7 +31,36 @@ export async function getMissionData() {
   return useServerApi("/api/our-mission", 3600);
 }
 
+// =======================================================
+//  CSR (Client Side Rendering)
+// =======================================================
+
 // Get Pricing Data
-export async function getPricingData() {
-  return useServerApi("/api/subscriptions", 3600);
-}
+export const getPricingData = (interval: string) => {
+  return useClientApi({
+    method: "get",
+    key: ["get-pricing", interval],
+    endpoint: "/api/subscriptions",
+    params: { interval },
+    queryOptions: {
+      retry: false,
+    },
+  });
+};
+
+// newsLetter
+export const useNewsletter = () => {
+  return useClientApi({
+    method: "post",
+    key: ["newsletter"],
+    endpoint: "/api/newsletter/subscribe",
+    onSuccess: (data: any) => {
+      if (data?.message) {
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};

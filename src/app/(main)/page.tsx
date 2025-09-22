@@ -2,7 +2,6 @@ import {
   getBannerData,
   getHowItWorksData,
   getMissionData,
-  getPricingData,
   getProductCategories,
 } from "@/Hooks/api/cms_api";
 import CommunityMember from "@/Components/PageComponents/mainPages/homePageComponents/CommunityMember";
@@ -20,7 +19,6 @@ const Page = async () => {
   const howItWorksData = await getHowItWorksData();
   const missionData = await getMissionData();
   const productCategories = await getProductCategories();
-  const pricingData = await getPricingData();
 
   return (
     <>
@@ -35,7 +33,6 @@ const Page = async () => {
         description="No matter how you want to manage your shop, we got you covered!"
         button1="Monthly Billing"
         button2="Annual Billing"
-        data={pricingData?.data}
       />
       <Subscribe />
     </>
