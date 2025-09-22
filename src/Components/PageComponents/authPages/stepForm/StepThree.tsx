@@ -92,9 +92,10 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
           <p className="form-label text-center lg:text-start">
             About Your Shop Photo *
           </p>
+
           <div className="relative inline-block group">
             <LiaExclamationCircleSolid className="cursor-pointer text-red-500 text-3xl lg:block hidden" />
-            <p className="absolute left-full top-1/2 -translate-y-1/2 ml-2 w-64 bg-white text-red-400 text-[14px] p-2 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out z-10">
+            <p className="absolute left-full top-1/2 -translate-y-1/2 ml-2 w-64 bg-white text-red-500 text-[14px] p-3 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out z-10">
               This Photo will appear in your about shop section. Choose an image
               that best represents the goods or services you offer. You can
               change or update it anytime in my edit page.
@@ -130,7 +131,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
             id="profilePhotoInput"
             accept="image/*"
             className="hidden"
-            {...register("profilePhoto", {
+            {...register("about_image", {
               validate: () => {
                 if (profileFile || profilePhotoPreview) return true;
                 return "Profile picture is required";
@@ -138,9 +139,9 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
             })}
             onChange={handleImageChange}
           />
-          {errors.profilePhoto && (
+          {errors.about_image && (
             <p className="text-red-600 lg:text-start text-center">
-              {errors.profilePhoto.message as string}
+              {errors.about_image.message as string}
             </p>
           )}
           <h5 className="text-[#67645F] text-[14px] mt-2 lg:text-start text-center">
