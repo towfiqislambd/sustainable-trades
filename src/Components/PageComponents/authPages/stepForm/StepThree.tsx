@@ -1,5 +1,4 @@
 "use client";
-
 import type React from "react";
 import { useState } from "react";
 import { useFormContext, useFieldArray } from "react-hook-form";
@@ -13,20 +12,13 @@ import PaymentCardIcons, {
 import { LiaExclamationCircleSolid } from "react-icons/lia";
 import toast from "react-hot-toast";
 
-interface StepThreeProps {
-  onNext: () => void;
-  onPrev: () => void;
-}
-
-const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
+const StepThree = ({ step, totalSteps, setStep }: any) => {
   const {
     register,
     control,
-    handleSubmit,
-    formState: { errors },
     watch,
     setValue,
-    trigger,
+    formState: { errors },
   } = useFormContext();
 
   const { fields, append, remove } = useFieldArray({
@@ -37,20 +29,19 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
   const [newFaq, setNewFaq] = useState({ question: "", answer: "" });
   const [editingFaqIndex, setEditingFaqIndex] = useState<number | null>(null);
   const [profileFile, setProfileFile] = useState<File | null>(null);
-
   const profilePhotoPreview = watch("profilePhotoPreview");
 
-  // Handle profile image
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
     if (file) {
       setProfileFile(file);
+
+      // Save the actual file in RHF
+      setValue("about_image", file, { shouldValidate: true });
+
       const reader = new FileReader();
       reader.onloadend = () => {
-        setValue("profilePhotoPreview", reader.result as string, {
-          shouldValidate: true,
-        });
-        trigger("profilePhoto");
+        setValue("profilePhotoPreview", reader.result as string);
       };
       reader.readAsDataURL(file);
     }
@@ -154,49 +145,40 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
           <p className="text-[20px] font-normal text-[#13141D] mb-4">
             About Shop
           </p>
-          <div className="mb-4">
-            <label className="block text-[#4B4A47] font-semibold mb-1">
-              Company Name
-            </label>
-            <div className="border border-gray-300 p-2 rounded bg-gray-100 text-[#13141D] w-fit">
-              {"companyName"}
-            </div>
-          </div>
 
           <div className="mb-4">
             <label className="block text-[#4B4A47] font-semibold mb-1">
-              Tagline <span className="text-[#A7A39C]">(15 words max)</span>
+              Tagline
             </label>
             <input
               type="text"
-              {...register("aboutShopTagline", {
-                maxLength: { value: 120, message: "Max 15 words" },
+              {...register("tagline", {
+                required: "Write a tagline",
               })}
               placeholder="Write a short, memorable tagline that captures your business."
               className="form-input lg:h-fit h-32"
             />
-            {errors.aboutShopTagline && (
+            {errors.tagline && (
               <p className="text-red-600 mt-1">
-                {errors.aboutShopTagline.message as string}
+                {errors.tagline.message as string}
               </p>
             )}
           </div>
 
           <div className="mb-4">
             <label className="block text-[#4B4A47] font-semibold mb-1">
-              Two-Sentence Statement{" "}
-              <span className="text-[#A7A39C]">(50 words max)</span>
+              Two-Sentence Statement
             </label>
             <textarea
-              {...register("aboutShopStatement", {
-                maxLength: { value: 350, message: "Max 50 words" },
+              {...register("statement", {
+                required: "Write a statement",
               })}
               placeholder="In two sentences, tell shoppers who you are and what you offer."
               className="form-input lg:h-fit h-32"
             />
-            {errors.aboutShopStatement && (
+            {errors.statement && (
               <p className="text-red-600 mt-1">
-                {errors.aboutShopStatement.message as string}
+                {errors.statement.message as string}
               </p>
             )}
           </div>
@@ -206,15 +188,16 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
               Our Story <span className="text-[#A7A39C]">(450 words max)</span>
             </label>
             <textarea
-              {...register("aboutShopStory", {
+              {...register("our_story", {
+                required: "Write our story",
                 maxLength: { value: 3000, message: "Max 450 words" },
               })}
               placeholder="Tell the story behind your shop, your journey, values, and passion."
               className="form-input lg:h-fit h-32"
             />
-            {errors.aboutShopStory && (
+            {errors.our_story && (
               <p className="text-red-600 mt-1">
-                {errors.aboutShopStory.message as string}
+                {errors.our_story.message as string}
               </p>
             )}
           </div>
@@ -228,59 +211,73 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
 
           <div className="mb-4">
             <label className="block text-[#4B4A47] font-semibold mb-1">
-              Accepted Payment Methods{" "}
-              <span className="text-[#A7A39C]">(max 40 words)</span>
+              Accepted Payment Methods
             </label>
+
             <PaymentCardIcons />
-            <input
-              type="text"
-              {...register("shopPaymentMethods", {
-                maxLength: { value: 250, message: "Max 40 words" },
-              })}
-              placeholder="Example: Cash, PayPal, Venmo, Credit Card"
-              className="form-input lg:h-fit h-32"
-            />
-            {errors.shopPaymentMethods && (
-              <p className="text-red-600 mt-1">
-                {errors.shopPaymentMethods.message as string}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4">
+              {["Cash", "PayPal", "Venmo", "Credit Card", "Bank Transfer"].map(
+                method => (
+                  <label
+                    key={method}
+                    className="flex items-center gap-2 border rounded-lg p-3 cursor-pointer hover:bg-gray-50"
+                  >
+                    <input
+                      type="checkbox"
+                      value={method}
+                      {...register("payment_methods", {
+                        validate: value =>
+                          value.length > 0 ||
+                          "Select at least one payment method",
+                      })}
+                      className="w-4 h-4 text-primary-green"
+                    />
+                    <span className="text-[#4B4A47]">{method}</span>
+                  </label>
+                )
+              )}
+            </div>
+
+            {errors.payment_methods && (
+              <p className="text-red-600 mt-2">
+                {errors.payment_methods.message as string}
               </p>
             )}
           </div>
 
           <div className="mb-4">
             <label className="block text-[#4B4A47] font-semibold mb-1">
-              Shipping Information{" "}
-              <span className="text-[#A7A39C]">(max 75 words)</span>
+              Shipping Information
             </label>
             <textarea
-              {...register("shopShippingInfo", {
-                maxLength: { value: 500, message: "Max 75 words" },
+              {...register("shipping_information", {
+                required: "Write shipping information",
               })}
               placeholder="Example: Orders ship within 3 business days via USPS. Local pickup in Austin, TX available. Shipping to U.S. only."
               className="form-input lg:h-fit h-32"
             />
-            {errors.shopShippingInfo && (
+            {errors.shipping_information && (
               <p className="text-red-600 mt-1">
-                {errors.shopShippingInfo.message as string}
+                {errors.shipping_information.message as string}
               </p>
             )}
           </div>
 
           <div className="mb-4">
             <label className="block text-[#4B4A47] font-semibold mb-1">
-              Returns & Exchanges{" "}
-              <span className="text-[#A7A39C]">(max 75 words)</span>
+              Returns & Exchanges
             </label>
+
             <textarea
-              {...register("shopReturnsInfo", {
-                maxLength: { value: 500, message: "Max 75 words" },
+              {...register("return_policy", {
+                required: "Write return policy",
               })}
               placeholder="Example: Returns accepted within 14 days of delivery. Items must be unused and in original packaging."
               className="form-input lg:h-fit h-32"
             />
-            {errors.shopReturnsInfo && (
+            {errors.return_policy && (
               <p className="text-red-600 mt-1">
-                {errors.shopReturnsInfo.message as string}
+                {errors.return_policy.message as string}
               </p>
             )}
           </div>
@@ -302,6 +299,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
             onChange={e => setNewFaq({ ...newFaq, answer: e.target.value })}
             className="border p-2 rounded w-full mb-2"
           />
+
           <div className="flex gap-2">
             <button
               type="button"
@@ -431,20 +429,18 @@ const StepThree: React.FC<StepThreeProps> = ({ onNext, onPrev }) => {
       <div className="md:flex justify-between items-center mt-8">
         <button
           type="button"
-          onClick={onPrev}
+          onClick={() => setStep(step - 1)}
           className="auth-primary-btn w-full md:w-fit"
         >
           Back
         </button>
-        <div className="flex gap-x-5">
-          <button
-            type="button"
-            onClick={handleSubmit(onNext)}
-            className="auth-secondary-btn md:mt-0 mt-3 w-full md:w-fit"
-          >
-            Save & Continue
-          </button>
-        </div>
+
+        <button
+          type="submit"
+          className="auth-secondary-btn md:mt-0 mt-3 w-full md:w-fit"
+        >
+          {step < totalSteps ? "Save and Continue" : "Submit"}
+        </button>
       </div>
     </section>
   );

@@ -37,10 +37,15 @@ const StepForm = () => {
       shop_image: null,
       shop_banner: null,
 
-      
       // StepThree
-      aboutShop: "",
-      shopPolicies: "",
+      about_image: null,
+      tagline: "",
+      statement: "",
+      our_story: "",
+      payment_methods: [],
+      shipping_information: "",
+      return_policy: "",
+
       faqs: [],
       websiteLink: "",
       facebookLink: "",
