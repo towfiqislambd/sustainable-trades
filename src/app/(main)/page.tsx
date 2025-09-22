@@ -3,6 +3,7 @@ import {
   getHowItWorksData,
   getMissionData,
   getPricingData,
+  getProductCategories,
 } from "@/Hooks/api/cms_api";
 import CommunityMember from "@/Components/PageComponents/mainPages/homePageComponents/CommunityMember";
 import ExploreProduct from "@/Components/PageComponents/mainPages/homePageComponents/ExploreProduct";
@@ -18,6 +19,7 @@ const Page = async () => {
   const bannerData = await getBannerData();
   const howItWorksData = await getHowItWorksData();
   const missionData = await getMissionData();
+  const productCategories = await getProductCategories();
   const pricingData = await getPricingData();
 
   return (
@@ -26,7 +28,7 @@ const Page = async () => {
       <HowItWorks data={howItWorksData?.data} />
       <MagicMarkers />
       <FeaturedShops />
-      <ExploreProduct />
+      <ExploreProduct data={productCategories?.data} />
       <OurMission data={missionData?.data} />
       <CommunityMember has_community={true} />
       <Pricing

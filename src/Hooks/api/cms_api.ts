@@ -19,6 +19,11 @@ export async function getHowItWorksData() {
   return useServerApi("/api/how-it-works", 3600);
 }
 
+// Product Categories
+export async function getProductCategories() {
+  return useServerApi("/api/categories", 3600);
+}
+
 // Get Mission Data
 export async function getMissionData() {
   return useServerApi("/api/our-mission", 3600);
