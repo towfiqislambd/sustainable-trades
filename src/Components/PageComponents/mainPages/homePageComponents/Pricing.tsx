@@ -190,6 +190,7 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
                       </div>
                     </div>
 
+                  
                     <button
                       disabled={isPending}
                       onClick={e => {
