@@ -32,8 +32,8 @@ const DashboardSidebar = ({
   const [openMenus, setOpenMenus] = useState<number[]>([]);
 
   const toggleMenu = (id: number) => {
-    setOpenMenus(prev =>
-      prev.includes(id) ? prev.filter(m => m !== id) : [...prev, id]
+    setOpenMenus((prev) =>
+      prev.includes(id) ? prev.filter((m) => m !== id) : [...prev, id]
     );
   };
 
@@ -43,13 +43,13 @@ const DashboardSidebar = ({
     <aside
       className={`${
         open ? "translate-x-0" : "-translate-x-full xl:translate-x-0"
-      } fixed top-0 left-0 z-[999] 2xl:static max-2xl:h-screen w-72 duration-500 transition-transform border-r border-[#E4E4E4] bg-[#FFFCF9] py-5 px-4 shrink-0 overflow-y-auto side-scrollbar`}
+      } fixed top-0 left-0 z-[999] xl:static max-2xl:h-screen w-72 duration-500 transition-transform border-r border-[#E4E4E4] bg-[#FFFCF9] py-5 px-4 shrink-0 overflow-y-auto side-scrollbar`}
     >
       {/* Nav Links */}
       <nav className="flex flex-col gap-5">
-        {dashboardNavLinks?.map(item => {
+        {dashboardNavLinks?.map((item) => {
           const isActiveParent = pathname === item.path;
-          const isActiveSub = item.subMenus?.some(m => pathname === m.path);
+          const isActiveSub = item.subMenus?.some((m) => pathname === m.path);
           const isOpen = openMenus.includes(item.id);
 
           return (

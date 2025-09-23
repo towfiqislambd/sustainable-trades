@@ -1,4 +1,6 @@
+import toast from "react-hot-toast";
 import useClientApi from "@/Hooks/useClientApi";
+import useAuth from "@/Hooks/useAuth";
 
 // Get User Data
 export const useGetUserData = (token: any) => {
@@ -10,6 +12,48 @@ export const useGetUserData = (token: any) => {
     isPrivate: true,
     queryOptions: {
       refetchInterval: 1000 * 60 * 60, // refetch every hour
+    },
+  });
+};
+
+// Create Shop
+export const useCreateShop = () => {
+  const { setToken } = useAuth();
+
+  return useClientApi({
+    method: "post",
+    key: ["create-shop"],
+    endpoint: "/api/shop/owners",
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        setToken(data?.data?.token);
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// Purchase Plan
+export const usePurchasePlan = (plan_id: number) => {
+  return useClientApi({
+    method: "post",
+    key: ["purchase-plan"],
+    isPrivate: true,
+    endpoint: `/api/membership/${plan_id}`,
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        toast.success(data?.message);
+        window.location.href = data?.data?.url;
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
     },
   });
 };

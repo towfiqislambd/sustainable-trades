@@ -6,8 +6,8 @@ import Activity from "../../../Assets/activity.png";
 
 const ProDashboardMessage = () => {
   return (
-    <div className="flex justify-between">
-      <div className="border border-[#A7A39C] rounded-[8px] w-3/5">
+    <div className="flex flex-col gap-[32px] md:flex-row justify-between">
+      <div className="border border-[#A7A39C] rounded-[8px] w-full md:w-3/5">
         <div className="flex justify-between p-4">
           <h5 className="text-[16px] text-[#000] font-semibold text-center">
             Messages
@@ -24,7 +24,7 @@ const ProDashboardMessage = () => {
           </div>
         </div>
         <div className="border-t border-b border-[#A7A39C] py-4">
-          <div className="flex gap-x-[30px] px-4 items-center">
+          <div className="flex flex-col sm:flex-row gap-3.5 sm:gap-x-[30px] px-4 sm:items-center">
             <div className="flex gap-x-2 items-center">
               <Image src={Activity} alt="Activity" width={40} height={40} />
               <div className="">
@@ -46,7 +46,7 @@ const ProDashboardMessage = () => {
           </div>
         </div>
         <div className="py-4">
-          <div className="flex gap-x-[30px] px-4 items-center">
+          <div className="flex flex-col sm:flex-row gap-3.5 sm:gap-x-[30px] px-4 sm:items-center">
             <div className="flex gap-x-2 items-center">
               <Image src={Activity} alt="Activity" width={40} height={40} />
               <div className="">
@@ -70,7 +70,7 @@ const ProDashboardMessage = () => {
           </div>
         </div>
         <div className="py-4 border-t border-[#A7A39C]">
-          <div className="flex gap-x-[30px] px-4 items-center">
+          <div className="flex flex-col sm:flex-row gap-3.5 sm:gap-x-[30px] px-4 sm:items-center">
             <div className="flex gap-x-2 items-center">
               <Image src={Activity} alt="Activity" width={40} height={40} />
               <div className="">
@@ -94,7 +94,7 @@ const ProDashboardMessage = () => {
           </div>
         </div>
         <div className="py-4 border-t border-[#A7A39C]">
-          <div className="flex gap-x-[30px] px-4 items-center">
+          <div className="flex flex-col sm:flex-row gap-3.5 sm:gap-x-[30px] px-4 sm:items-center">
             <div className="flex gap-x-2 items-center">
               <Image src={Activity} alt="Activity" width={40} height={40} />
               <div className="">
@@ -118,7 +118,7 @@ const ProDashboardMessage = () => {
           </div>
         </div>
       </div>
-      <div className="bg-[#274F45] px-4 py-5 rounded-[10px] h-fit w-1/3">
+      <div className="bg-[#274F45] px-4 py-5 rounded-[10px] h-fit w-full md:w-1/3">
         <div className="flex justify-between">
           <h5 className="text-[14px] text-white font-semibold">Need Help?</h5>
           <RxCross1 className="text-[14px] text-white font-bold cursor-pointer" />
