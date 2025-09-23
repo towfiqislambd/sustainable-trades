@@ -251,7 +251,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         />
 
         {/* Right - Outlet */}
-        <section className="flex-1 px-16 pt-10 pb-[100px] bg-[#FFFCF9] ">
+        <section className="flex-1 px-4 min-h-[calc(100vh-80px)] md:px-8 lg:px-16 pt-10 pb-[100px] bg-[#FFFCF9] ">
           {children}
         </section>
 
