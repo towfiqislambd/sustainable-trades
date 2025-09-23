@@ -160,7 +160,7 @@ const Page = () => {
                 </div>
                 {index !== steps.length - 1 && (
                   <div
-                    className={`border-dashed border-t w-[150px] md:w-[190px] ${
+                    className={`border-dashed border-t xxs:w-[60px] xs:w-[100px] sm:w-[150px] md:w-[190px] ${
                       index < currentStep
                         ? "border-[#274F45]"
                         : "border-[#A7A39C]"
@@ -175,11 +175,11 @@ const Page = () => {
           <div className="flex gap-x-[35px] md:gap-x-[70px]">
             {steps.map((step) => (
               <div key={step.label}>
-                <h5 className="text-[16px] font-normal text-[#000] font-sans">
+                <h5 className="xxs:text-[12px] xs:text-[14px] sm:text-[16px] font-normal text-[#000] font-sans">
                   {step.label}
                 </h5>
                 {step.date && (
-                  <p className="text-[14px] font-normal text-[#4B4A47]">
+                  <p className="xxs:text-[12px] xs:text-[14px] sm:text-[16px] font-normal text-[#4B4A47]">
                     {step.date}
                   </p>
                 )}
@@ -194,14 +194,14 @@ const Page = () => {
 
           {/* Step Buttons */}
           {status === "Package Delivered" && (
-            <div className="my-6 flex justify-between stepbutton gap-x-3">
-              <button className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-[#274F45] duration-300 ease-in-out w-[175px]">
+            <div className="my-6 flex flex-wrap md:flex-nowrap  stepbutton gap-x-3">
+              <button className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-[#274F45] duration-300 ease-in-out flex-1">
                 Track Package
               </button>
-              <button className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-[#274F45] duration-300 ease-in-out w-[175px]">
+              <button className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-[#274F45] duration-300 ease-in-out flex-1">
                 Return or replace
               </button>
-              <button className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-[#274F45] duration-300 ease-in-out w-[175px]">
+              <button className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-[#274F45] duration-300 ease-in-out flex-1">
                 Get Help
               </button>
               <button className="py-4 px-6  rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-[#274F45] duration-300 ease-in-out">
