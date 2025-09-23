@@ -1,7 +1,14 @@
+"use client";
+import toast from "react-hot-toast";
+import React, { useState } from "react";
+import { CgSpinnerTwo } from "react-icons/cg";
+import { useNewsletter } from "@/Hooks/api/cms_api";
 import Container from "@/Components/Common/Container";
-import React from "react";
 
 const Subscribe = () => {
+  const [email, setEmail] = useState<string>("");
+  const { mutate: newsletterMutation, isPending } = useNewsletter();
+
   return (
     <section className="pb-28">
       <Container>
@@ -17,11 +24,32 @@ const Subscribe = () => {
         <div className="flex gap-5 justify-center items-center mb-8">
           <input
             type="text"
+            onChange={e => setEmail(e.target.value)}
             placeholder="email@sustainabletrades.com"
             className="outline-none border-2 border-primary-green px-3 py-3 rounded-lg w-[400px]"
           />
-          <button className="shrink-0 border-2 border-primary-green text-accent-white bg-primary-green font-semibold px-10 py-3 rounded-lg cursor-pointer hover:scale-105 duration-300 transition-transform">
-            Subscribe
+
+          <button
+            disabled={isPending}
+            onClick={() => {
+              if (!email) {
+                return toast.error("Please enter your email");
+              } else {
+                newsletterMutation({ email });
+              }
+            }}
+            className={`shrink-0 border-2 border-primary-green text-accent-white bg-primary-green font-semibold px-7 py-3 rounded-lg hover:scale-105 duration-300 transition-transform ${
+              isPending ? "cursor-not-allowed" : "cursor-pointer"
+            }`}
+          >
+            {isPending ? (
+              <p className="flex gap-2 items-center justify-center">
+                <CgSpinnerTwo className="animate-spin text-xl" />
+                <span>Subscribing...</span>
+              </p>
+            ) : (
+              "Subscribe"
+            )}
           </button>
         </div>
 
