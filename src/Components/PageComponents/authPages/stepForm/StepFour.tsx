@@ -3,14 +3,15 @@ import toast from "react-hot-toast";
 import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import AddressForm from "@/Components/Modals/LocatorModal";
+import { CgSpinnerTwo } from "react-icons/cg";
 
 type StepFourProps = {
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
-  totalSteps: number;
+  isPending: any;
 };
 
-const StepFour = ({ totalSteps, setStep, step }: StepFourProps) => {
+const StepFour = ({ setStep, step, isPending }: StepFourProps) => {
   const { setValue, trigger, getValues } = useFormContext();
 
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
@@ -71,8 +72,8 @@ const StepFour = ({ totalSteps, setStep, step }: StepFourProps) => {
 
     const fieldsToValidate =
       selectedOption === 1 || selectedOption === 2
-        ? ["address1", "city", "state", "zipcode"]
-        : ["zipcode"];
+        ? ["address_line_1", "city", "state", "zip_code"]
+        : ["zip_code"];
 
     const isValid = await trigger(fieldsToValidate);
     if (!isValid) {
@@ -82,13 +83,14 @@ const StepFour = ({ totalSteps, setStep, step }: StepFourProps) => {
 
     let address = "";
     if (selectedOption === 1 || selectedOption === 2) {
-      const { address1, address2, city, state, zipcode, country } = getValues();
-      address = `${address1} ${address2 ?? ""}, ${city}, ${state} ${zipcode}, ${
-        country ?? "USA"
-      }`;
+      const { address_line_1, address_line_2, city, state, zip_code, country } =
+        getValues();
+      address = `${address_line_1} ${
+        address_line_2 ?? ""
+      }, ${city}, ${state} ${zip_code}, ${country ?? "USA"}`;
     } else if (selectedOption === 3) {
-      const { zipcode, city, state, country } = getValues();
-      address = `${zipcode}${city ? ", " + city : ""}${
+      const { zip_code, city, state, country } = getValues();
+      address = `${zip_code}${city ? ", " + city : ""}${
         state ? ", " + state : ""
       }, ${country ?? "USA"}`;
     }
@@ -172,18 +174,32 @@ const StepFour = ({ totalSteps, setStep, step }: StepFourProps) => {
         </button>
 
         <button
-          type="submit"
+          type={
+            getValues("latitude") && getValues("longitude")
+              ? "submit"
+              : "button"
+          }
+          disabled={isPending}
           onClick={() => {
             const lat = getValues("latitude");
             const lng = getValues("longitude");
             if (!lat || !lng) {
-              toast("Please save your location before continuing.");
+              toast.error("Please save your location before continuing.");
               return;
             }
           }}
-          className="auth-secondary-btn w-full sm:w-auto"
+          className={`auth-secondary-btn w-full sm:w-auto ${
+            isPending && "cursor-not-allowed"
+          }`}
         >
-          {step < totalSteps ? "Save and Continue" : "Submit"}
+          {isPending ? (
+            <p className="flex gap-2 items-center justify-center">
+              <CgSpinnerTwo className="animate-spin text-xl" />
+              <span>Submitting...</span>
+            </p>
+          ) : (
+            "Submit"
+          )}
         </button>
       </div>
 

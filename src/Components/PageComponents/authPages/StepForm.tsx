@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { useCreateShop } from "@/Hooks/api/auth_api";
 import { useForm, FormProvider } from "react-hook-form";
 import { CheckSvg, StepSvg } from "@/Components/Svg/SvgContainer";
 import StepOne from "@/Components/PageComponents/authPages/stepForm/StepOne";
@@ -16,6 +17,7 @@ type StepItem = {
 
 const StepForm = () => {
   const [step, setStep] = useState(1);
+  const { mutateAsync: createShopMutation, isPending } = useCreateShop();
   const onNext = () => setStep(prev => Math.min(prev + 1, steps.length));
   const onPrev = () => setStep(prev => Math.max(prev - 1, 1));
 
@@ -54,11 +56,11 @@ const StepForm = () => {
       address_10_mile: 0,
       display_my_address: 0,
       do_not_display: 0,
-      address1: "",
-      address2: "",
+      address_line_1: "",
+      address_line_2: "",
       city: "",
       state: "",
-      zipcode: "",
+      zip_code: "",
       latitude: null,
       longitude: null,
     },
@@ -80,7 +82,7 @@ const StepForm = () => {
 
   const CurrentStep = steps[step - 1].component;
 
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
     if (data.faqs && Array.isArray(data.faqs)) {
       data.questions = data.faqs.map((faq: any) => faq.question);
       data.answers = data.faqs.map((faq: any) => faq.answer);
@@ -89,7 +91,11 @@ const StepForm = () => {
     if (step < steps.length - 1) {
       setStep(step + 1);
     } else {
-      console.log("Final form data:", data);
+      const payload = { ...data };
+      delete payload.coverPhotoPreview;
+      delete payload.shopPhotoPreview;
+      delete payload.profilePhotoPreview;
+      await createShopMutation(payload);
       setStep(step + 1);
     }
   };
@@ -137,6 +143,7 @@ const StepForm = () => {
             totalSteps={steps.length}
             onNext={onNext}
             onPrev={onPrev}
+            isPending={isPending}
           />
         </div>
       </form>

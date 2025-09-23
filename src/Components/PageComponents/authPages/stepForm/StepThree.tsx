@@ -18,6 +18,7 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
     control,
     watch,
     setValue,
+    trigger,
     formState: { errors },
   } = useFormContext();
 
@@ -31,17 +32,19 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
   const [profileFile, setProfileFile] = useState<File | null>(null);
   const profilePhotoPreview = watch("profilePhotoPreview");
 
+  // Handle profile image upload
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
     if (file) {
       setProfileFile(file);
-
-      // Save the actual file in RHF
       setValue("about_image", file, { shouldValidate: true });
 
       const reader = new FileReader();
       reader.onloadend = () => {
-        setValue("profilePhotoPreview", reader.result as string);
+        setValue("profilePhotoPreview", reader.result as string, {
+          shouldValidate: true,
+        });
+        trigger("about_image"); 
       };
       reader.readAsDataURL(file);
     }
@@ -73,11 +76,12 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
   const handleDeleteFaq = (index: number) => {
     remove(index);
   };
+
   return (
     <section className="">
       <h2 className="auth_title lg:mt-16 mt-8">About Your Shop</h2>
 
-      <div className="border border-[#A7A39C] rounded-[20px] lg:my-[56px] my-8 lg:p-20  px-5">
+      <div className="border border-[#A7A39C] rounded-[20px] lg:my-[56px] my-8 lg:p-20 px-5">
         {/* Profile Picture */}
         <div className="lg:mt-8 mt-5">
           <p className="form-label text-center lg:text-start">
@@ -123,10 +127,7 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
             accept="image/*"
             className="hidden"
             {...register("about_image", {
-              validate: () => {
-                if (profileFile || profilePhotoPreview) return true;
-                return "Profile picture is required";
-              },
+              validate: value => value || "Profile picture is required",
             })}
             onChange={handleImageChange}
           />
@@ -325,7 +326,7 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
 
         {/* FAQ List */}
         <div className="mt-4">
-          {fields.length > 0 ? (
+          {fields.length > 0 && (
             <div className="border border-gray-200 rounded-lg overflow-hidden">
               <div className="bg-gray-50 px-4 py-3 border-b border-gray-200">
                 <div className="grid grid-cols-12 gap-4 text-sm font-medium text-gray-700">
@@ -372,7 +373,7 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
                 })}
               </div>
             </div>
-          ) : null}
+          )}
         </div>
 
         <li className="text-[16px] text-[#4B4A47] font-semibold list-disc mt-2">
@@ -389,7 +390,7 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
           <div className="flex gap-x-4 items-center">
             <Website />
             <input
-              type="text"
+              type="url"
               placeholder="Type Your Website link here"
               className="outline-0 underline w-fit text-[#67645F] font-bold"
               {...register("website_url")}
@@ -398,7 +399,7 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
           <div className="flex gap-x-4 items-center">
             <Facebook />
             <input
-              type="text"
+              type="url"
               placeholder="Type Your Facebook link here"
               className="outline-0 underline w-fit text-[#67645F] font-bold"
               {...register("facebook_url")}
@@ -407,7 +408,7 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
           <div className="flex gap-x-4 items-center">
             <Instagram />
             <input
-              type="text"
+              type="url"
               placeholder="Type Your Instagram link here"
               className="outline-0 underline w-fit text-[#67645F] font-bold"
               {...register("instagram_url")}
@@ -416,7 +417,7 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
           <div className="flex gap-x-4 items-center">
             <Pinterest />
             <input
-              type="text"
+              type="url"
               placeholder="Type Your Pinterest link here"
               className="outline-0 underline w-fit text-[#67645F] font-bold"
               {...register("pinterest_url")}

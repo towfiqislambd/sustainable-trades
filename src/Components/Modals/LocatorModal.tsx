@@ -19,15 +19,15 @@ const AddressForm = ({ type }: AddressFormProps) => {
             <p className="form-label font-bold">Address Line 1 *</p>
             <input
               type="text"
-              {...register("address1", {
+              {...register("address_line_1", {
                 required: "Address Line 1 is required",
               })}
               className="form-input"
               placeholder="Address Line"
             />
-            {errors.address1 && (
+            {errors.address_line_1 && (
               <span className="text-red-500">
-                {errors.address1.message as string}
+                {errors.address_line_1.message as string}
               </span>
             )}
           </div>
@@ -35,7 +35,7 @@ const AddressForm = ({ type }: AddressFormProps) => {
             <p className="form-label font-bold">Address Line 2 (Optional)</p>
             <input
               type="text"
-              {...register("address2")}
+              {...register("address_line_2")}
               className="form-input"
               placeholder="Address"
             />
@@ -70,16 +70,16 @@ const AddressForm = ({ type }: AddressFormProps) => {
               )}
             </div>
             <div>
-              <p className="form-label font-bold">Zipcode *</p>
+              <p className="form-label font-bold">zip_code *</p>
               <input
                 type="text"
-                {...register("zipcode", { required: "Zipcode is required" })}
+                {...register("zip_code", { required: "zip_code is required" })}
                 className="form-input"
-                placeholder="Zipcode"
+                placeholder="zip_code"
               />
-              {errors.zipcode && (
+              {errors.zip_code && (
                 <span className="text-red-500">
-                  {errors.zipcode.message as string}
+                  {errors.zip_code.message as string}
                 </span>
               )}
             </div>
@@ -89,16 +89,16 @@ const AddressForm = ({ type }: AddressFormProps) => {
 
       {type === "zip" && (
         <div>
-          <p className="form-label font-bold">Zipcode *</p>
+          <p className="form-label font-bold">zip_code *</p>
           <input
             type="text"
-            {...register("zipcode", { required: "Zipcode is required" })}
+            {...register("zip_code", { required: "zip_code is required" })}
             className="form-input"
-            placeholder="Zipcode"
+            placeholder="zip_code"
           />
-          {errors.zipcode && (
+          {errors.zip_code && (
             <span className="text-red-500">
-              {errors.zipcode.message as string}
+              {errors.zip_code.message as string}
             </span>
           )}
         </div>
