@@ -19,9 +19,9 @@ const data = [
   },
   {
     id: 2,
-    package_name: "Sustainable Shopper",
+    package_name: "Sustainable Shopper (Free)",
     feathers: [
-      "You want to buy local organic produce.",
+      "You want to shop local, buy organic produce and easily access your orders and messages right on the platform",
       "You want to support local businesses.",
       "You want to support entrepreneurs supporting sustainability.",
       "You want to be part of a community dedicated to ethical and sustainable living.",
@@ -55,7 +55,7 @@ const Page = () => {
 
       {/* Right */}
       <div className="flex-1 grid place-items-center overflow-y-auto">
-        <div className="w-[750px] mx-auto p-10">
+        <div className="w-[770px] mx-auto p-10">
           <h2 className="auth-heading">Welcome!</h2>
 
           <p className="text-xl font-semibold text-primary-green mb-7">
@@ -71,7 +71,7 @@ const Page = () => {
                   selectedId === item.id ? "bg-[#EDF3F1]" : "bg-[#F7F7F7]"
                 }`}
               >
-                <div className="flex justify-between items-center mb-7">
+                <div className="flex justify-between items-center gap-3 mb-7">
                   <h3 className="text-[22px] font-semibold text-secondary-black">
                     {item.package_name}
                   </h3>
@@ -82,7 +82,7 @@ const Page = () => {
                     onChange={() =>
                       setSelectedId(prev => (prev === item.id ? null : item.id))
                     }
-                    className="size-8 cursor-pointer appearance-none rounded-full border border-gray-300  checked:bg-primary-green checked:border-transparent focus:outline-none"
+                    className="size-8 cursor-pointer appearance-none rounded-full border border-gray-300  checked:bg-primary-green checked:border-transparent focus:outline-none shrink-0"
                   />
                 </div>
 

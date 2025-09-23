@@ -3,6 +3,8 @@ import Image from "next/image";
 import React, { useState } from "react";
 import Container from "@/Components/Common/Container";
 import { getPricingData } from "@/Hooks/api/cms_api";
+import { usePurchasePlan } from "@/Hooks/api/auth_api";
+import { CgSpinnerTwo } from "react-icons/cg";
 
 type benefitItem = {
   id: string;
@@ -29,6 +31,8 @@ interface PricingProps {
 
 const Pricing = ({ description, button1, button2 }: PricingProps) => {
   const [activeTab, setActiveTab] = useState<string>("yearly");
+  const [planId, setPlanId] = useState<number>(0);
+  const { mutate: purchasePlanMutation, isPending } = usePurchasePlan(planId);
   const { data: pricingData, isLoading } = getPricingData(activeTab);
 
   const SkeletonCard = () => (
@@ -73,7 +77,12 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
         {/* Tabs */}
         <div className="flex gap-5 p-3 rounded-xl shadow w-[350px] mx-auto bg-primary-green mb-14">
           <button
-            onClick={() => setActiveTab("yearly")}
+            type="button"
+            onClick={e => {
+              e.preventDefault();
+              e.stopPropagation();
+              setActiveTab("yearly");
+            }}
             className={`px-5 py-2.5 rounded-lg cursor-pointer shadow font-semibold ${
               activeTab === "yearly"
                 ? "text-primary-green bg-accent-white"
@@ -84,7 +93,12 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
           </button>
 
           <button
-            onClick={() => setActiveTab("monthly")}
+            type="button"
+            onClick={e => {
+              e.preventDefault();
+              e.stopPropagation();
+              setActiveTab("monthly");
+            }}
             className={`px-5 py-2.5 rounded-lg cursor-pointer shadow font-semibold ${
               activeTab === "monthly"
                 ? "text-primary-green bg-accent-white"
@@ -177,13 +191,29 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
                     </div>
 
                     <button
+                      disabled={isPending}
+                      onClick={e => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setPlanId(id);
+                        if (planId) {
+                          purchasePlanMutation();
+                        }
+                      }}
                       className={`w-full block duration-500 transition-all text-lg cursor-pointer py-3 border-2 border-primary-green font-semibold rounded-lg shadow-lg hover:scale-105 ${
                         idx === 0
                           ? "text-primary-green hover:bg-primary-green hover:text-accent-white"
                           : "text-accent-white hover:text-primary-green bg-primary-green hover:bg-transparent"
                       }`}
                     >
-                      Choose {name}
+                      {isPending ? (
+                        <p className="flex gap-2 items-center justify-center">
+                          <CgSpinnerTwo className="animate-spin text-xl" />
+                          <span>Please wait...</span>
+                        </p>
+                      ) : (
+                        `Choose ${name}`
+                      )}
                     </button>
                   </div>
                 )

@@ -1,18 +1,17 @@
 "use client";
+import toast from "react-hot-toast";
 import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import AddressForm from "@/Components/Modals/LocatorModal";
-import toast from "react-hot-toast";
+import { CgSpinnerTwo } from "react-icons/cg";
 
 type StepFourProps = {
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
-  totalSteps: number;
-  onNext: () => void;
-  onPrev: () => void;
+  isPending: any;
 };
 
-const StepFour = ({ onNext, onPrev }: StepFourProps) => {
+const StepFour = ({ setStep, step, isPending }: StepFourProps) => {
   const { setValue, trigger, getValues } = useFormContext();
 
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
@@ -22,8 +21,15 @@ const StepFour = ({ onNext, onPrev }: StepFourProps) => {
     lng: number;
   } | null>(null);
 
+  // ✅ Load from env
+  const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
+
   const fetchLatLngFromAddress = async (address: string) => {
-    const API_KEY = "AIzaSyBd0inSWCrbc_VfrUSb_kDr0VmbF2-dYdc";
+    if (!API_KEY) {
+      toast.error("Google Maps API key is missing.");
+      return null;
+    }
+
     const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
       address
     )}&key=${API_KEY}`;
@@ -47,7 +53,15 @@ const StepFour = ({ onNext, onPrev }: StepFourProps) => {
 
   const handleCheckboxClick = (option: number) => {
     setSelectedOption(option);
-    setValue("geoLocatorOption", option);
+
+    setValue("address_10_mile", 0);
+    setValue("display_my_address", 0);
+    setValue("do_not_display", 0);
+
+    if (option === 1) setValue("display_my_address", 1);
+    if (option === 2) setValue("address_10_mile", 1);
+    if (option === 3) setValue("do_not_display", 1);
+
     setIsModalOpen(true);
   };
 
@@ -58,8 +72,8 @@ const StepFour = ({ onNext, onPrev }: StepFourProps) => {
 
     const fieldsToValidate =
       selectedOption === 1 || selectedOption === 2
-        ? ["address1", "city", "state", "zipcode"]
-        : ["zipcode"];
+        ? ["address_line_1", "city", "state", "zip_code"]
+        : ["zip_code"];
 
     const isValid = await trigger(fieldsToValidate);
     if (!isValid) {
@@ -69,13 +83,14 @@ const StepFour = ({ onNext, onPrev }: StepFourProps) => {
 
     let address = "";
     if (selectedOption === 1 || selectedOption === 2) {
-      const { address1, address2, city, state, zipcode, country } = getValues();
-      address = `${address1} ${address2 ?? ""}, ${city}, ${state} ${zipcode}, ${
-        country ?? "USA"
-      }`;
+      const { address_line_1, address_line_2, city, state, zip_code, country } =
+        getValues();
+      address = `${address_line_1} ${
+        address_line_2 ?? ""
+      }, ${city}, ${state} ${zip_code}, ${country ?? "USA"}`;
     } else if (selectedOption === 3) {
-      const { zipcode, city, state, country } = getValues();
-      address = `${zipcode}${city ? ", " + city : ""}${
+      const { zip_code, city, state, country } = getValues();
+      address = `${zip_code}${city ? ", " + city : ""}${
         state ? ", " + state : ""
       }, ${country ?? "USA"}`;
     }
@@ -105,8 +120,8 @@ const StepFour = ({ onNext, onPrev }: StepFourProps) => {
       <div className="relative w-full">
         <iframe
           src={
-            selectedLocation
-              ? `https://www.google.com/maps/embed/v1/place?key=AIzaSyBd0inSWCrbc_VfrUSb_kDr0VmbF2-dYdc&q=${selectedLocation.lat},${selectedLocation.lng}`
+            selectedLocation && API_KEY
+              ? `https://www.google.com/maps/embed/v1/place?key=${API_KEY}&q=${selectedLocation.lat},${selectedLocation.lng}`
               : "https://www.google.com/maps/embed?pb=!1m18..."
           }
           className="w-full rounded-lg overflow-hidden filter brightness-75 h-[400px] sm:h-[450px] md:h-[500px] lg:h-[600px]"
@@ -150,24 +165,41 @@ const StepFour = ({ onNext, onPrev }: StepFourProps) => {
 
       {/* Navigation */}
       <div className="flex flex-col sm:flex-row justify-between items-center lg:mt-6 gap-4 sm:gap-0 mt-[500px] sm:mt-[550px]">
-        <button onClick={onPrev} className="auth-primary-btn w-full sm:w-auto">
+        <button
+          type="button"
+          onClick={() => setStep(step - 1)}
+          className="auth-primary-btn w-full sm:w-auto"
+        >
           Back
         </button>
+
         <button
-          onClick={e => {
-            e.preventDefault();
-            e.stopPropagation();
+          type={
+            getValues("latitude") && getValues("longitude")
+              ? "submit"
+              : "button"
+          }
+          disabled={isPending}
+          onClick={() => {
             const lat = getValues("latitude");
             const lng = getValues("longitude");
             if (!lat || !lng) {
-              toast("Please save your location before continuing.");
+              toast.error("Please save your location before continuing.");
               return;
             }
-            onNext();
           }}
-          className="auth-secondary-btn w-full sm:w-auto"
+          className={`auth-secondary-btn w-full sm:w-auto ${
+            isPending && "cursor-not-allowed"
+          }`}
         >
-          Save and Continue
+          {isPending ? (
+            <p className="flex gap-2 items-center justify-center">
+              <CgSpinnerTwo className="animate-spin text-xl" />
+              <span>Submitting...</span>
+            </p>
+          ) : (
+            "Submit"
+          )}
         </button>
       </div>
 
@@ -185,7 +217,7 @@ const StepFour = ({ onNext, onPrev }: StepFourProps) => {
                   {selectedOption === 3 &&
                     "You chose not to display your address. Only your city/state will be shown."}
                 </p>
-                <AddressForm type={selectedOption === 3 ? "zip" : "full"} />
+                <AddressForm />
               </>
             )}
 
