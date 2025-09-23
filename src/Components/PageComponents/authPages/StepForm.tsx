@@ -51,7 +51,9 @@ const StepForm = () => {
       facebook_url: "",
 
       // StepFour
-      geoLocatorOption: null,
+      address_10_mile: 0,
+      display_my_address: 0,
+      do_not_display: 0,
       address1: "",
       address2: "",
       city: "",
@@ -84,11 +86,11 @@ const StepForm = () => {
       data.answers = data.faqs.map((faq: any) => faq.answer);
     }
 
-    console.log(data);
-    if (step < steps.length) {
+    if (step < steps.length - 1) {
       setStep(step + 1);
     } else {
       console.log("Final form data:", data);
+      setStep(step + 1);
     }
   };
 
