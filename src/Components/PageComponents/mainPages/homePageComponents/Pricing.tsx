@@ -2,6 +2,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import Container from "@/Components/Common/Container";
+import { getPricingData } from "@/Hooks/api/cms_api";
 
 type benefitItem = {
   id: string;
@@ -24,11 +25,43 @@ interface PricingProps {
   description: string;
   button1: string;
   button2: string;
-  data?: pricingData[];
 }
 
-const Pricing = ({ data, description, button1, button2 }: PricingProps) => {
-  const [activeTab, setActiveTab] = useState<string>("monthly");
+const Pricing = ({ description, button1, button2 }: PricingProps) => {
+  const [activeTab, setActiveTab] = useState<string>("yearly");
+  const { data: pricingData, isLoading } = getPricingData(activeTab);
+
+  const SkeletonCard = () => (
+    <div className="border border-gray-200 shadow rounded-2xl p-6 w-[400px] flex flex-col justify-between animate-pulse">
+      <div>
+        <div className="size-12 rounded-full bg-gray-300 mb-4" />
+
+        <div className="h-6 bg-gray-300 rounded w-1/2 mb-3" />
+        <div className="h-4 bg-gray-200 rounded w-3/4 mb-6" />
+
+        <div className="flex gap-2 items-end mb-5">
+          <div className="h-8 bg-gray-300 rounded w-20" />
+          <div className="h-4 bg-gray-200 rounded w-10" />
+        </div>
+
+        <hr className="my-5 text-gray-300" />
+
+        <div className="space-y-5 mb-10">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="flex gap-3">
+              <div className="size-10 rounded-full bg-gray-300 shrink-0" />
+              <div className="flex-1 space-y-2">
+                <div className="h-4 bg-gray-300 rounded w-1/3" />
+                <div className="h-3 bg-gray-200 rounded w-2/3" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="h-12 bg-gray-300 rounded-lg w-full" />
+    </div>
+  );
 
   return (
     <section id="membership_plan" className="py-20">
@@ -40,17 +73,6 @@ const Pricing = ({ data, description, button1, button2 }: PricingProps) => {
         {/* Tabs */}
         <div className="flex gap-5 p-3 rounded-xl shadow w-[350px] mx-auto bg-primary-green mb-14">
           <button
-            onClick={() => setActiveTab("monthly")}
-            className={`px-5 py-2.5 rounded-lg cursor-pointer shadow font-semibold ${
-              activeTab === "monthly"
-                ? "text-primary-green bg-accent-white"
-                : "text-accent-white bg-transparent"
-            }`}
-          >
-            {button1}
-          </button>
-
-          <button
             onClick={() => setActiveTab("yearly")}
             className={`px-5 py-2.5 rounded-lg cursor-pointer shadow font-semibold ${
               activeTab === "yearly"
@@ -60,99 +82,112 @@ const Pricing = ({ data, description, button1, button2 }: PricingProps) => {
           >
             {button2}
           </button>
+
+          <button
+            onClick={() => setActiveTab("monthly")}
+            className={`px-5 py-2.5 rounded-lg cursor-pointer shadow font-semibold ${
+              activeTab === "monthly"
+                ? "text-primary-green bg-accent-white"
+                : "text-accent-white bg-transparent"
+            }`}
+          >
+            {button1}
+          </button>
         </div>
 
         {/* Pricing Plan */}
         <div className="flex gap-10 justify-center">
-          {data?.map(
-            (
-              {
-                id,
-                name,
-                description,
-                price,
-                interval,
-                subscription_benefit,
-                image,
-              },
-              idx
-            ) => (
-              <div
-                key={id}
-                className={`border border-primary-green shadow rounded-2xl p-6 w-[400px] flex flex-col justify-between ${
-                  idx === 1 && "bg-[#EDF3F1]"
-                }`}
-              >
-                <div>
-                  <figure className="size-12 rounded-full bg-[#B0DEDB] grid place-items-center">
-                    <Image
-                      src={`${process.env.NEXT_PUBLIC_SITE_URL}/${image}`}
-                      alt="logo"
-                      width={45}
-                      height={45}
-                    />
-                  </figure>
+          {isLoading
+            ? Array.from({ length: 2 }).map((_, i) => <SkeletonCard key={i} />)
+            : pricingData?.data?.map(
+                (
+                  {
+                    id,
+                    name,
+                    description,
+                    price,
+                    interval,
+                    subscription_benefit,
+                    image,
+                  }: pricingData,
+                  idx: number
+                ) => (
+                  <div
+                    key={id}
+                    className={`border border-primary-green shadow rounded-2xl p-6 w-[400px] flex flex-col justify-between ${
+                      idx === 1 && "bg-[#EDF3F1]"
+                    }`}
+                  >
+                    <div>
+                      <figure className="size-12 rounded-full bg-[#B0DEDB] grid place-items-center">
+                        <Image
+                          src={`${process.env.NEXT_PUBLIC_SITE_URL}/${image}`}
+                          alt="logo"
+                          width={45}
+                          height={45}
+                        />
+                      </figure>
 
-                  <h3 className="py-3 text-2xl font-semibold text-secondary-black">
-                    {name}
-                  </h3>
+                      <h3 className="py-3 text-2xl font-semibold text-secondary-black">
+                        {name}
+                      </h3>
 
-                  <p className="text-secondary-gray mb-7">{description}</p>
+                      <p className="text-secondary-gray mb-7">{description}</p>
 
-                  <div className="flex gap-2 items-end">
-                    <h2 className="text-4xl font-semibold text-secondary-black">
-                      ${price}
-                    </h2>
+                      <div className="flex gap-2 items-end">
+                        <h2 className="text-4xl font-semibold text-secondary-black">
+                          ${price}
+                        </h2>
 
-                    <p className="capitalize">/ {interval}</p>
+                        <p className="capitalize">/ {interval}</p>
+                      </div>
+
+                      <hr className="my-5 text-gray-500" />
+
+                      <div className="space-y-5 mb-10">
+                        {subscription_benefit?.map(
+                          ({
+                            id,
+                            benefit_name,
+                            benefit_description,
+                            benefit_icon,
+                          }) => (
+                            <div key={id} className="flex gap-3">
+                              <figure className="size-10 rounded-full bg-[#B0DEDB] grid place-items-center shrink-0">
+                                <Image
+                                  src={`${process.env.NEXT_PUBLIC_SITE_URL}/${benefit_icon}`}
+                                  alt="image"
+                                  width={24}
+                                  height={24}
+                                />
+                              </figure>
+
+                              <div>
+                                <h4 className="text-secondary-black font-semibold">
+                                  {benefit_name}
+                                </h4>
+                                <p className="text-secondary-gray text-[15px]">
+                                  {benefit_description}
+                                </p>
+                              </div>
+                            </div>
+                          )
+                        )}
+                      </div>
+                    </div>
+
+                    <button
+                      className={`w-full block duration-500 transition-all text-lg cursor-pointer py-3 border-2 border-primary-green font-semibold rounded-lg shadow-lg hover:scale-105 ${
+                        idx === 0
+                          ? "text-primary-green hover:bg-primary-green hover:text-accent-white"
+                          : "text-accent-white hover:text-primary-green bg-primary-green hover:bg-transparent"
+                      }`}
+                    >
+                      Choose {name}
+                    </button>
                   </div>
-
-                  <hr className="my-5 text-gray-500" />
-
-                  <div className="space-y-5 mb-10">
-                    {subscription_benefit?.map(
-                      ({
-                        id,
-                        benefit_name,
-                        benefit_description,
-                        benefit_icon,
-                      }) => (
-                        <div key={id} className="flex gap-3">
-                          <figure className="size-10 rounded-full bg-[#B0DEDB] grid place-items-center shrink-0">
-                            <Image
-                              src={`${process.env.NEXT_PUBLIC_SITE_URL}/${benefit_icon}`}
-                              alt="image"
-                              width={24}
-                              height={24}
-                            />
-                          </figure>
-
-                          <div>
-                            <h4 className="text-secondary-black font-semibold">
-                              {benefit_name}
-                            </h4>
-                            <p className="text-secondary-gray text-[15px]">
-                              {benefit_description}
-                            </p>
-                          </div>
-                        </div>
-                      )
-                    )}
-                  </div>
-                </div>
-
-                <button
-                  className={`w-full block duration-500 transition-all text-lg cursor-pointer py-3 border-2 border-primary-green font-semibold rounded-lg shadow-lg hover:scale-105 ${
-                    idx === 0
-                      ? "text-primary-green hover:bg-primary-green hover:text-accent-white"
-                      : "text-accent-white hover:text-primary-green bg-primary-green hover:bg-transparent"
-                  }`}
-                >
-                  Choose {name}
-                </button>
-              </div>
-            )
-          )}
+                )
+              )}
         </div>
       </Container>
     </section>

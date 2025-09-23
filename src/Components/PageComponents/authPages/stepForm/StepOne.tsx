@@ -3,22 +3,20 @@ import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { BsEyeFill } from "react-icons/bs";
 import { PiEyeClosed } from "react-icons/pi";
-import { Camera } from "@/Components/Svg/SvgContainer";
 
-const StepOne = ({ step, setStep, totalSteps }: any) => {
+const StepOne = ({ step, totalSteps }: any) => {
   const {
     register,
     formState: { errors },
-    setValue,
     watch,
   } = useFormContext();
-
   const [showPassword, setShowPassword] = useState(false);
   const [showRePassword, setShowRePassword] = useState(false);
 
   return (
     <>
       <h2 className="auth_title lg:mt-16 mt-10">Profile Info</h2>
+
       <p className="auth_description">
         Lets set up your shop! Fill in all required fields below to get started.
       </p>
@@ -39,11 +37,13 @@ const StepOne = ({ step, setStep, totalSteps }: any) => {
               type="text"
               className="form-input"
               placeholder="First Name"
-              {...register("firstName", { required: "First name is required" })}
+              {...register("first_name", {
+                required: "First name is required",
+              })}
             />
-            {errors.firstName?.message && (
+            {errors.first_name?.message && (
               <p className="text-red-600">
-                {errors.firstName.message as string}
+                {errors.first_name.message as string}
               </p>
             )}
           </div>
@@ -55,11 +55,11 @@ const StepOne = ({ step, setStep, totalSteps }: any) => {
               type="text"
               className="form-input"
               placeholder="Last Name"
-              {...register("lastName", { required: "Last name is required" })}
+              {...register("last_name", { required: "Last name is required" })}
             />
-            {errors.lastName && (
+            {errors.last_name && (
               <p className="text-red-600">
-                {errors.lastName.message as string}
+                {errors.last_name.message as string}
               </p>
             )}
           </div>
@@ -132,9 +132,10 @@ const StepOne = ({ step, setStep, totalSteps }: any) => {
               type={showRePassword ? "text" : "password"}
               className="form-input pr-10"
               placeholder="Re-enter Password"
-              {...register("rePassword", {
+              {...register("password_confirmation", {
                 required: "Please re-enter password",
-                minLength: { value: 6, message: "Minimum length is 6" },
+                validate: value =>
+                  value === watch("password") || "Passwords do not match",
               })}
             />
             <button
@@ -148,9 +149,9 @@ const StepOne = ({ step, setStep, totalSteps }: any) => {
                 <BsEyeFill size={20} />
               )}
             </button>
-            {errors.rePassword && (
+            {errors.password_confirmation && (
               <p className="text-red-600">
-                {errors.rePassword.message as string}
+                {errors.password_confirmation.message as string}
               </p>
             )}
           </div>
@@ -162,7 +163,7 @@ const StepOne = ({ step, setStep, totalSteps }: any) => {
               type="text"
               className="form-input"
               placeholder="Name"
-              {...register("companyName")}
+              {...register("company_name")}
             />
           </div>
         </div>
