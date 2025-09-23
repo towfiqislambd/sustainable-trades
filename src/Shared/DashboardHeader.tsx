@@ -1,7 +1,7 @@
 "use client";
 import logo from "@/Assets/logo.svg";
 import author from "@/Assets/shop_author.jpg";
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import {
   CartSvg2,
   ContactSvg,
@@ -76,19 +76,20 @@ const navLins = [
     ],
   },
 ];
+interface DashboardHeaderProps {
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}
 
-const DashboardHeader = () => {
+const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
   const pathname = usePathname();
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [showPopover, setShowPopover] = useState<boolean>(false);
   const [activeSubMenu, setActiveSubMenu] = useState<number>(0);
-  const [navOpen, setNavOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const handleWindowClick = () => {
       setShowMenu(false);
       setShowPopover(false);
-      setNavOpen(false);
     };
     window.addEventListener("click", handleWindowClick);
     return () => {
@@ -97,11 +98,21 @@ const DashboardHeader = () => {
   }, []);
 
   return (
-    <header className="bg-primary-green py-3 px-6 2xl:px-20 relative">
+    <header className="bg-primary-green py-3 px-5 lg:px-20 relative">
       <div className="flex justify-between items-center">
         {/* Left */}
-        <div className="flex gap-6 xl:gap-12 items-center">
+        <div className="flex gap-6 2xl:gap-12 items-center">
           {/* Logo */}
+          {/* Toggle Button (for < xl) */}
+          <button
+            className="xl:hidden text-white text-2xl cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation();
+              setOpen(true);
+            }}
+          >
+            ☰
+          </button>
           <Link href="/">
             <figure className="size-14">
               <Image
@@ -112,25 +123,12 @@ const DashboardHeader = () => {
             </figure>
           </Link>
 
-          {/* Toggle Button (for < xl) */}
-          <button
-            className="xl:hidden text-white text-2xl"
-            onClick={e => {
-              e.stopPropagation();
-              setNavOpen(!navOpen);
-            }}
-          >
-            ☰
-          </button>
-
           {/* NavLinks */}
           <div
-            className={`fixed xl:static top-0 left-0 h-full xl:h-auto w-64 xl:w-auto bg-primary-green xl:bg-transparent transform transition-transform duration-300 ease-in-out z-40 flex flex-col xl:flex-row gap-6 xl:gap-10 items-start xl:items-center p-6 xl:p-0 ${
-              navOpen ? "translate-x-0" : "-translate-x-full xl:translate-x-0"
-            }`}
-            onClick={e => e.stopPropagation()}
+            className={` hidden 1xl:flex static top-0 left-0 h-auto w-auto bg-transparent transform transition-transform duration-300 ease-in-out z-40  flex-row gap-6 2xl:gap-10 items-center p-0 `}
+            onClick={(e) => e.stopPropagation()}
           >
-            {navLins?.map(item => {
+            {navLins?.map((item) => {
               const isActive = pathname === item?.path;
               return (
                 <Link
@@ -139,7 +137,7 @@ const DashboardHeader = () => {
                   }`}
                   key={item?.id}
                   href={item?.id == 4 || item?.id == 5 ? "#" : item?.path}
-                  onClick={e => {
+                  onClick={(e) => {
                     e.stopPropagation();
                     if (item?.id == 4 || item?.id == 5) {
                       e.preventDefault();
@@ -155,7 +153,7 @@ const DashboardHeader = () => {
 
             {/* Sub Menu */}
             <div
-              onClick={e => e.stopPropagation()}
+              onClick={(e) => e.stopPropagation()}
               className={`absolute top-12 ${
                 activeSubMenu === 4 ? "-right-32" : "-right-56"
               } bg-white drop-shadow w-[260px] py-7 px-5 border-gray-50 rounded-lg flex flex-col gap-7 ${
@@ -165,7 +163,7 @@ const DashboardHeader = () => {
               }`}
             >
               {navLins?.map(
-                item =>
+                (item) =>
                   item?.id === activeSubMenu &&
                   item?.sub_menu?.map((link, idx) => (
                     <Link
@@ -188,7 +186,7 @@ const DashboardHeader = () => {
 
         {/* Right */}
         <div className="flex gap-5 items-center">
-          <button className="cursor-pointer text-accent-white">
+          <button className="cursor-pointer hidden md:block text-accent-white">
             <MessageSvg />
           </button>
           <button className="cursor-pointer">
@@ -203,7 +201,7 @@ const DashboardHeader = () => {
 
           {/* profile */}
           <button
-            onClick={e => {
+            onClick={(e) => {
               e.stopPropagation();
               setShowPopover(!showPopover);
             }}
@@ -214,11 +212,13 @@ const DashboardHeader = () => {
               alt="author"
               className="size-10 rounded-full border-2 border-white"
             />
-            <DownSvg />
+            <div className="hidden sm:block">
+              <DownSvg />
+            </div>
 
             {/* Popover */}
             <div
-              onClick={e => e.stopPropagation()}
+              onClick={(e) => e.stopPropagation()}
               className={`absolute top-16 bg-white drop-shadow z-50 space-y-2 w-[120px] py-3 px-4 border-gray-50 rounded-lg ${
                 showPopover ? "block" : "hidden"
               }`}
@@ -242,7 +242,7 @@ const DashboardHeader = () => {
 
           <Link
             href="/shop-details/1"
-            className="px-5 py-2 block rounded-lg bg-accent-red text-secondary-black cursor-pointer shadow-[0_3px_10px_0_rgba(0,0,0,0.12),_0_3px_8px_0_rgba(0,0,0,0.08)] duration-300 transition-all hover:text-accent-red hover:bg-transparent border border-accent-red hover:scale-95"
+            className="px-5 py-2 hidden md:block rounded-lg bg-accent-red text-secondary-black cursor-pointer shadow-[0_3px_10px_0_rgba(0,0,0,0.12),_0_3px_8px_0_rgba(0,0,0,0.08)] duration-300 transition-all hover:text-accent-red hover:bg-transparent border border-accent-red hover:scale-95 "
           >
             View Shop
           </Link>

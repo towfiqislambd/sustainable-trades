@@ -13,11 +13,12 @@
   --font-lato: var(--font-lato);
 
   /* Breakpoints */
-  --breakpoint-sm: 480px;
+  /* --breakpoint-sm: 480px;
   --breakpoint-md: 576px;
   --breakpoint-lg: 768px;
   --breakpoint-xl: 1024px;
-  --breakpoint-2xl: 1280px;
+  --breakpoint-2xl: 1280px; */
+  --breakpoint-1xl: 1200px;
 }
 
 html {
@@ -116,7 +117,6 @@ body {
   scrollbar-width: thin;
 }
 
-
 option:hover {
-  background: #D4E2CB !important;
+  background: #d4e2cb !important;
 }

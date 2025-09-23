@@ -1,14 +1,14 @@
 "use client";
 import React, { useState } from "react";
-import StepOne from "./stepForm/StepOne";
-import StepTwo from "./stepForm/StepTwo";
-import StepThree from "./stepForm/StepThree";
-import StepFour from "./stepForm/StepFour";
-import StepFive from "./stepForm/StepFive";
+import { useCreateShop } from "@/Hooks/api/auth_api";
 import { useForm, FormProvider } from "react-hook-form";
 import { CheckSvg, StepSvg } from "@/Components/Svg/SvgContainer";
+import StepOne from "@/Components/PageComponents/authPages/stepForm/StepOne";
+import StepTwo from "@/Components/PageComponents/authPages/stepForm/StepTwo";
+import StepThree from "@/Components/PageComponents/authPages/stepForm/StepThree";
+import StepFour from "@/Components/PageComponents/authPages/stepForm/StepFour";
+import StepFive from "@/Components/PageComponents/authPages/stepForm/StepFive";
 
-// Step type
 type StepItem = {
   smLabel: string;
   lgLabel: string;
@@ -17,47 +17,50 @@ type StepItem = {
 
 const StepForm = () => {
   const [step, setStep] = useState(1);
+  const { mutateAsync: createShopMutation, isPending } = useCreateShop();
   const onNext = () => setStep(prev => Math.min(prev + 1, steps.length));
   const onPrev = () => setStep(prev => Math.max(prev - 1, 1));
 
-  // Hook Form instance (shared for all steps)
+  // Hook Form instance
   const methods = useForm({
     defaultValues: {
       // StepOne
-      firstName: "",
-      lastName: "",
+      first_name: "",
+      last_name: "",
       email: "",
       phone: "",
       password: "",
-      rePassword: "",
-      companyName: "",
-      profilePhoto: null,
-      profilePhotoPreview: null,
+      password_confirmation: "",
+      company_name: "",
 
       // StepTwo
-      shopName: "",
-      cityState: "",
-      shopPhoto: null,
-      coverPhoto: null,
-      shopPhotoPreview: null,
-      coverPhotoPreview: null,
+      shop_name: "",
+      shop_city: "",
+      shop_image: null,
+      shop_banner: null,
 
       // StepThree
-      aboutShop: "",
-      shopPolicies: "",
-      faqs: [],
-      websiteLink: "",
-      facebookLink: "",
-      instagramLink: "",
-      pinterestLink: "",
+      about_image: null,
+      tagline: "",
+      statement: "",
+      our_story: "",
+      payment_methods: [],
+      shipping_information: "",
+      return_policy: "",
+      pinterest_url: "",
+      instagram_url: "",
+      website_url: "",
+      facebook_url: "",
 
       // StepFour
-      geoLocatorOption: null,
-      address1: "",
-      address2: "",
+      address_10_mile: 0,
+      display_my_address: 0,
+      do_not_display: 0,
+      address_line_1: "",
+      address_line_2: "",
       city: "",
       state: "",
-      zipcode: "",
+      zip_code: "",
       latitude: null,
       longitude: null,
     },
@@ -79,11 +82,21 @@ const StepForm = () => {
 
   const CurrentStep = steps[step - 1].component;
 
-  const onSubmit = (data: any) => {
-    if (step < steps.length) {
+  const onSubmit = async (data: any) => {
+    if (data.faqs && Array.isArray(data.faqs)) {
+      data.questions = data.faqs.map((faq: any) => faq.question);
+      data.answers = data.faqs.map((faq: any) => faq.answer);
+    }
+
+    if (step < steps.length - 1) {
       setStep(step + 1);
     } else {
-      console.log("Final form data:", data);
+      const payload = { ...data };
+      delete payload.coverPhotoPreview;
+      delete payload.shopPhotoPreview;
+      delete payload.profilePhotoPreview;
+      await createShopMutation(payload);
+      setStep(step + 1);
     }
   };
 
@@ -130,6 +143,7 @@ const StepForm = () => {
             totalSteps={steps.length}
             onNext={onNext}
             onPrev={onPrev}
+            isPending={isPending}
           />
         </div>
       </form>

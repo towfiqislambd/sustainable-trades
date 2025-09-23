@@ -7,7 +7,7 @@ const ProdashboardStatistics = () => {
       <h3 className="text-[#13141D] text-[16px] font-semibold">
         Order/Store Statistics
       </h3>
-      <div className="grid grid-cols-2 gap-x-20 gap-y-12 pt-8 pb-24 px-20">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 lg:gap-x-20 lg:gap-y-12 pt-4 lg:pt-8 pb-8 lg:pb-24 lg:px-20">
         <div className="border border-[#A7A39C] p-4 rounded-[8px]">
           <div className="flex flex-col gap-y-4">
             <div className="flex justify-between">

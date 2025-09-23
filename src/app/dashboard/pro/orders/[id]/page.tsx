@@ -26,7 +26,7 @@ const Page = () => {
     { label: "Package Delivered", date: "" },
   ];
 
-  const currentStep = steps.findIndex(step => step.label === status);
+  const currentStep = steps.findIndex((step) => step.label === status);
 
   // refs for sidebar accordion
   const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -100,9 +100,9 @@ const Page = () => {
   ];
 
   return (
-    <div className="px-6 py-4">
+    <div className="2xl:px-6 py-4">
       {/* Header */}
-      <div className="flex justify-between">
+      <div className="flex flex-col lg:flex-row justify-between">
         <h3 className="text-[40px] font-semibold text-[#000]">Order Details</h3>
         <div className="flex gap-x-3">
           <button
@@ -121,18 +121,18 @@ const Page = () => {
       </div>
 
       {/* Main Content */}
-      <div className="pt-8 flex justify-between gap-x-6">
+      <div className="pt-8 flex flex-col lg:flex-row justify-between gap-x-6">
         {/* Left Side */}
-        <div className="w-[75%]">
+        <div className="w-full lg:w-[65%] 2xl:w-[75%]">
           {/* Order Status Dropdown */}
           <h4 className="text-[#000] font-bold text-[16px]">Order Status</h4>
           <div className="relative my-3">
             <select
               value={status}
-              onChange={e => setStatus(e.target.value)}
+              onChange={(e) => setStatus(e.target.value)}
               className="border border-[#A7A39C] rounded-[8px] cursor-pointer appearance-none outline-0 px-2 py-[10px] w-[190px] text-[#274F45] text-[14px] font-normal"
             >
-              {steps.map(step => (
+              {steps.map((step) => (
                 <option key={step.label} value={step.label}>
                   {step.label}
                 </option>
@@ -160,7 +160,7 @@ const Page = () => {
                 </div>
                 {index !== steps.length - 1 && (
                   <div
-                    className={`border-dashed border-t w-[190px] ${
+                    className={`border-dashed border-t w-[150px] md:w-[190px] ${
                       index < currentStep
                         ? "border-[#274F45]"
                         : "border-[#A7A39C]"
@@ -172,8 +172,8 @@ const Page = () => {
           </div>
 
           {/* Step Labels */}
-          <div className="flex gap-x-[70px]">
-            {steps.map(step => (
+          <div className="flex gap-x-[35px] md:gap-x-[70px]">
+            {steps.map((step) => (
               <div key={step.label}>
                 <h5 className="text-[16px] font-normal text-[#000] font-sans">
                   {step.label}
@@ -211,13 +211,13 @@ const Page = () => {
           )}
 
           {/* Order Summary */}
-          <div className="mt-20">
+          <div className="hidden lg:block mt-20">
             <OrderSummary />
           </div>
         </div>
 
         {/* Right Sidebar */}
-        <div className="w-[21%] space-y-4">
+        <div className="w-full lg:w-[35%] 2xl:w-[25%] space-y-4">
           {accordionData.map((item, idx) => (
             <div
               key={item.title}
@@ -290,7 +290,10 @@ const Page = () => {
           )}
         </div>
       </div>
-
+      {/* Order Summary */}
+      <div className="block lg:hidden mt-20">
+        <OrderSummary />
+      </div>
       {/* Modals */}
       <OrderNote
         isOpen={noteModalOpen}
