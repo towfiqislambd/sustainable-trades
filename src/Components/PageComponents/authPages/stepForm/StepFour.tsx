@@ -217,7 +217,7 @@ const StepFour = ({ setStep, step, isPending }: StepFourProps) => {
                   {selectedOption === 3 &&
                     "You chose not to display your address. Only your city/state will be shown."}
                 </p>
-                <AddressForm type={selectedOption === 3 ? "zip" : "full"} />
+                <AddressForm />
               </>
             )}
 
