@@ -23,6 +23,8 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import useAuth from "@/Hooks/useAuth";
+import { useLogout } from "@/Hooks/api/auth_api";
 const navLins = [
   { id: 1, label: "Home", path: "/" },
   { id: 2, label: "Shop", path: "/shop" },
@@ -122,11 +124,13 @@ const notificationData = [
 ];
 
 const BasicNavbar = () => {
+  const { user } = useAuth();
   const pathname = usePathname();
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [showNotification, setShowNotification] = useState<boolean>(false);
   const [showPopover, setShowPopover] = useState<boolean>(false);
   const [activeSubMenu, setActiveSubMenu] = useState<number>(0);
+  const { mutate: logoutMutation, isPending } = useLogout();
 
   useEffect(() => {
     const handleWindowClick = () => {
@@ -289,11 +293,19 @@ const BasicNavbar = () => {
                 }}
                 className="cursor-pointer flex gap-2 items-center"
               >
-                <Image
-                  src={author}
-                  alt="author"
-                  className="size-10 rounded-full border-2 border-white"
-                />
+                <figure className="size-10 rounded-full border-2 border-white relative grid place-items-center text-lg text-white font-semibold bg-accent-red">
+                  {user?.avatar ? (
+                    <Image
+                      src={author}
+                      alt="author"
+                      fill
+                      className="size-full rounded-full"
+                    />
+                  ) : (
+                    <span>{user?.first_name.at(0)}</span>
+                  )}
+                </figure>
+
                 <DownSvg />
               </button>
 
@@ -301,23 +313,28 @@ const BasicNavbar = () => {
               {showPopover && (
                 <div
                   onClick={e => e.stopPropagation()}
-                  className="absolute top-16 bg-white drop-shadow z-50 space-y-2 w-[120px] py-3 px-4 border-gray-50 rounded-lg"
+                  className="absolute top-16 bg-white drop-shadow z-50 space-y-2 w-[135px] py-3 px-4 border-gray-50 rounded-lg"
                 >
                   <Link
-                    href=""
-                    onClick={() => setShowPopover(false)}
+                    href={`${
+                      user?.role === "customer"
+                        ? "/dashboard/customer/home"
+                        : user?.role === "vendor" &&
+                          user?.membership?.membership_type === "pro"
+                        ? "/dashboard/pro/home"
+                        : "/dashboard/basic/home"
+                    }`}
                     className="flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold"
                   >
                     Dashboard
                   </Link>
 
-                  <Link
-                    href=""
-                    onClick={() => setShowPopover(false)}
-                    className="flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold"
+                  <button
+                    onClick={() => logoutMutation()}
+                    className="flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold cursor-pointer"
                   >
-                    Log Out
-                  </Link>
+                    {isPending ? "Logging out..." : "Log Out"}
+                  </button>
                 </div>
               )}
             </div>

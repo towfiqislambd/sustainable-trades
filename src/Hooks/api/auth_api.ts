@@ -1,6 +1,7 @@
 import toast from "react-hot-toast";
 import useAuth from "@/Hooks/useAuth";
 import useClientApi from "@/Hooks/useClientApi";
+import { useRouter } from "next/navigation";
 
 // Get User Data
 export const useGetUserData = (token: any) => {
@@ -50,6 +51,29 @@ export const usePurchasePlan = (plan_id: number) => {
       if (data?.success) {
         toast.success(data?.message);
         window.location.href = data?.data?.url;
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// Logout
+export const useLogout = () => {
+  const router = useRouter();
+  const { clearToken } = useAuth();
+
+  return useClientApi({
+    method: "post",
+    key: ["logout"],
+    isPrivate: true,
+    endpoint: "/api/users/logout",
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        clearToken();
+        toast.success(data?.message);
+        router.replace("/auth/login");
       }
     },
     onError: (err: any) => {
