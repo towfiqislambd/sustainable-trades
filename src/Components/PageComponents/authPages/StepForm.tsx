@@ -5,9 +5,9 @@ import { useForm, FormProvider } from "react-hook-form";
 import { CheckSvg, StepSvg } from "@/Components/Svg/SvgContainer";
 import StepOne from "@/Components/PageComponents/authPages/stepForm/StepOne";
 import StepTwo from "@/Components/PageComponents/authPages/stepForm/StepTwo";
-import StepThree from "@/Components/PageComponents/authPages/stepForm/StepThree";
 import StepFour from "@/Components/PageComponents/authPages/stepForm/StepFour";
 import StepFive from "@/Components/PageComponents/authPages/stepForm/StepFive";
+import StepThree from "@/Components/PageComponents/authPages/stepForm/StepThree";
 
 type StepItem = {
   smLabel: string;
@@ -126,6 +126,7 @@ const StepForm = () => {
                   {isActive && <StepSvg />}
                   {isCompleted && <CheckSvg />}
                 </div>
+
                 <p className="text-[12px] lg:text-[18px]">
                   <span className="block lg:hidden">{item.smLabel}</span>
                   <span className="hidden lg:block">{item.lgLabel}</span>

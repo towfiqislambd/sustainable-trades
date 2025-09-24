@@ -227,7 +227,7 @@ const customerNavLinks = [
 ];
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
-  const user = "pro" as String;
+  const user = "basic" as String;
   const [open, setOpen] = useState<boolean>(false);
 
   return (

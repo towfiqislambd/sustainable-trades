@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import Pricing from "@/Components/PageComponents/mainPages/homePageComponents/Pricing";
 
 const StepFive = ({ step, setStep }: any) => {
