@@ -232,7 +232,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
-    <section className="min-h-screen max-h-screen flex flex-col">
+    <section className="min-h-screen flex flex-col">
       {/* Dashboard Header */}
       <DashboardHeader setOpen={setOpen} />
 
