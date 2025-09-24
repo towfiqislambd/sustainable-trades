@@ -1,10 +1,10 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-import Container from "@/Components/Common/Container";
-import { getPricingData } from "@/Hooks/api/cms_api";
-import { usePurchasePlan } from "@/Hooks/api/auth_api";
 import { CgSpinnerTwo } from "react-icons/cg";
+import { getPricingData } from "@/Hooks/api/cms_api";
+import Container from "@/Components/Common/Container";
+import { usePurchasePlan } from "@/Hooks/api/auth_api";
 
 type benefitItem = {
   id: string;
@@ -66,6 +66,13 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
       <div className="h-12 bg-gray-300 rounded-lg w-full" />
     </div>
   );
+
+  const handlePurchasePlan = async (id: number) => {
+    await purchasePlanMutation({
+      success_url: `${window.location.origin}/complete-onboarding`,
+      cancel_url: `${window.location.origin}/auth/on_boarding`,
+    });
+  };
 
   return (
     <section id="membership_plan" className="py-20">
@@ -190,16 +197,13 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
                       </div>
                     </div>
 
-                  
                     <button
                       disabled={isPending}
                       onClick={e => {
                         e.preventDefault();
                         e.stopPropagation();
                         setPlanId(id);
-                        if (planId) {
-                          purchasePlanMutation();
-                        }
+                        handlePurchasePlan(id);
                       }}
                       className={`w-full block duration-500 transition-all text-lg cursor-pointer py-3 border-2 border-primary-green font-semibold rounded-lg shadow-lg hover:scale-105 ${
                         idx === 0
@@ -207,7 +211,7 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
                           : "text-accent-white hover:text-primary-green bg-primary-green hover:bg-transparent"
                       }`}
                     >
-                      {isPending ? (
+                      {isPending && id === planId ? (
                         <p className="flex gap-2 items-center justify-center">
                           <CgSpinnerTwo className="animate-spin text-xl" />
                           <span>Please wait...</span>
