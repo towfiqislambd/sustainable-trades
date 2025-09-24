@@ -15,12 +15,12 @@ const EditOrderModal: React.FC<OrderNoteProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[999]  bg-black/40 bg-opacity-50">
+    <div className="fixed inset-0 z-[999]  bg-black/40 bg-opacity-50 px-5">
       <div className="absolute inset-0" onClick={onClose} />
       <div className="flex items-center justify-center min-h-screen ">
-        <div className="bg-white rounded-lg w-full max-w-xl p-6 relative">
+        <div className="bg-white rounded-lg w-full max-w-xl p-3 md:p-6 relative">
           {/* Close Button */}
-          <div className="flex justify-between py-3 border-b border-gray-300">
+          <div className="flex justify-between py-1.5 md:py-3 border-b border-gray-300">
             <h3 className="text-[24px] font-normal text-[#000]">
               Shipping Details
             </h3>
@@ -32,7 +32,7 @@ const EditOrderModal: React.FC<OrderNoteProps> = ({
             </button>
           </div>
 
-          <form className="space-y-3 mt-5">
+          <form className="space-y-1.5 md:space-y-3 mt-2.5 md:mt-5">
             {/* Full Name */}
             <div>
               <p className="form-label font-bold">
@@ -46,7 +46,7 @@ const EditOrderModal: React.FC<OrderNoteProps> = ({
             </div>
             <div>
               <p className="form-label font-bold">
-                Full Name <span className="text-[#8B200C]">*</span>
+                Country Name <span className="text-[#8B200C]">*</span>
               </p>
               <select className="form-input">
                 <option value="Country">Country</option>
@@ -75,8 +75,8 @@ const EditOrderModal: React.FC<OrderNoteProps> = ({
                 placeholder="Apt / Suite / Other (Optional)"
               />
             </div>
-            <div className="flex justify-between gap-x-10">
-              <div>
+            <div className="flex md:gap-5 flex-col md:flex-row md:justify-between ">
+              <div className="w-full">
                 <p className="form-label font-bold">
                   City <span className="text-[#8B200C]">*</span>
                 </p>
@@ -86,7 +86,7 @@ const EditOrderModal: React.FC<OrderNoteProps> = ({
                   placeholder="Los Angeles"
                 />
               </div>
-              <div>
+              <div className="w-full">
                 <p className="form-label font-bold">
                   Zip Code <span className="text-[#8B200C]">*</span>
                 </p>
@@ -105,7 +105,7 @@ const EditOrderModal: React.FC<OrderNoteProps> = ({
               </select>
             </div>
           </form>
-          <div className="mt-5">
+          <div className="mt-2.5 md:mt-5">
             <button className="auth-secondary-btn w-full" onClick={onClose}>
               Save and Continue
             </button>
