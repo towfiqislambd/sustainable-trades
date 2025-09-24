@@ -1,14 +1,15 @@
 "use client";
-import Image from "next/image";
-import React, { useState } from "react";
-import welcomeBg from "@/Assets/welcome.jpg";
-import magic from "@/Assets/magic.png";
 import Link from "next/link";
+import Image from "next/image";
 import toast from "react-hot-toast";
+import magic from "@/Assets/magic.png";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import welcomeBg from "@/Assets/welcome.jpg";
 const data = [
   {
     id: 1,
+    role: "magic_maker",
     package_name: "Magic Maker (Shop Owner)",
     feathers: [
       "You want to create a shop and sell your magic to your community.",
@@ -19,6 +20,7 @@ const data = [
   },
   {
     id: 2,
+    role: "customer",
     package_name: "Sustainable Shopper (Free)",
     feathers: [
       "You want to shop local, buy organic produce and easily access your orders and messages right on the platform",
@@ -31,12 +33,12 @@ const data = [
 
 const Page = () => {
   const router = useRouter();
-  const [selectedId, setSelectedId] = useState<null | number>(null);
+  const [selectedRole, setSelectedRole] = useState<null | string>(null);
   const handleStartedBtnClicked = () => {
-    if (!selectedId) {
+    if (!selectedRole) {
       return toast.error("Please select a package");
     } else {
-      router.push(`/auth/register?selectedId=${selectedId}`);
+      router.push(`/auth/register?role=${selectedRole}`);
     }
   };
 
@@ -47,9 +49,9 @@ const Page = () => {
         <Image
           src={welcomeBg}
           alt="welcome_img"
+          fill
           className="w-full h-full object-cover"
           placeholder="blur"
-          fill
         />
       </div>
 
@@ -68,7 +70,7 @@ const Page = () => {
               <div
                 key={item.id}
                 className={`flex-1 px-4 py-5 border border-[#D1D1D1] rounded-xl transition-colors duration-300 ${
-                  selectedId === item.id ? "bg-[#EDF3F1]" : "bg-[#F7F7F7]"
+                  selectedRole === item.role ? "bg-[#EDF3F1]" : "bg-[#F7F7F7]"
                 }`}
               >
                 <div className="flex justify-between items-center gap-3 mb-7">
@@ -78,9 +80,11 @@ const Page = () => {
 
                   <input
                     type="checkbox"
-                    checked={selectedId === item.id}
+                    checked={selectedRole === item.role}
                     onChange={() =>
-                      setSelectedId(prev => (prev === item.id ? null : item.id))
+                      setSelectedRole(prev =>
+                        prev === item.role ? null : item.role
+                      )
                     }
                     className="size-8 cursor-pointer appearance-none rounded-full border border-gray-300  checked:bg-primary-green checked:border-transparent focus:outline-none shrink-0"
                   />
@@ -108,7 +112,7 @@ const Page = () => {
             ))}
           </div>
 
-          {/* get started btn */}
+          {/* Get started btn */}
           <div
             onClick={handleStartedBtnClicked}
             className="flex justify-end mb-5"

@@ -1,6 +1,11 @@
 "use client";
+import Link from "next/link";
+import Image from "next/image";
 import logo from "@/Assets/logo.svg";
+import useAuth from "@/Hooks/useAuth";
+import { usePathname } from "next/navigation";
 import author from "@/Assets/shop_author.jpg";
+import { useLogout } from "@/Hooks/api/auth_api";
 import React, { useEffect, useState } from "react";
 import Container from "@/Components/Common/Container";
 import {
@@ -20,11 +25,6 @@ import {
   VisionSvg,
   WorksSvg,
 } from "@/Components/Svg/SvgContainer";
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import useAuth from "@/Hooks/useAuth";
-import { useLogout } from "@/Hooks/api/auth_api";
 const navLins = [
   { id: 1, label: "Home", path: "/" },
   { id: 2, label: "Shop", path: "/shop" },
@@ -318,7 +318,7 @@ const BasicNavbar = () => {
                   <Link
                     href={`${
                       user?.role === "customer"
-                        ? "/dashboard/customer/home"
+                        ? "/dashboard/customer/orders"
                         : user?.role === "vendor" &&
                           user?.membership?.membership_type === "pro"
                         ? "/dashboard/pro/home"

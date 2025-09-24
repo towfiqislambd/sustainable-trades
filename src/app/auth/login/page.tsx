@@ -1,14 +1,16 @@
 "use client";
-import Image from "next/image";
 import React from "react";
+import Link from "next/link";
+import Image from "next/image";
 import loginBg from "@/Assets/login.png";
 import { useForm } from "react-hook-form";
-import Link from "next/link";
 import {
   AppleLogoSvg,
   FacebookLogoSvg,
   GoogleLogoSvg,
 } from "@/Components/Svg/SvgContainer";
+import { CgSpinnerTwo } from "react-icons/cg";
+import { useLogin } from "@/Hooks/api/auth_api";
 
 type formData = {
   email: string;
@@ -16,14 +18,16 @@ type formData = {
 };
 
 const Page = () => {
+  const { mutateAsync: loginMutation, isPending } = useLogin();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<formData>();
 
-  const onSubmit = (data: formData) => {
-    console.log(data);
+  const onSubmit = async (data: formData) => {
+    await loginMutation(data);
   };
 
   return (
@@ -96,9 +100,19 @@ const Page = () => {
             {/* Submit btn */}
             <button
               type="submit"
-              className="px-10 py-4 border-2 border-primary-green rounded-lg bg-primary-green text-accent-white font-semibold cursor-pointer duration-500 transition-all hover:bg-transparent hover:text-primary-green text-lg block w-full"
+              disabled={isPending}
+              className={`px-10 py-4 border-2 border-primary-green rounded-lg bg-primary-green text-accent-white font-semibold duration-500 transition-all hover:bg-transparent hover:text-primary-green text-lg block w-full ${
+                isPending ? "cursor-not-allowed" : "cursor-pointer"
+              }`}
             >
-              Sign In
+              {isPending ? (
+                <p className="flex gap-2 items-center justify-center">
+                  <CgSpinnerTwo className="animate-spin text-xl" />
+                  <span>Signing in....</span>
+                </p>
+              ) : (
+                " Sign In"
+              )}
             </button>
           </form>
 

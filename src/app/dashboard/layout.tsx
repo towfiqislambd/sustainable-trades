@@ -21,6 +21,7 @@ import {
   PTwoSvg,
 } from "@/Components/Svg/SvgContainer";
 import DashboardHeader from "@/Shared/DashboardHeader";
+import useAuth from "@/Hooks/useAuth";
 
 const proNavLinks = [
   { id: 1, label: "Dashboard", path: "/dashboard/pro/home", icon: <POneSvg /> },
@@ -227,7 +228,7 @@ const customerNavLinks = [
 ];
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
-  const user = "basic" as String;
+  const { user } = useAuth();
   const [open, setOpen] = useState<boolean>(false);
 
   return (
@@ -242,9 +243,11 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           open={open}
           setOpen={setOpen}
           dashboardNavLinks={
-            user === "pro"
+            user?.role === "vendor" &&
+            user?.membership?.membership_type === "pro"
               ? proNavLinks
-              : user === "basic"
+              : user?.role === "vendor" &&
+                user?.membership?.membership_type === "basic"
               ? basicNavLinks
               : customerNavLinks
           }

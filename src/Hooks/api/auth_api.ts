@@ -59,6 +59,56 @@ export const usePurchasePlan = (plan_id: number) => {
   });
 };
 
+// Registration
+export const useRegister = () => {
+  const router = useRouter();
+  return useClientApi({
+    method: "post",
+    key: ["register"],
+    endpoint: "/api/users/register",
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        toast.success(data?.message);
+        router.push("/auth/login");
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// Login
+export const useLogin = () => {
+  const router = useRouter();
+  const { setToken } = useAuth();
+
+  return useClientApi({
+    method: "post",
+    key: ["login"],
+    endpoint: "/api/users/login",
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        setToken(data?.data?.token);
+        toast.success(data?.message);
+        router.push(
+          `${
+            data?.data?.role === "customer"
+              ? "/dashboard/customer/orders"
+              : data?.data?.role === "vendor" &&
+                data?.data?.membership?.membership_type === "pro"
+              ? "/dashboard/pro/home"
+              : "/dashboard/basic/home"
+          }`
+        );
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
 // Logout
 export const useLogout = () => {
   const router = useRouter();
