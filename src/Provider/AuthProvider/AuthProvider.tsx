@@ -1,7 +1,7 @@
 "use client";
-import { createContext, ReactNode, useEffect, useState } from "react";
-import useLocalStorage from "@/Hooks/useLocalStorage";
 import { useGetUserData } from "@/Hooks/api/auth_api";
+import useLocalStorage from "@/Hooks/useLocalStorage";
+import { createContext, ReactNode, useEffect, useState } from "react";
 
 interface AuthContextValue {
   loading: boolean;
@@ -32,7 +32,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       setLoading(false);
     }
 
-    if (userData?.status) {
+    if (userData?.success) {
       setUser(userData?.data);
     } else {
       setUser(null);

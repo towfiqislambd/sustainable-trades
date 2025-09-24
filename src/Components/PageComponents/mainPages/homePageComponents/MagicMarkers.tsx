@@ -3,7 +3,7 @@ import React from "react";
 
 const MagicMarkers = () => {
   return (
-    <section className="my-10">
+    <section className="my-5 xl:my-10">
       <Container>
         <div className="h-[500px] relative">
           {/* Iframe */}
@@ -14,24 +14,24 @@ const MagicMarkers = () => {
           ></iframe>
 
           {/* Content */}
-          <div className="absolute top-1/2 -translate-y-1/2 right-20 w-[560px] bg-[rgba(246,245,240,0.95)] rounded-2xl px-8 py-12 shadow-[0_3px_8px_0_rgba(0,0,0,0.09),_0_3px_12px_0_rgba(0,0,0,0.10)]">
-            <h3 className="text-3xl font-semibold text-secondary-black mb-5">
+          <div className="absolute -bottom-50 left-1/2 -translate-x-1/2  md:bottom-auto md:left-auto md:right-20 md:top-1/2 md:-translate-x-0 md:-translate-y-1/2 w-[70%] md:w-[560px] bg-[rgba(246,245,240,0.95)] rounded-2xl p-5  md:px-8 md:py-12 shadow-[0_3px_8px_0_rgba(0,0,0,0.09),_0_3px_12px_0_rgba(0,0,0,0.10)]">
+            <h3 className="lg:text-2xl text-xl xl:text-3xl font-semibold text-secondary-black mb-5">
               Find Your Local Magic Makers
             </h3>
 
-            <p className="text-secondary-black text-lg mb-6">
+            <p className="text-secondary-black text-base xl:text-lg mb-6">
               Use our Geo-locator to find local food, businesses, artisans, and
               services making a positive impact. Enter your zip code to discover
               nearby offerings.
             </p>
 
-            <div className="flex gap-5 items-center">
+            <div className="flex gap-5 flex-col md:flex-row  md:items-center">
               <input
                 type="text"
                 placeholder="Denver, CO 80012"
-                className="outline-none border-2 border-primary-green px-3 py-3 rounded w-[416px]"
+                className="outline-none border-2 border-primary-green p-2 md:p-3 rounded w-full md:w-[416px]"
               />
-              <button className="shrink-0 border-2 border-primary-green text-accent-white bg-primary-green font-semibold px-10 py-3 rounded cursor-pointer">
+              <button className="shrink-0 border-2 border-primary-green text-accent-white bg-primary-green font-semibold md:py-3 px-10 py-2  rounded cursor-pointer">
                 Search
               </button>
             </div>

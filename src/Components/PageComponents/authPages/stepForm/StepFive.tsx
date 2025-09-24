@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import Pricing from "@/Components/PageComponents/mainPages/homePageComponents/Pricing";
 
 const StepFive = ({ step, setStep }: any) => {
@@ -17,10 +16,6 @@ const StepFive = ({ step, setStep }: any) => {
         <button onClick={() => setStep(step - 1)} className="auth-primary-btn">
           Back
         </button>
-
-        <Link href="/onBoarding">
-          <button className="auth-secondary-btn">Save and Continue</button>
-        </Link>
       </div>
     </section>
   );

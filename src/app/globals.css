@@ -18,6 +18,8 @@
   --breakpoint-lg: 768px;
   --breakpoint-xl: 1024px;
   --breakpoint-2xl: 1280px; */
+  --breakpoint-xxs: 350px;
+  --breakpoint-xs: 400px;
   --breakpoint-1xl: 1200px;
 }
 
@@ -31,7 +33,7 @@ body {
 
 /* Custom CSS */
 .section_title {
-  @apply text-[45px] text-primary-green mb-12;
+  @apply   text-[45px] text-primary-green mb-12;
 }
 
 .section_sub_title {
@@ -86,7 +88,6 @@ body {
 .banner_swiper .swiper-pagination-bullet-active {
   @apply bg-primary-green scale-125 opacity-100;
 }
-
 .product_swiper .swiper-pagination-bullet {
   @apply bg-white size-3 opacity-80;
 }
@@ -120,3 +121,5 @@ body {
 option:hover {
   background: #d4e2cb !important;
 }
+
+
