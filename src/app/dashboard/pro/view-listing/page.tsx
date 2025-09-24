@@ -67,7 +67,7 @@ const Page = () => {
       {/* Filters + Button */}
       <div className="flex flex-col gap-3.5 md:gap-0 md:flex-row justify-between mt-6">
         <div className="flex flex-wrap md:flex-nowrap gap-3 md:gap-6">
-          <div className="w-full">
+          <div className="w-full md:w-fit">
             <p className="text-[#13141D] text-[16px] font-semibold">
               Sort by :
             </p>
@@ -78,7 +78,7 @@ const Page = () => {
               <option>Price: High to Low</option>
             </select>
           </div>
-          <div className="w-full">
+          <div className="w-full md:w-fit">
             <p className="text-[#13141D] text-[16px] font-semibold">
               Listing Status
             </p>
@@ -90,7 +90,7 @@ const Page = () => {
           </div>
         </div>
 
-        <div className="w-full">
+        <div className="w-full md:w-fit">
           <button className="h-[45px] md:h-[60px] rounded-[8px] bg-[#E48872] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:bg-transparent duration-500 ease-in-out border border-[#E48872] w-full md:w-[190px] flex gap-x-2 justify-center items-center">
             <FaPlus />
             Add New Listing
