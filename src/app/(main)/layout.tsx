@@ -5,9 +5,9 @@ import Navbar from "@/Shared/Navbar";
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <main>{children}</main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

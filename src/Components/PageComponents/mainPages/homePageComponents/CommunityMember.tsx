@@ -13,9 +13,9 @@ const CommunityMember = ({ has_community }: any) => {
   return (
     <section className="rounded-xl">
       <Container>
-        <div className="flex">
+        <div className="flex flex-col md:flex-row">
           {/* Left */}
-          <div className="w-[527px] h-[549px] shrink-0 rounded-tl-lg rounded-bl-lg">
+          <div className="md:w-[527px] md:h-[549px] shrink-0 rounded-tl-lg rounded-bl-lg">
             <Image
               src={communityImage}
               alt="community"
@@ -24,14 +24,14 @@ const CommunityMember = ({ has_community }: any) => {
           </div>
 
           {/* Right */}
-          <div className="grow bg-primary-green rounded-tr-lg rounded-br-lg flex flex-col gap-5 justify-center p-10">
-            <h2 className="text-accent-white text-4xl font-semibold">
+          <div className="grow bg-primary-green rounded-tr-lg rounded-br-lg flex flex-col gap-5 justify-center p-5 md:p-10">
+            <h2 className="text-accent-white text-lg md:text-xl lg:text-2xl xl:text-4xl font-semibold">
               Community Member Spotlight
             </h2>
 
             <h3 className="text-accent-white text-2xl">Paulo Silva</h3>
 
-            <p className="text-lg text-accent-white">
+            <p className="text-base xl:text-lg text-accent-white">
               Paulo is a local master gardener, who offers mentorship and
               housing to those who wish to learn and grow in the permaculture
               space. He sells only what is grown on the lands he nurtures,
@@ -42,7 +42,7 @@ const CommunityMember = ({ has_community }: any) => {
 
             <Link
               href="/community-member-spotlight"
-              className="w-[416px] text-center block duration-500 transition-all border text-lg text-secondary-black cursor-pointer py-3 bg-accent-white rounded-lg shadow-lg hover:scale-105"
+              className="md:w-[416px] text-center block duration-500 transition-all border text-lg text-secondary-black cursor-pointer md:py-3 py-2  bg-accent-white rounded-lg shadow-lg hover:scale-105"
             >
               View Their Shop
             </Link>
@@ -50,7 +50,7 @@ const CommunityMember = ({ has_community }: any) => {
             {has_community && (
               <button
                 onClick={() => setOpen(true)}
-                className="w-[416px] duration-500 transition-all block border border-accent-white text-lg text-accent-white cursor-pointer py-3 rounded-lg shadow-lg hover:scale-105"
+                className="md:w-[416px] duration-500 transition-all block border border-accent-white text-lg text-accent-white cursor-pointer md:py-3 py-2 rounded-lg shadow-lg hover:scale-105"
               >
                 Apply for Community Spotlight
               </button>
