@@ -1,16 +1,19 @@
 "use client";
-import { UpArrowSvg } from "@/Components/Svg/SvgContainer";
 import Link from "next/link";
-import ScrollToTop from "react-scroll-to-top";
-import Container from "@/Components/Common/Container";
-import { usePathname } from "next/navigation";
+import useAuth from "@/Hooks/useAuth";
 import BasicNavbar from "./BasicNavbar";
-import DefaultNavbar from "./DefaultNavbar";
 import LowerNavbar from "./LowerNavbar";
+import DefaultNavbar from "./DefaultNavbar";
+import ScrollToTop from "react-scroll-to-top";
+import { usePathname } from "next/navigation";
+import Container from "@/Components/Common/Container";
+import { UpArrowSvg } from "@/Components/Svg/SvgContainer";
 
 const Navbar = () => {
-  const user = false;
+  // const user = false;
   const pathname = usePathname();
+  const { user } = useAuth();
+  console.log(user);
 
   return (
     <>
@@ -32,9 +35,10 @@ const Navbar = () => {
         {user ? <BasicNavbar /> : <DefaultNavbar />}
 
         {/* Lower Navbar*/}
-        {user || <LowerNavbar />}
+        {!user && <LowerNavbar />}
       </nav>
 
+      {/* Scroll to top */}
       <ScrollToTop
         smooth={true}
         top={50}

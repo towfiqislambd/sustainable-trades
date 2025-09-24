@@ -100,7 +100,7 @@ const Page = () => {
   ];
 
   return (
-    <div className="2xl:px-6 py-4">
+    <div className="2xl:px-6 py-4 ">
       {/* Header */}
       <div className="flex flex-col lg:flex-row justify-between">
         <h3 className="text-[40px] font-semibold text-[#000]">Order Details</h3>
@@ -113,7 +113,12 @@ const Page = () => {
           </button>
           <button
             className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-[#274F45]duration-300 ease-in-out flex gap-x-1 items-center"
-            onClick={() => setEditModalOpen(true)}
+            onClick={() => {
+              if (!editModalOpen) {
+                setEditModalOpen(true);
+                document.body.style.overflow = "hidden";
+              }
+            }}
           >
             <Pen /> Edit Order
           </button>
@@ -194,17 +199,17 @@ const Page = () => {
 
           {/* Step Buttons */}
           {status === "Package Delivered" && (
-            <div className="my-6 flex flex-wrap md:flex-nowrap  stepbutton gap-x-3">
-              <button className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-[#274F45] duration-300 ease-in-out flex-1">
+            <div className="my-6 flex flex-wrap md:flex-nowrap  stepbutton gap-3">
+              <button className="py-4 px-3 md:px-6 w-full sm:w-fit rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-[#274F45] duration-300 ease-in-out">
                 Track Package
               </button>
-              <button className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-[#274F45] duration-300 ease-in-out flex-1">
+              <button className="py-4 px-3 md:px-6 w-full sm:w-fit rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-[#274F45] duration-300 ease-in-out ">
                 Return or replace
               </button>
-              <button className="py-4 px-6 rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-[#274F45] duration-300 ease-in-out flex-1">
+              <button className="py-4 px-3 md:px-6 w-full sm:w-fit rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-[#274F45] duration-300 ease-in-out ">
                 Get Help
               </button>
-              <button className="py-4 px-6  rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-[#274F45] duration-300 ease-in-out">
+              <button className="py-4 px-3 md:px-6 w-full sm:w-fit rounded-[8px] border border-[#77978F] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:border-[#274F45] duration-300 ease-in-out">
                 Request a Review
               </button>
             </div>
@@ -302,7 +307,12 @@ const Page = () => {
       />
       <EditOrderModal
         isOpen={editModalOpen}
-        onClose={() => setEditModalOpen(false)}
+        onClose={() => {
+          if (editModalOpen) {
+            setEditModalOpen(false);
+            document.body.style.overflow = "visible";
+          }
+        }}
       />
       {/* <SendMessageModal
         isOpen={messageModalOpen}

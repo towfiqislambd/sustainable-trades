@@ -3,14 +3,16 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
+import shopBg from "@/Assets/shoppers.png";
 import magicBg from "@/Assets/magic_markers.png";
 import { useSearchParams } from "next/navigation";
-import shopBg from "@/Assets/sustainable_soppers.png";
 import {
   AppleLogoSvg,
   FacebookLogoSvg,
   GoogleLogoSvg,
 } from "@/Components/Svg/SvgContainer";
+import { useRegister } from "@/Hooks/api/auth_api";
+import { CgSpinnerTwo } from "react-icons/cg";
 
 type formData = {
   first_name: string;
@@ -18,12 +20,13 @@ type formData = {
   email: string;
   password: string;
   password_confirmation: string;
-  agree_terms: boolean;
+  agree_to_terms: boolean;
 };
 
 export default function page() {
   const searchParams = useSearchParams();
-  const selectedId = Number(searchParams.get("selectedId"));
+  const selected_role = searchParams.get("role");
+  const { mutateAsync: registerMutation, isPending } = useRegister();
 
   const {
     register,
@@ -33,8 +36,13 @@ export default function page() {
   } = useForm<formData>();
 
   const password = watch("password");
-  const onSubmit = (data: formData) => {
-    console.log(data);
+  const onSubmit = async (data: formData) => {
+    const payload = {
+      ...data,
+      agree_to_terms: data.agree_to_terms ? 1 : 0,
+      role: selected_role,
+    };
+    await registerMutation(payload);
   };
 
   return (
@@ -43,9 +51,11 @@ export default function page() {
       <div className="flex-1 grid place-items-center overflow-y-auto">
         <div className="w-[750px] mx-auto p-10">
           <h2 className="auth-heading !text-4xl !mb-7">
-            Welcome,{" "}
+            Welcome,
             <span className="text-primary-green">
-              {selectedId === 1 ? "Magic Maker!" : "Sustainable Shopper!"}
+              {selected_role === "magic_maker"
+                ? "Magic Maker!"
+                : "Sustainable Shopper!"}
             </span>
           </h2>
 
@@ -151,7 +161,7 @@ export default function page() {
                   id="terms"
                   type="checkbox"
                   className="mt-1 size-5"
-                  {...register("agree_terms", {
+                  {...register("agree_to_terms", {
                     required: "You must agree to the terms and conditions",
                   })}
                 />
@@ -160,7 +170,7 @@ export default function page() {
                   className="text-secondary-black max-w-[550px]"
                 >
                   By continuing you agree to Sustainable Trade’s Terms of Use
-                  and Privacy Policy.{" "}
+                  and Privacy Policy.
                   <Link
                     href="/help/terms-and-conditions"
                     target="_blank"
@@ -170,9 +180,9 @@ export default function page() {
                   </Link>
                 </label>
               </div>
-              {errors.agree_terms?.message && (
+              {errors.agree_to_terms?.message && (
                 <p className="text-red-600 mt-1 text-sm">
-                  {errors.agree_terms.message}
+                  {errors.agree_to_terms.message}
                 </p>
               )}
             </div>
@@ -180,11 +190,21 @@ export default function page() {
             {/* Submit */}
             <button
               type="submit"
-              className="px-10 py-4 border-2 border-primary-green rounded-lg bg-primary-green text-accent-white font-semibold cursor-pointer duration-500 transition-all hover:bg-transparent hover:text-primary-green text-lg block w-full"
+              disabled={isPending}
+              className={`px-10 py-4 border-2 border-primary-green rounded-lg bg-primary-green text-accent-white font-semibold duration-500 transition-all hover:bg-transparent hover:text-primary-green text-lg block w-full ${
+                isPending ? "cursor-not-allowed" : "cursor-pointer"
+              }`}
             >
-              {selectedId === 1
-                ? " Join as Magic Maker"
-                : " Join as Organic Shopper"}
+              {isPending ? (
+                <p className="flex gap-2 items-center justify-center">
+                  <CgSpinnerTwo className="animate-spin text-xl" />
+                  <span>Please wait....</span>
+                </p>
+              ) : selected_role === "magic_maker" ? (
+                " Join as Magic Maker"
+              ) : (
+                " Join as Organic Shopper"
+              )}
             </button>
           </form>
 
@@ -224,7 +244,7 @@ export default function page() {
       {/* Right - Image */}
       <div className="flex-1 relative">
         <Image
-          src={selectedId === 1 ? shopBg : magicBg}
+          src={selected_role === "magic_maker" ? shopBg : magicBg}
           alt="welcome_img"
           className="w-full h-full object-cover"
           fill

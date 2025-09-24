@@ -46,17 +46,17 @@ const data = [
 
 const FeaturedShops = () => {
   return (
-    <section className="py-20">
+    <section className=" mt-50 md:mt-0 py-20">
       <Container>
-        <h2 className="section_title">Featured Shops</h2>
-        <div className="grid grid-cols-4 gap-10">
+        <h2 className="section_title md:text-start text-center ">Featured Shops</h2>
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
           {data?.map(item => (
             <Link
               href={`/shop-details/${item?.id}`}
               key={item?.id}
               className="text-center space-y-1.5"
             >
-              <figure className="size-64 mx-auto cursor-pointer rounded-full border border-gray-100 group relative">
+              <figure className="size-30 xl:size-64 mx-auto cursor-pointer rounded-full border border-gray-100 group relative">
                 <div className="absolute bg-black/50 size-full rounded-full inset-0 opacity-0 duration-500 transition-all group-hover:opacity-100 flex justify-center items-center group-hover:backdrop-blur-[1px]">
                   <IoLink className="text-white text-2xl" />
                 </div>

@@ -46,9 +46,9 @@ const TradeLayout = ({ children, initialTab }: TradeLayoutProps) => {
       {/* Tabs */}
       <div className="mt-14">
         <ul className="flex justify-between relative after:content-[''] after:block after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:p-[3px] after:border after:border-[#A7A39C] after:rounded-lg">
-          {tradetabs.map(tab => (
+          {tradetabs.map((tab) => (
             <li
-              key={tab.label}
+              key={tab.id}
               onClick={() => setActiveTab(tab.label as typeof initialTab)}
               className={`flex gap-x-3 items-center text-[16px] cursor-pointer pb-5 px-20 justify-center
                 ${
@@ -72,8 +72,6 @@ const TradeLayout = ({ children, initialTab }: TradeLayoutProps) => {
           ))}
         </ul>
       </div>
-
-
 
       {/* Render only the active child */}
       <div>{children[tabIndexMap[activeTab]]}</div>
