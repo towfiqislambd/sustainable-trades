@@ -7,12 +7,10 @@ import CanceledTrades from "@/Components/Common/DashboardReusable/CanceledTrades
 const Page = () => {
   return (
     <TradeLayout initialTab="Pending">
-      {[
-        <PendingTrades />,
-        <SentTrades />,
-        <PreviousTrades />,
-        <CanceledTrades />,
-      ]}
+      <PendingTrades />
+      <SentTrades />
+      <PreviousTrades />
+      <CanceledTrades />
     </TradeLayout>
   );
 };
