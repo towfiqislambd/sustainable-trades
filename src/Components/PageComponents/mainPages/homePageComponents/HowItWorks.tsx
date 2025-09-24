@@ -20,10 +20,10 @@ const HowItWorks = ({ data }: worksProps) => {
       <Container>
         <h2 className="section_title text-center">How It Works</h2>
 
-        <div className="grid grid-cols-3 gap-10 text-center mb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2  xl:grid-cols-3 gap-10 text-center mb-10">
           {data?.map(item => (
             <div key={item?.id} className="space-y-3">
-              <figure className="size-40 mx-auto relative">
+              <figure className="size-30 xl:size-40 mx-auto relative">
                 <Image
                   src={`${process.env.NEXT_PUBLIC_SITE_URL}/${item?.image}`}
                   alt="logo"
@@ -43,7 +43,7 @@ const HowItWorks = ({ data }: worksProps) => {
 
         <Link
           href="#membership_plan"
-          className="w-[416px] text-center hover:bg-primary-green hover:text-white duration-500 transition-all mx-auto block border text-lg text-secondary-black cursor-pointer py-4 rounded-lg shadow-lg hover:scale-105"
+          className="md:w-[416px] text-center hover:bg-primary-green hover:text-white duration-500 transition-all mx-auto block border text-lg text-secondary-black cursor-pointer py-2 md:py-4 rounded-lg shadow-lg hover:scale-105"
         >
           View Membership Plans
         </Link>
