@@ -128,23 +128,23 @@ const Footer = () => {
 
       {/* Lower Part */}
       <Container>
-        <div className="flex flex-wrap items-center justify-center md:justify-between text-accent-white tracking-[0.16px] mb-5">
+        <div className="flex flex-wrap items-center md:justify-between text-accent-white tracking-[0.16px] mb-5">
           {/* Left - Copyright */}
-          <p className="md:text-base text-xs text-center md:text-left mb-7 md:mb-0">
+          <p className="md:text-base text-xs text-center md:text-left mb-7 md:mb-0 block w-full">
             ©sustainabletrades.org 2023, All right reserved.
           </p>
 
           {/* Right */}
-          <div className="flex flex-wrap gap-4 md:gap-10 items-center">
+          <div className="flex flex-col md:flex-row gap-4 md:gap-10 md:items-center md:text-base text-sm">
             <Link href="/">Acceptable Use Policy</Link>
             <Link href="/">Privacy Policy</Link>
             <Link href="/">Terms and Conditions</Link>
           </div>
         </div>
 
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center justify-center md:justify-start">
           <GlobeSvg />
-          <p className="text-accent-white tracking-[0.16px] cursor-pointer">
+          <p className="text-accent-white tracking-[0.16px] cursor-pointer md:text-base text-sm">
             English (United States)
           </p>
         </div>
