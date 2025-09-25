@@ -123,7 +123,7 @@ const HomeBanner = ({ data }: bannerProps) => {
             return (
               <SwiperSlide key={item?.id}>
                 <div className="">
-                  <div className="w-full h-[400px] ">
+                  <div className="w-full h-[300px] md:h-[400px] ">
                     <Image
                       src={`${process.env.NEXT_PUBLIC_SITE_URL}/${sliderData?.image}`}
                       alt="slider"
