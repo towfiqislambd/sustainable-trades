@@ -37,7 +37,7 @@ const ExploreProduct = ({ data }: categoryProps) => {
                 />
               </figure>
 
-              <h3 className="mt-4 text-lg text-accent-white">{name}</h3>
+              <h3 className="mt-4 text-sm md:text-lg text-accent-white">{name}</h3>
             </Link>
           ))}
         </div>

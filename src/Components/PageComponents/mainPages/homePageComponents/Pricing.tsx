@@ -75,14 +75,16 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
   };
 
   return (
-    <section id="membership_plan" className="py-20">
+    <section id="membership_plan" className="py-8 md:py-20">
       <Container>
-        <h2 className="section_title text-center !mb-7">Plans & Benefits</h2>
+        <h2 className="section_title text-center !mb-4 md:!mb-7">Plans & Benefits</h2>
 
-        <p className="text-center text-xl text-[#4B4A47] mb-7">{description}</p>
+        <p className="text-center text-base sm:text-lg md:text-xl text-[#4B4A47] mb-7">
+          {description}
+        </p>
 
         {/* Tabs */}
-        <div className="flex gap-5 p-3 rounded-xl shadow w-[350px] mx-auto bg-primary-green mb-14">
+        <div className="flex md:gap-5 p-1.5 md:p-3 rounded-xl shadow w-full md:w-[350px] mx-auto bg-primary-green mb-7 md:mb-14">
           <button
             type="button"
             onClick={e => {
@@ -90,7 +92,7 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
               e.stopPropagation();
               setActiveTab("yearly");
             }}
-            className={`px-5 py-2.5 rounded-lg cursor-pointer shadow font-semibold ${
+            className={`px-2 md:px-5 py-1.5 md:py-2.5 rounded-lg cursor-pointer shadow font-semibold w-full text-sm md:text-base ${
               activeTab === "yearly"
                 ? "text-primary-green bg-accent-white"
                 : "text-accent-white bg-transparent"
@@ -106,7 +108,7 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
               e.stopPropagation();
               setActiveTab("monthly");
             }}
-            className={`px-5 py-2.5 rounded-lg cursor-pointer shadow font-semibold ${
+            className={`px-2 md:px-5 py-1.5 md:py-2.5 rounded-lg cursor-pointer shadow font-semibold w-full text-sm md:text-base ${
               activeTab === "monthly"
                 ? "text-primary-green bg-accent-white"
                 : "text-accent-white bg-transparent"
@@ -117,7 +119,7 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
         </div>
 
         {/* Pricing Plan */}
-        <div className="flex gap-10 justify-center">
+        <div className="flex flex-col md:flex-row gap-5 md:gap-10 justify-center">
           {isLoading
             ? Array.from({ length: 2 }).map((_, i) => <SkeletonCard key={i} />)
             : pricingData?.data?.map(
@@ -135,12 +137,12 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
                 ) => (
                   <div
                     key={id}
-                    className={`border border-primary-green shadow rounded-2xl p-6 w-[400px] flex flex-col justify-between ${
+                    className={`border border-primary-green shadow rounded-2xl p-4 md:p-6 w-full md:w-[400px] flex flex-col justify-between ${
                       idx === 1 && "bg-[#EDF3F1]"
                     }`}
                   >
                     <div>
-                      <figure className="size-12 rounded-full bg-[#B0DEDB] grid place-items-center">
+                      <figure className="size-8 md:size-12 rounded-full bg-[#B0DEDB] grid place-items-center">
                         <Image
                           src={`${process.env.NEXT_PUBLIC_SITE_URL}/${image}`}
                           alt="logo"
@@ -149,14 +151,14 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
                         />
                       </figure>
 
-                      <h3 className="py-3 text-2xl font-semibold text-secondary-black">
+                      <h3 className="py-1 md:py-3 text-xl md:text-2xl font-semibold text-secondary-black">
                         {name}
                       </h3>
 
-                      <p className="text-secondary-gray mb-7">{description}</p>
+                      <p className="text-secondary-gray md:mb-7 mb-4 text-sm md:text-base " >{description}</p>
 
                       <div className="flex gap-2 items-end">
-                        <h2 className="text-4xl font-semibold text-secondary-black">
+                        <h2 className="text-3xl md:text-4xl font-semibold text-secondary-black">
                           ${price}
                         </h2>
 
@@ -173,8 +175,8 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
                             benefit_description,
                             benefit_icon,
                           }) => (
-                            <div key={id} className="flex gap-3">
-                              <figure className="size-10 rounded-full bg-[#B0DEDB] grid place-items-center shrink-0">
+                            <div key={id} className="flex gap-2 md:gap-3">
+                              <figure className="size-8 md:size-10 rounded-full bg-[#B0DEDB] grid place-items-center shrink-0">
                                 <Image
                                   src={`${process.env.NEXT_PUBLIC_SITE_URL}/${benefit_icon}`}
                                   alt="image"
@@ -184,10 +186,10 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
                               </figure>
 
                               <div>
-                                <h4 className="text-secondary-black font-semibold">
+                                <h4 className="text-secondary-black text-sm md:text-base font-semibold">
                                   {benefit_name}
                                 </h4>
-                                <p className="text-secondary-gray text-[15px]">
+                                <p className="text-secondary-gray text-xs md:text-[15px]">
                                   {benefit_description}
                                 </p>
                               </div>
@@ -205,7 +207,7 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
                         setPlanId(id);
                         handlePurchasePlan(id);
                       }}
-                      className={`w-full block duration-500 transition-all text-lg cursor-pointer py-3 border-2 border-primary-green font-semibold rounded-lg shadow-lg hover:scale-105 ${
+                      className={`w-full block duration-500 transition-all md:text-lg cursor-pointer py-1.5 md:py-3 border-2 border-primary-green font-semibold rounded-lg shadow-lg hover:scale-105 ${
                         idx === 0
                           ? "text-primary-green hover:bg-primary-green hover:text-accent-white"
                           : "text-accent-white hover:text-primary-green bg-primary-green hover:bg-transparent"
