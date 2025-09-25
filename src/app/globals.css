@@ -33,7 +33,7 @@ body {
 
 /* Custom CSS */
 .section_title {
-  @apply   text-[45px] text-primary-green mb-12;
+  @apply text-2xl  md:text-3xl  lg:text-4xl xl:text-[45px] text-primary-green mb-12;
 }
 
 .section_sub_title {
