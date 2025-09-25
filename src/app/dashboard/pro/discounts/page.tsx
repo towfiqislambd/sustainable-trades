@@ -181,11 +181,11 @@ const DiscountsPage = () => {
                   <div className="mt-3 md:mt-7 text-[14px] md:text-[18px]">
                     <span className="font-bold text-[12px] md:text-[16px] text-[#13141D]">
                       STARTS
-                    </span>{" "}
-                    {d.starts}{" "}
+                    </span>
+                    {d.starts}
                     <span className="sm:ml-4 font-bold text-[14px] md:text-[18px] text-[#13141D]">
                       ENDS
-                    </span>{" "}
+                    </span>
                     {d.ends}
                   </div>
                 </div>
