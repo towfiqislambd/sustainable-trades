@@ -2,9 +2,9 @@ import React from "react";
 import { FaSearch } from "react-icons/fa";
 
 type dashboardheaderprops = {
-  placeholder?: string,
-  heading: string
-}
+  placeholder?: string;
+  heading: string;
+};
 
 const DashBoardHeader: React.FC<dashboardheaderprops> = ({
   heading,
@@ -12,23 +12,23 @@ const DashBoardHeader: React.FC<dashboardheaderprops> = ({
 }) => {
   return (
     <div>
-      <div className="flex justify-between items-center">
-        <h2 className="text-[40px] font-lato font-semibold text-[#000]">
+      <div className="flex flex-col lg:flex-row justify-between lg:items-center">
+        <h2 className="text-[30px] md:text-[40px] font-lato font-semibold mb-2 md:mb-0 text-[#000]">
           {heading}
         </h2>
-        <div className="flex gap-x-4 items-center">
-          <div className="relative">
+        <div className="flex flex-col md:flex-row gap-2 md:gap-4 md:items-center">
+          <div className="relative w-full">
             <input
-              placeholder={placeholder}
+              placeholder={"Search..."}
               type="search"
-              className="py-[10px] pl-4 outline-0 border border-[#BFBEBE] rounded-[8px] text-[16px] text-[#67645F] font-normal w-[300px]"
+              className="py-[10px] pl-4 outline-0 border border-[#274F45] rounded-[8px] text-[16px] text-[#67645F] font-normal w-full md:w-[300px]"
             />
             <div className="absolute top-4 right-3">
               <FaSearch />
             </div>
-            <div className="absolute top-0 right-10 w-[2px] bg-[#BFBEBE] h-[45px]"></div>
+            <div className="absolute top-0 right-10 w-[2px] bg-[#274F45] h-[45px]"></div>
           </div>
-          <button className="cursor-pointer bg-[#D4E2CB] py-3 px-4 rounded-[100px] text-[#274F45] font-lato font-semibold hover:scale-110 duration-500 ease-in-out">
+          <button className="cursor-pointer bg-[#D4E2CB] py-3 px-4 rounded-[100px] text-[#274F45] w-full lg:w-fit text-nowrap font-lato font-semibold hover:scale-110 duration-500 ease-in-out">
             Continue Shopping
           </button>
         </div>

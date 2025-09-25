@@ -16,11 +16,11 @@ const Favourites = () => {
         placeholder="Search favorites"
       />
       <div className="flex gap-x-3 items-center mt-5">
-        {tabs.map(tab => (
+        {tabs.map((tab) => (
           <h3
             key={tab}
             onClick={() => setIsActive(tab)}
-            className={`text-[20px] font-bold    shrink-0 cursor-pointer ${
+            className={`text-[16px] md:text-[20px] font-bold    shrink-0 cursor-pointer ${
               isActive === tab ? "text-[#000] border-b-2" : "text-[#77978F]"
             }`}
           >
@@ -29,15 +29,15 @@ const Favourites = () => {
         ))}
       </div>
       {isActive === "WishLists" && (
-        <div className="grid grid-cols-4 gap-x-6 gap-y-10 mt-10">
-          {data2?.map(product => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-x-6 gap-y-10 mt-10">
+          {data2?.map((product) => (
             <Product key={product?.id} product={product} is_feathered={true} />
           ))}
         </div>
       )}
       {isActive === "Follow ShopLists" && (
-        <div className="grid grid-cols-4 gap-x-6 gap-y-10 mb-14 mt-10">
-          {shopdata?.map(shopInfo => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4  gap-x-6 gap-y-10 mb-14 mt-10">
+          {shopdata?.map((shopInfo) => (
             <Shop key={shopInfo?.id} shop={shopInfo} />
           ))}
         </div>

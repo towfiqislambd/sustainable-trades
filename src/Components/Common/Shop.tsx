@@ -22,7 +22,7 @@ const Shop = ({ shop }: ShopProps) => {
       className="rounded-t-lg relative block hover:-translate-y-2 duration-400 transition-transform"
     >
       {/* Shop Image */}
-      <figure className="w-full h-[260px] rounded-lg border border-gray-100 relative">
+      <figure className="w-full h-[200px] md:h-[250px rounded-lg border border-gray-100 relative">
         <div className="absolute inset-0 bg-black/20 rounded-lg" />
         <Image
           src={p1}
