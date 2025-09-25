@@ -43,18 +43,19 @@ const Footer = () => {
     <footer className="bg-primary-green pt-10 pb-5">
       {/* Upper Part */}
       <Container>
-        <div className="flex justify-between">
+        <div className="flex flex-wrap justify-between">
           {/* Left - Logo */}
-          <figure className="size-40">
-            <Image
-              src={logo}
-              alt="logo"
-              className="w-full h-full object-cover"
-            />
-          </figure>
-
+          <div className="mb-7 md:mb-0">
+            <figure className="size-24 md:size-40">
+              <Image
+                src={logo}
+                alt="logo"
+                className="w-full h-full object-cover "
+              />
+            </figure>
+          </div>
           {/* Right */}
-          <div className="flex gap-24">
+          <div className="flex flex-wrap gap-5 xl:gap-24">
             {/* About */}
             <div>
               <h3 className={footer_title_class}>About</h3>
@@ -66,6 +67,22 @@ const Footer = () => {
                     className="text-accent-white tracking-[0.16px]"
                   >
                     {item?.label}
+                  </Link>
+                ))}
+              </ul>
+            </div>
+            {/* Follow Us */}
+            <div className="block md:hidden">
+              <h3 className={footer_title_class}>Follow Us</h3>
+              <ul className="flex flex-col gap-3">
+                {followUsLinks?.map(item => (
+                  <Link
+                    key={item?.id}
+                    href={item?.path}
+                    className="text-accent-white tracking-[0.16px] flex gap-2 items-center"
+                  >
+                    <span>{item?.logo}</span>
+                    <span>{item?.label}</span>
                   </Link>
                 ))}
               </ul>
@@ -88,7 +105,7 @@ const Footer = () => {
             </div>
 
             {/* Follow Us */}
-            <div>
+            <div className="hidden md:block">
               <h3 className={footer_title_class}>Follow Us</h3>
               <ul className="flex flex-col gap-3">
                 {followUsLinks?.map(item => (
@@ -111,12 +128,14 @@ const Footer = () => {
 
       {/* Lower Part */}
       <Container>
-        <div className="flex items-center justify-between text-accent-white tracking-[0.16px] mb-5">
+        <div className="flex flex-wrap items-center justify-center md:justify-between text-accent-white tracking-[0.16px] mb-5">
           {/* Left - Copyright */}
-          <p className="">©sustainabletrades.org 2023, All right reserved.</p>
+          <p className="md:text-base text-xs text-center md:text-left mb-7 md:mb-0">
+            ©sustainabletrades.org 2023, All right reserved.
+          </p>
 
           {/* Right */}
-          <div className="flex gap-10 items-center">
+          <div className="flex flex-wrap gap-4 md:gap-10 items-center">
             <Link href="/">Acceptable Use Policy</Link>
             <Link href="/">Privacy Policy</Link>
             <Link href="/">Terms and Conditions</Link>
