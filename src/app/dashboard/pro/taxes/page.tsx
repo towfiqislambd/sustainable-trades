@@ -274,11 +274,13 @@ export default function TaxRatePage() {
 
   return (
     <main className="h-fit mx-auto flex justify-center">
-      <div className="w-full max-w-md mx-auto mt-20 bg-[#FFFCF9] shadow-2xl rounded-[20px] p-8">
+      <div className="w-full w-ful md:max-w-md mx-auto mt-20 bg-[#FFFCF9] shadow-2xl rounded-[20px] p-4 md:p-8">
         {/* Header */}
         <div className="">
-          <h2 className="text-[24px] font-bold text-[#000000]">Add Tax Rate</h2>
-          <p className="text-[14px] text-[#67645F] mt-2 leading-relaxed">
+          <h2 className="text-[20px] md:text-[24px] font-bold text-[#000000]">
+            Add Tax Rate
+          </h2>
+          <p className="text-[12px] md:text-[14px] text-[#67645F] mt-2 leading-relaxed">
             The sales tax rate manually entered here will only apply at checkout
             when both 'Arrange Local Pickup' and 'Pay with Cash' are selected by
             the buyer.
@@ -286,16 +288,16 @@ export default function TaxRatePage() {
         </div>
 
         {/* Content */}
-        <div className="space-y-6 mt-6">
+        <div className="space-y-3 md:space-y-6 mt-3 md:mt-6">
           {/* Country Field */}
           <div className="space-y-2">
-            <label className="text-[16px] font-semibold text-[#13141D]">
+            <label className="text-[16px] md:text-[20px] font-semibold text-[#13141D]">
               Country *
             </label>
-            <div className="relative">
+            <div className="relative mt-2">
               <button
                 onClick={() => setCountryOpen(!countryOpen)}
-                className="w-full px-4 py-3 mt-2 text-left bg-white border-2 border-[#67645F] 
+                className="w-full px-4 py-1.5 md:py-3  text-left bg-white border-2 border-[#67645F] 
                 cursor-pointer rounded-[8px] focus:outline-none focus:border-[#67645F] text-[16px] text-[#67645F]"
               >
                 <span className={country ? "text-[#13141D]" : "text-[#9CA3AF]"}>
@@ -324,7 +326,7 @@ export default function TaxRatePage() {
                     className="overflow-y-auto"
                     style={{ maxHeight: "400px" }}
                   >
-                    {countries.map(option => (
+                    {countries.map((option) => (
                       <button
                         key={option}
                         onClick={() => {
@@ -333,7 +335,7 @@ export default function TaxRatePage() {
                             setCountryOpen(false);
                           }
                         }}
-                        className={`w-full px-4 py-3 text-left text-[16px] border-b border-gray-100 last:border-b-0 ${
+                        className={`w-full px-4 py-1.5 md:py-3 text-left text-[16px] border-b border-gray-100 last:border-b-0 ${
                           option === "United States"
                             ? "text-[#13141D] hover:bg-[#F3F4F6] cursor-pointer font-medium"
                             : "text-[#9CA3AF] cursor-not-allowed bg-gray-50"
@@ -351,13 +353,13 @@ export default function TaxRatePage() {
 
           {/* State Field */}
           <div className="space-y-2">
-            <label className="text-[20px] font-semibold text-[#13141D]">
+            <label className="text-[16px] md:text-[20px] font-semibold text-[#13141D]">
               State *
             </label>
-            <div className="relative">
+            <div className="relative mt-2">
               <button
                 onClick={() => setStateOpen(!stateOpen)}
-                className="w-full px-4 py-3 text-left mt-2 bg-white border-2 border-[#67645F] cursor-pointer rounded-[8px] focus:outline-none focus:border-[#67645F] text-[16px]"
+                className="w-full px-4 py-1.5 md:py-3 text-left  bg-white border-2 border-[#67645F] cursor-pointer rounded-[8px] focus:outline-none focus:border-[#67645F] text-[16px]"
               >
                 <span className={state ? "text-[#13141D]" : "text-[#9CA3AF]"}>
                   {state || "State"}
@@ -385,7 +387,7 @@ export default function TaxRatePage() {
                     className="overflow-y-auto"
                     style={{ maxHeight: "400px" }}
                   >
-                    {usStates.map(option => (
+                    {usStates.map((option) => (
                       <button
                         key={option}
                         onClick={() => {
@@ -404,14 +406,14 @@ export default function TaxRatePage() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-[20px] font-semibold text-[#13141D]">
+            <label className="text-[16px] md:text-[20px] font-semibold text-[#13141D]">
               Local Sales Tax Rate
             </label>
             <div className="flex items-center border-b-2 pb-3 border-[#A7A39C]">
               <input
                 type="text"
                 value={localTaxRate}
-                onChange={e => setLocalTaxRate(e.target.value)}
+                onChange={(e) => setLocalTaxRate(e.target.value)}
                 className="flex-1 text-[16px] font-semibold text-[#13141D] bg-transparent border-none outline-none"
                 placeholder="0"
               />
@@ -423,9 +425,9 @@ export default function TaxRatePage() {
 
           {/* Toggle Switches */}
           <div className="space-y-6">
-            <div className="flex items-center justify-between border-b py-5 border-[#A7A39C]">
+            <div className="flex items-center justify-between border-b mb-[0px]  md:pb-5 border-[#A7A39C]">
               <div className="flex-1 pr-4">
-                <label className="text-[20px] font-semibold text-[#000]">
+                <label className="text-[16px] md:text-[20px] font-semibold text-[#000]">
                   Charge taxes on services and <br /> digital products
                 </label>
               </div>
@@ -443,9 +445,9 @@ export default function TaxRatePage() {
               </button>
             </div>
 
-            <div className="flex items-center justify-between border-b pt-2 pb-5 border-[#A7A39C]">
+            <div className="flex items-center justify-between border-b pt-2 pb-2 md:pb-5 border-[#A7A39C]">
               <div className="flex-1 pr-4">
-                <label className="text-[20px] font-semibold text-[#000]">
+                <label className="text-[16px] md:text-[20px] font-semibold text-[#000]">
                   Charge taxes on shipping
                 </label>
               </div>
@@ -469,7 +471,7 @@ export default function TaxRatePage() {
             <button
               onClick={handleSave}
               className="w-full bg-[#274F45] hover:bg-[#047857] cursor-pointer text-[#FEFEFE] 
-              font-semibold py-4 rounded-[8px] duration-500 ease-in-out text-[20px]"
+              font-semibold py-2 md:py-4 rounded-[8px] duration-500 ease-in-out text-[16px] md:text-[20px]"
             >
               Save Tax Rate
             </button>
