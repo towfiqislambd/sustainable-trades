@@ -21,7 +21,7 @@ const Page = () => {
   return (
     <>
       <div className="border-b border-[#BFBEBE] pb-4">
-        <h2 className="text-[40px] font-lato font-semibold text-[#000]">
+        <h2 className="text-[30px] md:text-[40px] font-lato font-semibold text-[#000]">
           Shipping
         </h2>
         <h5 className="cursor-pointer flex items-center gap-x-1 text-[#13141D] font-normal text-[16px]">
@@ -30,20 +30,20 @@ const Page = () => {
         </h5>
       </div>
 
-      <div className="pt-6">
-        <h4 className="text-[#13141D] text-[24px] font-bold">
+      <div className="pt-3 md:pt-6">
+        <h4 className="text-[#13141D] text-[20px] md:text-[24px] font-bold">
           Shipping Settings
         </h4>
-        <p className="text-[#13141D] text-[16px] font-normal ">
+        <p className="text-[#13141D] text-[13px] md:text-[16px] font-normal ">
           You can manage available shipping options for customers and set up
           your preferred shipping calculator.
         </p>
 
-        <div className="pt-6 flex flex-col gap-y-4">
-          <h5 className="text-[#13141D] text-[16px] font-semibold">
+        <div className="pt-3 md:pt-6 flex flex-col gap-y-2 md:gap-y-4">
+          <h5 className="text-[#13141D] text-[13px] md:text-[16px] font-semibold">
             Shipping Options
           </h5>
-          <p className="text-[#13141D] text-[16px] font-normal max-w-[570px]">
+          <p className="text-[#13141D] text-[12px]  md:text-[16px] font-normal max-w-[570px]">
             You can choose how you want to apply shipping costs to your order.
             Shipping cost can be calculated with a flat rate, by weight, or
             connect your store to ShipStation and enjoy full shipping
@@ -51,23 +51,23 @@ const Page = () => {
           </p>
 
           {/* Example existing card */}
-          <div className="border-2 border-[#67645F] bg-[#E6F5F4] px-6 py-4 rounded-lg max-w-[700px]">
-            <h4 className="text-[16px] font-bold text-[#13141D] pb-3">
+          <div className="border-2 border-[#67645F] bg-[#E6F5F4] px-3 md:px-6 py-2 md:py-4 rounded-lg max-w-[700px]">
+            <h4 className="text-[13px] md:text-[16px] font-bold text-[#13141D] pb-3">
               USPS MAIL
             </h4>
-            <h6 className="text-[16px] font-medium text-[#13141D]">
+            <h6 className="text-[12px] md:text-[16px] font-medium text-[#13141D]">
               Flat Rate: $6.00 per order, $1.00 per item
             </h6>
-            <p className="text-[16px] font-medium text-[#13141D]">
+            <p className="text-[12px] md:text-[16px] font-medium text-[#13141D]">
               United States (54 of 54), Canada (13 of 13)
             </p>
           </div>
 
           {/* Dropdown button */}
-          <div className="relative w-fit">
+          <div className="relative w-full">
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="bg-[#274F45] text-white px-4 py-2 rounded-lg w-full font-semibold flex gap-x-5 items-center cursor-pointer"
+              className="bg-[#274F45] text-white px-4 py-2 rounded-lg w-fit font-semibold flex gap-x-5 items-center text-[14px] md:text-[16px] cursor-pointer"
             >
               <FaAngleDown />
               Add Shipping Option
@@ -77,31 +77,31 @@ const Page = () => {
               <div className="absolute z-10 mt-5 w-full flex flex-col gap-y-4">
                 <div
                   onClick={() => handleOptionClick("Flat Rate")}
-                  className="px-4 py-2 cursor-pointer bg-[#F2EFE8] border border-[#3C665B] p-4 rounded-lg w-[700px]"
+                  className="px-2 md:px-4py-2 cursor-pointer bg-[#F2EFE8] border border-[#3C665B] p-4 rounded-lg w-full max-w-[700px]"
                 >
-                  <h3 className="text-[#274F45] font-bold text-[16px]">
+                  <h3 className="text-[#274F45] font-bold text-[14px] md:text-[16px]">
                     Flat Rate
                   </h3>
-                  <p className="text-[16px] text-[#3D3D3D] font-medium pt-1">
+                  <p className="text-[13px] md:text-[16px] text-[#3D3D3D] font-medium pt-1">
                     Define a charge for every order and a flat fee for each
                     item.
                   </p>
                 </div>
                 <div
                   onClick={() => handleOptionClick("Depending on Weight")}
-                  className="px-4 py-2 cursor-pointer bg-[#F2EFE8] border border-[#3C665B] p-4 rounded-lg w-[700px]"
+                  className="px-2 md:px-4 py-2 cursor-pointer bg-[#F2EFE8] border border-[#3C665B] p-4 rounded-lg w-full max-w-[700px]"
                 >
-                  <h3 className="text-[#274F45] font-bold text-[16px]">
+                  <h3 className="text-[#274F45] font-bold text-[14px] md:text-[16px]">
                     Depending on Weight
                   </h3>
-                  <p className="text-[16px] text-[#3D3D3D] font-medium pt-1">
+                  <p className="text-[13px] md:text-[16px] text-[#3D3D3D] font-medium pt-1">
                     Define a charge for every order and a flat fee for each
                     item.
                   </p>
                 </div>
                 <div
                   onClick={() => handleOptionClick("Connect ShipStation")}
-                  className="px-4 py-2 cursor-pointer bg-[#F2EFE8] border border-[#3C665B] p-4 rounded-lg w-[700px]"
+                  className="px-2 md:px-4 py-2 cursor-pointer bg-[#F2EFE8] border border-[#3C665B] p-4 rounded-lg w-full max-w-[700px]"
                 >
                   <h3 className="text-[#274F45] font-bold text-[16px]">
                     Connect ShipStation
@@ -119,17 +119,17 @@ const Page = () => {
 
       {/* Modal for Flat Rate */}
       {selectedOption === "Flat Rate" && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg max-w-[850px] w-full">
+        <div className="fixed inset-0 bg-black/50 z-[9999] flex items-center justify-center px-3 md:px-0">
+          <div className="bg-white p-3 md:p-6 rounded-lg max-w-[850px] w-full">
             <div className="">
               <div className="flex justify-end">
                 <RxCross1 onClick={closeModal} className="cursor-pointer" />
               </div>
-              <h3 className="text-[#3D3D3D] text-[24px] font-bold text-center">
+              <h3 className="text-[#3D3D3D] text-[18px] md:text-[24px] font-bold text-center">
                 EDIT FLAT RATE
               </h3>
             </div>
-            <div className="mt-5 flex flex-col gap-y-5">
+            <div className="mt-2.5 md:mt-5 flex flex-col gap-y-5">
               <h5 className="text-[#3D3D3D] font-semibold text-[16px] text-center pb-4 border-b border-[#3D3D3D]">
                 Formula
               </h5>
@@ -169,7 +169,7 @@ const Page = () => {
             <div className="flex justify-end">
               <button
                 onClick={closeModal}
-                className="mt-8 px-4 py-4 text-white font-semibold bg-[#274F45] rounded cursor-pointer w-[190px]"
+                className="mt-8 px-4 py-2 md:py-4 text-white font-semibold bg-[#274F45] rounded cursor-pointer w-[190px]"
               >
                 Save
               </button>
@@ -250,7 +250,7 @@ const Page = () => {
             <div className="flex justify-end">
               <button
                 onClick={closeModal}
-                className="mt-8 px-4 py-4 text-white font-semibold bg-[#274F45] rounded cursor-pointer w-[190px]"
+                className="mt-8 px-4 py-2 md:py-4 text-white font-semibold bg-[#274F45] rounded cursor-pointer w-[190px]"
               >
                 Save
               </button>
@@ -316,7 +316,7 @@ const Page = () => {
             </div>
 
             {/* Footer */}
-            <div className="flex justify-end px-6 py-4 border-t">
+            <div className="flex justify-end px-6 py-2 md:py-4 border-t">
               <button className="bg-[#0B3C32] text-white px-6 py-2 rounded-md font-medium hover:bg-[#094C40] transition">
                 Connect to ShipStation
               </button>
