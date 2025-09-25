@@ -11,6 +11,7 @@ import {
 } from "@/Components/Svg/SvgContainer";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { useLogin } from "@/Hooks/api/auth_api";
+import { IoArrowBackOutline } from "react-icons/io5";
 
 type formData = {
   email: string;
@@ -35,6 +36,16 @@ const Page = () => {
       {/* Left - From */}
       <div className="flex-1 grid place-items-center overflow-y-auto">
         <div className="w-[750px] mx-auto p-10">
+          {/* Back to home */}
+          <div className="flex items-center gap-1 text-center mb-8 hover:underline">
+            <IoArrowBackOutline className="text-primary-green" />
+            <Link
+              href="/"
+              className="text-primary-green cursor-pointer font-semibold"
+            >
+              Back to home
+            </Link>
+          </div>
           <h2 className="auth-heading">Welcome Back!</h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="flex gap-8 items-center">

@@ -1,12 +1,11 @@
 "use client";
+import Link from "next/link";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
 import Container from "@/Components/Common/Container";
 import { CartSvg, DownSvg, ProfileSvg } from "@/Components/Svg/SvgContainer";
-import Image from "next/image";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import logo from "@/Assets/logo.svg";
 
-const DefaultNavbar = () => {
+const DefaultNavbar = ({ siteSettings }: any) => {
   const [showPopover, setShowPopover] = useState<boolean>(false);
   useEffect(() => {
     const handleWindowClick = () => {
@@ -26,11 +25,12 @@ const DefaultNavbar = () => {
         <div className="flex justify-between items-center">
           {/* Left - Logo */}
           <Link href="/">
-            <figure className="size-14">
+            <figure className="size-14 rounded-full relative">
               <Image
-                src={logo}
+                src={`${process.env.NEXT_PUBLIC_SITE_URL}/${siteSettings?.logo}`}
                 alt="logo"
-                className="w-full h-full object-cover"
+                fill
+                className="size-full object-cover rounded-full"
               />
             </figure>
           </Link>
@@ -79,9 +79,9 @@ const DefaultNavbar = () => {
               </div>
             </button>
 
-            <button className="cursor-pointer">
+            <Link href="/dashboard/customer/cart" className="cursor-pointer">
               <CartSvg />
-            </button>
+            </Link>
           </div>
         </div>
       </Container>

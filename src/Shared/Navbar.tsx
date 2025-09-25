@@ -9,11 +9,9 @@ import { usePathname } from "next/navigation";
 import Container from "@/Components/Common/Container";
 import { UpArrowSvg } from "@/Components/Svg/SvgContainer";
 
-const Navbar = () => {
-  // const user = false;
-  const pathname = usePathname();
+const Navbar = ({ siteSettings }: any) => {
   const { user } = useAuth();
-  console.log(user);
+  const pathname = usePathname();
 
   return (
     <>
@@ -32,7 +30,7 @@ const Navbar = () => {
 
       <nav className="sticky top-0 z-50">
         {/* Upper Navbar */}
-        {user ? <BasicNavbar /> : <DefaultNavbar />}
+        {user ? <BasicNavbar /> : <DefaultNavbar siteSettings={siteSettings} />}
 
         {/* Lower Navbar*/}
         {!user && <LowerNavbar />}
