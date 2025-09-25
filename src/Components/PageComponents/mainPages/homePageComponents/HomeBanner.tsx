@@ -12,7 +12,7 @@ const staticButtons = [
   { btn_text: "Learn More", btn_link: "#how-it-works" },
   {
     btn_text: "Create a Shop",
-    btn_link: "/auth/on_boarding",
+    btn_link: "/auth/create-shop",
   },
   {
     btn_text: "Join the Local Revolution",
