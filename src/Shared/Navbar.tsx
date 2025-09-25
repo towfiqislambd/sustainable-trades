@@ -18,7 +18,7 @@ const Navbar = ({ siteSettings }: any) => {
       {/* Top Navbar */}
       <div
         className={`bg-accent-red text-secondary-black text-lg font-semibold text-center py-2 ${
-          pathname === "/" ? "block" : "hidden"
+          !user && pathname === "/" ? "block" : "hidden"
         }`}
       >
         <Container>
@@ -30,7 +30,11 @@ const Navbar = ({ siteSettings }: any) => {
 
       <nav className="sticky top-0 z-50">
         {/* Upper Navbar */}
-        {user ? <BasicNavbar /> : <DefaultNavbar siteSettings={siteSettings} />}
+        {user ? (
+          <BasicNavbar siteSettings={siteSettings} />
+        ) : (
+          <DefaultNavbar siteSettings={siteSettings} />
+        )}
 
         {/* Lower Navbar*/}
         {!user && <LowerNavbar />}

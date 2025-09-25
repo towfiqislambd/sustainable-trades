@@ -7,6 +7,7 @@ import { CartSvg, DownSvg, ProfileSvg } from "@/Components/Svg/SvgContainer";
 
 const DefaultNavbar = ({ siteSettings }: any) => {
   const [showPopover, setShowPopover] = useState<boolean>(false);
+
   useEffect(() => {
     const handleWindowClick = () => {
       setShowPopover(false);
@@ -52,13 +53,21 @@ const DefaultNavbar = ({ siteSettings }: any) => {
               className="cursor-pointer flex gap-2 items-center relative"
             >
               <ProfileSvg />
-              <DownSvg />
+              <span
+                className={`duration-300 transition-transform ${
+                  showPopover ? "rotate-180" : "rotate-0"
+                }`}
+              >
+                <DownSvg />
+              </span>
 
               {/* Popover */}
               <div
                 onClick={e => e.stopPropagation()}
-                className={`absolute top-16 bg-white drop-shadow z-50 space-y-2 w-[100px] py-3 px-4 border-gray-50 rounded-lg ${
-                  showPopover ? "block" : "hidden"
+                className={`absolute top-16 bg-gray-50 shadow-lg border z-50 space-y-2 w-[100px] py-3 px-4 border-gray-100 rounded-lg duration-300 transition-all ${
+                  showPopover
+                    ? "opacity-100 scale-100"
+                    : "opacity-0 pointer-events-none scale-95"
                 }`}
               >
                 <Link

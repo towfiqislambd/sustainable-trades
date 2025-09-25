@@ -1,10 +1,8 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import logo from "@/Assets/logo.svg";
 import useAuth from "@/Hooks/useAuth";
 import { usePathname } from "next/navigation";
-import author from "@/Assets/shop_author.jpg";
 import { useLogout } from "@/Hooks/api/auth_api";
 import React, { useEffect, useState } from "react";
 import Container from "@/Components/Common/Container";
@@ -78,56 +76,11 @@ const navLins = [
     ],
   },
 ];
-const notificationData = [
-  {
-    id: 1,
-    label: "Item Sold",
-    description: "Shipping to 3 buyers today.",
-    author: author,
-  },
-  {
-    id: 2,
-    label: "Item Sold",
-    description: "Shipping to 3 buyers today.",
-    author: author,
-  },
-  {
-    id: 3,
-    label: "Item Sold",
-    description: "Shipping to 3 buyers today.",
-    author: author,
-  },
-  {
-    id: 4,
-    label: "Item Sold",
-    description: "Shipping to 3 buyers today.",
-    author: author,
-  },
-  {
-    id: 5,
-    label: "Item Sold",
-    description: "Shipping to 3 buyers today.",
-    author: author,
-  },
-  {
-    id: 6,
-    label: "Item Sold",
-    description: "Shipping to 3 buyers today.",
-    author: author,
-  },
-  {
-    id: 7,
-    label: "Item Sold",
-    description: "Shipping to 3 buyers today.",
-    author: author,
-  },
-];
 
-const BasicNavbar = () => {
+const BasicNavbar = ({ siteSettings }: any) => {
   const { user } = useAuth();
   const pathname = usePathname();
   const [showMenu, setShowMenu] = useState<boolean>(false);
-  const [showNotification, setShowNotification] = useState<boolean>(false);
   const [showPopover, setShowPopover] = useState<boolean>(false);
   const [activeSubMenu, setActiveSubMenu] = useState<number>(0);
   const { mutate: logoutMutation, isPending } = useLogout();
@@ -136,7 +89,6 @@ const BasicNavbar = () => {
     const handleWindowClick = () => {
       setShowMenu(false);
       setShowPopover(false);
-      setShowNotification(false);
     };
 
     window.addEventListener("click", handleWindowClick);
@@ -152,13 +104,14 @@ const BasicNavbar = () => {
         <div className="flex justify-between items-center">
           {/* Left */}
           <div className="flex gap-12 items-center">
-            {/* Logo */}
+            {/* Left - Logo */}
             <Link href="/">
-              <figure className="size-14">
+              <figure className="size-14 rounded-full relative">
                 <Image
-                  src={logo}
+                  src={`${process.env.NEXT_PUBLIC_SITE_URL}/${siteSettings?.logo}`}
                   alt="logo"
-                  className="w-full h-full object-cover"
+                  fill
+                  className="size-full object-cover rounded-full"
                 />
               </figure>
             </Link>
@@ -225,64 +178,64 @@ const BasicNavbar = () => {
           {/* Right */}
           <div className="flex gap-5 items-center">
             {/* Message */}
-            <button className="cursor-pointer text-accent-white">
+            <Link
+              href={`${
+                user?.role === "customer"
+                  ? "dashboard/customer/messages"
+                  : user?.role === "vendor" &&
+                    user?.membership?.membership_type === "pro"
+                  ? "dashboard/pro/messages"
+                  : "dashboard/basic/messages"
+              }`}
+              className="cursor-pointer text-accent-white"
+            >
               <MessageSvg />
-            </button>
+            </Link>
 
             {/* Notification */}
-            <div className="relative">
-              <button
-                onClick={e => {
-                  e.stopPropagation();
-                  setShowNotification(!showNotification);
-                }}
-                className="cursor-pointer"
+            {user?.role !== "customer" && (
+              <Link
+                href={`${
+                  user?.role === "vendor" &&
+                  user?.membership?.membership_type === "pro"
+                    ? "dashboard/pro/notification"
+                    : "dashboard/basic/notification"
+                }`}
+                className="cursor-pointer text-accent-white"
               >
                 <NotificationSvg />
-              </button>
-
-              {showNotification && (
-                <div className="notification_container absolute w-[340px] h-[380px] overflow-y-auto bg-white border border-gray-50 rounded-lg top-14 shadow-[0_3px_10px_0_rgba(0,0,0,0.1)] py-4 px-5">
-                  <h3 className="text-lg font-semibold text-left mb-4">
-                    Notifications
-                  </h3>
-
-                  <div className="space-y-4">
-                    {notificationData?.map(item => (
-                      <div
-                        key={item?.id}
-                        className="flex gap-3 items-center border-b border-gray-300 pb-4 last:border-b-0 last:pb-0"
-                      >
-                        <Image
-                          src={item?.author}
-                          alt="author"
-                          className="size-12 rounded-full border border-gray-50"
-                        />
-
-                        <div>
-                          <h4 className="text-left font-semibold text-secondary-black mb-1">
-                            {item?.label}
-                          </h4>
-                          <p className="text-left text-secondary-gray text-sm">
-                            {item?.description}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
+              </Link>
+            )}
 
             {/* Cart */}
-            <Link href="/cart" className="cursor-pointer">
+            <Link
+              href={`${
+                user?.role === "customer"
+                  ? "dashboard/customer/cart"
+                  : user?.role === "vendor" &&
+                    user?.membership?.membership_type === "pro"
+                  ? "dashboard/pro/trades"
+                  : "dashboard/basic/trades"
+              }`}
+              className="cursor-pointer"
+            >
               <CartSvg2 />
             </Link>
 
             {/* Wishlist */}
-            <button className="cursor-pointer">
+            <Link
+              href={`${
+                user?.role === "customer"
+                  ? "dashboard/customer/favorites"
+                  : user?.role === "vendor" &&
+                    user?.membership?.membership_type === "pro"
+                  ? "dashboard/pro/favorites"
+                  : "dashboard/basic/favorites"
+              }`}
+              className="cursor-pointer"
+            >
               <LoveSvg2 />
-            </button>
+            </Link>
 
             {/* Profile */}
             <div className="relative">
@@ -296,7 +249,7 @@ const BasicNavbar = () => {
                 <figure className="size-10 rounded-full border-2 border-white relative grid place-items-center text-lg text-white font-semibold bg-accent-red">
                   {user?.avatar ? (
                     <Image
-                      src={author}
+                      src={`${process.env.NEXT_PUBLIC_SITE_URL}/${user?.avatar}`}
                       alt="author"
                       fill
                       className="size-full rounded-full"
@@ -306,46 +259,56 @@ const BasicNavbar = () => {
                   )}
                 </figure>
 
-                <DownSvg />
+                <span
+                  className={`duration-300 transition-transform ${
+                    showPopover ? "rotate-180" : "rotate-0"
+                  }`}
+                >
+                  <DownSvg />
+                </span>
               </button>
 
               {/* Popover */}
-              {showPopover && (
-                <div
-                  onClick={e => e.stopPropagation()}
-                  className="absolute top-16 bg-white drop-shadow z-50 space-y-2 w-[135px] py-3 px-4 border-gray-50 rounded-lg"
+              <div
+                onClick={e => e.stopPropagation()}
+                className={`absolute top-16 bg-white drop-shadow z-50 space-y-2 w-[135px] py-3 px-4 border-gray-50 rounded-lg duration-300 transition-all ${
+                  showPopover
+                    ? "opacity-100 scale-100"
+                    : "opacity-0 pointer-events-none scale-95"
+                }`}
+              >
+                <Link
+                  href={`${
+                    user?.role === "customer"
+                      ? "/dashboard/customer/orders"
+                      : user?.role === "vendor" &&
+                        user?.membership?.membership_type === "pro"
+                      ? "/dashboard/pro/home"
+                      : "/dashboard/basic/home"
+                  }`}
+                  className="flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold"
                 >
-                  <Link
-                    href={`${
-                      user?.role === "customer"
-                        ? "/dashboard/customer/orders"
-                        : user?.role === "vendor" &&
-                          user?.membership?.membership_type === "pro"
-                        ? "/dashboard/pro/home"
-                        : "/dashboard/basic/home"
-                    }`}
-                    className="flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold"
-                  >
-                    Dashboard
-                  </Link>
+                  Dashboard
+                </Link>
 
-                  <button
-                    onClick={() => logoutMutation()}
-                    className="flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold cursor-pointer"
-                  >
-                    {isPending ? "Logging out..." : "Log Out"}
-                  </button>
-                </div>
-              )}
+                <button
+                  onClick={() => logoutMutation()}
+                  className="flex gap-2.5 items-center text-primary-green text-[17px] duration-300 transition-all hover:font-semibold cursor-pointer"
+                >
+                  {isPending ? "Logging out..." : "Log Out"}
+                </button>
+              </div>
             </div>
 
             {/* View shop */}
-            <Link
-              href="/shop-details/1"
-              className="px-5 py-2 block rounded-lg bg-accent-red text-secondary-black cursor-pointer shadow-[0_3px_10px_0_rgba(0\,0\,0\,0.12),_0_3px_8px_0_rgba(0\,0\,0\,0.08)] duration-300 transition-all hover:text-accent-red hover:bg-transparent border border-accent-red hover:scale-95"
-            >
-              View Shop
-            </Link>
+            {user?.role !== "customer" && (
+              <Link
+                href="/view-my-shop/1"
+                className="px-5 py-2 block rounded-lg bg-accent-red text-secondary-black cursor-pointer shadow-[0_3px_10px_0_rgba(0\,0\,0\,0.12),_0_3px_8px_0_rgba(0\,0\,0\,0.08)] duration-300 transition-all hover:text-accent-red hover:bg-transparent border border-accent-red hover:scale-95"
+              >
+                View Shop
+              </Link>
+            )}
           </div>
         </div>
       </Container>
