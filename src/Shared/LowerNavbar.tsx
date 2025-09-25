@@ -1,17 +1,15 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
+import h1 from "@/Assets/h1.svg";
+import h2 from "@/Assets/h2.svg";
+import h3 from "@/Assets/h3.svg";
+import h4 from "@/Assets/h4.svg";
+import h5 from "@/Assets/h5.svg";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Container from "@/Components/Common/Container";
-import {
-  ContactSvg,
-  FAQSvg,
-  ReportSvg,
-  SearchSvg,
-  TermsSvg,
-  TutorialSvg,
-} from "@/Components/Svg/SvgContainer";
+import { SearchSvg } from "@/Components/Svg/SvgContainer";
 
 const LowerNavbar = ({ dynamicPage }: any) => {
   const navLins = [
@@ -34,21 +32,34 @@ const LowerNavbar = ({ dynamicPage }: any) => {
       path: "/help",
       sub_menu: [
         {
-          label: "How-To Tutorials",
+          id: Math.random(),
+          page_title: "How-To Tutorials",
           path: "/help/how-to-tutorials",
-          icon: <TutorialSvg />,
+          logo: h1,
         },
-        { label: "FAQs", path: "/help/faqs", icon: <FAQSvg /> },
-        { label: "Contact", path: "/help/contact", icon: <ContactSvg /> },
         {
-          label: "Terms and Conditions",
+          id: Math.random(),
+          page_title: "FAQs",
+          path: "/help/faqs",
+          logo: h2,
+        },
+        {
+          id: Math.random(),
+          page_title: "Contact",
+          path: "/help/contact",
+          logo: h3,
+        },
+        {
+          id: Math.random(),
+          page_title: "Terms and Conditions",
           path: "/help/terms-and-conditions",
-          icon: <TermsSvg />,
+          logo: h4,
         },
         {
-          label: "Infringement Report",
+          id: Math.random(),
+          page_title: "Infringement Report",
           path: "/help/infringement-report",
-          icon: <ReportSvg />,
+          logo: h5,
         },
       ],
     },
@@ -105,7 +116,7 @@ const LowerNavbar = ({ dynamicPage }: any) => {
               onClick={e => e.stopPropagation()}
               className={`absolute top-12 ${
                 activeSubMenu === 4 ? "-right-32" : "-right-56"
-              } bg-white drop-shadow  w-[260px] py-7 px-5 border-gray-50 rounded-lg flex flex-col gap-7 ${
+              } bg-white drop-shadow  w-[280px] py-7 px-5 border-gray-50 rounded-lg flex flex-col gap-7 ${
                 showMenu && (activeSubMenu === 4 || activeSubMenu === 5)
                   ? "block"
                   : "hidden"
@@ -115,23 +126,34 @@ const LowerNavbar = ({ dynamicPage }: any) => {
                 item =>
                   item?.id === activeSubMenu &&
                   item?.sub_menu?.map(
-                    ({ id, page_title, page_slug, icon }: any) => (
+                    ({ id, page_title, page_slug, path, icon, logo }: any) => (
                       <Link
                         key={id}
-                        href={`/about/${page_slug}`}
+                        href={`${path ? path : `/about/${page_slug}`}`}
                         onClick={() => setShowMenu(false)}
                         className={`flex gap-2.5 items-center text-[#77978F] text-[17px] duration-300 transition-all hover:text-primary-green ${
-                          pathname === page_title &&
-                          "font-semibold text-primary-green"
-                        }`}
+                          pathname === `/about/${page_slug}` ||
+                          (pathname === path &&
+                            "font-semibold text-primary-green")
+                        }
+                        `}
                       >
-                        <figure className="size-[24px] relative border">
-                          <Image
-                            src={`${process.env.NEXT_PUBLIC_SITE_URL}/${icon}`}
-                            alt="logo"
-                            fill
-                            className="size-[24px] object-cover"
-                          />
+                        <figure className="size-[24px] relative">
+                          {icon ? (
+                            <Image
+                              src={`${process.env.NEXT_PUBLIC_SITE_URL}/${icon}`}
+                              alt="icon"
+                              fill
+                              className="size-full object-cover"
+                            />
+                          ) : (
+                            <Image
+                              src={logo}
+                              alt="logo"
+                              fill
+                              className="size-full object-cover"
+                            />
+                          )}
                         </figure>
 
                         <span>{page_title}</span>
