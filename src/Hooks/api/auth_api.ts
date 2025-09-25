@@ -83,7 +83,6 @@ export const useLogin = () => {
   const router = useRouter();
   const { setToken } = useAuth();
 
-  
   return useClientApi({
     method: "post",
     key: ["login"],

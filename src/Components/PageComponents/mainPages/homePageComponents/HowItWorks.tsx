@@ -16,14 +16,14 @@ interface worksProps {
 
 const HowItWorks = ({ data }: worksProps) => {
   return (
-    <section id="how-it-works" className="py-20">
+    <section id="how-it-works" className="py-10 md:py-20">
       <Container>
         <h2 className="section_title text-center">How It Works</h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2  xl:grid-cols-3 gap-10 text-center mb-10">
           {data?.map(item => (
             <div key={item?.id} className="space-y-3">
-              <figure className="size-30 xl:size-40 mx-auto relative">
+              <figure className="size-15 lg:size-24 xl:size-40 mx-auto relative">
                 <Image
                   src={`${process.env.NEXT_PUBLIC_SITE_URL}/${item?.image}`}
                   alt="logo"
@@ -32,11 +32,11 @@ const HowItWorks = ({ data }: worksProps) => {
                 />
               </figure>
 
-              <h3 className="text-3xl font-semibold text-primary-green">
+              <h3 className="text-xl md:text-3xl font-semibold text-primary-green">
                 {item?.title}
               </h3>
 
-              <p className="text-lg text-primary-green">{item?.description}</p>
+              <p className="md:text-lg text-primary-green">{item?.description}</p>
             </div>
           ))}
         </div>

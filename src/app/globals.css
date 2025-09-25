@@ -33,7 +33,7 @@ body {
 
 /* Custom CSS */
 .section_title {
-  @apply   text-[45px] text-primary-green mb-12;
+  @apply text-2xl  md:text-3xl  lg:text-4xl xl:text-[45px] text-primary-green mb-12;
 }
 
 .section_sub_title {
@@ -73,7 +73,7 @@ body {
 }
 
 .form-input {
-  @apply w-full block mt-2 px-4 py-3 rounded-[5px] border-2 border-[#67645f];
+  @apply w-full block mt-2 px-2 md:px-4 py-1.5 md:py-2  lg:py-3 rounded-[5px] border md:border-2 border-[#67645f];
 }
 
 .form-error {

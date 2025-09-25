@@ -58,7 +58,9 @@ const Product = ({
             <SwiperSlide key={idx}>
               <figure
                 className={`w-full rounded-lg border border-gray-100 relative ${
-                  is_feathered ? "h-[260px]" : "h-[350px]"
+                  is_feathered
+                    ? "h-[200px] md:h-[250px"
+                    : "h-[300px] md:h-[350px]"
                 }`}
               >
                 <div className="absolute inset-0 bg-black/20 rounded-lg" />
@@ -72,7 +74,7 @@ const Product = ({
           ))}
         </Swiper>
       ) : (
-        <figure className="w-full h-[250px] rounded-lg border border-gray-100 relative">
+        <figure className="w-full h-[200px] md:h-[250px] rounded-lg border border-gray-100 relative">
           <div className="absolute inset-0 bg-black/20 rounded-lg" />
           <Image
             src={p1}

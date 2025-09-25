@@ -68,14 +68,14 @@ const FeaturedShops = () => {
                 />
               </figure>
 
-              <h3 className="mt-4 text-xl font-semibold text-primary-green">
+              <h3 className="mt-4 text-sm md:text-xl font-semibold text-primary-green">
                 {item?.shop_name}
               </h3>
 
               <div className="flex gap-2 items-center justify-center">
                 <div className="flex gap-1 items-center justify-center">
                   {Array.from({ length: 5 }).map((_, idx) => (
-                    <FaStar key={idx} className="text-primary-green" />
+                    <FaStar key={idx} className="text-primary-green text-xs md:text-base" />
                   ))}
                 </div>
                 <p className="text-sm font-semibold text-secondary-black">
@@ -83,7 +83,7 @@ const FeaturedShops = () => {
                 </p>
               </div>
 
-              <h4 className="text-secondary-black text-[15px]">{item?.desc}</h4>
+              <h4 className="text-secondary-black text-xs md:text-[15px]">{item?.desc}</h4>
             </Link>
           ))}
         </div>
