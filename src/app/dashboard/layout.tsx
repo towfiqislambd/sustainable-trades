@@ -232,7 +232,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
-    <section className="min-h-screen flex flex-col">
+    <section className=" flex flex-col">
       {/* Dashboard Header */}
       <DashboardHeader setOpen={setOpen} />
 
@@ -254,7 +254,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         />
 
         {/* Right - Outlet */}
-        <section className="flex-1 px-4 min-h-[calc(100vh-80px)] md:px-8 lg:px-16 pt-5 md:pt-10 pb-[100px] bg-[#FFFCF9] ">
+        <section className="flex-1 px-4 h-[calc(100vh-80px)] md:px-8 lg:px-16 pt-5 md:pt-10 pb-[100px] bg-[#FFFCF9]  overflow-y-auto">
           {children}
         </section>
 
