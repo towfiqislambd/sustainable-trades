@@ -62,7 +62,7 @@ export default function Page() {
   return (
     <div className="">
       {/* Top Bar */}
-      <div className="flex flex-col lg:flex-row gap-5 justify-between items-start md:items-center">
+      <div className="flex flex-col lg:flex-row gap-5 justify-between items-start md:items-center ">
         <div className="relative w-full lg:max-w-[500px] ">
           <input
             value={search}
@@ -79,7 +79,7 @@ export default function Page() {
           </div>
         </div>
 
-        <div className="flex w-full flex-wrap gap-2 lg:gap-4 lg:items-center">
+        <div className="flex w-full lg:w-fit flex-wrap gap-2 lg:gap-4 lg:items-center">
           <button
             className="h-[45px] lg:h-[50px] w-full lg:w-fit rounded-[8px] bg-[#E48872] text-[16px] font-semibold text-[#13141D] cursor-pointer
              hover:bg-transparent duration-500 ease-in-out border border-[#E48872] px-6"
