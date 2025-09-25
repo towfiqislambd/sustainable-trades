@@ -21,7 +21,7 @@ const DashBoardHeader: React.FC<dashboardheaderprops> = ({
             <input
               placeholder={"Search..."}
               type="search"
-              className="py-[10px] pl-4 outline-0 border border-[#274F45] rounded-[8px] text-[16px] text-[#67645F] font-normal w-full md:w-[300px]"
+              className="py-[10px] pl-4 outline-0 border border-[#274F45] rounded-[8px] text-[16px] text-[#67645F] font-normal w-full  lg:w-[400px]"
             />
             <div className="absolute top-4 right-3">
               <FaSearch />
