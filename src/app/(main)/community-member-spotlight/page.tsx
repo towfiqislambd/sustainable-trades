@@ -38,7 +38,7 @@ const data = [
 
 const Community = () => {
   return (
-    <section className="py-10">
+    <section className="py-5 md:py-10">
       <Container>
         <div className="space-y-6">
           {data?.map((item) => (
