@@ -31,6 +31,16 @@ export async function getMissionData() {
   return useServerApi("/api/our-mission", 3600);
 }
 
+// Dynamic Pages
+export async function getDynamicPages() {
+  return useServerApi("/api/dynamic-pages", 3600);
+}
+
+// Details Dynamic page
+export async function getSingleDynamicPage(slug: string) {
+  return useServerApi(`/api/dynamic-pages/single/${slug}`, 3600);
+}
+
 // =======================================================
 //  CSR (Client Side Rendering)
 // =======================================================

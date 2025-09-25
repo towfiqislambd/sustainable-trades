@@ -6,6 +6,7 @@ import magic from "@/Assets/magic.png";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import welcomeBg from "@/Assets/welcome.jpg";
+import { IoArrowBackOutline } from "react-icons/io5";
 const data = [
   {
     id: 1,
@@ -64,6 +65,16 @@ const Page = () => {
       {/* Right */}
       <div className="flex-1 grid place-items-center overflow-y-auto">
         <div className="w-[770px] mx-auto p-10">
+          {/* Back to home */}
+          <div className="flex items-center gap-1 text-center mb-8 hover:underline">
+            <IoArrowBackOutline className="text-primary-green" />
+            <Link
+              href="/"
+              className="text-primary-green cursor-pointer font-semibold"
+            >
+              Back to home
+            </Link>
+          </div>
           <h2 className="auth-heading">Welcome!</h2>
 
           <p className="text-xl font-semibold text-primary-green mb-7">

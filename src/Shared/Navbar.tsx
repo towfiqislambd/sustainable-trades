@@ -9,18 +9,16 @@ import { usePathname } from "next/navigation";
 import Container from "@/Components/Common/Container";
 import { UpArrowSvg } from "@/Components/Svg/SvgContainer";
 
-const Navbar = () => {
-  // const user = false;
-  const pathname = usePathname();
+const Navbar = ({ siteSettings, dynamicPage }: any) => {
   const { user } = useAuth();
-  console.log(user);
+  const pathname = usePathname();
 
   return (
     <>
       {/* Top Navbar */}
       <div
         className={`bg-accent-red text-secondary-black text-lg font-semibold text-center py-2 ${
-          pathname === "/" ? "block" : "hidden"
+          !user && pathname === "/" ? "block" : "hidden"
         }`}
       >
         <Container>
@@ -32,10 +30,14 @@ const Navbar = () => {
 
       <nav className="sticky top-0 z-50">
         {/* Upper Navbar */}
-        {user ? <BasicNavbar /> : <DefaultNavbar />}
+        {user ? (
+          <BasicNavbar siteSettings={siteSettings} />
+        ) : (
+          <DefaultNavbar siteSettings={siteSettings} />
+        )}
 
         {/* Lower Navbar*/}
-        {!user && <LowerNavbar />}
+        {!user && <LowerNavbar dynamicPage={dynamicPage} />}
       </nav>
 
       {/* Scroll to top */}

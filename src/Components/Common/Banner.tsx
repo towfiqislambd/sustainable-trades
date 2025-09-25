@@ -1,4 +1,6 @@
+"use client";
 import React from "react";
+import Image from "next/image";
 import Container from "./Container";
 
 type BannerProps = {
@@ -8,12 +10,22 @@ type BannerProps = {
 
 const Banner = ({ title, bgImg }: BannerProps) => {
   return (
-    <section
-      style={{ backgroundImage: `url(${bgImg})` }}
-      className="h-[600px] flex justify-center items-center bg-no-repeat bg-center bg-cover object-cover bg-black/20 bg-blend-overlay"
-    >
+    <section className="relative h-[600px] flex items-center justify-center overflow-hidden">
+      {/* ✅ Background Image */}
+      <Image
+        src={bgImg}
+        alt={title}
+        fill
+        priority
+        quality={90}
+        className="object-cover object-center -z-10"
+      />
+
+      {/* ✅ Dark overlay */}
+      <div className="absolute inset-0 bg-black/40 -z-10" />
+
       <Container>
-        <h2 className="text-6xl text-accent-white capitalize text-center">
+        <h2 className="relative z-10 text-4xl md:text-6xl font-semibold text-accent-white text-center capitalize">
           {title}
         </h2>
       </Container>
