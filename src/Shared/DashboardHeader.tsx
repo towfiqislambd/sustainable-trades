@@ -106,7 +106,7 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
           {/* Toggle Button (for < xl) */}
           <button
             className="xl:hidden text-white text-2xl cursor-pointer"
-            onClick={(e) => {
+            onClick={e => {
               e.stopPropagation();
               setOpen(true);
             }}
@@ -126,9 +126,9 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
           {/* NavLinks */}
           <div
             className={` hidden 1xl:flex static top-0 left-0 h-auto w-auto bg-transparent transform transition-transform duration-300 ease-in-out z-40  flex-row gap-6 2xl:gap-10 items-center p-0 `}
-            onClick={(e) => e.stopPropagation()}
+            onClick={e => e.stopPropagation()}
           >
-            {navLins?.map((item) => {
+            {navLins?.map(item => {
               const isActive = pathname === item?.path;
               return (
                 <Link
@@ -137,7 +137,7 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
                   }`}
                   key={item?.id}
                   href={item?.id == 4 || item?.id == 5 ? "#" : item?.path}
-                  onClick={(e) => {
+                  onClick={e => {
                     e.stopPropagation();
                     if (item?.id == 4 || item?.id == 5) {
                       e.preventDefault();
@@ -153,7 +153,7 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
 
             {/* Sub Menu */}
             <div
-              onClick={(e) => e.stopPropagation()}
+              onClick={e => e.stopPropagation()}
               className={`absolute top-12 ${
                 activeSubMenu === 4 ? "-right-32" : "-right-56"
               } bg-white drop-shadow w-[260px] py-7 px-5 border-gray-50 rounded-lg flex flex-col gap-7 ${
@@ -163,7 +163,7 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
               }`}
             >
               {navLins?.map(
-                (item) =>
+                item =>
                   item?.id === activeSubMenu &&
                   item?.sub_menu?.map((link, idx) => (
                     <Link
@@ -201,7 +201,7 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
 
           {/* profile */}
           <button
-            onClick={(e) => {
+            onClick={e => {
               e.stopPropagation();
               setShowPopover(!showPopover);
             }}
@@ -218,7 +218,7 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
 
             {/* Popover */}
             <div
-              onClick={(e) => e.stopPropagation()}
+              onClick={e => e.stopPropagation()}
               className={`absolute top-16 bg-white drop-shadow z-50 space-y-2 w-[120px] py-3 px-4 border-gray-50 rounded-lg ${
                 showPopover ? "block" : "hidden"
               }`}
