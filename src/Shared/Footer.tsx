@@ -64,7 +64,7 @@ const Footer = () => {
                   <Link
                     key={item?.id}
                     href={item?.path}
-                    className="text-accent-white tracking-[0.16px]"
+                    className="text-accent-white text-sm md:text-base tracking-[0.16px]"
                   >
                     {item?.label}
                   </Link>
@@ -79,7 +79,7 @@ const Footer = () => {
                   <Link
                     key={item?.id}
                     href={item?.path}
-                    className="text-accent-white tracking-[0.16px] flex gap-2 items-center"
+                    className="text-accent-white tracking-[0.16px] text-sm md:text-base flex gap-2 items-center"
                   >
                     <span>{item?.logo}</span>
                     <span>{item?.label}</span>
@@ -96,7 +96,7 @@ const Footer = () => {
                   <Link
                     key={item?.id}
                     href={item?.path}
-                    className="text-accent-white tracking-[0.16px]"
+                    className="text-accent-white text-sm md:text-base tracking-[0.16px]"
                   >
                     {item?.label}
                   </Link>
@@ -112,7 +112,7 @@ const Footer = () => {
                   <Link
                     key={item?.id}
                     href={item?.path}
-                    className="text-accent-white tracking-[0.16px] flex gap-2 items-center"
+                    className="text-accent-white text-sm md:text-base tracking-[0.16px] flex gap-2 items-center"
                   >
                     <span>{item?.logo}</span>
                     <span>{item?.label}</span>

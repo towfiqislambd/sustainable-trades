@@ -23,7 +23,7 @@ const HowItWorks = ({ data }: worksProps) => {
         <div className="grid grid-cols-1 lg:grid-cols-2  xl:grid-cols-3 gap-10 text-center mb-10">
           {data?.map(item => (
             <div key={item?.id} className="space-y-3">
-              <figure className="size-24 xl:size-40 mx-auto relative">
+              <figure className="size-15 lg:size-24 xl:size-40 mx-auto relative">
                 <Image
                   src={`${process.env.NEXT_PUBLIC_SITE_URL}/${item?.image}`}
                   alt="logo"
