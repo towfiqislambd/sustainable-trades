@@ -69,8 +69,8 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
 
   const handlePurchasePlan = async (id: number) => {
     await purchasePlanMutation({
-      success_url: `${window.location.origin}/complete-onboarding`,
-      cancel_url: `${window.location.origin}/auth/on_boarding`,
+      success_url: `${window.location.origin}/complete-shop-creation`,
+      cancel_url: `${window.location.origin}/auth/create-shop`,
     });
   };
 

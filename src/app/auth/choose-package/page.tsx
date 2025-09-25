@@ -38,7 +38,13 @@ const Page = () => {
     if (!selectedRole) {
       return toast.error("Please select a package");
     } else {
-      router.push(`/auth/register?role=${selectedRole}`);
+      router.push(
+        `${
+          selectedRole === "magic_maker"
+            ? "/auth/create-shop"
+            : `/auth/register?role=${selectedRole}`
+        }`
+      );
     }
   };
 
