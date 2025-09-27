@@ -27,8 +27,8 @@ const CartItem = ({ item }: cartItemProps) => {
   return (
     <div className="border border-gray-300 p-5 rounded-lg bg-white">
       {/* Shop Info */}
-      <div className="flex justify-between items-center mb-5">
-        <div className="flex gap-5 items-center">
+      <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-5">
+        <div className="flex gap-2 sm:gap-5 items-center">
           {/* Shop Author Name */}
           <Image
             src={item?.shop_author}
@@ -53,17 +53,20 @@ const CartItem = ({ item }: cartItemProps) => {
 
       {/* Stock */}
       {item?.id === 1 && (
-        <p className="bg-[#D4E2CB] text-secondary-gray text-sm rounded px-20 py-1.5 mb-5 w-fit font-semibold">
+        <p className="bg-[#D4E2CB] text-secondary-gray text-sm rounded px-20 py-1.5 mb-5 w-full text-center md:w-fit font-semibold">
           Only 4 Left In Stock
         </p>
       )}
 
       {/* Product Info */}
       <div className="space-y-6">
-        {item?.products?.map(product => (
-          <div key={product.id} className="flex gap-5 border-b last:border-b-0 border-gray-300 pb-7 last:pb-0">
+        {item?.products?.map((product) => (
+          <div
+            key={product.id}
+            className="flex flex-col sm:flex-row gap-5 border-b last:border-b-0 border-gray-300 pb-7 last:pb-0"
+          >
             {/* Product Image */}
-            <figure className="w-[180px] h-[140px] shrink-0 rounded-lg border border-gray-100 relative">
+            <figure className="w-full sm:w-[180px] h-[140px] shrink-0 rounded-lg border border-gray-100 relative">
               <div className="absolute inset-0 bg-black/20 rounded-lg" />
               <Image
                 src={product?.product_image}
@@ -72,7 +75,7 @@ const CartItem = ({ item }: cartItemProps) => {
               />
             </figure>
             <div className="grow">
-              <div className="flex justify-between items-center mb-3">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3">
                 {/* Product Name */}
                 <h3 className="text-xl font-semibold text-secondary-black">
                   {product?.product_name}
