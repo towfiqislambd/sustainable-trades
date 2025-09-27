@@ -114,13 +114,15 @@ const Page = () => {
                 fill
                 className="object-cover"
               />
-              <button
-                className="absolute top-3 right-3 bg-white rounded-full p-2 shadow cursor-pointer border border-[#274F45] 
+              <Link href={`/dashboard/basic/view-listing/${product.id}`}>
+                <button
+                  className="absolute top-3 right-3 bg-white rounded-full p-2 shadow cursor-pointer border border-[#274F45] 
            opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 
            transition-all duration-300 ease-in-out"
-              >
-                <FiEdit2 size={18} className="text-[#274F45]" />
-              </button>
+                >
+                  <FiEdit2 size={18} className="text-[#274F45]" />
+                </button>
+              </Link>
             </div>
 
             {/* Info */}
