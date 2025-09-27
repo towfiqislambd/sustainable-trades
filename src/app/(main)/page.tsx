@@ -1,5 +1,6 @@
 import {
   getBannerData,
+  getFeaturedShops,
   getHowItWorksData,
   getMissionData,
   getProductCategories,
@@ -19,13 +20,14 @@ const Page = async () => {
   const howItWorksData = await getHowItWorksData();
   const missionData = await getMissionData();
   const productCategories = await getProductCategories();
+  const featuredShops = await getFeaturedShops();
 
   return (
     <>
       <HomeBanner data={bannerData?.data} />
       <HowItWorks data={howItWorksData?.data} />
       <MagicMarkers />
-      <FeaturedShops />
+      <FeaturedShops data={featuredShops?.data} />
       <ExploreProduct data={productCategories?.data} />
       <OurMission data={missionData?.data} />
       <CommunityMember has_community={true} />
