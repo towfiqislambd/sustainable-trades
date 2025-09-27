@@ -31,7 +31,7 @@ const Navbar = ({ siteSettings, dynamicPage }: any) => {
       <nav className="sticky top-0 z-50">
         {/* Upper Navbar */}
         {user ? (
-          <BasicNavbar siteSettings={siteSettings} />
+          <BasicNavbar dynamicPage={dynamicPage} siteSettings={siteSettings} />
         ) : (
           <DefaultNavbar siteSettings={siteSettings} />
         )}
