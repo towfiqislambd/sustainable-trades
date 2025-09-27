@@ -44,7 +44,7 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
         setValue("profilePhotoPreview", reader.result as string, {
           shouldValidate: true,
         });
-        trigger("about_image"); 
+        trigger("about_image");
       };
       reader.readAsDataURL(file);
     }
@@ -89,8 +89,8 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
           </p>
 
           <div className="relative inline-block group">
-            <LiaExclamationCircleSolid className="cursor-pointer text-red-500 text-3xl lg:block hidden" />
-            <p className="absolute left-full top-1/2 -translate-y-1/2 ml-2 w-64 bg-white text-red-500 text-[14px] p-3 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out z-10">
+            <LiaExclamationCircleSolid className="cursor-pointer text-primary-green text-3xl lg:block hidden" />
+            <p className="absolute left-full top-1/2 -translate-y-1/2 ml-2 w-64 bg-white text-primary-green text-[14px] p-3 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out z-10">
               This Photo will appear in your about shop section. Choose an image
               that best represents the goods or services you offer. You can
               change or update it anytime in my edit page.
