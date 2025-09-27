@@ -191,7 +191,7 @@ export default function page() {
             <button
               type="submit"
               disabled={isPending}
-              className={`px-10 py-1.5 sm:py-3 md:py-4 border-2 border-primary-green rounded-lg bg-primary-green text-accent-white font-semibold duration-500 transition-all hover:bg-transparent hover:text-primary-green md:text-lg block w-full ${
+              className={`px-10 py-1.5 sm:py-3 md:py-4 border-2 border-primary-green rounded-lg bg-primary-green text-accent-white md:font-semibold duration-500 transition-all hover:bg-transparent hover:text-primary-green text-sm md:text-lg block w-full ${
                 isPending ? "cursor-not-allowed" : "cursor-pointer"
               }`}
             >
