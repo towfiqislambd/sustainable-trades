@@ -72,7 +72,7 @@ const Page = () => {
             <p className="text-[#13141D] text-[16px] font-semibold">
               Sort by :
             </p>
-            <select className="p-4 rounded-[10px] border border-[#A7A39C] mt-2 w-full md:w-[190px] cursor-pointer">
+            <select className="p-2 md:p-4 rounded-[10px] border border-[#A7A39C] mt-2 w-full md:w-[190px] cursor-pointer">
               <option>Name: A - Z</option>
               <option>Name: Z - A</option>
               <option>Price: Low to High</option>
@@ -83,7 +83,7 @@ const Page = () => {
             <p className="text-[#13141D] text-[16px] font-semibold">
               Listing Status
             </p>
-            <select className="p-4 rounded-[10px] border border-[#A7A39C] mt-2 w-full md:w-[190px] cursor-pointer">
+            <select className="p-2 md:p-4 rounded-[10px] border border-[#A7A39C] mt-2 w-full md:w-[190px] cursor-pointer">
               <option>All</option>
               <option>Active</option>
               <option>Inactive</option>
@@ -102,8 +102,8 @@ const Page = () => {
       </div>
 
       {/* Product Grid */}
-      <div className="grid  sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3 xl:gap-6 mt-10">
-        {products.map(product => (
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3 xl:gap-6 mt-10">
+        {products.map((product) => (
           <div
             key={product.id}
             className="relative border border-[#e5e5e5] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300 group cursor-pointer"
