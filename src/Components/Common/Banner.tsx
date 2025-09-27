@@ -10,7 +10,7 @@ type BannerProps = {
 
 const Banner = ({ title, bgImg }: BannerProps) => {
   return (
-    <section className="relative h-[600px] flex items-center justify-center overflow-hidden">
+    <section className="relative h-[300px] md:h-[400px] lg:h-[600px] flex items-center justify-center overflow-hidden">
       {/* ✅ Background Image */}
       <Image
         src={bgImg}
