@@ -6,7 +6,7 @@ import { getDynamicPages, getSingleDynamicPage } from "@/Hooks/api/cms_api";
 
 const page = async ({ params }: any) => {
   const dynamicPage = await getDynamicPages();
-  const { slug } = params;
+  const { slug } = await params;
   const pageData = await getSingleDynamicPage(slug);
 
   return (
@@ -16,16 +16,16 @@ const page = async ({ params }: any) => {
         bgImg={`${process.env.NEXT_PUBLIC_SITE_URL}/${pageData?.data?.page_image}`}
       />
 
-      <section className="mb-40 mt-20">
+      <section className="mb-10 lg:mb-40 mt-10 lg:mt-20">
         <Container>
-          <div className="flex items-start gap-14">
+          <div className="flex flex-col lg:flex-row items-start gap-5 lg:gap-14">
             {/* Left - Tabs */}
             <AboutUsTab dynamicPage={dynamicPage?.data} />
 
             {/* Right - Content */}
             <div className="grow">
               {/* Page Title */}
-              <h2 className="text-3xl font-semibold text-secondary-black mb-5">
+              <h2 className="text-xl md:text-3xl font-semibold text-secondary-black mb-2.5 md:mb-5">
                 {pageData?.data?.page_title}
               </h2>
 
