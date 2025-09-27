@@ -74,3 +74,52 @@ export const useNewsletter = () => {
     },
   });
 };
+
+// Get Tutorials
+export const getTutorials = (search: string, type: string) => {
+  return useClientApi({
+    method: "get",
+    key: ["get-tutorials", search, type],
+    endpoint: "/api/tutorials",
+    params: { type, search },
+    queryOptions: {
+      retry: false,
+    },
+  });
+};
+
+// Get FAQ
+export const getFAQ = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-faq"],
+    endpoint: "/api/faq/all",
+  });
+};
+
+// Get Contact
+export const getContact = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-contact"],
+    endpoint: "/api/contact",
+  });
+};
+
+// Get Terms
+export const getTerms = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-terms"],
+    endpoint: "/api/terms-and-conditions",
+  });
+};
+
+// Get Infringement
+export const getInfringement = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-infringement"],
+    endpoint: "/api/infringement-report",
+  });
+};
