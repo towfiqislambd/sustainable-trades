@@ -4,7 +4,6 @@ import type React from "react";
 import { MdArrowOutward } from "react-icons/md";
 import { useMemo, useRef, useState } from "react";
 
-
 const CreateListing = ({ membershipType = "basic" }: any) => {
   const [mainImage, setMainImage] = useState<string | null>(null);
   const [video, setVideo] = useState<File | null>(null);
@@ -47,7 +46,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
     videoRef.current
       .play()
       .then(() => setShowPlayButton(false))
-      .catch(err => console.error("Playback failed:", err));
+      .catch((err) => console.error("Playback failed:", err));
   };
 
   const handlePause = () => {
@@ -74,7 +73,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
   };
 
   const handleRemoveTag = (tag: string) => {
-    setMetaTags(metaTags.filter(t => t !== tag));
+    setMetaTags(metaTags.filter((t) => t !== tag));
   };
 
   const [category, setCategory] = useState("");
@@ -114,9 +113,9 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
 
   return (
     <div>
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col md:flex-row gap-3.5 md:gap-0 md:justify-between md:items-center">
         <div>
-          <h3 className="text-[40px] font-semibold text-[#13141D]">
+          <h3 className="text-[30px] md:text-[40px] font-semibold text-[#13141D]">
             Organic Cherry Tomatoes
           </h3>
           <div className="flex gap-x-2 items-center pt-2 cursor-pointer">
@@ -145,7 +144,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-8 mt-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
         <div className="flex flex-col gap-6">
           <div>
             <h3 className="text-[20px] font-semibold text-[#13141D]">
@@ -207,9 +206,9 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
             <input
               type="text"
               value={quantity}
-              onChange={e => setQuantity(e.target.value)}
+              onChange={(e) => setQuantity(e.target.value)}
               disabled={isBasicMember}
-              className={`w-[350px] border border-[#A7A39C] rounded-lg p-4 mt-2 text-[20px] text-[#13141D] font-normal outline-0 ${
+              className={`w-full lg:w-[350px] border border-[#A7A39C] rounded-lg p-4 mt-2 text-[20px] text-[#13141D] font-normal outline-0 ${
                 isBasicMember
                   ? "bg-gray-100 text-gray-400 cursor-not-allowed"
                   : ""
@@ -264,7 +263,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
             </div>
           </div>
 
-          <div>
+          <div className="w-full">
             <h3 className="text-[24px] text-[#13141D] font-semibold">
               Listing Approval Process
             </h3>
@@ -274,8 +273,8 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
               sustainability guidelines. This helps us maintain the quality and
               integrity of our marketplace.
             </p>
-            <div>
-              <div className="flex gap-4 mt-3">
+            <div className="w-full">
+              <div className="flex gap-4 mt-3 w-full">
                 <label className="px-8 py-5 bg-[#F0EEE9] rounded-lg cursor-pointer text-[16px] text-[#13141D]">
                   Upload video
                   <input
@@ -308,7 +307,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
                   {showPlayButton && (
                     <button
                       className="h-24 w-24 bg-[#626161] text-white rounded-full absolute cursor-pointer top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 flex justify-center items-center"
-                      onClick={e => {
+                      onClick={(e) => {
                         e.stopPropagation();
                         handlePlay();
                       }}
@@ -408,13 +407,13 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
             <select
               className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
               value={category}
-              onChange={e => {
+              onChange={(e) => {
                 setCategory(e.target.value);
                 setSubcategory("");
               }}
             >
               <option value="">Select Category</option>
-              {Object.keys(categories).map(cat => (
+              {Object.keys(categories).map((cat) => (
                 <option key={cat} value={cat}>
                   {cat}
                 </option>
@@ -429,10 +428,10 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
                 <select
                   className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
                   value={subcategory}
-                  onChange={e => setSubcategory(e.target.value)}
+                  onChange={(e) => setSubcategory(e.target.value)}
                 >
                   <option value="">Select Subcategory</option>
-                  {categories[category].map(sub => (
+                  {categories[category].map((sub) => (
                     <option key={sub} value={sub}>
                       {sub}
                     </option>
@@ -472,7 +471,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
               <input
                 type="text"
                 value={newTag}
-                onChange={e => setNewTag(e.target.value)}
+                onChange={(e) => setNewTag(e.target.value)}
                 className="flex-1  border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 pl-10 mt-2"
               />
               <button
