@@ -32,7 +32,7 @@ const TradeLayout = ({ children, initialTab }: TradeLayoutProps) => {
         <h3 className="text-[30px] md:text-[40px] font-semibold text-[#000]">
           Trades
         </h3>
-        <div className="relative w-full">
+        <div className="relative w-ful md:w-fit">
           <input
             placeholder="Search..."
             type="search"
