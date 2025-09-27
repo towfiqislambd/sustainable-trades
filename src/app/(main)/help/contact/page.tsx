@@ -15,9 +15,9 @@ const Page = () => {
         bgImg={`${process.env.NEXT_PUBLIC_SITE_URL}/${contactData?.data?.image}`}
       />
 
-      <section className="mb-40 mt-20">
+      <section className="mb-10 lg:mb-40 mt-10 lg:mt-20">
         <Container>
-          <div className="flex items-start gap-14">
+          <div className="flex flex-col lg:flex-row items-start gap-5 lg:gap-14">
             {/* Left - Tabs */}
             <HelpUsTab />
 
