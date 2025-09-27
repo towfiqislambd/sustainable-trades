@@ -48,9 +48,9 @@ export default function page() {
   return (
     <section className="min-h-screen max-h-screen flex">
       {/* Left - Form */}
-      <div className="flex-1 grid place-items-center overflow-y-auto">
-        <div className="w-[750px] mx-auto p-10">
-          <h2 className="auth-heading !text-4xl !mb-7">
+      <div className="flex-1 grid place-items-center">
+        <div className="w-full  xl:w-[750px] mx-auto p-5 xl:p-10">
+          <h2 className="auth-heading !mb-7">
             Welcome,
             <span className="text-primary-green">
               {selected_role === "magic_maker"
@@ -242,11 +242,11 @@ export default function page() {
       </div>
 
       {/* Right - Image */}
-      <div className="flex-1 relative">
+      <div className="hidden lg:block  flex-1 relative">
         <Image
           src={selected_role === "magic_maker" ? shopBg : magicBg}
           alt="welcome_img"
-          className="w-full h-full object-cover"
+          className="object-cover "
           fill
           placeholder="blur"
         />

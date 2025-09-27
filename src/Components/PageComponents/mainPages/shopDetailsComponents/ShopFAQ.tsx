@@ -39,16 +39,16 @@ const ShopFAQ = () => {
           {data?.map(item => (
             <div
               key={item.id}
-              className="border-b-2 border-gray-200 py-4 cursor-pointer"
+              className="border-b-2 border-gray-200 py-2 md:py-4 cursor-pointer"
               onClick={() => toggleAccordion(item.id)}
             >
               {/* Question */}
               <div className="flex justify-between items-center">
-                <h3 className="text-xl font-semibold text-primary-green">
+                <h3 className=" md:text-lg lg:text-xl font-semibold text-primary-green">
                   {item.question}
                 </h3>
                 <span
-                  className={`text-2xl text-secondary-black duration-500 ${
+                  className={`text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-secondary-black duration-500 ${
                     activeAccordion === item.id ? "rotate-180" : "rotate-0"
                   }`}
                 >
@@ -64,7 +64,9 @@ const ShopFAQ = () => {
                     : "max-h-0 opacity-0"
                 }`}
               >
-                <p className="text-secondary-gray text-[17px]">{item.answer}</p>
+                <p className="text-secondary-gray text-xs sm:text-sm md:text-base lg:text-[17px]">
+                  {item.answer}
+                </p>
               </div>
             </div>
           ))}
