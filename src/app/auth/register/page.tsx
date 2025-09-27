@@ -48,9 +48,9 @@ export default function page() {
   return (
     <section className="min-h-screen max-h-screen flex">
       {/* Left - Form */}
-      <div className="flex-1 grid place-items-center">
+      <div className="flex-1 grid place-items-center side-scrollbar ">
         <div className="w-full  xl:w-[750px] mx-auto p-5 xl:p-10">
-          <h2 className="auth-heading !mb-7">
+          <h2 className="text-xl  md:text-2xl  lg:text-3xl xl:text-4xl font-semibold text-secondary-black mb-7">
             Welcome,
             <span className="text-primary-green">
               {selected_role === "magic_maker"
@@ -62,7 +62,7 @@ export default function page() {
           {/* Form */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {/* First & Last Name */}
-            <div className="flex gap-8 items-center">
+            <div className="flex flex-col sm:flex-row gap-4 xl:gap-8 sm:items-center">
               <div className="flex-1">
                 <label className="form-label">First Name *</label>
                 <input
@@ -167,7 +167,7 @@ export default function page() {
                 />
                 <label
                   htmlFor="terms"
-                  className="text-secondary-black max-w-[550px]"
+                  className="text-secondary-black text-sm md:text-base  max-w-[550px]"
                 >
                   By continuing you agree to Sustainable Trade’s Terms of Use
                   and Privacy Policy.
@@ -191,7 +191,7 @@ export default function page() {
             <button
               type="submit"
               disabled={isPending}
-              className={`px-10 py-4 border-2 border-primary-green rounded-lg bg-primary-green text-accent-white font-semibold duration-500 transition-all hover:bg-transparent hover:text-primary-green text-lg block w-full ${
+              className={`px-10 py-1.5 sm:py-3 md:py-4 border-2 border-primary-green rounded-lg bg-primary-green text-accent-white md:font-semibold duration-500 transition-all hover:bg-transparent hover:text-primary-green text-sm md:text-lg block w-full ${
                 isPending ? "cursor-not-allowed" : "cursor-pointer"
               }`}
             >
@@ -209,7 +209,7 @@ export default function page() {
           </form>
 
           {/* Sign in link */}
-          <div className="flex gap-1 items-center text-lg text-secondary-black mt-3">
+          <div className="flex gap-1 items-center md:text-lg text-secondary-black mt-3">
             <p>Already have an account?</p>
             <Link
               className="text-primary-green font-semibold underline"

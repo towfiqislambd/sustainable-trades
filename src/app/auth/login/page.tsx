@@ -163,7 +163,7 @@ const Page = () => {
         <Image
           src={loginBg}
           alt="welcome_img"
-          className=" object-cover"
+          className="object-cover"
           fill
           placeholder="blur"
         />

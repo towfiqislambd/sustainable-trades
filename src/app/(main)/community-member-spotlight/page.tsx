@@ -52,7 +52,7 @@ const Community = () => {
                   src={item?.shop_image}
                   alt="shop_image"
                   fill
-                  className="w-full h-full rounded-tl-xl rounded-tr-xl lg:rounded-l-xl"
+                  className="w-full h-full rounded-tl-xl rounded-tr-xl lg:rounded-tr-none lg:rounded-l-xl"
                 />
               </figure>
 

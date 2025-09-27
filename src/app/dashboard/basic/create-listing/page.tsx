@@ -4,7 +4,6 @@ import type React from "react";
 import { MdArrowOutward } from "react-icons/md";
 import { useMemo, useRef, useState } from "react";
 
-
 const CreateListing = ({ membershipType = "basic" }: any) => {
   const [mainImage, setMainImage] = useState<string | null>(null);
   const [video, setVideo] = useState<File | null>(null);
@@ -47,7 +46,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
     videoRef.current
       .play()
       .then(() => setShowPlayButton(false))
-      .catch(err => console.error("Playback failed:", err));
+      .catch((err) => console.error("Playback failed:", err));
   };
 
   const handlePause = () => {
@@ -74,7 +73,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
   };
 
   const handleRemoveTag = (tag: string) => {
-    setMetaTags(metaTags.filter(t => t !== tag));
+    setMetaTags(metaTags.filter((t) => t !== tag));
   };
 
   const [category, setCategory] = useState("");
@@ -114,9 +113,9 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
 
   return (
     <div>
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col md:flex-row gap-3.5 md:gap-0 md:justify-between md:items-center">
         <div>
-          <h3 className="text-[40px] font-semibold text-[#13141D]">
+          <h3 className="text-[30px] md:text-[40px] font-semibold text-[#13141D]">
             Organic Cherry Tomatoes
           </h3>
           <div className="flex gap-x-2 items-center pt-2 cursor-pointer">
@@ -145,16 +144,16 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-8 mt-8">
-        <div className="flex flex-col gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8 mt-4 md:mt-8">
+        <div className="flex flex-col gap-3 md:gap-6">
           <div>
-            <h3 className="text-[20px] font-semibold text-[#13141D]">
+            <h3 className="text-[17px] md:text-[20px] font-semibold text-[#13141D]">
               Product Name / Service
             </h3>
             <input
               type="text"
               defaultValue="Organic Cherry Tomatoes"
-              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2 outline-none"
+              className="w-full border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2 outline-none"
             />
           </div>
 
@@ -163,19 +162,21 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
               <img
                 src={mainImage || "/placeholder.svg"}
                 alt="Main Preview"
-                className="w-full h-[500px] object-cover rounded-lg border"
+                className="w-full h-[300px] md:h-[500px] object-cover rounded-lg border"
               />
             ) : (
-              <div className="w-full h-[500px] flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg text-gray-400">
+              <div className="w-full  h-[300px] md:h-[500px] flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg text-gray-400">
                 <div className="text-center">
-                  <p className="text-lg">No image uploaded</p>
-                  <p className="text-sm">Upload images to see preview</p>
+                  <p className="text-base md:text-lg">No image uploaded</p>
+                  <p className="text-[12px] md:text-sm">
+                    Upload images to see preview
+                  </p>
                 </div>
               </div>
             )}
 
             <div className="mt-3">
-              <label className="flex items-center justify-center gap-2 w-full py-4 bg-[#F5F5F5] rounded-lg cursor-pointer border-2 border-dashed border-gray-300 hover:bg-gray-100 transition-colors">
+              <label className="flex items-center justify-center gap-2 w-full py-2 md:py-4 bg-[#F5F5F5] rounded-lg cursor-pointer border-2 border-dashed border-gray-300 hover:bg-gray-100 transition-colors">
                 <svg
                   className="w-6 h-6 text-gray-600"
                   fill="none"
@@ -201,15 +202,15 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
           </div>
 
           <div>
-            <h3 className="text-[24px] font-semibold text-[#13141D]">
+            <h3 className="text-[20px] md:text-[24px] font-semibold text-[#13141D]">
               Quantity
             </h3>
             <input
               type="text"
               value={quantity}
-              onChange={e => setQuantity(e.target.value)}
+              onChange={(e) => setQuantity(e.target.value)}
               disabled={isBasicMember}
-              className={`w-[350px] border border-[#A7A39C] rounded-lg p-4 mt-2 text-[20px] text-[#13141D] font-normal outline-0 ${
+              className={`w-full lg:w-[350px] border border-[#A7A39C] rounded-lg p-2 md:p-4  mt-2 input text-[#13141D] font-normal outline-0 ${
                 isBasicMember
                   ? "bg-gray-100 text-gray-400 cursor-not-allowed"
                   : ""
@@ -217,7 +218,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
             />
             <div className="flex flex-col gap-4 mt-2">
               <label
-                className={`flex items-center gap-2 text-[24px] font-semibold ${
+                className={`flex items-center gap-2 text-[20px] md:text-[24px]  font-semibold ${
                   isBasicMember ? "text-gray-400" : "text-[#13141D]"
                 }`}
               >
@@ -232,7 +233,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
                   }`}
                 />
               </label>
-              <label className="flex items-center gap-2 text-[24px] text-[#13141D] font-semibold">
+              <label className="flex items-center gap-2 text-[20px] md:text-[24px]  text-[#13141D] font-semibold">
                 Feature
                 <input
                   type="checkbox"
@@ -242,7 +243,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
                 />
               </label>
               <label
-                className={`flex items-center gap-2 text-[24px] font-semibold ${
+                className={`flex items-center gap-2 text-[20px] md:text-[24px]  font-semibold ${
                   isBasicMember ? "text-gray-400" : "text-[#13141D]"
                 }`}
               >
@@ -257,26 +258,26 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
                   }`}
                 />
               </label>
-              <p className="text-[16px] text-[#13141D] font-normal max-w-[400px]">
+              <p className="text-[16px] text-[#13141D] font-normal w-full md:max-w-[400px]">
                 Status automatically changes to "Out of Inventory" when zero
                 inventory is reached
               </p>
             </div>
           </div>
 
-          <div>
-            <h3 className="text-[24px] text-[#13141D] font-semibold">
+          <div className="w-full">
+            <h3 className="text-[20px] md:text-[24px]  text-[#13141D] font-semibold">
               Listing Approval Process
             </h3>
-            <p className="text-[16px]] text-[#67645F] mt-2 max-w-[400px]">
+            <p className="text-[16px] text-[#67645F] mt-2 w-full md:max-w-[400px]">
               In the video, share details about how and where your product was
               made, how your food was grown, and how it aligns with our
               sustainability guidelines. This helps us maintain the quality and
               integrity of our marketplace.
             </p>
-            <div>
-              <div className="flex gap-4 mt-3">
-                <label className="px-8 py-5 bg-[#F0EEE9] rounded-lg cursor-pointer text-[16px] text-[#13141D]">
+            <div className="w-full">
+              <div className="flex gap-4 mt-3 w-full">
+                <label className="px-4 md:px-8 py-2.5 md:py-5 bg-[#F0EEE9] rounded-lg cursor-pointer text-[14px] md:text-[16px] text-[#13141D]">
                   Upload video
                   <input
                     type="file"
@@ -308,7 +309,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
                   {showPlayButton && (
                     <button
                       className="h-24 w-24 bg-[#626161] text-white rounded-full absolute cursor-pointer top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 flex justify-center items-center"
-                      onClick={e => {
+                      onClick={(e) => {
                         e.stopPropagation();
                         handlePlay();
                       }}
@@ -331,7 +332,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
           </div>
 
           <div>
-            <p className="font-semibold text-[24px] text-[#13141D]">
+            <p className="font-semibold text-[20px] md:text-[24px]  text-[#13141D]">
               Listing Status:{" "}
               <span className="px-3 py-2 text-white text-sm rounded-full bg-[#757575]">
                 Pending
@@ -340,19 +341,21 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-4 md:gap-8">
           <div>
-            <h3 className="text-[24px] font-semibold text-[#13141D]">Price</h3>
+            <h3 className="text-[20px] md:text-[24px] font-semibold text-[#13141D]">
+              Price
+            </h3>
             <input
               type="text"
               defaultValue="$2.99/lb"
-              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2 outline-0"
+              className="w-full border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4  mt-2 outline-0"
             />
           </div>
 
           <div>
             <h3
-              className={`text-[24px] font-semibold ${
+              className={`text-[20px] md:text-[24px] font-semibold ${
                 isBasicMember ? "text-gray-400" : "text-[#13141D]"
               }`}
             >
@@ -362,7 +365,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
               type="text"
               defaultValue="$5.99/lb"
               disabled={isBasicMember}
-              className={`w-full border text-[20px] border-[#A7A39C] rounded-lg p-4 mt-2 outline-0 ${
+              className={`w-full border text-[16px] md:text-[20px] border-[#A7A39C] rounded-lg p-2 md:p-4  mt-2 outline-0 ${
                 isBasicMember
                   ? "bg-gray-100 text-gray-400 cursor-not-allowed"
                   : "text-[#13141D]"
@@ -372,7 +375,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
 
           <div>
             <h3
-              className={`text-[24px] font-semibold ${
+              className={`text-[20px] md:text-[24px] font-semibold ${
                 isBasicMember ? "text-gray-400" : "text-[#13141D]"
               }`}
             >
@@ -382,7 +385,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
               type="text"
               defaultValue="20 KG"
               disabled={isBasicMember}
-              className={`w-full border text-[20px] border-[#A7A39C] rounded-lg p-4 mt-2 outline-0 ${
+              className={`w-full border text-[16px] md:text-[20px] border-[#A7A39C] rounded-lg p-2 md:p-4  mt-2 outline-0 ${
                 isBasicMember
                   ? "bg-gray-100 text-gray-400 cursor-not-allowed"
                   : "text-[#13141D]"
@@ -391,30 +394,30 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
           </div>
 
           <div>
-            <h3 className="text-[24px] font-semibold text-[#13141D]">
+            <h3 className="text-[20px] md:text-[24px] font-semibold text-[#13141D]">
               Description
             </h3>
             <textarea
               rows={5}
               defaultValue="Grown using organic farming practices, our cherry tomatoes are free from pesticides and artificial additives, ensuring a pure and wholesome experience."
-              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2 outline-0"
+              className="w-full border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2 outline-0"
             />
           </div>
 
           <div>
-            <h3 className="text-[24px] font-semibold text-[#13141D]">
+            <h3 className="text-[20px] md:text-[24px] font-semibold text-[#13141D]">
               Category
             </h3>
             <select
-              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
+              className="w-full border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4  mt-2"
               value={category}
-              onChange={e => {
+              onChange={(e) => {
                 setCategory(e.target.value);
                 setSubcategory("");
               }}
             >
               <option value="">Select Category</option>
-              {Object.keys(categories).map(cat => (
+              {Object.keys(categories).map((cat) => (
                 <option key={cat} value={cat}>
                   {cat}
                 </option>
@@ -423,16 +426,16 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
 
             {category && categories[category].length > 0 && (
               <div className="mt-4">
-                <h3 className="text-[24px] font-semibold text-[#13141D]">
+                <h3 className="text-[20px] md:text-[24px] font-semibold text-[#13141D]">
                   Subcategory
                 </h3>
                 <select
-                  className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2"
+                  className="w-full border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4  mt-2"
                   value={subcategory}
-                  onChange={e => setSubcategory(e.target.value)}
+                  onChange={(e) => setSubcategory(e.target.value)}
                 >
                   <option value="">Select Subcategory</option>
-                  {categories[category].map(sub => (
+                  {categories[category].map((sub) => (
                     <option key={sub} value={sub}>
                       {sub}
                     </option>
@@ -442,10 +445,10 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
             )}
           </div>
           <div>
-            <h3 className="text-[24px] font-semibold text-[#13141D]">
+            <h3 className="text-[20px] md:text-[24px] font-semibold text-[#13141D]">
               Fulfillment
             </h3>
-            <select className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2">
+            <select className="w-full border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4  mt-2">
               <option>Select Fulfillment</option>
               <option>Arrange Local Pickup</option>
               <option>Shipping</option>
@@ -454,7 +457,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
           </div>
 
           <div>
-            <h3 className="text-[24px] font-semibold text-[#13141D]">
+            <h3 className="text-[20px] md:text-[24px] font-semibold text-[#13141D]">
               Meta Tags
             </h3>
             <div className="flex flex-wrap gap-2 mt-2">
@@ -472,12 +475,12 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
               <input
                 type="text"
                 value={newTag}
-                onChange={e => setNewTag(e.target.value)}
-                className="flex-1  border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 pl-10 mt-2"
+                onChange={(e) => setNewTag(e.target.value)}
+                className="flex-1  border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4  pl-10 "
               />
               <button
                 onClick={handleAddTag}
-                className="absolute top-7 left-5 cursor-pointer"
+                className="absolute top-1/2 -translate-y-1/2 left-5 cursor-pointer"
               >
                 +
               </button>
@@ -485,10 +488,10 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
           </div>
 
           <div>
-            <h3 className="text-[24px] font-semibold text-[#13141D]">
+            <h3 className="text-[20px] md:text-[24px] font-semibold text-[#13141D]">
               Selling Option
             </h3>
-            <select className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-4 mt-2">
+            <select className="w-full border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4  mt-2">
               <option>Choose Below</option>
               <option>Trade/Barter</option>
               <option>For Sale or Trade Barter</option>
@@ -497,7 +500,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
           </div>
         </div>
       </div>
-      <div className="flex justify-between mt-10 items-center">
+      <div className="flex justify-between mt-5 md:mt-10 items-center">
         <button className="text-red-600 flex items-center gap-1 mt-4 cursor-pointer">
           <span className="inline-block w-4 h-4 border-2 border-current rounded-sm relative">
             <span className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-0.5 bg-current"></span>
@@ -506,7 +509,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
           </span>
           Delete Listing
         </button>
-        <button className="bg-[#E48872] text-white py-5 px-12 cursor-pointer rounded-lg font-semibold hover:bg-[#a34739] mt-6">
+        <button className="bg-[#E48872] text-white py-2.5 md:py-5 px-6 md:px-12 cursor-pointer rounded-lg font-semibold hover:bg-[#a34739] mt-6">
           Save Listing
         </button>
       </div>

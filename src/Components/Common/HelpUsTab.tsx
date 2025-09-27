@@ -1,21 +1,13 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import h1 from "@/Assets/h1.svg";
 import h2 from "@/Assets/h2.svg";
 import h3 from "@/Assets/h3.svg";
 import h4 from "@/Assets/h4.svg";
 import h5 from "@/Assets/h5.svg";
 import { usePathname } from "next/navigation";
-
-import {
-  ContactSvg,
-  FAQSvg,
-  ReportSvg,
-  TermsSvg,
-  TutorialSvg,
-} from "@/Components/Svg/SvgContainer";
-import Image from "next/image";
 
 const navLinks = [
   {
