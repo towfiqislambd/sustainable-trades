@@ -1,18 +1,20 @@
-"use client"
-import React from 'react'
-import Image from 'next/image'
-import { orders } from '@/Components/Data/data'
+"use client";
+import React from "react";
+import Image from "next/image";
+import { orders } from "@/Components/Data/data";
 
 const BuyAgain = () => {
-  const buyagainorders = orders.filter(orders => orders.status === "Buy Again")
+  const buyagainorders = orders.filter(
+    (orders) => orders.status === "Buy Again"
+  );
   return (
     <div>
       <div className="flex flex-col gap-6">
-        {buyagainorders.map(order => (
+        {buyagainorders.map((order) => (
           <div key={order.id} className="border border-[#BFBEBE] rounded-[8px]">
-            <div className="px-6 py-4">
-              <div className="flex justify-between">
-                <div className="flex gap-x-10">
+            <div className="px-3 md:px-6 py-2 md:py-4">
+              <div className="flex flex-col sm:flex-row sm:justify-between">
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-x-10">
                   <div>
                     <h3 className="text-[#67645F] font-sans font-bold">
                       Order Placed
@@ -30,7 +32,7 @@ const BuyAgain = () => {
                     </p>
                   </div>
                 </div>
-                <div className="flex gap-x-10">
+                <div className="flex  flex-col sm:flex-row gap-2 sm:gap-x-10">
                   <div>
                     <h3 className="text-[#67645F] font-sans font-bold">
                       Order Number
@@ -49,12 +51,12 @@ const BuyAgain = () => {
             </div>
             <div className="w-full bg-[#BFBEBE] h-[1px]"></div>
             <div className="pt-2 px-4 pb-6">
-              <div className="flex justify-between items-center">
+              <div className="flex flex-col gap-2.5 sm:gap-0 sm:flex-row sm:justify-between sm:items-center">
                 <div>
-                  <h4 className="text-[20px] font-bold text-[#000]">
+                  <h4 className="text-[16px] sm:text-[20px] font-bold text-[#000]">
                     {order.arrivingText}
                   </h4>
-                  <p className="font-sans font-normal text-[#000] text-[16px] pt-2 pb-3">
+                  <p className="font-sans font-normal text-[#000] text-[13px] sm:text-[16px] pt-2 pb-3">
                     {order.packageNote}
                   </p>
                   <div className="flex gap-x-3">
@@ -64,27 +66,27 @@ const BuyAgain = () => {
                       height={117}
                       width={115}
                     />
-                    <div className="flex flex-col gap-y-10">
-                      <h5 className="text-[20px] font-bold text-[#000]">
+                    <div className="flex flex-col gap-3 sm:gap-y-10">
+                      <h5 className="text-[16px] sm:text-[20px] font-bold text-[#000]">
                         {order.productName}
                       </h5>
 
                       <button className="p-2 rounded-[8px] w-fit bg-[#D4E2CB] flex gap-x-2 text-[16px] font-normal text-[#000] cursor-pointer group">
-                        <h6 className="text-[16px] font-normal text-[#000] cursor-pointer">
+                        <h6 className="text-[12px] md:text-[16px] font-normal text-[#000] cursor-pointer">
                           Status : {order?.status}
                         </h6>
                       </button>
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-col gap-4">
-                  <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[16px] font-normal text-[#000] cursor-pointer w-[250px] hover:scale-105 duration-500 ease-in-out">
+                <div className="flex flex-col gap-4 ">
+                  <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[13px] md:text-[16px] font-normal  text-[#000] cursor-pointer  w-full sm:w-[250px]  hover:scale-105 duration-500 ease-in-out">
                     Track Package
                   </button>
-                  <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[16px] font-normal text-[#000] cursor-pointer w-[250px] hover:scale-105 duration-500 ease-in-out">
+                  <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[13px] md:text-[16px] font-normal  text-[#000] cursor-pointer  w-full sm:w-[250px]  hover:scale-105 duration-500 ease-in-out">
                     View Order
                   </button>
-                  <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[16px] font-normal text-[#000] cursor-pointer w-[250px] hover:scale-105 duration-500 ease-in-out">
+                  <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[13px] md:text-[16px] font-normal  text-[#000] cursor-pointer  w-full sm:w-[250px]  hover:scale-105 duration-500 ease-in-out">
                     Get Help
                   </button>
                 </div>
@@ -95,6 +97,6 @@ const BuyAgain = () => {
       </div>
     </div>
   );
-}
+};
 
-export default BuyAgain
+export default BuyAgain;

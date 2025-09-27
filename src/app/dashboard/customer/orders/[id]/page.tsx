@@ -10,7 +10,7 @@ const OrderDetailsPage = () => {
   const params = useParams();
   const orderId = params.id;
 
-  const order = orders.find(order => order.id === orderId);
+  const order = orders.find((order) => order.id === orderId);
 
   if (!order) {
     return <p className="text-red-500">Order not found</p>;
@@ -18,13 +18,13 @@ const OrderDetailsPage = () => {
 
   return (
     <>
-      <h2 className="text-[40px] font-lato font-semibold text-[#000]">
+      <h2 className="text-[30px] md:text-[40px] font-lato font-semibold text-[#000]">
         Order Details
       </h2>
-      <div className="border border-[#BFBEBE] rounded-[8px] my-10">
-        <div className="px-6 py-4">
-          <div className="flex justify-between">
-            <div className="flex gap-x-10">
+      <div className="border border-[#BFBEBE] rounded-[8px] my-5 md:my-10">
+        <div className="px-3 md:px-6 py-4">
+          <div className="flex flex-col md:flex-row md:justify-between">
+            <div className="flex flex-col md:flex-row md:gap-x-10">
               <div>
                 <h3 className="text-[#67645F] font-sans font-bold">
                   Order Placed
@@ -40,7 +40,7 @@ const OrderDetailsPage = () => {
                 </p>
               </div>
             </div>
-            <div className="flex gap-x-10">
+            <div className="flex flex-col md:flex-row md:gap-x-10">
               <div>
                 <h3 className="text-[#67645F] font-sans font-bold">
                   Order Number
@@ -58,8 +58,8 @@ const OrderDetailsPage = () => {
           </div>
         </div>
         <div className="w-full bg-[#BFBEBE] h-[1px]"></div>
-        <div className="p-6">
-          <ul className="flex justify-between">
+        <div className="px-3 md:px-6 py-4">
+          <ul className="flex flex-col md:flex-row justify-between">
             <div className="">
               <li className="text-[#000] font-sans font-bold text-[16px]">
                 Shipping Address
@@ -120,7 +120,7 @@ const OrderDetailsPage = () => {
         </div>
       </div>
       <div className="pt-2 px-4 pb-6 border border-[#BFBEBE] rounded-[8px]">
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col gap-3.5 md:flex-row md:justify-between md:items-center">
           <div>
             <h4 className="text-[20px] font-bold text-[#000]">
               {order.arrivingText}
@@ -135,7 +135,7 @@ const OrderDetailsPage = () => {
                 height={117}
                 width={115}
               />
-              <div className="flex flex-col gap-y-10">
+              <div className="flex flex-col gap-4 md:gap-y-10">
                 <h5 className="text-[20px] font-bold text-[#000]">
                   {order.productName}
                 </h5>
@@ -147,19 +147,19 @@ const OrderDetailsPage = () => {
             </div>
           </div>
           <div className="flex flex-col gap-4">
-            <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[16px] font-normal text-[#000] cursor-pointer w-[250px] hover:scale-105 duration-500 ease-in-out">
+            <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[14px] md:text-[16px]  font-normal text-[#000] cursor-pointer w-full md:w-[250px] hover:scale-105 duration-500 ease-in-out">
               Track Package
             </button>
             <Link href={`/dashboard/customer/orders/${order.id}`}>
-              <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[16px] font-normal text-[#000] cursor-pointer w-[250px] hover:scale-105 duration-500 ease-in-out">
+              <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[14px] md:text-[16px]  font-normal text-[#000] cursor-pointer w-full md:w-[250px]  hover:scale-105 duration-500 ease-in-out">
                 View Order
               </button>
             </Link>
-            <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[16px] font-normal text-[#000] cursor-pointer w-[250px] hover:scale-105 duration-500 ease-in-out">
+            <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[14px] md:text-[16px] font-normal text-[#000] cursor-pointer w-full md:w-[250px]  hover:scale-105 duration-500 ease-in-out">
               Get Help
             </button>
             <Link href={`/dashboard/customer/reviews/${order.id}`}>
-              <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[16px] font-normal text-[#000] cursor-pointer w-[250px] hover:scale-105 duration-500 ease-in-out">
+              <button className="p-2 rounded-[8px] border border-[#BFBEBE] text-[14px] md:text-[16px] font-normal text-[#000] cursor-pointer w-full md:w-[250px]  hover:scale-105 duration-500 ease-in-out">
                 Write a Review
               </button>
             </Link>
