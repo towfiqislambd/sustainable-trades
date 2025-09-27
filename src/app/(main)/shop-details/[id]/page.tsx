@@ -17,12 +17,12 @@ const page = ({ params }: Props) => {
   return (
     <>
       <ShopBanner />
-      {/* <DetailsTab />
+      <DetailsTab />
       <ShopListing />
       <ShopReviews />
       <AboutShop />
       <ShopPolicies />
-      <ShopFAQ /> */}
+      <ShopFAQ />
     </>
   );
 };

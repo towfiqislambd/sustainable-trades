@@ -34,21 +34,21 @@ const Page = () => {
   return (
     <section className="min-h-screen max-h-screen flex">
       {/* Left - From */}
-      <div className="flex-1 grid place-items-center overflow-y-auto">
-        <div className="w-[750px] mx-auto p-10">
+      <div className="flex-1 grid place-items-center">
+        <div className="w-full  xl:w-[750px] mx-auto p-5 xl:p-10">
           {/* Back to home */}
           <div className="flex items-center gap-1 text-center mb-8 hover:underline">
             <IoArrowBackOutline className="text-primary-green" />
             <Link
               href="/"
-              className="text-primary-green cursor-pointer font-semibold"
+              className="text-primary-green text-sm sm:text-base cursor-pointer font-semibold"
             >
               Back to home
             </Link>
           </div>
           <h2 className="auth-heading">Welcome Back!</h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div className="flex gap-8 items-center">
+            <div className="flex flex-col sm:flex-row gap-4 xl:gap-8 sm:items-center">
               {/* Email */}
               <div className="flex-1">
                 <label className="form-label">Email *</label>
@@ -88,7 +88,7 @@ const Page = () => {
 
             <div className="py-3 flex justify-between items-center">
               {/* Remember me */}
-              <div className="flex gap-3 items-start">
+              <div className="flex gap-3 items-center">
                 <input
                   id="terms"
                   type="checkbox"
@@ -112,7 +112,7 @@ const Page = () => {
             <button
               type="submit"
               disabled={isPending}
-              className={`px-10 py-4 border-2 border-primary-green rounded-lg bg-primary-green text-accent-white font-semibold duration-500 transition-all hover:bg-transparent hover:text-primary-green text-lg block w-full ${
+              className={`px-10 py-1.5 sm:py-3 md:py-4 border-2 border-primary-green rounded-lg bg-primary-green text-accent-white font-semibold duration-500 transition-all hover:bg-transparent hover:text-primary-green md:text-lg block w-full ${
                 isPending ? "cursor-not-allowed" : "cursor-pointer"
               }`}
             >
@@ -127,7 +127,7 @@ const Page = () => {
             </button>
           </form>
 
-          <div className="flex gap-1 justify-center items-center text-lg text-secondary-black mt-7">
+          <div className="flex gap-1 justify-center items-center md:text-lg text-secondary-black mt-7">
             <p>New Member?</p>
             <Link
               className="text-primary-green font-semibold underline"
@@ -144,7 +144,7 @@ const Page = () => {
           </div>
 
           {/* Social items */}
-          <div className="flex justify-center items-center gap-10">
+          <div className="flex justify-center items-center gap-4 md:gap-10">
             <button className="cursor-pointer">
               <FacebookLogoSvg />
             </button>
@@ -159,11 +159,11 @@ const Page = () => {
       </div>
 
       {/* Right - Image */}
-      <div className="flex-1 relative">
+      <div className="hidden lg:block flex-1 relative">
         <Image
           src={loginBg}
           alt="welcome_img"
-          className="w-full h-full object-cover"
+          className=" object-cover"
           fill
           placeholder="blur"
         />

@@ -74,19 +74,42 @@ const ShopReviews = () => {
           {data?.map(item => (
             <div
               key={item?.id}
-              className="flex gap-20 items-center border-b last:border-b-0 border-gray-200 py-8"
+              className="flex flex-col lg:flex-row gap-5 sm:gap-10 md:gap-20 lg:items-center border-b last:border-b-0 border-gray-200 py-4 md:py-8"
             >
               {/* Left - Reviews */}
-              <div className="grow flex gap-5 items-start">
-                {/* Author Image */}
-                <p className="shrink-0 size-16 rounded-full grid place-items-center">
-                  <ReviewAuthorSvg />
-                </p>
-
+              <div className="grow flex flex-col sm:flex-row gap-5 items-start">
+                <div className="flex justify-between items-center w-full sm:w-auto gap-5">
+                  {/* Author Image */}
+                  <p className="shrink-0 size-16 rounded-full grid place-items-center">
+                    <ReviewAuthorSvg />
+                  </p>
+                  {/* Reviewed Image */}
+                  <div className="sm:hidden flex gap-3 items-center rounded-lg w-[130px] h-[100px] shrink-0">
+                    <Swiper
+                      modules={[Pagination]}
+                      spaceBetween={10}
+                      pagination={{ clickable: true }}
+                      className="review_swiper rounded-lg"
+                    >
+                      {item?.reviewed_img?.map((img, idx) => (
+                        <SwiperSlide key={idx}>
+                          <figure className="w-[130px] h-[100px] rounded-lg border border-gray-100 relative">
+                            <div className="absolute bg-black/10 inset-0 rounded-lg" />
+                            <Image
+                              src={img}
+                              alt="Reviewed img"
+                              className="w-full h-full rounded-lg"
+                            />
+                          </figure>
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                  </div>
+                </div>
                 <div className="flex gap-10">
                   {/* Content */}
                   <div>
-                    <h3 className="text-lg font-semibold text-primary-green">
+                    <h3 className=" text-sm sm:text-base md:text-lg font-semibold text-primary-green">
                       {item?.author_name}
                     </h3>
 
@@ -105,14 +128,14 @@ const ShopReviews = () => {
                         (_, index) => (
                           <FaRegStar
                             key={index}
-                            className="text-primary-green text-sm"
+                            className="text-primary-green text-xs md:text-sm"
                           />
                         )
                       )}
                     </div>
 
                     {/* Description */}
-                    <p className="text-secondary-gray text-[15px]">
+                    <p className="text-secondary-gray text-xs sm:text-sm md:text-[15px]">
                       {showMore && item?.id === showMoreId
                         ? item?.review_desc
                         : item?.review_desc?.slice(0, 150)}
@@ -132,7 +155,7 @@ const ShopReviews = () => {
                   </div>
 
                   {/* Reviewed Image */}
-                  <div className="flex gap-3 items-center rounded-lg w-[130px] h-[100px] shrink-0">
+                  <div className="hidden sm:flex gap-3 items-center rounded-lg w-[130px] h-[100px] shrink-0">
                     <Swiper
                       modules={[Pagination]}
                       spaceBetween={10}
@@ -157,7 +180,7 @@ const ShopReviews = () => {
               </div>
 
               {/* Right - Product under review */}
-              <div className="w-[300px] shrink-0">
+              <div className="xl:w-[300px] shrink-0">
                 <h4 className="text-primary-green text-sm font-semibold mb-3">
                   Purchased product:
                 </h4>

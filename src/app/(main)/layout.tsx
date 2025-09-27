@@ -9,10 +9,10 @@ const MainLayout = async ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      {/* <Navbar
+      <Navbar
         siteSettings={siteSettings?.data}
         dynamicPage={dynamicPage?.data}
-      /> */}
+      />
       <main>{children}</main>
       <Footer />
     </>

@@ -59,8 +59,8 @@ const Product = ({
               <figure
                 className={`w-full rounded-lg border border-gray-100 relative ${
                   is_feathered
-                    ? "h-[200px] md:h-[250px"
-                    : "h-[300px] md:h-[350px]"
+                    ? "h-[170px] md:h-[250px"
+                    : "h-[170px] md:h-[350px]"
                 }`}
               >
                 <div className="absolute inset-0 bg-black/20 rounded-lg" />
@@ -84,33 +84,47 @@ const Product = ({
         </figure>
       )}
 
-      {/* Product Name */}
-      <Link
-        href={`/product-details/1`}
-        className="text-primary-green text-xl font-semibold py-3 truncate hover:underline block"
-      >
-        {product?.product_title}
-      </Link>
+      <div className="flex justify-between items-center">
+        {/* Product Name */}
+        <Link
+          href={`/product-details/1`}
+          className="text-primary-green md:text-lg sm:text-base text-sm lg:text-xl font-semibold py-3 truncate hover:underline block"
+        >
+          {product?.product_title}
+        </Link>
 
-      {/* Badge */}
-      <p className="size-6 rounded-full bg-accent-red grid place-items-center">
-        <DollarSvg />
-      </p>
+        {/* Badge */}
+        <p className="size-6 rounded-full bg-accent-red grid place-items-center">
+          <DollarSvg />
+        </p>
+      </div>
 
-      <div className="flex justify-between mt-2 items-center">
+      <div className="flex  justify-between mt-2 items-center">
         {/* Product Price */}
-        <p className="text-xl font-semibold text-secondary-black">
+        <p className="md:text-lg sm:text-base text-sm lg:text-xl font-semibold text-secondary-black">
           ${product?.product_price}
         </p>
 
         {/* Cart btn */}
         {has_cart && (
-          <button className="flex gap-2 items-center px-3 py-1.5 rounded-[5px] cursor-pointer border border-secondary-gray font-semibold text-secondary-gray duration-500 transition-all hover:bg-primary-green hover:text-accent-white hover:scale-95">
-            <span>Add to Cart</span>
-            <span>
-              <CartLogoSvg />
-            </span>
-          </button>
+          <div className="">
+            <button className="hidden sm:flex gap-2 items-center px-3 py-1.5 rounded-[5px] cursor-pointer border border-secondary-gray font-semibold text-secondary-gray duration-500 transition-all hover:bg-primary-green md:text-lg sm:text-base text-sm lg:text-xl hover:text-accent-white hover:scale-95">
+              <span className="md:text-lg sm:text-base text-sm lg:text-xl">
+                Add to Cart
+              </span>
+              <span>
+                <CartLogoSvg />
+              </span>
+            </button>
+            <button className="flex sm:hidden gap-2 items-center px-3 py-1.5 rounded-[5px] cursor-pointer border border-secondary-gray font-semibold text-secondary-gray duration-500 transition-all hover:bg-primary-green md:text-lg sm:text-base text-sm lg:text-xl hover:text-accent-white hover:scale-95">
+              <span className="md:text-lg sm:text-base text-sm lg:text-xl">
+                Add
+              </span>
+              <span>
+                <CartLogoSvg />
+              </span>
+            </button>
+          </div>
         )}
       </div>
     </div>
