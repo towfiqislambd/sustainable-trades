@@ -20,16 +20,16 @@ const page = () => {
     <section className="">
       <DashBoardHeader heading="Yours Orders" placeholder="Search Orders" />
       <div className="py-6">
-        <ul className="flex gap-x-6">
+        <ul className="flex flex-wrap md:flex-nowrap gap-2 lg:gap-x-6">
           {tabs.map((tab: string, index: number) => (
             <li
               key={tab}
               onClick={() => setIsActive(tab)}
-              className={`text-[20px] font-bold text-[#000] px-6 py-2  shrink-0 cursor-pointer ${
+              className={`text-[15px] lg:text-[20px] font-bold text-[#000] px-3 md:px-6 py-2 w-fit flex-1 text-nowrap cursor-pointer ${
                 isActive === tab
                   ? "border-b-[3px] border-[#77978F]"
                   : "border-b border-[#BFBEBE]"
-              } ${index === tabs.length - 1 ? "flex-1" : "shrink-0"}`}
+              } ${index === tabs.length - 1 ? "flex-1" : "sm:shrink-0"}`}
             >
               {tab}
             </li>

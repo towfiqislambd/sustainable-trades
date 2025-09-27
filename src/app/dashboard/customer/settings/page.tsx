@@ -7,11 +7,11 @@ const Settings = () => {
   const [cookies, setCookies] = useState(false);
   return (
     <>
-      <h2 className="text-[40px] font-lato font-semibold text-[#000]">
+      <h2 className="text-[30px] md:text-[40px] font-lato font-semibold text-[#000]">
         Settings
       </h2>
-      <div className="mt-6 flex gap-x-[145px]">
-        <div className="w-1/2">
+      <div className="lg:mt-6 flex flex-col-reverse  lg:flex-row gap-x-[72.5px] xl:gap-x-[145px]">
+        <div className="mt-5 lg:mt-0 lg:w-1/2">
           <form action="" className="flex flex-col gap-3 ">
             <div className="w-full">
               <p className="form-label font-bold">Name</p>
@@ -72,9 +72,9 @@ const Settings = () => {
           </form>
         </div>
         <div className="flex justify-end shrink-0">
-          <div className="w-full mt-20 flex flex-col gap-y-10">
+          <div className="w-full mt-5  lg:mt-20 flex flex-col gap-y-5 lg:gap-y-10">
             {/* Push Notifications */}
-            <div className="flex items-center gap-x-16">
+            <div className="flex items-center gap-x-8 md:gap-x-16">
               <h3 className="text-[16px] font-semibold">Push Notifications</h3>
               <div className="flex items-center gap-x-5">
                 <span className="text-[16px] font-bold">OFF</span>
@@ -93,7 +93,7 @@ const Settings = () => {
                 <span className="text-[16px] font-bold">ON</span>
               </div>
             </div>
-            <div className="flex items-center gap-x-[108px]">
+            <div className="flex items-center gap-x-[55px] md:gap-x-[108px]">
               <h3 className="text-[16px] font-semibold">Language</h3>
               <div className="flex items-center gap-x-5">
                 <span className="text-[16px] font-bold">English</span>
@@ -112,7 +112,7 @@ const Settings = () => {
                 <span className="text-[16px] font-bold">Spanish</span>
               </div>
             </div>
-            <div className="flex items-center gap-x-22">
+            <div className="flex items-center gap-x-10 md:gap-x-22">
               <h3 className="text-[16px] font-semibold">Enable Cookies</h3>
               <div className="flex items-center gap-x-5">
                 <span className="text-[16px] font-bold">OFF</span>
@@ -134,8 +134,8 @@ const Settings = () => {
           </div>
         </div>
       </div>
-      <div className="flex gap-x-10 mt-10">
-        <button className="auth-secondary-btn w-[150px]">Logout</button>
+      <div className="flex flex-col gap-2 sm:flex-row sm:gap-x-10 mt-10">
+        <button className="auth-secondary-btn sm:w-[150px]">Logout</button>
         <button className="auth-secondary-btn">Delete Account</button>
       </div>
     </>

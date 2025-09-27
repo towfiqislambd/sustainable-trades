@@ -58,15 +58,15 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
   const router = useRouter();
 
   return (
-    <div className="h-[600px] overflow-y-auto p-6 flex flex-col gap-6">
-      {tradeRequests.map(trade => (
+    <div className="h-[600px] overflow-y-auto mt-2 sm:p-6 flex flex-col gap-6">
+      {tradeRequests.map((trade) => (
         <div
           key={trade.id}
-          className="border border-[#BFBEBE] p-6 rounded-[8px] flex flex-col gap-4"
+          className="border border-[#BFBEBE] p-3 md:p-6 rounded-[8px] flex flex-col gap-4"
         >
           {/* Header */}
-          <div className="flex justify-between pb-4 border-b border-[#BFBEBE]">
-            <div className="flex gap-x-5 items-center">
+          <div className="flex flex-col gap-3.5 sm:gap-0 sm:flex-row justify-between pb-4 border-b border-[#BFBEBE]">
+            <div className="flex flex-wrap sm:flex-nowrap  gap-x-5 items-center">
               <h3 className="font-semibold text-[16px] text-[#274F45]">
                 Trade Request
               </h3>
@@ -96,7 +96,7 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
           {trade.items.map((item, idx) => (
             <div key={idx}>
               <div className=" flex justify-between items-end">
-                <div className="flex gap-x-10">
+                <div className="flex flex-col sm:flex-row gap-x-5 sm:gap-x-10">
                   <Image
                     src={item.image || "/placeholder.svg"}
                     alt={item.title}
@@ -105,18 +105,18 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
                     className="object-cover rounded-md"
                   />
                   <div className="flex flex-col">
-                    <h3 className="text-[20px] font-semibold text-[#13141D]">
+                    <h3 className="text-[18px] sm:text-[20px] font-semibold text-[#13141D]">
                       {item.title}
                     </h3>
-                    <h4 className="text-[20px] font-normal text-[#4B4A47]">
+                    <h4 className="text-[16px] sm:text-[20px] font-normal text-[#4B4A47]">
                       {item.store}
                     </h4>
-                    <h5 className="text-[#13141D] font-normal text-[16px] mt-3">
+                    <h5 className="text-[#13141D] font-normal text-[13px] sm:text-[16px] mt-3">
                       Qty: {item.quantity}
                     </h5>
                   </div>
                 </div>
-                <h2 className="text-[20px] font-normal text-[#4B4A47]">
+                <h2 className="text-[16px] sm:text-[20px]  font-normal text-[#4B4A47]">
                   Total amount:{" "}
                   <span className="font-semibold text-[#13141D]">
                     ${item.totalAmount}
@@ -137,8 +137,8 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
           ))}
 
           {/* Action Buttons */}
-          <div className="flex justify-between items-end border-t border-[#BFBEBE] pt-3">
-            <div className="flex gap-x-5 flex-wrap">
+          <div className="flex flex-wrap gap-3.5 md:gap-0 justify-between items-end border-t border-[#BFBEBE] pt-3">
+            <div className="flex gap-2.5 md:gap-5 flex-wrap">
               {actionButtons[trade.status].map((btn, i) => {
                 const style = actionButtonStyles[btn] || {
                   bg: "bg-gray-200",

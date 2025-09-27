@@ -14,9 +14,9 @@ const DetailsTab = () => {
 
   return (
     <Container>
-      <div className="mt-8 flex justify-between items-center">
-        <div className="inline-flex items-center border border-gray-300 shadow rounded-lg">
-          {tabs?.map(tab => (
+      <div className="mt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="inline-flex flex-wrap md:flex-nowrap items-center border border-gray-300 shadow rounded-lg w-full md:w-auto">
+          {tabs?.map((tab, idx) => (
             <Link
               key={tab?.id}
               href={`#${tab?.label}`}
@@ -34,15 +34,18 @@ const DetailsTab = () => {
                   window.scrollTo({ top: y, behavior: "smooth" });
                 }
               }}
-              className={`px-14 gap-3 py-4 font-semibold 
-                  ${
-                    activeTab === tab?.id
-                      ? "bg-[#D4E2CB] text-secondary-black"
-                      : "text-secondary-gray"
-                  }
-                  ${activeTab === 1 && "rounded-l-lg"}
-                  ${activeTab === 4 && "rounded-r-lg"}
-                `}
+              className={`flex-1 text-center px-6 md:px-14 py-3 md:py-4 font-semibold
+          ${
+            activeTab === tab?.id
+              ? "bg-[#D4E2CB] text-secondary-black"
+              : "text-secondary-gray"
+          }
+          ${idx === 0 && "rounded-l-lg md:rounded-tr-none"}
+          ${
+            idx === tabs.length - 1 &&
+            "rounded-r-lg md:rounded-bl-none"
+          }
+        `}
             >
               {tab?.label}
             </Link>
