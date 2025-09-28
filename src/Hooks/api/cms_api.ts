@@ -1,6 +1,6 @@
-import { useServerApi } from "@/Hooks/useServerApi";
-import useClientApi from "@/Hooks/useClientApi";
 import toast from "react-hot-toast";
+import useClientApi from "@/Hooks/useClientApi";
+import { useServerApi } from "@/Hooks/useServerApi";
 
 // =======================================================
 //  SSR (Server Side Rendering)
@@ -126,5 +126,14 @@ export const getInfringement = () => {
     method: "get",
     key: ["get-infringement"],
     endpoint: "/api/infringement-report",
+  });
+};
+
+// Site Settings Client
+export const getSiteSettingsClient = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-site-settings"],
+    endpoint: "/api/site-settings",
   });
 };

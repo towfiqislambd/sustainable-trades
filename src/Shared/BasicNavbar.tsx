@@ -13,20 +13,10 @@ import React, { useEffect, useState } from "react";
 import Container from "@/Components/Common/Container";
 import {
   CartSvg2,
-  ContactSvg,
   DownSvg,
-  FAQSvg,
-  GoalSvg,
-  GuidelineSvg,
   LoveSvg2,
   MessageSvg,
   NotificationSvg,
-  ReportSvg,
-  StorySvg,
-  TermsSvg,
-  TutorialSvg,
-  VisionSvg,
-  WorksSvg,
 } from "@/Components/Svg/SvgContainer";
 
 const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
