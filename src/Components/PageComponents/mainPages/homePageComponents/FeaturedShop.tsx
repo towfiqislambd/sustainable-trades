@@ -1,59 +1,23 @@
-import Container from "@/Components/Common/Container";
-import { FaStar } from "react-icons/fa";
 import React from "react";
-import f1 from "@/Assets/f1.jpg";
-import f2 from "@/Assets/f2.jpg";
-import f3 from "@/Assets/f3.jpg";
-import f4 from "@/Assets/f4.jpg";
-import Image from "next/image";
-import { IoLink } from "react-icons/io5";
 import Link from "next/link";
+import Image from "next/image";
+import { FaStar } from "react-icons/fa";
+import { IoLink } from "react-icons/io5";
+import Container from "@/Components/Common/Container";
 
-const data = [
-  {
-    id: 1,
-    shop_image: f1,
-    shop_name: "Pressed Juicery",
-    review_count: 23,
-    review: 5,
-    desc: "Barters & Trades",
-  },
-  {
-    id: 2,
-    shop_image: f2,
-    shop_name: "The Blade Artistry",
-    review_count: 20,
-    review: 3,
-    desc: "For Sale",
-  },
-  {
-    id: 3,
-    shop_image: f3,
-    shop_name: "Soap Alchemy",
-    review_count: 56,
-    review: 4,
-    desc: "Barters & Trades",
-  },
-  {
-    id: 4,
-    shop_image: f4,
-    shop_name: "Tranquil Tree Yoga",
-    review_count: 32,
-    review: 5,
-    desc: "Barters & Trades",
-  },
-];
-
-const FeaturedShops = () => {
+const FeaturedShops = ({ data }: any) => {
   return (
     <section className=" mt-50 md:mt-0 py-20">
       <Container>
-        <h2 className="section_title md:text-start text-center ">Featured Shops</h2>
+        <h2 className="section_title md:text-start text-center ">
+          Featured Shops
+        </h2>
+
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-          {data?.map(item => (
+          {data?.map(({ id, shop_info }: any) => (
             <Link
-              href={`/shop-details/${item?.id}`}
-              key={item?.id}
+              href={`/shop-details/${id}`}
+              key={id}
               className="text-center space-y-1.5"
             >
               <figure className="size-30 xl:size-64 mx-auto cursor-pointer rounded-full border border-gray-100 group relative">
@@ -62,28 +26,34 @@ const FeaturedShops = () => {
                 </div>
 
                 <Image
-                  src={item?.shop_image}
+                  src={`${process.env.NEXT_PUBLIC_SITE_URL}/${shop_info?.shop_image}`}
                   alt="shop_image"
+                  fill
                   className="size-full rounded-full object-cover"
                 />
               </figure>
 
               <h3 className="mt-4 text-sm md:text-xl font-semibold text-primary-green">
-                {item?.shop_name}
+                {shop_info?.shop_name}
               </h3>
 
               <div className="flex gap-2 items-center justify-center">
                 <div className="flex gap-1 items-center justify-center">
                   {Array.from({ length: 5 }).map((_, idx) => (
-                    <FaStar key={idx} className="text-primary-green text-xs md:text-base" />
+                    <FaStar
+                      key={idx}
+                      className="text-primary-green text-xs md:text-base"
+                    />
                   ))}
                 </div>
                 <p className="text-sm font-semibold text-secondary-black">
-                  ({item?.review_count})
+                  (4)
                 </p>
               </div>
 
-              <h4 className="text-secondary-black text-xs md:text-[15px]">{item?.desc}</h4>
+              <h4 className="text-secondary-black text-xs md:text-[15px]">
+                Shop Description
+              </h4>
             </Link>
           ))}
         </div>

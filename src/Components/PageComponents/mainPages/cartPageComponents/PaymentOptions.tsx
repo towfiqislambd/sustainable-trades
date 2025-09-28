@@ -55,23 +55,23 @@ const PaymentOptions = () => {
     <section className="mb-10">
       <h3 className="section_sub_title">3 Items In Your Cart</h3>
 
-      <div className="grid grid-cols-12 gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 xl:gap-10">
         {/* Left - Products */}
-        <div className="col-span-8">
+        <div className=" lg:col-span-8">
           <div className="space-y-7">
-            {data?.map(item => (
+            {data?.map((item) => (
               <CartItem key={item?.id} item={item} />
             ))}
           </div>
         </div>
 
         {/* Right - Payment Options */}
-        <div className="col-span-4">
-          <h3 className="text-3xl font-semibold text-primary-green mb-4">
+        <div className="lg:col-span-4">
+          <h3 className="text-2xl md:text-3xl font-semibold text-primary-green mb-4">
             Payment Options
           </h3>
 
-          <p className="text-lg font-semibold text-secondary-black mb-5">
+          <p className="text-[14px] md:text-lg font-semibold text-secondary-black mb-5">
             You will not be charged until the review page of this order.
           </p>
 
@@ -84,18 +84,16 @@ const PaymentOptions = () => {
                 name="Card"
                 value="Card"
                 checked={paymentMethod === "Card"}
-                onChange={e => setPaymentMethod(e.target.value)}
+                onChange={(e) => setPaymentMethod(e.target.value)}
               />
 
-              <span className="text-secondary-gray font-semibold">
-                 Card
-              </span>
+              <span className="text-secondary-gray font-semibold">Card</span>
             </p>
             <div className="flex gap-x-4">
-              <div className="bg-[#274F45] p-2 rounded-md font-bold text-white">
-                Devit Card
+              <div className="bg-[#274F45] text-[12px] md:text-[14px] xl:text-base p-1 xl:p-2 rounded-md font-bold text-white flex items-center justify-center">
+                Debit Card
               </div>
-              <div className="bg-[#274F45] p-2 rounded-md font-bold text-white">
+              <div className="bg-[#274F45] text-[12px] md:text-[14px] xl:text-base p-1 xl:p-2 rounded-md font-bold text-white flex items-center justify-center">
                 Credit Card
               </div>
             </div>
@@ -108,10 +106,10 @@ const PaymentOptions = () => {
                 name="payment"
                 value="paypal"
                 checked={paymentMethod === "paypal"}
-                onChange={e => setPaymentMethod(e.target.value)}
+                onChange={(e) => setPaymentMethod(e.target.value)}
               />
 
-              <span className="text-secondary-gray font-semibold">
+              <span className="text-secondary-gray font-semibold ">
                 Pay with PayPal
               </span>
             </p>
@@ -125,14 +123,14 @@ const PaymentOptions = () => {
                 name="Gpay"
                 value="Gpay"
                 checked={paymentMethod === "Gpay"}
-                onChange={e => setPaymentMethod(e.target.value)}
+                onChange={(e) => setPaymentMethod(e.target.value)}
               />
 
               <span className="text-secondary-gray font-semibold">
                 Pay with Google
               </span>
             </p>
-            <div className="bg-[#274F45] p-2 rounded-md font-bold text-white">
+            <div className="bg-[#274F45] text-[12px] md:text-[14px] xl:text-base p-1 xl:p-2 rounded-md font-bold text-white flex items-center justify-center">
               Gpay
             </div>
           </div>
@@ -144,14 +142,14 @@ const PaymentOptions = () => {
                 name="Cash"
                 value="Cash"
                 checked={paymentMethod === "Cash"}
-                onChange={e => setPaymentMethod(e.target.value)}
+                onChange={(e) => setPaymentMethod(e.target.value)}
               />
 
               <span className="text-secondary-gray font-semibold">
                 Pay later
               </span>
             </p>
-            <div className="bg-[#274F45] p-2 rounded-md font-bold text-white">
+            <div className="bg-[#274F45] text-[12px] md:text-[14px] xl:text-base p-1 xl:p-2 rounded-md font-bold text-white flex items-center justify-center">
               $pay
             </div>
           </div>
@@ -163,14 +161,14 @@ const PaymentOptions = () => {
                 name="Venmo"
                 value="Venmo"
                 checked={paymentMethod === "Venmo"}
-                onChange={e => setPaymentMethod(e.target.value)}
+                onChange={(e) => setPaymentMethod(e.target.value)}
               />
 
               <span className="text-secondary-gray font-semibold">
                 Pay with Venmo
               </span>
             </p>
-            <div className="bg-[#274F45] p-2 rounded-md text-white font-bold">
+            <div className="bg-[#274F45] text-[12px] md:text-[14px] xl:text-base p-1 xl:p-2 rounded-md font-bold text-white flex items-center justify-center">
               Vpay
             </div>
           </div>
@@ -182,14 +180,14 @@ const PaymentOptions = () => {
                 name="payment"
                 value="apple"
                 checked={paymentMethod === "apple"}
-                onChange={e => setPaymentMethod(e.target.value)}
+                onChange={(e) => setPaymentMethod(e.target.value)}
               />
 
               <span className="text-secondary-gray font-semibold">
                 Pay with Apple
               </span>
             </p>
-            <div className="bg-[#274F45] p-2 rounded-md font-bold text-white">
+            <div className="bg-[#274F45] text-[12px] md:text-[14px] xl:text-base p-1 xl:p-2 rounded-md font-bold text-white flex items-center justify-center">
               Apple
             </div>
           </div>
@@ -202,7 +200,7 @@ const PaymentOptions = () => {
               name="payment"
               value="cash"
               checked={paymentMethod === "cash"}
-              onChange={e => setPaymentMethod(e.target.value)}
+              onChange={(e) => setPaymentMethod(e.target.value)}
             />
 
             <span className="text-secondary-gray font-semibold">
@@ -242,7 +240,7 @@ const PaymentOptions = () => {
             Proceed to Checkout
           </button>
 
-          <p className="text-primary-green text-sm mt-5 text-center">
+          <p className="text-primary-green text-xs sm:text-sm mt-2.5 md:mt-5 text-center">
             * Taxes will vary depending on the service or product you buy
           </p>
         </div>

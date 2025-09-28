@@ -128,14 +128,14 @@ const Footer = () => {
 
       {/* Lower Part */}
       <Container>
-        <div className="flex flex-wrap items-center md:justify-between text-accent-white tracking-[0.16px] mb-5">
+        <div className="flex flex-col md:flex-row w-full md:items-center justify-between text-accent-white tracking-[0.16px] mb-5">
           {/* Left - Copyright */}
-          <p className="md:text-base text-xs text-center md:text-left mb-7 md:mb-0 block w-full">
+          <p className="md:text-base text-xs text-center md:text-left mb-7 md:mb-0">
             ©sustainabletrades.org 2023, All right reserved.
           </p>
 
           {/* Right */}
-          <div className="flex flex-col md:flex-row gap-4 md:gap-10 md:items-center md:text-base text-sm">
+          <div className="flex flex-col md:flex-row gap-2.5 sm:gap-4 md:gap-10 md:items-center md:text-base text-sm">
             <Link href="/">Acceptable Use Policy</Link>
             <Link href="/">Privacy Policy</Link>
             <Link href="/">Terms and Conditions</Link>

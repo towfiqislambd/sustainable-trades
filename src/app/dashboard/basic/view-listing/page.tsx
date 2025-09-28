@@ -61,29 +61,29 @@ const products = [
 const Page = () => {
   return (
     <div>
-      <h2 className="text-[40px] font-lato font-semibold text-[#000]">
+      <h2 className="text-[25px] md:text-[40px] font-lato font-semibold text-[#000]">
         Listings
       </h2>
 
       {/* Filters + Button */}
-      <div className="flex justify-between mt-6">
-        <div className="flex gap-x-6">
-          <div>
+      <div className="flex flex-col gap-3.5 md:gap-0 md:flex-row justify-between mt-6">
+        <div className="flex flex-wrap md:flex-nowrap gap-3 md:gap-6">
+          <div className="w-full md:w-fit">
             <p className="text-[#13141D] text-[16px] font-semibold">
               Sort by :
             </p>
-            <select className="p-4 rounded-[10px] border border-[#A7A39C] mt-2 w-[190px] cursor-pointer">
+            <select className="p-2 md:p-4 rounded-[10px] border border-[#A7A39C] mt-2 w-full md:w-[190px] cursor-pointer">
               <option>Name: A - Z</option>
               <option>Name: Z - A</option>
               <option>Price: Low to High</option>
               <option>Price: High to Low</option>
             </select>
           </div>
-          <div>
+          <div className="w-full md:w-fit">
             <p className="text-[#13141D] text-[16px] font-semibold">
               Listing Status
             </p>
-            <select className="p-4 rounded-[10px] border border-[#A7A39C] mt-2 w-[190px] cursor-pointer">
+            <select className="p-2 md:p-4 rounded-[10px] border border-[#A7A39C] mt-2 w-full md:w-[190px] cursor-pointer">
               <option>All</option>
               <option>Active</option>
               <option>Inactive</option>
@@ -92,7 +92,7 @@ const Page = () => {
         </div>
 
         <div>
-          <button className="h-[60px] rounded-[8px] bg-[#E48872] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:bg-transparent duration-500 ease-in-out border border-[#E48872] w-[190px] flex gap-x-2 justify-center items-center">
+          <button className="h-[45px] md:h-[60px] rounded-[8px] bg-[#E48872] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:bg-transparent duration-500 ease-in-out border border-[#E48872] w-full md:w-[190px] flex gap-x-2 justify-center items-center">
             <FaPlus />
             Add New Listing
           </button>
@@ -100,8 +100,8 @@ const Page = () => {
       </div>
 
       {/* Product Grid */}
-      <div className="grid grid-cols-4 gap-6 mt-10">
-        {products.map(product => (
+      <div className="grid  sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3 xl:gap-6 mt-10">
+        {products.map((product) => (
           <div
             key={product.id}
             className="relative border border-[#e5e5e5] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300 group cursor-pointer"
@@ -117,8 +117,8 @@ const Page = () => {
               <Link href={`/dashboard/basic/view-listing/${product.id}`}>
                 <button
                   className="absolute top-3 right-3 bg-white rounded-full p-2 shadow cursor-pointer border border-[#274F45] 
-      opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 
-      transition-all duration-300 ease-in-out"
+           opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 
+           transition-all duration-300 ease-in-out"
                 >
                   <FiEdit2 size={18} className="text-[#274F45]" />
                 </button>
@@ -127,10 +127,10 @@ const Page = () => {
 
             {/* Info */}
             <div className="p-4">
-              <h3 className="text-[20px] font-medium text-[#13141D] truncate">
+              <h3 className="text-[18px] md:text-[20px] font-medium text-[#13141D] truncate">
                 {product.name}
               </h3>
-              <p className="text-[20px] font-medium text-[#13141D] mt-1">
+              <p className="text-base md:text-[20px] font-semibold text-[#13141D] mt-1">
                 {product.price}
               </p>
             </div>

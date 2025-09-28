@@ -1,41 +1,30 @@
 "use client";
-import Banner from "@/Components/Common/Banner";
 import React, { useState } from "react";
-import tutorialBg from "@/Assets/tutorial.png";
+import Banner from "@/Components/Common/Banner";
+import { getTutorials } from "@/Hooks/api/cms_api";
 import Container from "@/Components/Common/Container";
 import HelpUsTab from "@/Components/Common/HelpUsTab";
 import { SearchSvg } from "@/Components/Svg/SvgContainer";
 
-const data = [
-  {
-    id: 1,
-    video_url: "/videos/video.mp4",
-    title: "How to Set Up Your Shop",
-    description:
-      "Torem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.",
-  },
-  {
-    id: 2,
-    video_url: "/videos/video.mp4",
-    title: "How to Make a Trade Offer",
-    description:
-      "Torem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.",
-  },
-  {
-    id: 3,
-    video_url: "/videos/video.mp4",
-    title: "How to Set Up Your Shipping Calculator",
-    description:
-      "Torem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.",
-  },
-];
+type videoItem = {
+  id: number;
+  video: string;
+  name: string;
+  description: string;
+};
 
 const page = () => {
-  const [activeTab, setActiveTab] = useState("Shop Owners");
+  const [search, setSearch] = useState<string>("");
+  const [activeTab, setActiveTab] = useState<string>("owner");
+  const { data: tutorialsData, isLoading } = getTutorials(search, activeTab);
 
   return (
     <>
-      <Banner title="How-To Tutorials" bgImg={tutorialBg.src} />
+      <Banner
+        title="How-To Tutorials"
+        bgImg={`${process.env.NEXT_PUBLIC_SITE_URL}/${tutorialsData?.data?.banner?.image}`}
+      />
+
       <section className="mb-40 mt-20">
         <Container>
           <div className="flex items-start gap-14">
@@ -58,6 +47,7 @@ const page = () => {
                     type="text"
                     placeholder="Search Tutorials..."
                     className="w-full border-none outline-none"
+                    onChange={e => setSearch(e.target.value)}
                   />
                 </div>
               </div>
@@ -65,9 +55,9 @@ const page = () => {
               {/* Video Tabs */}
               <div className="flex gap-5 items-center mb-12">
                 <button
-                  onClick={() => setActiveTab("Shop Owners")}
+                  onClick={() => setActiveTab("owner")}
                   className={`text-lg cursor-pointer px-10 pb-1 ${
-                    activeTab === "Shop Owners"
+                    activeTab === "owner"
                       ? "text-primary-green font-semibold border-b-2 border-primary-green"
                       : "text-gray-500"
                   }`}
@@ -76,9 +66,9 @@ const page = () => {
                 </button>
 
                 <button
-                  onClick={() => setActiveTab("Buyers")}
+                  onClick={() => setActiveTab("buyer")}
                   className={`text-lg cursor-pointer px-10 pb-1 ${
-                    activeTab === "Buyers"
+                    activeTab === "buyer"
                       ? "text-primary-green font-semibold border-b-2 border-primary-green"
                       : "text-gray-500"
                   }`}
@@ -89,25 +79,45 @@ const page = () => {
 
               {/* Maps */}
               <div className="grid grid-cols-3 gap-6">
-                {data?.map(item => (
-                  <div
-                    key={item?.id}
-                    className="border border-[#CBC8C2] rounded-lg"
-                  >
-                    <video
-                      controls
-                      src={item?.video_url}
-                      className="w-full h-[237px] rounded-t-lg object-cover"
-                    ></video>
-
-                    <div className="p-5">
-                      <h3 className="text-secondary-gray text-xl font-semibold mb-2">
-                        {item?.title}
-                      </h3>
-                      <p className="text-[#595753]">{item?.description}</p>
+                {isLoading ? (
+                  Array.from({ length: 3 }).map((_, idx) => (
+                    <div
+                      key={idx}
+                      className="border border-[#CBC8C2] rounded-lg animate-pulse"
+                    >
+                      <div className="w-full h-[200px] bg-gray-300 rounded-t-lg"></div>
+                      <div className="p-5 space-y-3">
+                        <div className="h-5 bg-gray-300 rounded w-3/4"></div>
+                        <div className="h-4 bg-gray-200 rounded w-full"></div>
+                        <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                ) : tutorialsData?.data?.tutorials?.length === 0 ? (
+                  <p className="text-lg font-medium text-red-500">
+                    No Data found!!
+                  </p>
+                ) : (
+                  tutorialsData?.data?.tutorials?.map((item: videoItem) => (
+                    <div
+                      key={item?.id}
+                      className="border border-[#CBC8C2] rounded-lg"
+                    >
+                      <video
+                        controls
+                        src={`${process.env.NEXT_PUBLIC_SITE_URL}/${item?.video}`}
+                        className="w-full h-[200px] rounded-t-lg object-cover"
+                      ></video>
+
+                      <div className="p-5">
+                        <h3 className="text-secondary-gray text-xl font-semibold mb-2">
+                          {item?.name}
+                        </h3>
+                        <p className="text-[#595753]">{item?.description}</p>
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
             </div>
           </div>

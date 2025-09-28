@@ -1,6 +1,7 @@
-import { useServerApi } from "@/Hooks/useServerApi";
-import useClientApi from "@/Hooks/useClientApi";
 import toast from "react-hot-toast";
+import useClientApi from "@/Hooks/useClientApi";
+import { useServerApi } from "@/Hooks/useServerApi";
+import { useQueryClient } from "@tanstack/react-query";
 
 // =======================================================
 //  SSR (Server Side Rendering)
@@ -24,6 +25,11 @@ export async function getHowItWorksData() {
 // Product Categories
 export async function getProductCategories() {
   return useServerApi("/api/categories", 3600);
+}
+
+// Featured Shops
+export async function getFeaturedShops() {
+  return useServerApi("/api/shops/featured", 3600);
 }
 
 // Get Mission Data
@@ -66,6 +72,119 @@ export const useNewsletter = () => {
     endpoint: "/api/newsletter/subscribe",
     onSuccess: (data: any) => {
       if (data?.message) {
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// Get Tutorials
+export const getTutorials = (search: string, type: string) => {
+  return useClientApi({
+    method: "get",
+    key: ["get-tutorials", search, type],
+    endpoint: "/api/tutorials",
+    params: { type, search },
+    queryOptions: {
+      retry: false,
+    },
+  });
+};
+
+// Get FAQ
+export const getFAQ = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-faq"],
+    endpoint: "/api/faq/all",
+  });
+};
+
+// Get Contact
+export const getContact = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-contact"],
+    endpoint: "/api/contact",
+  });
+};
+
+// Get Terms
+export const getTerms = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-terms"],
+    endpoint: "/api/terms-and-conditions",
+  });
+};
+
+// Get Infringement
+export const getInfringement = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-infringement"],
+    endpoint: "/api/infringement-report",
+  });
+};
+
+// Site Settings Client
+export const getSiteSettingsClient = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-site-settings"],
+    endpoint: "/api/site-settings",
+  });
+};
+
+// Shop Details
+export const getShopDetails = (id: string) => {
+  return useClientApi({
+    method: "get",
+    isPrivate: true,
+    key: ["get-shop-details", id],
+    enabled: !!id,
+    endpoint: `/api/shop/${id}`,
+    queryOptions: {
+      retry: false,
+    },
+  });
+};
+
+// Featured Listings
+export const getFeaturedListings = (id: string) => {
+  return useClientApi({
+    method: "get",
+    key: ["get-featured-listings", id],
+    enabled: !!id,
+    endpoint: `/api/shop/products/featured/${id}`,
+  });
+};
+
+// All Listings
+export const getAllListings = (id: string) => {
+  return useClientApi({
+    method: "get",
+    key: ["get-all-listings", id],
+    enabled: !!id,
+    endpoint: `/api/shop/products/${id}`,
+  });
+};
+
+// Follow Shop
+export const useFollowShop = (shop_id: string) => {
+  const queryClient = useQueryClient();
+
+  return useClientApi({
+    method: "post",
+    key: ["follow-shop", shop_id],
+    isPrivate: true,
+    endpoint: `/api/follow-shop/${shop_id}`,
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        queryClient.invalidateQueries("get-shop-details" as any);
         toast.success(data?.message);
       }
     },
