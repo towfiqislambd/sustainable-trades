@@ -1,6 +1,7 @@
 import toast from "react-hot-toast";
 import useClientApi from "@/Hooks/useClientApi";
 import { useServerApi } from "@/Hooks/useServerApi";
+import { useQueryClient } from "@tanstack/react-query";
 
 // =======================================================
 //  SSR (Server Side Rendering)
@@ -29,11 +30,6 @@ export async function getProductCategories() {
 // Featured Shops
 export async function getFeaturedShops() {
   return useServerApi("/api/shops/featured", 3600);
-}
-
-// Shop Details page
-export async function getShopDetails(id: number) {
-  return useServerApi(`/api/shop/${id}`, 3600);
 }
 
 // Get Mission Data
@@ -140,5 +136,60 @@ export const getSiteSettingsClient = () => {
     method: "get",
     key: ["get-site-settings"],
     endpoint: "/api/site-settings",
+  });
+};
+
+// Shop Details
+export const getShopDetails = (id: string) => {
+  return useClientApi({
+    method: "get",
+    isPrivate: true,
+    key: ["get-shop-details", id],
+    enabled: !!id,
+    endpoint: `/api/shop/${id}`,
+    queryOptions: {
+      retry: false,
+    },
+  });
+};
+
+// Featured Listings
+export const getFeaturedListings = (id: string) => {
+  return useClientApi({
+    method: "get",
+    key: ["get-featured-listings", id],
+    enabled: !!id,
+    endpoint: `/api/shop/products/featured/${id}`,
+  });
+};
+
+// All Listings
+export const getAllListings = (id: string) => {
+  return useClientApi({
+    method: "get",
+    key: ["get-all-listings", id],
+    enabled: !!id,
+    endpoint: `/api/shop/products/${id}`,
+  });
+};
+
+// Follow Shop
+export const useFollowShop = (shop_id: string) => {
+  const queryClient = useQueryClient();
+
+  return useClientApi({
+    method: "post",
+    key: ["follow-shop", shop_id],
+    isPrivate: true,
+    endpoint: `/api/follow-shop/${shop_id}`,
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        queryClient.invalidateQueries("get-shop-details" as any);
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
   });
 };

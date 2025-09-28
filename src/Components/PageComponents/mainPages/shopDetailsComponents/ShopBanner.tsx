@@ -1,12 +1,34 @@
+"use client";
 import React from "react";
 import Image from "next/image";
+import toast from "react-hot-toast";
+import useAuth from "@/Hooks/useAuth";
 import award from "@/Assets/award.png";
 import badge from "@/Assets/badge.png";
+import { CgSpinnerTwo } from "react-icons/cg";
+import { useFollowShop } from "@/Hooks/api/cms_api";
 import Container from "@/Components/Common/Container";
 import { LocationSvg, StarSvg } from "@/Components/Svg/SvgContainer";
 
 const ShopBanner = ({ data }: any) => {
+  const { user } = useAuth();
   const bannerUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${data?.shop_info?.shop_banner}`;
+  const { mutate: followShopMutation, isPending } = useFollowShop(
+    data?.shop_info?.id
+  );
+
+  const handleFollowShop = () => {
+    if (!user) {
+      return toast.error("Please login first");
+    }
+    followShopMutation();
+  };
+
+  const handleMessage = () => {
+    if (!user) {
+      return toast.error("Please login first");
+    }
+  };
 
   return (
     <section
@@ -71,8 +93,11 @@ const ShopBanner = ({ data }: any) => {
 
             {/* Reviews */}
             <div className="flex gap-3 items-center">
-              {Array.from({ length: 5 }).map(() => (
-                <p className="size-9 shrink-0 shadow border border-gray-600 rounded-full bg-primary-green grid place-items-center">
+              {Array.from({ length: 5 }).map((_, idx) => (
+                <p
+                  key={idx}
+                  className="size-9 shrink-0 shadow border border-gray-600 rounded-full bg-primary-green grid place-items-center"
+                >
                   <StarSvg />
                 </p>
               ))}
@@ -82,11 +107,26 @@ const ShopBanner = ({ data }: any) => {
 
             {/* btns */}
             <div className="flex flex-col md:flex-row gap-2.5 md:gap-5 items-center md:pt-5">
-              <button className="px-8 md:py-3.5 rounded-lg cursor-pointer shadow md:text-lg font-semibold text-primary-green bg-[#D4E2CB] duration-300 transition-transform hover:scale-105 w-full md:w-auto py-1.5">
-                Follow Shop
+              <button
+                onClick={handleFollowShop}
+                className="px-8 md:py-3.5 rounded-lg cursor-pointer shadow md:text-lg font-semibold text-primary-green bg-[#D4E2CB] duration-300 transition-transform hover:scale-105 w-full md:w-auto py-1.5"
+              >
+                {isPending ? (
+                  <p className="flex gap-2 items-center justify-center">
+                    <CgSpinnerTwo className="animate-spin text-xl" />
+                    <span>Please wait...</span>
+                  </p>
+                ) : data?.is_followed ? (
+                  "Unfollow Shop"
+                ) : (
+                  "Follow Shop"
+                )}
               </button>
 
-              <button className="px-8 md:py-3.5 rounded-lg cursor-pointer shadow md:text-lg font-semibold text-accent-white bg-black/10 duration-300 transition-transform hover:scale-105 border border-accent-white w-full md:w-auto py-1.5">
+              <button
+                onClick={handleMessage}
+                className="px-8 md:py-3.5 rounded-lg cursor-pointer shadow md:text-lg font-semibold text-accent-white bg-black/10 duration-300 transition-transform hover:scale-105 border border-accent-white w-full md:w-auto py-1.5"
+              >
                 Message Seller
               </button>
             </div>

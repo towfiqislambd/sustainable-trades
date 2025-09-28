@@ -16,7 +16,7 @@ const FeaturedShops = ({ data }: any) => {
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
           {data?.map(({ id, shop_info }: any) => (
             <Link
-              href={`/shop-details/${id}`}
+              href={`/shop-details/16`}
               key={id}
               className="text-center space-y-1.5"
             >

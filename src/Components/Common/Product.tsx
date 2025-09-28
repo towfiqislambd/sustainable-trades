@@ -7,15 +7,20 @@ import p1 from "@/Assets/p1.jpg";
 import { FaHeart } from "react-icons/fa";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { CartLogoSvg, DollarSvg } from "../Svg/SvgContainer";
 
-type ProductData = {
+type imageItem = {
   id: number;
-  product_image: (string | StaticImageData)[];
-  product_title: string;
-  product_price: string;
-  is_wishlist: boolean;
+  image: string;
+};
+
+type ProductData = {
+  id?: number;
+  images?: imageItem[];
+  product_name?: string;
+  product_price?: string;
+  is_favorite?: boolean;
 };
 
 type ProductProps = {
@@ -38,7 +43,7 @@ const Product = ({
       {/* wishlist btn */}
       {has_wishlist && (
         <button className="absolute z-40 top-4 right-5 size-9 rounded-full border border-gray-300 grid place-items-center bg-primary-green cursor-pointer">
-          {product?.is_wishlist ? (
+          {product?.is_favorite ? (
             <FaHeart className="text-accent-red" />
           ) : (
             <FaHeart className="text-accent-white" />
@@ -54,7 +59,7 @@ const Product = ({
           pagination={{ clickable: true }}
           className="product_swiper rounded-lg"
         >
-          {product?.product_image?.map((img, idx) => (
+          {product?.images?.map((img, idx) => (
             <SwiperSlide key={idx}>
               <figure
                 className={`w-full rounded-lg border border-gray-100 relative ${
@@ -65,8 +70,9 @@ const Product = ({
               >
                 <div className="absolute inset-0 bg-black/20 rounded-lg" />
                 <Image
-                  src={img}
+                  src={`${process.env.NEXT_PUBLIC_SITE_URL}/${img?.image}`}
                   alt="product image"
+                  fill
                   className="w-full h-full object-cover rounded-lg"
                 />
               </figure>
@@ -90,7 +96,7 @@ const Product = ({
           href={`/product-details/1`}
           className="text-primary-green md:text-lg sm:text-base text-sm lg:text-xl font-semibold py-3 truncate hover:underline block"
         >
-          {product?.product_title}
+          {product?.product_name}
         </Link>
 
         {/* Badge */}
