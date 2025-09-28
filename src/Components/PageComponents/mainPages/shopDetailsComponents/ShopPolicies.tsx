@@ -1,8 +1,7 @@
-import Container from "@/Components/Common/Container";
-import { PaypalSvg } from "@/Components/Svg/SvgContainer";
 import React from "react";
+import Container from "@/Components/Common/Container";
 
-const ShopPolicies = () => {
+const ShopPolicies = ({ data }: any) => {
   return (
     <section id="Shop_policies" className="mt-16">
       <Container>
@@ -11,13 +10,21 @@ const ShopPolicies = () => {
         <h3 className="text-sm sm:text-base md:text-lg  font-semibold text-secondary-black mb-2">
           Accepted Payment Methods
         </h3>
-        <PaypalSvg />
+
+        <div className="flex gap-3 items-center">
+          <ul className="list-disc capitalize list-inside font-semibold space-y-1">
+            {data?.payment_methods?.map((item: string, idx: number) => (
+              <li key={idx}>{item}</li>
+            ))}
+          </ul>
+        </div>
 
         <h3 className="text-sm sm:text-base md:text-lg font-semibold text-secondary-black mt-5 mb-1">
           Returns/Exchanges
         </h3>
+
         <div className="text-secondary-gray text-xs sm:text-sm md:text-base">
-          View individual listings for return/exchange information
+          {data?.return_policy}
         </div>
       </Container>
     </section>
