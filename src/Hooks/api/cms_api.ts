@@ -31,6 +31,11 @@ export async function getFeaturedShops() {
   return useServerApi("/api/shops/featured", 3600);
 }
 
+// Shop Details page
+export async function getShopDetails(id: number) {
+  return useServerApi(`/api/shop/${id}`, 3600);
+}
+
 // Get Mission Data
 export async function getMissionData() {
   return useServerApi("/api/our-mission", 3600);

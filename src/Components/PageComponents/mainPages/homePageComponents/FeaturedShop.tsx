@@ -12,10 +12,11 @@ const FeaturedShops = ({ data }: any) => {
         <h2 className="section_title md:text-start text-center ">
           Featured Shops
         </h2>
+
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
           {data?.map(({ id, shop_info }: any) => (
             <Link
-              href={`/shop-details/${shop_info?.id}`}
+              href={`/shop-details/${id}`}
               key={id}
               className="text-center space-y-1.5"
             >

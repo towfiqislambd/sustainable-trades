@@ -1,22 +1,20 @@
-import React, { use } from "react";
+import React from "react";
+import { getShopDetails } from "@/Hooks/api/cms_api";
+import ShopFAQ from "@/Components/PageComponents/mainPages/shopDetailsComponents/ShopFAQ";
 import AboutShop from "@/Components/PageComponents/mainPages/shopDetailsComponents/AboutShop";
 import ShopBanner from "@/Components/PageComponents/mainPages/shopDetailsComponents/ShopBanner";
-import ShopFAQ from "@/Components/PageComponents/mainPages/shopDetailsComponents/ShopFAQ";
 import ShopPolicies from "@/Components/PageComponents/mainPages/shopDetailsComponents/ShopPolicies";
 import ShopListing from "@/Components/PageComponents/mainPages/shopDetailsComponents/ShopListing";
 import ShopReviews from "@/Components/PageComponents/mainPages/shopDetailsComponents/ShopReviews";
 import DetailsTab from "@/Components/PageComponents/mainPages/shopDetailsComponents/DetailsTab";
 
-interface Props {
-  params: Promise<{ id: string }>;
-}
-
-const page = ({ params }: Props) => {
-  const { id } = use(params);
+const page = async ({ params }: any) => {
+  const { id } = params;
+  const shopDetails = await getShopDetails(id);
 
   return (
     <>
-      <ShopBanner />
+      <ShopBanner data={shopDetails?.data} />
       <DetailsTab />
       <ShopListing />
       <ShopReviews />
