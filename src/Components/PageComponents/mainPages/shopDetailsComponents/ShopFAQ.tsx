@@ -2,28 +2,8 @@
 import React, { useState } from "react";
 import Container from "@/Components/Common/Container";
 import { UpperArrowSvg } from "@/Components/Svg/SvgContainer";
-const data = [
-  {
-    id: 1,
-    question: "Augue in nibh urna volutpat mattis?",
-    answer:
-      "Nibh quisque suscipit fermentum netus nulla cras porttitor euismod nulla. Orci, dictumst nec aliquet id ullamcorper venenatis. Fermentum sulla cras porttitor ismod nulla. Elit adipiscing proin quis est consectetur. Felis ultricies nisi, quis malesuada sem odio. Potenti nibh natoque amet amet, tincidunt ultricies et. Et nam rhoncus sit nullam diam tincidunt condimentum nullam.",
-  },
-  {
-    id: 2,
-    question: "Tempus magna risus interdum ultricies sed urna?",
-    answer:
-      "Nibh quisque suscipit fermentum netus nulla cras porttitor euismod nulla. Orci, dictumst nec aliquet id ullamcorper venenatis. Fermentum sulla cras porttitor ismod nulla. Elit adipiscing proin quis est consectetur. Felis ultricies nisi, quis malesuada sem odio. Potenti nibh natoque amet amet, tincidunt ultricies et. Et nam rhoncus sit nullam diam tincidunt condimentum nullam.",
-  },
-  {
-    id: 3,
-    question: "Augue in nibh urna volutpat mattis?",
-    answer:
-      "Nibh quisque suscipit fermentum netus nulla cras porttitor euismod nulla. Orci, dictumst nec aliquet id ullamcorper venenatis. Fermentum sulla cras porttitor ismod nulla. Elit adipiscing proin quis est consectetur. Felis ultricies nisi, quis malesuada sem odio. Potenti nibh natoque amet amet, tincidunt ultricies et. Et nam rhoncus sit nullam diam tincidunt condimentum nullam.",
-  },
-];
 
-const ShopFAQ = () => {
+const ShopFAQ = ({ data }: any) => {
   const [activeAccordion, setActiveAccordion] = useState<number | null>(1);
 
   const toggleAccordion = (id: number) => {
@@ -36,7 +16,7 @@ const ShopFAQ = () => {
         <h2 className="section_sub_title !mb-3">FAQs</h2>
 
         <div>
-          {data?.map(item => (
+          {data?.map((item: any) => (
             <div
               key={item.id}
               className="border-b-2 border-gray-200 py-2 md:py-4 cursor-pointer"
