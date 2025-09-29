@@ -8,7 +8,6 @@ import { GrPowerReset } from "react-icons/gr";
 const ProductSkeleton = () => {
   return (
     <div className="rounded-t-lg relative animate-pulse">
-      <div className="absolute z-40 top-4 right-5 size-9 rounded-full bg-gray-200 border border-gray-300" />
       <div className="w-full h-[200px] rounded-lg bg-gray-200 border border-gray-100" />
       <div className="flex justify-between items-center mt-4">
         <div className="h-5 w-2/3 bg-gray-200 rounded" />

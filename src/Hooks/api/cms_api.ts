@@ -175,6 +175,7 @@ export const getShopDetails = (id: string) => {
 export const getFeaturedListings = (id: string) => {
   return useClientApi({
     method: "get",
+    isPrivate: true,
     key: ["get-featured-listings", id],
     enabled: !!id,
     endpoint: `/api/shop/products/featured/${id}`,
@@ -224,9 +225,31 @@ export const getAllListings = (
     ],
     enabled: !!id,
     endpoint: `/api/shop/products/${id}`,
+    isPrivate: true,
     params: { category_id, sub_category_id, short_by, search, page },
     queryOptions: {
       retry: false,
+    },
+  });
+};
+
+// Add Favorite
+export const useAddFavorite = () => {
+  const queryClient = useQueryClient();
+
+  return useClientApi({
+    method: "post",
+    key: ["add-favorite"],
+    isPrivate: true,
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        queryClient.invalidateQueries("get-all-listings" as any);
+        queryClient.invalidateQueries("get-featured-listings" as any);
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
     },
   });
 };
