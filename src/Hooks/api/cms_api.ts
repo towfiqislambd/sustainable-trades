@@ -208,7 +208,8 @@ export const getAllListings = (
   category_id: string,
   sub_category_id: string,
   short_by: string,
-  search: string
+  search: string,
+  page: string
 ) => {
   return useClientApi({
     method: "get",
@@ -219,10 +220,11 @@ export const getAllListings = (
       sub_category_id,
       short_by,
       search,
+      page,
     ],
     enabled: !!id,
     endpoint: `/api/shop/products/${id}`,
-    params: { category_id, sub_category_id, short_by, search },
+    params: { category_id, sub_category_id, short_by, search, page },
     queryOptions: {
       retry: false,
     },

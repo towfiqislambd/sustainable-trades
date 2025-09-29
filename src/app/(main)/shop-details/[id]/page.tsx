@@ -28,6 +28,7 @@ const page = ({ params }: Props) => {
   const [sub_category_id, setSubCategory] = useState<string>("");
   const [short_by, setSortBy] = useState<string>("");
   const [search, setSearch] = useState<string>("");
+  const [page, setPage] = useState<string>("");
 
   // Queries
   const { data: productCategories, isLoading: categoryLoading } =
@@ -43,7 +44,8 @@ const page = ({ params }: Props) => {
     category_id,
     sub_category_id,
     short_by,
-    search
+    search,
+    page
   );
 
   return (
@@ -52,11 +54,12 @@ const page = ({ params }: Props) => {
       <DetailsTab />
       <ShopListing
         featuredListings={featuredListings?.data}
-        allListings={allListings?.data?.data}
+        allListings={allListings?.data}
         setSearch={setSearch}
         setCategory={setCategory}
         setSubCategory={setSubCategory}
         setSortBy={setSortBy}
+        setPage={setPage}
         listingsLoading={listingsLoading}
         productCategories={productCategories?.data}
         productSubCategories={productSubCategories?.data}

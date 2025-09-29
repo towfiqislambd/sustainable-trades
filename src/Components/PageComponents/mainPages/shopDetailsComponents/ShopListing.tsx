@@ -28,6 +28,7 @@ const ShopListing = ({
   setCategory,
   setSubCategory,
   setSortBy,
+  setPage,
   listingsLoading,
   productCategories,
   productSubCategories,
@@ -45,7 +46,7 @@ const ShopListing = ({
         </div>
 
         {/* All Listings */}
-        <h2 className="section_sub_title">All Listings</h2>
+        <h2 className="section_sub_title !mt-20">All Listings</h2>
 
         {/* Filtering */}
         <div className="flex flex-col gap-3 lg:gap-0 lg:flex-row lg:justify-between lg:items-end mb-8">
@@ -147,7 +148,7 @@ const ShopListing = ({
               <ProductSkeleton key={idx} />
             ))}
           </div>
-        ) : allListings?.length === 0 || !allListings ? (
+        ) : allListings?.data?.length === 0 || !allListings ? (
           <div className="flex flex-col justify-center items-center gap-3 lg:gap-4 text-center py-20">
             <AiOutlineFileUnknown className="text-6xl text-gray-500" />
             <p className="text-gray-600 text-lg font-semibold">
@@ -156,11 +157,30 @@ const ShopListing = ({
           </div>
         ) : (
           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
-            {allListings?.map((product: any) => (
+            {allListings?.data?.map((product: any) => (
               <Product
                 key={product?.id}
                 product={product}
                 is_feathered={true}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Pagination */}
+        {!listingsLoading && (
+          <div className="mt-12 flex justify-center items-center gap-2 flex-wrap">
+            {allListings?.links.map((item: any, idx: number) => (
+              <button
+                key={idx}
+                onClick={() => item.url && setPage(item.url.split("=")[1])}
+                className={`px-3 py-1 rounded border transition-all duration-200 
+        ${
+          item.active ? "bg-primary-green text-white" : "bg-white text-gray-700"
+        } 
+        ${!item.url ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+                disabled={!item.url}
+                dangerouslySetInnerHTML={{ __html: item.label }}
               />
             ))}
           </div>
