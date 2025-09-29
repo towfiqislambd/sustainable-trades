@@ -139,6 +139,24 @@ export const getSiteSettingsClient = () => {
   });
 };
 
+// Product Categories Client
+export const getProductCategoriesClient = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-product-category"],
+    endpoint: "/api/categories",
+  });
+};
+
+// Product Sub Categories Client
+export const getProductSubCategoriesClient = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-product-sub-category"],
+    endpoint: "/api/sub-categories",
+  });
+};
+
 // Shop Details
 export const getShopDetails = (id: string) => {
   return useClientApi({
@@ -163,16 +181,6 @@ export const getFeaturedListings = (id: string) => {
   });
 };
 
-// All Listings
-export const getAllListings = (id: string) => {
-  return useClientApi({
-    method: "get",
-    key: ["get-all-listings", id],
-    enabled: !!id,
-    endpoint: `/api/shop/products/${id}`,
-  });
-};
-
 // Follow Shop
 export const useFollowShop = (shop_id: string) => {
   const queryClient = useQueryClient();
@@ -190,6 +198,33 @@ export const useFollowShop = (shop_id: string) => {
     },
     onError: (err: any) => {
       toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// All Listings
+export const getAllListings = (
+  id: string,
+  category_id: string,
+  sub_category_id: string,
+  short_by: string,
+  search: string
+) => {
+  return useClientApi({
+    method: "get",
+    key: [
+      "get-all-listings",
+      id,
+      category_id,
+      sub_category_id,
+      short_by,
+      search,
+    ],
+    enabled: !!id,
+    endpoint: `/api/shop/products/${id}`,
+    params: { category_id, sub_category_id, short_by, search },
+    queryOptions: {
+      retry: false,
     },
   });
 };
