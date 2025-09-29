@@ -25,23 +25,23 @@ const page = () => {
         bgImg={`${process.env.NEXT_PUBLIC_SITE_URL}/${tutorialsData?.data?.banner?.image}`}
       />
 
-      <section className="mb-40 mt-20">
+      <section className="mb-15 lg:mb-40 mt-10 lg:mt-20">
         <Container>
-          <div className="flex items-start gap-14">
+          <div className="flex flex-col lg:flex-row items-start gap-5 md:gap-14">
             {/* Left - Tabs */}
             <HelpUsTab />
 
             {/* Right */}
-            <div className="grow">
+            <div className="w-full md:grow">
               {/* Upper Part */}
-              <div className="flex justify-between items-center mb-10">
+              <div className="flex flex-col sm:flex-row lg:justify-between items-center gap-4 sm:gap-0 mb-5 md:mb-10 ">
                 {/* Title */}
-                <h2 className="text-primary-green text-4xl font-semibold">
+                <h2 className="text-primary-green text-xl md:text-2xl lg:text-3xl  xl:text-4xl font-semibold w-full">
                   How-To Tutorials
                 </h2>
 
                 {/* Search bar */}
-                <div className="flex justify-end gap-1 items-center border border-gray-400 px-2 py-2 rounded-[6px] w-[280px]">
+                <div className="flex justify-end gap-1 items-center border border-gray-400 px-2 py-1 md:py-2 rounded-[6px] w-full md:w-[280px]">
                   <SearchSvg />
                   <input
                     type="text"
@@ -56,7 +56,7 @@ const page = () => {
               <div className="flex gap-5 items-center mb-12">
                 <button
                   onClick={() => setActiveTab("owner")}
-                  className={`text-lg cursor-pointer px-10 pb-1 ${
+                  className={`text-sm md:text-lg cursor-pointer px-10 pb-1${
                     activeTab === "owner"
                       ? "text-primary-green font-semibold border-b-2 border-primary-green"
                       : "text-gray-500"
@@ -67,7 +67,7 @@ const page = () => {
 
                 <button
                   onClick={() => setActiveTab("buyer")}
-                  className={`text-lg cursor-pointer px-10 pb-1 ${
+                  className={`text-sm md:text-lg cursor-pointer px-10 pb-1  ${
                     activeTab === "buyer"
                       ? "text-primary-green font-semibold border-b-2 border-primary-green"
                       : "text-gray-500"
@@ -78,7 +78,7 @@ const page = () => {
               </div>
 
               {/* Maps */}
-              <div className="grid grid-cols-3 gap-6">
+              <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 {isLoading ? (
                   Array.from({ length: 3 }).map((_, idx) => (
                     <div
@@ -109,11 +109,11 @@ const page = () => {
                         className="w-full h-[200px] rounded-t-lg object-cover"
                       ></video>
 
-                      <div className="p-5">
-                        <h3 className="text-secondary-gray text-xl font-semibold mb-2">
+                      <div className="p-2.5 md:p-5">
+                        <h3 className="text-secondary-gray md:text-lg lg:text-xl font-semibold md:mb-2">
                           {item?.name}
                         </h3>
-                        <p className="text-[#595753]">{item?.description}</p>
+                        <p className="text-[#595753] text-sm md:text-base">{item?.description}</p>
                       </div>
                     </div>
                   ))

@@ -11,15 +11,13 @@ import {
   EditIconDarkSvg,
   EditIconSvg,
   LocationTwoSvg,
-  LoveSvg,
-  MessSvg,
   StarSvg,
 } from "@/Components/Svg/SvgContainer";
 import award from "@/Assets/award.png";
 import badge from "@/Assets/badge.png";
 import Link from "next/link";
 
-const EditShopBanner = () => {
+const EditShopBanner = ({ data }: any) => {
   const [shopProfile, setShopProfile] = useState<any>(null);
   const [shopCover, setShopCover] = useState<any>(null);
 
