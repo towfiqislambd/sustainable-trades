@@ -26,19 +26,19 @@ const Page = () => {
         bgImg={`${process.env.NEXT_PUBLIC_SITE_URL}/${faqData?.data?.banner?.image}`}
       />
 
-      <section className="mb-40 mt-20">
+      <section className="mb-14 lg:mb-40 mt-10 lg:mt-20">
         <Container>
-          <div className="flex items-start gap-14">
+          <div className="flex flex-col lg:flex-row items-start gap-4 lg:gap-14">
             {/* Left - Tabs */}
             <HelpUsTab />
 
             {/* Right */}
-            <div className="grow">
+            <div className="grow px-2.5 sm:px-0">
               {isLoading
                 ? Array.from({ length: 4 }).map((_, idx) => (
                     <div
                       key={idx}
-                      className="border-b-2 border-gray-200 py-4 animate-pulse mt-7"
+                      className="border-b-2 border-gray-200 py-4 animate-pulse mt-3.5 lg:mt-7"
                     >
                       <div className="flex justify-between items-center mb-2">
                         <div className="h-6 bg-gray-300 rounded w-3/4"></div>
@@ -54,10 +54,10 @@ const Page = () => {
                     >
                       {/* Question */}
                       <div className="flex justify-between items-center">
-                        <h3 className="text-xl font-semibold text-secondary-black">
+                        <h3 className=" sm:text-lg lg:text-xl font-semibold text-secondary-black">
                           {item?.question}
                         </h3>
-                        <span className="text-2xl text-secondary-black">
+                        <span className="text-lg md:text-xl lg:text-2xl text-secondary-black">
                           {activeAccordion === item.id ? "⨯" : "+"}
                         </span>
                       </div>
@@ -70,7 +70,7 @@ const Page = () => {
                             : "max-h-0 opacity-0"
                         }`}
                       >
-                        <p className="text-secondary-gray text-[17px]">
+                        <p className="text-secondary-gray md:text-base text-sm lg:text-[17px]">
                           {item?.answer}
                         </p>
                       </div>

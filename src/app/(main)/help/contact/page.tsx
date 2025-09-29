@@ -15,19 +15,19 @@ const Page = () => {
         bgImg={`${process.env.NEXT_PUBLIC_SITE_URL}/${contactData?.data?.image}`}
       />
 
-      <section className="mb-10 lg:mb-40 mt-10 lg:mt-20">
+      <section className="mb-5 md:mb-10 lg:mb-40 mt-10 lg:mt-20">
         <Container>
           <div className="flex flex-col lg:flex-row items-start gap-5 lg:gap-14">
             {/* Left - Tabs */}
             <HelpUsTab />
 
             {/* Right */}
-            <div className="grow">
+            <div className="grow px-2.5 sm:px-0 grow">
               <div
                 dangerouslySetInnerHTML={{
                   __html: contactData?.data?.description,
                 }}
-                className="text-secondary-gray leading-8 max-w-[900px] [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:pl-5 [&_ol]:list-decimal"
+                className="text-secondary-gray leading-8 text-sm lg:text-base  xl:max-w-[900px] [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:pl-5 [&_ol]:list-decimal"
               />
             </div>
           </div>

@@ -139,6 +139,24 @@ export const getSiteSettingsClient = () => {
   });
 };
 
+// Product Categories Client
+export const getProductCategoriesClient = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-product-category"],
+    endpoint: "/api/categories",
+  });
+};
+
+// Product Sub Categories Client
+export const getProductSubCategoriesClient = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-product-sub-category"],
+    endpoint: "/api/sub-categories",
+  });
+};
+
 // Shop Details
 export const getShopDetails = (id: string) => {
   return useClientApi({
@@ -153,23 +171,15 @@ export const getShopDetails = (id: string) => {
   });
 };
 
+
 // Featured Listings
 export const getFeaturedListings = (id: string) => {
   return useClientApi({
     method: "get",
+    isPrivate: true,
     key: ["get-featured-listings", id],
     enabled: !!id,
     endpoint: `/api/shop/products/featured/${id}`,
-  });
-};
-
-// All Listings
-export const getAllListings = (id: string) => {
-  return useClientApi({
-    method: "get",
-    key: ["get-all-listings", id],
-    enabled: !!id,
-    endpoint: `/api/shop/products/${id}`,
   });
 };
 
@@ -185,6 +195,57 @@ export const useFollowShop = (shop_id: string) => {
     onSuccess: (data: any) => {
       if (data?.success) {
         queryClient.invalidateQueries("get-shop-details" as any);
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// All Listings
+export const getAllListings = (
+  id: string,
+  category_id: string,
+  sub_category_id: string,
+  short_by: string,
+  search: string,
+  page: string
+) => {
+  return useClientApi({
+    method: "get",
+    key: [
+      "get-all-listings",
+      id,
+      category_id,
+      sub_category_id,
+      short_by,
+      search,
+      page,
+    ],
+    enabled: !!id,
+    endpoint: `/api/shop/products/${id}`,
+    isPrivate: true,
+    params: { category_id, sub_category_id, short_by, search, page },
+    queryOptions: {
+      retry: false,
+    },
+  });
+};
+
+// Add Favorite
+export const useAddFavorite = () => {
+  const queryClient = useQueryClient();
+
+  return useClientApi({
+    method: "post",
+    key: ["add-favorite"],
+    isPrivate: true,
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        queryClient.invalidateQueries("get-all-listings" as any);
+        queryClient.invalidateQueries("get-featured-listings" as any);
         toast.success(data?.message);
       }
     },
