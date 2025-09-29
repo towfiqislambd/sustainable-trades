@@ -47,11 +47,18 @@ export default function useClientApi({
 
   return useMutation({
     mutationKey: key,
-    mutationFn: async data => {
-      const res = await axiosInstance[method](endpoint, data, {
+    mutationFn: async (variables?: { endpoint?: string; data?: any } | any) => {
+      // Support both:
+      // - mutate({ data })
+      // - mutate({ endpoint: "/api/other", data })
+      const dynamicEndpoint = variables?.endpoint || endpoint;
+      const payload = variables?.data || variables;
+
+      const res = await axiosInstance[method](dynamicEndpoint, payload, {
         headers,
         ...axiosOptions,
       });
+
       return res?.data;
     },
     onSuccess,

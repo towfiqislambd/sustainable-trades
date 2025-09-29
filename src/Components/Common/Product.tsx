@@ -1,6 +1,6 @@
 "use client";
 import "swiper/css";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import "swiper/css/pagination";
 import p1 from "@/Assets/p1.jpg";
@@ -9,6 +9,10 @@ import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
 import { CartLogoSvg, DollarSvg } from "../Svg/SvgContainer";
+import { useAddFavorite } from "@/Hooks/api/cms_api";
+import { LuLoaderPinwheel } from "react-icons/lu";
+import useAuth from "@/Hooks/useAuth";
+import toast from "react-hot-toast";
 
 type imageItem = {
   id: number;
@@ -38,15 +42,32 @@ const Product = ({
   has_cart = true,
   has_slider = true,
 }: ProductProps) => {
+  const { user } = useAuth();
+  const { mutate: addFavoriteMutation, isPending } = useAddFavorite();
+
+  const handleAddFavorite = (product_id: any) => {
+    if (!user) {
+      return toast.error("Please login first to proceed");
+    }
+    addFavoriteMutation({ endpoint: `/api/add-favorites/${product_id}` });
+  };
+
   return (
     <div className="rounded-t-lg relative">
       {/* wishlist btn */}
       {has_wishlist && (
-        <button className="absolute z-40 top-4 right-5 size-9 rounded-full border border-gray-300 grid place-items-center bg-primary-green cursor-pointer">
-          {product?.is_favorite ? (
-            <FaHeart className="text-accent-red" />
+        <button
+          onClick={() => handleAddFavorite(product?.id)}
+          className="absolute z-40 top-4 right-5 size-9 rounded-full border border-gray-300 grid place-items-center bg-primary-green cursor-pointer"
+        >
+          {isPending ? (
+            <LuLoaderPinwheel className="animate-spin text-white" />
           ) : (
-            <FaHeart className="text-accent-white" />
+            <FaHeart
+              className={`${
+                product?.is_favorite ? "text-accent-red" : "text-accent-white"
+              }`}
+            />
           )}
         </button>
       )}
