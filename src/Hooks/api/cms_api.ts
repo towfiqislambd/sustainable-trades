@@ -171,6 +171,7 @@ export const getShopDetails = (id: string) => {
   });
 };
 
+
 // Featured Listings
 export const getFeaturedListings = (id: string) => {
   return useClientApi({
