@@ -1,5 +1,4 @@
 "use client";
-import React, { use, useState } from "react";
 import {
   getAllListings,
   getFeaturedListings,
@@ -7,6 +6,7 @@ import {
   getProductSubCategoriesClient,
   getShopDetails,
 } from "@/Hooks/api/cms_api";
+import React, { use, useState } from "react";
 import ShopFAQ from "@/Components/PageComponents/mainPages/shopDetailsComponents/ShopFAQ";
 import AboutShop from "@/Components/PageComponents/mainPages/shopDetailsComponents/AboutShop";
 import ShopPolicies from "@/Components/PageComponents/mainPages/shopDetailsComponents/ShopPolicies";

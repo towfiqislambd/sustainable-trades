@@ -171,7 +171,6 @@ export const getShopDetails = (id: string) => {
   });
 };
 
-
 // Featured Listings
 export const getFeaturedListings = (id: string) => {
   return useClientApi({
@@ -180,27 +179,6 @@ export const getFeaturedListings = (id: string) => {
     key: ["get-featured-listings", id],
     enabled: !!id,
     endpoint: `/api/shop/products/featured/${id}`,
-  });
-};
-
-// Follow Shop
-export const useFollowShop = (shop_id: string) => {
-  const queryClient = useQueryClient();
-
-  return useClientApi({
-    method: "post",
-    key: ["follow-shop", shop_id],
-    isPrivate: true,
-    endpoint: `/api/follow-shop/${shop_id}`,
-    onSuccess: (data: any) => {
-      if (data?.success) {
-        queryClient.invalidateQueries("get-shop-details" as any);
-        toast.success(data?.message);
-      }
-    },
-    onError: (err: any) => {
-      toast.error(err?.response?.data?.message);
-    },
   });
 };
 
@@ -230,6 +208,27 @@ export const getAllListings = (
     params: { category_id, sub_category_id, short_by, search, page },
     queryOptions: {
       retry: false,
+    },
+  });
+};
+
+// Follow Shop
+export const useFollowShop = (shop_id: string) => {
+  const queryClient = useQueryClient();
+
+  return useClientApi({
+    method: "post",
+    key: ["follow-shop", shop_id],
+    isPrivate: true,
+    endpoint: `/api/follow-shop/${shop_id}`,
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        queryClient.invalidateQueries("get-shop-details" as any);
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
     },
   });
 };
