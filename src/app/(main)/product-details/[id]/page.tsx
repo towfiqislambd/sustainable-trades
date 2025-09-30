@@ -51,7 +51,7 @@ const page = ({ params }: Props) => {
           </div>
         </div>
 
-        <MoreProduct />
+        <MoreProduct data={productDetailsData?.data} />
         {/* <SimilarShop /> */}
         <Subscribe />
       </Container>

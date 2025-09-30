@@ -12,7 +12,7 @@ import { Pagination } from "swiper/modules";
 import { LuLoaderPinwheel } from "react-icons/lu";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useAddFavorite } from "@/Hooks/api/cms_api";
-import { CartLogoSvg, DollarSvg } from "../Svg/SvgContainer";
+import { CartLogoSvg, DollarSvg, SignSvg } from "../Svg/SvgContainer";
 
 type imageItem = {
   id: number;
@@ -25,6 +25,7 @@ type ProductData = {
   product_name?: string;
   product_price?: string;
   is_favorite?: boolean;
+  selling_option?: string;
 };
 
 type ProductProps = {
@@ -40,7 +41,6 @@ const Product = ({
   is_feathered,
   has_wishlist = true,
   has_cart = true,
-  has_slider = true,
 }: ProductProps) => {
   const { user } = useAuth();
   const { mutate: addFavoriteMutation, isPending } = useAddFavorite();
@@ -73,58 +73,62 @@ const Product = ({
       )}
 
       {/* Product Image Gallery */}
-      {has_slider ? (
-        <Swiper
-          modules={[Pagination]}
-          spaceBetween={20}
-          pagination={{ clickable: true }}
-          className="product_swiper rounded-lg"
-        >
-          {product?.images?.map((img, idx) => (
-            <SwiperSlide key={idx}>
-              <figure
-                className={`w-full rounded-lg border border-gray-100 relative ${
-                  is_feathered
-                    ? "h-[170px] md:h-[250px"
-                    : "h-[170px] md:h-[350px]"
-                }`}
-              >
-                <div className="absolute inset-0 bg-black/20 rounded-lg" />
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_SITE_URL}/${img?.image}`}
-                  alt="product image"
-                  fill
-                  className="w-full h-full object-cover rounded-lg"
-                />
-              </figure>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      ) : (
-        <figure className="w-full h-[200px] md:h-[250px] rounded-lg border border-gray-100 relative">
-          <div className="absolute inset-0 bg-black/20 rounded-lg" />
-          <Image
-            src={p1}
-            alt="product image"
-            className="w-full h-full object-cover rounded-lg"
-          />
-        </figure>
+      <Swiper
+        modules={[Pagination]}
+        spaceBetween={20}
+        pagination={{ clickable: true }}
+        className="product_swiper rounded-lg"
+      >
+        {product?.images?.map((img, idx) => (
+          <SwiperSlide key={idx}>
+            <figure
+              className={`w-full rounded-lg border border-gray-100 relative ${
+                is_feathered
+                  ? "h-[170px] md:h-[250px"
+                  : "h-[170px] md:h-[350px]"
+              }`}
+            >
+              <div className="absolute inset-0 bg-black/20 rounded-lg" />
+              <Image
+                src={`${process.env.NEXT_PUBLIC_SITE_URL}/${img?.image}`}
+                alt="product image"
+                fill
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </figure>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
+      {/* Product Name */}
+      <Link
+        href={`/product-details/${product?.id}`}
+        className="text-primary-green md:text-lg sm:text-base text-sm lg:text-xl font-semibold py-3 truncate hover:underline block"
+      >
+        {product?.product_name}
+      </Link>
+
+      {/* Badge */}
+      {product?.selling_option === "Trader/Barter" && (
+        <p className="size-6 shrink-0 rounded-full bg-[#D4E2CB] grid place-items-center">
+          <SignSvg />
+        </p>
       )}
-
-      <div className="flex justify-between items-center">
-        {/* Product Name */}
-        <Link
-          href={`/product-details/${product?.id}`}
-          className="text-primary-green md:text-lg sm:text-base text-sm lg:text-xl font-semibold py-3 truncate hover:underline block"
-        >
-          {product?.product_name}
-        </Link>
-
-        {/* Badge */}
-        <p className="size-6 rounded-full bg-accent-red grid place-items-center">
+      {product?.selling_option === "For Sale" && (
+        <p className="size-6 shrink-0 rounded-full bg-accent-red grid place-items-center">
           <DollarSvg />
         </p>
-      </div>
+      )}
+      {product?.selling_option === "For Sale or Trader Barter" && (
+        <div className="flex gap-2 items-center">
+          <p className="size-6 shrink-0 rounded-full bg-accent-red grid place-items-center">
+            <DollarSvg />
+          </p>
+          <p className="size-6 shrink-0 rounded-full bg-[#D4E2CB] grid place-items-center">
+            <SignSvg />
+          </p>
+        </div>
+      )}
 
       <div className="flex  justify-between mt-2 items-center">
         {/* Product Price */}
