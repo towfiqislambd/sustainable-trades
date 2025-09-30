@@ -1,25 +1,64 @@
-import { Love2Svg } from "@/Components/Svg/SvgContainer";
-import Image from "next/image";
+"use client";
 import React from "react";
-import author from "@/Assets/shop_author.jpg";
+import Image from "next/image";
+import useAuth from "@/Hooks/useAuth";
+import { useFollowShop } from "@/Hooks/api/cms_api";
+import toast from "react-hot-toast";
+import { CgSpinnerTwo } from "react-icons/cg";
 
-const ShopInfo = () => {
+const ShopInfo = ({ data }: any) => {
+  const { user } = useAuth();
+  const { mutate: followShopMutation, isPending } = useFollowShop(
+    data?.shop?.id
+  );
+
+  const handleFollowShop = () => {
+    if (!user) {
+      return toast.error("Please login first");
+    }
+    followShopMutation();
+  };
+
   return (
     <>
       <div className="flex gap-4 items-center mb-7">
-        <Image src={author} alt="author" className="size-14 rounded-full" />
+        <figure className="size-14 rounded-full relative grid place-items-center text-lg font-semibold">
+          {data?.shop?.user?.avatar ? (
+            <Image
+              src={`${process.env.NEXT_PUBLIC_SITE_URL}/${data?.shop?.user?.avatar}`}
+              alt="author"
+              fill
+              className="size-full rounded-full"
+            />
+          ) : (
+            <span>{data?.shop?.user?.first_name?.at(1)}</span>
+          )}
+        </figure>
 
         <div>
-          <h3 className="font-semibold text-xl">Jimmy Shaw, Veterenarian</h3>
+          <h3 className="font-semibold text-xl">
+            {data?.shop?.user?.first_name} {data?.shop?.user?.last_name}
+          </h3>
           <p className="text-secondary-gray">
-            Organic Bath Soaps, Est. 2023, Location: Houston TX
+            {data?.shop?.shop_name}, {data?.shop?.address?.address_line_1}
           </p>
         </div>
       </div>
 
-      <button className="bg-[#B0DEDB] text-xl font-semibold flex gap-3 items-center text-primary-green px-5 py-2 rounded-lg cursor-pointer hover:scale-95 transition-transform duration-500">
-        <span>Follow Shop</span>
-        <Love2Svg />
+      <button
+        onClick={handleFollowShop}
+        className="bg-[#B0DEDB] text-xl font-semibold flex gap-3 items-center text-primary-green px-5 py-2 rounded-lg cursor-pointer hover:scale-95 transition-transform duration-500"
+      >
+        {isPending ? (
+          <p className="flex gap-2 items-center justify-center">
+            <CgSpinnerTwo className="animate-spin text-xl" />
+            <span>Please wait...</span>
+          </p>
+        ) : data?.shop?.is_followed ? (
+          "Unfollow Shop"
+        ) : (
+          "Follow Shop"
+        )}
       </button>
     </>
   );

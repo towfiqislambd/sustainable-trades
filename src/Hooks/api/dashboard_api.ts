@@ -7,7 +7,7 @@ export const useAddProduct = () => {
     method: "post",
     key: ["add-product"],
     isPrivate: true,
-    endpoint: `/products-store`,
+    endpoint: `/api/products-store`,
     onSuccess: (data: any) => {
       if (data?.success) {
         toast.success(data?.message);
@@ -18,3 +18,6 @@ export const useAddProduct = () => {
     },
   });
 };
+
+
+
