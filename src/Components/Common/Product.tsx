@@ -1,18 +1,18 @@
 "use client";
 import "swiper/css";
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import "swiper/css/pagination";
 import p1 from "@/Assets/p1.jpg";
+import toast from "react-hot-toast";
+import useAuth from "@/Hooks/useAuth";
 import { FaHeart } from "react-icons/fa";
 import { Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import Image from "next/image";
-import { CartLogoSvg, DollarSvg } from "../Svg/SvgContainer";
-import { useAddFavorite } from "@/Hooks/api/cms_api";
 import { LuLoaderPinwheel } from "react-icons/lu";
-import useAuth from "@/Hooks/useAuth";
-import toast from "react-hot-toast";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { useAddFavorite } from "@/Hooks/api/cms_api";
+import { CartLogoSvg, DollarSvg } from "../Svg/SvgContainer";
 
 type imageItem = {
   id: number;
@@ -114,7 +114,7 @@ const Product = ({
       <div className="flex justify-between items-center">
         {/* Product Name */}
         <Link
-          href={`/product-details/1`}
+          href={`/product-details/${product?.id}`}
           className="text-primary-green md:text-lg sm:text-base text-sm lg:text-xl font-semibold py-3 truncate hover:underline block"
         >
           {product?.product_name}

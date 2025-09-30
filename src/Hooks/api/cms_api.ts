@@ -253,3 +253,17 @@ export const useAddFavorite = () => {
     },
   });
 };
+
+// Product Details
+export const getProductDetails = (id: string) => {
+  return useClientApi({
+    method: "get",
+    isPrivate: true,
+    key: ["get-product-details", id],
+    enabled: !!id,
+    endpoint: `/api/product-details/${id}`,
+    queryOptions: {
+      retry: false,
+    },
+  });
+};
