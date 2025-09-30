@@ -182,27 +182,6 @@ export const getFeaturedListings = (id: string) => {
   });
 };
 
-// Follow Shop
-export const useFollowShop = (shop_id: string) => {
-  const queryClient = useQueryClient();
-
-  return useClientApi({
-    method: "post",
-    key: ["follow-shop", shop_id],
-    isPrivate: true,
-    endpoint: `/api/follow-shop/${shop_id}`,
-    onSuccess: (data: any) => {
-      if (data?.success) {
-        queryClient.invalidateQueries("get-shop-details" as any);
-        toast.success(data?.message);
-      }
-    },
-    onError: (err: any) => {
-      toast.error(err?.response?.data?.message);
-    },
-  });
-};
-
 // All Listings
 export const getAllListings = (
   id: string,
@@ -233,6 +212,27 @@ export const getAllListings = (
   });
 };
 
+// Follow Shop
+export const useFollowShop = (shop_id: string) => {
+  const queryClient = useQueryClient();
+
+  return useClientApi({
+    method: "post",
+    key: ["follow-shop", shop_id],
+    isPrivate: true,
+    endpoint: `/api/follow-shop/${shop_id}`,
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        queryClient.invalidateQueries("get-shop-details" as any);
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
 // Add Favorite
 export const useAddFavorite = () => {
   const queryClient = useQueryClient();
@@ -245,6 +245,67 @@ export const useAddFavorite = () => {
       if (data?.success) {
         queryClient.invalidateQueries("get-all-listings" as any);
         queryClient.invalidateQueries("get-featured-listings" as any);
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// Product Details
+export const getProductDetails = (id: string) => {
+  return useClientApi({
+    method: "get",
+    isPrivate: true,
+    key: ["get-product-details", id],
+    enabled: !!id,
+    endpoint: `/api/product-details/${id}`,
+    queryOptions: {
+      retry: false,
+    },
+  });
+};
+
+// Add To Cart
+export const useAddToCart = (product_id: number) => {
+  return useClientApi({
+    method: "post",
+    key: ["add-to-cart"],
+    isPrivate: true,
+    endpoint: `/api/add-to-cart/${product_id}`,
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// Get Product Cart
+export const getProductCart = () => {
+  return useClientApi({
+    method: "get",
+    isPrivate: true,
+    key: ["get-product-cart"],
+    endpoint: "/api/cart",
+  });
+};
+
+// Add To Cart
+export const useRemoveFromCart = (product_id: number | null) => {
+  return useClientApi({
+    method: "post",
+    key: ["remove-from-cart"],
+    isPrivate: true,
+    endpoint: `/api/cart/item/remove/${product_id}`,
+    onSuccess: (data: any) => {
+      console.log(data);
+      if (data?.success) {
         toast.success(data?.message);
       }
     },
