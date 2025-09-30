@@ -276,7 +276,6 @@ export const useAddToCart = (product_id: number) => {
     isPrivate: true,
     endpoint: `/api/add-to-cart/${product_id}`,
     onSuccess: (data: any) => {
-      console.log(data);
       if (data?.success) {
         toast.success(data?.message);
       }
@@ -294,5 +293,24 @@ export const getProductCart = () => {
     isPrivate: true,
     key: ["get-product-cart"],
     endpoint: "/api/cart",
+  });
+};
+
+// Add To Cart
+export const useRemoveFromCart = (product_id: number | null) => {
+  return useClientApi({
+    method: "post",
+    key: ["remove-from-cart"],
+    isPrivate: true,
+    endpoint: `/api/cart/item/remove/${product_id}`,
+    onSuccess: (data: any) => {
+      console.log(data);
+      if (data?.success) {
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
   });
 };

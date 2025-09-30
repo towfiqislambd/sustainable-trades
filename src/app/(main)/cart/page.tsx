@@ -13,7 +13,7 @@ const page = () => {
     <section className="my-10">
       <Container>
         <PaymentOptions data={cartData?.data} />
-        <SimilarItems />
+        {/* <SimilarItems /> */}
         <ShopLocation />
       </Container>
     </section>

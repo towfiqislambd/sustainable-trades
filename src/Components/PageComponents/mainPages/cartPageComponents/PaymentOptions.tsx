@@ -13,6 +13,21 @@ const PaymentOptions = ({ data }: any) => {
   const [successOpen, setSuccessOpen] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("paypal");
 
+  // Sub Total Price Count
+  const cartItems = data?.cart?.flatMap((item: any) => item?.cart_items || []);
+  const subTotalPrice = cartItems?.reduce((acc: number, item: any) => {
+    return acc + (item?.product?.product_price || 0);
+  }, 0);
+
+  // Shipping Price
+  const shippingPrice = 15;
+
+  // Tax
+  const tax = 20;
+
+  // Total Price
+  const totalPrice = subTotalPrice + shippingPrice + tax;
+
   return (
     <section className="mb-10">
       <h3 className="section_sub_title">
@@ -155,7 +170,6 @@ const PaymentOptions = ({ data }: any) => {
               Apple
             </div>
           </div>
-
           {/* Cash Option */}
           <p className="flex gap-3 items-center">
             <input
@@ -175,24 +189,24 @@ const PaymentOptions = ({ data }: any) => {
           <div className="space-y-3 mt-7 mb-7">
             <div className="flex items-center justify-between text-[17px] font-semibold text-primary-green">
               <p>Subtotal</p>
-              <p>$105.00</p>
+              <p>${subTotalPrice}</p>
             </div>
 
             <div className="flex items-center justify-between text-[17px] font-semibold text-primary-green">
               <p>Shipping</p>
-              <p>$15.00</p>
+              <p>${shippingPrice}</p>
             </div>
 
             <div className="flex items-center justify-between text-[17px] font-semibold text-primary-green">
               <p>Est. Sales Tax *</p>
-              <p>$20.00</p>
+              <p>${tax}</p>
             </div>
 
             <hr className="text-gray-300" />
 
             <div className="flex items-center justify-between text-[17px] font-semibold text-primary-green">
-              <p>Total (3 Items)</p>
-              <p>$140.00</p>
+              <p>Total ({data?.total_cart_items} Items)</p>
+              <p>${totalPrice}</p>
             </div>
           </div>
 

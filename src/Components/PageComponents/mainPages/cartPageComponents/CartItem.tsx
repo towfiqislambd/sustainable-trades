@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { LocationTwoSvg, MinSvg } from "@/Components/Svg/SvgContainer";
+import { useRemoveFromCart } from "@/Hooks/api/cms_api";
 
 const CartItem = ({ item }: any) => {
+  const [productId, setProductId] = useState<number | null>(null);
+  const { mutate: removeCartMutation, isPending } =
+    useRemoveFromCart(productId);
+
   return (
     <div className="border border-gray-300 p-5 rounded-lg bg-white">
       {/* Shop Info */}
@@ -82,7 +87,12 @@ const CartItem = ({ item }: any) => {
               </div>
 
               {/* Remove btns */}
-              <button className="font-semibold text-primary-green cursor-pointer text-[15px]">
+              <button
+                onClick={() => {
+                  setProductId(product?.product_id);
+                }}
+                className="font-semibold text-primary-green cursor-pointer text-[15px]"
+              >
                 Remove
               </button>
             </div>
