@@ -11,9 +11,10 @@ import React, { useState } from "react";
 import Modal from "@/Components/Common/Modal";
 import { FaHeart, FaStar } from "react-icons/fa";
 import { LuLoaderPinwheel } from "react-icons/lu";
-import { useAddFavorite } from "@/Hooks/api/cms_api";
+import { useAddFavorite, useAddToCart } from "@/Hooks/api/cms_api";
 import TradeOfferModal from "@/Components/Modals/TradeOfferModal";
 import MessageToSellerModal from "@/Components/Modals/MessageToSellerModal";
+import { CgSpinnerTwo } from "react-icons/cg";
 
 const ProductDescription = ({ data }: any) => {
   const { user } = useAuth();
@@ -23,12 +24,21 @@ const ProductDescription = ({ data }: any) => {
   const [quantity, setQuantity] = useState(1);
   const handleIncrease = () => setQuantity(prev => prev + 1);
   const handleDecrease = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
+  const { mutate: addToCartMutation, isPending: addCardPending } = useAddToCart(
+    data?.id
+  );
 
+  // Func for add to favorite
   const handleAddFavorite = (product_id: any) => {
     if (!user) {
       return toast.error("Please login first to proceed");
     }
     addFavoriteMutation({ endpoint: `/api/add-favorites/${product_id}` });
+  };
+
+  // Func for add to cart
+  const handleAddToCart = () => {
+    addToCartMutation({ quantity: quantity });
   };
 
   return (
@@ -62,10 +72,25 @@ const ProductDescription = ({ data }: any) => {
           {data?.product_name}
         </h3>
 
-        {/* Cart */}
-        <button className="flex gap-2 items-center border border-secondary-black cursor-pointer rounded-lg px-4 py-2 hover:bg-secondary-black hover:text-accent-white duration-500 transition-all">
-          <span>Add to Cart</span>
-          <AddToCartSvg />
+        {/* Add To Cart */}
+        <button
+          disabled={addCardPending}
+          onClick={handleAddToCart}
+          className={`border border-secondary-black rounded-lg px-4 py-2 hover:bg-secondary-black hover:text-accent-white duration-500 transition-all ${
+            addCardPending ? "cursor-not-allowed" : "cursor-pointer"
+          }`}
+        >
+          {addCardPending ? (
+            <p className="flex gap-2 items-center justify-center">
+              <CgSpinnerTwo className="animate-spin text-xl" />
+              <span>Adding...</span>
+            </p>
+          ) : (
+            <p className="flex gap-2 items-center">
+              <span>Add to Cart</span>
+              <AddToCartSvg />
+            </p>
+          )}
         </button>
       </div>
 
@@ -117,12 +142,14 @@ const ProductDescription = ({ data }: any) => {
       </button>
 
       {/* Trade btn */}
-      <button
-        onClick={() => setTradeOpen(true)}
-        className="mb-5 block w-full text-center duration-500 transition-all border-2 border-[#D4E2CB] text-lg cursor-pointer py-3 bg-[#D4E2CB] text-primary-green rounded-lg shadow hover:text-primary-green hover:bg-transparent font-semibold"
-      >
-        Trade
-      </button>
+      {user?.role !== "customer" && (
+        <button
+          onClick={() => setTradeOpen(true)}
+          className="mb-5 block w-full text-center duration-500 transition-all border-2 border-[#D4E2CB] text-lg cursor-pointer py-3 bg-[#D4E2CB] text-primary-green rounded-lg shadow hover:text-primary-green hover:bg-transparent font-semibold"
+        >
+          Trade
+        </button>
+      )}
 
       {/* Message btn */}
       <button

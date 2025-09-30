@@ -1,51 +1,13 @@
 "use client";
-import p1 from "@/Assets/p1.jpg";
 import CartItem from "./CartItem";
 import React, { useState } from "react";
 import Modal from "@/Components/Common/Modal";
-import shopAuthor from "@/Assets/shop_author.jpg";
-import SuccessModal from "../../../Modals/SuccessModal";
-import { Google, PaypalSvg } from "@/Components/Svg/SvgContainer";
+import { PaypalSvg } from "@/Components/Svg/SvgContainer";
+import SuccessModal from "@/Components/Modals/SuccessModal";
 import ShippingAddress from "@/Components/Modals/ShippingAddress";
 import ShippingOptionsModal from "@/Components/Modals/ShippingOptionsModal";
-const data = [
-  {
-    id: 1,
-    shop_name: "Organic Bath Soaps",
-    shop_author: shopAuthor,
-    shop_location: "Denver, CO",
-    products: [
-      {
-        id: 1,
-        product_name: "Coconut Bar Soap",
-        product_image: p1,
-        product_price: 30,
-      },
-      {
-        id: 2,
-        product_name: "Coconut Bar Soap",
-        product_image: p1,
-        product_price: 30,
-      },
-    ],
-  },
-  {
-    id: 2,
-    shop_name: "Organic Bath Soaps",
-    shop_author: shopAuthor,
-    shop_location: "Denver, CO",
-    products: [
-      {
-        id: 1,
-        product_name: "Coconut Bar Soap",
-        product_image: p1,
-        product_price: 30,
-      },
-    ],
-  },
-];
 
-const PaymentOptions = () => {
+const PaymentOptions = ({ data }: any) => {
   const [shippingOptionsOpen, setShippingOptionsOpen] = useState(false);
   const [shippingAddressOpen, setShippingAddressOpen] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
@@ -53,13 +15,15 @@ const PaymentOptions = () => {
 
   return (
     <section className="mb-10">
-      <h3 className="section_sub_title">3 Items In Your Cart</h3>
+      <h3 className="section_sub_title">
+        {data?.total_cart_items} Items In Your Cart
+      </h3>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 xl:gap-10">
         {/* Left - Products */}
         <div className=" lg:col-span-8">
           <div className="space-y-7">
-            {data?.map((item) => (
+            {data?.cart?.map((item: any) => (
               <CartItem key={item?.id} item={item} />
             ))}
           </div>
@@ -71,7 +35,7 @@ const PaymentOptions = () => {
             Payment Options
           </h3>
 
-          <p className="text-[14px] md:text-lg font-semibold text-secondary-black mb-5">
+          <p className="text-sm md:text-lg font-semibold text-secondary-black mb-5">
             You will not be charged until the review page of this order.
           </p>
 
@@ -84,7 +48,7 @@ const PaymentOptions = () => {
                 name="Card"
                 value="Card"
                 checked={paymentMethod === "Card"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
+                onChange={e => setPaymentMethod(e.target.value)}
               />
 
               <span className="text-secondary-gray font-semibold">Card</span>
@@ -106,7 +70,7 @@ const PaymentOptions = () => {
                 name="payment"
                 value="paypal"
                 checked={paymentMethod === "paypal"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
+                onChange={e => setPaymentMethod(e.target.value)}
               />
 
               <span className="text-secondary-gray font-semibold ">
@@ -123,7 +87,7 @@ const PaymentOptions = () => {
                 name="Gpay"
                 value="Gpay"
                 checked={paymentMethod === "Gpay"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
+                onChange={e => setPaymentMethod(e.target.value)}
               />
 
               <span className="text-secondary-gray font-semibold">
@@ -142,7 +106,7 @@ const PaymentOptions = () => {
                 name="Cash"
                 value="Cash"
                 checked={paymentMethod === "Cash"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
+                onChange={e => setPaymentMethod(e.target.value)}
               />
 
               <span className="text-secondary-gray font-semibold">
@@ -161,7 +125,7 @@ const PaymentOptions = () => {
                 name="Venmo"
                 value="Venmo"
                 checked={paymentMethod === "Venmo"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
+                onChange={e => setPaymentMethod(e.target.value)}
               />
 
               <span className="text-secondary-gray font-semibold">
@@ -180,7 +144,7 @@ const PaymentOptions = () => {
                 name="payment"
                 value="apple"
                 checked={paymentMethod === "apple"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
+                onChange={e => setPaymentMethod(e.target.value)}
               />
 
               <span className="text-secondary-gray font-semibold">
@@ -200,7 +164,7 @@ const PaymentOptions = () => {
               name="payment"
               value="cash"
               checked={paymentMethod === "cash"}
-              onChange={(e) => setPaymentMethod(e.target.value)}
+              onChange={e => setPaymentMethod(e.target.value)}
             />
 
             <span className="text-secondary-gray font-semibold">

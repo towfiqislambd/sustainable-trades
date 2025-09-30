@@ -3,14 +3,14 @@ import Link from "next/link";
 import React, { use } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import Container from "@/Components/Common/Container";
+import { getProductDetails } from "@/Hooks/api/cms_api";
 import ProductGallery from "@/Components/PageComponents/mainPages/productDetailsComponents/ProductGallery";
-import ProductDescription from "@/Components/PageComponents/mainPages/productDetailsComponents/ProductDescription";
 import ProductReviews from "@/Components/PageComponents/mainPages/productDetailsComponents/ProductReviews";
 import MoreProduct from "@/Components/PageComponents/mainPages/productDetailsComponents/MoreProduct";
 import SimilarShop from "@/Components/PageComponents/mainPages/productDetailsComponents/SimilarShop";
 import Subscribe from "@/Components/PageComponents/mainPages/homePageComponents/Subscribe";
 import ShopInfo from "@/Components/PageComponents/mainPages/productDetailsComponents/ShopInfo";
-import { getProductDetails } from "@/Hooks/api/cms_api";
+import ProductDescription from "@/Components/PageComponents/mainPages/productDetailsComponents/ProductDescription";
 
 interface Props {
   params: Promise<{ id: string }>;

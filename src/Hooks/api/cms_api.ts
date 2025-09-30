@@ -267,3 +267,32 @@ export const getProductDetails = (id: string) => {
     },
   });
 };
+
+// Add To Cart
+export const useAddToCart = (product_id: number) => {
+  return useClientApi({
+    method: "post",
+    key: ["add-to-cart"],
+    isPrivate: true,
+    endpoint: `/api/add-to-cart/${product_id}`,
+    onSuccess: (data: any) => {
+      console.log(data);
+      if (data?.success) {
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// Get Product Cart
+export const getProductCart = () => {
+  return useClientApi({
+    method: "get",
+    isPrivate: true,
+    key: ["get-product-cart"],
+    endpoint: "/api/cart",
+  });
+};
