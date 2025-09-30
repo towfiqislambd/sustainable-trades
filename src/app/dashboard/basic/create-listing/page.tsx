@@ -3,9 +3,21 @@ import Link from "next/link";
 import type React from "react";
 import { MdArrowOutward } from "react-icons/md";
 import { useMemo, useRef, useState } from "react";
+import { getProductCategoriesClient, getProductSubCategoriesClient } from "@/Hooks/api/cms_api";
+import { useForm } from "react-hook-form";
+type Category = {
+  id: number | string;
+  name: string;
+};
+
+type SubCategory = {
+  id: number;
+  category_id: number | string;
+  sub_category_name: string;
+};
 
 const CreateListing = ({ membershipType = "basic" }: any) => {
-  const [mainImage, setMainImage] = useState<string | null>(null);
+  const [images, setImages] = useState<string[]>([]); 
   const [video, setVideo] = useState<File | null>(null);
   const [showPlayButton, setShowPlayButton] = useState(true);
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -16,11 +28,17 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
   const [metaTags, setMetaTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState("");
   const isBasicMember = membershipType === "basic";
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+
+  const { data: categoriess } = getProductCategoriesClient();
+  const { data: subcategoriess } = getProductSubCategoriesClient();
+  console.log(subcategoriess);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      setMainImage(URL.createObjectURL(file));
+    if (e.target.files) {
+      const selectedFiles = Array.from(e.target.files).slice(0, 4); // Max 4 images
+      const newImages = selectedFiles.map(file => URL.createObjectURL(file));
+      setImages(prev => [...prev, ...newImages].slice(0, 4)); // Keep max 4
     }
   };
 
@@ -46,7 +64,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
     videoRef.current
       .play()
       .then(() => setShowPlayButton(false))
-      .catch((err) => console.error("Playback failed:", err));
+      .catch(err => console.error("Playback failed:", err));
   };
 
   const handlePause = () => {
@@ -73,50 +91,28 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
   };
 
   const handleRemoveTag = (tag: string) => {
-    setMetaTags(metaTags.filter((t) => t !== tag));
+    setMetaTags(metaTags.filter(t => t !== tag));
   };
 
-  const [category, setCategory] = useState("");
-  const [subcategory, setSubcategory] = useState("");
+  const [category, setCategory] = useState<string | "">("");
+  const [subcategory, setSubcategory] = useState<string | "">("");
 
-  const categories: { [key: string]: string[] } = {
-    "Farm to Table": [
-      "Acupuncture",
-      "Akashic Record",
-      "Coaching",
-      "Cranial Sacral",
-      "Qi Gong",
-      "Somatic Practices",
-      "Trauma Resolution",
-      "Yoga",
-      "Reiki",
-      "Sound/Light Healing Therapy",
-      "Hypnosis",
-    ],
-    "Arts & Artisans": [],
-    "Bath & Beauty": [],
-    "Books & Literature": [],
-    "Healing & Wellness": [
-      "Acupuncture",
-      "Akashic Record",
-      "Coaching",
-      "Cranial Sacral",
-      "Qi Gong",
-      "Somatic Practices",
-      "Trauma Resolution",
-      "Yoga",
-      "Reiki",
-      "Sound/Light Healing Therapy",
-      "Hypnosis",
-    ],
-  };
+  // Replace your current categories/subcategories logic with API
+  const categories: Category[] = categoriess?.data || [];
+  const subcategories: SubCategory[] = subcategoriess?.data || [];
+
+  // Filter subcategories by selected category
+  const filteredSubcategories = category
+    ? subcategories.filter(sc => sc.category_id?.toString() === category)
+    : [];
 
   return (
     <div>
+      {/* Header */}
       <div className="flex flex-col md:flex-row gap-3.5 md:gap-0 md:justify-between md:items-center">
         <div>
           <h3 className="text-[30px] md:text-[40px] font-semibold text-[#13141D]">
-            Organic Cherry Tomatoes
+           Listings
           </h3>
           <div className="flex gap-x-2 items-center pt-2 cursor-pointer">
             <h4 className="text-[16px] text-[#13141D]">Listings</h4>
@@ -144,8 +140,10 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
         </div>
       )}
 
+      {/* Form */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8 mt-4 md:mt-8">
         <div className="flex flex-col gap-3 md:gap-6">
+          {/* Product Name */}
           <div>
             <h3 className="text-[17px] md:text-[20px] font-semibold text-[#13141D]">
               Product Name / Service
@@ -157,23 +155,38 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
             />
           </div>
 
+          {/* Multiple Image Upload */}
           <div>
-            {mainImage ? (
-              <img
-                src={mainImage || "/placeholder.svg"}
-                alt="Main Preview"
-                className="w-full h-[300px] md:h-[500px] object-cover rounded-lg border"
-              />
-            ) : (
-              <div className="w-full  h-[300px] md:h-[500px] flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg text-gray-400">
-                <div className="text-center">
-                  <p className="text-base md:text-lg">No image uploaded</p>
-                  <p className="text-[12px] md:text-sm">
-                    Upload images to see preview
-                  </p>
+            <div className="grid grid-cols-2 md:grid-cols-2 gap-3 mt-2">
+              {images.length > 0 ? (
+                images.map((img, idx) => (
+                  <div key={idx} className="relative">
+                    <img
+                      src={img}
+                      alt={`Image ${idx + 1}`}
+                      className="w-full h-[200px] md:h-[250px] object-cover rounded-lg border"
+                    />
+                    <button
+                      onClick={() =>
+                        setImages(images.filter((_, i) => i !== idx))
+                      }
+                      className="absolute top-2 right-2 bg-black text-white px-2 py-1 rounded"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))
+              ) : (
+                <div className="w-full h-[200px] md:h-[250px] flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg text-gray-400">
+                  <div className="text-center">
+                    <p className="text-base md:text-lg">No images uploaded</p>
+                    <p className="text-[12px] md:text-sm">
+                      Upload up to 4 images to see preview
+                    </p>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
 
             <div className="mt-3">
               <label className="flex items-center justify-center gap-2 w-full py-2 md:py-4 bg-[#F5F5F5] rounded-lg cursor-pointer border-2 border-dashed border-gray-300 hover:bg-gray-100 transition-colors">
@@ -190,17 +203,17 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
                     d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                   />
                 </svg>
-                <span className="text-gray-600 font-medium">Upload Image</span>
+                <span className="text-gray-600 font-medium">Upload Images</span>
                 <input
                   type="file"
                   accept="image/*"
                   className="hidden"
+                  multiple
                   onChange={handleImageUpload}
                 />
               </label>
             </div>
           </div>
-
           <div>
             <h3 className="text-[20px] md:text-[24px] font-semibold text-[#13141D]">
               Quantity
@@ -208,7 +221,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
             <input
               type="text"
               value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
+              onChange={e => setQuantity(e.target.value)}
               disabled={isBasicMember}
               className={`w-full lg:w-[350px] border border-[#A7A39C] rounded-lg p-2 md:p-4  mt-2 input text-[#13141D] font-normal outline-0 ${
                 isBasicMember
@@ -309,7 +322,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
                   {showPlayButton && (
                     <button
                       className="h-24 w-24 bg-[#626161] text-white rounded-full absolute cursor-pointer top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 flex justify-center items-center"
-                      onClick={(e) => {
+                      onClick={e => {
                         e.stopPropagation();
                         handlePlay();
                       }}
@@ -411,39 +424,40 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
             <select
               className="w-full border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4  mt-2"
               value={category}
-              onChange={(e) => {
+              onChange={e => {
                 setCategory(e.target.value);
                 setSubcategory("");
               }}
             >
               <option value="">Select Category</option>
-              {Object.keys(categories).map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
+              {categories.map(cat => (
+                <option key={cat.id} value={cat.id}>
+                  {cat.name}
                 </option>
               ))}
             </select>
 
-            {category && categories[category].length > 0 && (
+            {filteredSubcategories.length > 0 && (
               <div className="mt-4">
                 <h3 className="text-[20px] md:text-[24px] font-semibold text-[#13141D]">
                   Subcategory
                 </h3>
                 <select
-                  className="w-full border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4  mt-2"
+                  className="w-full border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2"
                   value={subcategory}
-                  onChange={(e) => setSubcategory(e.target.value)}
+                  onChange={e => setSubcategory(e.target.value)}
                 >
                   <option value="">Select Subcategory</option>
-                  {categories[category].map((sub) => (
-                    <option key={sub} value={sub}>
-                      {sub}
+                  {filteredSubcategories.map(sub => (
+                    <option key={sub.id} value={sub.id}>
+                      {sub.sub_category_name}
                     </option>
                   ))}
                 </select>
               </div>
             )}
           </div>
+
           <div>
             <h3 className="text-[20px] md:text-[24px] font-semibold text-[#13141D]">
               Fulfillment
@@ -475,7 +489,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
               <input
                 type="text"
                 value={newTag}
-                onChange={(e) => setNewTag(e.target.value)}
+                onChange={e => setNewTag(e.target.value)}
                 className="flex-1  border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4  pl-10 "
               />
               <button
