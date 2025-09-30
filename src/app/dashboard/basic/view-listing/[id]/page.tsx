@@ -164,18 +164,20 @@ const CreateListing = () => {
           {/* Main Preview Image */}
           <div>
             {mainImage ? (
-              <div className="w-full h-[400px] md:h-[500px] ">
+              <div className="w-full relative h-[400px] md:h-[500px] ">
                 <Image
                   src={mainImage}
                   alt="Main Preview"
+                  fill
                   className="w-full h-full object-cover rounded-lg border"
                 />
               </div>
             ) : (
-              <div className="w-full h-[400px] md:h-[500px] flex items-center justify-center  rounded-lg text-gray-400 outline-none">
+              <div className="w-full relative h-[400px] md:h-[500px] flex items-center justify-center  rounded-lg text-gray-400 outline-none">
                 <Image
                   src={Preview}
-                  alt="Main Preview"
+                    alt="Main Preview"
+                    fill
                   className="w-full h-full object-cover rounded-lg border"
                 />
               </div>
