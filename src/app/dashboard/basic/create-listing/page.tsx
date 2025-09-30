@@ -9,7 +9,8 @@ import {
   getProductCategoriesClient,
   getProductSubCategoriesClient,
 } from "@/Hooks/api/cms_api";
-import { getuserData, useAddProduct } from "@/Hooks/api/dashboard_api";
+import { useAddProduct } from "@/Hooks/api/dashboard_api";
+import useAuth from "@/Hooks/useAuth";
 
 type Category = {
   id: number | string;
@@ -43,6 +44,7 @@ type FormData = {
 };
 
 const CreateListing = ({ membershipType = "basic" }: any) => {
+  const { user } = useAuth();
   const [images, setImages] = useState<string[]>([]);
   const [video, setVideo] = useState<File | null>(null);
   const [showPlayButton, setShowPlayButton] = useState(true);
@@ -50,7 +52,6 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
   const [metaTags, setMetaTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState("");
   const isBasicMember = membershipType === "basic";
-
   const { mutate: addProduct, isLoading } = useAddProduct();
   const { data: categoriess } = getProductCategoriesClient();
   const { data: subcategoriess } = getProductSubCategoriesClient();
@@ -59,6 +60,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
     control,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
     setValue,
   } = useForm<FormData>({
@@ -151,14 +153,12 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
     setMetaTags(updatedTags);
     setValue("meta_tags", updatedTags);
   };
-  const { data: userdata } = getuserData();
-  console.log(userdata);
 
   const onSubmit = (data: FormData) => {
     const formData = new FormData();
 
-    if (userdata?.data?.shop_info?.id) {
-      formData.append("shop_info_id", String(userdata?.data.shop_info?.id));
+    if (user?.shop_info?.id) {
+      formData.append("shop_info_id", String(user?.shop_info?.id));
     }
 
     formData.append("product_name", data.product_name);
@@ -171,29 +171,29 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
     formData.append("sub_category_id", data.sub_category_id);
     formData.append("fulfillment", data.fulfillment);
     formData.append("selling_option", data.selling_option);
-
-    // ✅ Must be boolean, not string
     formData.append("unlimited_stock", data.unlimited_stock ? "1" : "0");
     formData.append("out_of_stock", data.out_of_stock ? "1" : "0");
     formData.append("is_featured", data.is_featured ? "1" : "0");
 
-    // meta_tags
-    data.meta_tags.forEach((tag, index) =>
-      formData.append(`meta_tags[${index}]`, tag)
-    );
+    // Meta tags as JSON string
+    if (data.meta_tags && data.meta_tags.length > 0) {
+      data.meta_tags.forEach(tag => formData.append("meta_tags[]", tag));
+    }
 
-    // ✅ Backend expects "product_image" not "images"
+    // Multiple images (must use [])
     if (data.images && data.images.length > 0) {
       data.images.forEach(image => {
-        formData.append("product_image[]", image);
+        formData.append("product_image[]", image); // backend expects array
       });
     }
 
+    // Video
     if (data.video) {
       formData.append("video", data.video);
     }
 
     addProduct(formData);
+    reset();
   };
 
   return (

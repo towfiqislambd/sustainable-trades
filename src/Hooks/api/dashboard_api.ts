@@ -20,12 +20,4 @@ export const useAddProduct = () => {
 };
 
 
-// get user data
 
-export const getuserData = () => {
-  return useClientApi({
-    method: "get",
-    key: ["get-user-data"],
-    endpoint: "/api/users/data",
-  });
-};
