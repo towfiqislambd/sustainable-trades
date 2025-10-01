@@ -1454,51 +1454,51 @@ export function DollarSvg() {
   );
 }
 
-export function CartLogoSvg() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="17"
-      viewBox="0 0 16 17"
-      fill="none"
-    >
-      <g clipPath="url(#clip0_11430_79320)">
-        <path
-          d="M13.3236 15.1668C13.6918 15.1668 13.9903 14.8684 13.9903 14.5002C13.9903 14.132 13.6918 13.8335 13.3236 13.8335C12.9555 13.8335 12.657 14.132 12.657 14.5002C12.657 14.8684 12.9555 15.1668 13.3236 15.1668Z"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M5.99015 15.1668C6.35834 15.1668 6.65682 14.8684 6.65682 14.5002C6.65682 14.132 6.35834 13.8335 5.99015 13.8335C5.62196 13.8335 5.32349 14.132 5.32349 14.5002C5.32349 14.8684 5.62196 15.1668 5.99015 15.1668Z"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M0.656982 1.1665H3.32365L5.11032 10.0932C5.17128 10.4001 5.33825 10.6758 5.58201 10.872C5.82577 11.0683 6.13078 11.1725 6.44365 11.1665H12.9236C13.2365 11.1725 13.5415 11.0683 13.7853 10.872C14.029 10.6758 14.196 10.4001 14.257 10.0932L15.3236 4.49984H3.99032"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </g>
-      <defs>
-        <clipPath id="clip0_11430_79320">
-          <rect
-            width="16"
-            height="16"
-            fill="white"
-            transform="translate(-0.00976562 0.5)"
-          />
-        </clipPath>
-      </defs>
-    </svg>
-  );
-}
+// export function CartLogoSvg() {
+//   return (
+//     <svg
+//       xmlns="http://www.w3.org/2000/svg"
+//       width="16"
+//       height="17"
+//       viewBox="0 0 16 17"
+//       fill="none"
+//     >
+//       <g clipPath="url(#clip0_11430_79320)">
+//         <path
+//           d="M13.3236 15.1668C13.6918 15.1668 13.9903 14.8684 13.9903 14.5002C13.9903 14.132 13.6918 13.8335 13.3236 13.8335C12.9555 13.8335 12.657 14.132 12.657 14.5002C12.657 14.8684 12.9555 15.1668 13.3236 15.1668Z"
+//           stroke="currentColor"
+//           strokeWidth="2"
+//           strokeLinecap="round"
+//           strokeLinejoin="round"
+//         />
+//         <path
+//           d="M5.99015 15.1668C6.35834 15.1668 6.65682 14.8684 6.65682 14.5002C6.65682 14.132 6.35834 13.8335 5.99015 13.8335C5.62196 13.8335 5.32349 14.132 5.32349 14.5002C5.32349 14.8684 5.62196 15.1668 5.99015 15.1668Z"
+//           stroke="currentColor"
+//           strokeWidth="2"
+//           strokeLinecap="round"
+//           strokeLinejoin="round"
+//         />
+//         <path
+//           d="M0.656982 1.1665H3.32365L5.11032 10.0932C5.17128 10.4001 5.33825 10.6758 5.58201 10.872C5.82577 11.0683 6.13078 11.1725 6.44365 11.1665H12.9236C13.2365 11.1725 13.5415 11.0683 13.7853 10.872C14.029 10.6758 14.196 10.4001 14.257 10.0932L15.3236 4.49984H3.99032"
+//           stroke="currentColor"
+//           strokeWidth="2"
+//           strokeLinecap="round"
+//           strokeLinejoin="round"
+//         />
+//       </g>
+//       <defs>
+//         <clipPath id="clip0_11430_79320">
+//           <rect
+//             width="16"
+//             height="16"
+//             fill="white"
+//             transform="translate(-0.00976562 0.5)"
+//           />
+//         </clipPath>
+//       </defs>
+//     </svg>
+//   );
+// }
 
 export function RightArrowSvg() {
   return (

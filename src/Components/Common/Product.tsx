@@ -4,15 +4,15 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import "swiper/css/pagination";
-import p1 from "@/Assets/p1.jpg";
 import toast from "react-hot-toast";
 import useAuth from "@/Hooks/useAuth";
 import { FaHeart } from "react-icons/fa";
 import { Pagination } from "swiper/modules";
+import { CgSpinnerTwo } from "react-icons/cg";
 import { LuLoaderPinwheel } from "react-icons/lu";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useAddFavorite } from "@/Hooks/api/cms_api";
-import { CartLogoSvg, DollarSvg, SignSvg } from "../Svg/SvgContainer";
+import { useAddFavorite, useAddToCart } from "@/Hooks/api/cms_api";
+import { AddToCartSvg, DollarSvg, SignSvg } from "../Svg/SvgContainer";
 
 type imageItem = {
   id: number;
@@ -26,6 +26,7 @@ type ProductData = {
   product_price?: string;
   is_favorite?: boolean;
   selling_option?: string;
+  product_quantity?: number;
 };
 
 type ProductProps = {
@@ -44,12 +45,24 @@ const Product = ({
 }: ProductProps) => {
   const { user } = useAuth();
   const { mutate: addFavoriteMutation, isPending } = useAddFavorite();
+  const { mutate: addToCartMutation, isPending: addCardPending } = useAddToCart(
+    product?.id
+  );
 
+  // Func for add to favorite
   const handleAddFavorite = (product_id: any) => {
     if (!user) {
       return toast.error("Please login first to proceed");
     }
     addFavoriteMutation({ endpoint: `/api/add-favorites/${product_id}` });
+  };
+
+  // Func for add to cart
+  const handleAddToCart = () => {
+    if (!user) {
+      return toast.error("Please login first to proceed");
+    }
+    addToCartMutation({ quantity: 1 });
   };
 
   return (
@@ -69,6 +82,17 @@ const Product = ({
               }`}
             />
           )}
+        </button>
+      )}
+
+      {/* Stock Info */}
+      {product?.product_quantity ? (
+        <button className="absolute top-3 left-3 shadow-lg font-medium px-3 py-1 rounded-full bg-primary-green text-white z-10 text-sm">
+          In Stock
+        </button>
+      ) : (
+        <button className="absolute top-3 left-3 shadow-lg font-medium px-3 py-1 rounded-full bg-accent-red text-white z-10 text-sm">
+          Stock Out
         </button>
       )}
 
@@ -138,24 +162,25 @@ const Product = ({
 
         {/* Cart btn */}
         {has_cart && (
-          <div className="">
-            <button className="hidden sm:flex gap-2 items-center px-3 py-1.5 rounded-[5px] cursor-pointer border border-secondary-gray font-semibold text-secondary-gray duration-500 transition-all hover:bg-primary-green md:text-lg sm:text-base text-sm lg:text-xl hover:text-accent-white hover:scale-95">
-              <span className="md:text-lg sm:text-base text-sm lg:text-xl">
-                Add to Cart
-              </span>
-              <span>
-                <CartLogoSvg />
-              </span>
-            </button>
-            <button className="flex sm:hidden gap-2 items-center px-3 py-1.5 rounded-[5px] cursor-pointer border border-secondary-gray font-semibold text-secondary-gray duration-500 transition-all hover:bg-primary-green md:text-lg sm:text-base text-sm lg:text-xl hover:text-accent-white hover:scale-95">
-              <span className="md:text-lg sm:text-base text-sm lg:text-xl">
-                Add
-              </span>
-              <span>
-                <CartLogoSvg />
-              </span>
-            </button>
-          </div>
+          <button
+            onClick={handleAddToCart}
+            disabled={addCardPending}
+            className={`flex gap-2 items-center px-3 py-1.5 rounded-[5px] border border-secondary-gray font-semibold text-secondary-gray duration-500 transition-all hover:bg-primary-green md:text-lg sm:text-base text-sm lg:text-xl hover:text-accent-white hover:scale-95 ${
+              addCardPending ? "cursor-not-allowed" : "cursor-pointer"
+            }`}
+          >
+            {addCardPending ? (
+              <p className="flex gap-2 items-center justify-center">
+                <CgSpinnerTwo className="animate-spin text-xl" />
+                <span>Adding...</span>
+              </p>
+            ) : (
+              <p className="flex gap-2 items-center">
+                <span>Add to Cart</span>
+                <AddToCartSvg />
+              </p>
+            )}
+          </button>
         )}
       </div>
     </div>

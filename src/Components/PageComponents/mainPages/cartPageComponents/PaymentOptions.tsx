@@ -6,17 +6,63 @@ import { PaypalSvg } from "@/Components/Svg/SvgContainer";
 import SuccessModal from "@/Components/Modals/SuccessModal";
 import ShippingAddress from "@/Components/Modals/ShippingAddress";
 import ShippingOptionsModal from "@/Components/Modals/ShippingOptionsModal";
+import { TiDelete } from "react-icons/ti";
+import { useClearCart } from "@/Hooks/api/cms_api";
+import { CgSpinnerTwo } from "react-icons/cg";
+const CartItemSkeleton = () => {
+  return (
+    <div className="border border-gray-300 p-5 rounded-lg bg-white animate-pulse">
+      {/* Shop Info */}
+      <div className="flex flex-col sm:flex-row justify-between sm:items-center mt-3 mb-5">
+        <div className="flex gap-2 sm:gap-5 items-center">
+          <div className="size-12 rounded-full bg-gray-200" />
+          <div className="h-5 w-40 bg-gray-200 rounded" />
+        </div>
 
-const PaymentOptions = ({ data }: any) => {
+        <div className="flex gap-2 items-center">
+          <div className="h-5 w-28 bg-gray-200 rounded" />
+        </div>
+
+        <div className="h-8 w-24 bg-gray-200 rounded-full" />
+      </div>
+
+      {/* Product Info */}
+      <div className="space-y-6">
+        {[1, 2].map(i => (
+          <div
+            key={i}
+            className="flex flex-col sm:flex-row gap-5 border-b last:border-b-0 border-gray-300 pb-7 last:pb-0"
+          >
+            {/* Product Image */}
+            <div className="w-full sm:w-[180px] h-[140px] bg-gray-200 rounded-lg" />
+
+            <div className="grow space-y-4">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                <div className="h-5 w-40 bg-gray-200 rounded" />
+                <div className="h-6 w-16 bg-gray-200 rounded" />
+              </div>
+
+              {/* Remove Button Skeleton */}
+              <div className="h-4 w-20 bg-gray-200 rounded" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const PaymentOptions = ({ data, isLoading }: any) => {
   const [shippingOptionsOpen, setShippingOptionsOpen] = useState(false);
   const [shippingAddressOpen, setShippingAddressOpen] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("paypal");
+  const { mutate: clearCartMutation, isPending } = useClearCart();
 
   // Sub Total Price Count
   const cartItems = data?.cart?.flatMap((item: any) => item?.cart_items || []);
   const subTotalPrice = cartItems?.reduce((acc: number, item: any) => {
-    return acc + (item?.product?.product_price || 0);
+    return acc + (item?.product?.product_price * item?.quantity || 0);
   }, 0);
 
   // Shipping Price
@@ -30,17 +76,47 @@ const PaymentOptions = ({ data }: any) => {
 
   return (
     <section className="mb-10">
-      <h3 className="section_sub_title">
-        {data?.total_cart_items} Items In Your Cart
-      </h3>
+      <div className="flex items-center justify-between">
+        <h3 className="section_sub_title">
+          {data?.total_cart_items
+            ? `${data?.total_cart_items} Items In Your Cart`
+            : "Card is empty"}
+        </h3>
+        {data && (
+          <button
+            disabled={isPending}
+            onClick={() => clearCartMutation()}
+            className={`px-3 py-1.5 text-sm rounded-full font-semibold bg-red-500 text-white flex gap-1 items-center ${
+              isPending ? "cursor-not-allowed" : "cursor-pointer"
+            }`}
+          >
+            {isPending ? (
+              <span className="flex gap-2 items-center justify-center">
+                <CgSpinnerTwo className="animate-spin" />
+                <span>Clearing...</span>
+              </span>
+            ) : (
+              <span className="flex gap-1 items-center">
+                <TiDelete className="text-lg" />
+                Clear Cart
+              </span>
+            )}
+          </button>
+        )}
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 xl:gap-10">
         {/* Left - Products */}
         <div className=" lg:col-span-8">
           <div className="space-y-7">
-            {data?.cart?.map((item: any) => (
-              <CartItem key={item?.id} item={item} />
-            ))}
+            {isLoading
+              ? [1, 2].map((_, idx) => <CartItemSkeleton key={idx} />)
+              : !data || data?.length === 0
+              ? "No Cart Found"
+              : data?.cart?.map((item: any) => (
+                  <CartItem key={item?.id} item={item} />
+                ))}
+            {}
           </div>
         </div>
 
