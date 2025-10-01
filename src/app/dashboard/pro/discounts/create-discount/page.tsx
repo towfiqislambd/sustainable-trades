@@ -9,7 +9,7 @@ const CreateDiscount = () => {
   const [appliesTo, setAppliesTo] = useState("Any Order");
 
   return (
-    <div className="p-8">
+    <div className="p-4 lg:p-8">
       {/* Title */}
       <h2 className="text-[30px] md:text-[40px] font-semibold text-[#13141D]">
         Create Discount
