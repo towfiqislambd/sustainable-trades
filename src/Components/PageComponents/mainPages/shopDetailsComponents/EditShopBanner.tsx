@@ -13,21 +13,28 @@ import {
   StarSvg,
 } from "@/Components/Svg/SvgContainer";
 import Container from "@/Components/Common/Container";
+import { useUpdateShopBanner, useUpdateShopPhoto } from "@/Hooks/api/cms_api";
+import { ImSpinner9 } from "react-icons/im";
 
 const EditShopBanner = ({ data }: any) => {
-  console.log(data);
   const bannerUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${data?.shop_info?.shop_banner}`;
   const [shopProfile, setShopProfile] = useState<any>(null);
   const [shopCover, setShopCover] = useState<any>(null);
+  const { mutate: updateShopPhoto, isPending: profilePending } =
+    useUpdateShopPhoto();
+  const { mutate: updateShopBanner, isPending: bannerPending } =
+    useUpdateShopBanner();
 
   return (
     <section className="mb-12">
       {/* Shop Profile and Cover photo */}
       <div
         style={{
-          backgroundImage: `url(${bannerUrl})`,
+          backgroundImage: `url(${bannerPending ? null : bannerUrl})`,
         }}
-        className="h-[350px] bg-no-repeat bg-center bg-cover bg-black/50 bg-blend-overlay relative"
+        className={`h-[350px] bg-no-repeat bg-center bg-cover bg-black/50 bg-blend-overlay relative ${
+          bannerPending && "animate-pulse"
+        }`}
       >
         <Container>
           <div className="flex h-[350px] items-end relative">
@@ -46,18 +53,21 @@ const EditShopBanner = ({ data }: any) => {
               onChange={e => {
                 const file = e.target.files?.[0];
                 if (file) {
-                  setShopCover(URL.createObjectURL(file));
+                  setShopCover(file);
+                  updateShopBanner({ shop_banner: shopCover });
                 }
               }}
             />
 
-            <div className="size-[180px] -mb-10 relative">
-              <label
-                htmlFor="profile"
-                className="absolute right-2 top-1 bg-white size-10 cursor-pointer rounded-full grid place-items-center z-30 border border-gray-200"
-              >
-                <EditIconSvg />
-              </label>
+            <figure className="size-[180px] -mb-10 relative bg-gray-300 grid place-items-center rounded-full border-[5px] border-white">
+              {!profilePending && (
+                <label
+                  htmlFor="profile"
+                  className="absolute right-2 top-1 bg-white size-10 cursor-pointer rounded-full grid place-items-center z-30 border border-gray-200"
+                >
+                  <EditIconSvg />
+                </label>
+              )}
 
               <input
                 type="file"
@@ -67,18 +77,22 @@ const EditShopBanner = ({ data }: any) => {
                 onChange={e => {
                   const file = e.target.files?.[0];
                   if (file) {
-                    setShopProfile(URL.createObjectURL(file));
+                    setShopProfile(file);
+                    updateShopPhoto({ shop_image: shopProfile });
                   }
                 }}
               />
-
-              <Image
-                src={`${process.env.NEXT_PUBLIC_SITE_URL}/${data?.shop_info?.shop_image}`}
-                alt="shop_profile"
-                fill
-                className="size-full rounded-full border-[5px] border-white"
-              />
-            </div>
+              {profilePending ? (
+                <ImSpinner9 className="animate-spin text-6xl text-primary-blue" />
+              ) : (
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_SITE_URL}/${data?.shop_info?.shop_image}`}
+                  alt="shop_profile"
+                  fill
+                  className="size-full rounded-full"
+                />
+              )}
+            </figure>
           </div>
         </Container>
       </div>

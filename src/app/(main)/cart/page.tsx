@@ -12,9 +12,9 @@ const page = () => {
   return (
     <section className="my-10">
       <Container>
-        <PaymentOptions data={cartData?.data} />
+        <PaymentOptions data={cartData?.data} isLoading={isLoading} />
         {/* <SimilarItems /> */}
-        <ShopLocation />
+        <ShopLocation cartData={cartData?.data} />
       </Container>
     </section>
   );
