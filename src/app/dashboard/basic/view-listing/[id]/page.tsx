@@ -1,28 +1,96 @@
 "use client";
 
-import React, { useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef, useState, useEffect, use } from "react";
 import { FaAngleRight, FaPlay, FaPlus } from "react-icons/fa";
 import { MdArrowOutward, MdDelete } from "react-icons/md";
 import Preview from "../../../../../Assets/tomato.png";
 import Image from "next/image";
 import Link from "next/link";
+import { useGetSingleListing } from "@/Hooks/api/dashboard_api";
+import {
+  getProductCategoriesClient,
+  getProductSubCategoriesClient,
+} from "@/Hooks/api/cms_api";
+import useAuth from "@/Hooks/useAuth";
 
-const CreateListing = () => {
+interface DetailsProps {
+  id: string | number;
+}
+
+const Details = ({ params }: { params: Promise<{ id: string }> }) => {
+  const { user } = useAuth();
+  console.log(user);
+
+  const { id } = use(params);
+  const { data: listing, isLoading } = useGetSingleListing(id);
+  console.log(id);
+
   const [images, setImages] = useState<string[]>([]);
   const [mainImage, setMainImage] = useState<string | null>(null);
-  const [video, setVideo] = useState<File | null>(null);
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
   const [showPlayButton, setShowPlayButton] = useState(true);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [quantity, setQuantity] = useState<string>("12 lbs");
+  const [quantity, setQuantity] = useState<string>("");
   const [unlimitedStock, setUnlimitedStock] = useState(false);
   const [outOfStock, setOutOfStock] = useState(false);
   const [Featured, setFeatured] = useState(false);
   const [metaTags, setMetaTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState("");
+  const [productName, setProductName] = useState("");
+  const [price, setPrice] = useState("");
+  const [cost, setCost] = useState("");
+  const [weight, setWeight] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [subcategory, setSubcategory] = useState("");
+  const [fulfillment, setFulfillment] = useState("");
+  const [sellingOption, setSellingOption] = useState("");
+  const { data: categoriesData } = getProductCategoriesClient();
+  const { data: subcategoriesData } = getProductSubCategoriesClient();
+
+  // Populate form data from API response
+  useEffect(() => {
+    if (listing?.data) {
+      const productData = listing.data;
+
+      setProductName(productData.product_name || "");
+      setPrice(`$${productData.product_price || 0}`);
+      setCost(`$${productData.cost || 0}`);
+      setWeight(productData.weight || "");
+      setDescription(productData.description || "");
+      setQuantity(productData.product_quantity?.toString() || "");
+      setUnlimitedStock(productData.unlimited_stock || false);
+      setOutOfStock(productData.out_of_stock || false);
+      setFeatured(productData.is_featured || false);
+      setMetaTags(
+        productData.meta_tags?.map((tag: { tag: string }) => tag.tag) || []
+      );
+
+      const baseUrl = process.env.NEXT_PUBLIC_SITE_URL;
+      const imageUrls =
+        productData.images?.map((img: { image: string }) =>
+          img.image.startsWith("http") ? img.image : `${baseUrl}/${img.image}`
+        ) || [];
+      setImages(imageUrls);
+      if (imageUrls.length > 0) setMainImage(imageUrls[0]);
+
+      setVideoUrl(productData.video ? `${baseUrl}/${productData.video}` : null);
+      setShowPlayButton(!productData.video);
+
+      // ✅ Set Category & Subcategory by ID
+      setCategory(productData.category_id?.toString() || "");
+      setSubcategory(productData.sub_category_id?.toString() || "");
+
+      setFulfillment(productData.fulfillment || "");
+      setSellingOption(productData.selling_option || "");
+    }
+  }, [listing]);
+
+  const videoSrc = useMemo(() => videoUrl, [videoUrl]);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const fileArray = Array.from(e.target.files).map((file) =>
+      const fileArray = Array.from(e.target.files).map(file =>
         URL.createObjectURL(file)
       );
 
@@ -30,20 +98,16 @@ const CreateListing = () => {
         setMainImage(fileArray[0]);
       }
 
-      setImages((prev) => [...prev, ...fileArray]);
+      setImages(prev => [...prev, ...fileArray]);
     }
   };
 
-  const videoURL = useMemo(
-    () => (video ? URL.createObjectURL(video) : null),
-    [video]
-  );
-
-  // Handle video upload
+  // Handle video upload (for new videos during edit)
   const handleVideoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      setVideo(file);
+      const objectUrl = URL.createObjectURL(file);
+      setVideoUrl(objectUrl); // Treat as URL for consistency
       setShowPlayButton(true);
 
       // Ensure video is loaded
@@ -59,7 +123,7 @@ const CreateListing = () => {
     videoRef.current
       .play()
       .then(() => setShowPlayButton(false))
-      .catch((err) => console.error("Playback failed:", err));
+      .catch(err => console.error("Playback failed:", err));
   };
 
   // Pause video
@@ -88,53 +152,29 @@ const CreateListing = () => {
   };
 
   const handleRemoveTag = (tag: string) => {
-    setMetaTags(metaTags.filter((t) => t !== tag));
+    setMetaTags(metaTags.filter(t => t !== tag));
   };
-  const [category, setCategory] = useState("");
-  const [subcategory, setSubcategory] = useState("");
 
-  const categories: { [key: string]: string[] } = {
-    "Farm to Table": [
-      "Acupuncture",
-      "Akashic Record",
-      "Coaching",
-      "Cranial Sacral",
-      "Qi Gong",
-      "Somatic Practices",
-      "Trauma Resolution",
-      "Yoga",
-      "Reiki",
-      "Sound/Light Healing Therapy",
-      "Hypnosis",
-    ],
-    "Arts & Artisans": [],
-    "Bath & Beauty": [],
-    "Books & Literature": [],
-    "Healing & Wellness": [
-      "Acupuncture",
-      "Akashic Record",
-      "Coaching",
-      "Cranial Sacral",
-      "Qi Gong",
-      "Somatic Practices",
-      "Trauma Resolution",
-      "Yoga",
-      "Reiki",
-      "Sound/Light Healing Therapy",
-      "Hypnosis",
-    ],
-  };
+  if (isLoading) {
+    return <div>Loading...</div>; // Simple loading state
+  }
+
+  const statusBadge =
+    listing?.data?.status === "listing"
+      ? "Active"
+      : listing?.data?.status || "Pending";
+
   return (
     <div>
       <div className="flex justify-between items-center">
         <div>
           <h3 className="text-[30px] md:text-[40px] font-semibold text-[#13141D]">
-            Organic Cherry Tomatoes
+            {productName}
           </h3>
           <div className="flex gap-x-2 items-center pt-2 cursor-pointer">
             <h4 className="text-[16px] text-[#13141D]">Listings</h4>
             <FaAngleRight className="mt-1" />
-            <h5 className="text-[16px] text-[#13141D]">Add a Listing</h5>
+            <h5 className="text-[16px] text-[#13141D]">Edit Listing</h5>
           </div>
         </div>
         <Link href="/dashboard/pro/view-listing">
@@ -156,7 +196,8 @@ const CreateListing = () => {
             </h3>
             <input
               type="text"
-              defaultValue="Organic Cherry Tomatoes"
+              value={productName}
+              onChange={e => setProductName(e.target.value)}
               className="w-full border text-[18px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2 outline-none"
             />
           </div>
@@ -176,8 +217,8 @@ const CreateListing = () => {
               <div className="w-full relative h-[400px] md:h-[500px] flex items-center justify-center  rounded-lg text-gray-400 outline-none">
                 <Image
                   src={Preview}
-                    alt="Main Preview"
-                    fill
+                  alt="Main Preview"
+                  fill
                   className="w-full h-full object-cover rounded-lg border"
                 />
               </div>
@@ -215,7 +256,7 @@ const CreateListing = () => {
             <input
               type="text"
               value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
+              onChange={e => setQuantity(e.target.value)}
               className="w-full md:w-[350px] border border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2 text-[20px] text-[#13141D] font-normal outline-0"
             />
             <div className="flex flex-col gap-4 mt-2">
@@ -276,21 +317,21 @@ const CreateListing = () => {
                   />
                 </label>
 
-                {video && (
+                {videoUrl && (
                   <button
                     className="px-4 py-2 border rounded-lg"
-                    onClick={() => setVideo(null)}
+                    onClick={() => setVideoUrl(null)}
                   >
                     Remove video
                   </button>
                 )}
               </div>
 
-              {video && videoURL && (
+              {videoUrl && (
                 <div className="mt-4 w-[300px] relative">
                   <video
                     ref={videoRef}
-                    src={videoURL}
+                    src={videoUrl}
                     className="h-[250px] w-full rounded-lg object-cover"
                     onClick={handlePlayPause} // clicking video toggles play/pause
                   />
@@ -299,7 +340,7 @@ const CreateListing = () => {
                   {showPlayButton && (
                     <button
                       className="h-24 w-24 bg-[#626161] text-white rounded-full absolute cursor-pointer top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 flex justify-center items-center"
-                      onClick={(e) => {
+                      onClick={e => {
                         e.stopPropagation();
                         handlePlay();
                       }}
@@ -326,8 +367,8 @@ const CreateListing = () => {
           <div>
             <p className="font-semibold text-[20px] md:text-[24px] text-[#13141D]">
               Listing Status:{" "}
-              <span className="px-3 py-2 text-white text-sm rounded-full bg-[#757575] text-white]">
-                Pending
+              <span className="px-3 py-2 text-white text-sm rounded-full bg-[#757575]">
+                {statusBadge}
               </span>
             </p>
           </div>
@@ -342,7 +383,8 @@ const CreateListing = () => {
             </h3>
             <input
               type="text"
-              defaultValue="$2.99/lb"
+              value={price}
+              onChange={e => setPrice(e.target.value)}
               className="w-full border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4  outline-0"
             />
           </div>
@@ -352,7 +394,8 @@ const CreateListing = () => {
             </h3>
             <input
               type="text"
-              defaultValue="$5.99/lb"
+              value={cost}
+              onChange={e => setCost(e.target.value)}
               className="w-full border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4  outline-0"
             />
           </div>
@@ -362,7 +405,8 @@ const CreateListing = () => {
             </h3>
             <input
               type="text"
-              defaultValue="20 KG"
+              value={weight}
+              onChange={e => setWeight(e.target.value)}
               className="w-full border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 outline-0"
             />
           </div>
@@ -374,62 +418,74 @@ const CreateListing = () => {
             </h3>
             <textarea
               rows={5}
-              defaultValue="Grown using organic farming practices, our cherry tomatoes are free from pesticides and artificial additives, ensuring a pure and wholesome experience."
+              value={description}
+              onChange={e => setDescription(e.target.value)}
               className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4  outline-0"
             />
           </div>
+          {/* Category Dropdown */}
+          {/* Category Dropdown */}
+          <h3 className="text-[20px] md:text-[24px] font-semibold text-[#13141D]">
+            Category
+          </h3>
+          <select
+            className="w-full border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2"
+            value={category}
+            onChange={e => {
+              setCategory(e.target.value);
+              setSubcategory(""); // reset when category changes
+            }}
+          >
+            <option value="">Select Category</option>
+            {categoriesData?.data?.map((cat: any) => (
+              <option key={cat.id} value={String(cat.id)}>
+                {cat.name || cat.category_name} {/* handle both cases */}
+              </option>
+            ))}
+          </select>
 
-          <div>
-            {/* Category Dropdown */}
-            <h3 className="text-[20px] md:text-[24px] font-semibold text-[#13141D]">
-              Category
-            </h3>
-            <select
-              className="w-full border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2"
-              value={category}
-              onChange={(e) => {
-                setCategory(e.target.value);
-                setSubcategory("");
-              }}
-            >
-              <option value="">Select Category</option>
-              {Object.keys(categories).map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
-
-            {/* Subcategory Dropdown */}
-            {category && categories[category].length > 0 && (
-              <div className="mt-4">
-                <h3 className="text-[20px] md:text-[24px] font-semibold text-[#13141D]">
-                  Subcategory
-                </h3>
-                <select
-                  className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2"
-                  value={subcategory}
-                  onChange={(e) => setSubcategory(e.target.value)}
-                >
-                  <option value="">Select Subcategory</option>
-                  {categories[category].map((sub) => (
-                    <option key={sub} value={sub}>
-                      {sub}
+          {/* Subcategory Dropdown */}
+          {subcategoriesData?.data && (
+            <div className="mt-4">
+              <h3 className="text-[20px] md:text-[24px] font-semibold text-[#13141D]">
+                Subcategory
+              </h3>
+              <select
+                className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2"
+                value={subcategory}
+                onChange={e => setSubcategory(e.target.value)}
+              >
+                <option value="">Select Subcategory</option>
+                {subcategoriesData.data
+                  ?.filter(
+                    (sub: any) =>
+                      String(sub.category_id) === String(category) || // match by parent category
+                      String(sub.id) === String(subcategory) // keep saved subcategory visible
+                  )
+                  .map((sub: any) => (
+                    <option key={sub.id} value={String(sub.id)}>
+                      {sub.name || sub.sub_category_name}
                     </option>
                   ))}
-                </select>
-              </div>
-            )}
-          </div>
+              </select>
+            </div>
+          )}
+
           <div>
             <h3 className="text-[20px] md:text-[24px] font-semibold text-[#13141D]">
               Fulfillment
             </h3>
-            <select className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2">
-              <option>Select Fulfillment</option>
-              <option>Arrange Local Pickup</option>
-              <option>Shipping</option>
-              <option>Arrange Local Pickup or Shipping</option>
+            <select
+              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2"
+              value={fulfillment}
+              onChange={e => setFulfillment(e.target.value)}
+            >
+              <option value="">Select Fulfillment</option>
+              <option value="Arrange Local Pickup">Arrange Local Pickup</option>
+              <option value="Shipping">Shipping</option>
+              <option value="Arrange Local Pickup or Shipping">
+                Arrange Local Pickup or Shipping
+              </option>
             </select>
           </div>
 
@@ -452,7 +508,7 @@ const CreateListing = () => {
               <input
                 type="text"
                 value={newTag}
-                onChange={(e) => setNewTag(e.target.value)}
+                onChange={e => setNewTag(e.target.value)}
                 className="flex-1  border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 pl-10 "
               />
               <button
@@ -468,11 +524,17 @@ const CreateListing = () => {
             <h3 className="text-[20px] md:text-[24px] font-semibold text-[#13141D]">
               Selling Option
             </h3>
-            <select className="w-full border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2">
-              <option>Choose Below</option>
-              <option>Trade/Barter</option>
-              <option>For Sale or Trade Barter</option>
-              <option>For Sale</option>
+            <select
+              className="w-full border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2"
+              value={sellingOption}
+              onChange={e => setSellingOption(e.target.value)}
+            >
+              <option value="">Choose Below</option>
+              <option value="Trade/Barter">Trade/Barter</option>
+              <option value="For Sale or Trade Barter">
+                For Sale or Trade Barter
+              </option>
+              <option value="For Sale">For Sale</option>
             </select>
           </div>
 
@@ -491,4 +553,4 @@ const CreateListing = () => {
   );
 };
 
-export default CreateListing;
+export default Details;

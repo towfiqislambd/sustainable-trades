@@ -19,5 +19,25 @@ export const useAddProduct = () => {
   });
 };
 
+// Get All Listings
+export const getallListings = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-all-listings"],
+    isPrivate: true,
+    endpoint: "api/products?short_by=a-z",
+  });
+};
+// Fetch a single product/listing by ID
+export const useGetSingleListing = (id: string | number) => {
+  return useClientApi({
+    method: "get",
+    key: ["get-single-listing", id],
+    isPrivate: true,
+    endpoint: `/api/product/${id}`
+  });
+}
+
+
 
 
