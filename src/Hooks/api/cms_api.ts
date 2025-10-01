@@ -378,3 +378,49 @@ export const useUpdateCart = (cart_id: number | null) => {
     },
   });
 };
+
+// Update Shop Photo
+export const useUpdateShopPhoto = () => {
+  const queryClient = useQueryClient();
+  return useClientApi({
+    method: "post",
+    key: ["update-shop-photo"],
+    isPrivate: true,
+    endpoint: "/api/shop/image-update",
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        queryClient.invalidateQueries("get-shop-details" as any);
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// Update Shop Banner
+export const useUpdateShopBanner = () => {
+  const queryClient = useQueryClient();
+  return useClientApi({
+    method: "post",
+    key: ["update-shop-banner"],
+    isPrivate: true,
+    endpoint: "/api/shop/banner-update",
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        queryClient.invalidateQueries("get-shop-details" as any);
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
