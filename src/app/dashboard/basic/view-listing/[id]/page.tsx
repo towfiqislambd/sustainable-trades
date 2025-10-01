@@ -6,12 +6,57 @@ import { MdArrowOutward, MdDelete } from "react-icons/md";
 import Preview from "../../../../../Assets/tomato.png";
 import Image from "next/image";
 import Link from "next/link";
-import { useGetSingleListing } from "@/Hooks/api/dashboard_api";
+import { useGetSingleListing, useupdateProduct } from "@/Hooks/api/dashboard_api";
 import {
   getProductCategoriesClient,
   getProductSubCategoriesClient,
 } from "@/Hooks/api/cms_api";
 import useAuth from "@/Hooks/useAuth";
+
+// Define types for the API response and error
+interface UpdateProductResponse {
+  success: boolean;
+  message: string;
+  data: {
+    id: number;
+    shop_info_id: number;
+    product_name: string;
+    product_price: string;
+    product_quantity: string | null;
+    weight: string;
+    cost: string;
+    unlimited_stock: boolean;
+    out_of_stock: boolean;
+    video: string | null;
+    description: string;
+    category_id: string;
+    sub_category_id: string;
+    fulfillment: string;
+    selling_option: string;
+    status: string;
+    is_featured: boolean;
+    images: Array<{
+      id: number;
+      product_id: number;
+      image: string;
+    }>;
+    meta_tags: Array<{
+      id: number;
+      product_id: number;
+      tag: string;
+    }>;
+  };
+  code: number;
+}
+
+interface UpdateProductError {
+  response?: {
+    data?: {
+      message: string;
+    };
+  };
+  // Add other error properties if needed, e.g., message: string;
+}
 
 interface DetailsProps {
   id: string | number;
@@ -24,6 +69,9 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
   const { data: listing, isLoading } = useGetSingleListing(id);
   console.log(id);
+
+  // Update mutation hook
+  const updateProduct = useupdateProduct(id);
 
   const [images, setImages] = useState<string[]>([]);
   const [mainImage, setMainImage] = useState<string | null>(null);
@@ -48,41 +96,56 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
   const { data: categoriesData } = getProductCategoriesClient();
   const { data: subcategoriesData } = getProductSubCategoriesClient();
 
-  // Populate form data from API response
+  // New states for file handling
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [existingImages, setExistingImages] = useState<string[]>([]);
+  const [videoFile, setVideoFile] = useState<File | null>(null);
+  const [keptImagePaths, setKeptImagePaths] = useState<string[]>([]); // To track which existing images to keep
+
+  // Function to update local state with product data
+  const updateLocalStateWithProductData = (
+    productData: UpdateProductResponse["data"]
+  ) => {
+    setProductName(productData.product_name || "");
+    setPrice(`$${productData.product_price || 0}`);
+    setCost(`$${productData.cost || 0}`);
+    setWeight(productData.weight || "");
+    setDescription(productData.description || "");
+    setQuantity(productData.product_quantity?.toString() || "");
+    setUnlimitedStock(productData.unlimited_stock || false);
+    setOutOfStock(productData.out_of_stock || false);
+    setFeatured(productData.is_featured || false);
+    setMetaTags(
+      productData.meta_tags?.map((tag: { tag: string }) => tag.tag) || []
+    );
+
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL;
+    const imageUrls =
+      productData.images?.map((img: { image: string }) =>
+        img.image.startsWith("http") ? img.image : `${baseUrl}/${img.image}`
+      ) || [];
+    setExistingImages(imageUrls);
+    setKeptImagePaths(imageUrls); // Update kept to new existing
+    setImages(imageUrls);
+    if (imageUrls.length > 0) setMainImage(imageUrls[0]);
+
+    setVideoUrl(productData.video ? `${baseUrl}/${productData.video}` : null);
+    setShowPlayButton(!productData.video);
+    setVideoFile(null); // Clear any pending file
+
+    // ✅ Set Category & Subcategory by ID
+    setCategory(productData.category_id?.toString() || "");
+    setSubcategory(productData.sub_category_id?.toString() || "");
+
+    setFulfillment(productData.fulfillment || "");
+    setSellingOption(productData.selling_option || "");
+    setImageFiles([]); // Clear pending new files
+  };
+
+  // Populate form data from API response on load
   useEffect(() => {
     if (listing?.data) {
-      const productData = listing.data;
-
-      setProductName(productData.product_name || "");
-      setPrice(`$${productData.product_price || 0}`);
-      setCost(`$${productData.cost || 0}`);
-      setWeight(productData.weight || "");
-      setDescription(productData.description || "");
-      setQuantity(productData.product_quantity?.toString() || "");
-      setUnlimitedStock(productData.unlimited_stock || false);
-      setOutOfStock(productData.out_of_stock || false);
-      setFeatured(productData.is_featured || false);
-      setMetaTags(
-        productData.meta_tags?.map((tag: { tag: string }) => tag.tag) || []
-      );
-
-      const baseUrl = process.env.NEXT_PUBLIC_SITE_URL;
-      const imageUrls =
-        productData.images?.map((img: { image: string }) =>
-          img.image.startsWith("http") ? img.image : `${baseUrl}/${img.image}`
-        ) || [];
-      setImages(imageUrls);
-      if (imageUrls.length > 0) setMainImage(imageUrls[0]);
-
-      setVideoUrl(productData.video ? `${baseUrl}/${productData.video}` : null);
-      setShowPlayButton(!productData.video);
-
-      // ✅ Set Category & Subcategory by ID
-      setCategory(productData.category_id?.toString() || "");
-      setSubcategory(productData.sub_category_id?.toString() || "");
-
-      setFulfillment(productData.fulfillment || "");
-      setSellingOption(productData.selling_option || "");
+      updateLocalStateWithProductData(listing.data);
     }
   }, [listing]);
 
@@ -90,15 +153,14 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const fileArray = Array.from(e.target.files).map(file =>
-        URL.createObjectURL(file)
-      );
+      const fileArray = Array.from(e.target.files);
+      setImageFiles(prev => [...prev, ...fileArray]);
 
-      if (!mainImage) {
-        setMainImage(fileArray[0]);
+      const previewUrls = fileArray.map(file => URL.createObjectURL(file));
+      if (!mainImage && previewUrls.length > 0) {
+        setMainImage(previewUrls[0]);
       }
-
-      setImages(prev => [...prev, ...fileArray]);
+      setImages(prev => [...prev, ...previewUrls]);
     }
   };
 
@@ -106,6 +168,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
   const handleVideoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
+      setVideoFile(file);
       const objectUrl = URL.createObjectURL(file);
       setVideoUrl(objectUrl); // Treat as URL for consistency
       setShowPlayButton(true);
@@ -114,6 +177,27 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
       setTimeout(() => {
         videoRef.current?.load();
       }, 0);
+    }
+  };
+
+  // Remove image (for existing or new)
+  const handleRemoveImage = (imageUrl: string, isNew: boolean) => {
+    if (isNew) {
+      // Remove from files and previews
+      const fileIndex = imageFiles.findIndex(
+        file => URL.createObjectURL(file) === imageUrl
+      );
+      if (fileIndex > -1) {
+        setImageFiles(prev => prev.filter((_, idx) => idx !== fileIndex));
+      }
+      setImages(prev => prev.filter(url => url !== imageUrl));
+      if (mainImage === imageUrl) setMainImage(null);
+    } else {
+      // Remove from kept existing
+      setKeptImagePaths(prev => prev.filter(path => path !== imageUrl));
+      setImages(prev => prev.filter(url => url !== imageUrl));
+      if (mainImage === imageUrl)
+        setMainImage(keptImagePaths[0] || existingImages[0] || null);
     }
   };
 
@@ -155,6 +239,61 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
     setMetaTags(metaTags.filter(t => t !== tag));
   };
 
+  // Handle form submission
+  const handleUpdateListing = async () => {
+    const formData = new FormData();
+
+    // Append text fields
+    formData.append("product_name", productName);
+    formData.append("product_price", price.replace("$", "").trim());
+    formData.append("cost", cost.replace("$", "").trim());
+    formData.append("weight", weight);
+    formData.append("product_quantity", quantity);
+    formData.append("unlimited_stock", unlimitedStock ? "1" : "0");
+    formData.append("out_of_stock", outOfStock ? "1" : "0");
+    formData.append("description", description);
+    formData.append("category_id", category);
+    formData.append("sub_category_id", subcategory);
+    formData.append("fulfillment", fulfillment);
+    formData.append("selling_option", sellingOption);
+    formData.append("is_featured", Featured ? "1" : "0");
+
+    // Meta tags
+    metaTags.forEach((tag, index) => {
+      formData.append(`meta_tags[${index}]`, tag);
+    });
+
+    // Existing images to keep (as paths)
+    keptImagePaths.forEach((path, index) => {
+      formData.append(`kept_images[${index}]`, path.split("/").pop() || path); // Send just the filename/path relative
+    });
+
+    // New image files
+    imageFiles.forEach(file => {
+      formData.append("images", file);
+    });
+
+    // Video file if new
+    if (videoFile) {
+      formData.append("video", videoFile);
+    } else if (!videoUrl) {
+      formData.append("video", ""); // Or null, to remove if needed
+    }
+
+    // Trigger the mutation with typed callbacks
+    updateProduct.mutate(formData, {
+      onSuccess: (data: UpdateProductResponse) => {
+        console.log("Update successful:", data);
+        // Update local state with the new data
+        updateLocalStateWithProductData(data.data);
+        // Optionally redirect or show success message
+      },
+      onError: (error: UpdateProductError) => {
+        console.error("Update failed:", error);
+      },
+    });
+  };
+
   if (isLoading) {
     return <div>Loading...</div>; // Simple loading state
   }
@@ -163,6 +302,12 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
     listing?.data?.status === "listing"
       ? "Active"
       : listing?.data?.status || "Pending";
+
+  // Combined images for preview (existing kept + new previews)
+  const previewImages = [
+    ...keptImagePaths,
+    ...images.filter(url => !keptImagePaths.includes(url)),
+  ];
 
   return (
     <div>
@@ -226,14 +371,23 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
 
             {/* Thumbnails */}
             <div className="flex gap-2 flex-wrap mt-3">
-              {images.map((src, idx) => (
-                <img
-                  key={idx}
-                  src={src}
-                  alt="preview"
-                  className="w-20 h-20 md:w-24 md:h-24 object-cover rounded-lg border cursor-pointer hover:opacity-80"
-                  onClick={() => setMainImage(src)}
-                />
+              {previewImages.map((src, idx) => (
+                <div key={idx} className="relative">
+                  <img
+                    src={src}
+                    alt="preview"
+                    className="w-20 h-20 md:w-24 md:h-24 object-cover rounded-lg border cursor-pointer hover:opacity-80"
+                    onClick={() => setMainImage(src)}
+                  />
+                  <button
+                    onClick={() =>
+                      handleRemoveImage(src, !keptImagePaths.includes(src))
+                    }
+                    className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs"
+                  >
+                    x
+                  </button>
+                </div>
               ))}
               <label className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center bg-[#F5F5F5] rounded-lg cursor-pointer">
                 <FaPlus />
@@ -257,12 +411,14 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
               type="text"
               value={quantity}
               onChange={e => setQuantity(e.target.value)}
+              required
               className="w-full md:w-[350px] border border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2 text-[20px] text-[#13141D] font-normal outline-0"
             />
             <div className="flex flex-col gap-4 mt-2">
               <label className="flex items-center gap-2 text-[17px] md:text-[20px] text-[#13141D] font-semibold">
                 Unlimited Stock
                 <input
+                  disabled
                   type="checkbox"
                   checked={unlimitedStock}
                   onChange={() => setUnlimitedStock(!unlimitedStock)}
@@ -282,6 +438,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                 Out of Stock
                 <input
                   type="checkbox"
+                  disabled
                   checked={outOfStock}
                   onChange={() => setOutOfStock(!outOfStock)}
                   className="mt-1 accent-[#274F45]"
@@ -320,7 +477,11 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                 {videoUrl && (
                   <button
                     className="px-4 py-2 border rounded-lg"
-                    onClick={() => setVideoUrl(null)}
+                    onClick={() => {
+                      setVideoUrl(null);
+                      setVideoFile(null);
+                      setShowPlayButton(true);
+                    }}
                   >
                     Remove video
                   </button>
@@ -394,9 +555,10 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
             </h3>
             <input
               type="text"
+              disabled
               value={cost}
               onChange={e => setCost(e.target.value)}
-              className="w-full border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4  outline-0"
+              className="w-full border text-[16px] cursor-not-allowed bg-gray-300 md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4  outline-0"
             />
           </div>
           <div>
@@ -405,9 +567,10 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
             </h3>
             <input
               type="text"
+              disabled
               value={weight}
               onChange={e => setWeight(e.target.value)}
-              className="w-full border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 outline-0"
+              className="w-full border text-[16px] cursor-not-allowed bg-gray-300  md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 outline-0"
             />
           </div>
 
@@ -545,8 +708,12 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
         <button className="text-red-600 w-full sm:w-fit flex items-center justify-center gap-1 mt-4 cursor-pointer">
           <MdDelete /> Delete Listing
         </button>
-        <button className="bg-[#E48872] w-full sm:w-fit text-white py-2.5 md:py-5 px-12 cursor-pointer rounded-lg font-semibold hover:bg-[#a34739] mt-3 md:mt-6">
-          Save Listing
+        <button
+          onClick={handleUpdateListing}
+          disabled={updateProduct.isPending}
+          className="bg-[#E48872] w-full sm:w-fit text-white py-2.5 md:py-5 px-12 cursor-pointer rounded-lg font-semibold hover:bg-[#a34739] mt-3 md:mt-6 disabled:opacity-50"
+        >
+          {updateProduct.isPending ? "Updating..." : "Update Listing"}
         </button>
       </div>
     </div>

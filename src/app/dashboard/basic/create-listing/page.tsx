@@ -72,13 +72,13 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
     setValue,
   } = useForm<FormData>({
     defaultValues: {
-      product_name: "Organic Cherry Tomatoes",
-      product_price: "2.99",
+      product_name: "Product Name",
+      product_price: "00",
       product_quantity: "",
       weight: "",
       cost: "",
       description:
-        "Grown using organic farming practices, our cherry tomatoes are free from pesticides and artificial additives, ensuring a pure and wholesome experience.",
+        "...............",
       category_id: "",
       sub_category_id: "",
       fulfillment: "",

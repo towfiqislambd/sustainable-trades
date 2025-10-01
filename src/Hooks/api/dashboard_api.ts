@@ -19,6 +19,21 @@ export const useAddProduct = () => {
   });
 };
 
+export const useupdateProduct = (id: string | number) => {
+  return useClientApi({
+    method: "post",
+    key: ["update-product"],
+    isPrivate: true,
+    endpoint: `/api/product/update/${id}`,
+    onSuccess: (data: any) => {
+      if (data?.success) toast.success(data.message);
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
 // Get All Listings
 export const getallListings = () => {
   return useClientApi({
@@ -34,10 +49,6 @@ export const useGetSingleListing = (id: string | number) => {
     method: "get",
     key: ["get-single-listing", id],
     isPrivate: true,
-    endpoint: `/api/product/${id}`
+    endpoint: `/api/product/${id}`,
   });
-}
-
-
-
-
+};
