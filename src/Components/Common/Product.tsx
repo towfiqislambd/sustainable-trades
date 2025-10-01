@@ -65,8 +65,6 @@ const Product = ({
     addToCartMutation({ quantity: 1 });
   };
 
-  console.log(product);
-
   return (
     <div className="rounded-t-lg relative">
       {/* wishlist btn */}
@@ -88,13 +86,13 @@ const Product = ({
       )}
 
       {/* Stock Info */}
-      {user ? (
-        <button className="absolute top-3 left-3 shadow-lg font-medium px-3 py-1 rounded-full bg-accent-red text-white z-10 text-sm">
-          Stock Out
-        </button>
-      ) : (
+      {product?.product_quantity ? (
         <button className="absolute top-3 left-3 shadow-lg font-medium px-3 py-1 rounded-full bg-primary-green text-white z-10 text-sm">
           In Stock
+        </button>
+      ) : (
+        <button className="absolute top-3 left-3 shadow-lg font-medium px-3 py-1 rounded-full bg-accent-red text-white z-10 text-sm">
+          Stock Out
         </button>
       )}
 

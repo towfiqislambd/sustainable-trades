@@ -1,18 +1,22 @@
-import React, { useState } from "react";
 import Image from "next/image";
+import React, { useState } from "react";
+import { CgSpinnerTwo } from "react-icons/cg";
+import { useRemoveCart, useRemoveFromCart } from "@/Hooks/api/cms_api";
 import { LocationTwoSvg, MinSvg } from "@/Components/Svg/SvgContainer";
-import { useRemoveFromCart } from "@/Hooks/api/cms_api";
 
 const CartItem = ({ item }: any) => {
-  const [quantity, setQuantity] = useState<number>(1);
-  const [productId, setProductId] = useState<number | null>(null);
-  const { mutate: removeCartMutation, isPending } =
-    useRemoveFromCart(productId);
+  const [cartItemId, setCartItemId] = useState<number | null>(null);
+  const [cartId, setCartId] = useState<number | null>(null);
+  const { mutate: removeCartItemMutation, isPending: cartItemPending } =
+    useRemoveFromCart(cartItemId);
+  const { mutate: removeCartMutation, isPending: cartPending } = useRemoveCart(
+    item?.id
+  );
 
   return (
-    <div className="border border-gray-300 p-5 rounded-lg bg-white">
+    <div className="border border-gray-300 p-5 rounded-lg bg-white relative">
       {/* Shop Info */}
-      <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-5">
+      <div className="flex flex-col sm:flex-row justify-between sm:items-center mt-3 mb-5">
         <div className="flex gap-2 sm:gap-5 items-center">
           {/* Shop Image */}
           <figure className="size-12 rounded-full border border-gray-100 relative">
@@ -37,27 +41,41 @@ const CartItem = ({ item }: any) => {
             {item?.shop?.address?.address_line_1}
           </p>
         </div>
-      </div>
 
-      {/* Stock */}
-      {/* {item?.id === 1 && (
-        <p className="bg-[#D4E2CB] text-secondary-gray text-sm rounded px-20 py-1.5 mb-5 w-full text-center md:w-fit font-semibold">
-          Only 4 Left In Stock
-        </p>
-      )} */}
+        {/* Remove Cart */}
+        <button
+          disabled={cartPending}
+          onClick={() => {
+            setCartId(item?.id);
+            removeCartMutation();
+          }}
+          className={`absolute right-2 top-2 px-3 py-1 text-sm grid place-items-center rounded-full font-semibold bg-accent-red text-white ${
+            cartPending ? "cursor-not-allowed" : "cursor-pointer"
+          }`}
+        >
+          {cartPending && cartId === item?.id ? (
+            <p className="flex gap-2 items-center justify-center">
+              <CgSpinnerTwo className="animate-spin" />
+              <span>Deleting...</span>
+            </p>
+          ) : (
+            "Delete cart"
+          )}
+        </button>
+      </div>
 
       {/* Product Info */}
       <div className="space-y-6">
-        {item?.cart_items?.map((product: any) => (
+        {item?.cart_items?.map((cart: any) => (
           <div
-            key={product.id}
+            key={cart.id}
             className="flex flex-col sm:flex-row gap-5 border-b last:border-b-0 border-gray-300 pb-7 last:pb-0"
           >
             {/* Product Image */}
             <figure className="w-full sm:w-[180px] h-[140px] shrink-0 rounded-lg border border-gray-100 relative">
               <div className="absolute inset-0 bg-black/20 rounded-lg" />
               <Image
-                src={`${process.env.NEXT_PUBLIC_SITE_URL}/${product?.product?.images[0]?.image}`}
+                src={`${process.env.NEXT_PUBLIC_SITE_URL}/${cart?.product?.images[0]?.image}`}
                 alt="product image"
                 fill
                 className="w-full h-full object-cover rounded-lg"
@@ -68,12 +86,12 @@ const CartItem = ({ item }: any) => {
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3">
                 {/* Product Name */}
                 <h3 className="text-xl font-semibold text-secondary-black">
-                  {product?.product?.product_name}
+                  {cart?.product?.product_name}
                 </h3>
 
                 {/* Product Price */}
                 <p className="text-2xl font-bold">
-                  ${product?.product?.product_price}
+                  ${cart?.product?.product_price}
                 </p>
               </div>
 
@@ -83,18 +101,29 @@ const CartItem = ({ item }: any) => {
                   <MinSvg />
                 </button>
                 <p>Qty:</p>
-                <p>{product?.quantity}</p>
+                <p>{cart?.quantity}</p>
                 <button className="cursor-pointer">+</button>
               </div>
 
               {/* Remove btns */}
               <button
+                disabled={cartItemPending}
                 onClick={() => {
-                  setProductId(product?.product_id);
+                  setCartItemId(cart?.id);
+                  removeCartItemMutation();
                 }}
-                className="font-semibold text-primary-green cursor-pointer text-[15px]"
+                className={`font-semibold text-primary-green cursor-pointer text-[15px] ${
+                  cartItemPending ? "cursor-not-allowed" : "cursor-pointer"
+                }`}
               >
-                Remove
+                {cartItemPending && cartItemId === cart?.id ? (
+                  <p className="flex gap-2 items-center justify-center">
+                    <CgSpinnerTwo className="animate-spin text-lg" />
+                    <span>Removing...</span>
+                  </p>
+                ) : (
+                  "Remove"
+                )}
               </button>
             </div>
           </div>
