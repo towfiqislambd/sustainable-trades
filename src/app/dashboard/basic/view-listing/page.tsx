@@ -92,16 +92,19 @@ const Page = () => {
         </div>
 
         <div>
-          <button className="h-[45px] md:h-[60px] rounded-[8px] bg-[#E48872] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:bg-transparent duration-500 ease-in-out border border-[#E48872] w-full md:w-[190px] flex gap-x-2 justify-center items-center">
+          <Link
+            href={"/dashboard/basic/create-listing"}
+            className="h-[45px] md:h-[60px] rounded-[8px] bg-[#E48872] text-[16px] font-semibold text-[#13141D] cursor-pointer hover:bg-transparent duration-500 ease-in-out border border-[#E48872] w-full md:w-[190px] flex gap-x-2 justify-center items-center"
+          >
             <FaPlus />
             Add New Listing
-          </button>
+          </Link>
         </div>
       </div>
 
       {/* Product Grid */}
       <div className="grid  sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3 xl:gap-6 mt-10">
-        {products.map((product) => (
+        {products.map(product => (
           <div
             key={product.id}
             className="relative border border-[#e5e5e5] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300 group cursor-pointer"
