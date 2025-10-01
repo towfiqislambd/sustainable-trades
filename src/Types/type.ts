@@ -29,3 +29,20 @@ export type Order = {
   status: OrderStatus;
   fullfill: string;
 };
+
+
+export interface FormData {
+  shop_info_id: string;
+  product_name: string;
+  product_price: string;
+  product_quantity: string;
+  category_id: string;
+  sub_category_id: string;
+  product_condition: string;
+  description: string;
+  video_url: string;
+  cost?: string;
+  weight?: string;
+  images: File[];
+}
+
