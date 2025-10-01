@@ -33,7 +33,7 @@ export type FormData = {
   unlimited_stock: boolean;
   out_of_stock: boolean;
   is_featured: boolean;
-  meta_tags: string[];
+  tags: string[];
   images: File[];
   video?: File | null;
 };
@@ -86,7 +86,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
       unlimited_stock: false,
       out_of_stock: false,
       is_featured: false,
-      meta_tags: [],
+      tags: [],
       images: [],
       video: null,
     },
@@ -116,7 +116,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
     formData.append("out_of_stock", data.out_of_stock ? "1" : "0");
     formData.append("is_featured", data.is_featured ? "1" : "0");
 
-    data.meta_tags.forEach(tag => formData.append("meta_tags[]", tag));
+    data.tags.forEach(tag => formData.append("tags[]", tag));
 
     // ✅ Use actual File objects
     imageFiles.forEach(file => formData.append("product_image[]", file));
@@ -138,7 +138,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
           unlimited_stock: false,
           out_of_stock: false,
           is_featured: false,
-          meta_tags: [],
+          tags: [],
           images: [],
           video: null,
         });
