@@ -86,18 +86,18 @@ const LowerNavbar = ({ dynamicPage }: any) => {
       <Container>
         <div className="flex justify-between items-center">
           {/* Left - NavLinks */}
-          <div className="flex gap-10 items-center relative">
-            {navLins?.map(item => {
+          <div className="flex gap-5 xl:gap-10 items-center relative">
+            {navLins?.map((item) => {
               const isActive = pathname === item?.path;
 
               return (
                 <Link
-                  className={`text-lg text-primary-green ${
+                  className={`text-base xl:text-lg text-primary-green ${
                     isActive && "font-semibold "
                   }`}
                   key={item?.id}
                   href={item?.id == 4 || item?.id == 5 ? "#" : item?.path}
-                  onClick={e => {
+                  onClick={(e) => {
                     e.stopPropagation();
                     if (item?.id == 4 || item?.id == 5) {
                       e.preventDefault();
@@ -113,7 +113,7 @@ const LowerNavbar = ({ dynamicPage }: any) => {
 
             {/* Sub Menu */}
             <div
-              onClick={e => e.stopPropagation()}
+              onClick={(e) => e.stopPropagation()}
               className={`absolute top-12 ${
                 activeSubMenu === 4 ? "-right-32" : "-right-56"
               } bg-white drop-shadow  w-[280px] py-7 px-5 border-gray-50 rounded-lg flex flex-col gap-7 ${
@@ -123,7 +123,7 @@ const LowerNavbar = ({ dynamicPage }: any) => {
               }`}
             >
               {navLins?.map(
-                item =>
+                (item) =>
                   item?.id === activeSubMenu &&
                   item?.sub_menu?.map(
                     ({ id, page_title, page_slug, path, icon, logo }: any) => (
@@ -165,7 +165,7 @@ const LowerNavbar = ({ dynamicPage }: any) => {
           </div>
 
           {/* Right - Searchbar */}
-          <div className="flex gap-1 items-center border border-primary-green px-3 py-2 rounded-lg w-[528px]">
+          <div className="flex gap-1 items-center border border-primary-green px-3 py-2 rounded-lg w-[400px]  xl:w-[528px]">
             <SearchSvg />
             <input
               type="text"
