@@ -14,7 +14,7 @@ const page = () => {
       <Container>
         <PaymentOptions data={cartData?.data} isLoading={isLoading} />
         {/* <SimilarItems /> */}
-        <ShopLocation />
+        <ShopLocation cartData={cartData?.data} />
       </Container>
     </section>
   );

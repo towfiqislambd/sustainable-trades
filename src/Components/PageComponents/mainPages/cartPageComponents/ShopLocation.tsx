@@ -1,21 +1,51 @@
+"use client";
 import React from "react";
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 
-const ShopLocation = () => {
+const containerStyle = {
+  width: "100%",
+  height: "500px",
+  borderRadius: "12px",
+};
+
+interface ShopLocationProps {
+  cartData: any;
+}
+
+const ShopsMap: React.FC<ShopLocationProps> = ({ cartData }) => {
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
+  });
+
+  if (!isLoaded) return <p>Loading map...</p>;
+
+  const locations =
+    cartData?.cart
+      ?.map((shopItem: any) => {
+        const lat = parseFloat(shopItem?.shop?.address?.latitude ?? "0");
+        const lng = parseFloat(shopItem?.shop?.address?.longitude ?? "0");
+        const name = shopItem?.shop?.shop_name;
+        return lat && lng ? { lat, lng, name } : null;
+      })
+      ?.filter(Boolean) || [];
+
+  const center = locations[0] || { lat: 23.78, lng: 90.39, name: "Default" };
+
   return (
     <section className="mb-10">
-      <h3 className="section_sub_title">
-        Current Shop Location - See where your order is...
-      </h3>
+      <h3 className="section_sub_title">🗺️ All Shops on Map</h3>
 
-      <div className="h-[400px]">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.902653997918!2d90.390686!3d23.750867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b91d0e4a30af%3A0x93dd84c6b9c5f8b1!2sDhaka!5e0!3m2!1sen!2sbd!4v1691261744101!5m2!1sen!2sbd"
-          loading="lazy"
-          className="h-full w-full border-0"
-        ></iframe>
-      </div>
+      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={12}>
+        {locations.map((loc: any, index: number) => (
+          <Marker
+            key={index}
+            position={{ lat: loc.lat, lng: loc.lng }}
+            title={loc.name}
+          />
+        ))}
+      </GoogleMap>
     </section>
   );
 };
 
-export default ShopLocation;
+export default ShopsMap;
