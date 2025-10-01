@@ -52,7 +52,7 @@ const FeaturedShops = ({ data }: any) => {
               </div>
 
               <h4 className="text-secondary-black text-xs md:text-[15px]">
-                Shop Description
+                {shop_info?.address?.address_line_1}
               </h4>
             </Link>
           ))}

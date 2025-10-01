@@ -4,16 +4,12 @@ import "swiper/css/thumbs";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import Image from "next/image";
-import d1 from "@/Assets/d1.jpg";
-import d2 from "@/Assets/d2.jpg";
-import d3 from "@/Assets/d3.jpg";
 import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 
-const ProductGallery = () => {
+const ProductGallery = ({ data }: any) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
-  const images = [d1, d2, d3, d1];
 
   return (
     <div className="flex gap-4">
@@ -28,12 +24,13 @@ const ProductGallery = () => {
         modules={[FreeMode, Navigation, Thumbs]}
         className="w-[120px] h-[450px] rounded-xl shrink-0"
       >
-        {images.map((img, index) => (
+        {data?.map((img: any, index: number) => (
           <SwiperSlide key={index}>
-            <figure className="w-full h-[100px] object-cover cursor-pointer rounded-lg border border-gray-100">
+            <figure className="w-full h-[100px] object-cover cursor-pointer rounded-lg border border-gray-100 relative">
               <Image
-                src={img}
+                src={`${process.env.NEXT_PUBLIC_SITE_URL}/${img?.image}`}
                 alt="thumbnail"
+                fill
                 className="w-full h-full object-cover rounded-lg"
               />
             </figure>
@@ -44,16 +41,15 @@ const ProductGallery = () => {
       {/* Main Image */}
       <Swiper
         spaceBetween={10}
-        // navigation={true}
         speed={1000}
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
         className="h-[445px] rounded-xl flex-1 relative"
       >
-        {images.map((img, index) => (
+        {data?.map((img: any, index: number) => (
           <SwiperSlide key={index}>
             <Image
-              src={img}
+              src={`${process.env.NEXT_PUBLIC_SITE_URL}/${img?.image}`}
               alt="main product"
               fill
               className="w-full h-full rounded-xl object-cover"

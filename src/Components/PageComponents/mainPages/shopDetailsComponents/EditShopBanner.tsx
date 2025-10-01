@@ -1,10 +1,9 @@
 "use client";
-import React, { useState } from "react";
-import coverBg from "@/Assets/cover.jpg";
-import profileBg from "@/Assets/shop_author.jpg";
+import Link from "next/link";
 import Image from "next/image";
-import author from "@/Assets/shop_author.jpg";
-import Container from "@/Components/Common/Container";
+import React, { useState } from "react";
+import award from "@/Assets/award.png";
+import badge from "@/Assets/badge.png";
 import {
   DollarSvg,
   DThreeSvg,
@@ -13,22 +12,29 @@ import {
   LocationTwoSvg,
   StarSvg,
 } from "@/Components/Svg/SvgContainer";
-import award from "@/Assets/award.png";
-import badge from "@/Assets/badge.png";
-import Link from "next/link";
+import Container from "@/Components/Common/Container";
+import { useUpdateShopBanner, useUpdateShopPhoto } from "@/Hooks/api/cms_api";
+import { ImSpinner9 } from "react-icons/im";
 
 const EditShopBanner = ({ data }: any) => {
+  const bannerUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${data?.shop_info?.shop_banner}`;
   const [shopProfile, setShopProfile] = useState<any>(null);
   const [shopCover, setShopCover] = useState<any>(null);
+  const { mutate: updateShopPhoto, isPending: profilePending } =
+    useUpdateShopPhoto();
+  const { mutate: updateShopBanner, isPending: bannerPending } =
+    useUpdateShopBanner();
 
   return (
     <section className="mb-12">
       {/* Shop Profile and Cover photo */}
       <div
         style={{
-          backgroundImage: `url(${shopCover ? shopCover : coverBg.src})`,
+          backgroundImage: `url(${bannerPending ? null : bannerUrl})`,
         }}
-        className="h-[350px] bg-no-repeat bg-center bg-cover bg-black/50 bg-blend-overlay relative"
+        className={`h-[350px] bg-no-repeat bg-center bg-cover bg-black/50 bg-blend-overlay relative ${
+          bannerPending && "animate-pulse"
+        }`}
       >
         <Container>
           <div className="flex h-[350px] items-end relative">
@@ -47,18 +53,21 @@ const EditShopBanner = ({ data }: any) => {
               onChange={e => {
                 const file = e.target.files?.[0];
                 if (file) {
-                  setShopCover(URL.createObjectURL(file));
+                  setShopCover(file);
+                  updateShopBanner({ shop_banner: shopCover });
                 }
               }}
             />
 
-            <div className="size-[180px] -mb-10 relative">
-              <label
-                htmlFor="profile"
-                className="absolute right-2 top-1 bg-white size-10 cursor-pointer rounded-full grid place-items-center z-30 border border-gray-200"
-              >
-                <EditIconSvg />
-              </label>
+            <figure className="size-[180px] -mb-10 relative bg-gray-300 grid place-items-center rounded-full border-[5px] border-white">
+              {!profilePending && (
+                <label
+                  htmlFor="profile"
+                  className="absolute right-2 top-1 bg-white size-10 cursor-pointer rounded-full grid place-items-center z-30 border border-gray-200"
+                >
+                  <EditIconSvg />
+                </label>
+              )}
 
               <input
                 type="file"
@@ -68,18 +77,22 @@ const EditShopBanner = ({ data }: any) => {
                 onChange={e => {
                   const file = e.target.files?.[0];
                   if (file) {
-                    setShopProfile(URL.createObjectURL(file));
+                    setShopProfile(file);
+                    updateShopPhoto({ shop_image: shopProfile });
                   }
                 }}
               />
-
-              <Image
-                src={shopProfile || profileBg}
-                alt="shop_profile"
-                fill
-                className="size-full rounded-full border-[5px] border-white"
-              />
-            </div>
+              {profilePending ? (
+                <ImSpinner9 className="animate-spin text-6xl text-primary-blue" />
+              ) : (
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_SITE_URL}/${data?.shop_info?.shop_image}`}
+                  alt="shop_profile"
+                  fill
+                  className="size-full rounded-full"
+                />
+              )}
+            </figure>
           </div>
         </Container>
       </div>
@@ -91,7 +104,7 @@ const EditShopBanner = ({ data }: any) => {
             {/* Shop Name */}
             <div className="flex gap-6 items-center">
               <h3 className="text-secondary-black text-3xl font-semibold">
-                Organic Bath Soaps
+                {data?.shop_info?.shop_name}
               </h3>
               <div className="flex gap-3 items-center">
                 <figure className="size-10 bg-[#D4E2CB] rounded-full grid place-items-center cursor-pointer">
@@ -108,7 +121,7 @@ const EditShopBanner = ({ data }: any) => {
             <div className="flex gap-3 items-center py-4">
               <LocationTwoSvg />
               <p className="text-secondary-gray text-lg">
-                1234 Washington Blvd, Denver, Colorado 12340
+                {data?.shop_info?.address?.address_line_1}
               </p>
             </div>
 
@@ -149,15 +162,24 @@ const EditShopBanner = ({ data }: any) => {
             <div className="flex gap-5 items-center justify-between mb-5">
               <div>
                 <h3 className="text-secondary-black font-semibold text-xl mb-1">
-                  Jimmy
+                  {data?.first_name} {data?.last_name}
                 </h3>
-                <p className="text-secondary-gray">Organic Bath Soaps</p>
+                <p className="text-secondary-gray">
+                  {data?.shop_info?.shop_name}
+                </p>
               </div>
-              <Image
-                src={author}
-                alt="author"
-                className="size-14 rounded-full"
-              />
+              <figure className="size-14 rounded-full bg-accent-red grid place-items-center font-semibold text-lg">
+                {data?.avatar ? (
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_SITE_URL}/${data?.avatar}`}
+                    alt="author"
+                    fill
+                    className="size-full rounded-full"
+                  />
+                ) : (
+                  <span>{data?.first_name.at(0)}</span>
+                )}
+              </figure>
             </div>
           </div>
         </div>

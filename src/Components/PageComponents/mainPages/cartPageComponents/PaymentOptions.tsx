@@ -1,67 +1,122 @@
 "use client";
-import p1 from "@/Assets/p1.jpg";
 import CartItem from "./CartItem";
 import React, { useState } from "react";
 import Modal from "@/Components/Common/Modal";
-import shopAuthor from "@/Assets/shop_author.jpg";
-import SuccessModal from "../../../Modals/SuccessModal";
-import { Google, PaypalSvg } from "@/Components/Svg/SvgContainer";
+import { PaypalSvg } from "@/Components/Svg/SvgContainer";
+import SuccessModal from "@/Components/Modals/SuccessModal";
 import ShippingAddress from "@/Components/Modals/ShippingAddress";
 import ShippingOptionsModal from "@/Components/Modals/ShippingOptionsModal";
-const data = [
-  {
-    id: 1,
-    shop_name: "Organic Bath Soaps",
-    shop_author: shopAuthor,
-    shop_location: "Denver, CO",
-    products: [
-      {
-        id: 1,
-        product_name: "Coconut Bar Soap",
-        product_image: p1,
-        product_price: 30,
-      },
-      {
-        id: 2,
-        product_name: "Coconut Bar Soap",
-        product_image: p1,
-        product_price: 30,
-      },
-    ],
-  },
-  {
-    id: 2,
-    shop_name: "Organic Bath Soaps",
-    shop_author: shopAuthor,
-    shop_location: "Denver, CO",
-    products: [
-      {
-        id: 1,
-        product_name: "Coconut Bar Soap",
-        product_image: p1,
-        product_price: 30,
-      },
-    ],
-  },
-];
+import { TiDelete } from "react-icons/ti";
+import { useClearCart } from "@/Hooks/api/cms_api";
+import { CgSpinnerTwo } from "react-icons/cg";
+const CartItemSkeleton = () => {
+  return (
+    <div className="border border-gray-300 p-5 rounded-lg bg-white animate-pulse">
+      {/* Shop Info */}
+      <div className="flex flex-col sm:flex-row justify-between sm:items-center mt-3 mb-5">
+        <div className="flex gap-2 sm:gap-5 items-center">
+          <div className="size-12 rounded-full bg-gray-200" />
+          <div className="h-5 w-40 bg-gray-200 rounded" />
+        </div>
 
-const PaymentOptions = () => {
+        <div className="flex gap-2 items-center">
+          <div className="h-5 w-28 bg-gray-200 rounded" />
+        </div>
+
+        <div className="h-8 w-24 bg-gray-200 rounded-full" />
+      </div>
+
+      {/* Product Info */}
+      <div className="space-y-6">
+        {[1, 2].map(i => (
+          <div
+            key={i}
+            className="flex flex-col sm:flex-row gap-5 border-b last:border-b-0 border-gray-300 pb-7 last:pb-0"
+          >
+            {/* Product Image */}
+            <div className="w-full sm:w-[180px] h-[140px] bg-gray-200 rounded-lg" />
+
+            <div className="grow space-y-4">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                <div className="h-5 w-40 bg-gray-200 rounded" />
+                <div className="h-6 w-16 bg-gray-200 rounded" />
+              </div>
+
+              {/* Remove Button Skeleton */}
+              <div className="h-4 w-20 bg-gray-200 rounded" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const PaymentOptions = ({ data, isLoading }: any) => {
   const [shippingOptionsOpen, setShippingOptionsOpen] = useState(false);
   const [shippingAddressOpen, setShippingAddressOpen] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("paypal");
+  const { mutate: clearCartMutation, isPending } = useClearCart();
+
+  // Sub Total Price Count
+  const cartItems = data?.cart?.flatMap((item: any) => item?.cart_items || []);
+  const subTotalPrice = cartItems?.reduce((acc: number, item: any) => {
+    return acc + (item?.product?.product_price * item?.quantity || 0);
+  }, 0);
+
+  // Shipping Price
+  const shippingPrice = 15;
+
+  // Tax
+  const tax = 20;
+
+  // Total Price
+  const totalPrice = subTotalPrice + shippingPrice + tax;
 
   return (
     <section className="mb-10">
-      <h3 className="section_sub_title">3 Items In Your Cart</h3>
+      <div className="flex items-center justify-between">
+        <h3 className="section_sub_title">
+          {data?.total_cart_items
+            ? `${data?.total_cart_items} Items In Your Cart`
+            : "Card is empty"}
+        </h3>
+        {data && (
+          <button
+            disabled={isPending}
+            onClick={() => clearCartMutation()}
+            className={`px-3 py-1.5 text-sm rounded-full font-semibold bg-red-500 text-white flex gap-1 items-center ${
+              isPending ? "cursor-not-allowed" : "cursor-pointer"
+            }`}
+          >
+            {isPending ? (
+              <span className="flex gap-2 items-center justify-center">
+                <CgSpinnerTwo className="animate-spin" />
+                <span>Clearing...</span>
+              </span>
+            ) : (
+              <span className="flex gap-1 items-center">
+                <TiDelete className="text-lg" />
+                Clear Cart
+              </span>
+            )}
+          </button>
+        )}
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 xl:gap-10">
         {/* Left - Products */}
         <div className=" lg:col-span-8">
           <div className="space-y-7">
-            {data?.map((item) => (
-              <CartItem key={item?.id} item={item} />
-            ))}
+            {isLoading
+              ? [1, 2].map((_, idx) => <CartItemSkeleton key={idx} />)
+              : !data || data?.length === 0
+              ? "No Cart Found"
+              : data?.cart?.map((item: any) => (
+                  <CartItem key={item?.id} item={item} />
+                ))}
+            {}
           </div>
         </div>
 
@@ -71,7 +126,7 @@ const PaymentOptions = () => {
             Payment Options
           </h3>
 
-          <p className="text-[14px] md:text-lg font-semibold text-secondary-black mb-5">
+          <p className="text-sm md:text-lg font-semibold text-secondary-black mb-5">
             You will not be charged until the review page of this order.
           </p>
 
@@ -84,7 +139,7 @@ const PaymentOptions = () => {
                 name="Card"
                 value="Card"
                 checked={paymentMethod === "Card"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
+                onChange={e => setPaymentMethod(e.target.value)}
               />
 
               <span className="text-secondary-gray font-semibold">Card</span>
@@ -106,7 +161,7 @@ const PaymentOptions = () => {
                 name="payment"
                 value="paypal"
                 checked={paymentMethod === "paypal"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
+                onChange={e => setPaymentMethod(e.target.value)}
               />
 
               <span className="text-secondary-gray font-semibold ">
@@ -123,7 +178,7 @@ const PaymentOptions = () => {
                 name="Gpay"
                 value="Gpay"
                 checked={paymentMethod === "Gpay"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
+                onChange={e => setPaymentMethod(e.target.value)}
               />
 
               <span className="text-secondary-gray font-semibold">
@@ -142,7 +197,7 @@ const PaymentOptions = () => {
                 name="Cash"
                 value="Cash"
                 checked={paymentMethod === "Cash"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
+                onChange={e => setPaymentMethod(e.target.value)}
               />
 
               <span className="text-secondary-gray font-semibold">
@@ -161,7 +216,7 @@ const PaymentOptions = () => {
                 name="Venmo"
                 value="Venmo"
                 checked={paymentMethod === "Venmo"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
+                onChange={e => setPaymentMethod(e.target.value)}
               />
 
               <span className="text-secondary-gray font-semibold">
@@ -180,7 +235,7 @@ const PaymentOptions = () => {
                 name="payment"
                 value="apple"
                 checked={paymentMethod === "apple"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
+                onChange={e => setPaymentMethod(e.target.value)}
               />
 
               <span className="text-secondary-gray font-semibold">
@@ -191,7 +246,6 @@ const PaymentOptions = () => {
               Apple
             </div>
           </div>
-
           {/* Cash Option */}
           <p className="flex gap-3 items-center">
             <input
@@ -200,7 +254,7 @@ const PaymentOptions = () => {
               name="payment"
               value="cash"
               checked={paymentMethod === "cash"}
-              onChange={(e) => setPaymentMethod(e.target.value)}
+              onChange={e => setPaymentMethod(e.target.value)}
             />
 
             <span className="text-secondary-gray font-semibold">
@@ -211,24 +265,24 @@ const PaymentOptions = () => {
           <div className="space-y-3 mt-7 mb-7">
             <div className="flex items-center justify-between text-[17px] font-semibold text-primary-green">
               <p>Subtotal</p>
-              <p>$105.00</p>
+              <p>${subTotalPrice}</p>
             </div>
 
             <div className="flex items-center justify-between text-[17px] font-semibold text-primary-green">
               <p>Shipping</p>
-              <p>$15.00</p>
+              <p>${shippingPrice}</p>
             </div>
 
             <div className="flex items-center justify-between text-[17px] font-semibold text-primary-green">
               <p>Est. Sales Tax *</p>
-              <p>$20.00</p>
+              <p>${tax}</p>
             </div>
 
             <hr className="text-gray-300" />
 
             <div className="flex items-center justify-between text-[17px] font-semibold text-primary-green">
-              <p>Total (3 Items)</p>
-              <p>$140.00</p>
+              <p>Total ({data?.total_cart_items} Items)</p>
+              <p>${totalPrice}</p>
             </div>
           </div>
 

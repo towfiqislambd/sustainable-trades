@@ -171,7 +171,6 @@ export const getShopDetails = (id: string) => {
   });
 };
 
-
 // Featured Listings
 export const getFeaturedListings = (id: string) => {
   return useClientApi({
@@ -180,27 +179,6 @@ export const getFeaturedListings = (id: string) => {
     key: ["get-featured-listings", id],
     enabled: !!id,
     endpoint: `/api/shop/products/featured/${id}`,
-  });
-};
-
-// Follow Shop
-export const useFollowShop = (shop_id: string) => {
-  const queryClient = useQueryClient();
-
-  return useClientApi({
-    method: "post",
-    key: ["follow-shop", shop_id],
-    isPrivate: true,
-    endpoint: `/api/follow-shop/${shop_id}`,
-    onSuccess: (data: any) => {
-      if (data?.success) {
-        queryClient.invalidateQueries("get-shop-details" as any);
-        toast.success(data?.message);
-      }
-    },
-    onError: (err: any) => {
-      toast.error(err?.response?.data?.message);
-    },
   });
 };
 
@@ -234,6 +212,27 @@ export const getAllListings = (
   });
 };
 
+// Follow Shop
+export const useFollowShop = (shop_id: string) => {
+  const queryClient = useQueryClient();
+
+  return useClientApi({
+    method: "post",
+    key: ["follow-shop", shop_id],
+    isPrivate: true,
+    endpoint: `/api/follow-shop/${shop_id}`,
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        queryClient.invalidateQueries("get-shop-details" as any);
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
 // Add Favorite
 export const useAddFavorite = () => {
   const queryClient = useQueryClient();
@@ -246,6 +245,177 @@ export const useAddFavorite = () => {
       if (data?.success) {
         queryClient.invalidateQueries("get-all-listings" as any);
         queryClient.invalidateQueries("get-featured-listings" as any);
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// Product Details
+export const getProductDetails = (id: string) => {
+  return useClientApi({
+    method: "get",
+    isPrivate: true,
+    key: ["get-product-details", id],
+    enabled: !!id,
+    endpoint: `/api/product-details/${id}`,
+    queryOptions: {
+      retry: false,
+    },
+  });
+};
+
+// Get Product Cart
+export const getProductCart = () => {
+  return useClientApi({
+    method: "get",
+    isPrivate: true,
+    key: ["get-product-cart"],
+    endpoint: "/api/cart",
+    queryOptions: {
+      retry: false,
+    },
+  });
+};
+
+// Add To Cart
+export const useAddToCart = (product_id: any) => {
+  return useClientApi({
+    method: "post",
+    key: ["add-to-cart"],
+    isPrivate: true,
+    endpoint: `/api/add-to-cart/${product_id}`,
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// Remove From Cart
+export const useRemoveFromCart = (cart_Item_id: number | null) => {
+  const queryClient = useQueryClient();
+  return useClientApi({
+    method: "delete",
+    key: ["remove-from-cart"],
+    isPrivate: true,
+    endpoint: `/api/cart/item/remove/${cart_Item_id}`,
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        queryClient.invalidateQueries("get-product-cart" as any);
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// Remove Cart
+export const useRemoveCart = (cart_id: number | null) => {
+  const queryClient = useQueryClient();
+  return useClientApi({
+    method: "delete",
+    key: ["remove-cart"],
+    isPrivate: true,
+    endpoint: `/api/cart/remove/${cart_id}`,
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        queryClient.invalidateQueries("get-product-cart" as any);
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// Clear Cart
+export const useClearCart = () => {
+  const queryClient = useQueryClient();
+  return useClientApi({
+    method: "delete",
+    key: ["clear-cart"],
+    isPrivate: true,
+    endpoint: "/api/cart/empty",
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        queryClient.invalidateQueries("get-product-cart" as any);
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// Update Cart
+export const useUpdateCart = (cart_id: number | null) => {
+  const queryClient = useQueryClient();
+  return useClientApi({
+    method: "post",
+    key: ["update-cart"],
+    isPrivate: true,
+    endpoint: `/api/cart/update/${cart_id}`,
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        queryClient.invalidateQueries("get-product-cart" as any);
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// Update Shop Photo
+export const useUpdateShopPhoto = () => {
+  const queryClient = useQueryClient();
+  return useClientApi({
+    method: "post",
+    key: ["update-shop-photo"],
+    isPrivate: true,
+    endpoint: "/api/shop/image-update",
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        queryClient.invalidateQueries("get-shop-details" as any);
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// Update Shop Banner
+export const useUpdateShopBanner = () => {
+  const queryClient = useQueryClient();
+  return useClientApi({
+    method: "post",
+    key: ["update-shop-banner"],
+    isPrivate: true,
+    endpoint: "/api/shop/banner-update",
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        queryClient.invalidateQueries("get-shop-details" as any);
         toast.success(data?.message);
       }
     },

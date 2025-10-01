@@ -53,7 +53,7 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
           {/* Logo */}
           <button
             className="xl:hidden text-white text-2xl cursor-pointer"
-            onClick={e => {
+            onClick={(e) => {
               e.stopPropagation();
               setOpen(true);
             }}
@@ -74,9 +74,9 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
           {/* NavLinks */}
           <div
             className={` hidden 1xl:flex static top-0 left-0 h-auto w-auto bg-transparent transform transition-transform duration-300 ease-in-out z-40  flex-row gap-6 2xl:gap-10 items-center p-0 `}
-            onClick={e => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
           >
-            {navLins?.map(item => {
+            {navLins?.map((item) => {
               const isActive = pathname === item?.path;
               return (
                 <Link
@@ -85,7 +85,7 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
                   }`}
                   key={item?.id}
                   href={item?.id == 4 || item?.id == 5 ? "#" : item?.path}
-                  onClick={e => {
+                  onClick={(e) => {
                     e.stopPropagation();
                     if (item?.id == 4 || item?.id == 5) {
                       e.preventDefault();
@@ -164,7 +164,7 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
           {/* Profile */}
           <div className="relative">
             <button
-              onClick={e => {
+              onClick={(e) => {
                 e.stopPropagation();
                 setShowPopover(!showPopover);
               }}
@@ -194,8 +194,8 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
 
             {/* Popover */}
             <div
-              onClick={e => e.stopPropagation()}
-              className={`absolute top-16 bg-white drop-shadow z-50 space-y-2 w-[135px] py-3 px-4 border-gray-50 rounded-lg duration-300 transition-all ${
+              onClick={(e) => e.stopPropagation()}
+              className={`absolute top-16 right-0 bg-white drop-shadow z-50 space-y-2 w-[135px] py-3 px-4 border-gray-50 rounded-lg duration-300 transition-all ${
                 showPopover
                   ? "opacity-100 scale-100"
                   : "opacity-0 pointer-events-none scale-95"
@@ -212,7 +212,7 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
 
           {user?.role !== "customer" && (
             <Link
-              href={`/view-my-shop/${user?.shop_info?.id}`}
+              href={`/view-my-shop/${user?.shop_info?.user_id}`}
               className="px-5 py-2 block rounded-lg bg-accent-red text-secondary-black cursor-pointer shadow-[0_3px_10px_0_rgba(0,0,0,0.12),_0_3px_8px_0_rgba(0,0,0,0.08)] duration-300 transition-all hover:text-accent-red hover:bg-transparent border border-accent-red hover:scale-95 "
             >
               View Shop
