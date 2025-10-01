@@ -1,7 +1,11 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
-import { useRemoveCart, useRemoveFromCart } from "@/Hooks/api/cms_api";
+import {
+  useRemoveCart,
+  useRemoveFromCart,
+  useUpdateCart,
+} from "@/Hooks/api/cms_api";
 import { LocationTwoSvg, MinSvg } from "@/Components/Svg/SvgContainer";
 
 const CartItem = ({ item }: any) => {
@@ -9,9 +13,18 @@ const CartItem = ({ item }: any) => {
   const [cartId, setCartId] = useState<number | null>(null);
   const { mutate: removeCartItemMutation, isPending: cartItemPending } =
     useRemoveFromCart(cartItemId);
+  const { mutate: updateCartItemMutation, isPending: updateItemPending } =
+    useUpdateCart(cartItemId);
   const { mutate: removeCartMutation, isPending: cartPending } = useRemoveCart(
     item?.id
   );
+
+  // Func for update cart quantity
+  const handleUpdateCart = (quantity: number, type: string) => {
+    if (type === "decrease" && quantity <= 1) return;
+    const newQuantity = type === "increase" ? quantity + 1 : quantity - 1;
+    updateCartItemMutation({ quantity: newQuantity });
+  };
 
   return (
     <div className="border border-gray-300 p-5 rounded-lg bg-white relative">
@@ -97,15 +110,29 @@ const CartItem = ({ item }: any) => {
 
               {/* Product Quantity */}
               <div className="flex gap-3 items-center border rounded-lg px-7 py-2 font-semibold border-primary-green w-fit mb-3">
-                <button className="cursor-pointer">
+                <button
+                  onClick={() => {
+                    setCartItemId(cart?.id);
+                    handleUpdateCart(cart?.quantity, "decrease");
+                  }}
+                  className="cursor-pointer"
+                >
                   <MinSvg />
                 </button>
                 <p>Qty:</p>
                 <p>{cart?.quantity}</p>
-                <button className="cursor-pointer">+</button>
+                <button
+                  onClick={() => {
+                    setCartItemId(cart?.id);
+                    handleUpdateCart(cart?.quantity, "increase");
+                  }}
+                  className="cursor-pointer"
+                >
+                  +
+                </button>
               </div>
 
-              {/* Remove btns */}
+              {/* Remove item */}
               <button
                 disabled={cartItemPending}
                 onClick={() => {

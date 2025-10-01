@@ -9,7 +9,6 @@ import ShippingOptionsModal from "@/Components/Modals/ShippingOptionsModal";
 import { TiDelete } from "react-icons/ti";
 import { useClearCart } from "@/Hooks/api/cms_api";
 import { CgSpinnerTwo } from "react-icons/cg";
-
 const CartItemSkeleton = () => {
   return (
     <div className="border border-gray-300 p-5 rounded-lg bg-white animate-pulse">

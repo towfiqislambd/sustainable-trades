@@ -268,6 +268,19 @@ export const getProductDetails = (id: string) => {
   });
 };
 
+// Get Product Cart
+export const getProductCart = () => {
+  return useClientApi({
+    method: "get",
+    isPrivate: true,
+    key: ["get-product-cart"],
+    endpoint: "/api/cart",
+    queryOptions: {
+      retry: false,
+    },
+  });
+};
+
 // Add To Cart
 export const useAddToCart = (product_id: any) => {
   return useClientApi({
@@ -282,19 +295,6 @@ export const useAddToCart = (product_id: any) => {
     },
     onError: (err: any) => {
       toast.error(err?.response?.data?.message);
-    },
-  });
-};
-
-// Get Product Cart
-export const getProductCart = () => {
-  return useClientApi({
-    method: "get",
-    isPrivate: true,
-    key: ["get-product-cart"],
-    endpoint: "/api/cart",
-    queryOptions: {
-      retry: false,
     },
   });
 };
@@ -347,6 +347,26 @@ export const useClearCart = () => {
     key: ["clear-cart"],
     isPrivate: true,
     endpoint: "/api/cart/empty",
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        queryClient.invalidateQueries("get-product-cart" as any);
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// Update Cart
+export const useUpdateCart = (cart_id: number | null) => {
+  const queryClient = useQueryClient();
+  return useClientApi({
+    method: "post",
+    key: ["update-cart"],
+    isPrivate: true,
+    endpoint: `/api/cart/update/${cart_id}`,
     onSuccess: (data: any) => {
       if (data?.success) {
         queryClient.invalidateQueries("get-product-cart" as any);
