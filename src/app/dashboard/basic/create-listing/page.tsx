@@ -59,7 +59,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
   const [metaTags, setMetaTags] = useState<string[]>([]);
 
   const isBasicMember = membershipType === "basic";
-  const { mutate: addProduct, isLoading } = useAddProduct();
+  const { mutate: addProduct, isPending } = useAddProduct();
   const { data: categoriess } = getProductCategoriesClient();
   const { data: subcategoriess } = getProductSubCategoriesClient();
 
@@ -300,7 +300,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
             </div>
           </div>
         </div>
-        <FormActions isLoading={isLoading} />
+        <FormActions isPending={isPending} />
       </form>
     </div>
   );
