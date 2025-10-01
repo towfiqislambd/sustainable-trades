@@ -19,6 +19,7 @@ export const useAddProduct = () => {
   });
 };
 
+// update product
 export const useupdateProduct = (id: string | number) => {
   return useClientApi({
     method: "post",

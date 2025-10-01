@@ -60,7 +60,14 @@ interface UpdateProductError {
       message: string;
     };
   };
-  // Add other error properties if needed, e.g., message: string;
+}
+
+interface DeleteProductError {
+  response?: {
+    data?: {
+      message: string;
+    };
+  };
 }
 
 interface DetailsProps {
@@ -76,10 +83,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
   const { data: listing, isLoading } = useGetSingleListing(id);
   console.log(id);
 
-  // Update mutation hook
   const updateProduct = useupdateProduct(id);
-
-  // Delete mutation hook
   const deleteProduct = useDeleteProduct(id);
 
   const [images, setImages] = useState<string[]>([]);
@@ -105,13 +109,13 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
   const { data: categoriesData } = getProductCategoriesClient();
   const { data: subcategoriesData } = getProductSubCategoriesClient();
 
-  // New states for file handling
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [existingImages, setExistingImages] = useState<string[]>([]);
   const [videoFile, setVideoFile] = useState<File | null>(null);
-  const [keptImagePaths, setKeptImagePaths] = useState<string[]>([]); // To track which existing images to keep
+  const [keptImagePaths, setKeptImagePaths] = useState<string[]>([]);
 
-  // Function to update local state with product data
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
   const updateLocalStateWithProductData = (
     productData: UpdateProductResponse["data"]
   ) => {
@@ -134,7 +138,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
         img.image.startsWith("http") ? img.image : `${baseUrl}/${img.image}`
       ) || [];
     setExistingImages(imageUrls);
-    setKeptImagePaths(imageUrls); // Update kept to new existing
+    setKeptImagePaths(imageUrls);
     setImages(imageUrls);
     if (imageUrls.length > 0) setMainImage(imageUrls[0]);
 
@@ -148,17 +152,14 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
 
     setFulfillment(productData.fulfillment || "");
     setSellingOption(productData.selling_option || "");
-    setImageFiles([]); // Clear pending new files
+    setImageFiles([]);
   };
 
-  // Populate form data from API response on load
   useEffect(() => {
     if (listing?.data) {
       updateLocalStateWithProductData(listing.data);
     }
   }, [listing]);
-
-  const videoSrc = useMemo(() => videoUrl, [videoUrl]);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -173,26 +174,22 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
     }
   };
 
-  // Handle video upload (for new videos during edit)
   const handleVideoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       setVideoFile(file);
       const objectUrl = URL.createObjectURL(file);
-      setVideoUrl(objectUrl); // Treat as URL for consistency
+      setVideoUrl(objectUrl);
       setShowPlayButton(true);
 
-      // Ensure video is loaded
       setTimeout(() => {
         videoRef.current?.load();
       }, 0);
     }
   };
 
-  // Remove image (for existing or new)
   const handleRemoveImage = (imageUrl: string, isNew: boolean) => {
     if (isNew) {
-      // Remove from files and previews
       const fileIndex = imageFiles.findIndex(
         file => URL.createObjectURL(file) === imageUrl
       );
@@ -202,7 +199,6 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
       setImages(prev => prev.filter(url => url !== imageUrl));
       if (mainImage === imageUrl) setMainImage(null);
     } else {
-      // Remove from kept existing
       setKeptImagePaths(prev => prev.filter(path => path !== imageUrl));
       setImages(prev => prev.filter(url => url !== imageUrl));
       if (mainImage === imageUrl)
@@ -210,7 +206,6 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
     }
   };
 
-  // Play video (single click)
   const handlePlay = () => {
     if (!videoRef.current) return;
     videoRef.current
@@ -219,14 +214,12 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
       .catch(err => console.error("Playback failed:", err));
   };
 
-  // Pause video
   const handlePause = () => {
     if (!videoRef.current) return;
     videoRef.current.pause();
     setShowPlayButton(true);
   };
 
-  // Toggle play/pause
   const handlePlayPause = () => {
     if (!videoRef.current) return;
 
@@ -248,7 +241,6 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
     setMetaTags(metaTags.filter(t => t !== tag));
   };
 
-  // Handle form submission
   const handleUpdateListing = async () => {
     const formData = new FormData();
 
@@ -276,7 +268,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
 
     // Existing images to keep (as paths)
     keptImagePaths.forEach((path, index) => {
-      formData.append(`kept_images[${index}]`, path.split("/").pop() || path); 
+      formData.append(`kept_images[${index}]`, path.split("/").pop() || path);
     });
 
     // New image files
@@ -307,24 +299,29 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
 
   // Handle delete listing
   const handleDeleteListing = () => {
-    if (
-      confirm(
-        "Are you sure you want to delete this listing? This action cannot be undone."
-      )
-    ) {
-      deleteProduct.mutate(undefined, {
-        onSuccess: () => {
-          router.push("/dashboard/basic/view-listing");
-        },
-        onError: error => {
-          console.error("Delete failed:", error);
-        },
-      });
-    }
+    setShowDeleteModal(true);
+  };
+
+  // Confirm delete
+  const confirmDelete = () => {
+    setShowDeleteModal(false);
+    deleteProduct.mutate(null, {
+      onSuccess: () => {
+        router.push("/dashboard/basic/view-listing");
+      },
+      onError: (error: DeleteProductError) => {
+        console.error("Delete failed:", error);
+      },
+    });
+  };
+
+  // Cancel delete
+  const cancelDelete = () => {
+    setShowDeleteModal(false);
   };
 
   if (isLoading) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>; // Simple loading state
   }
 
   const statusBadge =
@@ -332,6 +329,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
       ? "Active"
       : listing?.data?.status || "Pending";
 
+  // Combined images for preview (existing kept + new previews)
   const previewImages = [
     ...keptImagePaths,
     ...images.filter(url => !keptImagePaths.includes(url)),
@@ -438,8 +436,9 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
             <input
               type="text"
               value={quantity}
+              disabled
               onChange={e => setQuantity(e.target.value)}
-              className="w-full md:w-[350px] border border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2 text-[20px] text-[#13141D] font-normal outline-0"
+              className="w-full md:w-[350px] border cursor-not-allowed bg-gray-300 border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2 text-[20px] text-[#13141D] font-normal outline-0"
             />
             <div className="flex flex-col gap-4 mt-2">
               <label className="flex items-center gap-2 text-[17px] md:text-[20px] text-[#13141D] font-semibold">
@@ -748,6 +747,36 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
           {updateProduct.isPending ? "Updating..." : "Update Listing"}
         </button>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 bg-black/20 bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg max-w-sm w-full mx-4">
+            <h3 className="text-lg font-semibold text-[#13141D] mb-4">
+              Delete Listing
+            </h3>
+            <p className="text-[#67645F] mb-6">
+              Are you sure you want to delete this listing? This action cannot
+              be undone.
+            </p>
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={cancelDelete}
+                className="px-4 py-2 border border-[#A7A39C] rounded-lg text-[#13141D] hover:bg-gray-100"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDelete}
+                disabled={deleteProduct.isPending}
+                className="px-4 py-2 bg-red-600 text-white rounded-lg cursor-pointer hover:bg-red-700 disabled:opacity-50"
+              >
+                {deleteProduct.isPending ? "Deleting..." : "Delete"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
