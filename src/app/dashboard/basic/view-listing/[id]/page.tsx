@@ -1,12 +1,17 @@
 "use client";
 
 import React, { useMemo, useRef, useState, useEffect, use } from "react";
+import { useRouter } from "next/navigation";
 import { FaAngleRight, FaPlay, FaPlus } from "react-icons/fa";
 import { MdArrowOutward, MdDelete } from "react-icons/md";
 import Preview from "../../../../../Assets/tomato.png";
 import Image from "next/image";
 import Link from "next/link";
-import { useGetSingleListing, useupdateProduct } from "@/Hooks/api/dashboard_api";
+import {
+  useDeleteProduct,
+  useGetSingleListing,
+  useupdateProduct,
+} from "@/Hooks/api/dashboard_api";
 import {
   getProductCategoriesClient,
   getProductSubCategoriesClient,
@@ -63,6 +68,7 @@ interface DetailsProps {
 }
 
 const Details = ({ params }: { params: Promise<{ id: string }> }) => {
+  const router = useRouter();
   const { user } = useAuth();
   console.log(user);
 
@@ -72,6 +78,9 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
 
   // Update mutation hook
   const updateProduct = useupdateProduct(id);
+
+  // Delete mutation hook
+  const deleteProduct = useDeleteProduct(id);
 
   const [images, setImages] = useState<string[]>([]);
   const [mainImage, setMainImage] = useState<string | null>(null);
@@ -248,7 +257,9 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
     formData.append("product_price", price.replace("$", "").trim());
     formData.append("cost", cost.replace("$", "").trim());
     formData.append("weight", weight);
-    formData.append("product_quantity", quantity);
+    if (quantity.trim() !== "") {
+      formData.append("product_quantity", quantity);
+    }
     formData.append("unlimited_stock", unlimitedStock ? "1" : "0");
     formData.append("out_of_stock", outOfStock ? "1" : "0");
     formData.append("description", description);
@@ -265,7 +276,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
 
     // Existing images to keep (as paths)
     keptImagePaths.forEach((path, index) => {
-      formData.append(`kept_images[${index}]`, path.split("/").pop() || path); // Send just the filename/path relative
+      formData.append(`kept_images[${index}]`, path.split("/").pop() || path); 
     });
 
     // New image files
@@ -294,8 +305,26 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
     });
   };
 
+  // Handle delete listing
+  const handleDeleteListing = () => {
+    if (
+      confirm(
+        "Are you sure you want to delete this listing? This action cannot be undone."
+      )
+    ) {
+      deleteProduct.mutate(undefined, {
+        onSuccess: () => {
+          router.push("/dashboard/basic/view-listing");
+        },
+        onError: error => {
+          console.error("Delete failed:", error);
+        },
+      });
+    }
+  };
+
   if (isLoading) {
-    return <div>Loading...</div>; // Simple loading state
+    return <div>Loading...</div>; 
   }
 
   const statusBadge =
@@ -303,7 +332,6 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
       ? "Active"
       : listing?.data?.status || "Pending";
 
-  // Combined images for preview (existing kept + new previews)
   const previewImages = [
     ...keptImagePaths,
     ...images.filter(url => !keptImagePaths.includes(url)),
@@ -411,7 +439,6 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
               type="text"
               value={quantity}
               onChange={e => setQuantity(e.target.value)}
-              required
               className="w-full md:w-[350px] border border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2 text-[20px] text-[#13141D] font-normal outline-0"
             />
             <div className="flex flex-col gap-4 mt-2">
@@ -705,8 +732,13 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
       </div>
       <div className="flex flex-col sm:flex-row justify-between mt-5 md:mt-10 items-center">
-        <button className="text-red-600 w-full sm:w-fit flex items-center justify-center gap-1 mt-4 cursor-pointer">
-          <MdDelete /> Delete Listing
+        <button
+          onClick={handleDeleteListing}
+          disabled={deleteProduct.isPending}
+          className="text-red-600 w-full sm:w-fit flex items-center justify-center gap-1 mt-4 cursor-pointer disabled:opacity-50"
+        >
+          <MdDelete />{" "}
+          {deleteProduct.isPending ? "Deleting..." : "Delete Listing"}
         </button>
         <button
           onClick={handleUpdateListing}

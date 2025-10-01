@@ -33,6 +33,21 @@ export const useupdateProduct = (id: string | number) => {
     },
   });
 };
+// delete product
+export const useDeleteProduct = (id: string | number) => {
+  return useClientApi({
+    method: "delete",
+    key: ["delete-product", id],
+    isPrivate: true,
+    endpoint: `/api/product/delete/${id}`,
+    onSuccess: (data: any) => {
+      if (data?.success) toast.success(data.message);
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
 
 // Get All Listings
 export const getallListings = () => {
