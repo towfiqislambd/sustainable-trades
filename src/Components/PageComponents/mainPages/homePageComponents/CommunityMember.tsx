@@ -13,18 +13,18 @@ const CommunityMember = ({ has_community }: any) => {
   return (
     <section className="rounded-xl">
       <Container>
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col md:flex-row w-full">
           {/* Left */}
-          <div className="md:w-[527px] md:h-[549px] shrink-0 rounded-tl-lg rounded-bl-lg">
+          <div className="flex-1 max-w-full md:max-w-[500px] md:h-[549px] shrink-0 rounded-t-lg md:rounded-tl-lg md:rounded-bl-lg overflow-hidden">
             <Image
               src={communityImage}
               alt="community"
-              className="rounded-tl-lg rounded-bl-lg w-full h-full"
+              className="w-full h-full object-cover"
             />
           </div>
 
           {/* Right */}
-          <div className="grow bg-primary-green rounded-tr-lg rounded-br-lg flex flex-col gap-5 justify-center p-5 md:p-10">
+          <div className="flex-1 bg-primary-green rounded-b-lg md:rounded-tr-lg md:rounded-br-lg flex flex-col gap-5 justify-center p-5 md:p-10">
             <h2 className="text-accent-white text-lg md:text-xl lg:text-2xl xl:text-4xl font-semibold">
               Community Member Spotlight
             </h2>
@@ -44,7 +44,7 @@ const CommunityMember = ({ has_community }: any) => {
 
             <Link
               href="/community-member-spotlight"
-              className="md:w-[416px] text-center block duration-500 transition-all border text-sm md:text-lg text-secondary-black cursor-pointer md:py-3 py-2  bg-accent-white rounded-lg shadow-lg hover:scale-105"
+              className="w-full lg:w-[416px] text-center block duration-500 transition-all border text-sm md:text-lg text-secondary-black cursor-pointer md:py-3 py-2 bg-accent-white rounded-lg shadow-lg hover:scale-105"
             >
               View Their Shop
             </Link>
@@ -52,7 +52,7 @@ const CommunityMember = ({ has_community }: any) => {
             {has_community && (
               <button
                 onClick={() => setOpen(true)}
-                className="md:w-[416px] duration-500 transition-all block border border-accent-white text-sm md:text-lg text-accent-white cursor-pointer md:py-3 py-2 rounded-lg shadow-lg hover:scale-105"
+                className="w-full lg:w-[416px] duration-500 transition-all block border border-accent-white text-sm md:text-lg text-accent-white cursor-pointer md:py-3 py-2 rounded-lg shadow-lg hover:scale-105"
               >
                 Apply for Community Spotlight
               </button>
