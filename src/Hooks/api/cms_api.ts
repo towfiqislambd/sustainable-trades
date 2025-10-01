@@ -269,7 +269,7 @@ export const getProductDetails = (id: string) => {
 };
 
 // Add To Cart
-export const useAddToCart = (product_id: number) => {
+export const useAddToCart = (product_id: any) => {
   return useClientApi({
     method: "post",
     key: ["add-to-cart"],

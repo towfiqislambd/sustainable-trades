@@ -4,6 +4,7 @@ import { LocationTwoSvg, MinSvg } from "@/Components/Svg/SvgContainer";
 import { useRemoveFromCart } from "@/Hooks/api/cms_api";
 
 const CartItem = ({ item }: any) => {
+  const [quantity, setQuantity] = useState<number>(1);
   const [productId, setProductId] = useState<number | null>(null);
   const { mutate: removeCartMutation, isPending } =
     useRemoveFromCart(productId);
@@ -76,13 +77,13 @@ const CartItem = ({ item }: any) => {
                 </p>
               </div>
 
-              {/* Product Increment and Decrement */}
+              {/* Product Quantity */}
               <div className="flex gap-3 items-center border rounded-lg px-7 py-2 font-semibold border-primary-green w-fit mb-3">
                 <button className="cursor-pointer">
                   <MinSvg />
                 </button>
-                <p className="">Qty:</p>
-                <p className="">1</p>
+                <p>Qty:</p>
+                <p>{product?.quantity}</p>
                 <button className="cursor-pointer">+</button>
               </div>
 
