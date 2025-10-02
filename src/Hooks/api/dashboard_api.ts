@@ -72,7 +72,7 @@ export const useGetSingleListing = (id: string | number) => {
 
 export const useRequestApproval = (id: string | number) => {
   return useClientApi({
-    method: "post",
+    method: "get", // <- change this
     key: ["request-approval"],
     isPrivate: true,
     endpoint: `/api/product/request-approval/${id}`,
@@ -85,3 +85,4 @@ export const useRequestApproval = (id: string | number) => {
     },
   });
 };
+

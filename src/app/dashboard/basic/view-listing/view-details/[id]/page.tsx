@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useRef, useState, useEffect, use } from "react";
+import React, { useRef, useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import { FaAngleRight, FaPlay, FaPlus } from "react-icons/fa";
 import { MdArrowOutward, MdDelete } from "react-icons/md";
@@ -18,6 +18,7 @@ import {
   getProductSubCategoriesClient,
 } from "@/Hooks/api/cms_api";
 import useAuth from "@/Hooks/useAuth";
+import toast from "react-hot-toast";
 
 // Define types for the API response and error
 interface UpdateProductResponse {
@@ -243,71 +244,16 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
     setMetaTags(metaTags.filter(t => t !== tag));
   };
 
-  const handleUpdateListing = async () => {
-    if (updateProduct.isPending) return; // Prevent double-clicks
-
-    const formData = new FormData();
-
-    // Append text fields (added trims for safety)
-    formData.append("product_name", productName.trim());
-    formData.append("product_price", price.replace("$", "").trim());
-    formData.append("cost", cost.replace("$", "").trim());
-    formData.append("weight", weight.trim());
-    if (quantity.trim() !== "") {
-      formData.append("product_quantity", quantity.trim());
+const handleUpdateListing = async () => {
+  try {
+    const data = await requestApproval.refetch();
+    if (data?.data?.success) {
+      toast("Approval requested successfully");
     }
-    formData.append("unlimited_stock", unlimitedStock ? "1" : "0");
-    formData.append("out_of_stock", outOfStock ? "1" : "0");
-    formData.append("description", description.trim());
-    formData.append("category_id", category);
-    formData.append("sub_category_id", subcategory);
-    formData.append("fulfillment", fulfillment);
-    formData.append("selling_option", sellingOption);
-    formData.append("is_featured", Featured ? "1" : "0");
-
-    // Meta tags
-    metaTags.forEach((tag, index) => {
-      formData.append(`meta_tags[${index}]`, tag.trim());
-    });
-
-    // Existing images to keep (as paths) - extract filename safely
-    keptImagePaths.forEach((path, index) => {
-      const filename = path.split("/").pop() || path;
-      formData.append(`product_image[${index}]`, filename);
-    });
-
-    // New image files
-    imageFiles.forEach(file => {
-      formData.append("product_image", file);
-    });
-
-    // Video file if new
-    if (videoFile) {
-      formData.append("video", videoFile);
-    } else if (!videoUrl) {
-      formData.append("video", ""); // Explicitly set to empty if no video
-    }
-
-    // First: Update the product
-    updateProduct.mutate(formData, {
-      onSuccess: (data: UpdateProductResponse) => {
-        console.log("Update successful:", data);
-        updateLocalStateWithProductData(data.data);
-        // Then: Request approval (no payload needed, just trigger mutate with null/undefined)
-        requestApproval.mutate(null, {
-          onSuccess: () => {
-            console.log("Approval requested successfully");
-          },
-          onError: (err: any) => {
-            console.error("Approval request failed after update:", err);
-          },
-        });
-      },
-      onError: (error: UpdateProductError) => {
-        console.error("Update failed:", error);
-      },
-    });
-  };
+  } catch (err) {
+    toast("Approval request failed");
+  }
+};
 
   // Handle delete listing
   const handleDeleteListing = () => {
@@ -753,10 +699,10 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
         </button>
         <button
           onClick={handleUpdateListing}
-          disabled={updateProduct.isPending || requestApproval.isPending}
+          disabled={requestApproval.isPending}
           className="bg-[#E48872] w-full sm:w-fit text-white py-2.5 md:py-5 px-12 cursor-pointer rounded-lg font-semibold duration-300 ease-in-out hover:bg-[#a34739] mt-3 md:mt-6 disabled:opacity-50"
         >
-          {updateProduct.isPending || requestApproval.isPending
+          {requestApproval.isPending
             ? "Requesting Approval..."
             : "Request Approval"}
         </button>
