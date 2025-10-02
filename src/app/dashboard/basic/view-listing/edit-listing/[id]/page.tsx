@@ -4,7 +4,7 @@ import React, { useMemo, useRef, useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import { FaAngleRight, FaPlay, FaPlus } from "react-icons/fa";
 import { MdArrowOutward, MdDelete } from "react-icons/md";
-import Preview from "../../../../../Assets/tomato.png";
+import Preview from "../../../../../../Assets/tomato.png";
 import Image from "next/image";
 import Link from "next/link";
 import {
