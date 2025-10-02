@@ -86,7 +86,7 @@ const LowerNavbar = ({ dynamicPage }: any) => {
       <Container>
         <div className="flex justify-between items-center">
           {/* Left - NavLinks */}
-          <div className="flex gap-5 xl:gap-10 items-center relative">
+          <div className="hidden lg:flex gap-5 xl:gap-10 items-center relative">
             {navLins?.map((item) => {
               const isActive = pathname === item?.path;
 
@@ -165,7 +165,7 @@ const LowerNavbar = ({ dynamicPage }: any) => {
           </div>
 
           {/* Right - Searchbar */}
-          <div className="flex gap-1 items-center border border-primary-green px-3 py-2 rounded-lg w-[400px]  xl:w-[528px]">
+          <div className="flex gap-1 items-center border border-primary-green px-3 py-2 rounded-lg w-full lg:w-[400px]  xl:w-[528px]">
             <SearchSvg />
             <input
               type="text"

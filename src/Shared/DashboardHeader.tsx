@@ -49,7 +49,7 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
     <header className="bg-primary-green py-3 px-5 lg:px-20 relative">
       <div className="flex justify-between items-center">
         {/* Left */}
-        <div className="flex gap-6 2xl:gap-12 items-center">
+        <div className="flex gap-2 md:gap-6 2xl:gap-12 items-center">
           {/* Logo */}
           <button
             className="xl:hidden text-white text-2xl cursor-pointer"
@@ -61,7 +61,7 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
             ☰
           </button>
           <Link href="/">
-            <figure className="size-14 rounded-full relative">
+            <figure className="size-10 md:size-14 rounded-full relative">
               <Image
                 src={`${process.env.NEXT_PUBLIC_SITE_URL}/${siteSettings?.data?.logo}`}
                 alt="logo"
@@ -111,7 +111,7 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
                 ? "messages"
                 : "messages"
             }`}
-            className="cursor-pointer text-accent-white"
+            className="cursor-pointer hidden lg:block text-accent-white"
           >
             <MessageSvg />
           </Link>
@@ -125,7 +125,7 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
                   ? "notification"
                   : "notification"
               }`}
-              className="cursor-pointer text-accent-white"
+              className="cursor-pointer hidden lg:block text-accent-white"
             >
               <NotificationSvg />
             </Link>
@@ -156,7 +156,7 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
                 ? "favorites"
                 : "favorites"
             }`}
-            className="cursor-pointer"
+            className="cursor-pointer hidden lg:block"
           >
             <LoveSvg2 />
           </Link>
@@ -213,7 +213,7 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
           {user?.role !== "customer" && (
             <Link
               href={`/view-my-shop/${user?.shop_info?.user_id}`}
-              className="px-5 py-2 block rounded-lg bg-accent-red text-secondary-black cursor-pointer shadow-[0_3px_10px_0_rgba(0,0,0,0.12),_0_3px_8px_0_rgba(0,0,0,0.08)] duration-300 transition-all hover:text-accent-red hover:bg-transparent border border-accent-red hover:scale-95 "
+              className="px-5 py-2  rounded-lg bg-accent-red text-secondary-black cursor-pointer shadow-[0_3px_10px_0_rgba(0,0,0,0.12),_0_3px_8px_0_rgba(0,0,0,0.08)] duration-300 transition-all hover:text-accent-red hover:bg-transparent border border-accent-red hover:scale-95 hidden lg:block"
             >
               View Shop
             </Link>
