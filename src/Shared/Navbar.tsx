@@ -33,7 +33,11 @@ const Navbar = ({ siteSettings, dynamicPage }: any) => {
         {user ? (
           <BasicNavbar dynamicPage={dynamicPage} siteSettings={siteSettings} />
         ) : (
-          <DefaultNavbar siteSettings={siteSettings} />
+          <DefaultNavbar
+            dynamicPage={dynamicPage}
+            user={user}
+            siteSettings={siteSettings}
+          />
         )}
 
         {/* Lower Navbar*/}
