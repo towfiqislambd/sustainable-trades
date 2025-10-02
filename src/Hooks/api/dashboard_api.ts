@@ -69,10 +69,10 @@ export const useGetSingleListing = (id: string | number) => {
   });
 };
 
-
+// useRequestApproval 
 export const useRequestApproval = (id: string | number) => {
   return useClientApi({
-    method: "get", // <- change this
+    method: "get", 
     key: ["request-approval"],
     isPrivate: true,
     endpoint: `/api/product/request-approval/${id}`,
@@ -83,6 +83,17 @@ export const useRequestApproval = (id: string | number) => {
     onError: (err: any) => {
       toast.error(err?.response?.data?.message || "Failed to request approval");
     },
+  });
+};
+
+
+// Get All Listings
+export const getmemberShipspotlight = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-membership-spotlight"],
+    isPrivate: true,
+    endpoint: "/api/spotlight-applications?search",
   });
 };
 
