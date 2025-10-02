@@ -39,6 +39,7 @@ interface Props {
   params: Promise<{ id: string }>;
 }
 
+
 const Page = ({ params }: Props) => {
   // Hook
   const { id } = use(params);
