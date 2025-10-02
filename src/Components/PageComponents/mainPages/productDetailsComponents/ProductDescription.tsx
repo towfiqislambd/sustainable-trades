@@ -18,6 +18,8 @@ import { CgSpinnerTwo } from "react-icons/cg";
 
 const ProductDescription = ({ data }: any) => {
   const { user } = useAuth();
+  const [id, setId] = useState<number | null>(null);
+  const [productId, setProductId] = useState<number | null>(null);
   const { mutate: addFavoriteMutation, isPending } = useAddFavorite();
   const [tradeOpen, setTradeOpen] = useState(false);
   const [msgOpen, setMsgOpen] = useState(false);
@@ -121,7 +123,7 @@ const ProductDescription = ({ data }: any) => {
 
       <div className="flex items-center justify-between mb-7">
         {/* Price */}
-        <p className="text-4xl font-semibold">${data?.cost}</p>
+        <p className="text-4xl font-semibold">${data?.product_price}</p>
 
         {/* Quantity */}
         <div className="flex gap-3 items-center border rounded-lg px-7 py-2 font-semibold border-primary-green">
@@ -144,7 +146,11 @@ const ProductDescription = ({ data }: any) => {
       {/* Trade btn */}
       {user?.role !== "customer" && (
         <button
-          onClick={() => setTradeOpen(true)}
+          onClick={() => {
+            setId(data?.shop?.id);
+            setProductId(data?.id);
+            setTradeOpen(true);
+          }}
           className="mb-5 block w-full text-center duration-500 transition-all border-2 border-[#D4E2CB] text-lg cursor-pointer py-3 bg-[#D4E2CB] text-primary-green rounded-lg shadow hover:text-primary-green hover:bg-transparent font-semibold"
         >
           Trade
@@ -162,7 +168,7 @@ const ProductDescription = ({ data }: any) => {
 
       {/* Modals */}
       <Modal open={tradeOpen} onClose={() => setTradeOpen(false)}>
-        <TradeOfferModal />
+        <TradeOfferModal id={id} productId={productId} shopInfo={data} />
       </Modal>
 
       <Modal open={msgOpen} onClose={() => setMsgOpen(false)}>

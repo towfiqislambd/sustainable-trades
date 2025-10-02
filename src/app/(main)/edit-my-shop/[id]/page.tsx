@@ -1,10 +1,10 @@
 "use client";
-
 import Container from "@/Components/Common/Container";
 import EditFormFour from "@/Components/PageComponents/EditForm/EditFormFour";
 import EditFormThree from "@/Components/PageComponents/EditForm/EditFormThree";
 import EditFormTwo from "@/Components/PageComponents/EditForm/EditFormTwo";
-import React, { useState } from "react";
+import { getShopDetails } from "@/Hooks/api/cms_api";
+import React, { use, useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { BsEyeFill } from "react-icons/bs";
 import { PiEyeClosed } from "react-icons/pi";
@@ -35,21 +35,22 @@ type ProfileFormValues = {
   lng?: number;
 };
 
-const Page: React.FC = () => {
+interface Props {
+  params: Promise<{ id: string }>;
+}
+
+
+const Page = ({ params }: Props) => {
+  // Hook
+  const { id } = use(params);
+  const { data: shopDetailsData, isLoading } = getShopDetails(id);
   const [showPassword, setShowPassword] = useState(false);
   const [showRePassword, setShowRePassword] = useState(false);
 
   const methods = useForm<ProfileFormValues>({
     defaultValues: {
-      firstName: "John",
-      lastName: "Doe",
-      email: "johndoe@example.com",
-      password: "",
-      rePassword: "",
-      companyName: "My Company",
       shopPhotoPreview: "",
       coverPhotoPreview: "",
-      shopName: "My Shop Name",
       cityState: "Dhaka, Bangladesh",
       country: "Bangladesh",
       address: "Dhaka Street 123",
@@ -63,14 +64,12 @@ const Page: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
     watch,
   } = methods;
 
   const onSubmit = async (data: ProfileFormValues) => {
     console.log("Form data before geo lookup:", data);
 
-    // Construct full address string
     const fullAddress = `${data.address || ""}, ${data.city || ""}, ${
       data.state || ""
     }, ${data.country || ""}, ${data.zipcode || ""}`;
@@ -95,9 +94,6 @@ const Page: React.FC = () => {
     } catch (err) {
       console.error("Error fetching geocode:", err);
     }
-
-    // Send to API
-    // await fetch("/api/update-profile", { method: "POST", body: JSON.stringify(data) })
   };
 
   return (
@@ -128,6 +124,7 @@ const Page: React.FC = () => {
                       type="text"
                       className="form-input"
                       placeholder="First Name"
+                      defaultValue={shopDetailsData?.data?.first_name}
                       {...register("firstName")}
                     />
                     {errors.firstName?.message && (
@@ -142,6 +139,7 @@ const Page: React.FC = () => {
                       type="text"
                       className="form-input"
                       placeholder="Last Name"
+                      defaultValue={shopDetailsData?.data?.last_name}
                       {...register("lastName")}
                     />
                     {errors.lastName?.message && (
@@ -239,7 +237,7 @@ const Page: React.FC = () => {
 
               {/* Child Forms */}
               <div className="my-12">
-                <EditFormTwo />
+                <EditFormTwo data={shopDetailsData?.data} />
               </div>
               <div className="my-12">
                 <EditFormThree />

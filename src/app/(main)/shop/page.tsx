@@ -88,12 +88,12 @@ const page = () => {
 
       {/* Organic Bath & Beauty */}
       <Container>
-        <h3 className="text-3xl font-semibold text-secondary-black mb-7">
+        <h3 className="text-2xl md:text-3xl font-semibold text-secondary-black mb-7">
           Organic Bath & Beauty
         </h3>
 
-        <div className="grid grid-cols-4 gap-x-6 gap-y-10 mb-14">
-          {data?.map(shopInfo => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3gap-x-6 gap-y-10 mb-14">
+          {data?.map((shopInfo) => (
             <Shop key={shopInfo?.id} shop={shopInfo} />
           ))}
         </div>
@@ -101,12 +101,12 @@ const page = () => {
 
       {/* Sustainable Products & Services Nearby */}
       <Container>
-        <h3 className="text-3xl font-semibold text-secondary-black mb-7">
+        <h3 className="text-2xl md:text-3xl font-semibold text-secondary-black mb-7">
           Organic Bath & Beauty
         </h3>
 
-        <div className="grid grid-cols-4 gap-x-6 gap-y-10">
-          {data2?.map(product => (
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
+          {data2?.map((product) => (
             <Product key={product?.id} product={product} is_feathered={true} />
           ))}
         </div>

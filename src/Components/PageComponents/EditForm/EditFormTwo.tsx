@@ -4,7 +4,7 @@ import Preview from "@/Assets/cover.jpg";
 import { Camera } from "@/Components/Svg/SvgContainer";
 import { useFormContext, Controller } from "react-hook-form";
 
-const EditFormTwo: React.FC = () => {
+const EditFormTwo = ({ data }: any) => {
   const {
     control,
     register,
@@ -44,6 +44,7 @@ const EditFormTwo: React.FC = () => {
           <input
             type="text"
             {...register("shopName")}
+            defaultValue={data?.shop_info?.shop_name}
             className="form-input"
             placeholder="Name Your Shop *"
           />

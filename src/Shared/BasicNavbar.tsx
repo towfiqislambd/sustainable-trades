@@ -18,6 +18,7 @@ import {
   MessageSvg,
   NotificationSvg,
 } from "@/Components/Svg/SvgContainer";
+import Sidebar from "@/Components/Common/Sidebar";
 
 const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
   const navLins = [
@@ -76,6 +77,7 @@ const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
   const { user } = useAuth();
   const pathname = usePathname();
   const [showMenu, setShowMenu] = useState<boolean>(false);
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const [showPopover, setShowPopover] = useState<boolean>(false);
   const [activeSubMenu, setActiveSubMenu] = useState<number>(0);
   const { mutate: logoutMutation, isPending } = useLogout();
@@ -98,22 +100,41 @@ const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
       <Container>
         <div className="flex justify-between items-center">
           {/* Left */}
-          <div className="flex gap-12 items-center">
+          <div className="flex gap-6 xl:gap-12 items-center">
             {/* Left - Logo */}
-            <Link href="/">
-              <figure className="size-14 rounded-full relative">
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_SITE_URL}/${siteSettings?.logo}`}
-                  alt="logo"
-                  fill
-                  className="size-full object-cover rounded-full"
-                />
-              </figure>
-            </Link>
+            <div className="flex items-center gap-2">
+              {user && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSidebarOpen(true);
+                  }}
+                  className="block lg:hidden text-white text-2xl cursor-pointer"
+                >
+                  ☰
+                </button>
+              )}
+
+              <Sidebar
+                dynamicPage={dynamicPage}
+                open={sidebarOpen}
+                setOpen={setSidebarOpen}
+              />
+              <Link href="/">
+                <figure className="size-10 md:size-14 rounded-full relative">
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_SITE_URL}/${siteSettings?.logo}`}
+                    alt="logo"
+                    fill
+                    className="size-full object-cover rounded-full"
+                  />
+                </figure>
+              </Link>
+            </div>
 
             {/* NavLinks */}
-            <div className="flex gap-10 items-center relative">
-              {navLins?.map(item => {
+            <div className="lg:flex hidden gap-5 xl:gap-10 items-center relative">
+              {navLins?.map((item) => {
                 const isActive = pathname === item?.path;
 
                 return (
@@ -123,7 +144,7 @@ const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
                     }`}
                     key={item?.id}
                     href={item?.id == 4 || item?.id == 5 ? "#" : item?.path}
-                    onClick={e => {
+                    onClick={(e) => {
                       e.stopPropagation();
                       if (item?.id == 4 || item?.id == 5) {
                         e.preventDefault();
@@ -139,7 +160,7 @@ const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
 
               {/* Sub Menu */}
               <div
-                onClick={e => e.stopPropagation()}
+                onClick={(e) => e.stopPropagation()}
                 className={`absolute top-12 ${
                   activeSubMenu === 4 ? "-right-32" : "-right-56"
                 } bg-white drop-shadow  w-[280px] py-7 px-5 border-gray-50 rounded-lg flex flex-col gap-7 ${
@@ -149,7 +170,7 @@ const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
                 }`}
               >
                 {navLins?.map(
-                  item =>
+                  (item) =>
                     item?.id === activeSubMenu &&
                     item?.sub_menu?.map(
                       ({
@@ -255,7 +276,7 @@ const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
                   ? "dashboard/pro/favorites"
                   : "dashboard/basic/favorites"
               }`}
-              className="cursor-pointer"
+              className="cursor-pointer hidden lg:block"
             >
               <LoveSvg2 />
             </Link>
@@ -263,7 +284,7 @@ const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
             {/* Profile */}
             <div className="relative">
               <button
-                onClick={e => {
+                onClick={(e) => {
                   e.stopPropagation();
                   setShowPopover(!showPopover);
                 }}
@@ -293,8 +314,8 @@ const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
 
               {/* Popover */}
               <div
-                onClick={e => e.stopPropagation()}
-                className={`absolute top-16 bg-white drop-shadow z-50 space-y-2 w-[135px] py-3 px-4 border-gray-50 rounded-lg duration-300 transition-all ${
+                onClick={(e) => e.stopPropagation()}
+                className={`absolute top-16 right-0 bg-white drop-shadow z-50 space-y-2 w-[135px] py-3 px-4 border-gray-50 rounded-lg duration-300 transition-all ${
                   showPopover
                     ? "opacity-100 scale-100"
                     : "opacity-0 pointer-events-none scale-95"
@@ -327,7 +348,7 @@ const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
             {user?.role !== "customer" && (
               <Link
                 href={`/view-my-shop/${user?.shop_info?.user_id}`}
-                className="px-5 py-2 block rounded-lg bg-accent-red text-secondary-black cursor-pointer shadow-[0_3px_10px_0_rgba(0\,0\,0\,0.12),_0_3px_8px_0_rgba(0\,0\,0\,0.08)] duration-300 transition-all hover:text-accent-red hover:bg-transparent border border-accent-red hover:scale-95"
+                className="px-5 py-2 hidden lg:block rounded-lg bg-accent-red text-secondary-black cursor-pointer shadow-[0_3px_10px_0_rgba(0\,0\,0\,0.12),_0_3px_8px_0_rgba(0\,0\,0\,0.08)] duration-300 transition-all hover:text-accent-red hover:bg-transparent border border-accent-red hover:scale-95"
               >
                 View Shop
               </Link>

@@ -30,7 +30,7 @@ const NearbyProducts = () => {
   return (
     <section className="mb-20">
       <Container>
-        <h2 className="text-3xl font-semibold text-secondary-black mb-10">
+        <h2 className="text-2xl md:text-3xl font-semibold text-secondary-black mb-10">
           Explore Sustainable Products & Services Nearby
         </h2>
 
@@ -46,14 +46,38 @@ const NearbyProducts = () => {
           <Swiper
             modules={[Navigation]}
             spaceBetween={20}
-            slidesPerView={5}
+            // slidesPerView={5}
             navigation={{
               nextEl: ".swiper-button-next-custom",
               prevEl: ".swiper-button-prev-custom",
             }}
+            breakpoints={{
+              320: {
+                slidesPerView: 1,
+              },
+
+              500: {
+                slidesPerView: 2,
+                spaceBetween: 10,
+              },
+              640: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+              },
+
+              1024: {
+                slidesPerView: 4,
+                spaceBetween: 30,
+              },
+
+              1280: {
+                slidesPerView: 5,
+                spaceBetween: 40,
+              },
+            }}
             className="!mx-10"
           >
-            {data?.map(item => (
+            {data?.map((item) => (
               <SwiperSlide key={item?.id} className="">
                 <Link
                   href={`/product-details/${item?.id}`}

@@ -51,7 +51,7 @@ const page = ({ params }: Props) => {
 
   return (
     <>
-      <EditShopBanner data={shopDetailsData?.data} />
+      <EditShopBanner shop_id={id} data={shopDetailsData?.data} />
       <DetailsTab />
       <ShopListing
         featuredListings={featuredListings?.data}

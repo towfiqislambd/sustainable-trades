@@ -4,10 +4,11 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Container from "@/Components/Common/Container";
 import { CartSvg, DownSvg, ProfileSvg } from "@/Components/Svg/SvgContainer";
+import Sidebar from "@/Components/Common/Sidebar";
 
-const DefaultNavbar = ({ siteSettings }: any) => {
+const DefaultNavbar = ({ user, siteSettings, dynamicPage }: any) => {
   const [showPopover, setShowPopover] = useState<boolean>(false);
-
+  const [open, setOpen] = useState<boolean>(false);
   useEffect(() => {
     const handleWindowClick = () => {
       setShowPopover(false);
@@ -25,32 +26,47 @@ const DefaultNavbar = ({ siteSettings }: any) => {
       <Container>
         <div className="flex justify-between items-center">
           {/* Left - Logo */}
-          <Link href="/">
-            <figure className="size-14 rounded-full relative">
-              <Image
-                src={`${process.env.NEXT_PUBLIC_SITE_URL}/${siteSettings?.logo}`}
-                alt="logo"
-                fill
-                className="size-full object-cover rounded-full"
-              />
-            </figure>
-          </Link>
+          <div className="flex items-center gap-2">
+            {!user && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setOpen(true);
+                }}
+                className="block lg:hidden text-white text-2xl cursor-pointer"
+              >
+                ☰
+              </button>
+            )}
+
+            <Sidebar dynamicPage={dynamicPage} open={open} setOpen={setOpen} />
+            <Link href="/">
+              <figure className="size-10 md:size-14 rounded-full relative">
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_SITE_URL}/${siteSettings?.logo}`}
+                  alt="logo"
+                  fill
+                  className="size-full object-cover rounded-full"
+                />
+              </figure>
+            </Link>
+          </div>
 
           {/* Right */}
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-2 lg:gap-4 items-center">
             <Link
               href="/auth/create-shop"
-              className="px-4 py-2 block rounded-lg bg-accent-red text-secondary-black cursor-pointer shadow-[0_3px_10px_0_rgba(0\,0\,0\,0.12),_0_3px_8px_0_rgba(0\,0\,0\,0.08)] duration-300 transition-all hover:text-accent-red hover:bg-transparent border border-accent-red hover:scale-95"
+              className="px-2 lg:px-4 py-1 md:py-2 block rounded-lg bg-accent-red text-secondary-black cursor-pointer shadow-[0_3px_10px_0_rgba(0\,0\,0\,0.12),_0_3px_8px_0_rgba(0\,0\,0\,0.08)] duration-300 transition-all hover:text-accent-red hover:bg-transparent border border-accent-red hover:scale-95 text-[12px] md:text-base"
             >
               Create a Shops
             </Link>
 
             <button
-              onClick={e => {
+              onClick={(e) => {
                 e.stopPropagation();
                 setShowPopover(!showPopover);
               }}
-              className="cursor-pointer flex gap-2 items-center relative"
+              className="cursor-pointer flex md:gap-2 items-center relative"
             >
               <ProfileSvg />
               <span
@@ -63,8 +79,8 @@ const DefaultNavbar = ({ siteSettings }: any) => {
 
               {/* Popover */}
               <div
-                onClick={e => e.stopPropagation()}
-                className={`absolute top-16 bg-gray-50 shadow-lg border z-50 space-y-2 w-[100px] py-3 px-4 border-gray-100 rounded-lg duration-300 transition-all ${
+                onClick={(e) => e.stopPropagation()}
+                className={`absolute top-10 right-0 bg-gray-50 shadow-lg border z-50 space-y-2 w-[100px] py-3 px-4 border-gray-100 rounded-lg duration-300 transition-all ${
                   showPopover
                     ? "opacity-100 scale-100"
                     : "opacity-0 pointer-events-none scale-95"
