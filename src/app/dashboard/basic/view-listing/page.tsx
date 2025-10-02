@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ProductPlaceholder from "../../../../Assets/tomato.png";
 import { getallListings } from "@/Hooks/api/dashboard_api";
+import { PuffLoader } from "react-spinners";
 
 interface ProductType {
   id: number;
@@ -117,7 +118,9 @@ const Page = () => {
 
       {/* Product Grid */}
       {isLoading ? (
-        <p className="mt-10 text-center text-lg">Loading products...</p>
+        <div className="flex justify-center items-center h-full">
+          <PuffLoader color="#274F45" size={100}/>
+        </div>
       ) : filteredProducts.length === 0 ? (
         <p className="mt-10 text-center text-lg">No products found.</p>
       ) : (

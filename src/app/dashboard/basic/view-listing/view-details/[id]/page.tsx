@@ -19,6 +19,7 @@ import {
 } from "@/Hooks/api/cms_api";
 import useAuth from "@/Hooks/useAuth";
 import toast from "react-hot-toast";
+import { PuffLoader } from "react-spinners";
 
 // Define types for the API response and error
 interface UpdateProductResponse {
@@ -244,16 +245,16 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
     setMetaTags(metaTags.filter(t => t !== tag));
   };
 
-const handleUpdateListing = async () => {
-  try {
-    const data = await requestApproval.refetch();
-    if (data?.data?.success) {
-      toast("Approval requested successfully");
+  const handleUpdateListing = async () => {
+    try {
+      const data = await requestApproval.refetch();
+      if (data?.data?.success) {
+        toast("Approval requested successfully");
+      }
+    } catch (err) {
+      toast("Approval request failed");
     }
-  } catch (err) {
-    toast("Approval request failed");
-  }
-};
+  };
 
   // Handle delete listing
   const handleDeleteListing = () => {
@@ -279,7 +280,11 @@ const handleUpdateListing = async () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>; // Simple loading state
+    return (
+      <div className="flex justify-center items-center h-full">
+        <PuffLoader color="#274F45" />
+      </div>
+    );
   }
 
   const statusBadge =
@@ -699,10 +704,10 @@ const handleUpdateListing = async () => {
         </button>
         <button
           onClick={handleUpdateListing}
-          disabled={requestApproval.isPending}
+          disabled={requestApproval.isFetching}
           className="bg-[#E48872] w-full sm:w-fit text-white py-2.5 md:py-5 px-12 cursor-pointer rounded-lg font-semibold duration-300 ease-in-out hover:bg-[#a34739] mt-3 md:mt-6 disabled:opacity-50"
         >
-          {requestApproval.isPending
+          {requestApproval.isFetching
             ? "Requesting Approval..."
             : "Request Approval"}
         </button>

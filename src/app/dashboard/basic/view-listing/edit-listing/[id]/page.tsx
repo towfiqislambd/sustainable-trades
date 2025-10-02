@@ -17,6 +17,7 @@ import {
   getProductSubCategoriesClient,
 } from "@/Hooks/api/cms_api";
 import useAuth from "@/Hooks/useAuth";
+import { PuffLoader } from "react-spinners";
 
 // Define types for the API response and error
 interface UpdateProductResponse {
@@ -337,7 +338,11 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>; // Simple loading state
+    return (
+      <div className="flex justify-center items-center h-full">
+        <PuffLoader color="#274F45" />
+      </div>
+    );
   }
 
   const statusBadge =
