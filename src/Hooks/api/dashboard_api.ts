@@ -68,3 +68,20 @@ export const useGetSingleListing = (id: string | number) => {
     endpoint: `/api/product/${id}`,
   });
 };
+
+
+export const useRequestApproval = (id: string | number) => {
+  return useClientApi({
+    method: "post",
+    key: ["request-approval"],
+    isPrivate: true,
+    endpoint: `/api/product/request-approval/${id}`,
+    onSuccess: (data: any) => {
+      if (data?.success)
+        toast.success(data.message || "Approval requested successfully!");
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message || "Failed to request approval");
+    },
+  });
+};

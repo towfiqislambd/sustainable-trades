@@ -11,6 +11,7 @@ import {
   useDeleteProduct,
   useGetSingleListing,
   useupdateProduct,
+  useRequestApproval,
 } from "@/Hooks/api/dashboard_api";
 import {
   getProductCategoriesClient,
@@ -85,6 +86,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
 
   const updateProduct = useupdateProduct(id);
   const deleteProduct = useDeleteProduct(id);
+  const requestApproval = useRequestApproval(id);
 
   const [images, setImages] = useState<string[]>([]);
   const [mainImage, setMainImage] = useState<string | null>(null);
@@ -242,19 +244,21 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
   };
 
   const handleUpdateListing = async () => {
+    if (updateProduct.isPending) return; // Prevent double-clicks
+
     const formData = new FormData();
 
-    // Append text fields
-    formData.append("product_name", productName);
+    // Append text fields (added trims for safety)
+    formData.append("product_name", productName.trim());
     formData.append("product_price", price.replace("$", "").trim());
     formData.append("cost", cost.replace("$", "").trim());
-    formData.append("weight", weight);
+    formData.append("weight", weight.trim());
     if (quantity.trim() !== "") {
-      formData.append("product_quantity", quantity);
+      formData.append("product_quantity", quantity.trim());
     }
     formData.append("unlimited_stock", unlimitedStock ? "1" : "0");
     formData.append("out_of_stock", outOfStock ? "1" : "0");
-    formData.append("description", description);
+    formData.append("description", description.trim());
     formData.append("category_id", category);
     formData.append("sub_category_id", subcategory);
     formData.append("fulfillment", fulfillment);
@@ -263,33 +267,41 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
 
     // Meta tags
     metaTags.forEach((tag, index) => {
-      formData.append(`meta_tags[${index}]`, tag);
+      formData.append(`meta_tags[${index}]`, tag.trim());
     });
 
-    // Existing images to keep (as paths)
+    // Existing images to keep (as paths) - extract filename safely
     keptImagePaths.forEach((path, index) => {
-      formData.append(`kept_images[${index}]`, path.split("/").pop() || path);
+      const filename = path.split("/").pop() || path;
+      formData.append(`product_image[${index}]`, filename);
     });
 
     // New image files
     imageFiles.forEach(file => {
-      formData.append("images", file);
+      formData.append("product_image", file);
     });
 
     // Video file if new
     if (videoFile) {
       formData.append("video", videoFile);
     } else if (!videoUrl) {
-      formData.append("video", ""); // Or null, to remove if needed
+      formData.append("video", ""); // Explicitly set to empty if no video
     }
 
-    // Trigger the mutation with typed callbacks
+    // First: Update the product
     updateProduct.mutate(formData, {
       onSuccess: (data: UpdateProductResponse) => {
         console.log("Update successful:", data);
-        // Update local state with the new data
         updateLocalStateWithProductData(data.data);
-        // Optionally redirect or show success message
+        // Then: Request approval (no payload needed, just trigger mutate with null/undefined)
+        requestApproval.mutate(null, {
+          onSuccess: () => {
+            console.log("Approval requested successfully");
+          },
+          onError: (err: any) => {
+            console.error("Approval request failed after update:", err);
+          },
+        });
       },
       onError: (error: UpdateProductError) => {
         console.error("Update failed:", error);
@@ -741,10 +753,12 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
         </button>
         <button
           onClick={handleUpdateListing}
-          disabled={updateProduct.isPending}
+          disabled={updateProduct.isPending || requestApproval.isPending}
           className="bg-[#E48872] w-full sm:w-fit text-white py-2.5 md:py-5 px-12 cursor-pointer rounded-lg font-semibold duration-300 ease-in-out hover:bg-[#a34739] mt-3 md:mt-6 disabled:opacity-50"
         >
-          {updateProduct.isPending ? "Request Approval..." : "Request Approval"}
+          {updateProduct.isPending || requestApproval.isPending
+            ? "Requesting Approval..."
+            : "Request Approval"}
         </button>
       </div>
 

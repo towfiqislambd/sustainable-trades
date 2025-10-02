@@ -113,8 +113,11 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
   const [existingImages, setExistingImages] = useState<string[]>([]);
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [keptImagePaths, setKeptImagePaths] = useState<string[]>([]);
+  const [keptRelativePaths, setKeptRelativePaths] = useState<string[]>([]);
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
 
   const updateLocalStateWithProductData = (
     productData: UpdateProductResponse["data"]
@@ -132,12 +135,19 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
       productData.meta_tags?.map((tag: { tag: string }) => tag.tag) || []
     );
 
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL;
-    const imageUrls =
-      productData.images?.map((img: { image: string }) =>
-        img.image.startsWith("http") ? img.image : `${baseUrl}/${img.image}`
-      ) || [];
+    const relativePaths =
+      productData.images?.map((img: { image: string }) => {
+        if (img.image.startsWith("http")) {
+          return img.image.replace(`${baseUrl}/`, "");
+        }
+        return img.image;
+      }) || [];
+
+    const imageUrls = relativePaths.map(rel =>
+      rel.startsWith("http") ? rel : `${baseUrl}/${rel}`
+    );
     setExistingImages(imageUrls);
+    setKeptRelativePaths(relativePaths);
     setKeptImagePaths(imageUrls);
     setImages(imageUrls);
     if (imageUrls.length > 0) setMainImage(imageUrls[0]);
@@ -199,10 +209,18 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
       setImages(prev => prev.filter(url => url !== imageUrl));
       if (mainImage === imageUrl) setMainImage(null);
     } else {
-      setKeptImagePaths(prev => prev.filter(path => path !== imageUrl));
+      setKeptImagePaths(prev => prev.filter(full => full !== imageUrl));
+      setKeptRelativePaths(prevRel =>
+        prevRel.filter(rel => {
+          const full = rel.startsWith("http") ? rel : `${baseUrl}/${rel}`;
+          return full !== imageUrl;
+        })
+      );
       setImages(prev => prev.filter(url => url !== imageUrl));
-      if (mainImage === imageUrl)
-        setMainImage(keptImagePaths[0] || existingImages[0] || null);
+      if (mainImage === imageUrl) {
+        const newMain = keptImagePaths[0] || existingImages[0] || null;
+        setMainImage(newMain);
+      }
     }
   };
 
@@ -263,24 +281,22 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
 
     // Meta tags
     metaTags.forEach((tag, index) => {
-      formData.append(`meta_tags[${index}]`, tag);
+      formData.append(`tags[]`, tag);
     });
 
-    // Existing images to keep (as paths)
-    keptImagePaths.forEach((path, index) => {
-      formData.append(`kept_images[${index}]`, path.split("/").pop() || path);
-    });
+    // Existing images to keep (as relative paths / full names)
+    // keptRelativePaths.forEach((relPath) => {
+    //   formData.append(`product_image[]`, relPath);
+    // });
 
-    // New image files
-    imageFiles.forEach(file => {
-      formData.append("images", file);
+    // New image files - using "product_image" as expected by backend
+    imageFiles.forEach((file, index) => {
+      formData.append(`product_image[]`, file);
     });
 
     // Video file if new
     if (videoFile) {
       formData.append("video", videoFile);
-    } else if (!videoUrl) {
-      formData.append("video", ""); // Or null, to remove if needed
     }
 
     // Trigger the mutation with typed callbacks
