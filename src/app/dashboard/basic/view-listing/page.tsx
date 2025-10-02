@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ProductPlaceholder from "../../../../Assets/tomato.png";
 import { getallListings } from "@/Hooks/api/dashboard_api";
+import { PuffLoader } from "react-spinners";
 
 interface ProductType {
   id: number;
@@ -117,50 +118,58 @@ const Page = () => {
 
       {/* Product Grid */}
       {isLoading ? (
-        <p className="mt-10 text-center text-lg">Loading products...</p>
+        <div className="flex justify-center items-center h-full">
+          <PuffLoader color="#274F45" size={100}/>
+        </div>
       ) : filteredProducts.length === 0 ? (
         <p className="mt-10 text-center text-lg">No products found.</p>
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3 xl:gap-6 mt-10">
           {filteredProducts.map(product => (
-            <div
-              key={product.id}
-              className="relative border border-[#e5e5e5] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300 group cursor-pointer"
+            <Link
+              href={`/dashboard/basic/view-listing/view-details/${product.id}`}
             >
-              {/* Image */}
-              <div className="relative w-full h-[250px]">
-                <Image
-                  src={
-                    product.images[0]?.image
-                      ? `${process.env.NEXT_PUBLIC_SITE_URL}/${product.images[0].image}`
-                      : ProductPlaceholder
-                  }
-                  alt={product.product_name}
-                  fill
-                  className="object-cover"
-                  unoptimized
-                />
-                <Link href={`/dashboard/basic/view-listing/${product.id}`}>
-                  <button
-                    className="absolute top-3 right-3 bg-white rounded-full p-2 shadow cursor-pointer border border-[#274F45] 
+              <div
+                key={product.id}
+                className="relative border border-[#e5e5e5] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300 group cursor-pointer"
+              >
+                {/* Image */}
+                <div className="relative w-full h-[250px]">
+                  <Image
+                    src={
+                      product.images[0]?.image
+                        ? `${process.env.NEXT_PUBLIC_SITE_URL}/${product.images[0].image}`
+                        : ProductPlaceholder
+                    }
+                    alt={product.product_name}
+                    fill
+                    className="object-cover"
+                    unoptimized
+                  />
+                  <Link
+                    href={`/dashboard/basic/view-listing/edit-listing/${product.id}`}
+                  >
+                    <button
+                      className="absolute top-3 right-3 bg-white rounded-full p-2 shadow cursor-pointer border border-[#274F45] 
                       opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 
                       transition-all duration-300 ease-in-out"
-                  >
-                    <FiEdit2 size={18} className="text-[#274F45]" />
-                  </button>
-                </Link>
-              </div>
+                    >
+                      <FiEdit2 size={18} className="text-[#274F45]" />
+                    </button>
+                  </Link>
+                </div>
 
-              {/* Info */}
-              <div className="p-4">
-                <h3 className="text-[18px] md:text-[20px] font-medium text-[#13141D] truncate">
-                  {product.product_name}
-                </h3>
-                <p className="text-base md:text-[20px] font-semibold text-[#13141D] mt-1">
-                  ${product.product_price}
-                </p>
+                {/* Info */}
+                <div className="p-4">
+                  <h3 className="text-[18px] md:text-[20px] font-medium text-[#13141D] truncate">
+                    {product.product_name}
+                  </h3>
+                  <p className="text-base md:text-[20px] font-semibold text-[#13141D] mt-1">
+                    ${product.product_price}
+                  </p>
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       )}

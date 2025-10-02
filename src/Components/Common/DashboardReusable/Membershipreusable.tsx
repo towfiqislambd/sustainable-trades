@@ -13,6 +13,7 @@ import {
   ProSvg,
 } from "@/Components/Svg/SvgContainer";
 import PauseMembershipModal from "@/Components/Modals/PauseMembershipModal";
+import useAuth from "@/Hooks/useAuth";
 
 // 🔹 Types
 interface Feature {
@@ -122,6 +123,8 @@ const Membershipreusable: React.FC<MembershipReusableProps> = ({
   const tabs = ["Yearly (Save 38%)", "Monthly"];
   const [isactive, setIsactive] = useState<string>("Yearly (Save 38%)");
   const [pauseOpen, setPauseOpen] = useState<boolean>(false);
+  const { user } = useAuth();
+  console.log(user);
 
   const membershipMessages: Record<
     MembershipReusableProps["membershipType"],
@@ -132,15 +135,18 @@ const Membershipreusable: React.FC<MembershipReusableProps> = ({
     Shopper: "You currently have a Shopper membership.",
   };
 
+
+  const currentMembershipType =
+    user?.data?.membership?.membership_type?.toLowerCase() || "basic";
+
   return (
     <div>
-      {/* Header and Tabs */}
       <div className="flex gap-3.5 md:gap-0 flex-col md:flex-row justify-between items-center">
         <h2 className="text-[30px] md:text-[40px] font-lato font-semibold text-[#000]">
           Membership Details
         </h2>
         <div className="flex gap-x-2 items-center border border-[#A7A39C] rounded-[8px]">
-          {tabs.map((tab) => (
+          {tabs.map(tab => (
             <button
               key={tab}
               onClick={() => setIsactive(tab)}
@@ -159,59 +165,77 @@ const Membershipreusable: React.FC<MembershipReusableProps> = ({
       {/* Membership Cards */}
       <div className="mt-10 md:mt-20">
         <div className="flex gap-10 justify-center flex-wrap">
-          {data?.map((item) => (
-            <div
-              key={item.id}
-              className={`border border-primary-green shadow rounded-2xl p-6 w-full lg:w-[400px] flex flex-col justify-between ${
-                item.id === 2 ? "bg-[#EDF3F1]" : ""
-              }`}
-            >
-              <div>
-                <p className="size-12 rounded-full">{item.package_icon}</p>
-                <h3 className="py-1.5 md:py-3 text-xl md:text-2xl font-semibold text-secondary-black">
-                  {item.package_name}
-                </h3>
-                <p className="text-secondary-gray text-[13px] md:text-base mb-3.5 md:mb-7">
-                  {item.description}
-                </p>
-                <h2 className="text-2xl md:text-4xl font-semibold text-secondary-black">
-                  ${item.amount}
-                </h2>
-                <hr className="my-2.5 md:my-5 text-gray-500" />
-
-                <div className="space-y-5 mb-5 md:mb-10">
-                  {item.feathers.map((feather) => (
-                    <div
-                      key={feather.id}
-                      className="flex gap-1.5 md:gap-3 items-center mb-[10px] md:mb-5"
-                    >
-                      <p className="size-10 rounded-full bg-[#B0DEDB] grid place-items-center">
-                        {feather.icon}
-                      </p>
-                      <div>
-                        <h4 className="text-secondary-black font-semibold">
-                          {feather.name}
-                        </h4>
-                        <p className="text-secondary-gray text-[15px]">
-                          {feather.desc}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <button
-                className={`w-full block duration-500 transition-all text-base md:text-lg cursor-pointer py-1.5 md:py-3 border-2 border-primary-green font-semibold rounded-lg shadow-lg hover:scale-105 ${
-                  item.id === 1
-                    ? "text-primary-green hover:bg-primary-green hover:text-accent-white"
-                    : "text-accent-white hover:text-primary-green bg-primary-green hover:bg-transparent"
+          {data?.map(item => {
+            const isSelected =
+              item.package_name.toLowerCase() === currentMembershipType;
+            return (
+              <div
+                key={item.id}
+                className={`border border-primary-green shadow rounded-2xl p-6 w-full lg:w-[400px] flex flex-col justify-between relative ${
+                  item.id === 2 ? "bg-[#EDF3F1]" : ""
+                } ${
+                  isSelected
+                    ? "ring-2 ring-blue-500 ring-opacity-50 bg-blue-50"
+                    : ""
                 }`}
               >
-                {item.submit_btn}
-              </button>
-            </div>
-          ))}
+                {isSelected && (
+                  <div className="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded text-xs font-semibold">
+                    Current
+                  </div>
+                )}
+                <div>
+                  <p className="size-12 rounded-full">{item.package_icon}</p>
+                  <h3 className="py-1.5 md:py-3 text-xl md:text-2xl font-semibold text-secondary-black">
+                    {item.package_name}
+                  </h3>
+                  <p className="text-secondary-gray text-[13px] md:text-base mb-3.5 md:mb-7">
+                    {item.description}
+                  </p>
+                  <h2 className="text-2xl md:text-4xl font-semibold text-secondary-black">
+                    ${item.amount}
+                  </h2>
+                  <hr className="my-2.5 md:my-5 text-gray-500" />
+
+                  <div className="space-y-5 mb-5 md:mb-10">
+                    {item.feathers.map(feather => (
+                      <div
+                        key={feather.id}
+                        className="flex gap-1.5 md:gap-3 items-center mb-[10px] md:mb-5"
+                      >
+                        <p className="size-10 rounded-full bg-[#B0DEDB] grid place-items-center">
+                          {feather.icon}
+                        </p>
+                        <div>
+                          <h4 className="text-secondary-black font-semibold">
+                            {feather.name}
+                          </h4>
+                          <p className="text-secondary-gray text-[15px]">
+                            {feather.desc}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <button
+                  disabled={isSelected}
+                  className={`w-full block duration-500 transition-all text-base md:text-lg cursor-pointer py-1.5 md:py-3 border-2 border-primary-green font-semibold rounded-lg shadow-lg hover:scale-105 ${
+                    item.id === 1
+                      ? "text-primary-green hover:bg-primary-green hover:text-accent-white"
+                      : "text-accent-white hover:text-primary-green bg-primary-green hover:bg-transparent"
+                  } ${
+                    isSelected
+                      ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                      : ""
+                  }`}
+                >
+                  {isSelected ? "Current Plan" : item.submit_btn}
+                </button>
+              </div>
+            );
+          })}
         </div>
       </div>
 
