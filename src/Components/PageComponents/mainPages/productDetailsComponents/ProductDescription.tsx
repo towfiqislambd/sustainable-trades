@@ -168,7 +168,7 @@ const ProductDescription = ({ data }: any) => {
 
       {/* Modals */}
       <Modal open={tradeOpen} onClose={() => setTradeOpen(false)}>
-        <TradeOfferModal id={id} productId={productId} />
+        <TradeOfferModal id={id} productId={productId} shopInfo={data} />
       </Modal>
 
       <Modal open={msgOpen} onClose={() => setMsgOpen(false)}>

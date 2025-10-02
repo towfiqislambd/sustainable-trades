@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { LocationTwoSvg, SendSvg, Reload } from "@/Components/Svg/SvgContainer";
-import { getAllListings } from "@/Hooks/api/cms_api";
+import { getTradeShopProducts, useTradeSendOffer } from "@/Hooks/api/cms_api";
 import useAuth from "@/Hooks/useAuth";
+import { CgSpinnerTwo } from "react-icons/cg";
 const SkeletonLoader = () => {
   return (
     <div className="animate-pulse space-y-6">
@@ -25,19 +26,46 @@ const SkeletonLoader = () => {
     </div>
   );
 };
-const TradeOfferModal = ({ id, productId }: any) => {
+
+const TradeOfferModal = ({ id, productId, shopInfo }: any) => {
   const { user } = useAuth();
-  // My Shop Listing
-  const { data: myListings, isLoading: myListingsLoading } = getAllListings(
-    user?.shop_info?.id
-  );
-  const { data: allListings, isLoading: listingsLoading } = getAllListings(id);
+  const { mutate: sendTradeOfferMutation, isPending } = useTradeSendOffer();
   const [price, setPrice] = useState<null | number>(null);
   const [senderPrice, setSenderPrice] = useState<null | number>(null);
+  const [message, setMessage] = useState<string>("");
 
-  if (listingsLoading || myListingsLoading) {
+  // Receiver trades
+  const { data: tradeProducts, isLoading: tradeLoading } =
+    getTradeShopProducts(id);
+
+  // Sender trades
+  const { data: myTradeProducts, isLoading: myTradeLoading } =
+    getTradeShopProducts(user?.shop_info?.id);
+
+  if (tradeLoading || myTradeLoading) {
     return <SkeletonLoader />;
   }
+
+  const payload = {
+    receiver_id: shopInfo?.shop?.user_id,
+    message: message,
+    offered_items: [
+      {
+        product_id: 5,
+        quantity: 1,
+      },
+    ],
+    requested_items: [
+      {
+        product_id: 5,
+        quantity: 1,
+      },
+    ],
+  };
+
+  const handleSendOffer = () => {
+    sendTradeOfferMutation(payload);
+  };
 
   return (
     <>
@@ -47,7 +75,7 @@ const TradeOfferModal = ({ id, productId }: any) => {
 
       {/* Shop Name */}
       <h4 className="text-2xl font-semibold text-secondary-black mb-2">
-        Organic Bath Soaps
+        {shopInfo?.shop?.shop_name}
       </h4>
 
       {/* Shop Review */}
@@ -60,7 +88,9 @@ const TradeOfferModal = ({ id, productId }: any) => {
       {/* Shop Location */}
       <div className="flex gap-1 items-center mb-3">
         <LocationTwoSvg />
-        <span className="text-light-green">13 mi. away</span>
+        <span className="text-light-green">
+          {shopInfo?.shop?.address?.address_line_1}
+        </span>
       </div>
 
       {/* ---------- My Offer Section ---------- */}
@@ -68,14 +98,13 @@ const TradeOfferModal = ({ id, productId }: any) => {
         <div className="flex items-center gap-3 mb-3">
           <select
             defaultValue={
-              allListings?.data?.data?.find(
-                (item: any) => item?.id === productId
-              )?.id
+              tradeProducts?.data?.find((item: any) => item?.id === productId)
+                ?.id
             }
             onChange={e => setPrice(Number(e.target.value))}
             className="border border-gray-300 rounded-md p-2 flex-1"
           >
-            {allListings?.data?.data.map((item: any) => (
+            {tradeProducts?.data.map((item: any) => (
               <option key={item?.id} value={item?.id}>
                 {item?.product_name}
               </option>
@@ -94,7 +123,7 @@ const TradeOfferModal = ({ id, productId }: any) => {
             value={
               price
                 ? price
-                : allListings?.data?.data?.find(
+                : tradeProducts?.data?.find(
                     (item: any) => item?.id === productId
                   )?.product_price
             }
@@ -126,7 +155,7 @@ const TradeOfferModal = ({ id, productId }: any) => {
             onChange={e => setSenderPrice(Number(e.target.value))}
             className="border border-gray-300 rounded-md p-2 flex-1"
           >
-            {myListings?.data?.data.map((item: any) => (
+            {myTradeProducts?.data.map((item: any) => (
               <option key={item?.id} value={item?.id}>
                 {item?.product_name}
               </option>
@@ -145,7 +174,7 @@ const TradeOfferModal = ({ id, productId }: any) => {
             value={
               senderPrice
                 ? senderPrice
-                : myListings?.data?.data?.find(
+                : myTradeProducts?.data?.find(
                     (item: any) => item?.shop_info_id === user?.shop_info?.id
                   )?.product_price
             }
@@ -168,21 +197,39 @@ const TradeOfferModal = ({ id, productId }: any) => {
         >
           Message to the Seller
         </label>
+
         <textarea
           id="msg"
           className="border border-gray-300 rounded-md p-2 w-full block"
           rows={3}
           placeholder="Type message here..."
+          onChange={e => setMessage(e.target.value)}
         ></textarea>
       </div>
 
       <div className="flex gap-4 items-center">
         <button className="w-full py-1.5 md:py-3 hover:bg-primary-green hover:text-accent-white text-[14px] font-semibold md:text-[17px] duration-300 transition-all hover:scale-[0.97] rounded-lg shadow cursor-pointer bg-transparent text-primary-green border-2 border-primary-green text-center flex-1">
-          <span>Cancel</span>
+          Cancel
         </button>
-        <button className="primary_btn flex-1 !flex gap-2 items-center justify-center">
-          <SendSvg />
-          <span>Send offer</span>
+
+        <button
+          disabled={isPending}
+          onClick={handleSendOffer}
+          className={`primary_btn flex-1 ${
+            isPending ? "!cursor-not-allowed" : "!cursor-pointer"
+          }`}
+        >
+          {isPending ? (
+            <span className="flex gap-2 items-center justify-center">
+              <CgSpinnerTwo className="animate-spin text-lg" />
+              <span>Sending....</span>
+            </span>
+          ) : (
+            <span className="flex gap-2 items-center justify-center">
+              <SendSvg />
+              <span>Send offer</span>
+            </span>
+          )}
         </button>
       </div>
     </>
