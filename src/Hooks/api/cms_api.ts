@@ -185,11 +185,11 @@ export const getFeaturedListings = (id: string) => {
 // All Listings
 export const getAllListings = (
   id: string,
-  category_id: string,
-  sub_category_id: string,
-  short_by: string,
-  search: string,
-  page: string
+  category_id?: string,
+  sub_category_id?: string,
+  short_by?: string,
+  search?: string,
+  page?: string
 ) => {
   return useClientApi({
     method: "get",
