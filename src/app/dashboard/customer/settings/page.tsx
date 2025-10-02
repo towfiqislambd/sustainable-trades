@@ -1,16 +1,31 @@
 "use client";
-import React, { useState } from "react";
+import useAuth from "@/Hooks/useAuth";
+import React, { useState, useEffect } from "react";
 
 const Settings = () => {
-  const [notifications, setNotifications] = useState(true);
+  const { user } = useAuth();
+
+  //  States controlled by backend user data
+  const [notifications, setNotifications] = useState(false);
   const [language, setLanguage] = useState(false);
   const [cookies, setCookies] = useState(false);
+
+  //  Sync with API user data
+  useEffect(() => {
+    if (user) {
+      setNotifications(user.is_push_notifications === 1);
+      setLanguage(user.language?.toLowerCase() === "spanish");
+      setCookies(user.is_cookies === 1);
+    }
+  }, [user]);
+
   return (
     <>
       <h2 className="text-[30px] md:text-[40px] font-lato font-semibold text-[#000]">
         Settings
       </h2>
-      <div className="lg:mt-6 flex flex-col-reverse  lg:flex-row gap-x-[72.5px] xl:gap-x-[145px]">
+      <div className="lg:mt-6 flex flex-col-reverse lg:flex-row gap-x-[72.5px] xl:gap-x-[145px]">
+        {/* Left Side Form */}
         <div className="mt-5 lg:mt-0 lg:w-1/2">
           <form action="" className="flex flex-col gap-3 ">
             <div className="w-full">
@@ -19,6 +34,9 @@ const Settings = () => {
                 type="text"
                 className="form-input w-full"
                 placeholder="Name"
+                defaultValue={`${user?.first_name || ""} ${
+                  user?.last_name || ""
+                }`}
               />
             </div>
             <div className="w-full">
@@ -27,6 +45,7 @@ const Settings = () => {
                 type="text"
                 className="form-input w-full"
                 placeholder="Name1234"
+                defaultValue={user?.username || ""}
               />
             </div>
             <div className="w-full">
@@ -35,6 +54,7 @@ const Settings = () => {
                 type="text"
                 className="form-input w-full"
                 placeholder="name@email.com"
+                defaultValue={user?.email || ""}
               />
             </div>
             <div className="w-full">
@@ -42,7 +62,8 @@ const Settings = () => {
               <input
                 type="text"
                 className="form-input w-full"
-                placeholder="name@email.com"
+                placeholder="Street Name"
+                defaultValue={user?.shop_info?.shop_name || ""}
               />
             </div>
             <div className="w-full">
@@ -71,14 +92,17 @@ const Settings = () => {
             </div>
           </form>
         </div>
+
+        {/* Right Side Toggles */}
         <div className="flex justify-end shrink-0">
-          <div className="w-full mt-5  lg:mt-20 flex flex-col gap-y-5 lg:gap-y-10">
+          <div className="w-full mt-5 lg:mt-20 flex flex-col gap-y-5 lg:gap-y-10">
             {/* Push Notifications */}
             <div className="flex items-center gap-x-8 md:gap-x-16">
               <h3 className="text-[16px] font-semibold">Push Notifications</h3>
               <div className="flex items-center gap-x-5">
                 <span className="text-[16px] font-bold">OFF</span>
                 <button
+                  type="button"
                   onClick={() => setNotifications(!notifications)}
                   className={`relative inline-flex h-6 w-11 items-center rounded-full transition cursor-pointer ${
                     notifications ? "bg-[#D4E2CB]" : "bg-gray-300"
@@ -93,11 +117,14 @@ const Settings = () => {
                 <span className="text-[16px] font-bold">ON</span>
               </div>
             </div>
+
+            {/* Language */}
             <div className="flex items-center gap-x-[55px] md:gap-x-[108px]">
               <h3 className="text-[16px] font-semibold">Language</h3>
               <div className="flex items-center gap-x-5">
                 <span className="text-[16px] font-bold">English</span>
                 <button
+                  type="button"
                   onClick={() => setLanguage(!language)}
                   className={`relative inline-flex h-6 w-11 items-center rounded-full transition cursor-pointer ${
                     language ? "bg-[#D4E2CB]" : "bg-gray-300"
@@ -112,11 +139,14 @@ const Settings = () => {
                 <span className="text-[16px] font-bold">Spanish</span>
               </div>
             </div>
+
+            {/* Cookies */}
             <div className="flex items-center gap-x-10 md:gap-x-22">
               <h3 className="text-[16px] font-semibold">Enable Cookies</h3>
               <div className="flex items-center gap-x-5">
                 <span className="text-[16px] font-bold">OFF</span>
                 <button
+                  type="button"
                   onClick={() => setCookies(!cookies)}
                   className={`relative inline-flex h-6 w-11 items-center rounded-full transition cursor-pointer ${
                     cookies ? "bg-[#D4E2CB]" : "bg-gray-300"
@@ -134,6 +164,8 @@ const Settings = () => {
           </div>
         </div>
       </div>
+
+      {/* Bottom Buttons */}
       <div className="flex flex-col gap-2 sm:flex-row sm:gap-x-10 mt-10">
         <button className="auth-secondary-btn sm:w-[150px]">Logout</button>
         <button className="auth-secondary-btn">Delete Account</button>

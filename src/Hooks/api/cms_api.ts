@@ -185,11 +185,11 @@ export const getFeaturedListings = (id: string) => {
 // All Listings
 export const getAllListings = (
   id: string,
-  category_id: string,
-  sub_category_id: string,
-  short_by: string,
-  search: string,
-  page: string
+  category_id?: string,
+  sub_category_id?: string,
+  short_by?: string,
+  search?: string,
+  page?: string
 ) => {
   return useClientApi({
     method: "get",
@@ -416,6 +416,38 @@ export const useUpdateShopBanner = () => {
     onSuccess: (data: any) => {
       if (data?.success) {
         queryClient.invalidateQueries("get-shop-details" as any);
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// Trade Shop Product
+export const getTradeShopProducts = (id: string) => {
+  return useClientApi({
+    method: "get",
+    key: ["get-trade-products", id],
+    enabled: !!id,
+    endpoint: `/api/trade-shop-product/${id}`,
+    isPrivate: true,
+    queryOptions: {
+      retry: false,
+    },
+  });
+};
+
+// Trade Send Offer
+export const useTradeSendOffer = () => {
+  return useClientApi({
+    method: "post",
+    key: ["trade-send-offer"],
+    isPrivate: true,
+    endpoint: "/api/trade-offer/create",
+    onSuccess: (data: any) => {
+      if (data?.success) {
         toast.success(data?.message);
       }
     },

@@ -30,6 +30,7 @@ const page = ({ params }: Props) => {
   const [search, setSearch] = useState<string>("");
   const [page, setPage] = useState<string>("");
 
+  
   // Queries
   const { data: productCategories, isLoading: categoryLoading } =
     getProductCategoriesClient();
@@ -50,7 +51,7 @@ const page = ({ params }: Props) => {
 
   return (
     <>
-      <EditShopBanner data={shopDetailsData?.data} />
+      <EditShopBanner shop_id={id} data={shopDetailsData?.data} />
       <DetailsTab />
       <ShopListing
         featuredListings={featuredListings?.data}
