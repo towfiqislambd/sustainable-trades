@@ -16,7 +16,7 @@ import Container from "@/Components/Common/Container";
 import { useUpdateShopBanner, useUpdateShopPhoto } from "@/Hooks/api/cms_api";
 import { ImSpinner9 } from "react-icons/im";
 
-const EditShopBanner = ({ data }: any) => {
+const EditShopBanner = ({ shop_id, data }: any) => {
   const bannerUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${data?.shop_info?.shop_banner}`;
   const [shopProfile, setShopProfile] = useState<any>(null);
   const [shopCover, setShopCover] = useState<any>(null);
@@ -149,7 +149,7 @@ const EditShopBanner = ({ data }: any) => {
               </div>
 
               <Link
-                href="/edit-my-shop/1"
+                href={`/edit-my-shop/${shop_id}`}
                 className="underline font-semibold text-primary-green duration-300 hover:scale-95 transition-transform"
               >
                 Edit Shop

@@ -446,11 +446,7 @@ export const useTradeSendOffer = () => {
     key: ["trade-send-offer"],
     isPrivate: true,
     endpoint: "/api/trade-offer/create",
-    // headers: {
-    //   "Content-Type": "multipart/form-data",
-    // },
     onSuccess: (data: any) => {
-      console.log(data);
       if (data?.success) {
         toast.success(data?.message);
       }
