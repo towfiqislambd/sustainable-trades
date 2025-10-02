@@ -5,6 +5,8 @@ import { LocationTwoSvg, SendSvg, Reload } from "@/Components/Svg/SvgContainer";
 import { getTradeShopProducts, useTradeSendOffer } from "@/Hooks/api/cms_api";
 import useAuth from "@/Hooks/useAuth";
 import { CgSpinnerTwo } from "react-icons/cg";
+import toast from "react-hot-toast";
+
 const SkeletonLoader = () => {
   return (
     <div className="animate-pulse space-y-6">
@@ -30,9 +32,22 @@ const SkeletonLoader = () => {
 const TradeOfferModal = ({ id, productId, shopInfo }: any) => {
   const { user } = useAuth();
   const { mutate: sendTradeOfferMutation, isPending } = useTradeSendOffer();
-  const [price, setPrice] = useState<null | number>(null);
-  const [senderPrice, setSenderPrice] = useState<null | number>(null);
   const [message, setMessage] = useState<string>("");
+
+  const [product_id, setProductId] = useState<any>(productId);
+  const [product_quantity, setProductQuantity] = useState<number>(1);
+
+  const [sender_product_id, setSenderProductId] = useState<any>(null);
+  const [sender_product_quantity, setSenderProductQuantity] =
+    useState<number>(1);
+
+  const [offeredItems, setOfferedItems] = useState([
+    { product_id: product_id, quantity: product_quantity },
+  ]);
+
+  const [requestedItems, setRequestedItems] = useState([
+    { product_id: sender_product_id, quantity: sender_product_quantity },
+  ]);
 
   // Receiver trades
   const { data: tradeProducts, isLoading: tradeLoading } =
@@ -46,24 +61,35 @@ const TradeOfferModal = ({ id, productId, shopInfo }: any) => {
     return <SkeletonLoader />;
   }
 
-  const payload = {
-    receiver_id: shopInfo?.shop?.user_id,
-    message: message,
-    offered_items: [
-      {
-        product_id: 5,
-        quantity: 1,
-      },
-    ],
-    requested_items: [
-      {
-        product_id: 5,
-        quantity: 1,
-      },
-    ],
-  };
-
   const handleSendOffer = () => {
+    const invalidOffered = offeredItems.some(
+      item => !item.product_id || item.quantity < 1
+    );
+
+    const invalidRequested = requestedItems.some(
+      item => !item.product_id || item.quantity < 1
+    );
+
+    if (invalidOffered) {
+      return toast.error(
+        "Please select a valid product and quantity in offered items"
+      );
+    }
+
+    if (invalidRequested) {
+      return toast.error(
+        "Please select a valid product and quantity in requested items"
+      );
+    }
+
+    const payload = {
+      receiver_id: shopInfo?.shop?.user_id,
+      message: message,
+      offered_items: offeredItems,
+      requested_items: requestedItems,
+    };
+
+    console.log(payload);
     sendTradeOfferMutation(payload);
   };
 
@@ -95,46 +121,67 @@ const TradeOfferModal = ({ id, productId, shopInfo }: any) => {
 
       {/* ---------- My Offer Section ---------- */}
       <div className="border border-gray-200 shadow rounded-xl p-3 mb-4">
-        <div className="flex items-center gap-3 mb-3">
-          <select
-            defaultValue={
-              tradeProducts?.data?.find((item: any) => item?.id === productId)
-                ?.id
-            }
-            onChange={e => setPrice(Number(e.target.value))}
-            className="border border-gray-300 rounded-md p-2 flex-1"
-          >
-            {tradeProducts?.data.map((item: any) => (
-              <option key={item?.id} value={item?.id}>
-                {item?.product_name}
-              </option>
-            ))}
-          </select>
+        {offeredItems.map((item, index) => (
+          <div key={index} className="flex items-center gap-3 mb-3">
+            <select
+              value={item?.product_id}
+              onChange={e => {
+                const updated = [...offeredItems];
+                updated[index].product_id = Number(e.target.value);
+                setOfferedItems(updated);
+              }}
+              className="border border-gray-300 rounded-md p-2 flex-1"
+            >
+              <option value="">Select Product</option>
+              {tradeProducts?.data.map((p: any) => (
+                <option key={p?.id} value={p?.id}>
+                  {p?.product_name}
+                </option>
+              ))}
+            </select>
 
-          <input
-            type="number"
-            defaultValue={1}
-            className="border border-gray-300 rounded-md p-2 w-20 text-center"
-            // value={item.quantity}
-          />
+            <input
+              type="number"
+              value={item.quantity}
+              onChange={e => {
+                const updated = [...offeredItems];
+                updated[index].quantity = Number(e.target.value);
+                setOfferedItems(updated);
+              }}
+              className="border border-gray-300 rounded-md p-2 w-20 text-center"
+            />
 
-          <input
-            className="border border-gray-300 rounded-md p-2 w-24 text-center"
-            value={
-              price
-                ? price
-                : tradeProducts?.data?.find(
-                    (item: any) => item?.id === productId
-                  )?.product_price
-            }
-          />
+            <input
+              className="border border-gray-300 rounded-md p-2 w-24 text-center"
+              value={
+                tradeProducts?.data?.find((p: any) => p?.id === item.product_id)
+                  ?.product_price || ""
+              }
+              readOnly
+            />
 
-          <button className="cursor-pointer">
-            <RiDeleteBin6Line className="text-red-600 text-2xl" />
-          </button>
-        </div>
+            <button
+              onClick={() => {
+                const updated = offeredItems.filter((_, i) => i !== index);
+                setOfferedItems(updated);
+              }}
+              className="cursor-pointer"
+            >
+              <RiDeleteBin6Line className="text-red-600 text-2xl" />
+            </button>
+          </div>
+        ))}
 
-        <button className="text-light-green text-sm hover:underline cursor-pointer">
+        <button
+          type="button"
+          onClick={() =>
+            setOfferedItems([
+              ...offeredItems,
+              { product_id: null, quantity: 1 },
+            ])
+          }
+          className="text-light-green text-sm hover:underline cursor-pointer"
+        >
           + Add another product/service
         </button>
       </div>
@@ -150,42 +197,68 @@ const TradeOfferModal = ({ id, productId, shopInfo }: any) => {
 
       {/* ---------- Their Offer Section ---------- */}
       <div className="border border-gray-200 shadow rounded-xl p-3 mb-5">
-        <div className="flex items-center gap-3 mb-3">
-          <select
-            onChange={e => setSenderPrice(Number(e.target.value))}
-            className="border border-gray-300 rounded-md p-2 flex-1"
-          >
-            {myTradeProducts?.data.map((item: any) => (
-              <option key={item?.id} value={item?.id}>
-                {item?.product_name}
-              </option>
-            ))}
-          </select>
+        {requestedItems.map((item, index) => (
+          <div key={index} className="flex items-center gap-3 mb-3">
+            <select
+              value={item?.product_id || ""}
+              onChange={e => {
+                const updated = [...requestedItems];
+                updated[index].product_id = Number(e.target.value);
+                setRequestedItems(updated);
+              }}
+              className="border border-gray-300 rounded-md p-2 flex-1"
+            >
+              <option value="">Select Product</option>
+              {myTradeProducts?.data.map((p: any) => (
+                <option key={p?.id} value={p?.id}>
+                  {p?.product_name}
+                </option>
+              ))}
+            </select>
 
-          <input
-            type="number"
-            defaultValue={1}
-            className="border border-gray-300 rounded-md p-2 w-20 text-center"
-            // value={item.quantity}
-          />
+            <input
+              type="number"
+              value={item.quantity}
+              onChange={e => {
+                const updated = [...requestedItems];
+                updated[index].quantity = Number(e.target.value);
+                setRequestedItems(updated);
+              }}
+              className="border border-gray-300 rounded-md p-2 w-20 text-center"
+            />
 
-          <input
-            className="border border-gray-300 rounded-md p-2 w-24 text-center"
-            value={
-              senderPrice
-                ? senderPrice
-                : myTradeProducts?.data?.find(
-                    (item: any) => item?.shop_info_id === user?.shop_info?.id
-                  )?.product_price
-            }
-          />
+            <input
+              className="border border-gray-300 rounded-md p-2 w-24 text-center"
+              value={
+                myTradeProducts?.data?.find(
+                  (p: any) => p?.id === item.product_id
+                )?.product_price || ""
+              }
+              readOnly
+            />
 
-          <button className="cursor-pointer">
-            <RiDeleteBin6Line className="text-red-600 text-2xl" />
-          </button>
-        </div>
+            <button
+              onClick={() => {
+                const updated = requestedItems.filter((_, i) => i !== index);
+                setRequestedItems(updated);
+              }}
+              className="cursor-pointer"
+            >
+              <RiDeleteBin6Line className="text-red-600 text-2xl" />
+            </button>
+          </div>
+        ))}
 
-        <button className="text-light-green text-sm hover:underline cursor-pointer">
+        <button
+          type="button"
+          onClick={() =>
+            setRequestedItems([
+              ...requestedItems,
+              { product_id: null, quantity: 1 },
+            ])
+          }
+          className="text-light-green text-sm hover:underline cursor-pointer"
+        >
           + Add another product/service
         </button>
       </div>
