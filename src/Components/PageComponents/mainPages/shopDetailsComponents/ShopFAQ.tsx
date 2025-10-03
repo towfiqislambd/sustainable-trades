@@ -7,13 +7,13 @@ const ShopFAQ = ({ data }: any) => {
   const [activeAccordion, setActiveAccordion] = useState<number | null>(1);
 
   const toggleAccordion = (id: number) => {
-    setActiveAccordion(prev => (prev === id ? null : id));
+    setActiveAccordion((prev) => (prev === id ? null : id));
   };
 
   return (
-    <section className="pt-12 pb-20">
+    <section className="pt-3 md:pt-6 lg:pt-12 pb-5  md:pb-10 lg:pb-20">
       <Container>
-        <h2 className="section_sub_title !mb-3">FAQs</h2>
+        <h2 className="section_sub_title !mb-0 md:mb-3">FAQs</h2>
 
         <div>
           {data?.map((item: any) => (

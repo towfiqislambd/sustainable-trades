@@ -20,7 +20,7 @@ const DetailsTab = () => {
             <Link
               key={tab?.id}
               href={`#${tab?.label}`}
-              onClick={e => {
+              onClick={(e) => {
                 e.preventDefault();
                 setActiveTab(tab?.id);
 
@@ -40,11 +40,8 @@ const DetailsTab = () => {
               ? "bg-[#D4E2CB] text-secondary-black"
               : "text-secondary-gray"
           }
-          ${idx === 0 && "rounded-l-lg md:rounded-tr-none"}
-          ${
-            idx === tabs.length - 1 &&
-            "rounded-r-lg md:rounded-bl-none"
-          }
+          ${idx === 0 && "rounded-tl-lg rounded-bl-none md:rounded-tr-none"}
+          ${idx === tabs.length - 1 && "rounded-r-lg md:rounded-bl-none"}
         `}
             >
               {tab?.label}
