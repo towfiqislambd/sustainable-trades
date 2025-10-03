@@ -1,7 +1,7 @@
 "use client";
-
-import Community from "@/app/(main)/community-member-spotlight/page";
 import React, { useState } from "react";
+import Community from "@/app/(main)/community-member-spotlight/page";
+
 
 const Page = () => {
   const [showPopup, setShowPopup] = useState(false);
