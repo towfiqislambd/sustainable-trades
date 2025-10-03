@@ -121,3 +121,8 @@ body {
 option:hover {
   background: #d4e2cb !important;
 }
+
+.scroll-to-top {
+  right: 20px !important;
+  bottom: 20px !important;
+}
