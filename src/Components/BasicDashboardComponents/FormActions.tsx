@@ -23,7 +23,7 @@ const FormActions = ({ isPending }: FormActionsProps) => (
       {isPending && (
         <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
       )}
-      {isPending ? "Saving..." : "Save Listing"}
+      {isPending ? "Request Approbal..." : "Request Approbal"}
     </button>
   </div>
 );

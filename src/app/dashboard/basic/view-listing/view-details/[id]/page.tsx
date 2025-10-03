@@ -693,7 +693,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
           {/* Save */}
         </div>
       </div>
-      <div className="flex flex-col sm:flex-row justify-between mt-5 md:mt-10 items-center">
+      {/* <div className="flex flex-col sm:flex-row justify-between mt-5 md:mt-10 items-center">
         <button
           onClick={handleDeleteListing}
           disabled={deleteProduct.isPending}
@@ -711,7 +711,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
             ? "Requesting Approval..."
             : "Request Approval"}
         </button>
-      </div>
+      </div> */}
 
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
