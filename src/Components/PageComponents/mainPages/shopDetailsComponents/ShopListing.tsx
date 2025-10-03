@@ -38,26 +38,26 @@ const ShopListing = ({
         {/* Featured Listings */}
         <h2 className="section_sub_title">Featured Listings</h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 mb-5 lg:mb-10">
           {featuredListings?.slice(0, 3)?.map((product: any) => (
             <Product key={product?.id} product={product} />
           ))}
         </div>
 
         {/* All Listings */}
-        <h2 className="section_sub_title !mt-20">All Listings</h2>
+        <h2 className="section_sub_title ">All Listings</h2>
 
         {/* Filtering */}
         <div className="flex flex-col gap-3 lg:gap-0 lg:flex-row lg:justify-between lg:items-end mb-8">
           {/* Left - Filter */}
-          <div className="flex flex-wrap md:flex-row  gap-7 md:items-center">
-            <div>
+          <div className="flex flex-wrap md:flex-row gap-3.5 lg:gap-7 md:items-center">
+            <div className="w-full">
               <h3 className="text-secondary-gray md:text-base text-xs font-semibold mb-1.5">
                 Product Category
               </h3>
 
               <select
-                onChange={e => setCategory(e.target.value)}
+                onChange={(e) => setCategory(e.target.value)}
                 className="border w-full md:w-[192px] md:text-base text-xs rounded-lg px-3 py-1.5 md:py-3 border-gray-400 outline-none text-secondary-gray"
               >
                 {productCategories?.map(
@@ -70,13 +70,13 @@ const ShopListing = ({
               </select>
             </div>
 
-            <div>
+            <div className="w-full">
               <h3 className="text-secondary-gray md:text-base text-xs font-semibold mb-1.5">
                 Product Sub Category
               </h3>
 
               <select
-                onChange={e => setSubCategory(e.target.value)}
+                onChange={(e) => setSubCategory(e.target.value)}
                 className="border w-full md:w-[192px] md:text-base text-xs rounded-lg px-3 py-1.5 md:py-3 border-gray-400 outline-none text-secondary-gray"
               >
                 {productSubCategories?.map(
@@ -95,13 +95,13 @@ const ShopListing = ({
               </select>
             </div>
 
-            <div>
+            <div className="w-full">
               <h3 className="text-secondary-gray md:text-base text-xs font-semibold mb-1.5">
                 Sort By
               </h3>
 
               <select
-                onChange={e => setSortBy(e.target.value)}
+                onChange={(e) => setSortBy(e.target.value)}
                 className="border w-full md:w-[192px] md:text-base text-xs rounded-lg px-3 py-1.5 md:py-3 border-gray-400 outline-none text-secondary-gray"
               >
                 <option value="recently_added">Recently added</option>
@@ -118,7 +118,7 @@ const ShopListing = ({
               <SearchSvg />
               <input
                 type="text"
-                onChange={e => setSearch(e.target.value)}
+                onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search all listings..."
                 className="w-full border-none outline-none md:text-base text-xs"
               />
@@ -148,9 +148,9 @@ const ShopListing = ({
             ))}
           </div>
         ) : allListings?.data?.length === 0 || !allListings ? (
-          <div className="flex flex-col justify-center items-center gap-3 lg:gap-4 text-center py-20">
-            <AiOutlineFileUnknown className="text-6xl text-gray-500" />
-            <p className="text-gray-600 text-lg font-semibold">
+          <div className="flex flex-col justify-center items-center gap-3 lg:gap-4 text-center py-5 md:py-20">
+            <AiOutlineFileUnknown className="text-xl md:text-3xl lg:text-6xl text-gray-500" />
+            <p className="text-gray-600 text-sm md:text-lg font-semibold">
               No product found!!
             </p>
           </div>
