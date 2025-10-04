@@ -29,7 +29,7 @@ const SkeletonLoader = () => {
   );
 };
 
-const TradeOfferModal = ({ id, productId, shopInfo }: any) => {
+const TradeOfferModal = ({ id, productId, shopInfo, setTradeOpen }: any) => {
   const { user } = useAuth();
   const { mutate: sendTradeOfferMutation, isPending } = useTradeSendOffer();
   const [message, setMessage] = useState<string>("");
@@ -89,8 +89,13 @@ const TradeOfferModal = ({ id, productId, shopInfo }: any) => {
       requested_items: requestedItems,
     };
 
-    console.log(payload);
-    sendTradeOfferMutation(payload);
+    sendTradeOfferMutation(payload, {
+      onSuccess: (data: any) => {
+        if (data?.success) {
+          setTradeOpen(false);
+        }
+      },
+    });
   };
 
   return (
@@ -281,7 +286,10 @@ const TradeOfferModal = ({ id, productId, shopInfo }: any) => {
       </div>
 
       <div className="flex gap-4 items-center">
-        <button className="w-full py-1.5 md:py-3 hover:bg-primary-green hover:text-accent-white text-[14px] font-semibold md:text-[17px] duration-300 transition-all hover:scale-[0.97] rounded-lg shadow cursor-pointer bg-transparent text-primary-green border-2 border-primary-green text-center flex-1">
+        <button
+          onClick={() => setTradeOpen(false)}
+          className="w-full py-1.5 md:py-3 hover:bg-primary-green hover:text-accent-white text-[14px] font-semibold md:text-[17px] duration-300 transition-all hover:scale-[0.97] rounded-lg shadow cursor-pointer bg-transparent text-primary-green border-2 border-primary-green text-center flex-1"
+        >
           Cancel
         </button>
 
