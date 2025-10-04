@@ -4,6 +4,7 @@ import {
   getHowItWorksData,
   getMissionData,
   getProductCategories,
+  getSpotlightData,
 } from "@/Hooks/api/cms_api";
 import CommunityMember from "@/Components/PageComponents/mainPages/homePageComponents/CommunityMember";
 import ExploreProduct from "@/Components/PageComponents/mainPages/homePageComponents/ExploreProduct";
@@ -21,6 +22,7 @@ const Page = async () => {
   const missionData = await getMissionData();
   const productCategories = await getProductCategories();
   const featuredShops = await getFeaturedShops();
+  const spotlightData = await getSpotlightData();
 
   return (
     <>
@@ -30,7 +32,7 @@ const Page = async () => {
       <FeaturedShops data={featuredShops?.data} />
       <ExploreProduct data={productCategories?.data} />
       <OurMission data={missionData?.data} />
-      <CommunityMember has_community={true} />
+      <CommunityMember data={spotlightData?.data} has_community={true} />
       <Pricing
         description="No matter how you want to manage your shop, we got you covered!"
         button1="Monthly Billing"

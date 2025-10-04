@@ -1,9 +1,10 @@
-"use client";
-import Container from "@/Components/Common/Container";
-import Image from "next/image";
 import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import Container from "@/Components/Common/Container";
+import { getSpotlightData } from "@/Hooks/api/cms_api";
 import { RightSvg } from "@/Components/Svg/SvgContainer";
-import { getmemberShipspotlight } from "@/Hooks/api/dashboard_api";
+
 interface SpotlightItem {
   id: number;
   image: string;
@@ -17,13 +18,14 @@ interface SpotlightItem {
   user_id: number;
 }
 
-const Community = () => {
-  const { data: sportlight } = getmemberShipspotlight();
+const Community = async () => {
+  const spotlightData = await getSpotlightData();
+
   return (
     <section className="py-5 md:py-10">
       <Container>
         <div className="space-y-6">
-          {sportlight?.data?.map((item: SpotlightItem) => (
+          {spotlightData?.data?.map((item: SpotlightItem) => (
             <div
               key={item.id}
               className="rounded-xl flex flex-col lg:flex-row lg:items-center border border-gray-300 px-3"
@@ -31,8 +33,8 @@ const Community = () => {
               {/* Left - Spotlight Image */}
               <figure className="w-full lg:w-[229px] h-[300px] lg:h-[230px] shrink-0 rounded-l-xl relative">
                 <Image
-                  src={`${process.env.NEXT_PUBLIC_SITE_URL}/${item.image}`}
-                  alt={item.shop_name}
+                  src={`${process.env.NEXT_PUBLIC_SITE_URL}/${item?.image}`}
+                  alt={item?.shop_name}
                   fill
                   className="w-full h-full rounded-tl-xl rounded-tr-xl lg:rounded-tr-none lg:rounded-l-xl object-cover"
                 />
@@ -47,25 +49,26 @@ const Community = () => {
                   <p className="text-secondary-gray text-sm">
                     <span className="font-semibold">Feature Date: </span>
                     <span>
-                      {new Date(item.created_at).toLocaleDateString()}
+                      {new Date(item?.created_at).toLocaleDateString()}
                     </span>
                   </p>
                 </div>
 
                 <p className="mb-3 text-[14px] md:text-base text-gray-500">
-                  Owner: {item.name}
+                  Owner: {item?.name}
                 </p>
 
                 <p className="text-gray-600 text-[13px] md:text-base max-w-[800px] mb-4">
-                  {item.shop_description}
+                  {item?.shop_description}
                 </p>
 
-                <button className="px-4 text-[12px] py-2 rounded-lg font-semibold flex gap-2 items-center bg-[#D4E2CB] text-primary-green cursor-pointer duration-500 transition-transform hover:scale-105">
-                  <span>View Shop</span>
-                  <span>
-                    <RightSvg />
-                  </span>
-                </button>
+                <Link
+                  href={`/shop-details/${item?.user_id}`}
+                  className="px-4 text-[12px] py-2 rounded-lg font-semibold flex gap-2 items-center bg-[#D4E2CB] text-primary-green w-fit cursor-pointer duration-500 transition-transform hover:scale-105"
+                >
+                  View Shop
+                  <RightSvg />
+                </Link>
               </div>
             </div>
           ))}
