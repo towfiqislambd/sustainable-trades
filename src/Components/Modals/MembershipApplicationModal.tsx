@@ -1,17 +1,22 @@
 "use client";
+import { useSpotlightApplication } from "@/Hooks/api/cms_api";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { CgSpinnerTwo } from "react-icons/cg";
+
 type formData = {
-  full_name: string;
-  photo: string;
+  name: string;
+  image: string;
   shop_name: string;
   shop_description: string;
-  why_important: string;
+  sustainability_important: string;
   what_impact: string;
-  what_type: string;
+  community_engagement: string;
 };
 
-const MembershipApplicationModal = () => {
+const MembershipApplicationModal = ({ setOpen }: any) => {
+  const { mutateAsync: spotlightMutation, isPending } =
+    useSpotlightApplication();
   const [imageFile, setImageFile] = useState<string>("");
 
   const {
@@ -20,8 +25,22 @@ const MembershipApplicationModal = () => {
     formState: { errors },
   } = useForm<formData>();
 
-  const onSubmit = (data: formData) => {
-    console.log(data);
+  const onSubmit = async (data: formData) => {
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("shop_name", data.shop_name);
+    formData.append("shop_description", data.shop_description);
+    formData.append("sustainability_important", data.sustainability_important);
+    formData.append("what_impact", data.what_impact);
+    formData.append("community_engagement", data.community_engagement);
+    formData.append("image", data.image[0]);
+    await spotlightMutation(formData, {
+      onSuccess: (data: any) => {
+        if (data?.success) {
+          setOpen(false);
+        }
+      },
+    });
   };
 
   return (
@@ -33,21 +52,18 @@ const MembershipApplicationModal = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         {/* Full Name */}
         <div>
-          <label
-            htmlFor="full_name"
-            className="form-label  text-sm md:text-base"
-          >
+          <label htmlFor="name" className="form-label  text-sm md:text-base">
             Full Name
           </label>
           <input
             type="text"
-            id="full_name"
+            id="name"
             placeholder="Jane Doe"
-            {...register("full_name", { required: "Full Name is required" })}
+            {...register("name", { required: "Full Name is required" })}
             className="form-input"
           />
-          {errors.full_name && (
-            <span className="form-error">{errors.full_name.message}</span>
+          {errors.name && (
+            <span className="form-error">{errors.name.message}</span>
           )}
         </div>
 
@@ -70,7 +86,7 @@ const MembershipApplicationModal = () => {
                 className="hidden"
                 id="upload_photo"
                 accept="image/*"
-                {...register("photo", {
+                {...register("image", {
                   required: "Photo is required",
                   onChange: e => {
                     const file = e.target.files[0].name;
@@ -81,8 +97,8 @@ const MembershipApplicationModal = () => {
                 })}
               />
             </label>
-            {errors.photo && (
-              <p className="form-error">{errors.photo.message}</p>
+            {errors.image && (
+              <p className="form-error">{errors.image.message}</p>
             )}
             {imageFile && (
               <p className="text-sm text-green-500 mt-1.5">{imageFile}</p>
@@ -115,7 +131,7 @@ const MembershipApplicationModal = () => {
         {/* Business/Shop Description */}
         <div>
           <label
-            htmlFor="shop_name"
+            htmlFor="shop_description"
             className="form-label text-sm md:text-base"
           >
             Business/Shop Description
@@ -147,7 +163,7 @@ const MembershipApplicationModal = () => {
             id="why_important"
             className={`md:h-20 form-input`}
             placeholder="Write 2-3 lines"
-            {...register("why_important")}
+            {...register("sustainability_important")}
           ></textarea>
         </div>
 
@@ -179,14 +195,26 @@ const MembershipApplicationModal = () => {
             id="what_type"
             className={`h-auto md:h-20 form-input`}
             placeholder="Write 2-3 lines"
-            {...register("what_type")}
+            {...register("community_engagement")}
           ></textarea>
         </div>
 
         {/* Submit btn */}
         <div className="flex justify-end">
-          <button className="text-accent-white bg-primary-green font-semibold px-10 py-1 md:py-2.5 rounded-lg cursor-pointer duration-300 border-2 border-primary-green hover:bg-transparent hover:text-primary-green transition-all shadow">
-            Submit
+          <button
+            disabled={isPending}
+            className={`text-accent-white bg-primary-green font-semibold px-10 py-1 md:py-2.5 rounded-lg duration-300 border-2 border-primary-green hover:bg-transparent hover:text-primary-green transition-all shadow ${
+              isPending ? "cursor-not-allowed" : "cursor-pointer"
+            }`}
+          >
+            {isPending ? (
+              <span className="flex gap-2 items-center justify-center">
+                <CgSpinnerTwo className="animate-spin" />
+                <span>Submitting...</span>
+              </span>
+            ) : (
+              "Submit"
+            )}
           </button>
         </div>
       </form>

@@ -47,6 +47,11 @@ export async function getSingleDynamicPage(slug: string) {
   return useServerApi(`/api/dynamic-pages/single/${slug}`, 3600);
 }
 
+// Membership Spotlight
+export async function getSpotlightData() {
+  return useServerApi("/api/spotlight-applications", 3600);
+}
+
 // =======================================================
 //  CSR (Client Side Rendering)
 // =======================================================
@@ -446,6 +451,24 @@ export const useTradeSendOffer = () => {
     key: ["trade-send-offer"],
     isPrivate: true,
     endpoint: "/api/trade-offer/create",
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// Spotlight Application
+export const useSpotlightApplication = () => {
+  return useClientApi({
+    method: "post",
+    key: ["spotlight-application"],
+    isPrivate: true,
+    endpoint: "/api/spotlight-applications",
     onSuccess: (data: any) => {
       if (data?.success) {
         toast.success(data?.message);
