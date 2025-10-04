@@ -4,7 +4,7 @@ import Container from "@/Components/Common/Container";
 
 const AboutShop = ({ data }: any) => {
   return (
-    <section id="About" className="mt-16">
+    <section id="About" className="mt-4 md:mt-8 lg:mt-16">
       <Container>
         <h2 className="section_sub_title">About us</h2>
 

@@ -75,7 +75,7 @@ const DashboardReusable = () => {
           </div>
         </div>
       </div>
-      <div className="pt-[77px] pb-8">
+      <div className="pt-[30px] md:pt-[77px] pb-8">
         <div className="border border-[#A7A39C] rounded-[10px] w-full md:w-fit">
           <div className="p-3">
             <div className="flex justify-between">

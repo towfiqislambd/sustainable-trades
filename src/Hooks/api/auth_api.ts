@@ -40,6 +40,27 @@ export const useCreateShop = () => {
   });
 };
 
+// Edit Shop
+export const useEditShop = () => {
+  return useClientApi({
+    method: "post",
+    key: ["edit-shop"],
+    endpoint: "/api/shop/owner-data-update",
+    isPrivate: true,
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
 // Purchase Plan
 export const usePurchasePlan = (plan_id: number) => {
   return useClientApi({
