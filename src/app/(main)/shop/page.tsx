@@ -92,7 +92,7 @@ const page = () => {
           Organic Bath & Beauty
         </h3>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3gap-x-6 gap-y-10 mb-14">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10 mb-14">
           {data?.map((shopInfo) => (
             <Shop key={shopInfo?.id} shop={shopInfo} />
           ))}
