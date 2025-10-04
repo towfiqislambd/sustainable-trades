@@ -26,6 +26,7 @@ type ProfileFormValues = {
 
   shipping_information: string;
   return_policy: string;
+  payment_methods: any;
 
   website_url: string;
   facebook_url: string;
