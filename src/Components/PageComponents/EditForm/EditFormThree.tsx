@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import PaymentCardIcons, {
   Website,
@@ -8,33 +7,15 @@ import PaymentCardIcons, {
   Instagram,
   Pinterest,
 } from "@/Components/Svg/SvgContainer";
-
 type Faq = { question: string; answer: string };
 
-type FormValues = {
-  aboutShopTagline: string;
-  aboutShopStatement: string;
-  aboutShopStory: string;
-  shopPaymentMethods: string;
-  shopShippingInfo: string;
-  shopReturnsInfo: string;
-  faqs: Faq[];
-  socialMedia: {
-    website: string;
-    facebook: string;
-    instagram: string;
-    pinterest: string;
-  };
-};
-
-const EditFormThree: React.FC = () => {
+const EditFormThree = ({ data }: any) => {
   const {
     register,
     control,
     watch,
     formState: { errors },
-    setValue,
-  } = useFormContext<FormValues>();
+  } = useFormContext<any>();
 
   const { fields, append, remove, update } = useFieldArray({
     control,
@@ -42,6 +23,7 @@ const EditFormThree: React.FC = () => {
   });
 
   const [newFaq, setNewFaq] = useState<Faq>({ question: "", answer: "" });
+  const [faq, setFaq] = useState<any>([]);
   const [editingFaqIndex, setEditingFaqIndex] = useState<number | null>(null);
 
   const handleSaveFaq = () => {
@@ -71,61 +53,71 @@ const EditFormThree: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    setFaq(data?.shop_info?.faqs);
+  }, [data?.shop_info?.faqs]);
+
   return (
     <div>
       <h4 className="mt-5 text-[#274F45] text-[20px] font-semibold">
         About Your Shop
       </h4>
       <div className="my-8 border rounded-lg p-8">
+        {/* Tagline */}
         <div className="mb-4">
           <label className="block text-[#4B4A47] font-semibold mb-1">
             Tagline <span className="text-[#A7A39C]">(15 words max)</span>
           </label>
           <input
             type="text"
-            {...register("aboutShopTagline", {
+            {...register("tagline", {
               maxLength: { value: 120, message: "Max 15 words" },
             })}
+            defaultValue={data?.shop_info?.about?.tagline}
             className="form-input"
           />
-          {errors.aboutShopTagline?.message && (
+          {errors.tagline?.message && (
             <p className="text-red-600 mt-1">
-              {errors.aboutShopTagline.message as string}
+              {errors.tagline.message as string}
             </p>
           )}
         </div>
 
+        {/* Statement */}
         <div className="mb-4">
           <label className="block text-[#4B4A47] font-semibold mb-1">
             Two-Sentence Statement
             <span className="text-[#A7A39C]">(50 words max)</span>
           </label>
           <textarea
-            {...register("aboutShopStatement", {
+            defaultValue={data?.shop_info?.about?.statement}
+            {...register("statement", {
               maxLength: { value: 350, message: "Max 50 words" },
             })}
             className="form-input"
           />
-          {errors.aboutShopStatement?.message && (
+          {errors.statement?.message && (
             <p className="text-red-600 mt-1">
-              {errors.aboutShopStatement.message as string}
+              {errors.statement.message as string}
             </p>
           )}
         </div>
 
+        {/* Our Story */}
         <div className="mb-4">
           <label className="block text-[#4B4A47] font-semibold mb-1">
             Our Story <span className="text-[#A7A39C]">(450 words max)</span>
           </label>
           <textarea
-            {...register("aboutShopStory", {
+            defaultValue={data?.shop_info?.about?.our_story}
+            {...register("our_story", {
               maxLength: { value: 3000, message: "Max 450 words" },
             })}
             className="form-input"
           />
-          {errors.aboutShopStory?.message && (
+          {errors.our_story?.message && (
             <p className="text-red-600 mt-1">
-              {errors.aboutShopStory.message as string}
+              {errors.our_story.message as string}
             </p>
           )}
         </div>
@@ -133,67 +125,83 @@ const EditFormThree: React.FC = () => {
 
       {/* Shop Policies */}
       <div className="border rounded-lg p-8 mb-6">
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label className="block text-[#4B4A47] font-semibold mb-1">
             Accepted Payment Methods
-            <span className="text-[#A7A39C]">(max 40 words)</span>
           </label>
-          <div className="flex gap-2 mb-2">
-            <PaymentCardIcons />
+
+          <PaymentCardIcons />
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4">
+            {data?.shop_info?.policies?.payment_methods?.map((method: any) => (
+              <label
+                key={method}
+                className="flex items-center gap-2 border rounded-lg p-3 cursor-pointer hover:bg-gray-50"
+              >
+                <input
+                  type="checkbox"
+                  value={method}
+                  {...register("payment_methods", {
+                    validate: value =>
+                      value.length > 0 || "Select at least one payment method",
+                  })}
+                  className="w-4 h-4 text-primary-green"
+                />
+                <span className="text-[#4B4A47]">{method}</span>
+              </label>
+            ))}
           </div>
-          <input
-            type="text"
-            {...register("shopPaymentMethods", {
-              maxLength: { value: 250, message: "Max 40 words" },
-            })}
-            className="form-input"
-          />
-          {errors.shopPaymentMethods?.message && (
-            <p className="text-red-600 mt-1">
-              {errors.shopPaymentMethods.message as string}
+
+          {errors.payment_methods && (
+            <p className="text-red-600 mt-2">
+              {errors.payment_methods.message as string}
             </p>
           )}
-        </div>
+        </div> */}
 
+        {/* Shipping Information */}
         <div className="mb-4">
           <label className="block text-[#4B4A47] font-semibold mb-1">
-            Shipping Information{" "}
+            Shipping Information
             <span className="text-[#A7A39C]">(max 75 words)</span>
           </label>
+
           <textarea
-            {...register("shopShippingInfo", {
+            defaultValue={data?.shop_info?.policies?.shipping_information}
+            {...register("shipping_information", {
               maxLength: { value: 500, message: "Max 75 words" },
             })}
             className="form-input"
           />
-          {errors.shopShippingInfo?.message && (
+          {errors.shipping_information?.message && (
             <p className="text-red-600 mt-1">
-              {errors.shopShippingInfo.message as string}
+              {errors.shipping_information.message as string}
             </p>
           )}
         </div>
 
+        {/* Return & Exchanges */}
         <div className="mb-4">
           <label className="block text-[#4B4A47] font-semibold mb-1">
             Returns & Exchanges
             <span className="text-[#A7A39C]">(max 75 words)</span>
           </label>
           <textarea
-            {...register("shopReturnsInfo", {
+            defaultValue={data?.shop_info?.policies?.return_policy}
+            {...register("return_policy", {
               maxLength: { value: 500, message: "Max 75 words" },
             })}
             className="form-input"
           />
-          {errors.shopReturnsInfo?.message && (
+          {errors.return_policy?.message && (
             <p className="text-red-600 mt-1">
-              {errors.shopReturnsInfo.message as string}
+              {errors.return_policy.message as string}
             </p>
           )}
         </div>
       </div>
 
       {/* FAQ Section */}
-      <div className="border p-4 rounded mb-4">
+      {/* <div className="border p-4 rounded mb-4">
         <h3 className="text-lg font-semibold mb-2">Add FAQ</h3>
         <input
           type="text"
@@ -229,15 +237,15 @@ const EditFormThree: React.FC = () => {
             </button>
           )}
         </div>
-      </div>
+      </div> */}
 
       {/* FAQ List */}
-      <div className="mb-4">
-        {fields.map((field, index) => {
+      {/* <div className="mb-4">
+        {faq?.map((field: any, index: number) => {
           const faq = watch("faqs")[index];
           return (
             <div
-              key={field.id}
+              key={field?.id}
               className="flex justify-between items-center border-b py-2"
             >
               <div>
@@ -265,7 +273,7 @@ const EditFormThree: React.FC = () => {
         <p className="text-sm mt-2 text-gray-600">
           You can add up to 10 FAQs ({fields.length}/10)
         </p>
-      </div>
+      </div> */}
 
       {/* Social Media */}
       <div>
@@ -276,41 +284,41 @@ const EditFormThree: React.FC = () => {
           <div className="flex gap-x-4 items-center">
             <Website />
             <input
-              defaultValue="www.website.com"
+              defaultValue={data?.shop_info?.social_links?.website_url}
               type="text"
               placeholder="Type Your Website link here"
               className="outline-0 underline w-fit text-[#67645F] font-bold"
-              {...register("socialMedia.website")}
+              {...register("website_url")}
             />
           </div>
           <div className="flex gap-x-4 items-center">
             <Facebook />
             <input
               type="text"
-              defaultValue="www.facebook.com"
+              defaultValue={data?.shop_info?.social_links?.facebook_url}
               placeholder="Type Your Facebook link here"
               className="outline-0 underline w-fit text-[#67645F] font-bold"
-              {...register("socialMedia.facebook")}
+              {...register("facebook_url")}
             />
           </div>
           <div className="flex gap-x-4 items-center">
             <Instagram />
             <input
               type="text"
-              defaultValue="www.instagram.com"
+              defaultValue={data?.shop_info?.social_links?.instagram_url}
               placeholder="Type Your Instagram link here"
               className="outline-0 underline w-fit text-[#67645F] font-bold"
-              {...register("socialMedia.instagram")}
+              {...register("instagram_url")}
             />
           </div>
           <div className="flex gap-x-4 items-center">
             <Pinterest />
             <input
               type="text"
-              defaultValue="www.pinterest.com"
+              defaultValue={data?.shop_info?.social_links?.pinterest_url}
               placeholder="Type Your Pinterest link here"
               className="outline-0 underline w-fit text-[#67645F] font-bold"
-              {...register("socialMedia.pinterest")}
+              {...register("pinterest_url")}
             />
           </div>
         </div>

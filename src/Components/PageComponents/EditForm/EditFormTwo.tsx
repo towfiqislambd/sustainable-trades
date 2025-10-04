@@ -1,35 +1,35 @@
 "use client";
-import React from "react";
-import Preview from "@/Assets/cover.jpg";
+import Image from "next/image";
+import React, { useState } from "react";
 import { Camera } from "@/Components/Svg/SvgContainer";
 import { useFormContext, Controller } from "react-hook-form";
 
 const EditFormTwo = ({ data }: any) => {
+  const [shopProfilePreview, setShopProfilePreview] = useState<any>(null);
+  const [shopCoverPreview, setShopCoverPreview] = useState<any>(null);
+
   const {
     control,
     register,
     setValue,
-    watch,
     formState: { errors },
   } = useFormContext<any>();
 
-  const shopPhotoPreview = watch("shopPhotoPreview") || Preview.src;
-  const coverPhotoPreview = watch("coverPhotoPreview") || Preview.src;
-
   const handleImageChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    previewField: "shopPhotoPreview" | "coverPhotoPreview",
-    fileField: "shopPhoto" | "coverPhoto"
+    fileField: "shop_image" | "shop_banner"
   ) => {
     const file: File | null = e.target.files?.[0] || null;
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => {
-        const result = reader.result as string;
-        setValue(previewField, result, { shouldValidate: true });
-      };
       reader.readAsDataURL(file);
-      setValue(fileField, file, { shouldValidate: true });
+      setValue(fileField, file);
+    }
+    if (fileField === "shop_image") {
+      setShopProfilePreview(URL.createObjectURL(file as any));
+    }
+    if (fileField === "shop_banner") {
+      setShopCoverPreview(URL.createObjectURL(file as any));
     }
   };
 
@@ -43,14 +43,15 @@ const EditFormTwo = ({ data }: any) => {
           <p className="form-label">Name Your Shop *</p>
           <input
             type="text"
-            {...register("shopName")}
+            {...register("shop_name")}
             defaultValue={data?.shop_info?.shop_name}
             className="form-input"
             placeholder="Name Your Shop *"
           />
           <p className="text-red-600 mt-2">
-            {errors.shopPhoto ? String(errors.shopPhoto?.message) : null}
+            {errors.shop_name ? String(errors.shop_name?.message) : null}
           </p>
+
           <ul className="mt-[2px] text-[16px] text-[#4B4A47] ml-5">
             <li className="list-disc">Between 4-30 characters</li>
             <li className="list-disc">
@@ -68,12 +69,13 @@ const EditFormTwo = ({ data }: any) => {
           <p className="form-label">City State *</p>
           <input
             type="text"
-            {...register("cityState")}
+            {...register("shop_city")}
             className="form-input"
             placeholder="City, State"
+            defaultValue={data?.shop_info?.shop_city}
           />
           <p className="text-red-600">
-            {errors.cityState ? String(errors.cityState.message) : null}
+            {errors.shop_city ? String(errors.shop_city.message) : null}
           </p>
         </div>
         <h5 className="text-[16px] text-[#4B4A47]">
@@ -88,31 +90,40 @@ const EditFormTwo = ({ data }: any) => {
           <p className="text-[18px] text-[#13141D] font-lato">
             Add A Profile Photo *
           </p>
+
           <div
             className="relative bg-[#F0EEE9] h-[270px] w-[270px] lg:mx-0 mx-auto rounded-full mt-6 flex flex-col justify-center items-center cursor-pointer overflow-hidden"
             onClick={() => document.getElementById("shopPhotoInput")?.click()}
           >
-            {shopPhotoPreview ? (
-              <>
-                <img
-                  src={shopPhotoPreview}
+            {shopProfilePreview ? (
+              <div>
+                <Image
+                  src={shopProfilePreview}
                   alt="Shop Preview"
-                  className="h-full w-full object-cover"
+                  fill
+                  className="size-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black/10 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-full">
                   <Camera />
                 </div>
-              </>
+              </div>
             ) : (
-              <>
-                <Camera />
-                <p>Add Photo</p>
-              </>
+              <div>
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_SITE_URL}/${data?.shop_info?.shop_image}`}
+                  alt="Shop Preview"
+                  fill
+                  className="size-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/10 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-full">
+                  <Camera />
+                </div>
+              </div>
             )}
           </div>
 
           <Controller
-            name="shopPhoto"
+            name="shop_image"
             control={control}
             render={() => (
               <>
@@ -121,12 +132,12 @@ const EditFormTwo = ({ data }: any) => {
                   id="shopPhotoInput"
                   accept="image/*"
                   className="hidden"
-                  onChange={e =>
-                    handleImageChange(e, "shopPhotoPreview", "shopPhoto")
-                  }
+                  onChange={e => {
+                    handleImageChange(e, "shop_image");
+                  }}
                 />
                 <p className="text-red-600 mt-2">
-                  {errors.shopPhoto ? String(errors.shopPhoto.message) : null}
+                  {errors.shop_image ? String(errors.shop_image.message) : null}
                 </p>
               </>
             )}
@@ -145,27 +156,35 @@ const EditFormTwo = ({ data }: any) => {
             className="relative bg-[#F0EEE9] h-[270px] w-full rounded-[8px] mt-6 flex flex-col justify-center items-center cursor-pointer overflow-hidden"
             onClick={() => document.getElementById("coverPhotoInput")?.click()}
           >
-            {coverPhotoPreview ? (
-              <>
-                <img
-                  src={coverPhotoPreview}
+            {shopCoverPreview ? (
+              <div>
+                <Image
+                  src={shopCoverPreview}
                   alt="Cover Preview"
-                  className="h-full w-full object-cover"
+                  fill
+                  className="size-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black/10 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-[8px]">
                   <Camera />
                 </div>
-              </>
+              </div>
             ) : (
-              <>
-                <Camera />
-                <p>Add Photo</p>
-              </>
+              <div>
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_SITE_URL}/${data?.shop_info?.shop_banner}`}
+                  alt="Cover Preview"
+                  fill
+                  className="size-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/10 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-[8px]">
+                  <Camera />
+                </div>
+              </div>
             )}
           </div>
 
           <Controller
-            name="coverPhoto"
+            name="shop_banner"
             control={control}
             render={() => (
               <>
@@ -174,12 +193,12 @@ const EditFormTwo = ({ data }: any) => {
                   id="coverPhotoInput"
                   accept="image/*"
                   className="hidden"
-                  onChange={e =>
-                    handleImageChange(e, "coverPhotoPreview", "coverPhoto")
-                  }
+                  onChange={e => handleImageChange(e, "shop_banner")}
                 />
                 <p className="text-red-600 mt-2">
-                  {errors.coverPhoto ? String(errors.coverPhoto.message) : null}
+                  {errors.shop_banner
+                    ? String(errors.shop_banner.message)
+                    : null}
                 </p>
               </>
             )}
