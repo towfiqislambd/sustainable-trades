@@ -4,7 +4,7 @@ import Container from "@/Components/Common/Container";
 import { SearchSvg } from "@/Components/Svg/SvgContainer";
 import { AiOutlineFileUnknown } from "react-icons/ai";
 import { GrPowerReset } from "react-icons/gr";
-import FilteringSkeleton from "@/Components/Loader/Loader";
+import { FilteringSkeleton } from "@/Components/Loader/Loader";
 
 const ProductSkeleton = () => {
   return (

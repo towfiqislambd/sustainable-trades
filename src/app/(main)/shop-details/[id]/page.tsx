@@ -14,7 +14,12 @@ import ShopPolicies from "@/Components/PageComponents/mainPages/shopDetailsCompo
 import ShopListing from "@/Components/PageComponents/mainPages/shopDetailsComponents/ShopListing";
 import ShopReviews from "@/Components/PageComponents/mainPages/shopDetailsComponents/ShopReviews";
 import DetailsTab from "@/Components/PageComponents/mainPages/shopDetailsComponents/DetailsTab";
-import { ShopBannerSkeleton } from "@/Components/Loader/Loader";
+import {
+  AboutShopSkeleton,
+  ShopBannerSkeleton,
+  ShopFAQSkeleton,
+  ShopPoliciesSkeleton,
+} from "@/Components/Loader/Loader";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -74,9 +79,21 @@ const page = ({ params }: Props) => {
         productSubCategories={productSubCategories?.data}
       />
       <ShopReviews />
-      <AboutShop data={shopDetailsData?.data?.shop_info} />
-      <ShopPolicies data={shopDetailsData?.data?.shop_info?.policies} />
-      <ShopFAQ data={shopDetailsData?.data?.shop_info?.faqs} />
+      {shopDetailLoading ? (
+        <AboutShopSkeleton />
+      ) : (
+        <AboutShop data={shopDetailsData?.data?.shop_info} />
+      )}
+      {shopDetailLoading ? (
+        <ShopPoliciesSkeleton />
+      ) : (
+        <ShopPolicies data={shopDetailsData?.data?.shop_info?.policies} />
+      )}
+      {shopDetailLoading ? (
+        <ShopFAQSkeleton />
+      ) : (
+        <ShopFAQ data={shopDetailsData?.data?.shop_info?.faqs} />
+      )}
     </>
   );
 };
