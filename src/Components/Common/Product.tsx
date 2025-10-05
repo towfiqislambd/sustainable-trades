@@ -39,7 +39,7 @@ type ProductProps = {
 
 const Product = ({
   product,
-  is_feathered,
+  is_feathered = false,
   has_wishlist = true,
   has_cart = true,
 }: ProductProps) => {
@@ -108,8 +108,8 @@ const Product = ({
             <figure
               className={`w-full rounded-lg border border-gray-100 relative ${
                 is_feathered
-                  ? "h-[170px] md:h-[250px"
-                  : "h-[170px] md:h-[350px]"
+                  ? "h-[350px]"
+                  : "h-[270px]"
               }`}
             >
               <div className="absolute inset-0 bg-black/20 rounded-lg" />
@@ -164,10 +164,13 @@ const Product = ({
         {has_cart && (
           <button
             onClick={handleAddToCart}
-            disabled={addCardPending}
-            className={`flex gap-2 items-center px-3 py-1.5 rounded-[5px] border border-secondary-gray font-semibold text-secondary-gray duration-500 transition-all hover:bg-primary-green md:text-lg sm:text-base text-sm lg:text-xl hover:text-accent-white hover:scale-95 ${
-              addCardPending ? "cursor-not-allowed" : "cursor-pointer"
-            }`}
+            disabled={addCardPending || user?.role === "vendor"}
+            className={`flex gap-2 items-center px-3 py-1.5 rounded-[5px] border font-semibold text-secondary-gray duration-500 transition-all hover:bg-primary-green sm:text-base text-sm hover:text-accent-white hover:scale-95 ${
+              addCardPending || user?.role === "vendor"
+                ? "cursor-not-allowed opacity-75 border-gray-400"
+                : "cursor-pointer border-secondary-gray"
+            }
+              `}
           >
             {addCardPending ? (
               <p className="flex gap-2 items-center justify-center">

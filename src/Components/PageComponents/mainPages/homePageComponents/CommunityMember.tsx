@@ -11,6 +11,7 @@ import useAuth from "@/Hooks/useAuth";
 const CommunityMember = ({ data, has_community }: any) => {
   const { user } = useAuth();
   const [isOpen, setOpen] = useState<boolean>(false);
+  const latestSpotlight = data?.find((item: any) => item?.id === 1);
 
   return (
     <section className="rounded-xl">
@@ -33,15 +34,15 @@ const CommunityMember = ({ data, has_community }: any) => {
             </h2>
 
             <h3 className="text-accent-white text-xl md:text-2xl">
-              {data[0]?.name}
+              {latestSpotlight?.name}
             </h3>
 
             <p className="text-sm md:text-base xl:text-lg text-accent-white">
-              {data[0]?.shop_description}
+              {latestSpotlight?.shop_description}
             </p>
 
             <Link
-              href={`/shop-details/${data[0]?.user_id}`}
+              href={`/shop-details/${latestSpotlight?.user_id}`}
               className="w-full lg:w-[416px] text-center block duration-500 transition-all border text-sm md:text-lg text-secondary-black cursor-pointer md:py-3 py-2 bg-accent-white rounded-lg shadow-lg hover:scale-105"
             >
               View Their Shop

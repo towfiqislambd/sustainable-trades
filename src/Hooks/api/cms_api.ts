@@ -12,6 +12,11 @@ export async function getSiteSettings() {
   return useServerApi("/api/site-settings", 3600);
 }
 
+// Social Links
+export async function getSocialLinks() {
+  return useServerApi("/api/social-links", 3600);
+}
+
 // Banner
 export async function getBannerData() {
   return useServerApi("/api/banners", 3600);
@@ -50,6 +55,11 @@ export async function getSingleDynamicPage(slug: string) {
 // Membership Spotlight
 export async function getSpotlightData() {
   return useServerApi("/api/spotlight-applications", 3600);
+}
+
+// All Shops
+export async function getAllShops() {
+  return useServerApi("/api/shops", 3600);
 }
 
 // =======================================================
@@ -184,6 +194,9 @@ export const getFeaturedListings = (id: string) => {
     key: ["get-featured-listings", id],
     enabled: !!id,
     endpoint: `/api/shop/products/featured/${id}`,
+    queryOptions: {
+      retry: false,
+    },
   });
 };
 
@@ -476,6 +489,44 @@ export const useSpotlightApplication = () => {
     },
     onError: (err: any) => {
       toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// Membership Spotlight (Client)
+export const getMembershipSpotlightClient = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-membership-spotlight"],
+    endpoint: "/api/spotlight-applications",
+  });
+};
+
+// Category Details
+export const getCategoryDetails = (id: string) => {
+  return useClientApi({
+    method: "get",
+    isPrivate: true,
+    key: ["get-category-details", id],
+    enabled: !!id,
+    endpoint: `/api/category/${id}`,
+    queryOptions: {
+      retry: false,
+    },
+  });
+};
+
+// All Shops (Client)
+export const getAllShopsClient = (address: string) => {
+  return useClientApi({
+    method: "get",
+    isPrivate: true,
+    key: ["get-all-shop", address],
+    enabled: !!address,
+    endpoint: `/api/shops`,
+    params: { address },
+    queryOptions: {
+      retry: false,
     },
   });
 };

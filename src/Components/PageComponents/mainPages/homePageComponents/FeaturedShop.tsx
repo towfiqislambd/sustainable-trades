@@ -5,12 +5,12 @@ import { FaStar } from "react-icons/fa";
 import { IoLink } from "react-icons/io5";
 import Container from "@/Components/Common/Container";
 
-const FeaturedShops = ({ data }: any) => {
+const FeaturedShops = ({ data, featured }: any) => {
   return (
-    <section className=" mt-50 md:mt-0 py-20">
+    <section className="mt-50 md:mt-0 py-20">
       <Container>
         <h2 className="section_title md:text-start text-center ">
-          Featured Shops
+          {featured ? "Featured Shops" : "All Shops"}
         </h2>
 
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
