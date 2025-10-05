@@ -55,7 +55,7 @@ const data = [
   },
 ];
 
-const LocalMagicMarker = ({ address }: any) => {
+const LocalMagicMarker = ({ address, shopData }: any) => {
   const [searchShop, setSearchShop] = useState<any>(address);
 
   return (
