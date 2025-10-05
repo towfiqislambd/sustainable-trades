@@ -105,7 +105,7 @@ const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
             <div className="flex items-center gap-2">
               {user && (
                 <button
-                  onClick={(e) => {
+                  onClick={e => {
                     e.stopPropagation();
                     setSidebarOpen(true);
                   }}
@@ -134,7 +134,7 @@ const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
 
             {/* NavLinks */}
             <div className="lg:flex hidden gap-5 xl:gap-10 items-center relative">
-              {navLins?.map((item) => {
+              {navLins?.map(item => {
                 const isActive = pathname === item?.path;
 
                 return (
@@ -144,7 +144,7 @@ const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
                     }`}
                     key={item?.id}
                     href={item?.id == 4 || item?.id == 5 ? "#" : item?.path}
-                    onClick={(e) => {
+                    onClick={e => {
                       e.stopPropagation();
                       if (item?.id == 4 || item?.id == 5) {
                         e.preventDefault();
@@ -160,7 +160,7 @@ const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
 
               {/* Sub Menu */}
               <div
-                onClick={(e) => e.stopPropagation()}
+                onClick={e => e.stopPropagation()}
                 className={`absolute top-12 ${
                   activeSubMenu === 4 ? "-right-32" : "-right-56"
                 } bg-white drop-shadow  w-[280px] py-7 px-5 border-gray-50 rounded-lg flex flex-col gap-7 ${
@@ -170,7 +170,7 @@ const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
                 }`}
               >
                 {navLins?.map(
-                  (item) =>
+                  item =>
                     item?.id === activeSubMenu &&
                     item?.sub_menu?.map(
                       ({
@@ -255,7 +255,7 @@ const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
             <Link
               href={`${
                 user?.role === "customer"
-                  ? "dashboard/customer/cart"
+                  ? "/cart"
                   : user?.role === "vendor" &&
                     user?.membership?.membership_type === "pro"
                   ? "dashboard/pro/trades"
@@ -284,7 +284,7 @@ const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
             {/* Profile */}
             <div className="relative">
               <button
-                onClick={(e) => {
+                onClick={e => {
                   e.stopPropagation();
                   setShowPopover(!showPopover);
                 }}
@@ -314,7 +314,7 @@ const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
 
               {/* Popover */}
               <div
-                onClick={(e) => e.stopPropagation()}
+                onClick={e => e.stopPropagation()}
                 className={`absolute top-16 right-0 bg-white drop-shadow z-50 space-y-2 w-[135px] py-3 px-4 border-gray-50 rounded-lg duration-300 transition-all ${
                   showPopover
                     ? "opacity-100 scale-100"

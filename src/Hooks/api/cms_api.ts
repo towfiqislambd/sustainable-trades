@@ -12,6 +12,11 @@ export async function getSiteSettings() {
   return useServerApi("/api/site-settings", 3600);
 }
 
+// Social Links
+export async function getSocialLinks() {
+  return useServerApi("/api/social-links", 3600);
+}
+
 // Banner
 export async function getBannerData() {
   return useServerApi("/api/banners", 3600);
