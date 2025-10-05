@@ -310,3 +310,36 @@ export const ProductDetailsSkeleton = () => {
     </section>
   );
 };
+
+// Pricing Card Skeleton
+export const PricingSkeletonCard = () => (
+  <div className="border border-gray-200 shadow rounded-2xl p-6 w-[400px] flex flex-col justify-between animate-pulse">
+    <div>
+      <div className="size-12 rounded-full bg-gray-300 mb-4" />
+
+      <div className="h-6 bg-gray-300 rounded w-1/2 mb-3" />
+      <div className="h-4 bg-gray-200 rounded w-3/4 mb-6" />
+
+      <div className="flex gap-2 items-end mb-5">
+        <div className="h-8 bg-gray-300 rounded w-20" />
+        <div className="h-4 bg-gray-200 rounded w-10" />
+      </div>
+
+      <hr className="my-5 text-gray-300" />
+
+      <div className="space-y-5 mb-10">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <div key={i} className="flex gap-3">
+            <div className="size-10 rounded-full bg-gray-300 shrink-0" />
+            <div className="flex-1 space-y-2">
+              <div className="h-4 bg-gray-300 rounded w-1/3" />
+              <div className="h-3 bg-gray-200 rounded w-2/3" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div className="h-12 bg-gray-300 rounded-lg w-full" />
+  </div>
+);

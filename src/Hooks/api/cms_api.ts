@@ -493,3 +493,17 @@ export const getMembershipSpotlightClient = () => {
     endpoint: "/api/spotlight-applications",
   });
 };
+
+// Category Details
+export const getCategoryDetails = (id: string) => {
+  return useClientApi({
+    method: "get",
+    isPrivate: true,
+    key: ["get-category-details", id],
+    enabled: !!id,
+    endpoint: `/api/category/${id}`,
+    queryOptions: {
+      retry: false,
+    },
+  });
+};

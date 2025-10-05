@@ -4,22 +4,7 @@ import Container from "@/Components/Common/Container";
 import { SearchSvg } from "@/Components/Svg/SvgContainer";
 import { AiOutlineFileUnknown } from "react-icons/ai";
 import { GrPowerReset } from "react-icons/gr";
-import { FilteringSkeleton } from "@/Components/Loader/Loader";
-
-const ProductSkeleton = () => {
-  return (
-    <div className="rounded-t-lg relative animate-pulse">
-      <div className="w-full h-[200px] rounded-lg bg-gray-200 border border-gray-100" />
-      <div className="flex justify-between items-center mt-4">
-        <div className="h-5 w-2/3 bg-gray-200 rounded" />
-        <div className="size-6 rounded-full bg-gray-200" />
-      </div>
-      <div className="flex justify-between mt-3 items-center">
-        <div className="h-9 w-28 sm:w-32 bg-gray-200 rounded-[5px]" />
-      </div>
-    </div>
-  );
-};
+import { FilteringSkeleton, ProductSkeleton } from "@/Components/Loader/Loader";
 
 const ShopListing = ({
   featuredListings,
@@ -58,7 +43,11 @@ const ShopListing = ({
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 mb-5 lg:mb-10">
             {featuredListings?.slice(0, 3)?.map((product: any) => (
-              <Product key={product?.id} product={product} />
+              <Product
+                key={product?.id}
+                product={product}
+                is_feathered={true}
+              />
             ))}
           </div>
         )}
@@ -180,11 +169,7 @@ const ShopListing = ({
         ) : (
           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
             {allListings?.data?.map((product: any) => (
-              <Product
-                key={product?.id}
-                product={product}
-                is_feathered={true}
-              />
+              <Product key={product?.id} product={product} />
             ))}
           </div>
         )}
