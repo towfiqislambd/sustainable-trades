@@ -52,6 +52,11 @@ export async function getSpotlightData() {
   return useServerApi("/api/spotlight-applications", 3600);
 }
 
+// All Shops
+export async function getAllShops() {
+  return useServerApi("/api/shops", 3600);
+}
+
 // =======================================================
 //  CSR (Client Side Rendering)
 // =======================================================
