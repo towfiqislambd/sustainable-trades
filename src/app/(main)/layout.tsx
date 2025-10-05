@@ -14,7 +14,10 @@ const MainLayout = async ({ children }: { children: React.ReactNode }) => {
         dynamicPage={dynamicPage?.data}
       />
       <main>{children}</main>
-      <Footer />
+      <Footer
+        siteSettings={siteSettings?.data}
+        dynamicPage={dynamicPage?.data}
+      />
     </>
   );
 };

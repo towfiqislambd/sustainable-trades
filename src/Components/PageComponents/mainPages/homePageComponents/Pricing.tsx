@@ -5,6 +5,8 @@ import { CgSpinnerTwo } from "react-icons/cg";
 import { getPricingData } from "@/Hooks/api/cms_api";
 import Container from "@/Components/Common/Container";
 import { usePurchasePlan } from "@/Hooks/api/auth_api";
+import useAuth from "@/Hooks/useAuth";
+import { PricingSkeletonCard } from "@/Components/Loader/Loader";
 
 type benefitItem = {
   id: string;
@@ -20,6 +22,7 @@ type pricingData = {
   price: string;
   interval: string;
   image: string;
+  membership_type: string;
   subscription_benefit: benefitItem[];
 };
 
@@ -30,42 +33,11 @@ interface PricingProps {
 }
 
 const Pricing = ({ description, button1, button2 }: PricingProps) => {
+  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<string>("yearly");
   const [planId, setPlanId] = useState<number>(0);
   const { mutate: purchasePlanMutation, isPending } = usePurchasePlan(planId);
   const { data: pricingData, isLoading } = getPricingData(activeTab);
-
-  const SkeletonCard = () => (
-    <div className="border border-gray-200 shadow rounded-2xl p-6 w-[400px] flex flex-col justify-between animate-pulse">
-      <div>
-        <div className="size-12 rounded-full bg-gray-300 mb-4" />
-
-        <div className="h-6 bg-gray-300 rounded w-1/2 mb-3" />
-        <div className="h-4 bg-gray-200 rounded w-3/4 mb-6" />
-
-        <div className="flex gap-2 items-end mb-5">
-          <div className="h-8 bg-gray-300 rounded w-20" />
-          <div className="h-4 bg-gray-200 rounded w-10" />
-        </div>
-
-        <hr className="my-5 text-gray-300" />
-
-        <div className="space-y-5 mb-10">
-          {Array.from({ length: 3 }).map((_, i) => (
-            <div key={i} className="flex gap-3">
-              <div className="size-10 rounded-full bg-gray-300 shrink-0" />
-              <div className="flex-1 space-y-2">
-                <div className="h-4 bg-gray-300 rounded w-1/3" />
-                <div className="h-3 bg-gray-200 rounded w-2/3" />
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="h-12 bg-gray-300 rounded-lg w-full" />
-    </div>
-  );
 
   const handlePurchasePlan = async (id: number) => {
     await purchasePlanMutation({
@@ -77,7 +49,9 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
   return (
     <section id="membership_plan" className="py-8 md:py-20">
       <Container>
-        <h2 className="section_title text-center !mb-4 md:!mb-7">Plans & Benefits</h2>
+        <h2 className="section_title text-center !mb-4 md:!mb-7">
+          Plans & Benefits
+        </h2>
 
         <p className="text-center text-base sm:text-lg md:text-xl text-[#4B4A47] mb-7">
           {description}
@@ -121,7 +95,9 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
         {/* Pricing Plan */}
         <div className="flex flex-col md:flex-row gap-5 md:gap-10 justify-center">
           {isLoading
-            ? Array.from({ length: 2 }).map((_, i) => <SkeletonCard key={i} />)
+            ? Array.from({ length: 2 }).map((_, i) => (
+                <PricingSkeletonCard key={i} />
+              ))
             : pricingData?.data?.map(
                 (
                   {
@@ -131,6 +107,7 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
                     price,
                     interval,
                     subscription_benefit,
+                    membership_type,
                     image,
                   }: pricingData,
                   idx: number
@@ -155,7 +132,9 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
                         {name}
                       </h3>
 
-                      <p className="text-secondary-gray md:mb-7 mb-4 text-sm md:text-base " >{description}</p>
+                      <p className="text-secondary-gray md:mb-7 mb-4 text-sm md:text-base ">
+                        {description}
+                      </p>
 
                       <div className="flex gap-2 items-end">
                         <h2 className="text-3xl md:text-4xl font-semibold text-secondary-black">
@@ -200,7 +179,10 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
                     </div>
 
                     <button
-                      disabled={isPending}
+                      disabled={
+                        isPending ||
+                        user?.membership?.membership_type === membership_type
+                      }
                       onClick={e => {
                         e.preventDefault();
                         e.stopPropagation();
@@ -211,7 +193,12 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
                         idx === 0
                           ? "text-primary-green hover:bg-primary-green hover:text-accent-white"
                           : "text-accent-white hover:text-primary-green bg-primary-green hover:bg-transparent"
-                      }`}
+                      }
+                      ${
+                        user?.membership?.membership_type === membership_type &&
+                        "opacity-70 !cursor-not-allowed"
+                      }
+                        `}
                     >
                       {isPending && id === planId ? (
                         <p className="flex gap-2 items-center justify-center">
@@ -219,7 +206,11 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
                           <span>Please wait...</span>
                         </p>
                       ) : (
-                        `Choose ${name}`
+                        <div>
+                          {user?.membership?.membership_type === membership_type
+                            ? "Purchased"
+                            : `Choose ${name}`}
+                        </div>
                       )}
                     </button>
                   </div>

@@ -1,7 +1,20 @@
+"use client";
+import toast from "react-hot-toast";
+import React, { useState } from "react";
 import Container from "@/Components/Common/Container";
-import React from "react";
+import { useRouter } from "next/navigation";
 
 const MagicMarkers = () => {
+  const router = useRouter();
+  const [search, setSearch] = useState<string>("");
+
+  const handleSearch = () => {
+    if (!search) {
+      return toast.error("Please enter location");
+    }
+    router.push(`/location/${search}`);
+  };
+
   return (
     <section className="my-5 xl:my-10">
       <Container>
@@ -29,9 +42,13 @@ const MagicMarkers = () => {
               <input
                 type="text"
                 placeholder="Denver, CO 80012"
+                onChange={e => setSearch(e.target.value)}
                 className="outline-none border-2 border-primary-green text-sm md:text-base p-1.5 md:p-3 rounded w-full md:w-[416px]"
               />
-              <button className="shrink-0 border md:border-2 border-primary-green text-accent-white text-sm md:text-base bg-primary-green font-semibold md:py-3 px-10 py-1.5  rounded cursor-pointer">
+              <button
+                onClick={handleSearch}
+                className="shrink-0 border md:border-2 border-primary-green text-accent-white text-sm md:text-base bg-primary-green font-semibold md:py-3 px-10 py-1.5  rounded cursor-pointer"
+              >
                 Search
               </button>
             </div>
