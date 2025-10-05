@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { use } from "react";
 import NearbyProducts from "@/Components/PageComponents/mainPages/shopPageComponents/NearbyProducts";
 import Container from "@/Components/Common/Container";
 import p1 from "@/Assets/p1.jpg";
@@ -82,12 +82,17 @@ const data2 = [
   },
 ];
 
-const page = () => {
+interface Props {
+  params: Promise<{ address: string }>;
+}
+
+const page = ({ params }: Props) => {
+  const { address } = use(params);
   const { data: spotlightData, isLoading } = getMembershipSpotlightClient();
 
   return (
     <>
-      <LocalMagicMarker />
+      <LocalMagicMarker address={address} />
       <NearbyProducts />
 
       {/* Organic Bath & Beauty */}

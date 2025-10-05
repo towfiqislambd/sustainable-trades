@@ -194,6 +194,9 @@ export const getFeaturedListings = (id: string) => {
     key: ["get-featured-listings", id],
     enabled: !!id,
     endpoint: `/api/shop/products/featured/${id}`,
+    queryOptions: {
+      retry: false,
+    },
   });
 };
 

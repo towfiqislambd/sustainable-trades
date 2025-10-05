@@ -55,8 +55,8 @@ const data = [
   },
 ];
 
-const LocalMagicMarker = () => {
-  const [searchShop, setSearchShop] = useState<string | null>(null);
+const LocalMagicMarker = ({ address }: any) => {
+  const [searchShop, setSearchShop] = useState<any>(address);
 
   return (
     <section className="mt-10 mb-16">
@@ -72,8 +72,9 @@ const LocalMagicMarker = () => {
               <SearchSvg />
               <input
                 type="text"
-                onChange={(e) => setSearchShop(e.target.value)}
+                onChange={e => setSearchShop(e.target.value)}
                 placeholder="Denver, CO 80012"
+                defaultValue={searchShop}
                 className="w-full border-none outline-none"
               />
             </div>
@@ -84,7 +85,7 @@ const LocalMagicMarker = () => {
             {/* Left */}
             {searchShop ? (
               <div className="space-y-2 h-[550px] overflow-y-auto">
-                {data?.map((item) => (
+                {data?.map(item => (
                   <div
                     key={item?.id}
                     className="flex flex-col md:flex-row gap-2.5 md:gap-5 md:items-center border-b last:border-b-0 border-gray-300 py-3"
