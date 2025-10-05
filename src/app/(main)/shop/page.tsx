@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import NearbyProducts from "@/Components/PageComponents/mainPages/shopPageComponents/NearbyProducts";
 import Container from "@/Components/Common/Container";
@@ -7,6 +8,7 @@ import Product from "@/Components/Common/Product";
 import CommunityMember from "@/Components/PageComponents/mainPages/homePageComponents/CommunityMember";
 import Subscribe from "@/Components/PageComponents/mainPages/homePageComponents/Subscribe";
 import LocalMagicMarker from "@/Components/PageComponents/mainPages/shopPageComponents/LocalMagicMarker";
+import { getMembershipSpotlightClient } from "@/Hooks/api/cms_api";
 const data = [
   {
     id: 1,
@@ -81,6 +83,8 @@ const data2 = [
 ];
 
 const page = () => {
+  const { data: spotlightData, isLoading } = getMembershipSpotlightClient();
+
   return (
     <>
       <LocalMagicMarker />
@@ -93,7 +97,7 @@ const page = () => {
         </h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10 mb-14">
-          {data?.map((shopInfo) => (
+          {data?.map(shopInfo => (
             <Shop key={shopInfo?.id} shop={shopInfo} />
           ))}
         </div>
@@ -106,7 +110,7 @@ const page = () => {
         </h3>
 
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
-          {data2?.map((product) => (
+          {data2?.map(product => (
             <Product key={product?.id} product={product} is_feathered={true} />
           ))}
         </div>
@@ -114,7 +118,7 @@ const page = () => {
 
       {/* Community Member */}
       <div className="my-20">
-        <CommunityMember />
+        <CommunityMember data={spotlightData?.data} />
       </div>
 
       {/* Subscribe */}

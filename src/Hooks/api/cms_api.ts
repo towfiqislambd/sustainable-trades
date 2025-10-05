@@ -479,3 +479,12 @@ export const useSpotlightApplication = () => {
     },
   });
 };
+
+// Membership Spotlight (Client)
+export const getMembershipSpotlightClient = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-membership-spotlight"],
+    endpoint: "/api/spotlight-applications",
+  });
+};
