@@ -29,7 +29,7 @@ const Page = async () => {
       <HomeBanner data={bannerData?.data} />
       <HowItWorks data={howItWorksData?.data} />
       <MagicMarkers />
-      <FeaturedShops data={featuredShops?.data} />
+      <FeaturedShops data={featuredShops?.data} featured={true} />
       <ExploreProduct data={productCategories?.data} />
       <OurMission data={missionData?.data} />
       <CommunityMember data={spotlightData?.data} has_community={true} />

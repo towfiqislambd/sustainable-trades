@@ -29,7 +29,7 @@ const DefaultNavbar = ({ user, siteSettings, dynamicPage }: any) => {
           <div className="flex items-center gap-2">
             {!user && (
               <button
-                onClick={(e) => {
+                onClick={e => {
                   e.stopPropagation();
                   setOpen(true);
                 }}
@@ -62,7 +62,7 @@ const DefaultNavbar = ({ user, siteSettings, dynamicPage }: any) => {
             </Link>
 
             <button
-              onClick={(e) => {
+              onClick={e => {
                 e.stopPropagation();
                 setShowPopover(!showPopover);
               }}
@@ -79,7 +79,7 @@ const DefaultNavbar = ({ user, siteSettings, dynamicPage }: any) => {
 
               {/* Popover */}
               <div
-                onClick={(e) => e.stopPropagation()}
+                onClick={e => e.stopPropagation()}
                 className={`absolute top-10 right-0 bg-gray-50 shadow-lg border z-50 space-y-2 w-[100px] py-3 px-4 border-gray-100 rounded-lg duration-300 transition-all ${
                   showPopover
                     ? "opacity-100 scale-100"
@@ -104,7 +104,7 @@ const DefaultNavbar = ({ user, siteSettings, dynamicPage }: any) => {
               </div>
             </button>
 
-            <Link href="/dashboard/customer/cart" className="cursor-pointer">
+            <Link href="/cart" className="cursor-pointer">
               <CartSvg />
             </Link>
           </div>

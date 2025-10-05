@@ -14,6 +14,12 @@ import ShopPolicies from "@/Components/PageComponents/mainPages/shopDetailsCompo
 import ShopListing from "@/Components/PageComponents/mainPages/shopDetailsComponents/ShopListing";
 import ShopReviews from "@/Components/PageComponents/mainPages/shopDetailsComponents/ShopReviews";
 import DetailsTab from "@/Components/PageComponents/mainPages/shopDetailsComponents/DetailsTab";
+import {
+  AboutShopSkeleton,
+  ShopBannerSkeleton,
+  ShopFAQSkeleton,
+  ShopPoliciesSkeleton,
+} from "@/Components/Loader/Loader";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -50,7 +56,12 @@ const page = ({ params }: Props) => {
 
   return (
     <>
-      <ShopBanner data={shopDetailsData?.data} />
+      {shopDetailLoading ? (
+        <ShopBannerSkeleton />
+      ) : (
+        <ShopBanner data={shopDetailsData?.data} />
+      )}
+
       <DetailsTab />
       <ShopListing
         featuredListings={featuredListings?.data}
@@ -60,14 +71,29 @@ const page = ({ params }: Props) => {
         setSubCategory={setSubCategory}
         setSortBy={setSortBy}
         setPage={setPage}
+        featuredLoading={featuredLoading}
         listingsLoading={listingsLoading}
+        categoryLoading={categoryLoading}
+        subCategoryLoading={subCategoryLoading}
         productCategories={productCategories?.data}
         productSubCategories={productSubCategories?.data}
       />
       <ShopReviews />
-      <AboutShop data={shopDetailsData?.data?.shop_info} />
-      <ShopPolicies data={shopDetailsData?.data?.shop_info?.policies} />
-      <ShopFAQ data={shopDetailsData?.data?.shop_info?.faqs} />
+      {shopDetailLoading ? (
+        <AboutShopSkeleton />
+      ) : (
+        <AboutShop data={shopDetailsData?.data?.shop_info} />
+      )}
+      {shopDetailLoading ? (
+        <ShopPoliciesSkeleton />
+      ) : (
+        <ShopPolicies data={shopDetailsData?.data?.shop_info?.policies} />
+      )}
+      {shopDetailLoading ? (
+        <ShopFAQSkeleton />
+      ) : (
+        <ShopFAQ data={shopDetailsData?.data?.shop_info?.faqs} />
+      )}
     </>
   );
 };

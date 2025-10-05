@@ -25,7 +25,7 @@ const ExploreProduct = ({ data }: categoryProps) => {
           {data?.map(({ id, name, image }) => (
             <Link
               key={id}
-              href={`/product-details/${id}`}
+              href={`/category-details/${id}`}
               className="text-center"
             >
               <figure className="size-30 lg:size-52 mx-auto cursor-pointer rounded-full overflow-hidden relative">
@@ -37,7 +37,9 @@ const ExploreProduct = ({ data }: categoryProps) => {
                 />
               </figure>
 
-              <h3 className="mt-4 text-sm md:text-lg text-accent-white">{name}</h3>
+              <h3 className="mt-4 text-sm md:text-lg text-accent-white">
+                {name}
+              </h3>
             </Link>
           ))}
         </div>
