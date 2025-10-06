@@ -11,6 +11,7 @@ import {
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { Export, Import } from "@/Components/Svg/SvgContainer";
+import { getallListings } from "@/Hooks/api/dashboard_api";
 
 type Product = {
   id: number;
@@ -25,12 +26,34 @@ type Product = {
 };
 
 export default function Page() {
-  const [products, setProducts] = useState<Product[]>(productsData);
+  const [products, setProducts] = useState<Product[]>([]);
   const [selected, setSelected] = useState<number[]>([]);
   const [search, setSearch] = useState("");
   const [openMenu, setOpenMenu] = useState<number | null>(null);
+  const { data: allListings } = getallListings();
 
   const menuRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (allListings?.data) {
+      const mappedProducts: Product[] = allListings.data.map((item: any) => ({
+        id: item.id,
+        name: item.product_name,
+        status: (item.status.charAt(0).toUpperCase() + item.status.slice(1)) as
+          | "Approved"
+          | "Pending"
+          | "Denied",
+        sku: `SKU-${item.id}`, 
+        stock: item.product_quantity,
+        price: item.product_price,
+        cost: parseFloat(item.cost),
+        visibility: "Active", 
+        image:
+          item.images && item.images.length > 0 ? item.images[0].image : "", 
+      }));
+      setProducts(mappedProducts);
+    }
+  }, [allListings]);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -177,7 +200,13 @@ export default function Page() {
                 </td>
                 <td className="py-5 text-[#13141D] font-semibold text-[14px]">
                   <div className="flex items-center gap-3">
-                    <Image src={p.image} alt={p.name} height={60} width={60} />
+                    <Image
+                      src={`${process.env.NEXT_PUBLIC_SITE_URL}/${p.image}`}
+                      alt={p.name}
+                      height={60}
+                      width={60}
+                      className="h-[80px] w-[100px] rounded-lg"
+                    />
                     {p.name}
                   </div>
                 </td>
@@ -267,7 +296,7 @@ export default function Page() {
                 className="mt-2"
               />
               <Image
-                src={p.image}
+                src={`${process.env.NEXT_PUBLIC_SITE_URL}/${p.image}`}
                 alt={p.name}
                 height={50}
                 width={50}

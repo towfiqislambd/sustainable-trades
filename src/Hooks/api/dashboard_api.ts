@@ -59,6 +59,8 @@ export const getallListings = () => {
     endpoint: "api/products?short_by=a-z",
   });
 };
+
+
 // Fetch a single product/listing by ID
 export const useGetSingleListing = (id: string | number) => {
   return useClientApi({
