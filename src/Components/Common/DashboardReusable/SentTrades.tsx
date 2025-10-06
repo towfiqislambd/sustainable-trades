@@ -5,19 +5,13 @@ import { tradeRequests } from "@/Components/Data/data";
 
 const SentTrades = () => {
   const senttradedata = tradeRequests.filter(
-    trade =>
+    (trade) =>
       trade.status === "Pending" ||
       trade.status === "Approved" ||
       trade.status === "Canceled"
   );
 
-  console.log("sent", senttradedata);
-
-  return (
-    <>
-      <TradesTabs tradeRequests={senttradedata} />
-    </>
-  );
+  return <></>;
 };
 
 export default SentTrades;

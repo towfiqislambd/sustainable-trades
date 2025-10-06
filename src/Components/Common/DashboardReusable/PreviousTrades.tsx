@@ -5,12 +5,10 @@ import { tradeRequests } from "@/Components/Data/data";
 
 const ApprovedTrades = () => {
   const approvedTrades = tradeRequests.filter(
-    trade => trade.status === "Approved"
+    (trade) => trade.status === "Approved"
   );
 
-  console.log("approveddata", approvedTrades);
-
-  return <TradesTabs tradeRequests={approvedTrades} />;
+  return <></>;
 };
 
 export default ApprovedTrades;
