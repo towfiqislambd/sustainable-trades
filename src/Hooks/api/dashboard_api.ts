@@ -1,5 +1,7 @@
 import toast from "react-hot-toast";
 import useClientApi from "@/Hooks/useClientApi";
+import { useMutation } from "@tanstack/react-query";
+import { axiosSecure } from "../useAxiosSecure";
 
 // Add Product
 export const useAddProduct = () => {
@@ -71,10 +73,10 @@ export const useGetSingleListing = (id: string | number) => {
   });
 };
 
-// useRequestApproval 
+// useRequestApproval
 export const useRequestApproval = (id: string | number) => {
   return useClientApi({
-    method: "get", 
+    method: "get",
     key: ["request-approval"],
     isPrivate: true,
     endpoint: `/api/product/request-approval/${id}`,
@@ -87,7 +89,6 @@ export const useRequestApproval = (id: string | number) => {
     },
   });
 };
-
 
 // Get All Listings
 export const getmemberShipspotlight = () => {
@@ -135,6 +136,51 @@ export const useLogout = () => {
   });
 };
 
+
+// fahim bhai
+
+// Get All trades
+export const useTradesdata = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-trades"],
+    isPrivate: true,
+    endpoint: "/api/trade-offers",
+  });
+};
+
+// Get All Count
+export const useTradeCounts = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-count"],
+    isPrivate: true,
+    endpoint: "/api/trade-count",
+  });
+};
+
+export const useCancelTrade = () => {
+  return useClientApi({
+    method: "get",
+    key: ["cancel-trade"],
+    isPrivate: true,
+  });
+};
+
+export const useApproveTrade = () => {
+  return useMutation({
+    mutationFn: (id: any) =>
+      axiosSecure.get(`/api/trade-offer-approve/${id}`).then((res) => res.data),
+  });
+};
+
+export const useCancel = () => {
+  return useMutation({
+    mutationFn: (id: any) =>
+      axiosSecure.get(`/api/trade-offer-cancel/${id}`).then((res) => res.data),
+  });
+};
+
 // Delete Account API
 export const useDeleteAccount = () => {
   return useClientApi({
@@ -150,3 +196,4 @@ export const useDeleteAccount = () => {
     },
   });
 };
+
