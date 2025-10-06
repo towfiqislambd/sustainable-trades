@@ -15,6 +15,7 @@ import HowItWorks from "@/Components/PageComponents/mainPages/homePageComponents
 import OurMission from "@/Components/PageComponents/mainPages/homePageComponents/OurMission";
 import Subscribe from "@/Components/PageComponents/mainPages/homePageComponents/Subscribe";
 import MagicMarkers from "@/Components/PageComponents/mainPages/homePageComponents/MagicMarkers";
+import GetUserLocation from "@/lib/GetUserLocation";
 
 const Page = async () => {
   const bannerData = await getBannerData();
@@ -39,6 +40,7 @@ const Page = async () => {
         button2="Annual Billing"
       />
       <Subscribe />
+      <GetUserLocation />
     </>
   );
 };
