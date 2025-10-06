@@ -1,17 +1,12 @@
 "use client";
-
+import Link from "next/link";
 import { FaSearch } from "react-icons/fa";
 import { FiMoreVertical } from "react-icons/fi";
-import React, { useEffect, useRef, useState } from "react";
-import {
-  productsData,
-  statusColorsinventory,
-  visibilityColors,
-} from "@/Components/Data/data";
 import Image, { StaticImageData } from "next/image";
-import Link from "next/link";
-import { Export, Import } from "@/Components/Svg/SvgContainer";
+import React, { useEffect, useRef, useState } from "react";
 import { getallListings } from "@/Hooks/api/dashboard_api";
+import { Export, Import } from "@/Components/Svg/SvgContainer";
+import {statusColorsinventory,visibilityColors} from "@/Components/Data/data";
 
 type Product = {
   id: number;
@@ -26,13 +21,13 @@ type Product = {
 };
 
 export default function Page() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [selected, setSelected] = useState<number[]>([]);
   const [search, setSearch] = useState("");
-  const [openMenu, setOpenMenu] = useState<number | null>(null);
   const { data: allListings } = getallListings();
-
   const menuRef = useRef<HTMLDivElement | null>(null);
+  const [selected, setSelected] = useState<number[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [openMenu, setOpenMenu] = useState<number | null>(null);
+
 
   useEffect(() => {
     if (allListings?.data) {
