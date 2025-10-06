@@ -8,10 +8,12 @@ import { AiOutlineFileSearch } from "react-icons/ai";
 import { ShopListSkeleton } from "@/Components/Loader/Loader";
 import { LuFileQuestion } from "react-icons/lu";
 import { getAllShopsClient } from "@/Hooks/api/cms_api";
-import ShopsMap from "./ShopsMap";
+import ShopsMap from "@/Components/PageComponents/mainPages/shopPageComponents/ShopsMap";
+import Link from "next/link";
 
 const LocalMagicMarker = ({ address }: any) => {
   const [searchShop, setSearchShop] = useState<any>(address);
+  const [hoveredShop, setHoveredShop] = useState<any>(null);
   const { data: shopData, isLoading: shopLoading } =
     getAllShopsClient(searchShop);
 
@@ -39,7 +41,7 @@ const LocalMagicMarker = ({ address }: any) => {
 
           {/* Lower Part */}
           <div className="grid lg:grid-cols-2 gap-5 border border-gray-100 rounded-lg p-3">
-            {/* Left */}
+            {/* Left - Shop List */}
             {searchShop ? (
               <div className="space-y-2 h-[550px] overflow-y-auto">
                 {shopLoading ? (
@@ -53,11 +55,13 @@ const LocalMagicMarker = ({ address }: any) => {
                   </div>
                 ) : (
                   shopData?.data?.map((item: any) => (
-                    <div
+                    <Link
+                      href={`/shop-details/${item?.shop_info?.user_id}`}
                       key={item?.id}
-                      className="flex flex-col md:flex-row gap-2.5 md:gap-5 md:items-center border-b last:border-b-0 border-gray-300 py-3"
+                      className="flex flex-col md:flex-row gap-2.5 md:gap-5 md:items-center border-b last:border-b-0 border-gray-300 py-3 cursor-pointer hover:bg-green-50"
+                      onMouseEnter={() => setHoveredShop(item)}
+                      onMouseLeave={() => setHoveredShop(null)}
                     >
-                      {/* shop Image */}
                       <figure className="size-22 shrink-0 rounded-lg relative">
                         <Image
                           src={`${process.env.NEXT_PUBLIC_SITE_URL}/${item?.shop_info?.shop_image}`}
@@ -67,15 +71,12 @@ const LocalMagicMarker = ({ address }: any) => {
                         />
                       </figure>
 
-                      {/* Shop Description */}
                       <div className="flex flex-col md:flex-row gap-2.5 md:gap-5 md:items-center grow">
                         <div className="grow">
-                          {/* Shop Name */}
                           <h3 className="text-lg font-semibold text-primary-green">
                             {item?.shop_info?.shop_name}
                           </h3>
 
-                          {/* Review Count */}
                           <div className="flex gap-1 items-center py-2">
                             {Array.from({ length: 3 }).map((_, index) => (
                               <FaStar
@@ -83,7 +84,6 @@ const LocalMagicMarker = ({ address }: any) => {
                                 className="text-primary-green text-sm"
                               />
                             ))}
-
                             {Array.from({ length: 2 }).map((_, index) => (
                               <FaRegStar
                                 key={index}
@@ -92,13 +92,12 @@ const LocalMagicMarker = ({ address }: any) => {
                             ))}
                           </div>
 
-                          {/* Shop Number */}
                           <p className="text-secondary-gray font-semibold text-sm">
                             {item?.shop_info?.address?.address_line_1}
                           </p>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   ))
                 )}
               </div>
@@ -107,13 +106,11 @@ const LocalMagicMarker = ({ address }: any) => {
                 <h3 className="text-2xl lg:text-3xl font-semibold text-secondary-black mb-5">
                   Search to find your local magic makers
                 </h3>
-
                 <p className="text-secondary-black text-sm lg:text-lg mb-5">
                   Use our Geo-locator to find local food, businesses, artisans,
                   and services making a positive impact. Enter your zip code to
                   discover nearby offerings.
                 </p>
-
                 <AiOutlineFileSearch className="text-3xl lg:text-5xl" />
               </div>
             )}
@@ -121,7 +118,11 @@ const LocalMagicMarker = ({ address }: any) => {
             {/* Right - Google Map */}
             <div className="h-[300px] md:h-[550px]">
               {shopData?.data && shopData?.data?.length > 0 ? (
-                <ShopsMap shops={shopData?.data} />
+                <ShopsMap
+                  shops={shopData?.data}
+                  hoveredShop={hoveredShop}
+                  shopLoading={shopLoading}
+                />
               ) : (
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.902653997918!2d90.390686!3d23.750867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b91d0e4a30af%3A0x93dd84c6b9c5f8b1!2sDhaka!5e0!3m2!1sen!2sbd!4v1691261744101!5m2!1sen!2sbd"
