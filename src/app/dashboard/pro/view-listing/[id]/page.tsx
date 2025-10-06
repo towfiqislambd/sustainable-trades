@@ -730,7 +730,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
               />
               <button
                 onClick={handleAddTag}
-                className="absolute top-1/2 left-5 translate-y-[-50%]  cursor-pointer "
+                className="absolute top-1/2 left-5 translate-y-[-50%]  cursor-pointer"
               >
                 +
               </button>
