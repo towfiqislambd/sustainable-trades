@@ -1,34 +1,22 @@
+"use client"
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Container from "@/Components/Common/Container";
-import { getSpotlightData } from "@/Hooks/api/cms_api";
 import { RightSvg } from "@/Components/Svg/SvgContainer";
-
-interface SpotlightItem {
-  id: number;
-  image: string;
-  shop_name: string;
-  name: string;
-  shop_description: string;
-  created_at: string;
-  community_engagement?: string;
-  sustainability_important?: string;
-  what_impact?: string;
-  user_id: number;
-}
+import { getmemberShipspotlight } from "@/Hooks/api/dashboard_api";
 
 const Community = async () => {
-  const spotlightData = await getSpotlightData();
+  const { data: spotlightData } = getmemberShipspotlight();
 
   return (
     <section className="py-5 md:py-10">
       <Container>
         <div className="space-y-6">
-          {spotlightData?.data?.map((item: SpotlightItem) => (
+          {spotlightData?.data?.map((item: any) => (
             <div
               key={item.id}
-              className="rounded-xl flex flex-col lg:flex-row lg:items-center border border-gray-300 px-3"
+              className="rounded-xl flex flex-col lg:flex-row lg:items-center border border-gray-300"
             >
               {/* Left - Spotlight Image */}
               <figure className="w-full lg:w-[229px] h-[300px] lg:h-[230px] shrink-0 rounded-l-xl relative">

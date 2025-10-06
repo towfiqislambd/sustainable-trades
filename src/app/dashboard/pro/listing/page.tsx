@@ -1,16 +1,15 @@
 "use client";
-
+import Link from "next/link";
 import { FaSearch } from "react-icons/fa";
 import { FiMoreVertical } from "react-icons/fi";
+import Image, { StaticImageData } from "next/image";
 import React, { useEffect, useRef, useState } from "react";
+import { getallListings } from "@/Hooks/api/dashboard_api";
+import { Export, Import } from "@/Components/Svg/SvgContainer";
 import {
-  productsData,
   statusColorsinventory,
   visibilityColors,
 } from "@/Components/Data/data";
-import Image, { StaticImageData } from "next/image";
-import Link from "next/link";
-import { Export, Import } from "@/Components/Svg/SvgContainer";
 
 type Product = {
   id: number;
@@ -25,12 +24,33 @@ type Product = {
 };
 
 export default function Page() {
-  const [products, setProducts] = useState<Product[]>(productsData);
-  const [selected, setSelected] = useState<number[]>([]);
   const [search, setSearch] = useState("");
+  const { data: allListings } = getallListings();
+  const menuRef = useRef<HTMLDivElement | null>(null);
+  const [selected, setSelected] = useState<number[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [openMenu, setOpenMenu] = useState<number | null>(null);
 
-  const menuRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (allListings?.data) {
+      const mappedProducts: Product[] = allListings.data.map((item: any) => ({
+        id: item.id,
+        name: item.product_name,
+        status: (item.status.charAt(0).toUpperCase() + item.status.slice(1)) as
+          | "Approved"
+          | "Pending"
+          | "Denied",
+        sku: `SKU-${item.id}`,
+        stock: item.product_quantity,
+        price: item.product_price,
+        cost: parseFloat(item.cost),
+        visibility: "Active",
+        image:
+          item.images && item.images.length > 0 ? item.images[0].image : "",
+      }));
+      setProducts(mappedProducts);
+    }
+  }, [allListings]);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -43,19 +63,19 @@ export default function Page() {
   }, []);
 
   const toggleSelect = (id: number) => {
-    setSelected((prev) =>
-      prev.includes(id) ? prev.filter((sid) => sid !== id) : [...prev, id]
+    setSelected(prev =>
+      prev.includes(id) ? prev.filter(sid => sid !== id) : [...prev, id]
     );
   };
 
-  const selectAll = () => setSelected(products.map((p) => p.id));
+  const selectAll = () => setSelected(products.map(p => p.id));
   const deselectAll = () => setSelected([]);
   const deleteSelected = () => {
-    setProducts(products.filter((p) => !selected.includes(p.id)));
+    setProducts(products.filter(p => !selected.includes(p.id)));
     setSelected([]);
   };
 
-  const filteredProducts = products.filter((p) =>
+  const filteredProducts = products.filter(p =>
     p.name.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -66,7 +86,7 @@ export default function Page() {
         <div className="relative w-full lg:max-w-[500px] ">
           <input
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={e => setSearch(e.target.value)}
             placeholder="Search all listings..."
             type="search"
             className="py-[10px] pl-4 pr-12 outline-0 border-2 border-[#274F45] rounded-[8px] text-[16px] text-[#67645F] font-normal w-full"
@@ -80,12 +100,14 @@ export default function Page() {
         </div>
 
         <div className="flex w-full lg:w-fit flex-wrap gap-2 lg:gap-4 lg:items-center">
-          <button
-            className="h-[45px] lg:h-[50px] w-full lg:w-fit rounded-[8px] bg-[#E48872] text-[16px] font-semibold text-[#13141D] cursor-pointer
+          <Link href="/dashboard/pro/addnew-listing">
+            <button
+              className="h-[45px] lg:h-[50px] w-full lg:w-fit rounded-[8px] bg-[#E48872] text-[16px] font-semibold text-[#13141D] cursor-pointer
              hover:bg-transparent duration-500 ease-in-out border border-[#E48872] px-6"
-          >
-            Add Product
-          </button>
+            >
+              Add Product
+            </button>
+          </Link>
           <button className="flex w-full lg:w-fit items-center justify-center gap-x-2 border border-[#274F45] text-[#274F45] px-6 h-[45px] lg:h-[50px] rounded-lg text-[16px]">
             Export
             <Export />
@@ -104,7 +126,7 @@ export default function Page() {
             <input
               type="checkbox"
               checked={selected.length === products.length}
-              onChange={(e) => (e.target.checked ? selectAll() : deselectAll())}
+              onChange={e => (e.target.checked ? selectAll() : deselectAll())}
             />
             {selected.length} Selected
           </span>
@@ -161,7 +183,7 @@ export default function Page() {
             </tr>
           </thead>
           <tbody>
-            {filteredProducts.map((p) => (
+            {filteredProducts.map(p => (
               <tr
                 key={p.id}
                 className="border-b border-[#A7A39C] hover:bg-gray-50"
@@ -174,8 +196,14 @@ export default function Page() {
                   />
                 </td>
                 <td className="py-5 text-[#13141D] font-semibold text-[14px]">
-                  <div className="flex items-center gap-3">
-                    <Image src={p.image} alt={p.name} height={60} width={60} />
+                  <div className="flex items-center gap-10">
+                    <Image
+                      src={`${process.env.NEXT_PUBLIC_SITE_URL}/${p.image}`}
+                      alt={p.name}
+                      height={60}
+                      width={60}
+                      className="h-[80px] w-[100px] rounded-lg"
+                    />
                     {p.name}
                   </div>
                 </td>
@@ -234,7 +262,7 @@ export default function Page() {
 
                       <button
                         onClick={() => {
-                          setProducts(products.filter((x) => x.id !== p.id));
+                          setProducts(products.filter(x => x.id !== p.id));
                           setOpenMenu(null);
                         }}
                         className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600 cursor-pointer"
@@ -252,7 +280,7 @@ export default function Page() {
 
       {/* Mobile Card Layout */}
       <div className="block lg:hidden space-y-4 mt-6">
-        {filteredProducts.map((p) => (
+        {filteredProducts.map(p => (
           <div
             key={p.id}
             className="flex items-start justify-between border border-gray-200 rounded-lg p-4 shadow-sm"
@@ -265,7 +293,7 @@ export default function Page() {
                 className="mt-2"
               />
               <Image
-                src={p.image}
+                src={`${process.env.NEXT_PUBLIC_SITE_URL}/${p.image}`}
                 alt={p.name}
                 height={50}
                 width={50}
@@ -310,7 +338,7 @@ export default function Page() {
                   </Link>
                   <button
                     onClick={() => {
-                      setProducts(products.filter((x) => x.id !== p.id));
+                      setProducts(products.filter(x => x.id !== p.id));
                       setOpenMenu(null);
                     }}
                     className="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100"
