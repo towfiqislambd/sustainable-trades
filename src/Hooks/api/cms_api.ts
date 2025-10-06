@@ -528,3 +528,12 @@ export const getAllShopsClient = (address: string) => {
     },
   });
 };
+
+// Featured Product
+export const getFeaturedProducts = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-featured-products"],
+    endpoint: `/api/is-featured-product`,
+  });
+};

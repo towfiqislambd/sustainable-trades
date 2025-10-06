@@ -1,15 +1,15 @@
 "use client";
+import Link from "next/link";
 import Image from "next/image";
 import React, { useState } from "react";
-import Container from "@/Components/Common/Container";
-import { SearchSvg } from "@/Components/Svg/SvgContainer";
 import { FaRegStar, FaStar } from "react-icons/fa";
 import { AiOutlineFileSearch } from "react-icons/ai";
-import { ShopListSkeleton } from "@/Components/Loader/Loader";
 import { LuFileQuestion } from "react-icons/lu";
 import { getAllShopsClient } from "@/Hooks/api/cms_api";
+import Container from "@/Components/Common/Container";
+import { SearchSvg } from "@/Components/Svg/SvgContainer";
+import { ShopListSkeleton } from "@/Components/Loader/Loader";
 import ShopsMap from "@/Components/PageComponents/mainPages/shopPageComponents/ShopsMap";
-import Link from "next/link";
 
 const LocalMagicMarker = ({ address }: any) => {
   const [searchShop, setSearchShop] = useState<any>(address);

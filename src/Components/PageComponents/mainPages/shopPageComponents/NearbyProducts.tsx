@@ -30,8 +30,8 @@ const NearbyProducts = () => {
   return (
     <section className="mb-20">
       <Container>
-        <h2 className="text-2xl md:text-3xl font-semibold text-secondary-black mb-10">
-          Explore Sustainable Products & Services Nearby
+        <h2 className="text-2xl md:text-3xl font-semibold text-secondary-black mb-10 capitalize">
+          Top Local Vendors And Business
         </h2>
 
         <div className="relative">
@@ -77,7 +77,7 @@ const NearbyProducts = () => {
             }}
             className="!mx-10"
           >
-            {data?.map((item) => (
+            {data?.map(item => (
               <SwiperSlide key={item?.id} className="">
                 <Link
                   href={`/product-details/${item?.id}`}
@@ -91,9 +91,11 @@ const NearbyProducts = () => {
                     />
                   </figure>
 
-                  <h3 className="mt-4 text-primary-green font-semibold">
+                  <h3 className="mt-4 text-primary-green font-semibold truncate">
                     {item?.product_name}
                   </h3>
+
+                  <h5 className="mt-1 text-secondary-gray text-sm">MhaKhali</h5>
                 </Link>
               </SwiperSlide>
             ))}
