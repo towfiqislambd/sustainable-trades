@@ -343,3 +343,31 @@ export const PricingSkeletonCard = () => (
     <div className="h-12 bg-gray-300 rounded-lg w-full" />
   </div>
 );
+
+// Shop List  Skeleton
+export const ShopListSkeleton = () => {
+  return (
+    <div className="flex flex-col md:flex-row gap-2.5 md:gap-5 md:items-center border-b last:border-b-0 border-gray-200 py-3 animate-pulse">
+      {/* shop Image skeleton */}
+      <div className="size-22 shrink-0 rounded-lg bg-gray-200"></div>
+
+      {/* Shop Description skeleton */}
+      <div className="flex flex-col md:flex-row gap-2.5 md:gap-5 md:items-center grow w-full">
+        <div className="grow space-y-3">
+          {/* Shop Name */}
+          <div className="h-3 w-1/2 bg-gray-200 rounded"></div>
+
+          {/* Review stars */}
+          <div className="flex gap-1 items-center py-1">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <div key={index} className="h-4 w-4 bg-gray-300 rounded"></div>
+            ))}
+          </div>
+
+          {/* Address line */}
+          <div className="h-4 w-2/3 bg-gray-200 rounded"></div>
+        </div>
+      </div>
+    </div>
+  );
+};

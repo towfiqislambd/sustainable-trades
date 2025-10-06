@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BasicSvg,
   PricingEightSvg,
@@ -126,6 +126,21 @@ const Membershipreusable: React.FC<MembershipReusableProps> = ({
   const { user } = useAuth();
   console.log(user);
 
+
+  const [currentMembershipType, setCurrentMembershipType] = useState<
+    string | null
+  >(null);
+
+  useEffect(() => {
+    if (user?.membership?.membership_type) {
+      const type = user.membership.membership_type.toLowerCase();
+      setCurrentMembershipType(type);
+    }
+  }, [user]);
+
+  
+  const selectedMembershipType = currentMembershipType || "basic";
+
   const membershipMessages: Record<
     MembershipReusableProps["membershipType"],
     string
@@ -135,12 +150,9 @@ const Membershipreusable: React.FC<MembershipReusableProps> = ({
     Shopper: "You currently have a Shopper membership.",
   };
 
-
-  const currentMembershipType =
-    user?.data?.membership?.membership_type?.toLowerCase() || "basic";
-
   return (
     <div>
+      {/* Header and Tabs */}
       <div className="flex gap-3.5 md:gap-0 flex-col md:flex-row justify-between items-center">
         <h2 className="text-[30px] md:text-[40px] font-lato font-semibold text-[#000]">
           Membership Details
@@ -167,7 +179,8 @@ const Membershipreusable: React.FC<MembershipReusableProps> = ({
         <div className="flex gap-10 justify-center flex-wrap">
           {data?.map(item => {
             const isSelected =
-              item.package_name.toLowerCase() === currentMembershipType;
+              item.package_name.toLowerCase() === selectedMembershipType;
+
             return (
               <div
                 key={item.id}
@@ -253,11 +266,11 @@ const Membershipreusable: React.FC<MembershipReusableProps> = ({
         <div className="flex justify-end gap-4">
           <button
             onClick={() => setPauseOpen(true)}
-            className="px-6 py-2 bg-yellow-500  cursor-pointer rounded-lg shadow hover:bg-yellow-600 text-[#2D2D2D] font-semibold text-[16px]"
+            className="px-6 py-2 bg-yellow-500 cursor-pointer rounded-lg shadow hover:bg-yellow-600 text-[#2D2D2D] font-semibold text-[16px]"
           >
             Pause Membership
           </button>
-          <button className="px-6 py-2 bg-red-500  cursor-pointer rounded-lg shadow hover:bg-red-600 text-[#2D2D2D] font-semibold text-[16px]">
+          <button className="px-6 py-2 bg-red-500 cursor-pointer rounded-lg shadow hover:bg-red-600 text-[#2D2D2D] font-semibold text-[16px]">
             Cancel
           </button>
         </div>

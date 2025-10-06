@@ -116,7 +116,7 @@ const CreateDiscount = () => {
         <select
           className="mt-3 border border-[#3D3D3D] rounded-md px-4 py-2.5 md:py-5  w-full lg:w-[750px] bg-[#D4E2CB] text-[13px] md:text-[16px] font-bold text-[#274F45]"
           value={appliesTo}
-          onChange={(e) => setAppliesTo(e.target.value)}
+          onChange={e => setAppliesTo(e.target.value)}
         >
           <option value="Any Order">Any Order</option>
           <option value="Single Product">Single Product</option>
