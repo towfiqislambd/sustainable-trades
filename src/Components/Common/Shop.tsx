@@ -32,14 +32,14 @@ const Shop = ({ shop }: ShopProps) => {
       </figure>
 
       {/* Shop Name */}
-      <h3 className="text-primary-green text-xl font-semibold py-3 truncate">
+      <h3 className="text-primary-green text-xl font-semibold py-1 truncate">
         {shop?.shop_name}
       </h3>
 
       {/* Badge */}
-      <p className="size-6 rounded-full bg-accent-red grid place-items-center">
+      {/* <p className="size-6 rounded-full bg-accent-red grid place-items-center">
         <DollarSvg />
-      </p>
+      </p> */}
 
       {/* Shop Price */}
       <div className="flex mt-2 gap-2 items-center">

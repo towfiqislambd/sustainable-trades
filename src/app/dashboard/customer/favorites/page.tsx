@@ -4,10 +4,14 @@ import { data2, shopdata } from "@/Components/Data/data";
 import Product from "@/Components/Common/Product";
 import DashBoardHeader from "@/Components/Common/DashBoardHeader";
 import Shop from "@/Components/Common/Shop";
+import { getAllFollowList } from "@/Hooks/api/dashboard_api";
 
 const Favourites = () => {
   const tabs: string[] = ["Follow ShopLists", "WishLists"];
   const [isActive, setIsActive] = useState("Follow ShopLists");
+  const { data: followlist } = getAllFollowList();
+
+  
 
   return (
     <>
@@ -30,7 +34,7 @@ const Favourites = () => {
       </div>
       {isActive === "WishLists" && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-x-6 gap-y-10 mt-10">
-          {data2?.map((product) => (
+          {followlist?.data?.map((product:any) => (
             <Product key={product?.id} product={product} is_feathered={true} />
           ))}
         </div>

@@ -61,6 +61,8 @@ export const getallListings = () => {
     endpoint: "api/products?short_by=a-z",
   });
 };
+
+
 // Fetch a single product/listing by ID
 export const useGetSingleListing = (id: string | number) => {
   return useClientApi({
@@ -94,9 +96,46 @@ export const getmemberShipspotlight = () => {
     method: "get",
     key: ["get-membership-spotlight"],
     isPrivate: true,
-    endpoint: "/api/spotlight-applications?search",
+    endpoint: "/api/spotlight-applications",
   });
 };
+
+// Get All FollowLists
+export const getAllFollowList = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-all-followlist"],
+    isPrivate: true,
+    endpoint: "/api/my-favorites",
+  });
+};
+// Get All FollowLists
+export const getAllShoplist = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-all-shoplist"],
+    isPrivate: true,
+    endpoint: "/api/follow-shops",
+  });
+};
+
+
+// Logout API
+export const useLogout = () => {
+  return useClientApi({
+    method: "post",
+    key: ["logout"],
+    isPrivate: true,
+    endpoint: "/api/users/logout",
+    onSuccess: (data: any) => {
+      if (data?.success) toast.success(data.message || "Logged out successfully!");
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message || "Logout failed");
+    },
+  });
+};
+
 
 // fahim bhai
 
@@ -141,3 +180,20 @@ export const useCancel = () => {
       axiosSecure.get(`/api/trade-offer-cancel/${id}`).then((res) => res.data),
   });
 };
+
+// Delete Account API
+export const useDeleteAccount = () => {
+  return useClientApi({
+    method: "delete",
+    key: ["delete-account"],
+    isPrivate: true,
+    endpoint: "/api/users/delete",
+    onSuccess: (data: any) => {
+      if (data?.success) toast.success(data.message || "Account deleted successfully!");
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message || "Failed to delete account");
+    },
+  });
+};
+

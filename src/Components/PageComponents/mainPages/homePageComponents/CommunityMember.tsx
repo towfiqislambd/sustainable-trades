@@ -11,7 +11,7 @@ import useAuth from "@/Hooks/useAuth";
 const CommunityMember = ({ data, has_community }: any) => {
   const { user } = useAuth();
   const [isOpen, setOpen] = useState<boolean>(false);
-  const latestSpotlight = data?.find((item: any) => item?.id === 1);
+  const latestSpotlight = data?.find((item: any, index: number) => index === 0);
 
   return (
     <section className="rounded-xl">
