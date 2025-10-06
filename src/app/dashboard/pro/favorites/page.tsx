@@ -1,10 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import DashBoardHeader from "@/Components/Common/DashBoardHeader";
-import Product from "@/Components/Common/Product";
-
-import { getAllFollowList, getAllShoplist } from "@/Hooks/api/dashboard_api";
 import Shop from "@/Components/Common/Shop";
+import Product from "@/Components/Common/Product";
+import DashBoardHeader from "@/Components/Common/DashBoardHeader";
+import { getAllFollowList, getAllShoplist } from "@/Hooks/api/dashboard_api";
 
 const Favourites = () => {
   const tabs: string[] = ["Follow ShopLists", "WishLists"];
@@ -16,19 +15,16 @@ const Favourites = () => {
   // Fetch followed shops
   const { data: shopFollowList, isLoading: shoplistLoading } = getAllShoplist();
 
-  const wishlistProducts = followlist?.data || [];
   const followShops = shopFollowList?.data || [];
+  const wishlistProducts = followlist?.data || [];
 
   return (
     <>
-      <DashBoardHeader
-        heading="Your Favorites"
-        placeholder="Search favorites"
-      />
+      <DashBoardHeader heading="Your Favorites" placeholder="Search favorites"/>
 
       {/* Tabs */}
       <div className="flex gap-x-10 items-center mt-5">
-        {tabs.map(tab => (
+        {tabs?.map(tab => (
           <h3
             key={tab}
             onClick={() => setIsActive(tab)}
@@ -50,8 +46,8 @@ const Favourites = () => {
             <p className="text-center text-gray-500 col-span-full">
               Loading wishlist...
             </p>
-          ) : wishlistProducts.length > 0 ? (
-            wishlistProducts.map((item: any) => (
+          ) : wishlistProducts?.length > 0 ? (
+            wishlistProducts?.map((item: any) => (
               <Product
                 key={item?.id}
                 product={{
