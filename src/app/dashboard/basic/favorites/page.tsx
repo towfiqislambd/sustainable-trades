@@ -85,6 +85,7 @@ const Favourites = () => {
                   id: item?.shop?.id,
                   shop_name: item?.shop?.shop_name,
                   shop_image: item?.shop?.shop_image,
+                  shop_location: item?.shop?.shop_location,
                 }}
               />
             ))

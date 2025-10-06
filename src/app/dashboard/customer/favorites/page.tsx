@@ -10,7 +10,7 @@ const Favourites = () => {
   const tabs: string[] = ["Follow ShopLists", "WishLists"];
   const [isActive, setIsActive] = useState("Follow ShopLists");
   const { data: followlist } = getAllFollowList();
-  console.log(followlist);
+
   
 
   return (
