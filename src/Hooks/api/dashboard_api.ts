@@ -93,7 +93,7 @@ export const getmemberShipspotlight = () => {
     method: "get",
     key: ["get-membership-spotlight"],
     isPrivate: true,
-    endpoint: "/api/spotlight-applications?search",
+    endpoint: "/api/spotlight-applications",
   });
 };
 
