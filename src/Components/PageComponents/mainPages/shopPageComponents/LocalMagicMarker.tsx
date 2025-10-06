@@ -8,12 +8,12 @@ import { AiOutlineFileSearch } from "react-icons/ai";
 import { ShopListSkeleton } from "@/Components/Loader/Loader";
 import { LuFileQuestion } from "react-icons/lu";
 import { getAllShopsClient } from "@/Hooks/api/cms_api";
+import ShopsMap from "./ShopsMap";
 
 const LocalMagicMarker = ({ address }: any) => {
   const [searchShop, setSearchShop] = useState<any>(address);
   const { data: shopData, isLoading: shopLoading } =
     getAllShopsClient(searchShop);
-  console.log(shopData);
 
   return (
     <section className="mt-10 mb-16">
@@ -118,13 +118,17 @@ const LocalMagicMarker = ({ address }: any) => {
               </div>
             )}
 
-            {/* Right */}
+            {/* Right - Google Map */}
             <div className="h-[300px] md:h-[550px]">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.902653997918!2d90.390686!3d23.750867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b91d0e4a30af%3A0x93dd84c6b9c5f8b1!2sDhaka!5e0!3m2!1sen!2sbd!4v1691261744101!5m2!1sen!2sbd"
-                loading="lazy"
-                className="h-full w-full border-0"
-              ></iframe>
+              {shopData?.data && shopData?.data?.length > 0 ? (
+                <ShopsMap shops={shopData?.data} />
+              ) : (
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.902653997918!2d90.390686!3d23.750867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b91d0e4a30af%3A0x93dd84c6b9c5f8b1!2sDhaka!5e0!3m2!1sen!2sbd!4v1691261744101!5m2!1sen!2sbd"
+                  loading="lazy"
+                  className="h-full w-full border-0"
+                ></iframe>
+              )}
             </div>
           </div>
         </div>
