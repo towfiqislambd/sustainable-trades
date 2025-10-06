@@ -115,3 +115,36 @@ export const getAllShoplist = () => {
     endpoint: "/api/follow-shops",
   });
 };
+
+
+// Logout API
+export const useLogout = () => {
+  return useClientApi({
+    method: "post",
+    key: ["logout"],
+    isPrivate: true,
+    endpoint: "/api/users/logout",
+    onSuccess: (data: any) => {
+      if (data?.success) toast.success(data.message || "Logged out successfully!");
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message || "Logout failed");
+    },
+  });
+};
+
+// Delete Account API
+export const useDeleteAccount = () => {
+  return useClientApi({
+    method: "delete",
+    key: ["delete-account"],
+    isPrivate: true,
+    endpoint: "/api/users/delete",
+    onSuccess: (data: any) => {
+      if (data?.success) toast.success(data.message || "Account deleted successfully!");
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message || "Failed to delete account");
+    },
+  });
+};
