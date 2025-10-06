@@ -4,7 +4,7 @@ import React, { useMemo, useRef, useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import { FaAngleRight, FaPlay, FaPlus } from "react-icons/fa";
 import { MdArrowOutward, MdDelete } from "react-icons/md";
-import Preview from "../../../../../../Assets/tomato.png";
+import Preview from "../../../../../Assets/tomato.png";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -79,6 +79,8 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
   const router = useRouter();
   const { user } = useAuth();
   console.log(user);
+
+  const isPro = user?.membership?.membership_type === "pro";
 
   const { id } = use(params);
   const { data: listing, isLoading } = useGetSingleListing(id);
@@ -155,7 +157,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
 
     setVideoUrl(productData.video ? `${baseUrl}/${productData.video}` : null);
     setShowPlayButton(!productData.video);
-    setVideoFile(null); 
+    setVideoFile(null);
 
     // ✅ Set Category & Subcategory by ID
     setCategory(productData.category_id?.toString() || "");
@@ -286,9 +288,9 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
     });
 
     // Existing images to keep (as relative paths / full names)
-    // keptRelativePaths.forEach((relPath) => {
-    //   formData.append(`product_image[]`, relPath);
-    // });
+    keptRelativePaths.forEach(relPath => {
+      formData.append(`product_image[]`, relPath);
+    });
 
     // New image files - using "product_image" as expected by backend
     imageFiles.forEach((file, index) => {
@@ -457,15 +459,17 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
             <input
               type="text"
               value={quantity}
-              disabled
+              disabled={!isPro}
               onChange={e => setQuantity(e.target.value)}
-              className="w-full md:w-[350px] border cursor-not-allowed bg-gray-300 border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2 text-[20px] text-[#13141D] font-normal outline-0"
+              className={`w-full md:w-[350px] border ${
+                !isPro ? "cursor-not-allowed bg-gray-300" : ""
+              } border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2 text-[20px] text-[#13141D] font-normal outline-0`}
             />
             <div className="flex flex-col gap-4 mt-2">
               <label className="flex items-center gap-2 text-[17px] md:text-[20px] text-[#13141D] font-semibold">
                 Unlimited Stock
                 <input
-                  disabled
+                  disabled={!isPro}
                   type="checkbox"
                   checked={unlimitedStock}
                   onChange={() => setUnlimitedStock(!unlimitedStock)}
@@ -484,8 +488,8 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
               <label className="flex items-center gap-2 text-[17px] md:text-[20px] text-[#13141D] font-semibold">
                 Out of Stock
                 <input
+                  disabled={!isPro}
                   type="checkbox"
-                  disabled
                   checked={outOfStock}
                   onChange={() => setOutOfStock(!outOfStock)}
                   className="mt-1 accent-[#274F45]"
@@ -602,10 +606,12 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
             </h3>
             <input
               type="text"
-              disabled
+              disabled={!isPro}
               value={cost}
               onChange={e => setCost(e.target.value)}
-              className="w-full border text-[16px] cursor-not-allowed bg-gray-300 md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4  outline-0"
+              className={`w-full border text-[16px] ${
+                !isPro ? "cursor-not-allowed bg-gray-300" : ""
+              } md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4  outline-0`}
             />
           </div>
           <div>
@@ -614,10 +620,12 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
             </h3>
             <input
               type="text"
-              disabled
+              disabled={!isPro}
               value={weight}
               onChange={e => setWeight(e.target.value)}
-              className="w-full border text-[16px] cursor-not-allowed bg-gray-300  md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 outline-0"
+              className={`w-full border text-[16px] ${
+                !isPro ? "cursor-not-allowed bg-gray-300" : ""
+              } md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 outline-0`}
             />
           </div>
 

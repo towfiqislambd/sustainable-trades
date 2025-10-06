@@ -126,9 +126,7 @@ const Page = () => {
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3 xl:gap-6 mt-10">
           {filteredProducts.map(product => (
-            <Link
-              href={`/dashboard/basic/view-listing/view-details/${product.id}`}
-            >
+            
               <div
                 key={product.id}
                 className="relative border border-[#e5e5e5] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300 group cursor-pointer"
@@ -147,7 +145,7 @@ const Page = () => {
                     unoptimized
                   />
                   <Link
-                    href={`/dashboard/basic/view-listing/edit-listing/${product.id}`}
+                    href={`/dashboard/pro/view-listing/${product.id}`}
                   >
                     <button
                       className="absolute top-3 right-3 bg-white rounded-full p-2 shadow cursor-pointer border border-[#274F45] 
@@ -169,7 +167,7 @@ const Page = () => {
                   </p>
                 </div>
               </div>
-            </Link>
+       
           ))}
         </div>
       )}
