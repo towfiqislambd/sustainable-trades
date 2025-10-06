@@ -43,19 +43,19 @@ export default function Page() {
   }, []);
 
   const toggleSelect = (id: number) => {
-    setSelected((prev) =>
-      prev.includes(id) ? prev.filter((sid) => sid !== id) : [...prev, id]
+    setSelected(prev =>
+      prev.includes(id) ? prev.filter(sid => sid !== id) : [...prev, id]
     );
   };
 
-  const selectAll = () => setSelected(products.map((p) => p.id));
+  const selectAll = () => setSelected(products.map(p => p.id));
   const deselectAll = () => setSelected([]);
   const deleteSelected = () => {
-    setProducts(products.filter((p) => !selected.includes(p.id)));
+    setProducts(products.filter(p => !selected.includes(p.id)));
     setSelected([]);
   };
 
-  const filteredProducts = products.filter((p) =>
+  const filteredProducts = products.filter(p =>
     p.name.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -66,7 +66,7 @@ export default function Page() {
         <div className="relative w-full lg:max-w-[500px] ">
           <input
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={e => setSearch(e.target.value)}
             placeholder="Search all listings..."
             type="search"
             className="py-[10px] pl-4 pr-12 outline-0 border-2 border-[#274F45] rounded-[8px] text-[16px] text-[#67645F] font-normal w-full"
@@ -80,12 +80,14 @@ export default function Page() {
         </div>
 
         <div className="flex w-full lg:w-fit flex-wrap gap-2 lg:gap-4 lg:items-center">
-          <button
-            className="h-[45px] lg:h-[50px] w-full lg:w-fit rounded-[8px] bg-[#E48872] text-[16px] font-semibold text-[#13141D] cursor-pointer
+          <Link href="/dashboard/pro/addnew-listing">
+            <button
+              className="h-[45px] lg:h-[50px] w-full lg:w-fit rounded-[8px] bg-[#E48872] text-[16px] font-semibold text-[#13141D] cursor-pointer
              hover:bg-transparent duration-500 ease-in-out border border-[#E48872] px-6"
-          >
-            Add Product
-          </button>
+            >
+              Add Product
+            </button>
+          </Link>
           <button className="flex w-full lg:w-fit items-center justify-center gap-x-2 border border-[#274F45] text-[#274F45] px-6 h-[45px] lg:h-[50px] rounded-lg text-[16px]">
             Export
             <Export />
@@ -104,7 +106,7 @@ export default function Page() {
             <input
               type="checkbox"
               checked={selected.length === products.length}
-              onChange={(e) => (e.target.checked ? selectAll() : deselectAll())}
+              onChange={e => (e.target.checked ? selectAll() : deselectAll())}
             />
             {selected.length} Selected
           </span>
@@ -161,7 +163,7 @@ export default function Page() {
             </tr>
           </thead>
           <tbody>
-            {filteredProducts.map((p) => (
+            {filteredProducts.map(p => (
               <tr
                 key={p.id}
                 className="border-b border-[#A7A39C] hover:bg-gray-50"
@@ -234,7 +236,7 @@ export default function Page() {
 
                       <button
                         onClick={() => {
-                          setProducts(products.filter((x) => x.id !== p.id));
+                          setProducts(products.filter(x => x.id !== p.id));
                           setOpenMenu(null);
                         }}
                         className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600 cursor-pointer"
@@ -252,7 +254,7 @@ export default function Page() {
 
       {/* Mobile Card Layout */}
       <div className="block lg:hidden space-y-4 mt-6">
-        {filteredProducts.map((p) => (
+        {filteredProducts.map(p => (
           <div
             key={p.id}
             className="flex items-start justify-between border border-gray-200 rounded-lg p-4 shadow-sm"
@@ -310,7 +312,7 @@ export default function Page() {
                   </Link>
                   <button
                     onClick={() => {
-                      setProducts(products.filter((x) => x.id !== p.id));
+                      setProducts(products.filter(x => x.id !== p.id));
                       setOpenMenu(null);
                     }}
                     className="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100"

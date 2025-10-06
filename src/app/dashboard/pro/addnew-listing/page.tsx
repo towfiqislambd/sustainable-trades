@@ -1,6 +1,6 @@
 "use client";
 import { Controller, useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 import {
   getProductCategoriesClient,
@@ -49,8 +49,15 @@ type SubCategory = {
   sub_category_name: string;
 };
 
-const CreateListing = ({ membershipType = "basic" }: any) => {
+const CreateListing = () => {
   const { user } = useAuth();
+
+  // ✅ Determine membership dynamically
+  const membershipType = user?.membership?.membership_type || "basic";
+  const isBasicMember = membershipType.toLowerCase() === "basic";
+
+  console.log("Current selected membershipType:", membershipType);
+  console.log("User object:", user);
 
   // ✅ Separate states for files and previews
   const [imageFiles, setImageFiles] = useState<File[]>([]);
@@ -58,7 +65,6 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
   const [video, setVideo] = useState<File | null>(null);
   const [metaTags, setMetaTags] = useState<string[]>([]);
 
-  const isBasicMember = membershipType === "basic";
   const { mutate: addProduct, isPending } = useAddProduct();
   const { data: categoriess } = getProductCategoriesClient();
   const { data: subcategoriess } = getProductSubCategoriesClient();
@@ -72,12 +78,12 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
     setValue,
   } = useForm<FormData>({
     defaultValues: {
-      product_name: "Product Name",
-      product_price: "00",
+      product_name: "",
+      product_price: "",
       product_quantity: "",
       weight: "",
       cost: "",
-      description: "...............",
+      description: "",
       category_id: "",
       sub_category_id: "",
       fulfillment: "",
@@ -98,7 +104,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
     const formData = new FormData();
 
     if (user?.shop_info?.id) {
-      formData.append("shop_info_id", String(user?.shop_info?.id));
+      formData.append("shop_info_id", String(user.shop_info.id));
     }
 
     formData.append("product_name", data.product_name);
@@ -152,10 +158,14 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
   return (
     <div>
       <Header />
+      {/* Optional: Display membership banner */}
       <MembershipNotice isBasicMember={isBasicMember} />
+
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8 mt-4 md:mt-8">
+          {/* LEFT SIDE */}
           <div className="flex flex-col gap-3 md:gap-6">
+            {/* Product Name */}
             <div>
               <h3 className="text-[17px] md:text-[20px] font-semibold text-[#13141D]">
                 Product Name / Service
@@ -178,6 +188,8 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
                 </p>
               )}
             </div>
+
+            {/* Image Upload */}
             <ImageUpload
               imageFiles={imageFiles}
               setImageFiles={setImageFiles}
@@ -186,16 +198,22 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
               setValue={setValue}
               watch={watch}
             />
+
+            {/* Quantity */}
             <QuantitySection
               control={control}
               errors={errors}
               isBasicMember={isBasicMember}
             />
+
+            {/* Video Upload */}
             <VideoUpload
               video={video}
               setVideo={setVideo}
               setValue={setValue}
             />
+
+            {/* Listing Status */}
             <div>
               <p className="font-semibold text-[20px] md:text-[24px] text-[#13141D]">
                 Listing Status:{" "}
@@ -205,12 +223,16 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
               </p>
             </div>
           </div>
+
+          {/* RIGHT SIDE */}
           <div className="flex flex-col gap-4 md:gap-8">
             <PriceSection
               control={control}
               errors={errors}
               isBasicMember={isBasicMember}
             />
+
+            {/* Description */}
             <div>
               <h3 className="text-[20px] md:text-[24px] font-semibold text-[#13141D]">
                 Description
@@ -233,6 +255,8 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
                 </p>
               )}
             </div>
+
+            {/* Categories */}
             <CategorySection
               control={control}
               errors={errors}
@@ -240,6 +264,8 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
               subcategories={subcategories}
               watch={watch}
             />
+
+            {/* Fulfillment */}
             <div>
               <h3 className="text-[20px] md:text-[24px] font-semibold text-[#13141D]">
                 Fulfillment
@@ -266,11 +292,15 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
                 </p>
               )}
             </div>
+
+            {/* Meta Tags */}
             <MetaTags
               metaTags={metaTags}
               setMetaTags={setMetaTags}
               setValue={setValue}
             />
+
+            {/* Selling Option */}
             <div>
               <h3 className="text-[20px] md:text-[24px] font-semibold text-[#13141D]">
                 Selling Option
@@ -299,6 +329,8 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
             </div>
           </div>
         </div>
+
+        {/* Submit / Cancel */}
         <FormActions isPending={isPending} />
       </form>
     </div>
