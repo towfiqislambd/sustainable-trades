@@ -96,6 +96,7 @@ const Settings = () => {
                 type="text"
                 className="form-input w-full"
                 placeholder="1234"
+                defaultValue={user?.shop_info?.address?.address_line_1 || ""}
               />
             </div>
             <div className="w-full">
@@ -104,6 +105,7 @@ const Settings = () => {
                 type="text"
                 className="form-input w-full"
                 placeholder="City/State"
+                defaultValue={user?.shop_info?.address?.state || ""}
               />
             </div>
             <div className="w-full">
@@ -112,6 +114,7 @@ const Settings = () => {
                 type="text"
                 className="form-input w-full"
                 placeholder="123456"
+                defaultValue={user?.shop_info?.address?.postal_code || ""}
               />
             </div>
           </form>

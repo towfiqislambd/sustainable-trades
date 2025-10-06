@@ -19,7 +19,7 @@ interface SpotlightItem {
 }
 
 const Community = async () => {
-  const spotlightData = await getSpotlightData();
+  const {data:spotlightData} = getSpotlightData();
 
   return (
     <section className="py-5 md:py-10">
