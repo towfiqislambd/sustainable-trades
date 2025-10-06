@@ -545,7 +545,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                     ref={videoRef}
                     src={videoUrl}
                     className="h-[250px] w-full rounded-lg object-cover"
-                    onClick={handlePlayPause} // clicking video toggles play/pause
+                    onClick={handlePlayPause} 
                   />
 
                   {/* Overlay play button */}
@@ -642,7 +642,6 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
             />
           </div>
           {/* Category Dropdown */}
-          {/* Category Dropdown */}
           <h3 className="text-[20px] md:text-[24px] font-semibold text-[#13141D]">
             Category
           </h3>
@@ -651,13 +650,13 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
             value={category}
             onChange={e => {
               setCategory(e.target.value);
-              setSubcategory(""); // reset when category changes
+              setSubcategory(""); 
             }}
           >
             <option value="">Select Category</option>
             {categoriesData?.data?.map((cat: any) => (
               <option key={cat.id} value={String(cat.id)}>
-                {cat.name || cat.category_name} {/* handle both cases */}
+                {cat.name || cat.category_name} 
               </option>
             ))}
           </select>
@@ -677,8 +676,8 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                 {subcategoriesData.data
                   ?.filter(
                     (sub: any) =>
-                      String(sub.category_id) === String(category) || // match by parent category
-                      String(sub.id) === String(subcategory) // keep saved subcategory visible
+                      String(sub.category_id) === String(category) ||
+                      String(sub.id) === String(subcategory) 
                   )
                   .map((sub: any) => (
                     <option key={sub.id} value={String(sub.id)}>
@@ -727,11 +726,11 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                 type="text"
                 value={newTag}
                 onChange={e => setNewTag(e.target.value)}
-                className="flex-1  border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 pl-10 "
+                className="flex-1  border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 md:pl-10 "
               />
               <button
                 onClick={handleAddTag}
-                className="absolute top-1/2 left-5 translate-y-[-50%]  cursor-pointer"
+                className="absolute top-1/2 left-5 translate-y-[-50%]  cursor-pointer "
               >
                 +
               </button>

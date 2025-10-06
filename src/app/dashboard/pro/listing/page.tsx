@@ -6,7 +6,10 @@ import Image, { StaticImageData } from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { getallListings } from "@/Hooks/api/dashboard_api";
 import { Export, Import } from "@/Components/Svg/SvgContainer";
-import {statusColorsinventory,visibilityColors} from "@/Components/Data/data";
+import {
+  statusColorsinventory,
+  visibilityColors,
+} from "@/Components/Data/data";
 
 type Product = {
   id: number;
@@ -28,7 +31,6 @@ export default function Page() {
   const [products, setProducts] = useState<Product[]>([]);
   const [openMenu, setOpenMenu] = useState<number | null>(null);
 
-
   useEffect(() => {
     if (allListings?.data) {
       const mappedProducts: Product[] = allListings.data.map((item: any) => ({
@@ -38,13 +40,13 @@ export default function Page() {
           | "Approved"
           | "Pending"
           | "Denied",
-        sku: `SKU-${item.id}`, 
+        sku: `SKU-${item.id}`,
         stock: item.product_quantity,
         price: item.product_price,
         cost: parseFloat(item.cost),
-        visibility: "Active", 
+        visibility: "Active",
         image:
-          item.images && item.images.length > 0 ? item.images[0].image : "", 
+          item.images && item.images.length > 0 ? item.images[0].image : "",
       }));
       setProducts(mappedProducts);
     }
@@ -194,7 +196,7 @@ export default function Page() {
                   />
                 </td>
                 <td className="py-5 text-[#13141D] font-semibold text-[14px]">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-10">
                     <Image
                       src={`${process.env.NEXT_PUBLIC_SITE_URL}/${p.image}`}
                       alt={p.name}
