@@ -1,68 +1,25 @@
 "use client";
+import Image from "next/image";
 import React, { useState } from "react";
 import Container from "@/Components/Common/Container";
 import { SearchSvg } from "@/Components/Svg/SvgContainer";
-import s2 from "@/Assets/s2.jpg";
-import Image from "next/image";
 import { FaRegStar, FaStar } from "react-icons/fa";
 import { AiOutlineFileSearch } from "react-icons/ai";
+import { ShopListSkeleton } from "@/Components/Loader/Loader";
+import { LuFileQuestion } from "react-icons/lu";
+import { getAllShopsClient } from "@/Hooks/api/cms_api";
 
-const data = [
-  {
-    id: 1,
-    shop_name: "Natural Harmony Bakery",
-    shop_image: s2,
-    shop_number: "303-214-4702",
-    shop_short_desc:
-      "Explore ethically sourced selections for a sustainable and luxurious lifestyle.",
-    review_count: 5,
-  },
-  {
-    id: 2,
-    shop_name: "Natural Harmony Bakery",
-    shop_image: s2,
-    shop_number: "303-214-4702",
-    shop_short_desc:
-      "Explore ethically sourced selections for a sustainable and luxurious lifestyle.",
-    review_count: 3,
-  },
-  {
-    id: 3,
-    shop_name: "Natural Harmony Bakery",
-    shop_image: s2,
-    shop_number: "303-214-4702",
-    shop_short_desc:
-      "Explore ethically sourced selections for a sustainable and luxurious lifestyle.",
-    review_count: 5,
-  },
-  {
-    id: 4,
-    shop_name: "Natural Harmony Bakery",
-    shop_image: s2,
-    shop_number: "303-214-4702",
-    shop_short_desc:
-      "Explore ethically sourced selections for a sustainable and luxurious lifestyle.",
-    review_count: 3,
-  },
-  {
-    id: 5,
-    shop_name: "Natural Harmony Bakery",
-    shop_image: s2,
-    shop_number: "303-214-4702",
-    shop_short_desc:
-      "Explore ethically sourced selections for a sustainable and luxurious lifestyle.",
-    review_count: 3,
-  },
-];
-
-const LocalMagicMarker = ({ address, shopData }: any) => {
+const LocalMagicMarker = ({ address }: any) => {
   const [searchShop, setSearchShop] = useState<any>(address);
+  const { data: shopData, isLoading: shopLoading } =
+    getAllShopsClient(searchShop);
+  console.log(shopData);
 
   return (
     <section className="mt-10 mb-16">
       <Container>
-        {/* Upper Part */}
         <div className="space-y-7">
+          {/* Upper Part */}
           <div className="flex flex-col md:flex-row gap-2.5 md:gap-0 justify-between items-center">
             <h3 className="text-2xl lg:text-3xl font-semibold text-secondary-black">
               Find Your Local Magic Makers
@@ -85,61 +42,65 @@ const LocalMagicMarker = ({ address, shopData }: any) => {
             {/* Left */}
             {searchShop ? (
               <div className="space-y-2 h-[550px] overflow-y-auto">
-                {data?.map(item => (
-                  <div
-                    key={item?.id}
-                    className="flex flex-col md:flex-row gap-2.5 md:gap-5 md:items-center border-b last:border-b-0 border-gray-300 py-3"
-                  >
-                    {/* shop Image */}
-                    <figure className="size-22 shrink-0 rounded-lg">
-                      <Image
-                        src={item?.shop_image}
-                        alt="shop_image"
-                        className="size-full object-cover rounded-lg"
-                      />
-                    </figure>
+                {shopLoading ? (
+                  Array.from({ length: 7 }).map((_, idx) => (
+                    <ShopListSkeleton key={idx} />
+                  ))
+                ) : shopData?.data?.length === 0 || !shopData ? (
+                  <div className="text-gray-700 font-semibold text-lg text-center flex justify-center flex-col gap-2 items-center h-full p-2 lg:p-8 bg-[#d4e2cb2f]">
+                    <LuFileQuestion className="text-5xl text-gray-600" />
+                    No Shop Found
+                  </div>
+                ) : (
+                  shopData?.data?.map((item: any) => (
+                    <div
+                      key={item?.id}
+                      className="flex flex-col md:flex-row gap-2.5 md:gap-5 md:items-center border-b last:border-b-0 border-gray-300 py-3"
+                    >
+                      {/* shop Image */}
+                      <figure className="size-22 shrink-0 rounded-lg relative">
+                        <Image
+                          src={`${process.env.NEXT_PUBLIC_SITE_URL}/${item?.shop_info?.shop_image}`}
+                          alt="shop_image"
+                          fill
+                          className="size-full object-cover rounded-lg"
+                        />
+                      </figure>
 
-                    {/* Shop Description */}
-                    <div className="flex flex-col md:flex-row gap-2.5 md:gap-5 md:items-center grow">
-                      <div className="grow">
-                        {/* Shop Name */}
-                        <h3 className="text-lg font-semibold text-primary-green">
-                          {item?.shop_name}
-                        </h3>
+                      {/* Shop Description */}
+                      <div className="flex flex-col md:flex-row gap-2.5 md:gap-5 md:items-center grow">
+                        <div className="grow">
+                          {/* Shop Name */}
+                          <h3 className="text-lg font-semibold text-primary-green">
+                            {item?.shop_info?.shop_name}
+                          </h3>
 
-                        {/* Review Count */}
-                        <div className="flex gap-1 items-center py-2">
-                          {Array.from({ length: item?.review_count }).map(
-                            (_, index) => (
+                          {/* Review Count */}
+                          <div className="flex gap-1 items-center py-2">
+                            {Array.from({ length: 3 }).map((_, index) => (
                               <FaStar
                                 key={index}
                                 className="text-primary-green text-sm"
                               />
-                            )
-                          )}
+                            ))}
 
-                          {Array.from({ length: 5 - item?.review_count }).map(
-                            (_, index) => (
+                            {Array.from({ length: 2 }).map((_, index) => (
                               <FaRegStar
                                 key={index}
                                 className="text-primary-green text-sm"
                               />
-                            )
-                          )}
+                            ))}
+                          </div>
+
+                          {/* Shop Number */}
+                          <p className="text-secondary-gray font-semibold text-sm">
+                            {item?.shop_info?.address?.address_line_1}
+                          </p>
                         </div>
-
-                        {/* Shop Number */}
-                        <p className="text-secondary-gray font-semibold text-sm">
-                          {item?.shop_number}
-                        </p>
-                      </div>
-
-                      <div className="w-full md:w-[212px] shrink-0 text-sm text-gray-600">
-                        <p>{item?.shop_short_desc}</p>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             ) : (
               <div className="flex flex-col justify-center h-full p-2 lg:p-8 bg-[#d4e2cb2f]">

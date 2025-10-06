@@ -520,9 +520,7 @@ export const getCategoryDetails = (id: string) => {
 export const getAllShopsClient = (address: string) => {
   return useClientApi({
     method: "get",
-    isPrivate: true,
     key: ["get-all-shop", address],
-    enabled: !!address,
     endpoint: `/api/shops`,
     params: { address },
     queryOptions: {

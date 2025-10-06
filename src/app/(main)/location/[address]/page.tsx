@@ -8,10 +8,7 @@ import Product from "@/Components/Common/Product";
 import CommunityMember from "@/Components/PageComponents/mainPages/homePageComponents/CommunityMember";
 import Subscribe from "@/Components/PageComponents/mainPages/homePageComponents/Subscribe";
 import LocalMagicMarker from "@/Components/PageComponents/mainPages/shopPageComponents/LocalMagicMarker";
-import {
-  getAllShopsClient,
-  getMembershipSpotlightClient,
-} from "@/Hooks/api/cms_api";
+import { getMembershipSpotlightClient } from "@/Hooks/api/cms_api";
 const data = [
   {
     id: 1,
@@ -92,11 +89,10 @@ interface Props {
 const page = ({ params }: Props) => {
   const { address } = use(params);
   const { data: spotlightData, isLoading } = getMembershipSpotlightClient();
-  const { data: shopData, isLoading: shopLoading } = getAllShopsClient(address);
 
   return (
     <>
-      <LocalMagicMarker address={address} shopData={shopData} />
+      <LocalMagicMarker address={address} />
       <NearbyProducts />
 
       {/* Organic Bath & Beauty */}
