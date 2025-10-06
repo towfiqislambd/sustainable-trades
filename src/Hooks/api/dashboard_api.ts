@@ -97,3 +97,21 @@ export const getmemberShipspotlight = () => {
   });
 };
 
+// Get All FollowLists
+export const getAllFollowList = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-all-followlist"],
+    isPrivate: true,
+    endpoint: "/api/my-favorites",
+  });
+};
+// Get All FollowLists
+export const getAllShoplist = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-all-shoplist"],
+    isPrivate: true,
+    endpoint: "/api/follow-shops",
+  });
+};
