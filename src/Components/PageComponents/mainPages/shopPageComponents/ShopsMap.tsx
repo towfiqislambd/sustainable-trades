@@ -81,6 +81,9 @@ const ShopsMap: React.FC<ShopsMapProps> = ({
         <InfoWindow
           position={{ lat: selected.lat, lng: selected.lng }}
           onCloseClick={() => setSelected(null)}
+          options={{
+            pixelOffset: new google.maps.Size(0, -40), // move InfoWindow 40px above the marker
+          }}
         >
           <div className="flex items-center gap-2">
             {shopLoading ? (
