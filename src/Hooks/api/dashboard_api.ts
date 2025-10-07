@@ -216,20 +216,21 @@ export const useCreateDiscount = () => {
     },
   });
 };
-// dashboard_api.ts
-export const useCreateDiscount = () => {
+
+// Create Taxes Hooks
+export const useTaxes = () => {
   return useClientApi({
     method: "post",
-    key: ["create-discount"],
+    key: ["save-taxes"],
     isPrivate: true,
-    endpoint: "/api/discounts",
+    endpoint: "/api/shop-taxes",
     onSuccess: (data: any) => {
       if (data?.success) {
-        toast.success(data?.message || "Discount created successfully!");
+        toast.success(data?.message || "Saving tax rate");
       }
     },
     onError: (err: any) => {
-      toast.error(err?.response?.data?.message || "Failed to create discount.");
+      toast.error(err?.response?.data?.message || "Failed to Saving tax rate");
     },
   });
 };
