@@ -1,4 +1,5 @@
 "use client";
+import { getallListings } from "@/Hooks/api/dashboard_api";
 import Link from "next/link";
 import React, { useState } from "react";
 import { FaAngleLeft } from "react-icons/fa";
@@ -7,6 +8,7 @@ import { FiCalendar, FiClock } from "react-icons/fi";
 const CreateDiscount = () => {
   const [discountType, setDiscountType] = useState("code");
   const [appliesTo, setAppliesTo] = useState("Any Order");
+  const { data: productlist } = getallListings();
 
   return (
     <div className="p-4 lg:p-8">
@@ -129,10 +131,11 @@ const CreateDiscount = () => {
               Select Product
             </h5>
             <select className="w-full border border-[#67645F] rounded-md px-4 py-5 text-[16px] font-bold text-[#13141D]">
-              <option>Product 1</option>
-              <option>Product 2</option>
-              <option>Product 3</option>
-              <option>Product 4</option>
+              {productlist?.data?.map((product: any, id: number) => (
+                <option key={product.id} value={product.id}>
+                  {product?.product_name}
+                </option>
+              ))}
             </select>
           </div>
         )}
