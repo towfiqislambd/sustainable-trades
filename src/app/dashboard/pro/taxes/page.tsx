@@ -1,8 +1,11 @@
 "use client";
 
+import { useTaxes } from "@/Hooks/api/dashboard_api";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function TaxRatePage() {
+  const { mutate, isPending } = useTaxes();
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
   const [localTaxRate, setLocalTaxRate] = useState("0");
@@ -263,12 +266,34 @@ export default function TaxRatePage() {
   ];
 
   const handleSave = () => {
-    console.log("Saving tax rate:", {
+    if (!country || !state) {
+      toast.error("Please select country and state.");
+      return;
+    }
+    if (!localTaxRate || parseFloat(localTaxRate) < 0) {
+      toast.error("Please enter a valid tax rate.");
+      return;
+    }
+
+    const payload = {
       country,
       state,
-      localTaxRate,
-      chargeOnServices,
-      chargeOnShipping,
+      rate: localTaxRate,
+      is_digital_products: chargeOnServices,
+      is_shipping: chargeOnShipping,
+    };
+
+    mutate(payload, {
+      onSuccess: (data: any) => {
+        if (data?.success) {
+          toast.success(data?.message || "Tax rate saved successfully!");
+          setCountry("");
+          setState("");
+          setLocalTaxRate("0");
+          setChargeOnServices(true);
+          setChargeOnShipping(false);
+        }
+      },
     });
   };
 
@@ -326,7 +351,7 @@ export default function TaxRatePage() {
                     className="overflow-y-auto"
                     style={{ maxHeight: "400px" }}
                   >
-                    {countries.map((option) => (
+                    {countries.map(option => (
                       <button
                         key={option}
                         onClick={() => {
@@ -387,7 +412,7 @@ export default function TaxRatePage() {
                     className="overflow-y-auto"
                     style={{ maxHeight: "400px" }}
                   >
-                    {usStates.map((option) => (
+                    {usStates.map(option => (
                       <button
                         key={option}
                         onClick={() => {
@@ -413,7 +438,7 @@ export default function TaxRatePage() {
               <input
                 type="text"
                 value={localTaxRate}
-                onChange={(e) => setLocalTaxRate(e.target.value)}
+                onChange={e => setLocalTaxRate(e.target.value)}
                 className="flex-1 text-[16px] font-semibold text-[#13141D] bg-transparent border-none outline-none"
                 placeholder="0"
               />
@@ -470,10 +495,11 @@ export default function TaxRatePage() {
           <div className="pt-4">
             <button
               onClick={handleSave}
+              disabled={isPending}
               className="w-full bg-[#274F45] hover:bg-[#047857] cursor-pointer text-[#FEFEFE] 
-              font-semibold py-2 md:py-4 rounded-[8px] duration-500 ease-in-out text-[16px] md:text-[20px]"
+              font-semibold py-2 md:py-4 rounded-[8px] duration-500 ease-in-out text-[16px] md:text-[20px] disabled:opacity-50"
             >
-              Save Tax Rate
+              {isPending ? "Saving..." : "Save Tax Rate"}
             </button>
           </div>
         </div>
