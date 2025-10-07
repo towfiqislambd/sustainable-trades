@@ -12,7 +12,7 @@ export default function TaxRatePage() {
   const [stateOpen, setStateOpen] = useState(false);
 
   const countries = [
-    "United States", // US at top for easy access
+    "United States",
     "Afghanistan",
     "Albania",
     "Algeria",
