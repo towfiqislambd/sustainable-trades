@@ -23,7 +23,7 @@ export async function getSpotlightData() {
 export async function getSiteSettings() {
   return useServerApi({
     endpoint: "/api/site-settings",
-    revalidate: 3600,
+    revalidate: 86400,
   });
 }
 
@@ -31,7 +31,7 @@ export async function getSiteSettings() {
 export async function getSocialLinks() {
   return useServerApi({
     endpoint: "/api/social-links",
-    revalidate: 3600,
+    revalidate: 86400,
   });
 }
 
@@ -83,6 +83,14 @@ export async function getProductCategories() {
   });
 }
 
+// All Shops
+export async function getAllShops() {
+  return useServerApi({
+    endpoint: "/api/shops",
+    revalidate: 3600,
+  });
+}
+
 // Featured Shops
 export async function getFeaturedShops() {
   return useServerApi({
@@ -111,14 +119,6 @@ export async function getDynamicPages() {
 export async function getSingleDynamicPage(slug: string) {
   return useServerApi({
     endpoint: `/api/dynamic-pages/single/${slug}`,
-    revalidate: 3600,
-  });
-}
-
-// All Shops
-export async function getAllShops() {
-  return useServerApi({
-    endpoint: "/api/shops",
     revalidate: 3600,
   });
 }

@@ -2,7 +2,20 @@ import React from "react";
 import Image from "next/image";
 import Container from "@/Components/Common/Container";
 
-const AboutShop = ({ data }: any) => {
+interface AboutProps {
+  data: {
+    shop_name: string;
+    about: {
+      about_image: string;
+      tagline: string;
+      statement: string;
+      our_story: string;
+    };
+  };
+}
+
+const AboutShop = ({ data }: AboutProps) => {
+  console.log(data);
   return (
     <section id="About" className="mt-4 md:mt-8 lg:mt-16">
       <Container>

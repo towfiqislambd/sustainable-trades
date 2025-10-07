@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
-import Container from "@/Components/Common/Container";
 import React, { useState } from "react";
+import Container from "@/Components/Common/Container";
 const tabs = [
   { id: 1, label: "Listings" },
   { id: 2, label: "About" },
@@ -20,7 +20,7 @@ const DetailsTab = () => {
             <Link
               key={tab?.id}
               href={`#${tab?.label}`}
-              onClick={(e) => {
+              onClick={e => {
                 e.preventDefault();
                 setActiveTab(tab?.id);
 
