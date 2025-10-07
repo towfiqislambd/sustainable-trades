@@ -189,15 +189,35 @@ const Page = () => {
               <h3 className="text-[#3D3D3D] text-[24px] font-bold text-center pb-4 border-b border-[#3D3D3D]">
                 WEIGHT RANGE RATE
               </h3>
-              <div className="my-10">
-                <p className="form-label font-bold">Option Name *</p>
-                <input
-                  type="text"
-                  className="form-input"
-                  placeholder="“FedEx Next Day”, “USPS Express Mail”"
-                />
+              <div className="mt-2.5 md:mt-5 flex flex-col gap-y-5">
+                <div>
+                  <p className="form-label font-bold">Cost *</p>
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="Cost"
+                  />
+                </div>
+                <div className="flex gap-x-10">
+                  <div className="w-full">
+                    <p className="form-label font-bold">Min Weight</p>
+                    <input
+                      type="text"
+                      className="form-input"
+                      placeholder="kg"
+                    />
+                  </div>
+                  <div className="w-full">
+                    <p className="form-label font-bold">Max Weight</p>
+                    <input
+                      type="text"
+                      className="form-input"
+                      placeholder="kg"
+                    />
+                  </div>
+                </div>
               </div>
-              <h4 className="text-[20px] font-semibold text-[#274F45]">
+              <h4 className="text-[20px] font-semibold text-[#274F45] mt-5">
                 Weight Ranges
               </h4>
               <p className="font-normal text-[16px] text-[#3D3D3D]">
