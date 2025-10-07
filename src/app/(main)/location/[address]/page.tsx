@@ -21,8 +21,8 @@ interface Props {
 
 const page = ({ params }: Props) => {
   // Hooks
-  const { latitude, longitude } = useAuth();
   const { address } = use(params);
+  const { latitude, longitude } = useAuth();
 
   // Queries
   const { data: spotlightData } = getMembershipSpotlightClient();
