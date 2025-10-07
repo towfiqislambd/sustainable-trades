@@ -529,11 +529,38 @@ export const getAllShopsClient = (address: string) => {
   });
 };
 
-// Featured Product
+// Featured Products
 export const getFeaturedProducts = () => {
   return useClientApi({
     method: "get",
+    isPrivate: true,
     key: ["get-featured-products"],
     endpoint: `/api/is-featured-product`,
+    queryOptions: {
+      retry: false,
+    },
+  });
+};
+
+// Nearby Products
+export const getNearbyProducts = (lat: number, lng: number) => {
+  return useClientApi({
+    method: "get",
+    isPrivate: true,
+    key: ["nearby-products", lat, lng],
+    endpoint: "/api/nearby-product",
+    params: { lat, lng },
+    queryOptions: {
+      retry: false,
+    },
+  });
+};
+
+// Top Vendors
+export const getTopVendors = () => {
+  return useClientApi({
+    method: "get",
+    key: ["top-vendors"],
+    endpoint: `/api/top-vendors`,
   });
 };

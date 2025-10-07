@@ -371,3 +371,19 @@ export const ShopListSkeleton = () => {
     </div>
   );
 };
+
+// Single Shop Skeleton
+export const SingleShopSkeleton = () => {
+  return (
+    <div className="text-center animate-pulse">
+      {/* Circle Image Skeleton */}
+      <figure className="size-44 mx-auto rounded-full overflow-hidden bg-gray-200"></figure>
+
+      {/* Shop Name Skeleton */}
+      <div className="mt-4 h-4 w-32 mx-auto bg-gray-200 rounded"></div>
+
+      {/* Address Skeleton */}
+      <div className="mt-2 h-3 w-48 mx-auto bg-gray-200 rounded"></div>
+    </div>
+  );
+};
