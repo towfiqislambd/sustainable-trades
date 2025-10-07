@@ -199,7 +199,24 @@ export const useDeleteAccount = () => {
 
 
 
-// ✅ dashboard_api.ts
+// Create Discount
+export const useCreateDiscount = () => {
+  return useClientApi({
+    method: "post",
+    key: ["create-discount"],
+    isPrivate: true,
+    endpoint: "/api/discounts",
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        toast.success(data?.message || "Discount created successfully!");
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message || "Failed to create discount.");
+    },
+  });
+};
+// dashboard_api.ts
 export const useCreateDiscount = () => {
   return useClientApi({
     method: "post",
