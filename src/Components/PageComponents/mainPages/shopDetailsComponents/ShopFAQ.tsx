@@ -3,11 +3,21 @@ import React, { useState } from "react";
 import Container from "@/Components/Common/Container";
 import { UpperArrowSvg } from "@/Components/Svg/SvgContainer";
 
-const ShopFAQ = ({ data }: any) => {
+type faqItem = {
+  id: number;
+  question: string;
+  answer: string;
+};
+
+interface FaqProps {
+  data: faqItem[];
+}
+
+const ShopFAQ = ({ data }: FaqProps) => {
   const [activeAccordion, setActiveAccordion] = useState<number | null>(1);
 
   const toggleAccordion = (id: number) => {
-    setActiveAccordion((prev) => (prev === id ? null : id));
+    setActiveAccordion(prev => (prev === id ? null : id));
   };
 
   return (
@@ -16,16 +26,16 @@ const ShopFAQ = ({ data }: any) => {
         <h2 className="section_sub_title !mb-0 md:mb-3">FAQs</h2>
 
         <div>
-          {data?.map((item: any) => (
+          {data?.map(item => (
             <div
               key={item.id}
               className="border-b-2 border-gray-200 py-2 md:py-4 cursor-pointer"
-              onClick={() => toggleAccordion(item.id)}
+              onClick={() => toggleAccordion(item?.id)}
             >
               {/* Question */}
               <div className="flex justify-between items-center">
                 <h3 className=" md:text-lg lg:text-xl font-semibold text-primary-green">
-                  {item.question}
+                  {item?.question}
                 </h3>
                 <span
                   className={`text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-secondary-black duration-500 ${
@@ -45,7 +55,7 @@ const ShopFAQ = ({ data }: any) => {
                 }`}
               >
                 <p className="text-secondary-gray text-xs sm:text-sm md:text-base lg:text-[17px]">
-                  {item.answer}
+                  {item?.answer}
                 </p>
               </div>
             </div>

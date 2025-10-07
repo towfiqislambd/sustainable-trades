@@ -82,12 +82,12 @@ const ShopsMap: React.FC<ShopsMapProps> = ({
           position={{ lat: selected.lat, lng: selected.lng }}
           onCloseClick={() => setSelected(null)}
           options={{
-            pixelOffset: new google.maps.Size(0, -40), // move InfoWindow 40px above the marker
+            pixelOffset: new google.maps.Size(0, -40),
           }}
         >
           <div className="flex items-center gap-2">
             {shopLoading ? (
-              <div className="w-24 h-12 bg-gray-200 animate-pulse rounded-md" /> // Skeleton
+              <div className="w-24 h-12 bg-gray-200 animate-pulse rounded-md" />
             ) : (
               selected.image && (
                 <img

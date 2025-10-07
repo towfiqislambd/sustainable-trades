@@ -9,8 +9,8 @@ interface AuthContextValue {
   token: string | null;
   setToken: (token: string | null) => void;
   clearToken: () => void;
-  latitude: number | null;
-  longitude: number | null;
+  latitude: any;
+  longitude: any;
   setLatitude: any;
   setLongitude: any;
 }
@@ -19,10 +19,10 @@ export const AuthContextProvider = createContext<AuthContextValue | any>(null);
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState<boolean>(false);
-  const [latitude, setLatitude] = useState<number | null>(null);
-  const [longitude, setLongitude] = useState<number | null>(null);
   const [user, setUser] = useState<any>(null);
   const [token, setToken, clearToken] = useLocalStorage("token", null);
+  const [latitude, setLatitude] = useLocalStorage("lat", null);
+  const [longitude, setLongitude] = useLocalStorage("lng", null);
   const { data: userData, isLoading: loadingUserData } = useGetUserData(token);
 
   useEffect(() => {

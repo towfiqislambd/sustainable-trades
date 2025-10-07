@@ -11,9 +11,16 @@ import { SearchSvg } from "@/Components/Svg/SvgContainer";
 import { ShopListSkeleton } from "@/Components/Loader/Loader";
 import ShopsMap from "@/Components/PageComponents/mainPages/shopPageComponents/ShopsMap";
 
-const LocalMagicMarker = ({ address }: any) => {
-  const [searchShop, setSearchShop] = useState<any>(address);
+type Props = {
+  address: string;
+};
+
+const LocalMagicMarker = ({ address }: Props) => {
+  // States
+  const [searchShop, setSearchShop] = useState<string>(address);
   const [hoveredShop, setHoveredShop] = useState<any>(null);
+
+  // Queries
   const { data: shopData, isLoading: shopLoading } =
     getAllShopsClient(searchShop);
 

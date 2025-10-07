@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import Container from "./Container";
+import Container from "@/Components/Common/Container";
 
 type BannerProps = {
   title: string;
@@ -11,7 +11,7 @@ type BannerProps = {
 const Banner = ({ title, bgImg }: BannerProps) => {
   return (
     <section className="relative h-[300px] md:h-[400px] lg:h-[600px] flex items-center justify-center overflow-hidden">
-      {/* ✅ Background Image */}
+      {/* Background Image */}
       <Image
         src={bgImg}
         alt={title}
@@ -21,7 +21,7 @@ const Banner = ({ title, bgImg }: BannerProps) => {
         className="object-cover object-center -z-10"
       />
 
-      {/* ✅ Dark overlay */}
+      {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/40 -z-10" />
 
       <Container>

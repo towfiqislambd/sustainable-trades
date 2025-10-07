@@ -8,10 +8,22 @@ import MembershipApplicationModal from "@/Components/Modals/MembershipApplicatio
 import Link from "next/link";
 import useAuth from "@/Hooks/useAuth";
 
-const CommunityMember = ({ data, has_community }: any) => {
+type communityItem = {
+  id: number;
+  name: string;
+  shop_description: string;
+  user_id: number;
+};
+
+interface CommunityProps {
+  data: communityItem[];
+  has_community?: boolean;
+}
+
+const CommunityMember = ({ data, has_community }: CommunityProps) => {
   const { user } = useAuth();
   const [isOpen, setOpen] = useState<boolean>(false);
-  const latestSpotlight = data?.find((item: any, index: number) => index === 0);
+  const latestSpotlight = data?.find((_, index: number) => index === 0);
 
   return (
     <section className="rounded-xl">
