@@ -107,9 +107,7 @@ const Product = ({
           <SwiperSlide key={idx}>
             <figure
               className={`w-full rounded-lg border border-gray-100 relative ${
-                is_feathered
-                  ? "h-[350px]"
-                  : "h-[270px]"
+                is_feathered ? "h-[350px]" : "h-[270px]"
               }`}
             >
               <div className="absolute inset-0 bg-black/20 rounded-lg" />
@@ -143,7 +141,7 @@ const Product = ({
           <DollarSvg />
         </p>
       )}
-      {product?.selling_option === "For Sale or Trader Barter" && (
+      {product?.selling_option === "For Sale or Trade Barter" && (
         <div className="flex gap-2 items-center">
           <p className="size-6 shrink-0 rounded-full bg-accent-red grid place-items-center">
             <DollarSvg />
@@ -164,11 +162,13 @@ const Product = ({
         {has_cart && (
           <button
             onClick={handleAddToCart}
-            disabled={addCardPending || user?.role === "vendor"}
-            className={`flex gap-2 items-center px-3 py-1.5 rounded-[5px] border font-semibold text-secondary-gray duration-500 transition-all hover:bg-primary-green sm:text-base text-sm hover:text-accent-white hover:scale-95 ${
-              addCardPending || user?.role === "vendor"
+            disabled={
+              addCardPending || product?.selling_option === "Trader/Barter"
+            }
+            className={`flex gap-2 items-center px-3 py-1.5 rounded-[5px] border font-semibold text-secondary-gray duration-500 transition-all sm:text-base text-sm ${
+              addCardPending || product?.selling_option === "Trader/Barter"
                 ? "cursor-not-allowed opacity-75 border-gray-400"
-                : "cursor-pointer border-secondary-gray"
+                : "cursor-pointer border-secondary-gray hover:bg-primary-green hover:text-accent-white hover:scale-95"
             }
               `}
           >

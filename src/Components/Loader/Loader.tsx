@@ -38,7 +38,7 @@ export const ShopBannerSkeleton = () => {
               {Array.from({ length: 5 }).map((_, idx) => (
                 <div
                   key={idx}
-                  className="size-9 shrink-0 shadow border border-gray-300 rounded-full bg-gray-6300"
+                  className="size-9 shrink-0 shadow border border-gray-300 rounded-full bg-gray-300"
                 ></div>
               ))}
               <div className="h-5 w-8 bg-gray-300 rounded"></div>
@@ -368,6 +368,22 @@ export const ShopListSkeleton = () => {
           <div className="h-4 w-2/3 bg-gray-200 rounded"></div>
         </div>
       </div>
+    </div>
+  );
+};
+
+// Single Shop Skeleton
+export const SingleShopSkeleton = () => {
+  return (
+    <div className="text-center animate-pulse">
+      {/* Circle Image Skeleton */}
+      <figure className="size-44 mx-auto rounded-full overflow-hidden bg-gray-200"></figure>
+
+      {/* Shop Name Skeleton */}
+      <div className="mt-4 h-4 w-32 mx-auto bg-gray-200 rounded"></div>
+
+      {/* Address Skeleton */}
+      <div className="mt-2 h-3 w-48 mx-auto bg-gray-200 rounded"></div>
     </div>
   );
 };

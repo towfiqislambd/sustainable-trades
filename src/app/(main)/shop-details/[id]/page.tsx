@@ -1,6 +1,12 @@
 "use client";
 import React, { use, useState } from "react";
 import {
+  AboutShopSkeleton,
+  ShopBannerSkeleton,
+  ShopFAQSkeleton,
+  ShopPoliciesSkeleton,
+} from "@/Components/Loader/Loader";
+import {
   getAllListings,
   getFeaturedListings,
   getProductCategoriesClient,
@@ -14,12 +20,6 @@ import ShopPolicies from "@/Components/PageComponents/mainPages/shopDetailsCompo
 import ShopListing from "@/Components/PageComponents/mainPages/shopDetailsComponents/ShopListing";
 import ShopReviews from "@/Components/PageComponents/mainPages/shopDetailsComponents/ShopReviews";
 import DetailsTab from "@/Components/PageComponents/mainPages/shopDetailsComponents/DetailsTab";
-import {
-  AboutShopSkeleton,
-  ShopBannerSkeleton,
-  ShopFAQSkeleton,
-  ShopPoliciesSkeleton,
-} from "@/Components/Loader/Loader";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -56,13 +56,17 @@ const page = ({ params }: Props) => {
 
   return (
     <>
+      {/* Shop Banner */}
       {shopDetailLoading ? (
         <ShopBannerSkeleton />
       ) : (
         <ShopBanner data={shopDetailsData?.data} />
       )}
 
+      {/* Shop Tabs */}
       <DetailsTab />
+
+      {/* Shop Listings */}
       <ShopListing
         featuredListings={featuredListings?.data}
         allListings={allListings?.data}
@@ -78,17 +82,25 @@ const page = ({ params }: Props) => {
         productCategories={productCategories?.data}
         productSubCategories={productSubCategories?.data}
       />
+
+      {/* Shop Reviews */}
       <ShopReviews />
+
+      {/* Shop About */}
       {shopDetailLoading ? (
         <AboutShopSkeleton />
       ) : (
         <AboutShop data={shopDetailsData?.data?.shop_info} />
       )}
+
+      {/* Shop Policies */}
       {shopDetailLoading ? (
         <ShopPoliciesSkeleton />
       ) : (
         <ShopPolicies data={shopDetailsData?.data?.shop_info?.policies} />
       )}
+
+      {/* Shop FAQ */}
       {shopDetailLoading ? (
         <ShopFAQSkeleton />
       ) : (

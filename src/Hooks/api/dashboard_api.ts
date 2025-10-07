@@ -90,7 +90,7 @@ export const useRequestApproval = (id: string | number) => {
   });
 };
 
-// Get All Listings
+// Get All Spotlight
 export const getmemberShipspotlight = () => {
   return useClientApi({
     method: "get",
@@ -196,4 +196,43 @@ export const useDeleteAccount = () => {
     },
   });
 };
+
+
+
+// Create Discount
+export const useCreateDiscount = () => {
+  return useClientApi({
+    method: "post",
+    key: ["create-discount"],
+    isPrivate: true,
+    endpoint: "/api/discounts",
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        toast.success(data?.message || "Discount created successfully!");
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message || "Failed to create discount.");
+    },
+  });
+};
+
+// Create Taxes Hooks
+export const useTaxes = () => {
+  return useClientApi({
+    method: "post",
+    key: ["save-taxes"],
+    isPrivate: true,
+    endpoint: "/api/shop-taxes",
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        toast.success(data?.message || "Saving tax rate");
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message || "Failed to Saving tax rate");
+    },
+  });
+};
+
 

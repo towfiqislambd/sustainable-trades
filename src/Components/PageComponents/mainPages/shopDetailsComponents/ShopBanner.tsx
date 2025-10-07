@@ -17,6 +17,7 @@ const ShopBanner = ({ data }: any) => {
     data?.shop_info?.id
   );
 
+  // Func for follow shop
   const handleFollowShop = () => {
     if (!user) {
       return toast.error("Please login first");
@@ -24,6 +25,7 @@ const ShopBanner = ({ data }: any) => {
     followShopMutation();
   };
 
+  // Func for send message
   const handleMessage = () => {
     if (!user) {
       return toast.error("Please login first");
