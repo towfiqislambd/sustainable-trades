@@ -16,8 +16,11 @@ type Props = {
 };
 
 const LocalMagicMarker = ({ address }: Props) => {
+  // States
   const [searchShop, setSearchShop] = useState<string>(address);
   const [hoveredShop, setHoveredShop] = useState<any>(null);
+
+  // Queries
   const { data: shopData, isLoading: shopLoading } =
     getAllShopsClient(searchShop);
 

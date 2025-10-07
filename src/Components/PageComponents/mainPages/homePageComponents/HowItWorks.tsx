@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import Container from "@/Components/Common/Container";
 import Image from "next/image";
+import Container from "@/Components/Common/Container";
 
 type workItem = {
   id: number;
@@ -36,7 +36,9 @@ const HowItWorks = ({ data }: worksProps) => {
                 {item?.title}
               </h3>
 
-              <p className="md:text-lg text-primary-green">{item?.description}</p>
+              <p className="md:text-lg text-primary-green">
+                {item?.description}
+              </p>
             </div>
           ))}
         </div>

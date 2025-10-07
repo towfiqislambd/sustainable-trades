@@ -10,7 +10,24 @@ import Container from "@/Components/Common/Container";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { SingleShopSkeleton } from "@/Components/Loader/Loader";
 
-const TopVendors = ({ data, vendorLoading }: any) => {
+type vendorItem = {
+  id: number;
+  shop_info: {
+    user_id: number;
+    shop_image: string;
+    shop_name: string;
+    address: {
+      address_line_1: string;
+    };
+  };
+};
+
+interface vendorProps {
+  data: vendorItem[];
+  vendorLoading: any;
+}
+
+const TopVendors = ({ data, vendorLoading }: vendorProps) => {
   return (
     <section className="mb-20">
       <Container>
@@ -30,7 +47,6 @@ const TopVendors = ({ data, vendorLoading }: any) => {
           <Swiper
             modules={[Navigation]}
             spaceBetween={20}
-            // slidesPerView={5}
             navigation={{
               nextEl: ".swiper-button-next-custom",
               prevEl: ".swiper-button-prev-custom",
@@ -67,7 +83,7 @@ const TopVendors = ({ data, vendorLoading }: any) => {
                     <SingleShopSkeleton />
                   </SwiperSlide>
                 ))
-              : data?.map((item: any) => (
+              : data?.map(item => (
                   <SwiperSlide key={item?.id}>
                     <Link
                       href={`/shop-details/${item?.shop_info?.user_id}`}
