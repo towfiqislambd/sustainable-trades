@@ -4,6 +4,7 @@ import Shop from "@/Components/Common/Shop";
 import Product from "@/Components/Common/Product";
 import DashBoardHeader from "@/Components/Common/DashBoardHeader";
 import { getAllFollowList, getAllShoplist } from "@/Hooks/api/dashboard_api";
+import { ProductSkeleton } from "@/Components/Loader/Loader";
 
 const Favourites = () => {
   const tabs: string[] = ["Follow ShopLists", "WishLists"];
@@ -20,7 +21,10 @@ const Favourites = () => {
 
   return (
     <>
-      <DashBoardHeader heading="Your Favorites" placeholder="Search favorites"/>
+      <DashBoardHeader
+        heading="Your Favorites"
+        placeholder="Search favorites"
+      />
 
       {/* Tabs */}
       <div className="flex gap-x-10 items-center mt-5">
@@ -43,9 +47,7 @@ const Favourites = () => {
       {isActive === "WishLists" && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-x-6 gap-y-10 mt-10">
           {wishlistLoading ? (
-            <p className="text-center text-gray-500 col-span-full">
-              Loading wishlist...
-            </p>
+            [1, 2, 3, 4].map((_, index) => <ProductSkeleton key={index} />)
           ) : wishlistProducts?.length > 0 ? (
             wishlistProducts?.map((item: any) => (
               <Product
@@ -71,9 +73,7 @@ const Favourites = () => {
       {isActive === "Follow ShopLists" && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-x-6 gap-y-10 mb-14 mt-10">
           {shoplistLoading ? (
-            <p className="text-center text-gray-500 col-span-full">
-              Loading followed shops...
-            </p>
+            [1, 2, 3, 4].map((_, index) => <ProductSkeleton key={index} />)
           ) : followShops.length > 0 ? (
             followShops.map((item: any) => (
               <Shop
@@ -82,7 +82,7 @@ const Favourites = () => {
                   id: item?.shop?.id,
                   shop_name: item?.shop?.shop_name,
                   shop_image: item?.shop?.shop_image,
-                  shop_location: item?.shop?.shop_location,
+                  shop_location: item?.shop?.address?.address_line_1,
                 }}
               />
             ))
