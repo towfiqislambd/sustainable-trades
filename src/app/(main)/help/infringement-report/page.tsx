@@ -1,11 +1,10 @@
-"use client";
 import React from "react";
 import Container from "@/Components/Common/Container";
 import HelpUsTab from "@/Components/Common/HelpUsTab";
-import { getInfringement } from "@/Hooks/api/cms_api";
+import { getInfringementData } from "@/Hooks/api/cms_api";
 
-const Page = () => {
-  const { data: infringementData, isLoading } = getInfringement();
+const Page = async () => {
+  const infringementData = await getInfringementData();
 
   return (
     <>

@@ -1,11 +1,10 @@
-"use client";
 import React from "react";
-import { getTerms } from "@/Hooks/api/cms_api";
+import { getTermsData } from "@/Hooks/api/cms_api";
 import Container from "@/Components/Common/Container";
 import HelpUsTab from "@/Components/Common/HelpUsTab";
 
-const Page = () => {
-  const { data: termsData, isLoading } = getTerms();
+const Page = async () => {
+  const termsData = await getTermsData();
 
   return (
     <>

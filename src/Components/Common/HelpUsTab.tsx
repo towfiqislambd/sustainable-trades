@@ -8,7 +8,6 @@ import h3 from "@/Assets/h3.svg";
 import h4 from "@/Assets/h4.svg";
 import h5 from "@/Assets/h5.svg";
 import { usePathname } from "next/navigation";
-
 const navLinks = [
   {
     id: Math.random(),
@@ -41,12 +40,13 @@ const navLinks = [
     logo: h5,
   },
 ];
+
 const HelpUsTab = () => {
   const pathname = usePathname();
 
   return (
     <div className="w-full flex flex-wrap gap-1 lg:gap-0 justify-between items-center lg:block lg:w-[280px] lg:py-8 px-2 sm:px-5 shrink-0 lg:shadow-[0_3px_8px_0_rgba(0,0,0,0.08),_0_3px_10px_0_rgba(0,0,0,0.12)]  space-y-4 rounded-lg ">
-      {navLinks?.map(({ id, page_title, path, logo }: any) => (
+      {navLinks?.map(({ id, page_title, path, logo }) => (
         <Link
           key={id}
           href={path}
@@ -56,6 +56,7 @@ const HelpUsTab = () => {
               : "text-[#77978F] border-transparent"
           }`}
         >
+          {/* Logo */}
           <figure className="size-[24px] hidden lg:block relative">
             <Image
               src={logo}
@@ -64,6 +65,8 @@ const HelpUsTab = () => {
               className="size-full object-cover"
             />
           </figure>
+
+          {/* Title */}
           <span>{page_title}</span>
         </Link>
       ))}

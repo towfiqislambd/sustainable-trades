@@ -1,12 +1,11 @@
-"use client";
 import React from "react";
 import Banner from "@/Components/Common/Banner";
-import { getContact } from "@/Hooks/api/cms_api";
 import HelpUsTab from "@/Components/Common/HelpUsTab";
 import Container from "@/Components/Common/Container";
+import { getContactData } from "@/Hooks/api/cms_api";
 
-const Page = () => {
-  const { data: contactData, isLoading } = getContact();
+const Page = async () => {
+  const contactData = await getContactData();
 
   return (
     <>
@@ -22,7 +21,7 @@ const Page = () => {
             <HelpUsTab />
 
             {/* Right */}
-            <div className="grow px-2.5 sm:px-0 grow">
+            <div className="grow px-2.5 sm:px-0">
               <div
                 dangerouslySetInnerHTML={{
                   __html: contactData?.data?.description,
