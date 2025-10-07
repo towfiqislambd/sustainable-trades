@@ -199,8 +199,8 @@ export const useDeleteAccount = () => {
 
 
 
-// Create Discount  API
-export const CreateDiscount = () => {
+// ✅ dashboard_api.ts
+export const useCreateDiscount = () => {
   return useClientApi({
     method: "post",
     key: ["create-discount"],
@@ -216,4 +216,5 @@ export const CreateDiscount = () => {
     },
   });
 };
+
 

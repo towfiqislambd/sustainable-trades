@@ -131,10 +131,8 @@ const CreateDiscount = () => {
               Select Product
             </h5>
             <select className="w-full border border-[#67645F] rounded-md px-4 py-5 text-[16px] font-bold text-[#13141D]">
-              {productlist?.data?.map((product: any, id: number) => (
-                <option key={product.id} value={product.id}>
-                  {product?.product_name}
-                </option>
+              {productlist?.data?.map((product: any,id:number) => (
+                <option key={product.id} value={product.id}>{product?.product_name}</option>
               ))}
             </select>
           </div>
