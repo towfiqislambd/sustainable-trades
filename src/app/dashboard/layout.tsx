@@ -20,8 +20,8 @@ import {
   PTwelveSvg,
   PTwoSvg,
 } from "@/Components/Svg/SvgContainer";
-import DashboardHeader from "@/Shared/DashboardHeader";
 import useAuth from "@/Hooks/useAuth";
+import DashboardHeader from "@/Shared/DashboardHeader";
 import PrivateLayout from "@/Private/PrivateLayout";
 
 const proNavLinks = [

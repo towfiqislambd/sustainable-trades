@@ -64,7 +64,7 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
         </p>
 
         {/* Tabs */}
-        <div className="flex md:gap-5 p-1.5 md:p-3 rounded-xl shadow w-full md:w-[350px] mx-auto bg-primary-green mb-7 md:mb-14">
+        <div className="flex md:gap-5 p-1.5 md:p-3 rounded-xl shadow w-full md:w-[380px] mx-auto bg-primary-green mb-7 md:mb-14">
           <button
             type="button"
             onClick={e => {

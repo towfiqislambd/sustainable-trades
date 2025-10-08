@@ -1,7 +1,4 @@
 "use client";
-import type React from "react";
-import { useState } from "react";
-import { useFormContext, useFieldArray } from "react-hook-form";
 import PaymentCardIcons, {
   Camera,
   Facebook,
@@ -9,8 +6,11 @@ import PaymentCardIcons, {
   Pinterest,
   Website,
 } from "@/Components/Svg/SvgContainer";
-import { LiaExclamationCircleSolid } from "react-icons/lia";
+import type React from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
+import { LiaExclamationCircleSolid } from "react-icons/lia";
+import { useFormContext, useFieldArray } from "react-hook-form";
 
 const StepThree = ({ step, totalSteps, setStep }: any) => {
   const {
@@ -78,7 +78,7 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
   };
 
   return (
-    <section className="">
+    <>
       <h2 className="auth_title lg:mt-16 mt-8">About Your Shop</h2>
 
       <div className="border border-[#A7A39C] rounded-[20px] lg:my-[56px] my-8 lg:p-20 px-5">
@@ -121,6 +121,7 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
               </>
             )}
           </div>
+
           <input
             type="file"
             id="profilePhotoInput"
@@ -136,6 +137,7 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
               {errors.about_image.message as string}
             </p>
           )}
+
           <h5 className="text-[#67645F] text-[14px] mt-2 lg:text-start text-center">
             Max file size: 10 MB
           </h5>
@@ -147,10 +149,12 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
             About Shop
           </p>
 
+          {/* Tagline */}
           <div className="mb-4">
             <label className="block text-[#4B4A47] font-semibold mb-1">
               Tagline
             </label>
+
             <input
               type="text"
               {...register("tagline", {
@@ -166,10 +170,12 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
             )}
           </div>
 
+          {/* Two-Sentence Statement */}
           <div className="mb-4">
             <label className="block text-[#4B4A47] font-semibold mb-1">
               Two-Sentence Statement
             </label>
+
             <textarea
               {...register("statement", {
                 required: "Write a statement",
@@ -184,14 +190,15 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
             )}
           </div>
 
+          {/* Our Story */}
           <div className="mb-4">
             <label className="block text-[#4B4A47] font-semibold mb-1">
-              Our Story <span className="text-[#A7A39C]">(450 words max)</span>
+              Our Story
             </label>
+
             <textarea
               {...register("our_story", {
                 required: "Write our story",
-                maxLength: { value: 3000, message: "Max 450 words" },
               })}
               placeholder="Tell the story behind your shop, your journey, values, and passion."
               className="form-input lg:h-fit h-32"
@@ -210,6 +217,7 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
             Shop Policies
           </p>
 
+          {/* Payment Methods */}
           <div className="mb-4">
             <label className="block text-[#4B4A47] font-semibold mb-1">
               Accepted Payment Methods
@@ -246,6 +254,7 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
             )}
           </div>
 
+          {/* Shipping Information */}
           <div className="mb-4">
             <label className="block text-[#4B4A47] font-semibold mb-1">
               Shipping Information
@@ -264,6 +273,7 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
             )}
           </div>
 
+          {/* Return & Exchanges */}
           <div className="mb-4">
             <label className="block text-[#4B4A47] font-semibold mb-1">
               Returns & Exchanges
@@ -443,7 +453,7 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
           {step < totalSteps ? "Save and Continue" : "Submit"}
         </button>
       </div>
-    </section>
+    </>
   );
 };
 
