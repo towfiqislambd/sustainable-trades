@@ -387,3 +387,47 @@ export const SingleShopSkeleton = () => {
     </div>
   );
 };
+
+// Cart Item Skeleton
+export const CartItemSkeleton = () => {
+  return (
+    <div className="border border-gray-300 p-5 rounded-lg bg-white animate-pulse">
+      {/* Shop Info */}
+      <div className="flex flex-col sm:flex-row justify-between sm:items-center mt-3 mb-5">
+        <div className="flex gap-2 sm:gap-5 items-center">
+          <div className="size-12 rounded-full bg-gray-200" />
+          <div className="h-5 w-40 bg-gray-200 rounded" />
+        </div>
+
+        <div className="flex gap-2 items-center">
+          <div className="h-5 w-28 bg-gray-200 rounded" />
+        </div>
+
+        <div className="h-8 w-24 bg-gray-200 rounded-full" />
+      </div>
+
+      {/* Product Info */}
+      <div className="space-y-6">
+        {[1, 2].map(i => (
+          <div
+            key={i}
+            className="flex flex-col sm:flex-row gap-5 border-b last:border-b-0 border-gray-300 pb-7 last:pb-0"
+          >
+            {/* Product Image */}
+            <div className="w-full sm:w-[180px] h-[140px] bg-gray-200 rounded-lg" />
+
+            <div className="grow space-y-4">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                <div className="h-5 w-40 bg-gray-200 rounded" />
+                <div className="h-6 w-16 bg-gray-200 rounded" />
+              </div>
+
+              {/* Remove Button Skeleton */}
+              <div className="h-4 w-20 bg-gray-200 rounded" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
