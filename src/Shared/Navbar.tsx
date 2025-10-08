@@ -30,7 +30,9 @@ const Navbar = ({ siteSettings, dynamicPage }: any) => {
 
       <nav className="sticky top-0 z-50">
         {/* Upper Navbar */}
-        {user ? (
+        {user &&
+        (user?.role === "customer" ||
+          (user?.role === "vendor" && user?.membership)) ? (
           <BasicNavbar dynamicPage={dynamicPage} siteSettings={siteSettings} />
         ) : (
           <DefaultNavbar
@@ -41,7 +43,10 @@ const Navbar = ({ siteSettings, dynamicPage }: any) => {
         )}
 
         {/* Lower Navbar*/}
-        {!user && <LowerNavbar dynamicPage={dynamicPage} />}
+        {!user ||
+          (user?.role === "vendor" && !user?.membership && (
+            <LowerNavbar dynamicPage={dynamicPage} />
+          ))}
       </nav>
 
       {/* Scroll to top */}

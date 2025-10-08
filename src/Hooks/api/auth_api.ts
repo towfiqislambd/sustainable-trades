@@ -109,7 +109,10 @@ export const useLogin = () => {
     key: ["login"],
     endpoint: "/api/users/login",
     onSuccess: (data: any) => {
-      if (data?.success) {
+      if (
+        data?.success &&
+        (data?.data?.role === "customer" || data?.data?.membership)
+      ) {
         setToken(data?.data?.token);
         toast.success(data?.message);
         router.push(
@@ -122,6 +125,10 @@ export const useLogin = () => {
               : "/dashboard/basic/home"
           }`
         );
+      } else {
+        setToken(data?.data?.token);
+        toast.error("Please choose a plan");
+        router.push(`/auth/create-shop?step=${5}`);
       }
     },
     onError: (err: any) => {
