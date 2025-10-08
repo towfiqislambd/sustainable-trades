@@ -230,3 +230,22 @@ export const useDiscountget = () => {
 };
 
 
+// Create Flat Rate Hooks
+export const useFlatRate = () => {
+  return useClientApi({
+    method: "post",
+    key: ["flat-rate"],
+    isPrivate: true,
+    endpoint: "/api/flat-rates",
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        toast.success(data?.message || "Flat rate Create Successfully");
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message || "Failed to create flat rate");
+    },
+  });
+};
+
+

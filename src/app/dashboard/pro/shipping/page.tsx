@@ -4,10 +4,40 @@ import { MdDelete } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
 import { FaAngleDown } from "react-icons/fa";
 import { FaAngleLeft } from "react-icons/fa6";
+import { useFlatRate } from "@/Hooks/api/dashboard_api";
+import toast from "react-hot-toast";
 
 const Page = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [optionName, setOptionName] = useState("");
+  const [orderFee, setOrderFee] = useState("");
+  const [peritemFee, setPerItemFee] = useState("");
+  const { mutate: FlatRateMutation, isPending } = useFlatRate();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!optionName || !orderFee || !peritemFee) {
+      toast.error("all field is required");
+      return;
+    }
+    FlatRateMutation(
+      {
+        option_name: optionName,
+        per_order_fee: orderFee,
+        per_item_fee: peritemFee,
+      },
+      {
+        onSuccess: (data: any) => {
+          console.log(data);
+          if (data) setOptionName("");
+          setOrderFee("");
+          setPerItemFee("");
+          closeModal();
+        },
+      }
+    );
+  };
 
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
@@ -129,7 +159,10 @@ const Page = () => {
                 EDIT FLAT RATE
               </h3>
             </div>
-            <div className="mt-2.5 md:mt-5 flex flex-col gap-y-5">
+            <form
+              onSubmit={handleSubmit}
+              className="mt-2.5 md:mt-5 flex flex-col gap-y-5"
+            >
               <h5 className="text-[#3D3D3D] font-semibold text-[16px] text-center pb-4 border-b border-[#3D3D3D]">
                 Formula
               </h5>
@@ -139,41 +172,47 @@ const Page = () => {
                   type="text"
                   className="form-input"
                   placeholder="“FedEx Next Day”, “USPS Express Mail”"
+                  value={optionName}
+                  onChange={e => setOptionName(e.target.value)}
                 />
               </div>
               <div className="flex gap-x-10">
                 <div className="w-full">
                   <p className="form-label font-bold">Per Order Fee </p>
                   <input
-                    type="text"
+                    type="number"
                     className="form-input"
                     placeholder="$ XXX"
+                    value={orderFee}
+                    onChange={e => setOrderFee(e.target.value)}
                   />
                   <p className="text-[16px] font-normal text-[#67645F] pt-3">
-                    A base fee for every order places
+                    A base fee for every order placed
                   </p>
                 </div>
                 <div className="w-full">
                   <p className="form-label font-bold">Fee per item </p>
                   <input
-                    type="text"
+                    type="number"
                     className="form-input"
                     placeholder="$ XXX"
+                    value={peritemFee}
+                    onChange={e => setPerItemFee(e.target.value)}
                   />
                   <p className="text-[16px] font-normal text-[#67645F] pt-3">
                     An additional fee for each physical item in the order
                   </p>
                 </div>
               </div>
-            </div>
-            <div className="flex justify-end">
-              <button
-                onClick={closeModal}
-                className="mt-8 px-4 py-2 md:py-4 text-white font-semibold bg-[#274F45] rounded cursor-pointer w-[190px]"
-              >
-                Save
-              </button>
-            </div>
+              <div className="flex justify-end">
+                <button
+                  type="submit"
+                  className="mt-8 px-4 py-2 md:py-4 text-white font-semibold bg-[#274F45] rounded cursor-pointer w-[190px]"
+                >
+                  {isPending ? "Saving..." : "Save"}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
