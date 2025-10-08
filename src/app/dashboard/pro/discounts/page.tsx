@@ -3,12 +3,16 @@
 import { Delete, Pen } from "@/Components/Svg/SvgContainer";
 import { useDiscountget } from "@/Hooks/api/dashboard_api";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 
 const DiscountsPage = () => {
   const [activeTab, setActiveTab] = useState("Active");
   const [selected, setSelected] = useState<string[]>([]);
+  const [discounts, setDiscounts] = useState<any[]>([]);
+  const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>(
+    {}
+  );
   const { data: getdiscountdata } = useDiscountget();
   console.log(getdiscountdata);
 
@@ -22,45 +26,49 @@ const DiscountsPage = () => {
     });
   };
 
-  // Map API data to UI format
-  const discounts =
-    getdiscountdata?.data?.map((item: any) => {
-      let desc = "";
-      if (item.promotion_type === "percentage") {
-        desc = `${item.amount}% off`;
-      } else {
-        desc = `$${parseFloat(item.amount).toFixed(2)} off`;
-      }
-      if (item.applies === "any_order") {
-        desc += " the shopper’s entire order";
-      } else {
-        const productName = item.product?.product_name || "selected product";
-        desc += ` ${productName}`;
-      }
+  useEffect(() => {
+    if (getdiscountdata?.data) {
+      const mapped = getdiscountdata.data.map((item: any) => {
+        let desc = "";
+        if (item.promotion_type === "percentage") {
+          desc = `${item.amount}% off`;
+        } else {
+          desc = `$${parseFloat(item.amount).toFixed(2)} off`;
+        }
+        if (item.applies === "any_order") {
+          desc += " the shopper’s entire order";
+        } else {
+          const productName = item.product?.product_name || "selected product";
+          desc += ` ${productName}`;
+        }
 
-      const status = item.status.charAt(0).toUpperCase() + item.status.slice(1);
+        const status =
+          item.status.charAt(0).toUpperCase() + item.status.slice(1);
 
-      const ends =
-        item.never_expires || !item.end_date
-          ? "Never Expires"
-          : `${formatDate(item.end_date)} at ${item.end_time || "00:00:00"}`;
+        const ends =
+          item.never_expires || !item.end_date
+            ? "Never Expires"
+            : `${formatDate(item.end_date)} at ${item.end_time || "00:00:00"}`;
 
-      const uses =
-        item.discount_limits === 0
-          ? "Unlimited Uses"
-          : `0 of ${item.discount_limits} Uses`;
+        const uses =
+          item.discount_limits === 0
+            ? "Unlimited Uses"
+            : `0 of ${item.discount_limits} Uses`;
 
-      return {
-        id: item.id.toString(),
-        title: item.name,
-        description: desc,
-        starts: `${formatDate(item.start_date)} at ${item.start_time}`,
-        ends,
-        code: item.code,
-        uses,
-        status,
-      };
-    }) || [];
+        return {
+          id: item.id.toString(),
+          title: item.name,
+          description: desc,
+          starts: `${formatDate(item.start_date)} at ${item.start_time}`,
+          ends,
+          code: item.code,
+          uses,
+          status,
+        };
+      });
+      setDiscounts(mapped);
+    }
+  }, [getdiscountdata]);
 
   // Filtered discounts by active tab
   const filtered = discounts.filter((d: any) => d.status === activeTab);
@@ -77,6 +85,17 @@ const DiscountsPage = () => {
     if (selected.length === 0) return;
     alert(`Deleting discounts: ${selected.join(", ")}`);
     setSelected([]);
+  };
+
+  const toggleOpen = (id: string) => {
+    setOpenDropdowns(prev => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const handleChangeStatus = (id: string, newStatus: string) => {
+    setDiscounts(prev =>
+      prev.map(d => (d.id === id ? { ...d, status: newStatus } : d))
+    );
+    toggleOpen(id);
   };
 
   const tabs = [
@@ -176,22 +195,55 @@ const DiscountsPage = () => {
               </div>
 
               {/* Right side */}
-              <div className="flex items-end  w-full md:w-fit md:justify-end flex-col   space-y-2">
+              <div className="flex items-end w-full md:w-fit md:justify-end flex-col space-y-2 relative">
                 <div className="text-[15px] md:text-[20px] font-bold text-[#13141D]">
                   {d.code}
                 </div>
+
                 <div className="flex justify-end my-0.5 md:my-2">
                   <Link
                     href={`/dashboard/pro/discounts/create-discount/${d.id}`}
                   >
-                    <button className="py-1.5 px-3  md:p-3 md:text-sm rounded bg-[#D4E2CB] text-[#274F45] cursor-pointer flex gap-x-2 font-semibold">
+                    <button className="py-1.5 px-3 md:p-3 md:text-sm rounded bg-[#D4E2CB] text-[#274F45] cursor-pointer flex gap-x-2 font-semibold">
                       <Pen />
                       Edit
                     </button>
                   </Link>
                 </div>
-                <div className="text-[16px]] text-[#13141D] font-bold">
+
+                <div className="text-[16px] text-[#13141D] font-bold">
                   {d.uses}
+                </div>
+
+                {/* Status Dropdown */}
+                <div className="relative">
+                  <button
+                    onClick={() => toggleOpen(d.id)}
+                    className={`px-2 py-1 rounded text-sm font-semibold cursor-pointer ${
+                      d.status.toLowerCase() === "active"
+                        ? "bg-green-100 text-green-800"
+                        : "bg-red-100 text-red-800"
+                    }`}
+                  >
+                    {d.status}
+                  </button>
+
+                  {openDropdowns[d.id] && (
+                    <div className="absolute right-0 mt-1 w-32 bg-white border rounded shadow-lg z-10">
+                      <div
+                        className="px-4 py-2 cursor-pointer hover:bg-green-100"
+                        onClick={() => handleChangeStatus(d.id, "Active")}
+                      >
+                        Active
+                      </div>
+                      <div
+                        className="px-4 py-2 cursor-pointer hover:bg-red-100"
+                        onClick={() => handleChangeStatus(d.id, "Inactive")}
+                      >
+                        Inactive
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
