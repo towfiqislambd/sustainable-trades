@@ -15,7 +15,7 @@ type TradeLayoutProps = {
 
 const Page = () => {
   const { data } = useTradeCounts();
-  const { data: tradeData } = useTradesdata();
+  const { data: tradeData } = useTradesdata("");
 
   const [activeTab, setActiveTab] = useState("Pending");
 
@@ -32,28 +32,28 @@ const Page = () => {
   //   Approved: 2,
   //   Canceled: 3,
   // };
-  const tradetabs = [
-    {
-      id: 1,
-      label: "Pending",
-      count: data?.data?.pending_count,
-    },
-    {
-      id: 2,
-      label: "Sent",
-      count: data?.data?.sent_count,
-    },
-    {
-      id: 3,
-      label: "Approved",
-      count: data?.data?.accepted_count,
-    },
-    {
-      id: 4,
-      label: "Canceled",
-      count: data?.data?.cancelled_count,
-    },
-  ];
+const tradetabs = [
+  {
+    id: 1,
+    label: "Pending",
+    count: data?.data?.pending_count,
+  },
+  {
+    id: 2,
+    label: "Sent",
+    count: data?.data?.sent_count,
+  },
+  {
+    id: 3,
+    label: "Approved",
+    count: data?.data?.accepted_count,
+  },
+  {
+    id: 4,
+    label: "Canceled",
+    count: data?.data?.cancelled_count,
+  },
+];
 
   return (
     <div>
@@ -107,9 +107,13 @@ const Page = () => {
 
       {activeTab === "Sent" && <SentTrades />}
 
-      {activeTab === "Approved" && <PreviousTrades />}
+      {activeTab === "Approved" && (
+        <PreviousTrades approveTradeData={tradeData?.data} />
+      )}
 
-      {activeTab === "Canceled" && <CanceledTrades />}
+      {activeTab === "Canceled" && (
+        <CanceledTrades canceledTradeData={tradeData?.data} />
+      )}
 
       <div className="w-2/5 mt-10 border border-gray-300 rounded-lg p-6 ml-5">
         <h3 className="text-[#13141D] text-[16px] font-semibold">

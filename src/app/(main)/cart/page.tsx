@@ -1,11 +1,10 @@
 "use client";
 import React from "react";
+import { getProductCart } from "@/Hooks/api/cms_api";
+import PrivateLayout from "@/Private/PrivateLayout";
 import Container from "@/Components/Common/Container";
 import PaymentOptions from "@/Components/PageComponents/mainPages/cartPageComponents/PaymentOptions";
 import ShopLocation from "@/Components/PageComponents/mainPages/cartPageComponents/ShopLocation";
-import SimilarItems from "@/Components/PageComponents/mainPages/cartPageComponents/SimilarItems";
-import { getProductCart } from "@/Hooks/api/cms_api";
-import PrivateLayout from "@/Private/PrivateLayout";
 
 const page = () => {
   const { data: cartData, isLoading } = getProductCart();

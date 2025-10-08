@@ -1,4 +1,5 @@
 "use client";
+
 import { useLogout } from "@/Hooks/api/auth_api";
 import { useDeleteAccount } from "@/Hooks/api/dashboard_api";
 import useAuth from "@/Hooks/useAuth";
