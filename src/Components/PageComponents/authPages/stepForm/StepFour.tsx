@@ -1,19 +1,19 @@
 "use client";
-import React, { useState } from "react";
-import toast from "react-hot-toast";
-import { useFormContext } from "react-hook-form";
 import {
   GoogleMap,
   Marker,
   Circle,
   useJsApiLoader,
 } from "@react-google-maps/api";
+import toast from "react-hot-toast";
+import React, { useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
+import { useFormContext } from "react-hook-form";
 import AddressForm from "@/Components/Modals/LocatorModal";
 
 const containerStyle = {
   width: "100%",
-  height: "500px",
+  height: "550px",
   borderRadius: "12px",
 };
 
@@ -164,8 +164,8 @@ const StepFour = ({ setStep, step, isPending }: any) => {
         )}
 
         {/* Options Panel */}
-        <div className="absolute top-8 right-4 z-10 py-6 max-w-[528px] overflow-y-auto">
-          <div className="bg-[#FFFDF8] p-6 rounded-lg flex flex-col gap-y-6">
+        <div className="absolute top-8 right-10 z-10 py-6 max-w-[528px] overflow-y-auto">
+          <div className="bg-[#FFFDF8] px-6 py-10 rounded-lg flex flex-col gap-y-6">
             {[1, 2, 3].map(opt => (
               <div key={opt} className="flex gap-x-4 items-start">
                 <input
@@ -173,16 +173,17 @@ const StepFour = ({ setStep, step, isPending }: any) => {
                   name="location_option"
                   checked={selectedOption === opt}
                   onChange={() => handleCheckboxClick(opt)}
-                  className="mt-2 size-5"
+                  className="mt-2 size-5 shrink-0"
                 />
+
                 <div>
-                  <h3 className="text-[#13141D] font-semibold text-[20px]">
+                  <h3 className="text-[#13141D] font-semibold text-[22px]">
                     {opt === 1 && "Display my business’ exact address."}
                     {opt === 2 &&
                       "Display my location within a 0.5-mile radius of my address."}
                     {opt === 3 && "Do not display my address."}
                   </h3>
-                  <p className="text-[#13141D] text-[14px] mt-1">
+                  <p className="text-[#13141D] mt-1">
                     {opt === 1 && "Anyone can view your exact address."}
                     {opt === 2 && "Your exact location remains private."}
                     {opt === 3 &&

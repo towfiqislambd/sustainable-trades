@@ -1,14 +1,17 @@
 "use client";
 import React from "react";
 import TradesTabs from "./TradesTabs";
-import { tradeRequests } from "@/Components/Data/data";
 
-const ApprovedTrades = () => {
-  const approvedTrades = tradeRequests.filter(
-    (trade) => trade.status === "Approved"
+const ApprovedTrades = ({ approveTradeData }: any) => {
+  const approvedTrades = approveTradeData?.filter(
+    (trade: any) => trade.status === "accepted"
   );
 
-  return <></>;
+  return (
+    <>
+      <TradesTabs tradeRequests={approvedTrades} />
+    </>
+  );
 };
 
 export default ApprovedTrades;

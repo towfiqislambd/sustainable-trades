@@ -62,7 +62,6 @@ export const getallListings = () => {
   });
 };
 
-
 // Fetch a single product/listing by ID
 export const useGetSingleListing = (id: string | number) => {
   return useClientApi({
@@ -119,33 +118,17 @@ export const getAllShoplist = () => {
   });
 };
 
-
-// Logout API
-export const useLogout = () => {
-  return useClientApi({
-    method: "post",
-    key: ["logout"],
-    isPrivate: true,
-    endpoint: "/api/users/logout",
-    onSuccess: (data: any) => {
-      if (data?.success) toast.success(data.message || "Logged out successfully!");
-    },
-    onError: (err: any) => {
-      toast.error(err?.response?.data?.message || "Logout failed");
-    },
-  });
-};
-
-
-// fahim bhai
-
 // Get All trades
-export const useTradesdata = () => {
+export const useTradesdata = (sent?: string) => {
+  const endpoint = sent
+    ? `/api/trade-offers?sent=${sent}`
+    : `/api/trade-offers`;
+
   return useClientApi({
     method: "get",
-    key: ["get-trades"],
+    key: ["get-trades", sent],
     isPrivate: true,
-    endpoint: "/api/trade-offers",
+    endpoint,
   });
 };
 
@@ -170,14 +153,14 @@ export const useCancelTrade = () => {
 export const useApproveTrade = () => {
   return useMutation({
     mutationFn: (id: any) =>
-      axiosSecure.get(`/api/trade-offer-approve/${id}`).then((res) => res.data),
+      axiosSecure.get(`/api/trade-offer-approve/${id}`).then(res => res.data),
   });
 };
 
 export const useCancel = () => {
   return useMutation({
     mutationFn: (id: any) =>
-      axiosSecure.get(`/api/trade-offer-cancel/${id}`).then((res) => res.data),
+      axiosSecure.get(`/api/trade-offer-cancel/${id}`).then(res => res.data),
   });
 };
 
@@ -189,15 +172,14 @@ export const useDeleteAccount = () => {
     isPrivate: true,
     endpoint: "/api/users/delete",
     onSuccess: (data: any) => {
-      if (data?.success) toast.success(data.message || "Account deleted successfully!");
+      if (data?.success)
+        toast.success(data.message || "Account deleted successfully!");
     },
     onError: (err: any) => {
       toast.error(err?.response?.data?.message || "Failed to delete account");
     },
   });
 };
-
-
 
 // Create Discount
 export const useCreateDiscount = () => {
@@ -235,4 +217,67 @@ export const useTaxes = () => {
   });
 };
 
+export const useDiscountget = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-discount"],
+    isPrivate: true,
+    endpoint: "/api/discounts",
+  });
+};
 
+// Create Flat Rate Hooks
+export const useFlatRate = () => {
+  return useClientApi({
+    method: "post",
+    key: ["flat-rate"],
+    isPrivate: true,
+    endpoint: "/api/flat-rates",
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message || "Failed to create flat rate");
+    },
+  });
+};
+// Create Weight Rate Hooks
+export const useWeightRate = () => {
+  return useClientApi({
+    method: "post",
+    key: ["weight-rate"],
+    isPrivate: true,
+    endpoint: "/api/weight_ranges",
+    onError: (err: any) => {
+      toast.error(
+        err?.response?.data?.message || "Failed to create Weight rate"
+      );
+    },
+  });
+};
+
+// Create Weight Rate delete Hooks
+export const useWeightRateDelete = () => {
+  return useClientApi({
+    method: "delete",
+    key: ["weight-rate-delete"],
+    isPrivate: true,
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        toast.success(data?.message || "Weight rate deleted successfully");
+      }
+    },
+    onError: (err: any) => {
+      toast.error(
+        err?.response?.data?.message || "Failed to delete weight rate"
+      );
+    },
+  });
+};
+
+// Get Weight rate Hooks
+export const useWeightRateget = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-weight"],
+    isPrivate: true,
+    endpoint: "/api/weight_ranges",
+  });
+};

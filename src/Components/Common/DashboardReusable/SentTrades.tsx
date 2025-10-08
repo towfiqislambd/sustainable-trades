@@ -1,17 +1,15 @@
 "use client";
+import { useTradesdata } from "@/Hooks/api/dashboard_api";
 import React from "react";
 import TradesTabs from "./TradesTabs";
-import { tradeRequests } from "@/Components/Data/data";
 
 const SentTrades = () => {
-  const senttradedata = tradeRequests.filter(
-    (trade) =>
-      trade.status === "Pending" ||
-      trade.status === "Approved" ||
-      trade.status === "Canceled"
+  const { data: tradeData } = useTradesdata("sent");
+  return (
+    <>
+      <TradesTabs tradeRequests={tradeData?.data} />
+    </>
   );
-
-  return <></>;
 };
 
 export default SentTrades;
