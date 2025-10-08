@@ -7,6 +7,9 @@ import Image, { type StaticImageData } from "next/image";
 import { Reload } from "@/Components/Svg/SvgContainer";
 import moment from "moment";
 import { totalAmount } from "@/helper/useTotalAmount";
+import { useApproveTrade } from "@/Hooks/api/dashboard_api";
+import toast from "react-hot-toast";
+import useAuth from "@/Hooks/useAuth";
 
 export type TradeItem = {
   image: StaticImageData | string;
@@ -36,6 +39,7 @@ export type TradeRequest = {
   inquiry: number;
   status: "pending" | "sent" | "accepted" | "cancelled";
   items: TradeItem[];
+  sender_id: number;
 };
 
 type TradesTabsProps = {
@@ -71,9 +75,27 @@ const actionButtonStyles: Record<
 };
 
 const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
-  const router = useRouter();
-  console.log(tradeRequests);
+  const { user } = useAuth();
 
+  const router = useRouter();
+  const approveTradeMutation = useApproveTrade();
+
+  console.log(actionButtons["pending"]);
+
+  const handleTrade = (btn: any, id: any) => {
+    if (btn === "Approve") {
+      approveTradeMutation.mutate(id, {
+        onSuccess: (data) => {
+          toast.success(data?.message);
+        },
+        onError: (error) => {
+          toast.error("This is not your offer");
+        },
+      });
+    }
+    if (btn === "Deny") {
+    }
+  };
   return (
     <div className="h-[600px] overflow-y-auto mt-2 sm:p-6 flex flex-col gap-6">
       {tradeRequests?.map(
@@ -163,34 +185,40 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
 
               <div className="flex flex-wrap gap-3.5 md:gap-0 justify-between items-end border-t border-[#BFBEBE] pt-3">
                 <div className="flex gap-2.5 md:gap-5 flex-wrap">
-                  {actionButtons[trade.status].map((btn, i) => {
-                    const style = actionButtonStyles[btn] || {
-                      bg: "bg-gray-200",
-                      border: "border-gray-400",
-                      text: "text-black",
-                    };
+                  {actionButtons[trade.status]
+                    ?.filter((btn) => {
+                      if (btn === "Approve" && trade?.sender_id === user?.id)
+                        return false;
+                      return true;
+                    })
+                    .map((btn, i) => {
+                      const style = actionButtonStyles[btn] || {
+                        bg: "bg-gray-200",
+                        border: "border-gray-400",
+                        text: "text-black",
+                      };
 
-                    return (
-                      <button
-                        key={i}
-                        onClick={() => {
-                          if (btn === "Counter") {
-                            router.push(
-                              `/dashboard/basic/trades/counter/${trade.id}`
-                            );
-                          } else {
-                            console.log(`${btn} clicked for trade ${trade.id}`);
-                          }
-                        }}
-                        className={`relative cursor-pointer py-[10px] border px-4 rounded-md font-lato font-semibold overflow-hidden
-            hover:scale-110 duration-500 ease-in-out
-            ${style.bg || ""} ${style.border || "border-2"} ${style.text}
-           `}
-                      >
-                        <span className="relative z-10">{btn}</span>
-                      </button>
-                    );
-                  })}
+                      return (
+                        <button
+                          key={i}
+                          onClick={() => {
+                            if (btn === "Counter") {
+                              router.push(
+                                `/dashboard/basic/trades/counter/${trade?.id}`
+                              );
+                            } else {
+                              handleTrade(btn, trade?.id);
+                            }
+                          }}
+                          className={`relative cursor-pointer py-[10px] border px-4 rounded-md font-lato font-semibold overflow-hidden
+          hover:scale-110 duration-500 ease-in-out
+          ${style.bg || ""} ${style.border || "border-2"} ${style.text}
+        `}
+                        >
+                          <span className="relative z-10">{btn}</span>
+                        </button>
+                      );
+                    })}
                 </div>
                 <Link
                   href={`/dashboard/pro/trades/${trade.id}?tab=${trade.status}`}

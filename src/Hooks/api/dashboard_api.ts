@@ -118,15 +118,17 @@ export const getAllShoplist = () => {
   });
 };
 
-// fahim bhai
-
 // Get All trades
-export const useTradesdata = () => {
+export const useTradesdata = (sent?: string) => {
+  const endpoint = sent
+    ? `/api/trade-offers?sent=${sent}`
+    : `/api/trade-offers`;
+
   return useClientApi({
     method: "get",
-    key: ["get-trades"],
+    key: ["get-trades", sent],
     isPrivate: true,
-    endpoint: "/api/trade-offers",
+    endpoint,
   });
 };
 

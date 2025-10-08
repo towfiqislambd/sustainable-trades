@@ -1,16 +1,18 @@
 "use client";
 import React from "react";
 import TradesTabs from "./TradesTabs";
-import { tradeRequests } from "@/Components/Data/data";
 
-const CanceledTrades = () => {
-  const canceltradesdata = tradeRequests.filter(
-    (cancel) => cancel.status === "Canceled"
+const CanceledTrades = ({ canceledTradeData }: any) => {
+  const canceltradesdata = canceledTradeData?.filter(
+    (cancel: any) => cancel.status === "Canceled"
   );
 
-  console.log("canceltrades", canceltradesdata);
+  
 
-  return <>{/* <TradesTabs tradeRequests={canceltradesdata} /> */}</>;
+  return (
+    <>
+      <TradesTabs tradeRequests={canceltradesdata} />
+    </>
+  );
 };
-
 export default CanceledTrades;
