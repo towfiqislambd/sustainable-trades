@@ -1,7 +1,14 @@
 import React from "react";
 import Container from "@/Components/Common/Container";
 
-const ShopPolicies = ({ data }: any) => {
+interface PolicyProps {
+  data: {
+    return_policy: string;
+    payment_methods: string[];
+  };
+}
+
+const ShopPolicies = ({ data }: PolicyProps) => {
   return (
     <section id="Shop_policies" className="mt-4 md:mt-8 lg:mt-16">
       <Container>

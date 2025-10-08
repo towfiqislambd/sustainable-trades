@@ -6,7 +6,7 @@ import {
   getProductCategories,
   getSpotlightData,
 } from "@/Hooks/api/cms_api";
-import CommunityMember from "@/Components/PageComponents/mainPages/homePageComponents/CommunityMember";
+import GetUserLocation from "@/lib/GetUserLocation";
 import ExploreProduct from "@/Components/PageComponents/mainPages/homePageComponents/ExploreProduct";
 import FeaturedShops from "@/Components/PageComponents/mainPages/homePageComponents/FeaturedShop";
 import Pricing from "@/Components/PageComponents/mainPages/homePageComponents/Pricing";
@@ -15,6 +15,7 @@ import HowItWorks from "@/Components/PageComponents/mainPages/homePageComponents
 import OurMission from "@/Components/PageComponents/mainPages/homePageComponents/OurMission";
 import Subscribe from "@/Components/PageComponents/mainPages/homePageComponents/Subscribe";
 import MagicMarkers from "@/Components/PageComponents/mainPages/homePageComponents/MagicMarkers";
+import CommunityMember from "@/Components/PageComponents/mainPages/homePageComponents/CommunityMember";
 
 const Page = async () => {
   const bannerData = await getBannerData();
@@ -39,6 +40,7 @@ const Page = async () => {
         button2="Annual Billing"
       />
       <Subscribe />
+      <GetUserLocation />
     </>
   );
 };

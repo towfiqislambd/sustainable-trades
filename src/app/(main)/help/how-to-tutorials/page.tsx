@@ -14,8 +14,11 @@ type videoItem = {
 };
 
 const page = () => {
+  // States
   const [search, setSearch] = useState<string>("");
   const [activeTab, setActiveTab] = useState<string>("owner");
+
+  // Queries
   const { data: tutorialsData, isLoading } = getTutorials(search, activeTab);
 
   return (
@@ -113,7 +116,9 @@ const page = () => {
                         <h3 className="text-secondary-gray md:text-lg lg:text-xl font-semibold md:mb-2">
                           {item?.name}
                         </h3>
-                        <p className="text-[#595753] text-sm md:text-base">{item?.description}</p>
+                        <p className="text-[#595753] text-sm md:text-base">
+                          {item?.description}
+                        </p>
                       </div>
                     </div>
                   ))

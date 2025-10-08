@@ -1,12 +1,19 @@
-export async function useServerApi<T = any>(
-  endpoint: string,
-  revalidate = 3600
-): Promise<T> {
+type serverProps = {
+  endpoint: string;
+  revalidate?: number;
+  ssr?: boolean;
+};
+
+export async function useServerApi({
+  endpoint,
+  revalidate,
+  ssr = false,
+}: serverProps) {
   const baseURL = `${process.env.NEXT_PUBLIC_SITE_URL}${endpoint}`;
 
   const res = await fetch(baseURL, {
-    cache: "force-cache", // SSR cache
-    next: { revalidate }, // ISR: revalidate every 1 hour
+    cache: ssr ? "no-store" : "force-cache",
+    ...(ssr ? {} : { next: { revalidate: revalidate ?? 3600 } }),
   });
 
   if (!res.ok) {

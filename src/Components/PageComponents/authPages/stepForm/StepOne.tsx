@@ -5,13 +5,14 @@ import { BsEyeFill } from "react-icons/bs";
 import { PiEyeClosed } from "react-icons/pi";
 
 const StepOne = ({ step, totalSteps }: any) => {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showRePassword, setShowRePassword] = useState<boolean>(false);
+
   const {
     register,
     formState: { errors },
     watch,
   } = useFormContext();
-  const [showPassword, setShowPassword] = useState(false);
-  const [showRePassword, setShowRePassword] = useState(false);
 
   return (
     <>
@@ -81,14 +82,20 @@ const StepOne = ({ step, totalSteps }: any) => {
             )}
           </div>
 
-          {/* Phone */}
+          {/* Phone Number */}
           <div>
             <p className="form-label">Phone Number *</p>
             <input
-              type="text"
+              type="number"
               className="form-input"
               placeholder="Phone Number"
-              {...register("phone", { required: "Phone number is required" })}
+              {...register("phone", {
+                required: "Phone number is required",
+                maxLength: {
+                  value: 15,
+                  message: "Phone number cannot exceed 15 digits",
+                },
+              })}
             />
             {errors.phone && (
               <p className="text-red-600">{errors.phone.message as string}</p>
@@ -128,6 +135,7 @@ const StepOne = ({ step, totalSteps }: any) => {
           {/* Re-enter Password */}
           <div className="relative">
             <p className="form-label">Re-enter Password *</p>
+
             <input
               type={showRePassword ? "text" : "password"}
               className="form-input pr-10"
@@ -138,6 +146,7 @@ const StepOne = ({ step, totalSteps }: any) => {
                   value === watch("password") || "Passwords do not match",
               })}
             />
+
             <button
               type="button"
               onClick={() => setShowRePassword(!showRePassword)}

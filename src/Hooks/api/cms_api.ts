@@ -7,59 +7,120 @@ import { useQueryClient } from "@tanstack/react-query";
 //  SSR (Server Side Rendering)
 // =======================================================
 
+// Membership Spotlight
+export async function getSpotlightData() {
+  return useServerApi({
+    endpoint: "/api/spotlight-applications",
+    ssr: true,
+  });
+}
+
+// =======================================================
+//  ISR (Incremental Static Regeneration)
+// =======================================================
+
 // Site Settings
 export async function getSiteSettings() {
-  return useServerApi("/api/site-settings", 3600);
+  return useServerApi({
+    endpoint: "/api/site-settings",
+    revalidate: 86400,
+  });
 }
 
-// Social Links
+// Get Social Links
 export async function getSocialLinks() {
-  return useServerApi("/api/social-links", 3600);
+  return useServerApi({
+    endpoint: "/api/social-links",
+    revalidate: 86400,
+  });
 }
 
-// Banner
+// Get Banner
 export async function getBannerData() {
-  return useServerApi("/api/banners", 3600);
+  return useServerApi({
+    endpoint: "/api/banners",
+    revalidate: 3600,
+  });
+}
+
+// Get Contact
+export async function getContactData() {
+  return useServerApi({
+    endpoint: "/api/contact",
+    revalidate: 3600,
+  });
+}
+
+// Get Terms
+export async function getTermsData() {
+  return useServerApi({
+    endpoint: "/api/terms-and-conditions",
+    revalidate: 3600,
+  });
+}
+
+// Get Infringement
+export async function getInfringementData() {
+  return useServerApi({
+    endpoint: "/api/infringement-report",
+    revalidate: 3600,
+  });
 }
 
 // How It Works
 export async function getHowItWorksData() {
-  return useServerApi("/api/how-it-works", 3600);
+  return useServerApi({
+    endpoint: "/api/how-it-works",
+    revalidate: 3600,
+  });
 }
 
 // Product Categories
 export async function getProductCategories() {
-  return useServerApi("/api/categories", 3600);
-}
-
-// Featured Shops
-export async function getFeaturedShops() {
-  return useServerApi("/api/shops/featured", 3600);
-}
-
-// Get Mission Data
-export async function getMissionData() {
-  return useServerApi("/api/our-mission", 3600);
-}
-
-// Dynamic Pages
-export async function getDynamicPages() {
-  return useServerApi("/api/dynamic-pages", 3600);
-}
-
-// Details Dynamic page
-export async function getSingleDynamicPage(slug: string) {
-  return useServerApi(`/api/dynamic-pages/single/${slug}`, 3600);
-}
-
-// Membership Spotlight
-export async function getSpotlightData() {
-  return useServerApi("/api/spotlight-applications", 3600);
+  return useServerApi({
+    endpoint: "/api/categories",
+    revalidate: 3600,
+  });
 }
 
 // All Shops
 export async function getAllShops() {
-  return useServerApi("/api/shops", 3600);
+  return useServerApi({
+    endpoint: "/api/shops",
+    revalidate: 3600,
+  });
+}
+
+// Featured Shops
+export async function getFeaturedShops() {
+  return useServerApi({
+    endpoint: "/api/shops/featured",
+    revalidate: 3600,
+  });
+}
+
+// Get Mission Data
+export async function getMissionData() {
+  return useServerApi({
+    endpoint: "/api/our-mission",
+    revalidate: 3600,
+  });
+}
+
+// Dynamic Pages
+export async function getDynamicPages() {
+  return useServerApi({
+    endpoint: "/api/dynamic-pages",
+    revalidate: 3600,
+  });
+}
+
+// Single Dynamic page
+export async function getSingleDynamicPage(slug: string) {
+  return useServerApi({
+    endpoint: `/api/dynamic-pages/single/${slug}`,
+    revalidate: 3600,
+  });
 }
 
 // =======================================================
@@ -115,33 +176,6 @@ export const getFAQ = () => {
     method: "get",
     key: ["get-faq"],
     endpoint: "/api/faq/all",
-  });
-};
-
-// Get Contact
-export const getContact = () => {
-  return useClientApi({
-    method: "get",
-    key: ["get-contact"],
-    endpoint: "/api/contact",
-  });
-};
-
-// Get Terms
-export const getTerms = () => {
-  return useClientApi({
-    method: "get",
-    key: ["get-terms"],
-    endpoint: "/api/terms-and-conditions",
-  });
-};
-
-// Get Infringement
-export const getInfringement = () => {
-  return useClientApi({
-    method: "get",
-    key: ["get-infringement"],
-    endpoint: "/api/infringement-report",
   });
 };
 
@@ -520,13 +554,47 @@ export const getCategoryDetails = (id: string) => {
 export const getAllShopsClient = (address: string) => {
   return useClientApi({
     method: "get",
-    isPrivate: true,
     key: ["get-all-shop", address],
-    enabled: !!address,
     endpoint: `/api/shops`,
     params: { address },
     queryOptions: {
       retry: false,
     },
+  });
+};
+
+// Featured Products
+export const getFeaturedProducts = () => {
+  return useClientApi({
+    method: "get",
+    isPrivate: true,
+    key: ["get-featured-products"],
+    endpoint: `/api/is-featured-product`,
+    queryOptions: {
+      retry: false,
+    },
+  });
+};
+
+// Nearby Products
+export const getNearbyProducts = (lat: number, lng: number) => {
+  return useClientApi({
+    method: "get",
+    isPrivate: true,
+    key: ["nearby-products", lat, lng],
+    endpoint: "/api/nearby-product",
+    params: { lat, lng },
+    queryOptions: {
+      retry: false,
+    },
+  });
+};
+
+// Top Vendors
+export const getTopVendors = () => {
+  return useClientApi({
+    method: "get",
+    key: ["top-vendors"],
+    endpoint: `/api/top-vendors`,
   });
 };

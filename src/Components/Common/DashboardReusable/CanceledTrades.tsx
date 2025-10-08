@@ -5,16 +5,12 @@ import { tradeRequests } from "@/Components/Data/data";
 
 const CanceledTrades = () => {
   const canceltradesdata = tradeRequests.filter(
-    cancel => cancel.status === "Canceled"
+    (cancel) => cancel.status === "Canceled"
   );
 
   console.log("canceltrades", canceltradesdata);
 
-  return (
-    <>
-      <TradesTabs tradeRequests={canceltradesdata} />
-    </>
-  );
+  return <>{/* <TradesTabs tradeRequests={canceltradesdata} /> */}</>;
 };
 
 export default CanceledTrades;

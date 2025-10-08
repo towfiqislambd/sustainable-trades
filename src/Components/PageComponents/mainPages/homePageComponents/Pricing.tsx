@@ -1,11 +1,11 @@
 "use client";
 import Image from "next/image";
+import useAuth from "@/Hooks/useAuth";
 import React, { useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { getPricingData } from "@/Hooks/api/cms_api";
 import Container from "@/Components/Common/Container";
 import { usePurchasePlan } from "@/Hooks/api/auth_api";
-import useAuth from "@/Hooks/useAuth";
 import { PricingSkeletonCard } from "@/Components/Loader/Loader";
 
 type benefitItem = {
@@ -33,12 +33,18 @@ interface PricingProps {
 }
 
 const Pricing = ({ description, button1, button2 }: PricingProps) => {
+  // Hook
   const { user } = useAuth();
+
+  // States
   const [activeTab, setActiveTab] = useState<string>("yearly");
   const [planId, setPlanId] = useState<number>(0);
+
+  // Queries & Mutations
   const { mutate: purchasePlanMutation, isPending } = usePurchasePlan(planId);
   const { data: pricingData, isLoading } = getPricingData(activeTab);
 
+  // Func for purchase plan
   const handlePurchasePlan = async (id: number) => {
     await purchasePlanMutation({
       success_url: `${window.location.origin}/complete-shop-creation`,
@@ -58,7 +64,7 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
         </p>
 
         {/* Tabs */}
-        <div className="flex md:gap-5 p-1.5 md:p-3 rounded-xl shadow w-full md:w-[350px] mx-auto bg-primary-green mb-7 md:mb-14">
+        <div className="flex md:gap-5 p-1.5 md:p-3 rounded-xl shadow w-full md:w-[380px] mx-auto bg-primary-green mb-7 md:mb-14">
           <button
             type="button"
             onClick={e => {

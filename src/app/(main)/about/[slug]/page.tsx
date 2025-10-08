@@ -5,8 +5,8 @@ import AboutUsTab from "@/Components/Common/AboutUsTab";
 import { getDynamicPages, getSingleDynamicPage } from "@/Hooks/api/cms_api";
 
 const page = async ({ params }: any) => {
+  const { slug } = params;
   const dynamicPage = await getDynamicPages();
-  const { slug } = await params;
   const pageData = await getSingleDynamicPage(slug);
 
   return (

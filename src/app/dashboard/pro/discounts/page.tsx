@@ -78,12 +78,12 @@ const DiscountsPage = () => {
   ];
 
   // Filtered discounts by active tab
-  const filtered = discounts.filter((d) => d.status === activeTab);
+  const filtered = discounts.filter(d => d.status === activeTab);
 
   // Handle selection
   const toggleSelect = (id: string) => {
-    setSelected((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+    setSelected(prev =>
+      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
     );
   };
 
@@ -158,7 +158,7 @@ const DiscountsPage = () => {
             No discounts in {activeTab}.
           </div>
         ) : (
-          filtered.map((d) => (
+          filtered.map(d => (
             <div
               key={d.id}
               className="py-4 flex flex-col md:flex-row md:items-start md:justify-between"

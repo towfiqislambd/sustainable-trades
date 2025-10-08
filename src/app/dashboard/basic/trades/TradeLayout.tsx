@@ -46,7 +46,7 @@ const TradeLayout = ({ children, initialTab }: TradeLayoutProps) => {
       {/* Tabs */}
       <div className="mt-14">
         <ul className="flex justify-between relative after:content-[''] after:block after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:p-[3px] after:border after:border-[#A7A39C] after:rounded-lg">
-          {tradetabs.map(tab => (
+          {tradetabs.map((tab) => (
             <li
               key={tab.label}
               onClick={() => setActiveTab(tab.label as typeof initialTab)}
@@ -73,10 +73,8 @@ const TradeLayout = ({ children, initialTab }: TradeLayoutProps) => {
         </ul>
       </div>
 
-
-
       {/* Render only the active child */}
-      <div>{children[tabIndexMap[activeTab]]}</div>
+      {/* <div>{children[tabIndexMap[activeTab]]}</div> */}
       <div className="w-2/5 mt-10 border border-gray-300 rounded-lg p-6 ml-5">
         <h3 className="text-[#13141D] text-[16px] font-semibold">
           Tips for Trading

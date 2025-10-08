@@ -28,6 +28,7 @@ const ExploreProduct = ({ data }: categoryProps) => {
               href={`/category-details/${id}`}
               className="text-center"
             >
+              {/* Category Image */}
               <figure className="size-30 lg:size-52 mx-auto cursor-pointer rounded-full overflow-hidden relative">
                 <Image
                   src={`${process.env.NEXT_PUBLIC_SITE_URL}/${image}`}
@@ -37,6 +38,7 @@ const ExploreProduct = ({ data }: categoryProps) => {
                 />
               </figure>
 
+              {/* Category Name */}
               <h3 className="mt-4 text-sm md:text-lg text-accent-white">
                 {name}
               </h3>

@@ -38,7 +38,7 @@ export const ShopBannerSkeleton = () => {
               {Array.from({ length: 5 }).map((_, idx) => (
                 <div
                   key={idx}
-                  className="size-9 shrink-0 shadow border border-gray-300 rounded-full bg-gray-6300"
+                  className="size-9 shrink-0 shadow border border-gray-300 rounded-full bg-gray-300"
                 ></div>
               ))}
               <div className="h-5 w-8 bg-gray-300 rounded"></div>
@@ -343,3 +343,47 @@ export const PricingSkeletonCard = () => (
     <div className="h-12 bg-gray-300 rounded-lg w-full" />
   </div>
 );
+
+// Shop List  Skeleton
+export const ShopListSkeleton = () => {
+  return (
+    <div className="flex flex-col md:flex-row gap-2.5 md:gap-5 md:items-center border-b last:border-b-0 border-gray-200 py-3 animate-pulse">
+      {/* shop Image skeleton */}
+      <div className="size-22 shrink-0 rounded-lg bg-gray-200"></div>
+
+      {/* Shop Description skeleton */}
+      <div className="flex flex-col md:flex-row gap-2.5 md:gap-5 md:items-center grow w-full">
+        <div className="grow space-y-3">
+          {/* Shop Name */}
+          <div className="h-3 w-1/2 bg-gray-200 rounded"></div>
+
+          {/* Review stars */}
+          <div className="flex gap-1 items-center py-1">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <div key={index} className="h-4 w-4 bg-gray-300 rounded"></div>
+            ))}
+          </div>
+
+          {/* Address line */}
+          <div className="h-4 w-2/3 bg-gray-200 rounded"></div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Single Shop Skeleton
+export const SingleShopSkeleton = () => {
+  return (
+    <div className="text-center animate-pulse">
+      {/* Circle Image Skeleton */}
+      <figure className="size-44 mx-auto rounded-full overflow-hidden bg-gray-200"></figure>
+
+      {/* Shop Name Skeleton */}
+      <div className="mt-4 h-4 w-32 mx-auto bg-gray-200 rounded"></div>
+
+      {/* Address Skeleton */}
+      <div className="mt-2 h-3 w-48 mx-auto bg-gray-200 rounded"></div>
+    </div>
+  );
+};

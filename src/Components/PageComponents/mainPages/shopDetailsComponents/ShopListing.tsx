@@ -24,7 +24,7 @@ const ShopListing = ({
   return (
     <section id="Listings" className="mt-10">
       <Container>
-        {/* Featured Listings */}
+        {/* Title */}
         <h2 className="section_sub_title">Featured Listings</h2>
 
         {featuredLoading ? (
@@ -34,7 +34,7 @@ const ShopListing = ({
             ))}
           </div>
         ) : featuredListings?.data?.length === 0 || !featuredListings ? (
-          <div className="flex flex-col justify-center items-center gap-3 lg:gap-4 text-center py-5 md:py-20">
+          <div className="flex flex-col justify-center items-center gap-3 text-center py-5 md:py-20">
             <AiOutlineFileUnknown className="text-xl md:text-3xl lg:text-6xl text-gray-500" />
             <p className="text-gray-600 text-sm md:text-lg font-semibold">
               No product found!!
@@ -160,7 +160,7 @@ const ShopListing = ({
             ))}
           </div>
         ) : allListings?.data?.length === 0 || !allListings ? (
-          <div className="flex flex-col justify-center items-center gap-3 lg:gap-4 text-center py-5 md:py-20">
+          <div className="flex flex-col justify-center items-center gap-3 text-center py-5 md:py-20">
             <AiOutlineFileUnknown className="text-xl md:text-3xl lg:text-6xl text-gray-500" />
             <p className="text-gray-600 text-sm md:text-lg font-semibold">
               No product found!!

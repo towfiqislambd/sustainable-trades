@@ -4,12 +4,23 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-const AboutUsTab = ({ dynamicPage }: any) => {
+type dynamicItem = {
+  id: number;
+  page_title: string;
+  page_slug: string;
+  icon: string;
+};
+
+interface DynamicProps {
+  dynamicPage: dynamicItem[];
+}
+
+const AboutUsTab = ({ dynamicPage }: DynamicProps) => {
   const pathname = usePathname();
 
   return (
     <div className="w-full flex flex-wrap gap-1 lg:gap-0 justify-between items-center lg:block lg:w-[280px] lg:py-8 px-2 sm:px-5 shrink-0 lg:shadow-[0_3px_8px_0_rgba(0,0,0,0.08),_0_3px_10px_0_rgba(0,0,0,0.12)]  space-y-4 rounded-lg ">
-      {dynamicPage?.map(({ id, page_title, page_slug, icon }: any) => (
+      {dynamicPage?.map(({ id, page_title, page_slug, icon }) => (
         <Link
           key={id}
           href={`/about/${page_slug}`}
@@ -19,6 +30,7 @@ const AboutUsTab = ({ dynamicPage }: any) => {
               : "text-[#77978F] border-transparent"
           }`}
         >
+          {/* Logo */}
           <figure className="size-[24px] hidden lg:block relative">
             <Image
               src={`${process.env.NEXT_PUBLIC_SITE_URL}/${icon}`}
@@ -28,6 +40,7 @@ const AboutUsTab = ({ dynamicPage }: any) => {
             />
           </figure>
 
+          {/* Title */}
           <span>{page_title}</span>
         </Link>
       ))}
