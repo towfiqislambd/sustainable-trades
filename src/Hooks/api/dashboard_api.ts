@@ -120,22 +120,6 @@ export const getAllShoplist = () => {
 };
 
 
-// Logout API
-export const useLogout = () => {
-  return useClientApi({
-    method: "post",
-    key: ["logout"],
-    isPrivate: true,
-    endpoint: "/api/users/logout",
-    onSuccess: (data: any) => {
-      if (data?.success) toast.success(data.message || "Logged out successfully!");
-    },
-    onError: (err: any) => {
-      toast.error(err?.response?.data?.message || "Logout failed");
-    },
-  });
-};
-
 
 // fahim bhai
 
@@ -232,6 +216,16 @@ export const useTaxes = () => {
     onError: (err: any) => {
       toast.error(err?.response?.data?.message || "Failed to Saving tax rate");
     },
+  });
+};
+
+
+export const useDiscountget = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-discount"],
+    isPrivate: true,
+    endpoint: "/api/discounts",
   });
 };
 

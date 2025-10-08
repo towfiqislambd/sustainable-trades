@@ -1,6 +1,7 @@
 "use client";
 
 import { Delete, Pen } from "@/Components/Svg/SvgContainer";
+import { useDiscountget } from "@/Hooks/api/dashboard_api";
 import Link from "next/link";
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
@@ -8,77 +9,61 @@ import { FaSearch } from "react-icons/fa";
 const DiscountsPage = () => {
   const [activeTab, setActiveTab] = useState("Active");
   const [selected, setSelected] = useState<string[]>([]);
+  const { data: getdiscountdata } = useDiscountget();
+  console.log(getdiscountdata);
 
-  // All discounts
-  const discounts = [
-    {
-      id: "d1",
-      title: "15% Off Order",
-      description: "15% off the shopper’s entire order",
-      starts: "Jan 1, 2024 at 9:00am",
-      ends: "July 1, 2024 at 9:00am",
-      code: "SUSTAIN15",
-      uses: "0 of 100 Uses",
-      status: "Active",
-    },
-    {
-      id: "d2",
-      title: "New Member Code",
-      description: "10% off entire order for new shoppers",
-      starts: "Jan 1, 2024 at 9:00am",
-      ends: "Never Expires",
-      code: "NEWMEMBER10",
-      uses: "Unlimited Uses",
-      status: "Scheduled",
-    },
-    {
-      id: "d3",
-      title: "Free Shipping Over $100",
-      description:
-        "Free Shipping will be applied when a shopper makes a purchase of over $100",
-      starts: "Jan 1, 2024 at 9:00am",
-      ends: "Never Expires",
-      code: "SHIPPING100",
-      uses: "Unlimited Uses",
-      status: "Inactive",
-    },
-    {
-      id: "d4",
-      title: "Free Shipping Over $100",
-      description:
-        "Free Shipping will be applied when a shopper makes a purchase of over $100",
-      starts: "Jan 1, 2024 at 9:00am",
-      ends: "Never Expires",
-      code: "SHIPPING100",
-      uses: "Unlimited Uses",
-      status: "Inactive",
-    },
-    {
-      id: "d5",
-      title: "Free Shipping Over $100",
-      description:
-        "Free Shipping will be applied when a shopper makes a purchase of over $100",
-      starts: "Jan 1, 2024 at 9:00am",
-      ends: "Never Expires",
-      code: "SHIPPING100",
-      uses: "Unlimited Uses",
-      status: "Inactive",
-    },
-    {
-      id: "d6",
-      title: "Free Shipping Over $100",
-      description:
-        "Free Shipping will be applied when a shopper makes a purchase of over $100",
-      starts: "Jan 1, 2024 at 9:00am",
-      ends: "Never Expires",
-      code: "SHIPPING100",
-      uses: "Unlimited Uses",
-      status: "Active",
-    },
-  ];
+  const formatDate = (dateStr: string | null): string => {
+    if (!dateStr) return "";
+    const date = new Date(dateStr);
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
+
+  // Map API data to UI format
+  const discounts =
+    getdiscountdata?.data?.map((item: any) => {
+      let desc = "";
+      if (item.promotion_type === "percentage") {
+        desc = `${item.amount}% off`;
+      } else {
+        desc = `$${parseFloat(item.amount).toFixed(2)} off`;
+      }
+      if (item.applies === "any_order") {
+        desc += " the shopper’s entire order";
+      } else {
+        const productName = item.product?.product_name || "selected product";
+        desc += ` ${productName}`;
+      }
+
+      const status = item.status.charAt(0).toUpperCase() + item.status.slice(1);
+
+      const ends =
+        item.never_expires || !item.end_date
+          ? "Never Expires"
+          : `${formatDate(item.end_date)} at ${item.end_time || "00:00:00"}`;
+
+      const uses =
+        item.discount_limits === 0
+          ? "Unlimited Uses"
+          : `0 of ${item.discount_limits} Uses`;
+
+      return {
+        id: item.id.toString(),
+        title: item.name,
+        description: desc,
+        starts: `${formatDate(item.start_date)} at ${item.start_time}`,
+        ends,
+        code: item.code,
+        uses,
+        status,
+      };
+    }) || [];
 
   // Filtered discounts by active tab
-  const filtered = discounts.filter(d => d.status === activeTab);
+  const filtered = discounts.filter((d: any) => d.status === activeTab);
 
   // Handle selection
   const toggleSelect = (id: string) => {
@@ -96,7 +81,6 @@ const DiscountsPage = () => {
 
   const tabs = [
     { label: "Active" },
-    { label: "Scheduled" },
     { label: "Inactive" },
     { label: "", icon: <Delete className="w-5 h-5" />, action: handleDelete },
   ];
@@ -158,7 +142,7 @@ const DiscountsPage = () => {
             No discounts in {activeTab}.
           </div>
         ) : (
-          filtered.map(d => (
+          filtered.map((d: any) => (
             <div
               key={d.id}
               className="py-4 flex flex-col md:flex-row md:items-start md:justify-between"
