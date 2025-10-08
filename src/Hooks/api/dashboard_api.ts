@@ -62,7 +62,6 @@ export const getallListings = () => {
   });
 };
 
-
 // Fetch a single product/listing by ID
 export const useGetSingleListing = (id: string | number) => {
   return useClientApi({
@@ -119,7 +118,6 @@ export const getAllShoplist = () => {
   });
 };
 
-
 // Logout API
 export const useLogout = () => {
   return useClientApi({
@@ -128,7 +126,8 @@ export const useLogout = () => {
     isPrivate: true,
     endpoint: "/api/users/logout",
     onSuccess: (data: any) => {
-      if (data?.success) toast.success(data.message || "Logged out successfully!");
+      if (data?.success)
+        toast.success(data.message || "Logged out successfully!");
     },
     onError: (err: any) => {
       toast.error(err?.response?.data?.message || "Logout failed");
@@ -136,16 +135,19 @@ export const useLogout = () => {
   });
 };
 
-
 // fahim bhai
 
 // Get All trades
-export const useTradesdata = () => {
+export const useTradesdata = (sent?: string) => {
+  const endpoint = sent
+    ? `/api/trade-offers?sent=${sent}`
+    : `/api/trade-offers`;
+
   return useClientApi({
     method: "get",
-    key: ["get-trades"],
+    key: ["get-trades", sent],
     isPrivate: true,
-    endpoint: "/api/trade-offers",
+    endpoint,
   });
 };
 
@@ -189,15 +191,14 @@ export const useDeleteAccount = () => {
     isPrivate: true,
     endpoint: "/api/users/delete",
     onSuccess: (data: any) => {
-      if (data?.success) toast.success(data.message || "Account deleted successfully!");
+      if (data?.success)
+        toast.success(data.message || "Account deleted successfully!");
     },
     onError: (err: any) => {
       toast.error(err?.response?.data?.message || "Failed to delete account");
     },
   });
 };
-
-
 
 // Create Discount
 export const useCreateDiscount = () => {
@@ -234,5 +235,3 @@ export const useTaxes = () => {
     },
   });
 };
-
-
