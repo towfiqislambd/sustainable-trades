@@ -1,13 +1,24 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MdDelete } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
 import { FaAngleDown } from "react-icons/fa";
 import { FaAngleLeft } from "react-icons/fa6";
-import { useFlatRate, useWeightRate } from "@/Hooks/api/dashboard_api";
+import {
+  useFlatRate,
+  useWeightRate,
+  useWeightRateget,
+  useWeightRateDelete,
+} from "@/Hooks/api/dashboard_api";
 import toast from "react-hot-toast";
 
-const Page = () => {
+const Page = ({
+  initialData,
+  isEdit = false,
+}: {
+  initialData?: any;
+  isEdit?: boolean;
+}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [optionName, setOptionName] = useState("");
@@ -17,7 +28,27 @@ const Page = () => {
   const [maxWeight, setMaxWeight] = useState("");
   const [minWeight, setMinWeight] = useState("");
   const [cost, setCost] = useState("");
-  const { mutate: useWeightMutation } = useWeightRate();
+  const { mutate: useWeightMutation, isPending: weightloading } =
+    useWeightRate();
+  const { data: weightRanges, refetch } = useWeightRateget();
+  const { mutate: deleteWeightRange } = useWeightRateDelete();
+
+  useEffect(() => {
+    if (initialData && isEdit) {
+      setIsDropdownOpen(false);
+      if (initialData.type === "flat_rate") {
+        setSelectedOption("Flat Rate");
+        setOptionName(initialData.option_name || "");
+        setOrderFee(initialData.per_order_fee || "");
+        setPerItemFee(initialData.per_item_fee || "");
+      } else if (initialData.type === "weight_range") {
+        setSelectedOption("Depending on Weight");
+        setMinWeight(initialData.min_weight || "");
+        setMaxWeight(initialData.max_weight || "");
+        setCost(initialData.cost || "");
+      }
+    }
+  }, [initialData, isEdit]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,17 +58,23 @@ const Page = () => {
     }
     FlatRateMutation(
       {
+        ...(isEdit && initialData && { id: initialData.id }),
         option_name: optionName,
         per_order_fee: orderFee,
         per_item_fee: peritemFee,
       },
       {
         onSuccess: (data: any) => {
-          toast.success("Weight range added successfully!");
-          console.log("Response:", data);
-          setCost("");
-          setMinWeight("");
-          setMaxWeight("");
+          toast.success(
+            isEdit
+              ? "Flat rate updated successfully!"
+              : "Flat rate added successfully!"
+          );
+          if (!isEdit) {
+            setOptionName("");
+            setOrderFee("");
+            setPerItemFee("");
+          }
           closeModal();
         },
       }
@@ -52,6 +89,7 @@ const Page = () => {
     }
     useWeightMutation(
       {
+        ...(isEdit && initialData && { id: initialData.id }),
         max_weight: maxWeight,
         cost: cost,
         min_weight: minWeight,
@@ -59,11 +97,32 @@ const Page = () => {
       {
         onSuccess: (data: any) => {
           if (data) {
-            setMaxWeight("");
-            setMinWeight("");
-            setCost("");
+            toast.success(
+              isEdit
+                ? "Weight range updated successfully!"
+                : "Weight range added successfully!"
+            );
+            if (!isEdit) {
+              setMaxWeight("");
+              setMinWeight("");
+              setCost("");
+            }
             closeModal();
+            refetch();
           }
+        },
+      }
+    );
+  };
+
+  const handleDeleteRange = (id: number) => {
+    deleteWeightRange(
+      {
+        endpoint: `/api/weight_range/${id}`,
+      },
+      {
+        onSuccess: () => {
+          refetch();
         },
       }
     );
@@ -76,6 +135,14 @@ const Page = () => {
 
   const closeModal = () => {
     setSelectedOption(null);
+    if (!isEdit) {
+      setOptionName("");
+      setOrderFee("");
+      setPerItemFee("");
+      setMaxWeight("");
+      setMinWeight("");
+      setCost("");
+    }
   };
 
   return (
@@ -123,57 +190,59 @@ const Page = () => {
             </p>
           </div>
 
-          {/* Dropdown button */}
-          <div className="relative w-full">
-            <button
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="bg-[#274F45] text-white px-4 py-2 rounded-lg w-fit font-semibold flex gap-x-5 items-center text-[14px] md:text-[16px] cursor-pointer"
-            >
-              <FaAngleDown />
-              Add Shipping Option
-            </button>
+          {/* Dropdown button - only show if not edit */}
+          {!isEdit && (
+            <div className="relative w-full">
+              <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="bg-[#274F45] text-white px-4 py-2 rounded-lg w-fit font-semibold flex gap-x-5 items-center text-[14px] md:text-[16px] cursor-pointer"
+              >
+                <FaAngleDown />
+                Add Shipping Option
+              </button>
 
-            {isDropdownOpen && (
-              <div className="absolute z-10 mt-5 w-full flex flex-col gap-y-4">
-                <div
-                  onClick={() => handleOptionClick("Flat Rate")}
-                  className="px-2 md:px-4py-2 cursor-pointer bg-[#F2EFE8] border border-[#3C665B] p-4 rounded-lg w-full max-w-[700px]"
-                >
-                  <h3 className="text-[#274F45] font-bold text-[14px] md:text-[16px]">
-                    Flat Rate
-                  </h3>
-                  <p className="text-[13px] md:text-[16px] text-[#3D3D3D] font-medium pt-1">
-                    Define a charge for every order and a flat fee for each
-                    item.
-                  </p>
+              {isDropdownOpen && (
+                <div className="absolute z-10 mt-5 w-full flex flex-col gap-y-4">
+                  <div
+                    onClick={() => handleOptionClick("Flat Rate")}
+                    className="px-2 md:px-4py-2 cursor-pointer bg-[#F2EFE8] border border-[#3C665B] p-4 rounded-lg w-full max-w-[700px]"
+                  >
+                    <h3 className="text-[#274F45] font-bold text-[14px] md:text-[16px]">
+                      Flat Rate
+                    </h3>
+                    <p className="text-[13px] md:text-[16px] text-[#3D3D3D] font-medium pt-1">
+                      Define a charge for every order and a flat fee for each
+                      item.
+                    </p>
+                  </div>
+                  <div
+                    onClick={() => handleOptionClick("Depending on Weight")}
+                    className="px-2 md:px-4 py-2 cursor-pointer bg-[#F2EFE8] border border-[#3C665B] p-4 rounded-lg w-full max-w-[700px]"
+                  >
+                    <h3 className="text-[#274F45] font-bold text-[14px] md:text-[16px]">
+                      Depending on Weight
+                    </h3>
+                    <p className="text-[13px] md:text-[16px] text-[#3D3D3D] font-medium pt-1">
+                      Define a charge for every order and a flat fee for each
+                      item.
+                    </p>
+                  </div>
+                  <div
+                    onClick={() => handleOptionClick("Connect ShipStation")}
+                    className="px-2 md:px-4 py-2 cursor-pointer bg-[#F2EFE8] border border-[#3C665B] p-4 rounded-lg w-full max-w-[700px]"
+                  >
+                    <h3 className="text-[#274F45] font-bold text-[16px]">
+                      Connect ShipStation
+                    </h3>
+                    <p className="text-[16px] text-[#3D3D3D] font-medium pt-1">
+                      Define a charge for every order and a flat fee for each
+                      item.
+                    </p>
+                  </div>
                 </div>
-                <div
-                  onClick={() => handleOptionClick("Depending on Weight")}
-                  className="px-2 md:px-4 py-2 cursor-pointer bg-[#F2EFE8] border border-[#3C665B] p-4 rounded-lg w-full max-w-[700px]"
-                >
-                  <h3 className="text-[#274F45] font-bold text-[14px] md:text-[16px]">
-                    Depending on Weight
-                  </h3>
-                  <p className="text-[13px] md:text-[16px] text-[#3D3D3D] font-medium pt-1">
-                    Define a charge for every order and a flat fee for each
-                    item.
-                  </p>
-                </div>
-                <div
-                  onClick={() => handleOptionClick("Connect ShipStation")}
-                  className="px-2 md:px-4 py-2 cursor-pointer bg-[#F2EFE8] border border-[#3C665B] p-4 rounded-lg w-full max-w-[700px]"
-                >
-                  <h3 className="text-[#274F45] font-bold text-[16px]">
-                    Connect ShipStation
-                  </h3>
-                  <p className="text-[16px] text-[#3D3D3D] font-medium pt-1">
-                    Define a charge for every order and a flat fee for each
-                    item.
-                  </p>
-                </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
@@ -186,7 +255,7 @@ const Page = () => {
                 <RxCross1 onClick={closeModal} className="cursor-pointer" />
               </div>
               <h3 className="text-[#3D3D3D] text-[18px] md:text-[24px] font-bold text-center">
-                EDIT FLAT RATE
+                {isEdit ? "EDIT" : "ADD"} FLAT RATE
               </h3>
             </div>
             <form
@@ -257,7 +326,7 @@ const Page = () => {
               </div>
 
               <h3 className="text-[#3D3D3D] text-[24px] font-bold text-center pb-4 border-b border-[#3D3D3D]">
-                WEIGHT RANGE RATE
+                {isEdit ? "EDIT" : "ADD"} WEIGHT RANGE RATE
               </h3>
 
               <form
@@ -269,7 +338,7 @@ const Page = () => {
                   <input
                     onChange={e => setCost(e.target.value)}
                     value={cost}
-                    type="text"
+                    type="number"
                     className="form-input"
                     placeholder="Cost"
                   />
@@ -279,7 +348,7 @@ const Page = () => {
                   <div className="w-full">
                     <p className="form-label font-bold">Min Weight</p>
                     <input
-                      type="text"
+                      type="number"
                       onChange={e => setMinWeight(e.target.value)}
                       value={minWeight}
                       className="form-input"
@@ -289,7 +358,7 @@ const Page = () => {
                   <div className="w-full">
                     <p className="form-label font-bold">Max Weight</p>
                     <input
-                      type="text"
+                      type="number"
                       onChange={e => setMaxWeight(e.target.value)}
                       value={maxWeight}
                       className="form-input"
@@ -302,7 +371,7 @@ const Page = () => {
                     type="submit"
                     className="mt-8 px-4 py-2 md:py-4 text-white font-semibold bg-[#274F45] rounded cursor-pointer w-[190px]"
                   >
-                    {isPending ? "Saving..." : "Save"}
+                    {weightloading ? "Saving..." : "Save"}
                   </button>
                 </div>
               </form>
@@ -329,15 +398,32 @@ const Page = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="group hover:bg-[#C2D5D0]">
-                    <td className="p-2 text-sm text-[#13141D]">0.00 to 1.00</td>
-                    <td className="py-2 text-sm text-[#13141D]">$1.00</td>
-                    <td className="px-5 text-right">
-                      <button className="text-gray-500 hover:text-red-600 opacity-0 group-hover:opacity-100 transition">
-                        <MdDelete />
-                      </button>
-                    </td>
-                  </tr>
+                  {weightRanges?.data?.length > 0 ? (
+                    weightRanges.data.map((range: any) => (
+                      <tr key={range.id} className="group hover:bg-[#C2D5D0]">
+                        <td className="p-2 text-sm text-[#13141D]">
+                          {range.min_weight} to {range.max_weight}
+                        </td>
+                        <td className="py-2 text-sm text-[#13141D]">
+                          ${range.cost}
+                        </td>
+                        <td className="px-5 text-right">
+                          <button
+                            onClick={() => handleDeleteRange(range.id)}
+                            className="text-gray-500 hover:text-red-600 opacity-0 group-hover:opacity-100 transition"
+                          >
+                            <MdDelete />
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan={3} className="p-2 text-center text-gray-500">
+                        No weight ranges available
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
