@@ -1,13 +1,13 @@
 "use client";
 import React, { useState } from "react";
-import { FaAngleDown } from "react-icons/fa";
-import { FaAngleLeft } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
+import { FaAngleDown } from "react-icons/fa";
+import { FaAngleLeft } from "react-icons/fa6";
 
 const Page = () => {
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
