@@ -224,6 +224,7 @@ const StepTwo = ({ step, setStep, totalSteps }: any) => {
         >
           Back
         </button>
+
         <button
           type="submit"
           className="auth-secondary-btn md:mt-0 mt-3 w-full md:w-fit"
