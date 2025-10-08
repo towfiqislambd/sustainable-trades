@@ -4,7 +4,7 @@ import { MdDelete } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
 import { FaAngleDown } from "react-icons/fa";
 import { FaAngleLeft } from "react-icons/fa6";
-import { useFlatRate } from "@/Hooks/api/dashboard_api";
+import { useFlatRate, useWeightRate } from "@/Hooks/api/dashboard_api";
 import toast from "react-hot-toast";
 
 const Page = () => {
@@ -14,6 +14,10 @@ const Page = () => {
   const [orderFee, setOrderFee] = useState("");
   const [peritemFee, setPerItemFee] = useState("");
   const { mutate: FlatRateMutation, isPending } = useFlatRate();
+  const [maxWeight, setMaxWeight] = useState("");
+  const [minWeight, setMinWeight] = useState("");
+  const [cost, setCost] = useState("");
+  const { mutate: useWeightMutation } = useWeightRate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,11 +33,37 @@ const Page = () => {
       },
       {
         onSuccess: (data: any) => {
-          console.log(data);
-          if (data) setOptionName("");
-          setOrderFee("");
-          setPerItemFee("");
+          toast.success("Weight range added successfully!");
+          console.log("Response:", data);
+          setCost("");
+          setMinWeight("");
+          setMaxWeight("");
           closeModal();
+        },
+      }
+    );
+  };
+
+  const handleSubmitweight = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!maxWeight || !minWeight || !cost) {
+      toast.error("all filed is required");
+      return;
+    }
+    useWeightMutation(
+      {
+        max_weight: maxWeight,
+        cost: cost,
+        min_weight: minWeight,
+      },
+      {
+        onSuccess: (data: any) => {
+          if (data) {
+            setMaxWeight("");
+            setMinWeight("");
+            setCost("");
+            closeModal();
+          }
         },
       }
     );
@@ -221,27 +251,37 @@ const Page = () => {
       {selectedOption === "Depending on Weight" && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
           <div className="bg-white p-6 rounded-lg w-[800px]">
-            <div className="">
+            <div>
               <div className="flex justify-end">
                 <RxCross1 onClick={closeModal} className="cursor-pointer" />
               </div>
+
               <h3 className="text-[#3D3D3D] text-[24px] font-bold text-center pb-4 border-b border-[#3D3D3D]">
                 WEIGHT RANGE RATE
               </h3>
-              <div className="mt-2.5 md:mt-5 flex flex-col gap-y-5">
+
+              <form
+                onSubmit={handleSubmitweight}
+                className="mt-2.5 md:mt-5 flex flex-col gap-y-5"
+              >
                 <div>
                   <p className="form-label font-bold">Cost *</p>
                   <input
+                    onChange={e => setCost(e.target.value)}
+                    value={cost}
                     type="text"
                     className="form-input"
                     placeholder="Cost"
                   />
                 </div>
+
                 <div className="flex gap-x-10">
                   <div className="w-full">
                     <p className="form-label font-bold">Min Weight</p>
                     <input
                       type="text"
+                      onChange={e => setMinWeight(e.target.value)}
+                      value={minWeight}
                       className="form-input"
                       placeholder="kg"
                     />
@@ -250,12 +290,23 @@ const Page = () => {
                     <p className="form-label font-bold">Max Weight</p>
                     <input
                       type="text"
+                      onChange={e => setMaxWeight(e.target.value)}
+                      value={maxWeight}
                       className="form-input"
                       placeholder="kg"
                     />
                   </div>
                 </div>
-              </div>
+                <div className="flex justify-end">
+                  <button
+                    type="submit"
+                    className="mt-8 px-4 py-2 md:py-4 text-white font-semibold bg-[#274F45] rounded cursor-pointer w-[190px]"
+                  >
+                    {isPending ? "Saving..." : "Save"}
+                  </button>
+                </div>
+              </form>
+
               <h4 className="text-[20px] font-semibold text-[#274F45] mt-5">
                 Weight Ranges
               </h4>
@@ -263,6 +314,8 @@ const Page = () => {
                 Depending on the total weight, you can charge different amounts
                 for shipping.
               </p>
+
+              {/* Table */}
               <table className="w-full border-collapse my-5 px-5">
                 <thead>
                   <tr className="border-b">
@@ -276,25 +329,7 @@ const Page = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className=" group hover:bg-[#C2D5D0]">
-                    <td className="p-2 text-sm text-[#13141D]">0.00 to 1.00</td>
-                    <td className="py-2 text-sm text-[#13141D]">$1.00</td>
-                    <td className="px-5 text-right">
-                      <button className="text-gray-500 hover:text-red-600 opacity-0 group-hover:opacity-100 transition">
-                        <MdDelete />
-                      </button>
-                    </td>
-                  </tr>
-                  <tr className=" group hover:bg-[#C2D5D0]">
-                    <td className="p-2 text-sm text-[#13141D]">0.00 to 1.00</td>
-                    <td className="py-2 text-sm text-[#13141D]">$1.00</td>
-                    <td className="px-5 text-right">
-                      <button className="text-gray-500 hover:text-red-600 opacity-0 group-hover:opacity-100 transition">
-                        <MdDelete />
-                      </button>
-                    </td>
-                  </tr>
-                  <tr className=" group hover:bg-[#C2D5D0]">
+                  <tr className="group hover:bg-[#C2D5D0]">
                     <td className="p-2 text-sm text-[#13141D]">0.00 to 1.00</td>
                     <td className="py-2 text-sm text-[#13141D]">$1.00</td>
                     <td className="px-5 text-right">
@@ -305,14 +340,6 @@ const Page = () => {
                   </tr>
                 </tbody>
               </table>
-            </div>
-            <div className="flex justify-end">
-              <button
-                onClick={closeModal}
-                className="mt-8 px-4 py-2 md:py-4 text-white font-semibold bg-[#274F45] rounded cursor-pointer w-[190px]"
-              >
-                Save
-              </button>
             </div>
           </div>
         </div>

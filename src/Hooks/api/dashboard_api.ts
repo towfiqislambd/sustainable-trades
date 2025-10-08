@@ -247,5 +247,25 @@ export const useFlatRate = () => {
     },
   });
 };
+// Create Weight Rate Hooks
+export const useWeightRate = () => {
+  return useClientApi({
+    method: "post",
+    key: ["weight-rate"],
+    isPrivate: true,
+    endpoint: "/api/weight_ranges",
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        toast.success(data?.message || "Weight rate Create Successfully");
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message || "Failed to create Weight rate");
+    },
+  });
+};
+
+
+// 
 
 
