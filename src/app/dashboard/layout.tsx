@@ -256,7 +256,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           />
 
           {/* Right - Outlet */}
-          <section className="flex-1 px-4 h-[calc(100vh-80px)] md:px-8 lg:px-16 pt-5 md:pt-10 pb-[100px] bg-[#FFFCF9]  overflow-y-auto">
+          <section className="flex-1 h-[calc(100vh-80px)] p-4 md:p-8 lg:p-10 bg-[#FFFCF9]  overflow-y-auto">
             {children}
           </section>
 
