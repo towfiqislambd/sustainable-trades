@@ -20,7 +20,7 @@ const LocalMagicMarker = ({ address }: Props) => {
   const [searchShop, setSearchShop] = useState<string>(address);
   const [hoveredShop, setHoveredShop] = useState<any>(null);
 
-  // Queries
+  // Query
   const { data: shopData, isLoading: shopLoading } =
     getAllShopsClient(searchShop);
 
