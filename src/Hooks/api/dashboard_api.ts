@@ -153,14 +153,14 @@ export const useCancelTrade = () => {
 export const useApproveTrade = () => {
   return useMutation({
     mutationFn: (id: any) =>
-      axiosSecure.get(`/api/trade-offer-approve/${id}`).then(res => res.data),
+      axiosSecure.get(`/api/trade-offer-approve/${id}`).then((res) => res.data),
   });
 };
 
 export const useCancel = () => {
   return useMutation({
     mutationFn: (id: any) =>
-      axiosSecure.get(`/api/trade-offer-cancel/${id}`).then(res => res.data),
+      axiosSecure.get(`/api/trade-offer-cancel/${id}`).then((res) => res.data),
   });
 };
 
@@ -279,5 +279,14 @@ export const useWeightRateget = () => {
     key: ["get-weight"],
     isPrivate: true,
     endpoint: "/api/weight_ranges",
+  });
+};
+
+export const useTradeCounterProduct = (id: any) => {
+  return useClientApi({
+    method: "get",
+    key: ["trade-counter-product", id],
+    isPrivate: true,
+    endpoint: `/api/trade-shop-product/${id}`,
   });
 };
