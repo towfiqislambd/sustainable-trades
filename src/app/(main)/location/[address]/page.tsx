@@ -19,6 +19,7 @@ interface Props {
   params: Promise<{ address: string }>;
 }
 
+
 const page = ({ params }: Props) => {
   // Hooks
   const { address } = use(params);
