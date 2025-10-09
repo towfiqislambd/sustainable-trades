@@ -1,9 +1,10 @@
 "use client";
-import React, { useState, useEffect } from "react";
 import { MdDelete } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
+import { useParams } from "next/navigation";
 import { FaAngleDown } from "react-icons/fa";
 import { FaAngleLeft } from "react-icons/fa6";
+import React, { useState, useEffect } from "react";
 import {
   useFlatRate,
   useWeightRate,
@@ -12,26 +13,37 @@ import {
 } from "@/Hooks/api/dashboard_api";
 import toast from "react-hot-toast";
 
-const Page = ({
-  initialData,
-  isEdit = false,
-}: {
-  initialData?: any;
-  isEdit?: boolean;
-}) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [optionName, setOptionName] = useState("");
+const Page = () => {
+  const params = useParams();
+  const id = params?.id ? parseInt(params.id as string) : undefined;
+  const isEdit = !!id;
+  const [initialData, setInitialData] = useState<any>(null);
+  const [cost, setCost] = useState("");
   const [orderFee, setOrderFee] = useState("");
-  const [peritemFee, setPerItemFee] = useState("");
-  const { mutate: FlatRateMutation, isPending } = useFlatRate();
   const [maxWeight, setMaxWeight] = useState("");
   const [minWeight, setMinWeight] = useState("");
-  const [cost, setCost] = useState("");
-  const { mutate: useWeightMutation, isPending: weightloading } =
-    useWeightRate();
+  const [optionName, setOptionName] = useState("");
+  const [peritemFee, setPerItemFee] = useState("");
   const { data: weightRanges, refetch } = useWeightRateget();
   const { mutate: deleteWeightRange } = useWeightRateDelete();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { mutate: FlatRateMutation, isPending } = useFlatRate();
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const { mutate: useWeightMutation, isPending: weightloading } =
+    useWeightRate();
+
+  useEffect(() => {
+    if (isEdit && id && weightRanges?.data) {
+      const foundData = weightRanges.data.find((item: any) => item.id === id);
+      if (foundData) {
+        setInitialData(foundData);
+        setSelectedOption("Depending on Weight");
+        setMinWeight(foundData.min_weight || "");
+        setMaxWeight(foundData.max_weight || "");
+        setCost(foundData.cost || "");
+      }
+    }
+  }, [id, isEdit, weightRanges]);
 
   useEffect(() => {
     if (initialData && isEdit) {
