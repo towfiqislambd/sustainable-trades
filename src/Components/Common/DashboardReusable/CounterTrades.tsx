@@ -2,11 +2,15 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import CounterBottom from "./CounterBottom";
 import CounterProductlist from "./CounterProductlist";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import DetailsImage from "../../../Assets/e2.jpg";
 import { FaRegStar } from "react-icons/fa";
 import { LocationSvg1, Reload } from "@/Components/Svg/SvgContainer";
+import {
+  useTradeCounterProduct,
+  useTradesdata,
+} from "@/Hooks/api/dashboard_api";
 interface ProductRow {
   id: number;
   selectedProduct: string;
@@ -23,7 +27,23 @@ interface TradeSection {
   products: ProductRow[];
   isOwnShop: boolean;
 }
-const CounterTrades = () => {
+const CounterTrades = ({ id }: any) => {
+  const { data: tradeData } = useTradesdata("");
+
+  const tradeInfo = tradeData?.data?.find((trade: any) => trade?.id === +id);
+
+  const requestedProduct = tradeInfo?.items?.find((item: any) => item?.product);
+
+  const offerProduct = tradeInfo?.items?.find((item: any) => item?.product);
+
+  useEffect(() => {
+    if (tradeInfo) {
+      console.log("Trade Info:", tradeInfo);
+      console.log("Requested Product:", requestedProduct);
+      console.log("Offered Product:", offerProduct?.product);
+    }
+  }, [tradeInfo, requestedProduct, offerProduct]);
+
   const actionButtons = ["Go Back", "Cancel", "Send Counter"];
   const actionButtonStyles: Record<
     string,

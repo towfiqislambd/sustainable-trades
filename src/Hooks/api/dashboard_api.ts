@@ -155,7 +155,7 @@ export const useCancelTrade = () => {
 export const useApproveTrade = () => {
   return useMutation({
     mutationFn: (id: any) =>
-      axiosSecure.get(`/api/trade-offer-approve/${id}`).then(res => res.data),
+      axiosSecure.get(`/api/trade-offer-approve/${id}`).then((res) => res.data),
   });
 };
 
@@ -164,7 +164,7 @@ export const useApproveTrade = () => {
 export const useCancel = () => {
   return useMutation({
     mutationFn: (id: any) =>
-      axiosSecure.get(`/api/trade-offer-cancel/${id}`).then(res => res.data),
+      axiosSecure.get(`/api/trade-offer-cancel/${id}`).then((res) => res.data),
   });
 };
 
@@ -288,6 +288,15 @@ export const useWeightRateget = () => {
   });
 };
 
+export const useTradeCounterProduct = (id: any) => {
+  return useClientApi({
+    method: "get",
+    key: ["trade-counter-product", id],
+    isPrivate: true,
+    endpoint: `/api/trade-shop-product/${id}`,
+   });
+};
+    
 // Get Notifications  Hooks
 export const useNotification = () => {
   return useClientApi({
