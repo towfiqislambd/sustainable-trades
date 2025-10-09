@@ -142,6 +142,7 @@ export const useTradeCounts = () => {
   });
 };
 
+// Cancel trades hooks
 export const useCancelTrade = () => {
   return useClientApi({
     method: "get",
@@ -150,17 +151,20 @@ export const useCancelTrade = () => {
   });
 };
 
+// Approve trades hooks
 export const useApproveTrade = () => {
   return useMutation({
     mutationFn: (id: any) =>
-      axiosSecure.get(`/api/trade-offer-approve/${id}`).then(res => res.data),
+      axiosSecure.get(`/api/trade-offer-approve/${id}`).then((res) => res.data),
   });
 };
 
+
+//  Cancel Hooks
 export const useCancel = () => {
   return useMutation({
     mutationFn: (id: any) =>
-      axiosSecure.get(`/api/trade-offer-cancel/${id}`).then(res => res.data),
+      axiosSecure.get(`/api/trade-offer-cancel/${id}`).then((res) => res.data),
   });
 };
 
@@ -217,6 +221,8 @@ export const useTaxes = () => {
   });
 };
 
+
+// Getdiscount Hooks
 export const useDiscountget = () => {
   return useClientApi({
     method: "get",
@@ -279,5 +285,24 @@ export const useWeightRateget = () => {
     key: ["get-weight"],
     isPrivate: true,
     endpoint: "/api/weight_ranges",
+  });
+};
+
+export const useTradeCounterProduct = (id: any) => {
+  return useClientApi({
+    method: "get",
+    key: ["trade-counter-product", id],
+    isPrivate: true,
+    endpoint: `/api/trade-shop-product/${id}`,
+   });
+};
+    
+// Get Notifications  Hooks
+export const useNotification = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-notifications"],
+    isPrivate: true,
+    endpoint: "/api/notifications",
   });
 };

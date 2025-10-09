@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-
 @theme {
   /* Colors */
   --color-primary-green: #274f45;
@@ -126,4 +125,9 @@ option:hover {
 .scroll-to-top {
   right: 20px !important;
   bottom: 20px !important;
+}
+
+.chat-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #274f45;
 }

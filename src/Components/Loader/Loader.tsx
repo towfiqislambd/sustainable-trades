@@ -431,3 +431,39 @@ export const CartItemSkeleton = () => {
     </div>
   );
 };
+
+// Conversation Card Skeleton
+export const ConversationCardSkeleton = () => {
+  return (
+    <div className="border-b-2 border-gray-200 py-7 px-5 flex justify-between items-center animate-pulse">
+      <div className="flex gap-3 items-center">
+        <div className="size-16 rounded-full bg-gray-200" />
+        <div className="flex flex-col gap-2">
+          <div className="h-4 w-40 bg-gray-200 rounded" />
+          <div className="h-3 w-64 bg-gray-200 rounded" />
+        </div>
+      </div>
+      <div className="shrink-0 flex flex-col items-end gap-3">
+        <div className="h-3 w-16 bg-gray-200 rounded" />
+        <div className="h-5 w-5 bg-gray-200 rounded-full" />
+      </div>
+    </div>
+  );
+};
+
+// Message Skeleton
+export const MessageSkeleton = ({ isSender = false }) => {
+  return (
+    <div
+      className={`flex gap-3 animate-pulse ${
+        isSender ? "justify-end" : "justify-start"
+      }`}
+    >
+      <div className="size-11 rounded-full bg-gray-300 shrink-0" />
+      <div className="max-w-[550px]">
+        <div className="bg-gray-300 h-5 w-40 rounded-md mb-2" />
+        <div className="bg-gray-300 h-5 w-56 rounded-md mb-2" />
+      </div>
+    </div>
+  );
+};
