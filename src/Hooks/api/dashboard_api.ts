@@ -281,3 +281,13 @@ export const useWeightRateget = () => {
     endpoint: "/api/weight_ranges",
   });
 };
+
+// Get Notifications  Hooks
+export const useNotification = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-notifications"],
+    isPrivate: true,
+    endpoint: "/api/notifications",
+  });
+};
