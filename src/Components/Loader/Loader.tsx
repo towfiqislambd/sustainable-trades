@@ -450,3 +450,20 @@ export const ConversationCardSkeleton = () => {
     </div>
   );
 };
+
+// Message Skeleton
+export const MessageSkeleton = ({ isSender = false }) => {
+  return (
+    <div
+      className={`flex gap-3 animate-pulse ${
+        isSender ? "justify-end" : "justify-start"
+      }`}
+    >
+      <div className="size-11 rounded-full bg-gray-300 shrink-0" />
+      <div className="max-w-[550px]">
+        <div className="bg-gray-300 h-5 w-40 rounded-md mb-2" />
+        <div className="bg-gray-300 h-5 w-56 rounded-md mb-2" />
+      </div>
+    </div>
+  );
+};

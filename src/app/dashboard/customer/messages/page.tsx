@@ -1,11 +1,12 @@
 "use client";
+import moment from "moment";
+import Link from "next/link";
+import Image from "next/image";
+import useAuth from "@/Hooks/useAuth";
 import React, { useState } from "react";
 import { SearchSvg } from "@/Components/Svg/SvgContainer";
-import Image from "next/image";
 import { getAllConversation } from "@/Hooks/api/chat_api";
-import moment from "moment";
 import { ConversationCardSkeleton } from "@/Components/Loader/Loader";
-import Link from "next/link";
 
 type Participant = {
   id: number;
@@ -29,6 +30,7 @@ type conversationItem = {
 };
 
 const page = () => {
+  const { user } = useAuth();
   const [search, setSearch] = useState<string>("");
   const [activeTab, setActiveTab] = useState<string>("Inbox");
   const { data: allConversation, isLoading } = getAllConversation();
@@ -79,14 +81,22 @@ const page = () => {
       {/* Message Body */}
       <div>
         {isLoading
-          ? Array.from({ length: 5 }).map((_, index) => (
+          ? Array.from({ length: 4 }).map((_, index) => (
               <ConversationCardSkeleton key={index} />
             ))
           : allConversation?.data?.conversations?.map(
               (conversation: conversationItem) => (
                 <Link
                   key={conversation?.id}
-                  href={`/details/${conversation?.participants[0]?.participant_id}`}
+                  href={`/dashboard/${
+                    user?.role === "vendor" &&
+                    user?.membership?.membership_type === "pro"
+                      ? "pro"
+                      : user?.role === "vendor" &&
+                        user?.membership?.membership_type === "basic"
+                      ? "basic"
+                      : "customer"
+                  }/messages/${conversation?.participants[0]?.participant_id}`}
                   className="border-b-2 border-gray-200 py-7 cursor-pointer duration-300 transition-all hover:bg-gray-100 px-5 flex justify-between items-center"
                 >
                   {/* Left */}
