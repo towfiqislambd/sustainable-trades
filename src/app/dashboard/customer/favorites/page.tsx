@@ -2,9 +2,9 @@
 import React, { useState } from "react";
 import Shop from "@/Components/Common/Shop";
 import Product from "@/Components/Common/Product";
+import { ProductSkeleton } from "@/Components/Loader/Loader";
 import DashBoardHeader from "@/Components/Common/DashBoardHeader";
 import { getAllFollowList, getAllShoplist } from "@/Hooks/api/dashboard_api";
-import { ProductSkeleton } from "@/Components/Loader/Loader";
 
 const Favourites = () => {
   const tabs: string[] = ["Follow ShopLists", "WishLists"];
