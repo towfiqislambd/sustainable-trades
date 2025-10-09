@@ -32,8 +32,8 @@ const DashboardSidebar = ({
   const [openMenus, setOpenMenus] = useState<number[]>([]);
 
   const toggleMenu = (id: number) => {
-    setOpenMenus((prev) =>
-      prev.includes(id) ? prev.filter((m) => m !== id) : [...prev, id]
+    setOpenMenus(prev =>
+      prev.includes(id) ? prev.filter(m => m !== id) : [...prev, id]
     );
   };
 
@@ -47,9 +47,9 @@ const DashboardSidebar = ({
     >
       {/* Nav Links */}
       <nav className="flex flex-col gap-5">
-        {dashboardNavLinks?.map((item) => {
+        {dashboardNavLinks?.map(item => {
           const isActiveParent = pathname === item.path;
-          const isActiveSub = item.subMenus?.some((m) => pathname === m.path);
+          const isActiveSub = item.subMenus?.some(m => pathname === m.path);
           const isOpen = openMenus.includes(item.id);
 
           return (
