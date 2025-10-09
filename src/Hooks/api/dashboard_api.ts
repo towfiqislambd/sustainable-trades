@@ -142,6 +142,7 @@ export const useTradeCounts = () => {
   });
 };
 
+// Cancel trades hooks
 export const useCancelTrade = () => {
   return useClientApi({
     method: "get",
@@ -150,6 +151,7 @@ export const useCancelTrade = () => {
   });
 };
 
+// Approve trades hooks
 export const useApproveTrade = () => {
   return useMutation({
     mutationFn: (id: any) =>
@@ -157,6 +159,8 @@ export const useApproveTrade = () => {
   });
 };
 
+
+//  Cancel Hooks
 export const useCancel = () => {
   return useMutation({
     mutationFn: (id: any) =>
@@ -217,6 +221,8 @@ export const useTaxes = () => {
   });
 };
 
+
+// Getdiscount Hooks
 export const useDiscountget = () => {
   return useClientApi({
     method: "get",
@@ -279,5 +285,15 @@ export const useWeightRateget = () => {
     key: ["get-weight"],
     isPrivate: true,
     endpoint: "/api/weight_ranges",
+  });
+};
+
+// Get Notifications  Hooks
+export const useNotification = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-notifications"],
+    isPrivate: true,
+    endpoint: "/api/notifications",
   });
 };
