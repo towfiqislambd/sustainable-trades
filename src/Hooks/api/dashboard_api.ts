@@ -155,16 +155,15 @@ export const useCancelTrade = () => {
 export const useApproveTrade = () => {
   return useMutation({
     mutationFn: (id: any) =>
-      axiosSecure.get(`/api/trade-offer-approve/${id}`).then((res) => res.data),
+      axiosSecure.get(`/api/trade-offer-approve/${id}`).then(res => res.data),
   });
 };
-
 
 //  Cancel Hooks
 export const useCancel = () => {
   return useMutation({
     mutationFn: (id: any) =>
-      axiosSecure.get(`/api/trade-offer-cancel/${id}`).then((res) => res.data),
+      axiosSecure.get(`/api/trade-offer-cancel/${id}`).then(res => res.data),
   });
 };
 
@@ -220,7 +219,6 @@ export const useTaxes = () => {
     },
   });
 };
-
 
 // Getdiscount Hooks
 export const useDiscountget = () => {
@@ -294,9 +292,9 @@ export const useTradeCounterProduct = (id: any) => {
     key: ["trade-counter-product", id],
     isPrivate: true,
     endpoint: `/api/trade-shop-product/${id}`,
-   });
+  });
 };
-    
+
 // Get Notifications  Hooks
 export const useNotification = () => {
   return useClientApi({
@@ -307,17 +305,15 @@ export const useNotification = () => {
   });
 };
 
-
 // Hook for getting single discount by ID
 export const useDiscountGetById = (id?: string) => {
   return useClientApi({
     method: "get",
     key: ["discount-get-by-id", id],
     isPrivate: true,
-    endpoint:`/api/discount/${id}`
+    endpoint: `/api/discount/${id}`,
   });
 };
-
 
 // Hook for updating a discount
 export const useDiscountUpdate = (id?: string) => {
@@ -325,7 +321,7 @@ export const useDiscountUpdate = (id?: string) => {
     method: "post",
     key: ["discount-update", id],
     isPrivate: true,
-    endpoint:  `/api/discount-update/${id}`,
+    endpoint: `/api/discount-update/${id}`,
     onSuccess: (data: any) => {
       if (data?.success) {
         toast.success(data?.message || "Discount updated successfully");
@@ -337,13 +333,12 @@ export const useDiscountUpdate = (id?: string) => {
   });
 };
 
-
-export const useDiscountStatusChange = () => {
+export const useDiscountStatusChange = (id:any) => {
   return useClientApi({
     method: "post",
     key: ["discount-status-change"],
     isPrivate: true,
-    endpoint: "/api/status-discount-codes/", 
+    endpoint:  `/api/status-discount-codes/${id}`,
     onSuccess: (data: any) => {
       if (data?.success) {
         toast.success(data?.message || "Discount status updated successfully");
@@ -354,8 +349,6 @@ export const useDiscountStatusChange = () => {
     },
   });
 };
-
-
 
 // Bulk Delete Discounts
 export const useBulkDeleteDiscount = () => {
@@ -376,7 +369,3 @@ export const useBulkDeleteDiscount = () => {
     },
   });
 };
-
-
-
-
