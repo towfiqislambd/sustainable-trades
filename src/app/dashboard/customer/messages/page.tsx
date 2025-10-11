@@ -128,8 +128,10 @@ const page = () => {
 
                       {/* Last Message */}
                       <p className="text-gray-500">
-                        {conversation?.last_message?.message?.slice(0, 100)}{" "}
-                        ....
+                        {conversation?.last_message?.message?.length > 100
+                          ? conversation?.last_message?.message?.slice(0, 100) +
+                            "...."
+                          : conversation?.last_message?.message}
                       </p>
                     </div>
                   </div>
@@ -144,7 +146,7 @@ const page = () => {
                     </p>
 
                     {/* Unread Message Count */}
-                    <p className="bg-[#1AA884] text-white font-bold px-2.5 text-sm py-0.5 rounded grid place-items-center">
+                    <p className="bg-[#1AA884] text-white font-bold px-2 text-sm py-1 rounded grid place-items-center">
                       {conversation?.unread_messages_count}
                     </p>
                   </div>
