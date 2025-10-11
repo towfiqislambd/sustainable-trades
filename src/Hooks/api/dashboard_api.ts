@@ -159,12 +159,32 @@ export const useApproveTrade = () => {
   });
 };
 
-
 //  Cancel Hooks
 export const useCancel = () => {
   return useMutation({
     mutationFn: (id: any) =>
       axiosSecure.get(`/api/trade-offer-cancel/${id}`).then((res) => res.data),
+  });
+};
+
+//  single trade
+
+export const useSingleTradeOffer = (id: any) => {
+  return useClientApi({
+    method: "get",
+    key: ["single-trade-offer", id],
+    isPrivate: true,
+    endpoint: `/api/trade-offer/${id}`,
+  });
+};
+
+// trade shop product
+export const useTradeShopProduct = (id: any) => {
+  return useClientApi({
+    method: "get",
+    key: ["trade-shop-product", id],
+    isPrivate: true,
+    endpoint: `/api/trade-shop-product/${id}`,
   });
 };
 
@@ -220,7 +240,6 @@ export const useTaxes = () => {
     },
   });
 };
-
 
 // Getdiscount Hooks
 export const useDiscountget = () => {
@@ -294,9 +313,9 @@ export const useTradeCounterProduct = (id: any) => {
     key: ["trade-counter-product", id],
     isPrivate: true,
     endpoint: `/api/trade-shop-product/${id}`,
-   });
+  });
 };
-    
+
 // Get Notifications  Hooks
 export const useNotification = () => {
   return useClientApi({
