@@ -3,10 +3,12 @@ import moment from "moment";
 import Link from "next/link";
 import Image from "next/image";
 import useAuth from "@/Hooks/useAuth";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SearchSvg } from "@/Components/Svg/SvgContainer";
 import { getAllConversation } from "@/Hooks/api/chat_api";
 import { ConversationCardSkeleton } from "@/Components/Loader/Loader";
+import echo from "@/lib/echo";
+import { useQueryClient } from "@tanstack/react-query";
 
 type Participant = {
   id: number;
@@ -31,6 +33,7 @@ type conversationItem = {
 
 const page = () => {
   const { user } = useAuth();
+  const queryClient = useQueryClient();
   const [search, setSearch] = useState<string>("");
   const [activeTab, setActiveTab] = useState<string>("Inbox");
   const { data: allConversation, isLoading } = getAllConversation();
@@ -41,6 +44,24 @@ const page = () => {
     { id: 3, label: "Sent" },
     { id: 4, label: "Unread" },
   ];
+
+  // Pusher Config
+  useEffect(() => {
+    if (!echo || !user?.id) return;
+
+    echo
+      .private(`conversation-channel.${user?.id}`)
+      .listen("ConversationEvent", (e: any) => {
+        console.log("🔔 New message event received from main:", e);
+        if (+e?.conversation?.conversation_id === +user?.id) {
+          queryClient.invalidateQueries("get-all-conversation" as any);
+          queryClient.invalidateQueries("get-single-conversation" as any);
+        }
+      })
+      .error((error: any) => {
+        console.error("Echo subscription error:", error);
+      });
+  }, [echo, user?.id]);
 
   return (
     <>
