@@ -1,11 +1,13 @@
 "use client";
 import moment from "moment";
 import Link from "next/link";
+import echo from "@/lib/echo";
 import Image from "next/image";
 import useAuth from "@/Hooks/useAuth";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SearchSvg } from "@/Components/Svg/SvgContainer";
 import { getAllConversation } from "@/Hooks/api/chat_api";
+import { useQueryClient } from "@tanstack/react-query";
 import { ConversationCardSkeleton } from "@/Components/Loader/Loader";
 
 type Participant = {
@@ -20,7 +22,7 @@ type Participant = {
 
 type conversationItem = {
   id: number;
-  unread_messages_count: number;
+  unread_message_count: number;
   participants: Participant[];
   last_message: {
     message: string;
@@ -31,6 +33,7 @@ type conversationItem = {
 
 const page = () => {
   const { user } = useAuth();
+  const queryClient = useQueryClient();
   const [search, setSearch] = useState<string>("");
   const [activeTab, setActiveTab] = useState<string>("Inbox");
   const { data: allConversation, isLoading } = getAllConversation();
@@ -41,6 +44,21 @@ const page = () => {
     { id: 3, label: "Sent" },
     { id: 4, label: "Unread" },
   ];
+
+  // Pusher Config
+  useEffect(() => {
+    if (!echo || !user?.id) return;
+
+    echo
+      .private(`conversation-channel.${user?.id}`)
+      .listen("ConversationEvent", (e: any) => {
+        console.log("🔔 New message event received from main:", e);
+        if (+e?.receiverId === +user?.id) {
+          queryClient.invalidateQueries("get-all-conversation" as any);
+          queryClient.invalidateQueries("get-single-conversation" as any);
+        }
+      });
+  }, [echo, user?.id]);
 
   return (
     <>
@@ -147,7 +165,7 @@ const page = () => {
 
                     {/* Unread Message Count */}
                     <p className="bg-[#1AA884] text-white font-bold px-2 text-sm py-1 rounded grid place-items-center">
-                      {conversation?.unread_messages_count}
+                      {conversation?.unread_message_count}
                     </p>
                   </div>
                 </Link>
