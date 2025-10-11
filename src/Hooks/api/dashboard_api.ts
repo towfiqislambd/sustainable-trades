@@ -338,46 +338,4 @@ export const useDiscountUpdate = (id?: string) => {
 };
 
 
-// Hook for deleting discounts
-export const useDiscountDelete = () => {
-  return useClientApi({
-    method: "delete",
-    key: ["discount-delete"],
-    isPrivate: true,
-    endpoint: "/api/delete-discount-codes",
-    onSuccess: (data: any) => {
-      if (data?.success) {
-        toast.success(data?.message || "Discounts deleted successfully");
-        // Invalidate to refetch list
-        // queryClient.invalidateQueries({ queryKey: ["discount-get"] });
-      }
-    },
-    onError: (err: any) => {
-      toast.error(
-        err?.response?.data?.message || "Failed to delete discounts"
-      );
-    },
-  });
-};
 
-// Hook for updating discount status
-export const useDiscountStatusUpdate = (id?: string) => {
-  return useClientApi({
-    method: "post",
-    key: ["discount-status-update", id],
-    isPrivate: true,
-    endpoint: `/api/status-discount-codes/${id}`,
-    onSuccess: (data: any) => {
-      if (data?.success) {
-        toast.success(data?.message || "Status updated successfully");
-        // Invalidate to refetch list
-        // queryClient.invalidateQueries({ queryKey: ["discount-get"] });
-      }
-    },
-    onError: (err: any) => {
-      toast.error(
-        err?.response?.data?.message || "Failed to update status"
-      );
-    },
-  });
-};
