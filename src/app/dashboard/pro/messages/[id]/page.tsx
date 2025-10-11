@@ -1,16 +1,16 @@
 "use client";
 import moment from "moment";
 import Image from "next/image";
+import echo from "@/lib/echo";
 import toast from "react-hot-toast";
 import useAuth from "@/Hooks/useAuth";
 import { ImSpinner9 } from "react-icons/im";
 import { useRouter } from "next/navigation";
 import { PuffLoader } from "react-spinners";
-import { GoBackSvg } from "@/Components/Svg/SvgContainer";
-import React, { use, useEffect, useRef, useState } from "react";
-import { getSingleConversation, useSendMessage } from "@/Hooks/api/chat_api";
-import echo from "@/lib/echo";
 import { useQueryClient } from "@tanstack/react-query";
+import { GoBackSvg } from "@/Components/Svg/SvgContainer";
+import React, { useEffect, useRef, useState } from "react";
+import { getSingleConversation, useSendMessage } from "@/Hooks/api/chat_api";
 
 type messageItem = {
   id: number;
@@ -25,13 +25,9 @@ type messageItem = {
   };
 };
 
-interface Props {
-  params: Promise<{ id: number }>;
-}
-
-const page = ({ params }: Props) => {
+const page = ({ params }: any) => {
   // Hooks
-  const { id } = use(params);
+  const { id } = params;
   const { user } = useAuth();
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -44,7 +40,7 @@ const page = ({ params }: Props) => {
   // Mutation & Query
   const { mutate: sendMessageMutation, isPending } = useSendMessage();
   const { data: singleConversation, isLoading: chatLoading } =
-    getSingleConversation(id);
+    getSingleConversation(Number(id));
 
   // Set Initial Chat
   useEffect(() => {
@@ -69,15 +65,12 @@ const page = ({ params }: Props) => {
       .private(`chat-channel.${user?.id}`)
       .listen("MessageSentEvent", (e: any) => {
         console.log("🔔 New message event received:", e);
-        if (e?.data?.conversation_id === +id) {
+        if (e?.data?.receiver_id === +user?.id) {
           queryClient.invalidateQueries("get-all-conversation" as any);
           queryClient.invalidateQueries("get-single-conversation" as any);
         }
-      })
-      .error((error: any) => {
-        console.error("Echo subscription error:", error);
       });
-  }, [user?.id, id]);
+  }, [echo, user?.id]);
 
   // Handle send message
   const handleSend = (e: any) => {
@@ -138,7 +131,11 @@ const page = ({ params }: Props) => {
 
         <div className="border-t-2 border-b-2 py-2.5 border-gray-200 flex gap-5 items-center">
           {/* Author Image */}
-          <figure className="size-14 rounded-full border border-gray-100 grid place-items-center relative bg-accent-red">
+          <figure
+            className={`size-14 rounded-full border border-gray-100 grid place-items-center relative ${
+              chatLoading ? "bg-gray-200 animate-pulse" : "bg-accent-red"
+            }`}
+          >
             {singleConversation?.data?.conversation?.participants[0]
               ?.participant?.avatar ? (
               <Image
@@ -157,21 +154,25 @@ const page = ({ params }: Props) => {
           </figure>
 
           {/* Author Name */}
-          <h3 className="text-xl font-bold text-secondary-black mb-1 flex gap-1 items-center">
-            <span>
-              {
-                singleConversation?.data?.conversation?.participants[0]
-                  ?.participant?.first_name
-              }
-            </span>
+          {chatLoading ? (
+            <h3 className="animate-pulse w-40 h-5 rounded bg-gray-200"></h3>
+          ) : (
+            <h3 className="text-xl font-bold text-secondary-black flex gap-1 items-center">
+              <span>
+                {
+                  singleConversation?.data?.conversation?.participants[0]
+                    ?.participant?.first_name
+                }
+              </span>
 
-            <span>
-              {
-                singleConversation?.data?.conversation?.participants[0]
-                  ?.participant?.last_name
-              }
-            </span>
-          </h3>
+              <span>
+                {
+                  singleConversation?.data?.conversation?.participants[0]
+                    ?.participant?.last_name
+                }
+              </span>
+            </h3>
+          )}
         </div>
       </div>
 

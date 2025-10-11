@@ -5,9 +5,9 @@ import echo from "@/lib/echo";
 import Image from "next/image";
 import useAuth from "@/Hooks/useAuth";
 import React, { useEffect, useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
 import { SearchSvg } from "@/Components/Svg/SvgContainer";
 import { getAllConversation } from "@/Hooks/api/chat_api";
+import { useQueryClient } from "@tanstack/react-query";
 import { ConversationCardSkeleton } from "@/Components/Loader/Loader";
 
 type Participant = {
@@ -22,7 +22,7 @@ type Participant = {
 
 type conversationItem = {
   id: number;
-  unread_messages_count: number;
+  unread_message_count: number;
   participants: Participant[];
   last_message: {
     message: string;
@@ -52,7 +52,8 @@ const page = () => {
     echo
       .private(`conversation-channel.${user?.id}`)
       .listen("ConversationEvent", (e: any) => {
-        if (+e.conversation?.conversation_id === +user?.id) {
+        console.log("🔔 New message event received from main:", e);
+        if (+e?.receiverId === +user?.id) {
           queryClient.invalidateQueries("get-all-conversation" as any);
           queryClient.invalidateQueries("get-single-conversation" as any);
         }
@@ -164,7 +165,7 @@ const page = () => {
 
                     {/* Unread Message Count */}
                     <p className="bg-[#1AA884] text-white font-bold px-2 text-sm py-1 rounded grid place-items-center">
-                      {conversation?.unread_messages_count}
+                      {conversation?.unread_message_count}
                     </p>
                   </div>
                 </Link>
