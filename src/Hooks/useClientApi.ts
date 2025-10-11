@@ -55,10 +55,20 @@ export default function useClientApi({
       const dynamicEndpoint = variables?.endpoint || endpoint;
       const payload = variables?.data || variables;
 
-      const res = await axiosInstance[method](dynamicEndpoint, payload, {
-        headers,
-        ...axiosOptions,
-      });
+      let res;
+
+      if (method.toLowerCase() === "delete") {
+        res = await axiosInstance.delete(dynamicEndpoint, {
+          data: payload,
+          headers,
+          ...axiosOptions,
+        });
+      } else {
+        res = await axiosInstance[method](dynamicEndpoint, payload, {
+          headers,
+          ...axiosOptions,
+        });
+      }
 
       return res?.data;
     },

@@ -155,16 +155,36 @@ export const useCancelTrade = () => {
 export const useApproveTrade = () => {
   return useMutation({
     mutationFn: (id: any) =>
-      axiosSecure.get(`/api/trade-offer-approve/${id}`).then((res) => res.data),
+      axiosSecure.get(`/api/trade-offer-approve/${id}`).then(res => res.data),
   });
 };
-
 
 //  Cancel Hooks
 export const useCancel = () => {
   return useMutation({
     mutationFn: (id: any) =>
-      axiosSecure.get(`/api/trade-offer-cancel/${id}`).then((res) => res.data),
+      axiosSecure.get(`/api/trade-offer-cancel/${id}`).then(res => res.data),
+  });
+};
+
+//  single trade
+
+export const useSingleTradeOffer = (id: any) => {
+  return useClientApi({
+    method: "get",
+    key: ["single-trade-offer", id],
+    isPrivate: true,
+    endpoint: `/api/trade-offer/${id}`,
+  });
+};
+
+// trade shop product
+export const useTradeShopProduct = (id: any) => {
+  return useClientApi({
+    method: "get",
+    key: ["trade-shop-product", id],
+    isPrivate: true,
+    endpoint: `/api/trade-shop-product/${id}`,
   });
 };
 
@@ -220,7 +240,6 @@ export const useTaxes = () => {
     },
   });
 };
-
 
 // Getdiscount Hooks
 export const useDiscountget = () => {
@@ -294,9 +313,9 @@ export const useTradeCounterProduct = (id: any) => {
     key: ["trade-counter-product", id],
     isPrivate: true,
     endpoint: `/api/trade-shop-product/${id}`,
-   });
+  });
 };
-    
+
 // Get Notifications  Hooks
 export const useNotification = () => {
   return useClientApi({
@@ -304,5 +323,70 @@ export const useNotification = () => {
     key: ["get-notifications"],
     isPrivate: true,
     endpoint: "/api/notifications",
+  });
+};
+
+// Hook for getting single discount by ID
+export const useDiscountGetById = (id?: string) => {
+  return useClientApi({
+    method: "get",
+    key: ["discount-get-by-id", id],
+    isPrivate: true,
+    endpoint: `/api/discount/${id}`,
+  });
+};
+
+// Hook for updating a discount
+export const useDiscountUpdate = (id?: string) => {
+  return useClientApi({
+    method: "post",
+    key: ["discount-update", id],
+    isPrivate: true,
+    endpoint: `/api/discount-update/${id}`,
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        toast.success(data?.message || "Discount updated successfully");
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message || "Failed to update discount");
+    },
+  });
+};
+
+export const useDiscountStatusChange = (id:any) => {
+  return useClientApi({
+    method: "post",
+    key: ["discount-status-change"],
+    isPrivate: true,
+    endpoint:  `/api/status-discount-codes/${id}`,
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        toast.success(data?.message || "Discount status updated successfully");
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message || "Failed to update status");
+    },
+  });
+};
+
+// Bulk Delete Discounts
+export const useBulkDeleteDiscount = () => {
+  return useClientApi({
+    method: "delete",
+    key: ["bulk-delete-discount"],
+    isPrivate: true,
+    endpoint: "/api/delete-discount-codes",
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        toast.success(data?.message || "Discount(s) deleted successfully");
+      }
+    },
+    onError: (err: any) => {
+      toast.error(
+        err?.response?.data?.message || "Failed to delete discount(s)"
+      );
+    },
   });
 };

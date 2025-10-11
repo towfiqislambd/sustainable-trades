@@ -1,7 +1,11 @@
 "use client";
 
 import { Delete, Pen } from "@/Components/Svg/SvgContainer";
-import { useDiscountget } from "@/Hooks/api/dashboard_api";
+import {
+  useDiscountget,
+  useBulkDeleteDiscount,
+  useDiscountStatusChange,
+} from "@/Hooks/api/dashboard_api";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
@@ -10,11 +14,15 @@ const DiscountsPage = () => {
   const [activeTab, setActiveTab] = useState("Active");
   const [selected, setSelected] = useState<string[]>([]);
   const [discounts, setDiscounts] = useState<any[]>([]);
+  const [singleDiscountId, setSingleDiscountId] = useState(null);
   const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>(
     {}
   );
-  const { data: getdiscountdata } = useDiscountget();
-  console.log(getdiscountdata);
+
+  const { data: getdiscountdata, refetch } = useDiscountget();
+
+  const bulkDelete = useBulkDeleteDiscount();
+  const discountStatusChange = useDiscountStatusChange(singleDiscountId);
 
   const formatDate = (dateStr: string | null): string => {
     if (!dateStr) return "";
@@ -70,32 +78,49 @@ const DiscountsPage = () => {
     }
   }, [getdiscountdata]);
 
-  // Filtered discounts by active tab
   const filtered = discounts.filter((d: any) => d.status === activeTab);
 
-  // Handle selection
   const toggleSelect = (id: string) => {
     setSelected(prev =>
       prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
     );
   };
 
-  // Handle delete
   const handleDelete = () => {
     if (selected.length === 0) return;
-    alert(`Deleting discounts: ${selected.join(", ")}`);
-    setSelected([]);
+
+    console.log(selected);
+
+    bulkDelete.mutate(
+      { ids: selected },
+      {
+        onSuccess: () => {
+          setDiscounts(prev => prev.filter(d => !selected.includes(d.id)));
+          setSelected([]);
+          refetch();
+        },
+      }
+    );
   };
 
   const toggleOpen = (id: string) => {
     setOpenDropdowns(prev => ({ ...prev, [id]: !prev[id] }));
   };
 
+  // ✅ Status change function uses the hook properly
   const handleChangeStatus = (id: string, newStatus: string) => {
-    setDiscounts(prev =>
-      prev.map(d => (d.id === id ? { ...d, status: newStatus } : d))
+    discountStatusChange.mutate(
+      { id, status: newStatus.toLowerCase() },
+      {
+        onSuccess: () => {
+          setDiscounts(prev =>
+            prev.map(d => (d.id === id ? { ...d, status: newStatus } : d))
+          );
+          toggleOpen(id);
+          refetch();
+        },
+      }
     );
-    toggleOpen(id);
   };
 
   const tabs = [
@@ -171,7 +196,9 @@ const DiscountsPage = () => {
                 <input
                   type="checkbox"
                   checked={selected.includes(d.id)}
-                  onChange={() => toggleSelect(d.id)}
+                  onChange={() => {
+                    toggleSelect(d.id);
+                  }}
                   className="mt-2"
                 />
                 <div>
@@ -184,11 +211,11 @@ const DiscountsPage = () => {
                   <div className="mt-3 md:mt-7 text-[14px] md:text-[18px]">
                     <span className="font-bold text-[12px] md:text-[16px] text-[#13141D]">
                       STARTS
-                    </span>
-                    {d.starts}
+                    </span>{" "}
+                    {d.starts}{" "}
                     <span className="sm:ml-4 font-bold text-[14px] md:text-[18px] text-[#13141D]">
                       ENDS
-                    </span>
+                    </span>{" "}
                     {d.ends}
                   </div>
                 </div>
@@ -218,7 +245,10 @@ const DiscountsPage = () => {
                 {/* Status Dropdown */}
                 <div className="relative">
                   <button
-                    onClick={() => toggleOpen(d.id)}
+                    onClick={() => {
+                      setSingleDiscountId(d.id);
+                      toggleOpen(d.id);
+                    }}
                     className={`px-2 py-1 rounded text-sm font-semibold cursor-pointer ${
                       d.status.toLowerCase() === "active"
                         ? "bg-green-100 text-green-800"

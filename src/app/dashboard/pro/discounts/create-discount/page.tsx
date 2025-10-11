@@ -1,7 +1,12 @@
 "use client";
-import { getallListings, useCreateDiscount } from "@/Hooks/api/dashboard_api";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import {
+  getallListings,
+  useCreateDiscount,
+  useDiscountGetById,
+  useDiscountUpdate,
+} from "@/Hooks/api/dashboard_api";
+import { useParams, useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { FaAngleLeft } from "react-icons/fa";
 import { FiCalendar, FiClock } from "react-icons/fi";
@@ -15,9 +20,34 @@ interface ListingsResponse {
   data: Product[];
 }
 
+interface DiscountData {
+  id: number;
+  name: string;
+  discount_type: "discount_code" | "automatic_discount";
+  code?: string;
+  promotion_type: "percentage" | "fixed";
+  amount: number;
+  applies: "any_order" | "single_product";
+  product_id?: number;
+  limit_one_per_shopper: boolean;
+  discount_limits?: number;
+  start_date: string;
+  start_time?: string;
+  end_date?: string;
+  end_time?: string;
+  never_expires: boolean;
+  status?: "active" | "inactive";
+}
+
 const CreateDiscount = () => {
+  const params = useParams();
   const router = useRouter();
-  const { mutate, isPending } = useCreateDiscount();
+  const id = params?.id as string | undefined;
+  const isEditMode = !!id;
+
+  const { mutate: createMutate, isPending: isCreating } = useCreateDiscount();
+  const { mutate: updateMutate, isPending: isUpdating } = useDiscountUpdate(id);
+  const { data: discountData, isLoading: isFetching } = useDiscountGetById(id);
   const [discountType, setDiscountType] = useState("code");
   const [appliesTo, setAppliesTo] = useState("Any Order");
   const [name, setName] = useState("");
@@ -33,7 +63,35 @@ const CreateDiscount = () => {
   const [endDate, setEndDate] = useState("");
   const [endTime, setEndTime] = useState("");
   const [neverExpires, setNeverExpires] = useState(false);
-  const { data: productlist }: { data: ListingsResponse | undefined } = getallListings();
+  const { data: productlist }: { data: ListingsResponse | undefined } =
+    getallListings();
+
+  const isPending = isCreating || isUpdating;
+
+  useEffect(() => {
+    if (isEditMode && discountData?.data) {
+      const item: DiscountData = discountData.data;
+      setName(item.name || "");
+      setDiscountType(item.discount_type === "discount_code" ? "code" : "auto");
+      setCode(item.code || "");
+      setPromoType(
+        item.promotion_type === "percentage" ? "Percent Off" : "Fixed Amount"
+      );
+      setAmount(item.amount?.toString() || "");
+      setAppliesTo(
+        item.applies === "any_order" ? "Any Order" : "Single Product"
+      );
+      setSelectedProduct(item.product_id?.toString() || "");
+      setLimitPerCustomer(item.limit_one_per_shopper || false);
+      setTotalUsesLimit(!!item.discount_limits);
+      setTotalUses(item.discount_limits?.toString() || "");
+      setStartDate(item.start_date || "");
+      setStartTime(item.start_time ? item.start_time.substring(0, 5) : "");
+      setEndDate(item.end_date || "");
+      setEndTime(item.end_time ? item.end_time.substring(0, 5) : "");
+      setNeverExpires(item.never_expires || false);
+    }
+  }, [isEditMode, discountData]);
 
   const generateRandomCode = () => {
     return (
@@ -46,61 +104,74 @@ const CreateDiscount = () => {
     setCode(generateRandomCode());
   };
 
-const handleSave = () => {
-  if (!name.trim()) {
-    toast.error("Discount name is required.");
-    return;
-  }
-  if (!amount.trim()) {
-    toast.error("Discount amount is required.");
-    return;
-  }
-  if (!startDate) {
-    toast.error("Start date is required.");
-    return;
-  }
-  if (appliesTo === "Single Product" && !selectedProduct) {
-    toast.error("Please select a product.");
-    return;
-  }
-  if (totalUsesLimit && !totalUses.trim()) {
-    toast.error("Please enter total usage limit.");
-    return;
-  }
+  const handleSave = () => {
+    if (!name.trim()) {
+      toast.error("Discount name is required.");
+      return;
+    }
+    if (!amount.trim()) {
+      toast.error("Discount amount is required.");
+      return;
+    }
+    if (!startDate) {
+      toast.error("Start date is required.");
+      return;
+    }
+    if (appliesTo === "Single Product" && !selectedProduct) {
+      toast.error("Please select a product.");
+      return;
+    }
+    if (totalUsesLimit && !totalUses.trim()) {
+      toast.error("Please enter total usage limit.");
+      return;
+    }
 
-  const finalCode =
-    discountType === "code"
-      ? code.trim() || generateRandomCode()
-      : generateRandomCode();
+    const finalCode =
+      discountType === "code"
+        ? code.trim() || generateRandomCode()
+        : generateRandomCode();
 
-  const payload = {
-    name: name.trim(),
-    discount_type:
-      discountType === "code" ? "discount_code" : "automatic_discount",
-    code: finalCode,
-    promotion_type: promoType === "Percent Off" ? "percentage" : "fixed",
-    amount: amount.trim(),
-    applies: appliesTo === "Any Order" ? "any_order" : "single_product",
-    ...(appliesTo === "Single Product" && { product_id: selectedProduct }),
-    limit_one_per_shopper: limitPerCustomer,
-    ...(totalUsesLimit &&
-      totalUses.trim() && { discount_limits: totalUses.trim() }),
-    start_date: startDate,
-    start_time: startTime || null,
-    never_expires: neverExpires,
-    ...(neverExpires
-      ? { end_date: null, end_time: null }
-      : { end_date: endDate || null, end_time: endTime || null }),
+    const payload = {
+      name: name.trim(),
+      discount_type:
+        discountType === "code" ? "discount_code" : "automatic_discount",
+      code: finalCode,
+      promotion_type: promoType === "Percent Off" ? "percentage" : "fixed",
+      amount: amount.trim(),
+      applies: appliesTo === "Any Order" ? "any_order" : "single_product",
+      ...(appliesTo === "Single Product" && {
+        product_id: parseInt(selectedProduct),
+      }),
+      limit_one_per_shopper: limitPerCustomer,
+      ...(totalUsesLimit &&
+        totalUses.trim() && { discount_limits: parseInt(totalUses.trim()) }),
+      start_date: startDate,
+      start_time: startTime || null,
+      never_expires: neverExpires,
+      ...(neverExpires
+        ? { end_date: null, end_time: null }
+        : { end_date: endDate || null, end_time: endTime || null }),
+      ...(isEditMode && { id: parseInt(id!) }),
+    };
+
+    if (isEditMode) {
+      updateMutate(payload, {
+        onSuccess: (data: any) => {
+          if (data?.success) {
+            router.push("/dashboard/pro/discounts");
+          }
+        },
+      });
+    } else {
+      createMutate(payload, {
+        onSuccess: (data: any) => {
+          if (data?.success) {
+            router.push("/dashboard/pro/discounts");
+          }
+        },
+      });
+    }
   };
-
-  mutate(payload, {
-    onSuccess: (data:any) => {
-      if (data?.success) {
-        router.push("/dashboard/pro/discounts");
-      }
-    },
-  });
-};
 
   const handleDiscard = () => {
     if (confirm("Are you sure you want to discard?")) {
@@ -112,7 +183,7 @@ const handleSave = () => {
     router.back();
   };
 
-  const handleNeverExpiresChange = (e:any) => {
+  const handleNeverExpiresChange = (e: any) => {
     const checked = e.target.checked;
     setNeverExpires(checked);
     if (checked) {
@@ -121,11 +192,19 @@ const handleSave = () => {
     }
   };
 
+  if (isFetching && isEditMode) {
+    return (
+      <div className="p-4 lg:p-8 flex justify-center items-center h-64">
+        <div className="text-[#13141D]">Loading discount...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="p-4 lg:p-8">
       {/* Title */}
       <h2 className="text-[30px] md:text-[40px] font-semibold text-[#13141D]">
-        Create Discount
+        {isEditMode ? "Edit Discount" : "Create Discount"}
       </h2>
 
       {/* Back */}
@@ -213,7 +292,7 @@ const handleSave = () => {
       )}
 
       {/* Promotion */}
-     <div className="pb-4 md:pb-8">
+      <div className="pb-4 md:pb-8">
         <h4 className="text-[16px] md:text-[20px] font-normal text-[#13141D]">
           Promotion
         </h4>
@@ -221,7 +300,7 @@ const handleSave = () => {
           <select
             className="px-4 py-2.5 md:py-5 w-full bg-[#D4E2CB] rounded-l-md text-[#5C7F60] font-bold text-[13px] md:text-[16px] outline-0"
             value={promoType}
-            onChange={(e) => setPromoType(e.target.value)}
+            onChange={e => setPromoType(e.target.value)}
           >
             <option>Percent Off</option>
             <option>Fixed Amount</option>
@@ -232,7 +311,7 @@ const handleSave = () => {
             step="0.01"
             placeholder={promoType === "Percent Off" ? "0%" : "0"}
             value={amount}
-            onChange={(e) => setAmount(e.target.value)}
+            onChange={e => setAmount(e.target.value)}
             className="rounded-r-md px-4 py-2 flex-1 text-[#13141D] font-bold text-[13px] md:text-[16px] outline-0"
           />
         </div>
@@ -401,7 +480,11 @@ const handleSave = () => {
           disabled={isPending}
           className="hover:border-[#D4E2CB] hover:border border hover:bg-transparent rounded-[8px] px-16 py-2 md:py-4 text-base md:text-[20px] font-semibold cursor-pointer bg-[#D4E2CB] w-full md:w-fit text-[#274F45] duration-500 ease-in-out disabled:opacity-50"
         >
-          {isPending ? "Saving..." : "Save Discount"}
+          {isPending
+            ? "Saving..."
+            : isEditMode
+            ? "Update Discount"
+            : "Save Discount"}
         </button>
       </div>
     </div>
