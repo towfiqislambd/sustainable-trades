@@ -167,6 +167,27 @@ export const useCancel = () => {
   });
 };
 
+//  single trade
+
+export const useSingleTradeOffer = (id: any) => {
+  return useClientApi({
+    method: "get",
+    key: ["single-trade-offer", id],
+    isPrivate: true,
+    endpoint: `/api/trade-offer/${id}`,
+  });
+};
+
+// trade shop product
+export const useTradeShopProduct = (id: any) => {
+  return useClientApi({
+    method: "get",
+    key: ["trade-shop-product", id],
+    isPrivate: true,
+    endpoint: `/api/trade-shop-product/${id}`,
+  });
+};
+
 // Delete Account API
 export const useDeleteAccount = () => {
   return useClientApi({
