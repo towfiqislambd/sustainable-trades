@@ -32,38 +32,40 @@ const Page = () => {
   //   Approved: 2,
   //   Canceled: 3,
   // };
-const tradetabs = [
-  {
-    id: 1,
-    label: "Pending",
-    count: data?.data?.pending_count,
-  },
-  {
-    id: 2,
-    label: "Sent",
-    count: data?.data?.sent_count,
-  },
-  {
-    id: 3,
-    label: "Approved",
-    count: data?.data?.accepted_count,
-  },
-  {
-    id: 4,
-    label: "Canceled",
-    count: data?.data?.cancelled_count,
-  },
-];
+  const tradetabs = [
+    {
+      id: 1,
+      label: "Pending",
+      count: data?.data?.pending_count,
+    },
+    {
+      id: 2,
+      label: "Sent",
+      count: data?.data?.sent_count,
+    },
+    {
+      id: 3,
+      label: "Approved",
+      count: data?.data?.accepted_count,
+    },
+    {
+      id: 4,
+      label: "Canceled",
+      count: data?.data?.cancelled_count,
+    },
+  ];
 
   return (
     <div>
-      <div className="flex justify-between items-center">
-        <h3 className="text-[40px] font-semibold text-[#000]">Trades</h3>
-        <div className="relative">
+      <div className="flex flex-wrap gap-2.5 md:flex-nowrap justify-between items-center">
+        <h3 className="text-[30px] md:text-[40px] font-semibold text-[#000]">
+          Trades
+        </h3>
+        <div className="relative w-full md:w-fit">
           <input
             placeholder="Search..."
             type="search"
-            className="py-[10px] pl-4 outline-0 border border-[#BFBEBE] rounded-[8px] text-[16px] text-[#67645F] font-normal w-[500px]"
+            className="py-[10px] pl-4 outline-0 border border-[#BFBEBE] rounded-[8px] text-[16px] text-[#67645F] font-normal w-full  md:w-[500px]"
           />
           <div className="absolute top-4 right-3">
             <FaSearch />
@@ -71,6 +73,7 @@ const tradetabs = [
           <div className="absolute top-0 right-10 w-[2px] bg-[#BFBEBE] h-[45px]"></div>
         </div>
       </div>
+
       {/* Tabs */}
       <div className="mt-14">
         <ul className="flex justify-between relative after:content-[''] after:block after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:p-[3px] after:border after:border-[#A7A39C] after:rounded-lg">
@@ -78,7 +81,7 @@ const tradetabs = [
             <li
               key={tab.label}
               onClick={() => setActiveTab(tab.label)}
-              className={`flex gap-x-3 items-center text-[16px] cursor-pointer pb-5 px-20 justify-center
+              className={`flex gap-1.5 md:gap-x-3 items-center text-[14px] sm:text-[16px] cursor-pointer pb-5  lg:px-15 xl:px-20 justify-center
                 ${
                   activeTab === tab.label
                     ? "font-semibold text-[#000] relative after:content-[''] after:block after:absolute after:bottom-0 after:left-0 after:w-full after:h-[8px] after:bg-[#274F45] after:rounded-lg"
@@ -87,7 +90,7 @@ const tradetabs = [
             >
               {tab.label}
               <span
-                className={`border rounded-[8px] px-2 py-[2px] text-sm border-[#000]
+                className={`border rounded-[8px] px-1 py-0.5 sm:px-2 sm:py-[2px] text-[10px] sm:text-sm border-[#000]
                   ${
                     activeTab === tab.label
                       ? " bg-[#D4E2CB] text-[#6D2D4E2CB8D9]"

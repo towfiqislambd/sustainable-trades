@@ -47,7 +47,7 @@ const CounterProductlist = () => {
     },
   ];
   const handleSeeMore = () => {
-    setVisibleTrades(prev => Math.min(prev + 5, trades.length));
+    setVisibleTrades((prev) => Math.min(prev + 5, trades.length));
   };
 
   const getStatusColor = (status: string) => {
@@ -82,33 +82,32 @@ const CounterProductlist = () => {
           {trades.slice(0, visibleTrades).map((trade, idx) => (
             <div
               key={idx}
-              className="flex justify-between items-start border-b border-[#BFBEBE] pb-4 hover:bg-gray-50 p-2 
-                   transition-colors"
+              className="flex justify-between items-start border-b border-[#BFBEBE] pb-4 hover:bg-gray-50 transition-colors"
             >
               <div className="flex items-start gap-3">
                 <Image
                   src={trade.image}
                   alt={trade.title}
-                  className="w-24 h-24 rounded-lg object-cover"
+                  className="w-20 h-20 md:w-24 md:h-24 rounded-lg object-cover"
                 />
                 <div className="flex-1">
-                  <h5 className="text-[#000] font-semibold underline mb-1 text-[16px]">
+                  <h5 className="text-[#000] font-semibold underline mb-1 text-[14px] sm:text-[16px]">
                     {trade.title}
                   </h5>
-                  <p className="text-[14px] font-normal text-[#13141D]">
+                  <p className="text-[12px] sm:text-[14px] font-normal text-[#13141D]">
                     {trade.company}
                   </p>
-                  <p className="text-[14px] font-normal text-[#13141D]">
+                  <p className="text-[12px] sm:text-[14px] font-normal text-[#13141D]">
                     Qty: {trade.qty}
                   </p>
-                  <p className="text-[14px] font-normal text-[#828282]">
+                  <p className="text-[12px] sm:text-[14px] font-normal text-[#828282]">
                     # 379
                   </p>
                 </div>
               </div>
-              <div className="flex flex-col items-end gap-2 min-w-[80px]">
+              <div className="flex flex-col items-end sm:gap-2 min-w-[80px]">
                 <span
-                  className={`px-3 py-1 rounded-full text-lg font-medium w-full text-center ${getStatusColor(
+                  className={`px-3 py-1 rounded-full text-[14px] md:text-lg font-medium w-full text-center ${getStatusColor(
                     trade.status
                   )}`}
                 >
