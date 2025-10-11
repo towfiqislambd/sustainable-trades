@@ -268,22 +268,22 @@ const CounterTrades = ({ id }: any) => {
           {section.products.map((product) => (
             <div key={product.id}>
               <div className="py-4 border-t border-b border-[#BFBEBE]">
-                <div className="flex justify-between">
-                  <div className="flex gap-x-10">
+                <div className="flex flex-col md:flex-row justify-between">
+                  <div className="flex gap-x-5 2xl:gap-x-10">
                     <Image
                       src={DetailsImage || "/placeholder.svg"}
                       alt="Product Image"
                       height={100}
                       width={100}
-                      className="h-[100px] w-[100px] rounded-lg"
+                      className="h-[100px] shrink-0 w-[100px] rounded-lg"
                     />
                     <div className="flex flex-col gap-y-1">
-                      <h3 className="text-[20px] font-semibold text-[#13141D]">
+                      <h3 className="text-base lg:text-[20px] font-semibold text-[#13141D]">
                         {product.selectedProduct}
                       </h3>
-                      <h4 className="text-[20px] font-normal text-[#4B4A47] flex gap-x-5 items-center">
+                      <h4 className="text-[14px] lg:text-[20px] font-normal text-[#4B4A47] flex flex-col 2xl:flex-row gap-x-5 2xl:items-center">
                         {product.shopName}
-                        <span className="text-[14px] underline cursor-pointer text-[#A7A39C] font-lato">
+                        <span className="text-[12px] lg:text-[14px] underline cursor-pointer text-[#A7A39C] font-lato">
                           View Shop
                         </span>
                       </h4>
@@ -294,7 +294,7 @@ const CounterTrades = ({ id }: any) => {
                       </div>
                       <div className="flex gap-x-2 items-center">
                         <LocationSvg1 />
-                        <h5 className="text-[14px] underline cursor-pointer text-[#A7A39C] font-lato">
+                        <h5 className="text-[12px] lg:text-[14px] underline cursor-pointer text-[#A7A39C] font-lato">
                           {product.shopLocation}
                         </h5>
                       </div>
@@ -314,7 +314,7 @@ const CounterTrades = ({ id }: any) => {
                             e.target.value
                           )
                         }
-                        className="px-4 py-2 rounded-[10px] border border-[#A7A39C] w-[500px]"
+                        className="px-4 py-2 rounded-[10px] border border-[#A7A39C] w-full sm:w-[300px] xl:w-[500px]"
                       >
                         {getProductOptions(section.isOwnShop).map((option) => (
                           <option
@@ -397,11 +397,11 @@ const CounterTrades = ({ id }: any) => {
         </div>
       ))}
 
-      <div className="mt-8 p-6 bg-gray-50 rounded-lg">
+      <div className="mt-4 md:mt-8 p-3 md:p-6 bg-gray-50 rounded-lg">
         <h4 className="text-[#13141D] font-semibold text-[18px] mb-4">
           Trade Summary
         </h4>
-        <div className="grid grid-cols-2 gap-8">
+        <div className="grid grid-cols-2 gap-4 md:gap-8">
           <div>
             <h5 className="font-semibold text-[#4B4A47] mb-2">
               Their Offer Value
@@ -419,20 +419,20 @@ const CounterTrades = ({ id }: any) => {
             </p>
           </div>
         </div>
-        <div className="mt-4 p-4 bg-white rounded border">
+        <div className="mt-4 p-2 md:p-4 bg-white rounded border">
           <h6 className="font-semibold text-[#4B4A47] mb-2">
             Message with Counter Offer
           </h6>
           <textarea
             placeholder="Explain your counter offer and help both sides negotiate fairly..."
-            className="w-full p-3 border border-[#A7A39C] rounded-lg resize-none"
+            className="w-full p-1.5 text-sm md:p-3 border border-[#A7A39C] rounded-lg resize-none"
             rows={4}
           />
         </div>
       </div>
 
       <div className="pb-6 border-b border-[#BFBEBE] rounded-lg">
-        <div className="flex gap-x-5 flex-wrap mt-6">
+        <div className="flex gap-2.5 lg:gap-5 flex-wrap mt-6">
           {actionButtons.map((btn, i) => {
             const style = actionButtonStyles[btn] || {
               bg: "bg-gray-200",
@@ -452,8 +452,8 @@ const CounterTrades = ({ id }: any) => {
                     console.log("Send Counter clicked");
                   }
                 }}
-                className={`relative cursor-pointer py-[10px] px-4 rounded-md font-lato font-semibold overflow-hidden
-          hover:scale-110 duration-500 ease-in-out
+                className={`relative cursor-pointer py-[5px] md:py-[10px] px-4 rounded-md font-lato font-semibold overflow-hidden
+          hover:scale-110 duration-500 ease-in-out text-sm md:text-base
           ${style.bg || ""} ${style.border || "border-2"} ${style.text}
           border-2
         `}
