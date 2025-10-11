@@ -51,6 +51,11 @@ const DashboardSidebar = ({
           const isActiveParent = pathname === item.path;
           const isActiveSub = item.subMenus?.some(m => pathname === m.path);
           const isOpen = openMenus.includes(item.id);
+          const isMessageActive =
+            ((item?.id === 28 || item?.id === 13 || item?.id === 23) &&
+              pathname?.startsWith(`/dashboard/customer/messages`)) ||
+            pathname?.startsWith(`/dashboard/basic/messages`) ||
+            pathname?.startsWith(`/dashboard/pro/messages`);
 
           return (
             <div key={item.id}>
@@ -72,7 +77,7 @@ const DashboardSidebar = ({
                   item.subMenus ? toggleMenu(item.id) : setOpen(false)
                 }
                 className={`w-full text-left ml-1 px-2 py-2 flex gap-3 items-center font-semibold border-l-2 hover:bg-gray-100 duration-300 transition-all hover:scale-[1.03] ${
-                  isActiveParent || isActiveSub
+                  isActiveParent || isActiveSub || isMessageActive
                     ? "text-primary-green border-primary-green"
                     : "text-[#77978F] border-transparent"
                 }`}

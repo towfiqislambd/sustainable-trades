@@ -65,8 +65,8 @@ const CounterBottom = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="flex justify-between gap-x-10 border-b border-[#BFBEBE] pb-8">
-      <div className="w-1/2 border border-[#BFBEBE]  rounded-lg shadow-sm flex flex-col bg-white mt-10">
+    <div className="flex flex-col lg:flex-row justify-between gap-10 border-b border-[#BFBEBE] md:pb-8 ">
+      <div className="w-full lg:w-1/2 border border-[#BFBEBE]  rounded-lg shadow-sm flex flex-col bg-white mt-10">
         {/* Header */}
         <div className="bg-[#D4E2CB] px-4 py-3 border-b border-[#BFBEBE] flex items-center gap-3 rounded-t-lg">
           <img
@@ -82,7 +82,7 @@ const CounterBottom = () => {
 
         {/* Messages */}
         <div className="flex-1 p-4 space-y-4 overflow-y-auto min-h-[400px] max-h-[500px]">
-          {messages.map(msg => (
+          {messages.map((msg) => (
             <div
               key={msg.id}
               className={`flex ${msg.isOwn ? "justify-end" : "justify-start"}`}
@@ -113,7 +113,7 @@ const CounterBottom = () => {
               type="text"
               placeholder="Message"
               value={message}
-              onChange={e => setMessage(e.target.value)}
+              onChange={(e) => setMessage(e.target.value)}
               onKeyPress={handleKeyPress}
               className="w-full border border-[#BFBEBE] rounded-full px-4 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-[#274F45] focus:border-transparent"
             />
@@ -129,8 +129,8 @@ const CounterBottom = () => {
           </button>
         </div>
       </div>
-      <div className="w-1/2">
-        <div className="flex gap-x-5 items-center">
+      <div className="w-full lg:w-1/2 ">
+        <div className="flex gap-x-2.5 md:gap-x-5 items-center">
           <h3 className="text-[16px] text-[#274F45] font-semibold">
             Trade Details
           </h3>
@@ -142,7 +142,7 @@ const CounterBottom = () => {
           </h5>
         </div>
         <div className=" my-10">
-          <div className="flex gap-x-20 items-center">
+          <div className="flex flex-col sm:flex-row gap-5 2xl:gap-x-20 items-center">
             <Image
               src={DetailsImage}
               alt="DetailsImage"
@@ -151,12 +151,12 @@ const CounterBottom = () => {
               className="h-[100px] w-[100px] rounded-lg"
             />
             <div className="flex flex-col gap-y-1">
-              <h3 className="text-[20px] font-semibold text-[#13141D]">
+              <h3 className="text-[18px] lg:text-[20px] font-semibold text-[#13141D]">
                 8oz Watermelon Sustainable Bar Soap
               </h3>
-              <h4 className="text-[20px] font-normal text-[#4B4A47] flex gap-x-5 items-center">
+              <h4 className="text-[18px] lg:text-[20px] font-normal text-[#4B4A47] flex gap-x-5 items-center">
                 The Soap Shop
-                <span className="text-[14px] underline cursor-pointer text-[#A7A39C] font-lato">
+                <span className="text-[12px] lg:text-[14px] underline cursor-pointer text-[#A7A39C] font-lato">
                   View Shop
                 </span>
               </h4>
@@ -199,21 +199,21 @@ const CounterBottom = () => {
             <div className="bg-[#BFBEBE] w-full h-[1px]"></div>
           </div>
           <div className="">
-            <h4 className="text-[20px] font-semibold text-[#274F45]">
+            <h4 className="text-[18px] lg:text-[20px] font-semibold text-[#274F45]">
               Organic Bath Soaps
             </h4>
-            <h3 className="text-[32px] font-semibold text-[#000] py-3">
+            <h3 className="text-[22px] lg:text-[32px] font-semibold text-[#000] py-3">
               Coconut Bar Soap
             </h3>
             <ul>
-              <li className="text-[20px] font-semibold text-[#274F45]">
+              <li className="text-[18px] lg:text-[20px] font-semibold text-[#274F45]">
                 Product Description
               </li>
-              <li className="text-[16px] font-semibold text-[#13141D] list-disc ml-5">
+              <li className="text-[14px] lg:text-[16px] font-semibold text-[#13141D] list-disc ml-5">
                 Made with 100% organic coconut oil, ensuring a natural and
                 chemical-free cleansing experience.
               </li>
-              <li className="text-[16px] font-semibold text-[#13141D] list-disc ml-5">
+              <li className="text-[14px] lg:text-[16px] font-semibold text-[#13141D] list-disc ml-5">
                 Free from synthetic additives, parabens, and harsh chemicals for
                 a gentle and nourishing bath.
               </li>
