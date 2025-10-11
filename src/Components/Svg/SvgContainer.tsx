@@ -2725,6 +2725,27 @@ export function Download() {
     </svg>
   );
 }
+
+export function GoBackSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="18"
+      height="19"
+      viewBox="0 0 18 19"
+      fill="none"
+    >
+      <path
+        d="M12 5.5L7 10L12 14.5"
+        stroke="#274f45"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+}
+
 type LoadProps = {
   className?: string;
 };
