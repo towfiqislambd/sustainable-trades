@@ -1,10 +1,15 @@
 "use client";
 
 import { Delete, Pen } from "@/Components/Svg/SvgContainer";
-import { useDiscountget } from "@/Hooks/api/dashboard_api";
+import {
+  useDiscountget,
+  useDiscountDelete,
+  useDiscountStatusUpdate,
+} from "@/Hooks/api/dashboard_api";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const DiscountsPage = () => {
   const [activeTab, setActiveTab] = useState("Active");
@@ -14,6 +19,8 @@ const DiscountsPage = () => {
     {}
   );
   const { data: getdiscountdata } = useDiscountget();
+  const deleteMutation = useDiscountDelete();
+  const statusUpdateMutation = useDiscountStatusUpdate();
   console.log(getdiscountdata);
 
   const formatDate = (dateStr: string | null): string => {
@@ -82,9 +89,23 @@ const DiscountsPage = () => {
 
   // Handle delete
   const handleDelete = () => {
-    if (selected.length === 0) return;
-    alert(`Deleting discounts: ${selected.join(", ")}`);
-    setSelected([]);
+    if (selected.length === 0) {
+      toast.error("Please select at least one discount to delete.");
+      return;
+    }
+    const ids = selected.map(id => parseInt(id));
+    deleteMutation.mutate(
+      { ids },
+      {
+        onSuccess: () => {
+          setSelected([]);
+          toast.success("Discounts deleted successfully");
+        },
+        onError: (error: any) => {
+          console.error("Delete error:", error);
+        },
+      }
+    );
   };
 
   const toggleOpen = (id: string) => {
@@ -92,10 +113,22 @@ const DiscountsPage = () => {
   };
 
   const handleChangeStatus = (id: string, newStatus: string) => {
-    setDiscounts(prev =>
-      prev.map(d => (d.id === id ? { ...d, status: newStatus } : d))
+    const discountId = parseInt(id);
+    statusUpdateMutation.mutate(
+      { id: discountId, status: newStatus.toLowerCase() },
+      {
+        onSuccess: () => {
+          setDiscounts(prev =>
+            prev.map(d => (d.id === id ? { ...d, status: newStatus } : d))
+          );
+          toggleOpen(id);
+        },
+        onError: (error: any) => {
+          console.error("Status update error:", error);
+          toggleOpen(id);
+        },
+      }
     );
-    toggleOpen(id);
   };
 
   const tabs = [
@@ -147,7 +180,14 @@ const DiscountsPage = () => {
               activeTab === tab.label
                 ? "bg-[#D4E2CB] text-[#274F45]"
                 : "text-[#274F45] hover:bg-[#D4E2CB]"
+            } ${
+              deleteMutation.isPending || statusUpdateMutation.isPending
+                ? "opacity-50 cursor-not-allowed"
+                : ""
             }`}
+            disabled={
+              deleteMutation.isPending || statusUpdateMutation.isPending
+            }
           >
             {tab.icon ? tab.icon : tab.label}
           </button>
@@ -173,6 +213,9 @@ const DiscountsPage = () => {
                   checked={selected.includes(d.id)}
                   onChange={() => toggleSelect(d.id)}
                   className="mt-2"
+                  disabled={
+                    deleteMutation.isPending || statusUpdateMutation.isPending
+                  }
                 />
                 <div>
                   <h3 className="text-[18px] md:text-[20px] font-bold text-[#13141D]">
@@ -204,7 +247,13 @@ const DiscountsPage = () => {
                   <Link
                     href={`/dashboard/pro/discounts/create-discount/${d.id}`}
                   >
-                    <button className="py-1.5 px-3 md:p-3 md:text-sm rounded bg-[#D4E2CB] text-[#274F45] cursor-pointer flex gap-x-2 font-semibold">
+                    <button
+                      className="py-1.5 px-3 md:p-3 md:text-sm rounded bg-[#D4E2CB] text-[#274F45] cursor-pointer flex gap-x-2 font-semibold"
+                      disabled={
+                        deleteMutation.isPending ||
+                        statusUpdateMutation.isPending
+                      }
+                    >
                       <Pen />
                       Edit
                     </button>
@@ -219,6 +268,9 @@ const DiscountsPage = () => {
                 <div className="relative">
                   <button
                     onClick={() => toggleOpen(d.id)}
+                    disabled={
+                      deleteMutation.isPending || statusUpdateMutation.isPending
+                    }
                     className={`px-2 py-1 rounded text-sm font-semibold cursor-pointer ${
                       d.status.toLowerCase() === "active"
                         ? "bg-green-100 text-green-800"
