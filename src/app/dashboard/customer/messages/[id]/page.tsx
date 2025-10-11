@@ -1,6 +1,7 @@
 "use client";
 import moment from "moment";
 import Image from "next/image";
+import toast from "react-hot-toast";
 import useAuth from "@/Hooks/useAuth";
 import { ImSpinner9 } from "react-icons/im";
 import { useRouter } from "next/navigation";
@@ -14,6 +15,7 @@ type messageItem = {
   sender_id: number;
   message: string;
   created_at: string;
+  status: string;
   sender: {
     first_name: string;
     last_name: string;
@@ -32,6 +34,7 @@ const page = ({ params }: Props) => {
   const router = useRouter();
 
   // States
+  const [chats, setChats] = useState<messageItem[]>([]);
   const [message, setMessage] = useState<string>("");
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
 
@@ -40,19 +43,61 @@ const page = ({ params }: Props) => {
   const { data: singleConversation, isLoading: chatLoading } =
     getSingleConversation(id);
 
+  // Set Initial Chat
+  useEffect(() => {
+    if (singleConversation?.data?.messages) {
+      setChats(singleConversation?.data?.messages);
+    }
+  }, [singleConversation?.data?.messages]);
+
+  // Auth Scroll to bottom
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop =
         chatContainerRef.current.scrollHeight;
     }
-  }, [singleConversation?.data?.messages]);
+  }, [chats]);
 
+  // Handle send message
   const handleSend = (e: any) => {
     e.preventDefault();
-    const data = { receiver_id: id, message };
-    sendMessageMutation(data);
+    if (!message) {
+      return toast.error("Please enter your message");
+    }
+
+    const tempId = Date.now();
+
+    const tempMessage = {
+      id: tempId,
+      sender_id: user?.id,
+      message: message?.trim(),
+      created_at: new Date().toISOString(),
+      status: "sending",
+    };
+
+    setChats((prev: any) => [...prev, tempMessage]);
     setMessage("");
     e.target.reset();
+    const data = { receiver_id: id, message };
+
+    sendMessageMutation(data, {
+      onSuccess: (res: any) => {
+        setChats(prev =>
+          prev?.map(msg =>
+            msg?.id === tempId
+              ? { ...msg, ...res.message, status: "sent" }
+              : msg
+          )
+        );
+      },
+      onError: () => {
+        setChats(prev =>
+          prev?.map(msg =>
+            msg?.id === tempId ? { ...msg, status: "failed" } : msg
+          )
+        );
+      },
+    });
   };
 
   return (
@@ -119,7 +164,7 @@ const page = ({ params }: Props) => {
             <PuffLoader color="#274f45" />
           </div>
         ) : (
-          singleConversation?.data?.messages?.map((msg: messageItem) => (
+          chats?.map((msg: messageItem) => (
             <div
               key={msg?.id}
               className={`flex gap-3 ${
@@ -141,12 +186,22 @@ const page = ({ params }: Props) => {
                     </span>
                   )}
                 </figure>
-              )}
+              )} 
 
-              <p className="text-[15px] font-lato leading-[160%] py-3 px-3.5 rounded-[6px] max-w-[550px] bg-accent-white shadow">
+              <p
+                className={`relative text-[15px] font-lato leading-[160%] py-3 px-3.5 rounded-[6px] max-w-[550px] shadow ${
+                  msg?.status === "sending"
+                    ? "bg-gray-50 opacity-80"
+                    : msg?.status === "failed"
+                    ? "bg-red-100 border border-red-400 text-red-700"
+                    : "bg-accent-white"
+                }
+                `}
+              >
                 {msg?.message}
                 <br />
 
+                {/* Time */}
                 <span className="text-xs text-gray-500 text-end block mt-1">
                   {moment(msg?.created_at).format("LT")}
                 </span>

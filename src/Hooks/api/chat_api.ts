@@ -9,6 +9,9 @@ export const getAllConversation = () => {
     isPrivate: true,
     key: ["get-all-conversation"],
     endpoint: "/api/conversation",
+    queryOptions: {
+      retry: false,
+    },
   });
 };
 
@@ -20,6 +23,9 @@ export const getSingleConversation = (id: number) => {
     enabled: !!id,
     key: ["get-single-conversation", id],
     endpoint: `/api/message?receiver_id=${id}`,
+    queryOptions: {
+      retry: false,
+    },
   });
 };
 
@@ -33,7 +39,6 @@ export const useSendMessage = () => {
     endpoint: "/api/message/send",
     onSuccess: (data: any) => {
       if (data?.success) {
-        toast.success(data?.message);
         queryClient.invalidateQueries("get-single-conversation" as any);
       }
     },
