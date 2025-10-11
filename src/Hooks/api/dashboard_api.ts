@@ -338,4 +338,45 @@ export const useDiscountUpdate = (id?: string) => {
 };
 
 
+export const useDiscountStatusChange = () => {
+  return useClientApi({
+    method: "post",
+    key: ["discount-status-change"],
+    isPrivate: true,
+    endpoint: "/api/status-discount-codes/", 
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        toast.success(data?.message || "Discount status updated successfully");
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message || "Failed to update status");
+    },
+  });
+};
+
+
+
+// Bulk Delete Discounts
+export const useBulkDeleteDiscount = () => {
+  return useClientApi({
+    method: "delete",
+    key: ["bulk-delete-discount"],
+    isPrivate: true,
+    endpoint: "/api/delete-discount-codes",
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        toast.success(data?.message || "Discount(s) deleted successfully");
+      }
+    },
+    onError: (err: any) => {
+      toast.error(
+        err?.response?.data?.message || "Failed to delete discount(s)"
+      );
+    },
+  });
+};
+
+
+
 
