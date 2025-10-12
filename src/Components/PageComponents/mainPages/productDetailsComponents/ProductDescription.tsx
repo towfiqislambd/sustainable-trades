@@ -8,13 +8,13 @@ import {
 import toast from "react-hot-toast";
 import useAuth from "@/Hooks/useAuth";
 import React, { useState } from "react";
+import { CgSpinnerTwo } from "react-icons/cg";
 import Modal from "@/Components/Common/Modal";
 import { FaHeart, FaStar } from "react-icons/fa";
 import { LuLoaderPinwheel } from "react-icons/lu";
 import { useAddFavorite, useAddToCart } from "@/Hooks/api/cms_api";
 import TradeOfferModal from "@/Components/Modals/TradeOfferModal";
 import MessageToSellerModal from "@/Components/Modals/MessageToSellerModal";
-import { CgSpinnerTwo } from "react-icons/cg";
 
 const ProductDescription = ({ data }: any) => {
   const { user } = useAuth();
@@ -159,7 +159,11 @@ const ProductDescription = ({ data }: any) => {
 
       {/* Message btn */}
       <button
-        onClick={() => setMsgOpen(true)}
+        onClick={() => {
+          setId(data?.shop?.id);
+          setProductId(data?.id);
+          setMsgOpen(true);
+        }}
         className="mb-5 w-full text-center duration-500 transition-all border-2 text-lg cursor-pointer py-3 text-primary-green rounded-lg shadow hover:text-accent-white hover:bg-primary-green font-semibold border-primary-green flex gap-2 items-center justify-center"
       >
         <MyMsgSvg />
@@ -177,7 +181,12 @@ const ProductDescription = ({ data }: any) => {
       </Modal>
 
       <Modal open={msgOpen} onClose={() => setMsgOpen(false)}>
-        <MessageToSellerModal />
+        <MessageToSellerModal
+          id={id}
+          productId={productId}
+          shopInfo={data}
+          setMsgOpen={setMsgOpen}
+        />
       </Modal>
     </div>
   );

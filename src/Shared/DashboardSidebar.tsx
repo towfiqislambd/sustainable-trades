@@ -52,10 +52,10 @@ const DashboardSidebar = ({
           const isActiveSub = item.subMenus?.some(m => pathname === m.path);
           const isOpen = openMenus.includes(item.id);
           const isMessageActive =
-            ((item?.id === 28 || item?.id === 13 || item?.id === 23) &&
-              pathname?.startsWith(`/dashboard/customer/messages`)) ||
-            pathname?.startsWith(`/dashboard/basic/messages`) ||
-            pathname?.startsWith(`/dashboard/pro/messages`);
+            (item?.id === 28 || item?.id === 13 || item?.id === 23) &&
+            (pathname?.startsWith(`/dashboard/customer/messages`) ||
+              pathname?.startsWith(`/dashboard/basic/messages`) ||
+              pathname?.startsWith(`/dashboard/pro/messages`));
 
           return (
             <div key={item.id}>
