@@ -11,6 +11,9 @@ export const getAllConversation = () => {
     endpoint: "/api/conversation",
     queryOptions: {
       retry: false,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      staleTime: Infinity,
     },
   });
 };
@@ -25,6 +28,9 @@ export const getSingleConversation = (id: number) => {
     endpoint: `/api/message?receiver_id=${id}`,
     queryOptions: {
       retry: false,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      staleTime: Infinity,
     },
   });
 };
