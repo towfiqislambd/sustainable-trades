@@ -54,8 +54,7 @@ const page = () => {
       .listen("ConversationEvent", (e: any) => {
         console.log("🔔 New message event received from main:", e);
         if (+e?.receiverId === +user?.id) {
-          queryClient.invalidateQueries("get-all-conversation" as any);
-          queryClient.invalidateQueries("get-single-conversation" as any);
+          queryClient.invalidateQueries(["get-all-conversation"] as any);
         }
       });
   }, [echo, user?.id]);
