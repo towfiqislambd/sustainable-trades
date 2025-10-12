@@ -3,14 +3,26 @@ import useClientApi from "@/Hooks/useClientApi";
 import { useQueryClient } from "@tanstack/react-query";
 
 // Get All Conversation
-export const getAllConversation = () => {
+export const getAllConversation = ({
+  name,
+  unread,
+  sent,
+}: {
+  name?: string;
+  unread?: string;
+  sent?: string;
+}) => {
   return useClientApi({
     method: "get",
     isPrivate: true,
-    key: ["get-all-conversation"],
+    key: ["get-all-conversation", name, unread, sent],
     endpoint: "/api/conversation",
+    params: { name, unread, sent },
     queryOptions: {
       retry: false,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      staleTime: Infinity,
     },
   });
 };
@@ -25,6 +37,9 @@ export const getSingleConversation = (id: number) => {
     endpoint: `/api/message?receiver_id=${id}`,
     queryOptions: {
       retry: false,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      staleTime: Infinity,
     },
   });
 };
@@ -44,6 +59,19 @@ export const useSendMessage = () => {
     },
     onError: (err: any) => {
       toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// Get Local Pickup Conversation
+export const getLocalPickupConversation = () => {
+  return useClientApi({
+    method: "get",
+    isPrivate: true,
+    key: ["get-local-pickup-conversation"],
+    endpoint: "/api/local-pickup/conversation",
+    queryOptions: {
+      retry: false,
     },
   });
 };

@@ -51,10 +51,13 @@ const page = ({ params }: any) => {
 
   // Auth Scroll to bottom
   useEffect(() => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop =
-        chatContainerRef.current.scrollHeight;
-    }
+    const timeout = setTimeout(() => {
+      if (chatContainerRef.current) {
+        chatContainerRef.current.scrollTop =
+          chatContainerRef.current.scrollHeight;
+      }
+    }, 100);
+    return () => clearTimeout(timeout);
   }, [chats]);
 
   // Pusher Config
@@ -65,10 +68,15 @@ const page = ({ params }: any) => {
       .private(`chat-channel.${user?.id}`)
       .listen("MessageSentEvent", (e: any) => {
         console.log("🔔 New message event received:", e);
+
         if (e?.data?.receiver_id === +user?.id) {
-          queryClient.invalidateQueries("get-all-conversation" as any);
-          queryClient.invalidateQueries("get-single-conversation" as any);
+          setChats(prev => {
+            const exists = prev.some(msg => msg?.id === e?.data?.id);
+            if (exists) return prev;
+            return [...prev, e.data];
+          });
         }
+        queryClient.invalidateQueries(["get-all-conversation"] as any);
       });
   }, [echo, user?.id]);
 
