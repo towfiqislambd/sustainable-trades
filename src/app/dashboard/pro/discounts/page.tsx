@@ -126,6 +126,7 @@ const DiscountsPage = () => {
     { label: "Inactive" },
     { label: "", icon: <Delete className="w-5 h-5" />, action: handleDelete },
   ];
+  
 
   return (
     <div className="space-y-6">
