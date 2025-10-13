@@ -155,7 +155,7 @@ export const useCancelTrade = () => {
 export const useApproveTrade = () => {
   return useMutation({
     mutationFn: (id: any) =>
-      axiosSecure.get(`/api/trade-offer-approve/${id}`).then(res => res.data),
+      axiosSecure.get(`/api/trade-offer-approve/${id}`).then((res) => res.data),
   });
 };
 
@@ -163,7 +163,7 @@ export const useApproveTrade = () => {
 export const useCancel = () => {
   return useMutation({
     mutationFn: (id: any) =>
-      axiosSecure.get(`/api/trade-offer-cancel/${id}`).then(res => res.data),
+      axiosSecure.get(`/api/trade-offer-cancel/${id}`).then((res) => res.data),
   });
 };
 
@@ -185,6 +185,24 @@ export const useTradeShopProduct = (id: any) => {
     key: ["trade-shop-product", id],
     isPrivate: true,
     endpoint: `/api/trade-shop-product/${id}`,
+  });
+};
+
+// trade send counter product
+export const useTradeSendProduct = (id: any) => {
+  return useClientApi({
+    method: "post",
+    key: ["send-trade-counter-offer", id],
+    isPrivate: true,
+    endpoint: `/api/send-trade-counter-offer/${id}`,
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        toast.success(data?.message);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
   });
 };
 
@@ -354,12 +372,12 @@ export const useDiscountUpdate = (id?: string) => {
   });
 };
 
-export const useDiscountStatusChange = (id:any) => {
+export const useDiscountStatusChange = (id: any) => {
   return useClientApi({
     method: "post",
     key: ["discount-status-change"],
     isPrivate: true,
-    endpoint:  `/api/status-discount-codes/${id}`,
+    endpoint: `/api/status-discount-codes/${id}`,
     onSuccess: (data: any) => {
       if (data?.success) {
         toast.success(data?.message || "Discount status updated successfully");
