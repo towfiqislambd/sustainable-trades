@@ -1,23 +1,21 @@
 "use client";
 
+import Link from "next/link";
+import { FaSearch } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
 import { Delete, Pen } from "@/Components/Svg/SvgContainer";
 import {
   useDiscountget,
   useBulkDeleteDiscount,
   useDiscountStatusChange,
 } from "@/Hooks/api/dashboard_api";
-import Link from "next/link";
-import React, { useState, useEffect } from "react";
-import { FaSearch } from "react-icons/fa";
 
 const DiscountsPage = () => {
   const [activeTab, setActiveTab] = useState("Active");
   const [selected, setSelected] = useState<string[]>([]);
   const [discounts, setDiscounts] = useState<any[]>([]);
   const [singleDiscountId, setSingleDiscountId] = useState(null);
-  const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>(
-    {}
-  );
+  const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>({});
 
   const { data: getdiscountdata, refetch } = useDiscountget();
 
@@ -107,7 +105,7 @@ const DiscountsPage = () => {
     setOpenDropdowns(prev => ({ ...prev, [id]: !prev[id] }));
   };
 
-  // ✅ Status change function uses the hook properly
+  // Status change function uses the hook properly
   const handleChangeStatus = (id: string, newStatus: string) => {
     discountStatusChange.mutate(
       { id, status: newStatus.toLowerCase() },
