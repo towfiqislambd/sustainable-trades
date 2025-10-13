@@ -215,7 +215,7 @@ const DiscountsPage = () => {
                     {d.starts}{" "}
                     <span className="sm:ml-4 font-bold text-[14px] md:text-[18px] text-[#13141D]">
                       ENDS
-                    </span>{" "}
+                    </span>
                     {d.ends}
                   </div>
                 </div>
