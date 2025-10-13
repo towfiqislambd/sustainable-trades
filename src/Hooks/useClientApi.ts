@@ -49,8 +49,9 @@ export default function useClientApi({
   return useMutation({
     mutationKey: key,
     mutationFn: async (variables?: { endpoint?: string; data?: any } | any) => {
-      // Support both:
+      // Support:
       // - mutate({ data })
+      // - mutate({ endpoint: "/api/other" })
       // - mutate({ endpoint: "/api/other", data })
       const dynamicEndpoint = variables?.endpoint || endpoint;
       const payload = variables?.data || variables;
