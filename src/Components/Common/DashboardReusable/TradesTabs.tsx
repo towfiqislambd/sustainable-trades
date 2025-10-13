@@ -87,8 +87,6 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
   const router = useRouter();
   const approveTradeMutation = useApproveTrade();
 
-  console.log(actionButtons["pending"]);
-
   const handleTrade = (btn: any, id: any) => {
     if (btn === "Approve") {
       approveTradeMutation.mutate(id, {
