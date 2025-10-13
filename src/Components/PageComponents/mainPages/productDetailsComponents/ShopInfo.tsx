@@ -1,17 +1,41 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import useAuth from "@/Hooks/useAuth";
-import { useFollowShop } from "@/Hooks/api/cms_api";
 import toast from "react-hot-toast";
+import useAuth from "@/Hooks/useAuth";
 import { CgSpinnerTwo } from "react-icons/cg";
+import { useFollowShop } from "@/Hooks/api/cms_api";
 
-const ShopInfo = ({ data }: any) => {
+type shopItem = {
+  shop: {
+    id: number;
+    shop_name: string;
+    is_followed: boolean;
+    address: {
+      address_line_1: string;
+    };
+    user: {
+      avatar: string;
+      first_name: string;
+      last_name: string;
+    };
+  };
+};
+
+interface shopProps {
+  data: shopItem;
+}
+
+const ShopInfo = ({ data }: shopProps) => {
+  // Hook
   const { user } = useAuth();
+
+  // Mutation
   const { mutate: followShopMutation, isPending } = useFollowShop(
     data?.shop?.id
   );
 
+  // Func for follow shop
   const handleFollowShop = () => {
     if (!user) {
       return toast.error("Please login first");

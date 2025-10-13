@@ -4,6 +4,7 @@ import React, { use } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import Container from "@/Components/Common/Container";
 import { getProductDetails } from "@/Hooks/api/cms_api";
+import { ProductDetailsSkeleton } from "@/Components/Loader/Loader";
 import ProductGallery from "@/Components/PageComponents/mainPages/productDetailsComponents/ProductGallery";
 import ProductReviews from "@/Components/PageComponents/mainPages/productDetailsComponents/ProductReviews";
 import MoreProduct from "@/Components/PageComponents/mainPages/productDetailsComponents/MoreProduct";
@@ -11,10 +12,9 @@ import SimilarShop from "@/Components/PageComponents/mainPages/productDetailsCom
 import Subscribe from "@/Components/PageComponents/mainPages/homePageComponents/Subscribe";
 import ShopInfo from "@/Components/PageComponents/mainPages/productDetailsComponents/ShopInfo";
 import ProductDescription from "@/Components/PageComponents/mainPages/productDetailsComponents/ProductDescription";
-import { ProductDetailsSkeleton } from "@/Components/Loader/Loader";
 
 interface Props {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: number }>;
 }
 
 const page = ({ params }: Props) => {
@@ -56,6 +56,7 @@ const page = ({ params }: Props) => {
         </div>
 
         <MoreProduct data={productDetailsData?.data} />
+
         {/* <SimilarShop /> */}
         <Subscribe />
       </Container>

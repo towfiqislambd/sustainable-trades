@@ -16,19 +16,49 @@ import { useAddFavorite, useAddToCart } from "@/Hooks/api/cms_api";
 import TradeOfferModal from "@/Components/Modals/TradeOfferModal";
 import MessageToSellerModal from "@/Components/Modals/MessageToSellerModal";
 
-const ProductDescription = ({ data }: any) => {
+type descriptionItem = {
+  id: number;
+  is_favorite: boolean;
+  product_name: string;
+  product_price: string;
+  description: string;
+  shop: {
+    id: number;
+    user_id: number;
+    shop_name: string;
+    address: {
+      address_line_1: string;
+    };
+  };
+  category: {
+    name: string;
+  };
+};
+
+interface descriptionProps {
+  data: descriptionItem;
+}
+
+const ProductDescription = ({ data }: descriptionProps) => {
+  // Hook
   const { user } = useAuth();
+
+  // States
   const [id, setId] = useState<number | null>(null);
   const [productId, setProductId] = useState<number | null>(null);
+  const [tradeOpen, setTradeOpen] = useState<boolean>(false);
+  const [msgOpen, setMsgOpen] = useState<boolean>(false);
+  const [quantity, setQuantity] = useState<number>(1);
+
+  // Mutations
   const { mutate: addFavoriteMutation, isPending } = useAddFavorite();
-  const [tradeOpen, setTradeOpen] = useState(false);
-  const [msgOpen, setMsgOpen] = useState(false);
-  const [quantity, setQuantity] = useState(1);
-  const handleIncrease = () => setQuantity(prev => prev + 1);
-  const handleDecrease = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
   const { mutate: addToCartMutation, isPending: addCardPending } = useAddToCart(
     data?.id
   );
+
+  // Func for Increase & Decrease
+  const handleIncrease = () => setQuantity(prev => prev + 1);
+  const handleDecrease = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
 
   // Func for add to favorite
   const handleAddFavorite = (product_id: any) => {
@@ -44,7 +74,7 @@ const ProductDescription = ({ data }: any) => {
   };
 
   return (
-    <div>
+    <>
       <div className="flex items-center justify-between mb-3">
         {/* Product Category */}
         <h2 className="text-primary-green text-xl font-semibold">
@@ -138,7 +168,7 @@ const ProductDescription = ({ data }: any) => {
         </div>
       </div>
 
-      {/* buy btn */}
+      {/* Buy btn */}
       <button className="mb-5 block w-full text-center duration-500 transition-all border-2 text-lg cursor-pointer py-3 bg-primary-green text-accent-white rounded-lg shadow hover:text-primary-green hover:bg-transparent font-semibold border-primary-green">
         Buy it now
       </button>
@@ -181,14 +211,9 @@ const ProductDescription = ({ data }: any) => {
       </Modal>
 
       <Modal open={msgOpen} onClose={() => setMsgOpen(false)}>
-        <MessageToSellerModal
-          id={id}
-          productId={productId}
-          shopInfo={data}
-          setMsgOpen={setMsgOpen}
-        />
+        <MessageToSellerModal id={id} shopInfo={data} setMsgOpen={setMsgOpen} />
       </Modal>
-    </div>
+    </>
   );
 };
 

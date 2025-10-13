@@ -5,8 +5,8 @@ import Image from "next/image";
 import moment from "moment";
 import useAuth from "@/Hooks/useAuth";
 import { IoChatboxEllipsesOutline } from "react-icons/io5";
-import { ConversationCardSkeleton } from "@/Components/Loader/Loader";
 import { getLocalPickupConversation } from "@/Hooks/api/chat_api";
+import { ConversationCardSkeleton } from "@/Components/Loader/Loader";
 
 const LocalPickup = () => {
   const { user } = useAuth();

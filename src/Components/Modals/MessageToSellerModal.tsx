@@ -8,14 +8,29 @@ import {
 import toast from "react-hot-toast";
 import { FaStar } from "react-icons/fa";
 import { useForm } from "react-hook-form";
-import { useSendMessage } from "@/Hooks/api/chat_api";
 import { CgSpinnerTwo } from "react-icons/cg";
+import { useSendMessage } from "@/Hooks/api/chat_api";
+
+type messageProps = {
+  id: number | null;
+  shopInfo: {
+    product_name: string;
+    product_price: string;
+    shop: {
+      shop_name: string;
+      address: {
+        address_line_1: string;
+      };
+    };
+  };
+  setMsgOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 interface MessageFormData {
   message: string;
 }
 
-const MessageToSellerModal = ({ id, shopInfo, setMsgOpen }: any) => {
+const MessageToSellerModal = ({ id, shopInfo, setMsgOpen }: messageProps) => {
   const { mutate: sendMessageMutation, isPending } = useSendMessage();
 
   const {
