@@ -1,23 +1,27 @@
 "use client";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { CgSpinnerTwo } from "react-icons/cg";
+import { useSendMessage } from "@/Hooks/api/chat_api";
 
 type formData = {
-  full_name: string;
-  phone_number: string;
   message: string;
 };
 
 type ShippingOptionsProps = {
+  userId: any;
   onProceed: () => void;
   onSuccess: () => void;
 };
 
 const ShippingOptionsModal = ({
+  userId,
   onProceed,
-  onSuccess,
-}: ShippingOptionsProps) => {
+}: // onSuccess,
+ShippingOptionsProps) => {
   const [shippingMethod, setShippingMethod] = useState("proceed");
+  const { mutate: sendMessageMutation, isPending } = useSendMessage();
 
   const {
     register,
@@ -25,9 +29,20 @@ const ShippingOptionsModal = ({
     formState: { errors },
   } = useForm<formData>();
 
-  const onSubmit = (data: formData) => {
-    console.log(data);
-    onSuccess();
+  const onSubmit = async (data: formData) => {
+    const payload = {
+      receiver_id: userId,
+      type: "order",
+      ...data,
+    };
+    await sendMessageMutation(payload, {
+      onSuccess: (data: any) => {
+        if (data?.success) {
+          toast.success(data?.message);
+        }
+      },
+    });
+    // onSuccess();
   };
 
   return (
@@ -89,46 +104,6 @@ const ShippingOptionsModal = ({
             </p>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-              {/* Full Name */}
-              <div>
-                <label htmlFor="full_name" className="form-label">
-                  Full Name
-                </label>
-                <input
-                  id="full_name"
-                  type="text"
-                  placeholder="Jon Doe"
-                  className="form-input"
-                  {...register("full_name", {
-                    required: "Full Name is required",
-                  })}
-                />
-                {errors.full_name && (
-                  <span className="form-error">{errors.full_name.message}</span>
-                )}
-              </div>
-
-              {/* Phone Number */}
-              <div>
-                <label htmlFor="phone_number" className="form-label">
-                  Phone Number
-                </label>
-                <input
-                  id="phone_number"
-                  type="number"
-                  placeholder="+1 (123) 456-7890"
-                  className="form-input"
-                  {...register("phone_number", {
-                    required: "Phone Number is required",
-                  })}
-                />
-                {errors.phone_number && (
-                  <span className="form-error">
-                    {errors.phone_number.message}
-                  </span>
-                )}
-              </div>
-
               {/* Message */}
               <div>
                 <label htmlFor="message" className="form-label">
@@ -149,7 +124,23 @@ const ShippingOptionsModal = ({
               </div>
 
               {/* Submit btn */}
-              <button className="primary_btn">Send Message to Seller</button>
+              <button
+                disabled={isPending}
+                className={`primary_btn ${
+                  isPending
+                    ? "!cursor-not-allowed opacity-85 hover:!bg-primary-green hover:!text-white"
+                    : "cursor-pointer"
+                } `}
+              >
+                {isPending ? (
+                  <span className="flex gap-2 items-center justify-center">
+                    <CgSpinnerTwo className="animate-spin text-xl" />
+                    <span>Please wait....</span>
+                  </span>
+                ) : (
+                  "Send Message to Seller"
+                )}
+              </button>
             </form>
           </div>
         )}

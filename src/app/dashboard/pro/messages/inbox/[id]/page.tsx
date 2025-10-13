@@ -40,7 +40,7 @@ const page = ({ params }: any) => {
   // Mutation & Query
   const { mutate: sendMessageMutation, isPending } = useSendMessage();
   const { data: singleConversation, isLoading: chatLoading } =
-    getSingleConversation(Number(id));
+    getSingleConversation(id, "private");
 
   // Set Initial Chat
   useEffect(() => {

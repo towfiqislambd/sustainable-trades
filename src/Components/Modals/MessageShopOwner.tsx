@@ -13,10 +13,8 @@ import { useSendMessage } from "@/Hooks/api/chat_api";
 
 type messageProps = {
   id: number | null;
-  shopInfo: {
-    product_name: string;
-    product_price: string;
-    shop: {
+  data: {
+    shop_info: {
       shop_name: string;
       address: {
         address_line_1: string;
@@ -30,7 +28,7 @@ interface MessageFormData {
   message: string;
 }
 
-const MessageToSellerModal = ({ id, shopInfo, setMsgOpen }: messageProps) => {
+const MessageShopOwner = ({ id, data, setMsgOpen }: messageProps) => {
   const { mutate: sendMessageMutation, isPending } = useSendMessage();
 
   const {
@@ -65,7 +63,7 @@ const MessageToSellerModal = ({ id, shopInfo, setMsgOpen }: messageProps) => {
 
       {/* Shop Name */}
       <h4 className="text-2xl font-semibold text-secondary-black mb-2">
-        {shopInfo?.shop?.shop_name}
+        {data?.shop_info?.shop_name}
       </h4>
 
       {/* Shop Review */}
@@ -79,18 +77,8 @@ const MessageToSellerModal = ({ id, shopInfo, setMsgOpen }: messageProps) => {
       <div className="flex gap-1 items-center">
         <LocationTwoSvg />
         <span className="text-light-green">
-          {shopInfo?.shop?.address?.address_line_1}
+          {data?.shop_info?.address?.address_line_1}
         </span>
-      </div>
-
-      <hr className="my-3 text-gray-300" />
-
-      <div className="flex justify-between items-center mb-2 text-lg font-semibold text-secondary-black">
-        {/* Product Name */}
-        <p>{shopInfo?.product_name}</p>
-
-        {/* Product Price */}
-        <p>${shopInfo?.product_price}</p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -154,4 +142,4 @@ const MessageToSellerModal = ({ id, shopInfo, setMsgOpen }: messageProps) => {
   );
 };
 
-export default MessageToSellerModal;
+export default MessageShopOwner;

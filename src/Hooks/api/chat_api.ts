@@ -28,13 +28,16 @@ export const getAllConversation = ({
 };
 
 // Get Single Conversation
-export const getSingleConversation = (id: number) => {
+export const getSingleConversation = (
+  id: number,
+  type: "private" | "order"
+) => {
   return useClientApi({
     method: "get",
     isPrivate: true,
     enabled: !!id,
-    key: ["get-single-conversation", id],
-    endpoint: `/api/message?receiver_id=${id}`,
+    key: ["get-single-conversation", id, type],
+    endpoint: `/api/message?receiver_id=${id}&type=${type}`,
     queryOptions: {
       retry: false,
       refetchOnWindowFocus: false,

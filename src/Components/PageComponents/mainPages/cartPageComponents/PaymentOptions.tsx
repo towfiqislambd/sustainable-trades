@@ -1,23 +1,14 @@
 "use client";
 import CartItem from "./CartItem";
 import React, { useState } from "react";
-import Modal from "@/Components/Common/Modal";
 import { TiDelete } from "react-icons/ti";
 import { useClearCart } from "@/Hooks/api/cms_api";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { PaypalSvg } from "@/Components/Svg/SvgContainer";
-import SuccessModal from "@/Components/Modals/SuccessModal";
-import ShippingAddress from "@/Components/Modals/ShippingAddress";
 import { CartItemSkeleton } from "@/Components/Loader/Loader";
-import ShippingOptionsModal from "@/Components/Modals/ShippingOptionsModal";
 
 const PaymentOptions = ({ data, isLoading }: any) => {
-  // States
-  const [shippingOptionsOpen, setShippingOptionsOpen] =
-    useState<boolean>(false);
-  const [shippingAddressOpen, setShippingAddressOpen] =
-    useState<boolean>(false);
-  const [successOpen, setSuccessOpen] = useState<boolean>(false);
+  // State
   const [paymentMethod, setPaymentMethod] = useState<string>("paypal");
 
   // Mutation
@@ -213,7 +204,6 @@ const PaymentOptions = ({ data, isLoading }: any) => {
               Apple
             </div>
           </div>
-          {/* Cash Option */}
           <p className="flex gap-3 items-center">
             <input
               type="radio"
@@ -252,48 +242,8 @@ const PaymentOptions = ({ data, isLoading }: any) => {
               <p>${totalPrice}</p>
             </div>
           </div>
-
-          {/* Checkout btn */}
-          <button
-            onClick={() => setShippingOptionsOpen(true)}
-            className="primary_btn"
-          >
-            Proceed to Checkout
-          </button>
-
-          <p className="text-primary-green text-xs sm:text-sm mt-2.5 md:mt-5 text-center">
-            * Taxes will vary depending on the service or product you buy
-          </p>
         </div>
       </div>
-
-      {/* Modals */}
-      <Modal
-        open={shippingOptionsOpen}
-        onClose={() => setShippingOptionsOpen(false)}
-      >
-        <ShippingOptionsModal
-          onProceed={() => {
-            setShippingOptionsOpen(false);
-            setShippingAddressOpen(true);
-          }}
-          onSuccess={() => {
-            setShippingOptionsOpen(false);
-            setSuccessOpen(true);
-          }}
-        />
-      </Modal>
-
-      <Modal
-        open={shippingAddressOpen}
-        onClose={() => setShippingAddressOpen(false)}
-      >
-        <ShippingAddress />
-      </Modal>
-
-      <Modal open={successOpen} onClose={() => setSuccessOpen(false)}>
-        <SuccessModal />
-      </Modal>
     </section>
   );
 };

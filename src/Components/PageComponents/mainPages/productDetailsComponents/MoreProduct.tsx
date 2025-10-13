@@ -1,8 +1,22 @@
 import React from "react";
-import Product from "@/Components/Common/Product";
 import Link from "next/link";
+import Product from "@/Components/Common/Product";
+import { AiOutlineFileUnknown } from "react-icons/ai";
 
-const MoreProduct = ({ data }: any) => {
+type productItem = {
+  id: number;
+};
+
+interface moreProductProps {
+  data: {
+    shop: {
+      id: number;
+    };
+    more_products_from_shop: productItem[];
+  };
+}
+
+const MoreProduct = ({ data }: moreProductProps) => {
   return (
     <section className="my-20">
       {/* Title */}
@@ -10,20 +24,29 @@ const MoreProduct = ({ data }: any) => {
         More from this Shop
       </h3>
 
-      {/* Map */}
-      <div className="grid grid-cols-5 gap-x-5 gap-y-10">
-        {data?.more_products_from_shop?.map((product: any) => (
-          <Product
-            key={product?.id}
-            product={product}
-            is_feathered={true}
-            has_wishlist={false}
-            has_cart={false}
-          />
-        ))}
-      </div>
+      {/* Products */}
+      {data?.more_products_from_shop?.length > 0 ? (
+        <div className="grid grid-cols-5 gap-x-5 gap-y-10">
+          {data?.more_products_from_shop?.map(product => (
+            <Product
+              key={product?.id}
+              product={product}
+              is_feathered={true}
+              has_wishlist={false}
+              has_cart={false}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="flex flex-col justify-center items-center gap-3 text-center py-5 md:py-20">
+          <AiOutlineFileUnknown className="text-xl md:text-3xl lg:text-6xl text-gray-500" />
+          <p className="text-gray-600 text-sm md:text-lg font-semibold">
+            No product found!!
+          </p>
+        </div>
+      )}
 
-      {/* view more btn */}
+      {/* View All Btn */}
       <div className="flex items-center justify-end mt-8">
         <Link
           href={`/shop-details/${data?.shop?.id}`}
