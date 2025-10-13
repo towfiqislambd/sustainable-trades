@@ -1,14 +1,23 @@
-import Image from "next/image";
-import React, { useState } from "react";
-import { CgSpinnerTwo } from "react-icons/cg";
 import {
   useRemoveCart,
   useRemoveFromCart,
   useUpdateCart,
 } from "@/Hooks/api/cms_api";
+import Image from "next/image";
+import React, { useState } from "react";
+import { CgSpinnerTwo } from "react-icons/cg";
 import { LocationTwoSvg, MinSvg } from "@/Components/Svg/SvgContainer";
+import Modal from "@/Components/Common/Modal";
+import SuccessModal from "@/Components/Modals/SuccessModal";
+import ShippingAddress from "@/Components/Modals/ShippingAddress";
+import ShippingOptionsModal from "@/Components/Modals/ShippingOptionsModal";
 
 const CartItem = ({ item }: any) => {
+  const [shippingOptionsOpen, setShippingOptionsOpen] =
+    useState<boolean>(false);
+  const [shippingAddressOpen, setShippingAddressOpen] =
+    useState<boolean>(false);
+  const [successOpen, setSuccessOpen] = useState<boolean>(false);
   const [cartItemId, setCartItemId] = useState<number | null>(null);
   const [cartId, setCartId] = useState<number | null>(null);
   const { mutate: removeCartItemMutation, isPending: cartItemPending } =
@@ -156,6 +165,45 @@ const CartItem = ({ item }: any) => {
           </div>
         ))}
       </div>
+
+      {/* Add to cart */}
+      <div className="flex justify-end">
+        <button
+          onClick={() => setShippingOptionsOpen(true)}
+          className="bg-primary-green text-white cursor-pointer font-semibold rounded !w-fit px-4 !py-2 !text-sm"
+        >
+          Proceed to Checkout
+        </button>
+      </div>
+
+      {/* Modals */}
+      <Modal
+        open={shippingOptionsOpen}
+        onClose={() => setShippingOptionsOpen(false)}
+      >
+        <ShippingOptionsModal
+          userId={item?.user_id}
+          onProceed={() => {
+            setShippingOptionsOpen(false);
+            setShippingAddressOpen(true);
+          }}
+          onSuccess={() => {
+            setShippingOptionsOpen(false);
+            setSuccessOpen(true);
+          }}
+        />
+      </Modal>
+
+      <Modal
+        open={shippingAddressOpen}
+        onClose={() => setShippingAddressOpen(false)}
+      >
+        <ShippingAddress />
+      </Modal>
+
+      <Modal open={successOpen} onClose={() => setSuccessOpen(false)}>
+        <SuccessModal />
+      </Modal>
     </div>
   );
 };

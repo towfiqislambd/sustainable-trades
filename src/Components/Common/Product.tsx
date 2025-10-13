@@ -67,7 +67,7 @@ const Product = ({
 
   return (
     <div className="rounded-t-lg relative">
-      {/* wishlist btn */}
+      {/* Wishlist btn */}
       {has_wishlist && (
         <button
           onClick={() => handleAddFavorite(product?.id)}

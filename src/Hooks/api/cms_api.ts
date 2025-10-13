@@ -265,7 +265,7 @@ export const getAllListings = (
 };
 
 // Follow Shop
-export const useFollowShop = (shop_id: string) => {
+export const useFollowShop = (shop_id: number) => {
   const queryClient = useQueryClient();
 
   return useClientApi({
@@ -307,7 +307,7 @@ export const useAddFavorite = () => {
 };
 
 // Product Details
-export const getProductDetails = (id: string) => {
+export const getProductDetails = (id: number) => {
   return useClientApi({
     method: "get",
     isPrivate: true,
@@ -478,7 +478,7 @@ export const useUpdateShopBanner = () => {
 };
 
 // Trade Shop Product
-export const getTradeShopProducts = (id: string) => {
+export const getTradeShopProducts = (id: number | null) => {
   return useClientApi({
     method: "get",
     key: ["get-trade-products", id],

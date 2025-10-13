@@ -15,7 +15,6 @@ interface AboutProps {
 }
 
 const AboutShop = ({ data }: AboutProps) => {
-  console.log(data);
   return (
     <section id="About" className="mt-4 md:mt-8 lg:mt-16">
       <Container>
