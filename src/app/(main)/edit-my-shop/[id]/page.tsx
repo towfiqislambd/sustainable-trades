@@ -85,6 +85,8 @@ const Page = ({ params }: Props) => {
           shopDetailsData?.data?.shop_info?.social_links?.instagram_url || "",
         pinterest_url:
           shopDetailsData?.data?.shop_info?.social_links?.pinterest_url || "",
+        payment_methods:
+          shopDetailsData?.data?.shop_info?.policies?.payment_methods || [],
       });
     }
   }, [shopDetailsData, reset]);
