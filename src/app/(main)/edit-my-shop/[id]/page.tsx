@@ -204,9 +204,9 @@ const Page = ({ params }: Props) => {
               <div className="my-12">
                 <EditFormThree data={shopDetailsData?.data} />
               </div>
-              {/* <div className="my-12">
+              <div className="my-12">
                 <EditFormFour />
-              </div> */}
+              </div>
 
               <div className="flex justify-end">
                 <button

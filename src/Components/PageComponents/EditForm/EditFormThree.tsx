@@ -125,7 +125,7 @@ const EditFormThree = ({ data }: any) => {
 
       {/* Shop Policies */}
       <div className="border rounded-lg p-8 mb-6">
-        {/* <div className="mb-4">
+        <div className="mb-4">
           <label className="block text-[#4B4A47] font-semibold mb-1">
             Accepted Payment Methods
           </label>
@@ -156,7 +156,7 @@ const EditFormThree = ({ data }: any) => {
               {errors.payment_methods.message as string}
             </p>
           )}
-        </div> */}
+        </div>
 
         {/* Shipping Information */}
         <div className="mb-4">
@@ -201,7 +201,7 @@ const EditFormThree = ({ data }: any) => {
       </div>
 
       {/* FAQ Section */}
-      {/* <div className="border p-4 rounded mb-4">
+      <div className="border p-4 rounded mb-4">
         <h3 className="text-lg font-semibold mb-2">Add FAQ</h3>
         <input
           type="text"
@@ -237,10 +237,10 @@ const EditFormThree = ({ data }: any) => {
             </button>
           )}
         </div>
-      </div> */}
+      </div>
 
       {/* FAQ List */}
-      {/* <div className="mb-4">
+      <div className="mb-4">
         {faq?.map((field: any, index: number) => {
           const faq = watch("faqs")[index];
           return (
@@ -273,7 +273,7 @@ const EditFormThree = ({ data }: any) => {
         <p className="text-sm mt-2 text-gray-600">
           You can add up to 10 FAQs ({fields.length}/10)
         </p>
-      </div> */}
+      </div>
 
       {/* Social Media */}
       <div>
