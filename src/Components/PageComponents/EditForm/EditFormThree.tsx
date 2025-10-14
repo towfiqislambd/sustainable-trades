@@ -6,7 +6,9 @@ import PaymentCardIcons, {
   Facebook,
   Instagram,
   Pinterest,
+  Camera,
 } from "@/Components/Svg/SvgContainer";
+import { LiaExclamationCircleSolid } from "react-icons/lia";
 
 type Faq = { question: string; answer: string };
 
@@ -14,6 +16,7 @@ const EditFormThree = ({ data }: any) => {
   const {
     register,
     control,
+    trigger,
     watch,
     setValue,
     formState: { errors },
@@ -26,6 +29,8 @@ const EditFormThree = ({ data }: any) => {
 
   const [newFaq, setNewFaq] = useState<Faq>({ question: "", answer: "" });
   const [editingFaqIndex, setEditingFaqIndex] = useState<number | null>(null);
+  const [profileFile, setProfileFile] = useState<File | null>(null);
+  const profilePhotoPreview = watch("profilePhotoPreview");
 
   useEffect(() => {
     if (data?.shop_info?.faqs && data.shop_info.faqs.length > 0) {
@@ -67,12 +72,81 @@ const EditFormThree = ({ data }: any) => {
       setNewFaq({ question: "", answer: "" });
     }
   };
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    if (file) {
+      setProfileFile(file);
+      setValue("about_image", file, { shouldValidate: true });
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setValue("profilePhotoPreview", reader.result as string, {
+          shouldValidate: true,
+        });
+        trigger("about_image");
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <div>
-      <h4 className="mt-5 text-[#274F45] text-[20px] font-semibold">
-        About Your Shop
-      </h4>
+      <div className="lg:mt-8 mt-5">
+        <p className="form-label text-center lg:text-start">
+          About Your Shop Photo *
+        </p>
+        <div
+          className="relative bg-[#F0EEE9] lg:mx-0 mx-auto h-[150px] w-[150px] rounded-full lg:mt-4 flex flex-col justify-center items-center cursor-pointer overflow-hidden border border-[#A7A39C]"
+          onClick={() => document.getElementById("profilePhotoInput")?.click()}
+        >
+          {profilePhotoPreview ? (
+            // Show uploaded image preview
+            <>
+              <img
+                src={profilePhotoPreview} // use preview from state
+                alt="Profile Preview"
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/10 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-full">
+                <Camera />
+              </div>
+            </>
+          ) : data?.shop_info?.about?.about_image ? (
+            // Show existing image if no new file selected
+            <>
+              <img
+                src={`${process.env.NEXT_PUBLIC_SITE_URL}/${data.shop_info.about.about_image}`}
+                alt="Profile Preview"
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/10 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-full">
+                <Camera />
+              </div>
+            </>
+          ) : (
+            // Default placeholder
+            <>
+              <Camera />
+              <p>Add Photo</p>
+            </>
+          )}
+        </div>
+
+        <input
+          type="file"
+          id="profilePhotoInput"
+          accept="image/*"
+          className="hidden"
+          {...register("about_image", {
+            validate: value => value || "Profile picture is required",
+          })}
+          onChange={handleImageChange}
+        />
+
+        <h5 className="text-[#67645F] text-[14px] mt-2 lg:text-start text-center">
+          Max file size: 10 MB
+        </h5>
+      </div>
 
       {/* About Section */}
       <div className="my-8 border rounded-lg p-8">
@@ -162,7 +236,7 @@ const EditFormThree = ({ data }: any) => {
                         "Select at least one payment method",
                     })}
                     className="w-4 h-4 text-primary-green"
-                    defaultChecked={selectedMethods.includes(method)} 
+                    defaultChecked={selectedMethods.includes(method)}
                   />
                   <span className="text-[#4B4A47]">{method}</span>
                 </label>
