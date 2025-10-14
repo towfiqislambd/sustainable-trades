@@ -97,6 +97,9 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
           queryClient.invalidateQueries({
             queryKey: ["get-trades"],
           });
+          queryClient.invalidateQueries({
+            queryKey: ["get-count"],
+          });
         },
         onError: (error) => {
           toast.error("This is not your offer");
@@ -110,6 +113,9 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
           queryClient.invalidateQueries({
             queryKey: ["get-trades"],
           });
+          queryClient.invalidateQueries({
+            queryKey: ["get-count"],
+          });
         },
         onError: (error: any) => {
           toast.error("This is not your offer");
@@ -118,11 +124,12 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
     }
   };
   return (
-    <div className="h-[600px] overflow-y-auto mt-2 sm:p-6 flex flex-col gap-6">
-      {tradeRequests?.map(
-        (trade) => (
-          console.log(trade),
-          (
+    <>
+      {tradeRequests?.length === 0 ? (
+        <p className="text-center mt-5 h-[300px]">No Offered Found</p>
+      ) : (
+        <div className="h-[600px] overflow-y-auto mt-2 sm:p-6 flex flex-col gap-6">
+          {tradeRequests?.map((trade) => (
             <div
               key={trade.id}
               className="border border-[#BFBEBE] p-3 md:p-6 rounded-[8px] flex flex-col gap-4"
@@ -250,10 +257,10 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
                 </Link>
               </div>
             </div>
-          )
-        )
+          ))}
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

@@ -19,6 +19,9 @@ import { useQueryClient } from "@tanstack/react-query";
 const CounterTrades = ({ id }: any) => {
   const router = useRouter();
   const { user } = useAuth();
+
+  console.log(user?.shop_info?.id);
+
   const { data } = useSingleTradeOffer(id);
   const queryClient = useQueryClient();
   const cancleTradeMutation = useCancel();
@@ -35,7 +38,7 @@ const CounterTrades = ({ id }: any) => {
     data?.data?.receiver?.shop_info?.id
   );
   const { data: requestedShopProduct } = useTradeShopProduct(
-    data?.data?.sender?.shop_info?.id
+    user?.shop_info?.id
   );
 
   // initialize products and quantities
@@ -125,7 +128,7 @@ const CounterTrades = ({ id }: any) => {
 
   const handleSendCounter = () => {
     if (!data?.data) return;
-    const receiverId = data?.data?.receiver?.id;
+    const receiverId = data?.data?.sender?.id;
 
     const offeredItems: any[] = [];
     const requestedItems: any[] = [];
@@ -189,10 +192,22 @@ const CounterTrades = ({ id }: any) => {
         queryClient.invalidateQueries({
           queryKey: ["get-trades"],
         });
+        queryClient.invalidateQueries({
+          queryKey: ["get-count"],
+        });
       },
       onError: (error: any) => {
         toast.error(error?.message);
       },
+    });
+  };
+
+  const removeAddonProduct = (itemId: number, index: number) => {
+    setAddonProducts((prev) => {
+      const updated = { ...prev };
+      updated[itemId] = prev[itemId].filter((_, i) => i !== index);
+      if (updated[itemId].length === 0) delete updated[itemId];
+      return updated;
     });
   };
 
@@ -254,14 +269,12 @@ const CounterTrades = ({ id }: any) => {
                       <div className="flex gap-x-2 items-center">
                         <LocationSvg1 />
                         <h5 className="text-[12px] lg:text-[14px] underline cursor-pointer text-[#A7A39C] font-lato">
-                          {product?.product?.shop_info_id ===
-                            data?.data?.sender?.shop_info?.id &&
-                            data?.data?.sender?.shop_info?.address
+                          {product?.type === "offered" &&
+                            data?.data?.receiver?.shop_info?.address
                               ?.address_line_1}
 
-                          {product?.product?.shop_info_id ===
-                            data?.data?.receiver?.shop_info?.id &&
-                            data?.data.receiver?.shop_info?.address
+                          {product?.type === "requested" &&
+                            data?.data.sender?.shop_info?.address
                               ?.address_line_1}
                         </h5>
                       </div>
@@ -283,14 +296,14 @@ const CounterTrades = ({ id }: any) => {
                           className="px-4 py-2 rounded-[10px] border border-[#A7A39C] w-full sm:w-[300px] xl:w-[500px]"
                         >
                           {product?.type === "offered" &&
-                            requestedShopProduct?.data?.map((p: any) => (
+                            offerShopProduct?.data?.map((p: any) => (
                               <option key={p?.id} value={p?.id}>
                                 {p?.product_name}
                               </option>
                             ))}
 
                           {product?.type === "requested" &&
-                            offerShopProduct?.data?.map((p: any) => (
+                            requestedShopProduct?.data?.map((p: any) => (
                               <option key={p?.id} value={p?.id}>
                                 {p?.product_name}
                               </option>
@@ -320,7 +333,10 @@ const CounterTrades = ({ id }: any) => {
 
                     {/* Addons */}
                     {(addonProducts[itemId] || []).map((addon, idx) => (
-                      <div key={idx} className="flex gap-x-2 items-center mt-2">
+                      <div
+                        key={idx}
+                        className="flex flex-wrap gap-2 items-center mt-2 border border-[#E5E5E5] rounded-lg p-2"
+                      >
                         <select
                           value={addon.productId}
                           onChange={(e) =>
@@ -330,7 +346,7 @@ const CounterTrades = ({ id }: any) => {
                               Number(e.target.value)
                             )
                           }
-                          className="px-4 py-2 rounded-[10px] border border-[#A7A39C] w-full sm:w-[300px] xl:w-[500px]"
+                          className="px-4 py-2 rounded-[10px] border border-[#A7A39C] w-full sm:w-[300px] xl:w-[400px]"
                         >
                           <option value="">Choose Addon</option>
 
@@ -351,7 +367,7 @@ const CounterTrades = ({ id }: any) => {
                             ))}
                         </select>
 
-                        <div className="px-4 py-1 rounded-[10px] border border-[#A7A39C] flex gap-x-3">
+                        <div className="px-4 py-1 rounded-[10px] border border-[#A7A39C] flex gap-x-3 items-center">
                           <button
                             onClick={() =>
                               updateAddonQuantity(
@@ -380,6 +396,13 @@ const CounterTrades = ({ id }: any) => {
                             +
                           </button>
                         </div>
+
+                        <button
+                          onClick={() => removeAddonProduct(itemId, idx)} // ✅ Added handler
+                          className="text-red-500 hover:text-red-700 font-semibold text-sm ml-2"
+                        >
+                          ✖ Remove
+                        </button>
                       </div>
                     ))}
 
