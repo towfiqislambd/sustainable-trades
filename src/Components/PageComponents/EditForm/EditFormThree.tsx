@@ -242,7 +242,7 @@ const EditFormThree = ({ data }: any) => {
       {/* FAQ List */}
       <div className="mb-4">
         {faq?.map((field: any, index: number) => {
-          const faq = watch("faqs")[index];
+          const faq = watch("faqs")?.[index];
           return (
             <div
               key={field?.id}
