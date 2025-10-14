@@ -1,53 +1,53 @@
 import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { LocationTwoSvg, SendSvg, Reload } from "@/Components/Svg/SvgContainer";
-import { getTradeShopProducts, useTradeSendOffer } from "@/Hooks/api/cms_api";
 import useAuth from "@/Hooks/useAuth";
-import { CgSpinnerTwo } from "react-icons/cg";
 import toast from "react-hot-toast";
+import { CgSpinnerTwo } from "react-icons/cg";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { TradeOfferSkeleton } from "@/Components/Loader/Loader";
+import { getTradeShopProducts, useTradeSendOffer } from "@/Hooks/api/cms_api";
+import { LocationTwoSvg, SendSvg, Reload } from "@/Components/Svg/SvgContainer";
 
-const SkeletonLoader = () => {
-  return (
-    <div className="animate-pulse space-y-6">
-      <div className="h-6 bg-gray-200 rounded w-1/3"></div>
-      <div className="h-5 bg-gray-200 rounded w-1/4"></div>
-
-      <div className="space-y-2">
-        <div className="h-10 bg-gray-200 rounded"></div>
-        <div className="h-10 bg-gray-200 rounded"></div>
-        <div className="h-10 bg-gray-200 rounded"></div>
-      </div>
-
-      <div className="h-24 bg-gray-200 rounded"></div>
-
-      <div className="flex gap-4">
-        <div className="h-10 bg-gray-200 rounded w-full"></div>
-        <div className="h-10 bg-gray-200 rounded w-full"></div>
-      </div>
-    </div>
-  );
+type TradeOfferModalProps = {
+  id: number | null;
+  productId: number | null;
+  shopInfo: {
+    shop: {
+      user_id: number;
+      shop_name: string;
+      address: {
+        address_line_1: string;
+      };
+    };
+  };
+  setTradeOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const TradeOfferModal = ({ id, productId, shopInfo, setTradeOpen }: any) => {
+type TradeItem = {
+  product_id: any;
+  quantity: number;
+};
+
+const TradeOfferModal = ({
+  id,
+  productId,
+  shopInfo,
+  setTradeOpen,
+}: TradeOfferModalProps) => {
+  // Hook
   const { user } = useAuth();
-  const { mutate: sendTradeOfferMutation, isPending } = useTradeSendOffer();
+
+  // States
   const [message, setMessage] = useState<string>("");
-
-  const [product_id, setProductId] = useState<any>(productId);
-  const [product_quantity, setProductQuantity] = useState<number>(1);
-
-  const [sender_product_id, setSenderProductId] = useState<any>(null);
-  const [sender_product_quantity, setSenderProductQuantity] =
-    useState<number>(1);
-
-  const [offeredItems, setOfferedItems] = useState([
-    { product_id: product_id, quantity: product_quantity },
+  const [offeredItems, setOfferedItems] = useState<TradeItem[]>([
+    { product_id: productId, quantity: 1 },
+  ]);
+  const [requestedItems, setRequestedItems] = useState<TradeItem[]>([
+    { product_id: null, quantity: 1 },
   ]);
 
-  const [requestedItems, setRequestedItems] = useState([
-    { product_id: sender_product_id, quantity: sender_product_quantity },
-  ]);
+  // Mutation
+  const { mutate: sendTradeOfferMutation, isPending } = useTradeSendOffer();
 
   // Receiver trades
   const { data: tradeProducts, isLoading: tradeLoading } =
@@ -57,10 +57,12 @@ const TradeOfferModal = ({ id, productId, shopInfo, setTradeOpen }: any) => {
   const { data: myTradeProducts, isLoading: myTradeLoading } =
     getTradeShopProducts(user?.shop_info?.id);
 
+  // Loader
   if (tradeLoading || myTradeLoading) {
-    return <SkeletonLoader />;
+    return <TradeOfferSkeleton />;
   }
 
+  // Func for send offer
   const handleSendOffer = () => {
     const invalidOffered = offeredItems.some(
       item => !item.product_id || item.quantity < 1

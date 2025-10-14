@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import useAuth from "@/Hooks/useAuth";
@@ -9,8 +9,11 @@ import { CgSpinnerTwo } from "react-icons/cg";
 import { useFollowShop } from "@/Hooks/api/cms_api";
 import Container from "@/Components/Common/Container";
 import { LocationSvg, StarSvg } from "@/Components/Svg/SvgContainer";
+import Modal from "@/Components/Common/Modal";
+import MessageShopOwner from "@/Components/Modals/MessageShopOwner";
 
 const ShopBanner = ({ data }: any) => {
+  const [msgOpen, setMsgOpen] = useState<boolean>(false);
   const { user } = useAuth();
   const bannerUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${data?.shop_info?.shop_banner}`;
   const { mutate: followShopMutation, isPending } = useFollowShop(
@@ -30,6 +33,7 @@ const ShopBanner = ({ data }: any) => {
     if (!user) {
       return toast.error("Please login first");
     }
+    setMsgOpen(true);
   };
 
   return (
@@ -229,6 +233,14 @@ const ShopBanner = ({ data }: any) => {
           </div>
         </div>
       </Container>
+
+      <Modal open={msgOpen} onClose={() => setMsgOpen(false)}>
+        <MessageShopOwner
+          id={data?.shop_info?.user_id}
+          data={data}
+          setMsgOpen={setMsgOpen}
+        />
+      </Modal>
     </section>
   );
 };
