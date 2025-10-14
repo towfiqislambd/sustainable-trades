@@ -4,7 +4,7 @@ import React, { useMemo, useRef, useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import { FaAngleRight, FaPlay, FaPlus } from "react-icons/fa";
 import { MdArrowOutward, MdDelete } from "react-icons/md";
-import Preview from "../../../../../../Assets/tomato.png";
+import Preview from "../../../../../../Assets/fallbackimage.png";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -201,26 +201,40 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
 
   const handleRemoveImage = (imageUrl: string, isNew: boolean) => {
     if (isNew) {
+      // Remove from new files
       const fileIndex = imageFiles.findIndex(
         file => URL.createObjectURL(file) === imageUrl
       );
       if (fileIndex > -1) {
         setImageFiles(prev => prev.filter((_, idx) => idx !== fileIndex));
       }
-      setImages(prev => prev.filter(url => url !== imageUrl));
-      if (mainImage === imageUrl) setMainImage(null);
-    } else {
-      setKeptImagePaths(prev => prev.filter(full => full !== imageUrl));
-      setKeptRelativePaths(prevRel =>
-        prevRel.filter(rel => {
-          const full = rel.startsWith("http") ? rel : `${baseUrl}/${rel}`;
-          return full !== imageUrl;
-        })
-      );
-      setImages(prev => prev.filter(url => url !== imageUrl));
+
+      // Remove from images array
+      const updatedImages = images.filter(url => url !== imageUrl);
+      setImages(updatedImages);
+
+      // Update mainImage
       if (mainImage === imageUrl) {
-        const newMain = keptImagePaths[0] || existingImages[0] || null;
-        setMainImage(newMain);
+        setMainImage(updatedImages[0] || null);
+      }
+    } else {
+      // Remove from kept paths
+      const updatedKept = keptImagePaths.filter(full => full !== imageUrl);
+      setKeptImagePaths(updatedKept);
+
+      const updatedRel = keptRelativePaths.filter(rel => {
+        const full = rel.startsWith("http") ? rel : `${baseUrl}/${rel}`;
+        return full !== imageUrl;
+      });
+      setKeptRelativePaths(updatedRel);
+
+      // Remove from images array
+      const updatedImages = images.filter(url => url !== imageUrl);
+      setImages(updatedImages);
+
+      // Update mainImage
+      if (mainImage === imageUrl) {
+        setMainImage(updatedImages[0] || null);
       }
     }
   };
@@ -406,7 +420,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                 />
               </div>
             ) : (
-              <div className="w-full relative h-[400px] md:h-[500px] flex items-center justify-center  rounded-lg text-gray-400 outline-none">
+              <div className="w-full relative h-[400px] md:h-[500px] flex items-center justify-center  rounded-lg text-gray-400 outline-none border border-gray-200">
                 <Image
                   src={Preview}
                   alt="Main Preview"

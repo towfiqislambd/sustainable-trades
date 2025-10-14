@@ -13,7 +13,7 @@ const Header = () => (
         <h5 className="text-[16px] text-[#13141D]">Add a Listing</h5>
       </div>
     </div>
-    <Link href="/dashboard/pro/view-listing">
+    <Link href="/dashboard/basic/view-listing">
       <button className="text-[#000] text-[16px] font-semibold flex gap-x-1 items-center border-2 border-[#13141D] rounded-lg py-3 px-6 hover:bg-[#E48872] hover:text-white duration-300 cursor-pointer">
         <MdArrowOutward />
         View Listings
