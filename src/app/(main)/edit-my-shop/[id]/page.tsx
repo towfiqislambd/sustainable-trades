@@ -207,7 +207,7 @@ const Page = ({ params }: Props) => {
                 <EditFormThree data={shopDetailsData?.data} />
               </div>
               <div className="my-12">
-                <EditFormFour />
+                <EditFormFour data={shopDetailsData?.data} />
               </div>
 
               <div className="flex justify-end">
