@@ -51,21 +51,20 @@ type SubCategory = {
 const CreateListing = () => {
   const { user } = useAuth();
 
-  // ✅ Determine membership dynamically
+  // Determine membership dynamically
   const membershipType = user?.membership?.membership_type || "basic";
   const isBasicMember = membershipType.toLowerCase() === "basic";
 
   console.log("Current selected membershipType:", membershipType);
   console.log("User object:", user);
 
-  // ✅ Separate states for files and previews
-  const [imageFiles, setImageFiles] = useState<File[]>([]);
-  const [previewImages, setPreviewImages] = useState<string[]>([]);
+  // Separate states for files and previews
   const [video, setVideo] = useState<File | null>(null);
   const [metaTags, setMetaTags] = useState<string[]>([]);
-
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
   const { mutate: addProduct, isPending } = useAddProduct();
   const { data: categoriess } = getProductCategoriesClient();
+  const [previewImages, setPreviewImages] = useState<string[]>([]);
   const { data: subcategoriess } = getProductSubCategoriesClient();
 
   const {
