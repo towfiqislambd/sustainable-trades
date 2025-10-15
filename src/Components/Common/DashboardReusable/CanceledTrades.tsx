@@ -4,10 +4,8 @@ import TradesTabs from "./TradesTabs";
 
 const CanceledTrades = ({ canceledTradeData }: any) => {
   const canceltradesdata = canceledTradeData?.filter(
-    (cancel: any) => cancel.status === "Canceled"
+    (cancel: any) => cancel.status === "cancelled"
   );
-
-  
 
   return (
     <>
