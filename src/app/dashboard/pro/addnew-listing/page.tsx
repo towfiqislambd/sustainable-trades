@@ -123,7 +123,7 @@ const CreateListing = () => {
 
     data.tags.forEach(tag => formData.append("tags[]", tag));
 
-    // ✅ Use actual File objects
+    // Use actual File objects
     imageFiles.forEach(file => formData.append("product_image[]", file));
     if (video) formData.append("video", video);
 
@@ -160,7 +160,6 @@ const CreateListing = () => {
       <Header />
       {/* Optional: Display membership banner */}
       <MembershipNotice isBasicMember={isBasicMember} />
-
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8 mt-4 md:mt-8">
           {/* LEFT SIDE */}
