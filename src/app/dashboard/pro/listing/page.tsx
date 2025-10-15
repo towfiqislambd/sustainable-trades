@@ -249,9 +249,7 @@ export default function Page() {
                       ref={menuRef}
                       className="product-menu absolute right-0 mt-2 bg-white border rounded shadow-lg w-40 z-10"
                     >
-                      <Link
-                        href={`/dashboard/pro/listing/edit-inventory/${p.id}`}
-                      >
+                      <Link href={`/dashboard/pro/view-listing/${p.id}`}>
                         <button
                           onClick={() => setOpenMenu(null)}
                           className="block w-full text-left px-4 py-2 hover:bg-gray-100 cursor-pointer"
