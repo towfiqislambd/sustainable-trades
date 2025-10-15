@@ -6,18 +6,25 @@ import Image from "next/image";
 import { FaRegStar } from "react-icons/fa";
 import { LocationSvg1, Reload } from "@/Components/Svg/SvgContainer";
 import {
+  useCancel,
+  useCancelTrade,
   useSingleTradeOffer,
   useTradeSendProduct,
   useTradeShopProduct,
 } from "@/Hooks/api/dashboard_api";
 import useAuth from "@/Hooks/useAuth";
 import { toast } from "react-hot-toast";
+import { useQueryClient } from "@tanstack/react-query";
 
 const CounterTrades = ({ id }: any) => {
   const router = useRouter();
   const { user } = useAuth();
-  const { data } = useSingleTradeOffer(id);
 
+  console.log(user?.shop_info?.id);
+
+  const { data } = useSingleTradeOffer(id);
+  const queryClient = useQueryClient();
+  const cancleTradeMutation = useCancel();
   const [selectedProducts, setSelectedProducts] = useState<
     Record<number, number>
   >({});
@@ -28,10 +35,10 @@ const CounterTrades = ({ id }: any) => {
   const [message, setMessage] = useState("");
 
   const { data: offerShopProduct } = useTradeShopProduct(
-    data?.data?.sender?.shop_info?.id
+    data?.data?.receiver?.shop_info?.id
   );
   const { data: requestedShopProduct } = useTradeShopProduct(
-    data?.data?.receiver?.shop_info?.id
+    user?.shop_info?.id
   );
 
   // initialize products and quantities
@@ -94,18 +101,26 @@ const CounterTrades = ({ id }: any) => {
     }));
 
   // calculate totals (main + addons)
-  const getItemTotal = (
-    itemId: number,
-    mainPrice: number,
-    shopProducts: any[]
-  ) => {
+  const getItemTotal = (item: any) => {
+    const itemId = item.id;
+    const mainPrice = item?.product?.product_price || 0;
+
+    // Determine which shop's product list to use
+    const shopProducts =
+      item?.type === "offered"
+        ? requestedShopProduct?.data || []
+        : offerShopProduct?.data || [];
+
+    // Calculate addon totals
     const addonsTotal = (addonProducts[itemId] || []).reduce((sum, addon) => {
       const price =
-        shopProducts?.find((p: any) => p.id === addon.productId)
+        shopProducts.find((p: any) => p.id === addon.productId)
           ?.product_price || 0;
       return sum + price * addon.quantity;
     }, 0);
-    return (quantities[itemId] || 1) * mainPrice + addonsTotal;
+
+    const total = (quantities[itemId] || 1) * mainPrice + addonsTotal;
+    return total.toFixed(2);
   };
 
   // API mutation
@@ -113,38 +128,38 @@ const CounterTrades = ({ id }: any) => {
 
   const handleSendCounter = () => {
     if (!data?.data) return;
-    const receiverId = data?.data?.receiver?.id;
+    const receiverId = data?.data?.sender?.id;
 
     const offeredItems: any[] = [];
     const requestedItems: any[] = [];
 
     data?.data?.items?.forEach((item: any) => {
-      const selectedProductId = selectedProducts[item.id];
-      const qty = quantities[item.id] || 1;
       const addons = addonProducts[item.id] || [];
 
-      const mainItem = {
-        product_id: selectedProductId,
-        quantity: qty,
-      };
+      if (addons.length > 0) {
+        addons.forEach((a) => {
+          if (a.productId && a.quantity > 0) {
+            const addonItem = {
+              product_id: a.productId,
+              quantity: a.quantity,
+            };
 
-      console.log("main item", mainItem);
-
-      // include addons as additional trade items
-      const allItems = [
-        mainItem,
-        ...addons.map((a) => ({
-          product_id: a.productId,
-          quantity: a.quantity,
-        })),
-      ];
-
-      if (item.type === "offered") offeredItems.push(...allItems);
-      if (item.type === "requested") requestedItems.push(...allItems);
+            if (item.type === "offered") offeredItems.push(addonItem);
+            if (item.type === "requested") requestedItems.push(addonItem);
+          }
+        });
+      }
     });
+
+    if (offeredItems.length === 0 && requestedItems.length === 0) {
+      toast.error("Please add at least one addon product before sending.");
+      return;
+    }
 
     const formData = new FormData();
     formData.append("receiver_id", receiverId);
+    formData.append("message", message);
+
     offeredItems.forEach((item, i) => {
       formData.append(
         `offered_items[${i}][product_id]`,
@@ -152,6 +167,7 @@ const CounterTrades = ({ id }: any) => {
       );
       formData.append(`offered_items[${i}][quantity]`, String(item.quantity));
     });
+
     requestedItems.forEach((item, i) => {
       formData.append(
         `requested_items[${i}][product_id]`,
@@ -159,9 +175,40 @@ const CounterTrades = ({ id }: any) => {
       );
       formData.append(`requested_items[${i}][quantity]`, String(item.quantity));
     });
-    formData.append("message", message);
+
+    console.log("Final FormData sent:", {
+      offeredItems,
+      requestedItems,
+      message,
+    });
 
     mutate(formData);
+  };
+
+  const handleCancleCounter = () => {
+    cancleTradeMutation.mutate(id, {
+      onSuccess: (data: any) => {
+        toast.success(data?.message);
+        queryClient.invalidateQueries({
+          queryKey: ["get-trades"],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["get-count"],
+        });
+      },
+      onError: (error: any) => {
+        toast.error(error?.message);
+      },
+    });
+  };
+
+  const removeAddonProduct = (itemId: number, index: number) => {
+    setAddonProducts((prev) => {
+      const updated = { ...prev };
+      updated[itemId] = prev[itemId].filter((_, i) => i !== index);
+      if (updated[itemId].length === 0) delete updated[itemId];
+      return updated;
+    });
   };
 
   const actionButtons = ["Go Back", "Cancel", "Send Counter"];
@@ -181,15 +228,15 @@ const CounterTrades = ({ id }: any) => {
       </h3>
 
       <div>
-        {data?.data?.items?.map((product: any, i: any) => {
+        {data?.data?.items?.map((product: any, i: number) => {
           const itemId = product.id;
-          const shopProducts =
-            product?.product?.shop_info_id === data?.data?.sender?.shop_info?.id
-              ? requestedShopProduct?.data
-              : offerShopProduct?.data;
+          const nextItem = data?.data?.items?.[i + 1];
+          const showReloadBetween =
+            product?.type === "offered" && nextItem?.type === "requested";
 
           return (
             <div key={itemId}>
+              {/* === Product Card === */}
               <div className="py-4 border-t border-b border-[#BFBEBE]">
                 <div className="flex flex-col md:flex-row justify-between">
                   {/* Left section */}
@@ -222,14 +269,12 @@ const CounterTrades = ({ id }: any) => {
                       <div className="flex gap-x-2 items-center">
                         <LocationSvg1 />
                         <h5 className="text-[12px] lg:text-[14px] underline cursor-pointer text-[#A7A39C] font-lato">
-                          {product?.product?.shop_info_id ===
-                            data?.data?.sender?.shop_info?.id &&
-                            data?.data?.sender?.shop_info?.address
+                          {product?.type === "offered" &&
+                            data?.data?.receiver?.shop_info?.address
                               ?.address_line_1}
 
-                          {product?.product?.shop_info_id ===
-                            data?.data?.receiver?.shop_info?.id &&
-                            data?.data.receiver?.shop_info?.address
+                          {product?.type === "requested" &&
+                            data?.data.sender?.shop_info?.address
                               ?.address_line_1}
                         </h5>
                       </div>
@@ -250,11 +295,19 @@ const CounterTrades = ({ id }: any) => {
                           }
                           className="px-4 py-2 rounded-[10px] border border-[#A7A39C] w-full sm:w-[300px] xl:w-[500px]"
                         >
-                          {shopProducts?.map((p: any) => (
-                            <option key={p.id} value={p.id}>
-                              {p.product_name} (${p.product_price})
-                            </option>
-                          ))}
+                          {product?.type === "offered" &&
+                            offerShopProduct?.data?.map((p: any) => (
+                              <option key={p?.id} value={p?.id}>
+                                {p?.product_name}
+                              </option>
+                            ))}
+
+                          {product?.type === "requested" &&
+                            requestedShopProduct?.data?.map((p: any) => (
+                              <option key={p?.id} value={p?.id}>
+                                {p?.product_name}
+                              </option>
+                            ))}
                         </select>
                       </div>
 
@@ -280,7 +333,10 @@ const CounterTrades = ({ id }: any) => {
 
                     {/* Addons */}
                     {(addonProducts[itemId] || []).map((addon, idx) => (
-                      <div key={idx} className="flex gap-x-2 items-center mt-2">
+                      <div
+                        key={idx}
+                        className="flex flex-wrap gap-2 items-center mt-2 border border-[#E5E5E5] rounded-lg p-2"
+                      >
                         <select
                           value={addon.productId}
                           onChange={(e) =>
@@ -290,17 +346,28 @@ const CounterTrades = ({ id }: any) => {
                               Number(e.target.value)
                             )
                           }
-                          className="px-4 py-2 rounded-[10px] border border-[#A7A39C] w-full sm:w-[300px] xl:w-[500px]"
+                          className="px-4 py-2 rounded-[10px] border border-[#A7A39C] w-full sm:w-[300px] xl:w-[400px]"
                         >
                           <option value="">Choose Addon</option>
-                          {shopProducts?.map((p: any) => (
-                            <option key={p.id} value={p.id}>
-                              {p.product_name} (${p.product_price})
-                            </option>
-                          ))}
+
+                          {product?.product?.shop_info_id ===
+                            data?.data?.sender?.shop_info?.id &&
+                            requestedShopProduct?.data?.map((p: any) => (
+                              <option key={p?.id} value={p?.id}>
+                                {p?.product_name} (${p.product_price})
+                              </option>
+                            ))}
+
+                          {product?.product?.shop_info_id ===
+                            data?.data?.receiver?.shop_info?.id &&
+                            offerShopProduct?.data?.map((p: any) => (
+                              <option key={p?.id} value={p?.id}>
+                                {p?.product_name} (${p.product_price})
+                              </option>
+                            ))}
                         </select>
 
-                        <div className="px-4 py-1 rounded-[10px] border border-[#A7A39C] flex gap-x-3">
+                        <div className="px-4 py-1 rounded-[10px] border border-[#A7A39C] flex gap-x-3 items-center">
                           <button
                             onClick={() =>
                               updateAddonQuantity(
@@ -329,6 +396,13 @@ const CounterTrades = ({ id }: any) => {
                             +
                           </button>
                         </div>
+
+                        <button
+                          onClick={() => removeAddonProduct(itemId, idx)} // ✅ Added handler
+                          className="text-red-500 hover:text-red-700 font-semibold text-sm ml-2"
+                        >
+                          ✖ Remove
+                        </button>
                       </div>
                     ))}
 
@@ -347,21 +421,17 @@ const CounterTrades = ({ id }: any) => {
 
                     {/* Total */}
                     <h5 className="flex gap-x-2 text-[16px] font-semibold text-[#4B4A47] items-center justify-end py-2">
-                      Total amount:{" "}
+                      Total amount:
                       <span className="text-[20px]">
-                        $
-                        {getItemTotal(
-                          itemId,
-                          product?.product?.product_price,
-                          shopProducts
-                        )}
+                        ${getItemTotal(product)}
                       </span>
                     </h5>
                   </div>
                 </div>
               </div>
 
-              {i === 0 && (
+              {/* === Dynamic Reload Divider === */}
+              {showReloadBetween && (
                 <div className="flex gap-x-5 items-center my-8">
                   <div className="bg-[#BFBEBE] w-full h-[1px]"></div>
                   <div className="inline-block bg-white">
@@ -394,8 +464,8 @@ const CounterTrades = ({ id }: any) => {
                 key={i}
                 disabled={isLoading}
                 onClick={() => {
-                  if (btn === "Go Back") router.push(`/dashboard/pro/trades`);
-                  else if (btn === "Cancel") toast("Counter canceled");
+                  if (btn === "Go Back") router.push(`/dashboard/basic/trades`);
+                  else if (btn === "Cancel") handleCancleCounter();
                   else if (btn === "Send Counter") handleSendCounter();
                 }}
                 className={`relative cursor-pointer py-[8px] px-6 rounded-md font-lato font-semibold overflow-hidden

@@ -85,6 +85,8 @@ const Page = ({ params }: Props) => {
           shopDetailsData?.data?.shop_info?.social_links?.instagram_url || "",
         pinterest_url:
           shopDetailsData?.data?.shop_info?.social_links?.pinterest_url || "",
+        payment_methods:
+          shopDetailsData?.data?.shop_info?.policies?.payment_methods || [],
       });
     }
   }, [shopDetailsData, reset]);
@@ -204,9 +206,9 @@ const Page = ({ params }: Props) => {
               <div className="my-12">
                 <EditFormThree data={shopDetailsData?.data} />
               </div>
-              {/* <div className="my-12">
-                <EditFormFour />
-              </div> */}
+              <div className="my-12">
+                <EditFormFour data={shopDetailsData?.data} />
+              </div>
 
               <div className="flex justify-end">
                 <button

@@ -7,9 +7,10 @@ import Image, { type StaticImageData } from "next/image";
 import { Reload } from "@/Components/Svg/SvgContainer";
 import moment from "moment";
 import { totalAmount } from "@/helper/useTotalAmount";
-import { useApproveTrade } from "@/Hooks/api/dashboard_api";
+import { useApproveTrade, useCancel } from "@/Hooks/api/dashboard_api";
 import toast from "react-hot-toast";
 import useAuth from "@/Hooks/useAuth";
+import { useQueryClient } from "@tanstack/react-query";
 
 export type TradeItem = {
   image: StaticImageData | string;
@@ -86,12 +87,19 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
 
   const router = useRouter();
   const approveTradeMutation = useApproveTrade();
-
+  const cancleTradeMutation = useCancel();
+  const queryClient = useQueryClient();
   const handleTrade = (btn: any, id: any) => {
     if (btn === "Approve") {
       approveTradeMutation.mutate(id, {
-        onSuccess: (data) => {
+        onSuccess: (data: any) => {
           toast.success(data?.message);
+          queryClient.invalidateQueries({
+            queryKey: ["get-trades"],
+          });
+          queryClient.invalidateQueries({
+            queryKey: ["get-count"],
+          });
         },
         onError: (error) => {
           toast.error("This is not your offer");
@@ -99,14 +107,29 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
       });
     }
     if (btn === "Deny") {
+      cancleTradeMutation.mutate(id, {
+        onSuccess: (data: any) => {
+          toast.success(data?.message);
+          queryClient.invalidateQueries({
+            queryKey: ["get-trades"],
+          });
+          queryClient.invalidateQueries({
+            queryKey: ["get-count"],
+          });
+        },
+        onError: (error: any) => {
+          toast.error("This is not your offer");
+        },
+      });
     }
   };
   return (
-    <div className="h-[600px] overflow-y-auto mt-2 sm:p-6 flex flex-col gap-6">
-      {tradeRequests?.map(
-        (trade) => (
-          console.log(trade),
-          (
+    <>
+      {tradeRequests?.length === 0 ? (
+        <p className="text-center mt-5 h-[300px]">No Offered Found</p>
+      ) : (
+        <div className="h-[600px] overflow-y-auto mt-2 sm:p-6 flex flex-col gap-6">
+          {tradeRequests?.map((trade) => (
             <div
               key={trade.id}
               className="border border-[#BFBEBE] p-3 md:p-6 rounded-[8px] flex flex-col gap-4"
@@ -234,10 +257,10 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
                 </Link>
               </div>
             </div>
-          )
-        )
+          ))}
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
