@@ -1,6 +1,6 @@
 "use client"
-import useAuth from "@/Hooks/useAuth";
 import Link from "next/link";
+import useAuth from "@/Hooks/useAuth";
 import { MdArrowOutward } from "react-icons/md";
 
 const Header = () => {

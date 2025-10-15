@@ -1,22 +1,21 @@
 "use client";
+import { useState } from "react";
+import useAuth from "@/Hooks/useAuth";
 import { Controller, useForm } from "react-hook-form";
-import { useState, useMemo } from "react";
-
+import { useAddProduct } from "@/Hooks/api/dashboard_api";
+import Header from "@/Components/BasicDashboardComponents/Header";
+import MetaTags from "@/Components/BasicDashboardComponents/MetaTags";
+import VideoUpload from "@/Components/BasicDashboardComponents/VideoUpload";
+import ImageUpload from "@/Components/BasicDashboardComponents/ImageUpload";
+import FormActions from "@/Components/BasicDashboardComponents/FormActions";
+import PriceSection from "@/Components/BasicDashboardComponents/PriceSection";
+import QuantitySection from "@/Components/BasicDashboardComponents/QuantitySection";
+import CategorySection from "@/Components/BasicDashboardComponents/CategorySection";
+import MembershipNotice from "@/Components/BasicDashboardComponents/MembershipNotice";
 import {
   getProductCategoriesClient,
   getProductSubCategoriesClient,
 } from "@/Hooks/api/cms_api";
-import { useAddProduct } from "@/Hooks/api/dashboard_api";
-import useAuth from "@/Hooks/useAuth";
-import Header from "@/Components/BasicDashboardComponents/Header";
-import MembershipNotice from "@/Components/BasicDashboardComponents/MembershipNotice";
-import ImageUpload from "@/Components/BasicDashboardComponents/ImageUpload";
-import QuantitySection from "@/Components/BasicDashboardComponents/QuantitySection";
-import VideoUpload from "@/Components/BasicDashboardComponents/VideoUpload";
-import PriceSection from "@/Components/BasicDashboardComponents/PriceSection";
-import CategorySection from "@/Components/BasicDashboardComponents/CategorySection";
-import MetaTags from "@/Components/BasicDashboardComponents/MetaTags";
-import FormActions from "@/Components/BasicDashboardComponents/FormActions";
 
 export type FormData = {
   shop_info_id: string | number;
