@@ -25,6 +25,7 @@ const Page = async () => {
   const featuredShops = await getFeaturedShops();
   const spotlightData = await getSpotlightData();
 
+
   return (
     <>
       <HomeBanner data={bannerData?.data} />
