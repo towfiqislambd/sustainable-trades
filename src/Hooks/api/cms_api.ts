@@ -79,7 +79,7 @@ export async function getHowItWorksData() {
 export async function getProductCategories() {
   return useServerApi({
     endpoint: "/api/categories",
-    revalidate: 3600,
+    ssr: true,
   });
 }
 
@@ -95,7 +95,7 @@ export async function getAllShops() {
 export async function getFeaturedShops() {
   return useServerApi({
     endpoint: "/api/shops/featured",
-    revalidate: 3600,
+    ssr: true,
   });
 }
 

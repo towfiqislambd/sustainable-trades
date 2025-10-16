@@ -21,6 +21,7 @@ interface FeaturedProps {
   featured: boolean;
 }
 
+
 const FeaturedShops = ({ data, featured }: FeaturedProps) => {
   return (
     <section className="mt-50 md:mt-0 py-20">
