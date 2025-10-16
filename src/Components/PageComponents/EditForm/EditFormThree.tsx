@@ -124,7 +124,6 @@ const EditFormThree = ({ data }: any) => {
               </div>
             </>
           ) : (
-            // Default placeholder
             <>
               <Camera />
               <p>Add Photo</p>
