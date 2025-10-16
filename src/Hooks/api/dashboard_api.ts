@@ -354,6 +354,16 @@ export const useDiscountGetById = (id?: string) => {
   });
 };
 
+// Hook for get membership
+export const useMembershipget = () => {
+  return useClientApi({
+    method: "get",
+    key: ["get-membership"],
+    isPrivate: true,
+    endpoint: "/api/subscriptions",
+  });
+}
+
 // Hook for updating a discount
 export const useDiscountUpdate = (id?: string) => {
   return useClientApi({

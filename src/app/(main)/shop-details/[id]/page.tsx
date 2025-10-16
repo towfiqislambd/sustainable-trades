@@ -63,6 +63,7 @@ const page = ({ params }: Props) => {
         <ShopBanner data={shopDetailsData?.data} />
       )}
 
+      
       {/* Shop Tabs */}
       <DetailsTab />
 

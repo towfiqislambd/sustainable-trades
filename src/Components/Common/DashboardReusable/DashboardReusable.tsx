@@ -1,17 +1,16 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 import Image from "next/image";
+import useAuth from "@/Hooks/useAuth";
 import Activity from "../../../Assets/activity.png";
 import Inventory from "../../../Assets/inventory.png";
 import ProDashboardMessage from "./ProDashboardMessage";
 import ProdashboardStatistics from "./ProdashboardStatistics";
 import { FaAngleDown, FaAngleRight, FaSearch } from "react-icons/fa";
-import Link from "next/link";
-import useAuth from "@/Hooks/useAuth";
 
 const DashboardReusable = () => {
   const { user } = useAuth();
-  console.log(user);
 
   return (
     <div>
