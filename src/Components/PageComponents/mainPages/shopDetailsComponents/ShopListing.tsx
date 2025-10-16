@@ -177,7 +177,7 @@ const ShopListing = ({
         {/* Pagination */}
         {!listingsLoading && (
           <div className="mt-12 flex justify-center items-center gap-2 flex-wrap">
-            {allListings?.links.map((item: any, idx: number) => (
+            {allListings?.links?.map((item: any, idx: number) => (
               <button
                 key={idx}
                 onClick={() => item.url && setPage(item.url.split("=")[1])}

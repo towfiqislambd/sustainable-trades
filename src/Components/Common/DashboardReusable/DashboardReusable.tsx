@@ -1,18 +1,16 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 import Image from "next/image";
+import useAuth from "@/Hooks/useAuth";
 import Activity from "../../../Assets/activity.png";
 import Inventory from "../../../Assets/inventory.png";
 import ProDashboardMessage from "./ProDashboardMessage";
 import ProdashboardStatistics from "./ProdashboardStatistics";
 import { FaAngleDown, FaAngleRight, FaSearch } from "react-icons/fa";
-import Link from "next/link";
-import useAuth from "@/Hooks/useAuth";
 
 const DashboardReusable = () => {
   const { user } = useAuth();
-  console.log(user);
-  
 
   return (
     <div>
@@ -39,7 +37,7 @@ const DashboardReusable = () => {
           </h3>
         </div>
         <Link
-          href={`/view-my-shop/${user?.shop_info?.user_id}`}
+          href={`/view-my-shop/${user?.shop_info?.id}`}
           className="px-[20px] lg:px-[58px] py-2 md:py-4 rounded-[8px] bg-[#E48872] text-[14px] md:text-[18px] font-semibold text-[#13141D] cursor-pointer hover:bg-transparent duration-500 ease-in-out border border-[#E48872] text-center"
         >
           Edit Shop

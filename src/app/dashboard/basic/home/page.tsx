@@ -1,14 +1,13 @@
+"use client";
 import React from "react";
-import Image from "next/image";
-import Activity from "../../../../Assets/activity.png";
-import Inventory from "../../../../Assets/inventory.png";
-
-import { FaAngleDown, FaAngleRight, FaSearch } from "react-icons/fa";
 import Link from "next/link";
-import ProDashboardMessage from "@/Components/Common/DashboardReusable/ProDashboardMessage";
-import { RxCross1 } from "react-icons/rx";
+import Image from "next/image";
+import useAuth from "@/Hooks/useAuth";
+import Activity from "../../../../Assets/activity.png";
+import { FaAngleDown, FaSearch } from "react-icons/fa";
 
 const Page = () => {
+  const { user } = useAuth();
   return (
     <div>
       <div className="flex gap-x-4 items-center">
@@ -27,15 +26,15 @@ const Page = () => {
       <div className="py-9  flex flex-col  md:flex-row justify-between md:items-center gap-[32px] md:gap-0">
         <div className="text-[20px] md:text-[24px] flex flex-col gap-y-2">
           <h3 className=" font-semibold text-[#13141D] tracking-[2.4px]">
-            Hi Jenn,
+            Hi {user?.first_name},
           </h3>
           <h3 className=" font-semibold text-[#13141D] tracking-[2.4px]">
-            Here’s your store: Earth’s Essence
+            Here’s your store: {user?.shop_info?.shop_name}
           </h3>
         </div>
         <Link
+          href={`/view-my-shop/${user?.shop_info?.user_id}`}
           className="px-[20px] lg:px-[58px] py-2 md:py-4 rounded-[8px] bg-[#E48872] text-[14px] md:text-[18px] font-semibold text-[#13141D] cursor-pointer hover:bg-transparent duration-500 ease-in-out border border-[#E48872] text-center"
-          href={"/view-my-shop/id"}
         >
           Edit Shop
         </Link>

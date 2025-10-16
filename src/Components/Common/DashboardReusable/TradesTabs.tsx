@@ -248,9 +248,7 @@ const TradesTabs: React.FC<TradesTabsProps> = ({ tradeRequests }) => {
                       );
                     })}
                 </div>
-                <Link
-                  href={`/dashboard/pro/trades/${trade.id}?tab=${trade.status}`}
-                >
+                <Link href={`/dashboard/basic/trades/${trade.id}`}>
                   <div className="bg-gray-200 px-3 py-2 cursor-pointer flex items-center justify-center">
                     <FaAnglesRight />
                   </div>
