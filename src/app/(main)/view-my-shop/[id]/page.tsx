@@ -14,6 +14,11 @@ import ShopListing from "@/Components/PageComponents/mainPages/shopDetailsCompon
 import ShopReviews from "@/Components/PageComponents/mainPages/shopDetailsComponents/ShopReviews";
 import DetailsTab from "@/Components/PageComponents/mainPages/shopDetailsComponents/DetailsTab";
 import EditShopBanner from "@/Components/PageComponents/mainPages/shopDetailsComponents/EditShopBanner";
+import {
+  AboutShopSkeleton,
+  ShopFAQSkeleton,
+  ShopPoliciesSkeleton,
+} from "@/Components/Loader/Loader";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -30,7 +35,6 @@ const page = ({ params }: Props) => {
   const [search, setSearch] = useState<string>("");
   const [page, setPage] = useState<string>("");
 
-  
   // Queries
   const { data: productCategories, isLoading: categoryLoading } =
     getProductCategoriesClient();
@@ -51,9 +55,14 @@ const page = ({ params }: Props) => {
 
   return (
     <>
+      {/* Edit Banner */}
       <EditShopBanner shop_id={id} data={shopDetailsData?.data} />
+
+      {/* Shop Tabs */}
       <DetailsTab />
-      <ShopListing
+
+      {/* Shop Listings */}
+      {/* <ShopListing
         featuredListings={featuredListings?.data}
         allListings={allListings?.data}
         setSearch={setSearch}
@@ -61,14 +70,36 @@ const page = ({ params }: Props) => {
         setSubCategory={setSubCategory}
         setSortBy={setSortBy}
         setPage={setPage}
+        featuredLoading={featuredLoading}
         listingsLoading={listingsLoading}
+        categoryLoading={categoryLoading}
+        subCategoryLoading={subCategoryLoading}
         productCategories={productCategories?.data}
         productSubCategories={productSubCategories?.data}
-      />
+      /> */}
+      {/* Shop Reviews */}
       <ShopReviews />
-      <AboutShop data={shopDetailsData?.data?.shop_info} />
-      <ShopPolicies data={shopDetailsData?.data?.shop_info?.policies} />
-      <ShopFAQ data={shopDetailsData?.data?.shop_info?.faqs} />
+
+      {/* Shop About */}
+      {shopDetailLoading ? (
+        <AboutShopSkeleton />
+      ) : (
+        <AboutShop data={shopDetailsData?.data?.shop_info} />
+      )}
+
+      {/* Shop Policies */}
+      {shopDetailLoading ? (
+        <ShopPoliciesSkeleton />
+      ) : (
+        <ShopPolicies data={shopDetailsData?.data?.shop_info?.policies} />
+      )}
+
+      {/* Shop FAQ */}
+      {shopDetailLoading ? (
+        <ShopFAQSkeleton />
+      ) : (
+        <ShopFAQ data={shopDetailsData?.data?.shop_info?.faqs} />
+      )}
     </>
   );
 };
