@@ -9,10 +9,14 @@ type FormValues = {
   city?: string;
   state?: string;
   zipcode?: string;
+  geoOption?: "exact" | "radius" | "zip";
 };
 
+type EditFormFourProps = {
+  data?: any;
+};
 
-const EditFormFour: React.FC = () => {
+const EditFormFour: React.FC<EditFormFourProps> = ({ data }) => {
   const [activeOption, setActiveOption] = useState<"exact" | "radius" | "zip">(
     "exact"
   );
@@ -20,18 +24,33 @@ const EditFormFour: React.FC = () => {
   const {
     register,
     formState: { errors },
-    watch,
     setValue,
+    getValues,
   } = useFormContext<FormValues>();
 
   useEffect(() => {
-    if (activeOption === "zip") {
-      setValue("country", "");
-      setValue("address", "");
-      setValue("city", "");
-      setValue("state", "");
+    const addressLine1 = data?.shop_info?.address?.address_line_1 || "";
+    const postalCode = data?.shop_info?.address?.postal_code || "";
+    if (addressLine1.trim() !== "") {
+      setActiveOption("exact");
+      setValue("geoOption", "exact");
+    } else if (postalCode.trim() !== "") {
+      setActiveOption("zip");
+      setValue("geoOption", "zip");
+      setValue("address", "Private Location");
+    } else {
+      setActiveOption("exact");
+      setValue("geoOption", "exact");
     }
-  }, [activeOption, setValue]);
+  }, [data, setValue]);
+
+useEffect(() => {
+  if (activeOption === "zip") {
+    setValue("address", "Private Location");
+  } else if (activeOption === "radius") {
+    setValue("address", "Private Location (Radius)");
+  }
+}, [activeOption, setValue]);
 
   return (
     <div>

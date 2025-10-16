@@ -17,6 +17,12 @@ export async function useServerApi({
   });
 
   if (!res.ok) {
+    // 404 → return empty data instead of throwing
+    if (res.status === 404) {
+      return { data: [] };
+    }
+
+    // other codes → throw
     throw new Error(`Failed to fetch ${endpoint} — ${res.status}`);
   }
 

@@ -4,7 +4,7 @@ import React, { useMemo, useRef, useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import { FaAngleRight, FaPlay, FaPlus } from "react-icons/fa";
 import { MdArrowOutward, MdDelete } from "react-icons/md";
-import Preview from "../../../../../Assets/tomato.png";
+import Preview from "../../../../../Assets/fallbackimage.png";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -69,10 +69,6 @@ interface DeleteProductError {
       message: string;
     };
   };
-}
-
-interface DetailsProps {
-  id: string | number;
 }
 
 const Details = ({ params }: { params: Promise<{ id: string }> }) => {
@@ -158,11 +154,8 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
     setVideoUrl(productData.video ? `${baseUrl}/${productData.video}` : null);
     setShowPlayButton(!productData.video);
     setVideoFile(null);
-
-    // ✅ Set Category & Subcategory by ID
     setCategory(productData.category_id?.toString() || "");
     setSubcategory(productData.sub_category_id?.toString() || "");
-
     setFulfillment(productData.fulfillment || "");
     setSellingOption(productData.selling_option || "");
     setImageFiles([]);
@@ -203,26 +196,40 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
 
   const handleRemoveImage = (imageUrl: string, isNew: boolean) => {
     if (isNew) {
+      // Remove from new files
       const fileIndex = imageFiles.findIndex(
         file => URL.createObjectURL(file) === imageUrl
       );
       if (fileIndex > -1) {
         setImageFiles(prev => prev.filter((_, idx) => idx !== fileIndex));
       }
-      setImages(prev => prev.filter(url => url !== imageUrl));
-      if (mainImage === imageUrl) setMainImage(null);
-    } else {
-      setKeptImagePaths(prev => prev.filter(full => full !== imageUrl));
-      setKeptRelativePaths(prevRel =>
-        prevRel.filter(rel => {
-          const full = rel.startsWith("http") ? rel : `${baseUrl}/${rel}`;
-          return full !== imageUrl;
-        })
-      );
-      setImages(prev => prev.filter(url => url !== imageUrl));
+
+      // Remove from images array
+      const updatedImages = images.filter(url => url !== imageUrl);
+      setImages(updatedImages);
+
+      // Update mainImage
       if (mainImage === imageUrl) {
-        const newMain = keptImagePaths[0] || existingImages[0] || null;
-        setMainImage(newMain);
+        setMainImage(updatedImages[0] || null);
+      }
+    } else {
+      // Remove from kept paths
+      const updatedKept = keptImagePaths.filter(full => full !== imageUrl);
+      setKeptImagePaths(updatedKept);
+
+      const updatedRel = keptRelativePaths.filter(rel => {
+        const full = rel.startsWith("http") ? rel : `${baseUrl}/${rel}`;
+        return full !== imageUrl;
+      });
+      setKeptRelativePaths(updatedRel);
+
+      // Remove from images array
+      const updatedImages = images.filter(url => url !== imageUrl);
+      setImages(updatedImages);
+
+      // Update mainImage
+      if (mainImage === imageUrl) {
+        setMainImage(updatedImages[0] || null);
       }
     }
   };
@@ -293,7 +300,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
     });
 
     // New image files - using "product_image" as expected by backend
-    imageFiles.forEach((file, index) => {
+    imageFiles.forEach(file => {
       formData.append(`product_image[]`, file);
     });
 
@@ -408,7 +415,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                 />
               </div>
             ) : (
-              <div className="w-full relative h-[400px] md:h-[500px] flex items-center justify-center  rounded-lg text-gray-400 outline-none">
+              <div className="w-full relative h-[400px] md:h-[500px] flex items-center justify-center  rounded-lg text-gray-400 outline-none border border-gray-200">
                 <Image
                   src={Preview}
                   alt="Main Preview"
@@ -545,7 +552,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                     ref={videoRef}
                     src={videoUrl}
                     className="h-[250px] w-full rounded-lg object-cover"
-                    onClick={handlePlayPause} 
+                    onClick={handlePlayPause}
                   />
 
                   {/* Overlay play button */}
@@ -650,13 +657,13 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
             value={category}
             onChange={e => {
               setCategory(e.target.value);
-              setSubcategory(""); 
+              setSubcategory("");
             }}
           >
             <option value="">Select Category</option>
             {categoriesData?.data?.map((cat: any) => (
               <option key={cat.id} value={String(cat.id)}>
-                {cat.name || cat.category_name} 
+                {cat.name || cat.category_name}
               </option>
             ))}
           </select>
@@ -677,7 +684,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                   ?.filter(
                     (sub: any) =>
                       String(sub.category_id) === String(category) ||
-                      String(sub.id) === String(subcategory) 
+                      String(sub.id) === String(subcategory)
                   )
                   .map((sub: any) => (
                     <option key={sub.id} value={String(sub.id)}>
