@@ -20,9 +20,25 @@ const CounterTrades = ({ id }: any) => {
   const router = useRouter();
   const { user } = useAuth();
 
-  console.log(user?.shop_info?.id);
-
   const { data } = useSingleTradeOffer(id);
+
+  const isUserSender =
+    data?.data?.sender?.shop_info?.id === user?.shop_info?.id;
+
+  // my shopId find
+  const myShopId = isUserSender
+    ? data?.data?.sender?.shop_info?.id
+    : data?.data?.receiver?.shop_info?.id;
+
+  // other shopId
+  const otherShopId = isUserSender
+    ? data?.data?.receiver?.shop_info?.id
+    : data?.data?.sender?.shop_info?.id;
+
+  const { data: offerShopProduct } = useTradeShopProduct(otherShopId);
+
+  const { data: requestedShopProduct } = useTradeShopProduct(myShopId);
+
   const queryClient = useQueryClient();
   const cancleTradeMutation = useCancel();
   const [selectedProducts, setSelectedProducts] = useState<
@@ -34,14 +50,6 @@ const CounterTrades = ({ id }: any) => {
   >({});
   const [message, setMessage] = useState("");
 
-  const { data: offerShopProduct } = useTradeShopProduct(
-    data?.data?.receiver?.shop_info?.id
-  );
-  const { data: requestedShopProduct } = useTradeShopProduct(
-    user?.shop_info?.id
-  );
-
-  // initialize products and quantities
   useEffect(() => {
     if (data?.data?.items) {
       const initialSelections: Record<number, number> = {};
