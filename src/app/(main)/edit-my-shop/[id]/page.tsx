@@ -38,6 +38,7 @@ type ProfileFormValues = {
   city?: string;
   state?: string;
   zipcode?: string;
+  geoOption?: "exact" | "radius" | "zip";
   lat?: number;
   lng?: number;
 };
@@ -57,10 +58,14 @@ const Page = ({ params }: Props) => {
     reset,
     handleSubmit,
     formState: { errors },
+
   } = methods;
 
   useEffect(() => {
     if (shopDetailsData?.data) {
+      const initialAddress =
+        shopDetailsData?.data?.shop_info?.address?.address_line_1 ||
+        "Private Location";
       reset({
         first_name: shopDetailsData.data.first_name || "",
         last_name: shopDetailsData.data.last_name || "",
@@ -87,37 +92,32 @@ const Page = ({ params }: Props) => {
           shopDetailsData?.data?.shop_info?.social_links?.pinterest_url || "",
         payment_methods:
           shopDetailsData?.data?.shop_info?.policies?.payment_methods || [],
+        country: shopDetailsData?.data?.shop_info?.address?.country || "",
+        address: initialAddress,
+        city: shopDetailsData?.data?.shop_info?.address?.city || "",
+        state: shopDetailsData?.data?.shop_info?.address?.state || "",
+        zipcode: shopDetailsData?.data?.shop_info?.address?.postal_code || "",
+        geoOption: initialAddress === "Private Location" ? "zip" : "exact",
       });
     }
   }, [shopDetailsData, reset]);
 
   const onSubmit = async (data: ProfileFormValues) => {
-    editShopMutation(data);
 
-    // const fullAddress = `${data.address || ""}, ${data.city || ""}, ${
-    //   data.state || ""
-    // }, ${data.country || ""}, ${data.zipcode || ""}`;
+    if (!data.address || data.address.trim() === "") {
+      data.address = "Private Location";
+    }
 
-    // try {
-    //   const response = await fetch(
-    //     `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-    //       fullAddress
-    //     )}&key=AIzaSyDmNO0nvvAkkxk6rYBDQEfVXVQPB9rKlsk`
-    //   );
+    const payload = {
+      ...data,
+      address_line_1: data.address,
+      postal_code: data.zipcode,
+      city: data.city,
+      state: data.state,
+      country: data.country,
+    };
 
-    //   const result = await response.json();
-
-    //   if (result.status === "OK") {
-    //     const location = result.results[0].geometry.location;
-    //     data.lat = location.lat;
-    //     data.lng = location.lng;
-    //     console.log("Final form data with lat/lng:", data);
-    //   } else {
-    //     console.error("Geocoding failed:", result.status, result.error_message);
-    //   }
-    // } catch (err) {
-    //   console.error("Error fetching geocode:", err);
-    // }
+    editShopMutation(payload);
   };
 
   return (
@@ -148,7 +148,6 @@ const Page = ({ params }: Props) => {
                       type="text"
                       className="form-input"
                       placeholder="First Name"
-                      defaultValue={shopDetailsData?.data?.first_name}
                       {...register("first_name")}
                     />
                     {errors.first_name?.message && (
@@ -165,7 +164,6 @@ const Page = ({ params }: Props) => {
                       type="text"
                       className="form-input"
                       placeholder="Last Name"
-                      defaultValue={shopDetailsData?.data?.last_name}
                       {...register("last_name")}
                     />
                     {errors.last_name?.message && (
@@ -180,7 +178,6 @@ const Page = ({ params }: Props) => {
                       type="text"
                       className="form-input"
                       placeholder="Company Name"
-                      defaultValue={shopDetailsData?.data?.company_name}
                       {...register("company_name")}
                     />
                   </div>
@@ -192,7 +189,6 @@ const Page = ({ params }: Props) => {
                       type="text"
                       className="form-input"
                       placeholder="Phone Number"
-                      defaultValue={shopDetailsData?.data?.phone}
                       {...register("phone")}
                     />
                   </div>

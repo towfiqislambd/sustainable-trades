@@ -9,14 +9,14 @@ type FormValues = {
   city?: string;
   state?: string;
   zipcode?: string;
+  geoOption?: "exact" | "radius" | "zip";
 };
 
 type EditFormFourProps = {
-  data?: any; 
+  data?: any;
 };
 
 const EditFormFour: React.FC<EditFormFourProps> = ({ data }) => {
-  
   const [activeOption, setActiveOption] = useState<"exact" | "radius" | "zip">(
     "exact"
   );
@@ -25,16 +25,32 @@ const EditFormFour: React.FC<EditFormFourProps> = ({ data }) => {
     register,
     formState: { errors },
     setValue,
+    getValues,
   } = useFormContext<FormValues>();
 
   useEffect(() => {
-    if (activeOption === "zip") {
-      setValue("country", "");
-      setValue("address", "");
-      setValue("city", "");
-      setValue("state", "");
+    const addressLine1 = data?.shop_info?.address?.address_line_1 || "";
+    const postalCode = data?.shop_info?.address?.postal_code || "";
+    if (addressLine1.trim() !== "") {
+      setActiveOption("exact");
+      setValue("geoOption", "exact");
+    } else if (postalCode.trim() !== "") {
+      setActiveOption("zip");
+      setValue("geoOption", "zip");
+      setValue("address", "Private Location");
+    } else {
+      setActiveOption("exact");
+      setValue("geoOption", "exact");
     }
-  }, [activeOption, setValue]);
+  }, [data, setValue]);
+
+useEffect(() => {
+  if (activeOption === "zip") {
+    setValue("address", "Private Location");
+  } else if (activeOption === "radius") {
+    setValue("address", "Private Location (Radius)");
+  }
+}, [activeOption, setValue]);
 
   return (
     <div>
@@ -76,7 +92,6 @@ const EditFormFour: React.FC<EditFormFourProps> = ({ data }) => {
                 <input
                   type="text"
                   {...register("address")}
-                  defaultValue={data?.shop_info?.address?.address_line_1}
                   className="form-input"
                   placeholder="Address"
                 />
@@ -93,7 +108,6 @@ const EditFormFour: React.FC<EditFormFourProps> = ({ data }) => {
                     {...register("city")}
                     className="form-input"
                     placeholder="City"
-                    defaultValue={data?.shop_info?.address?.city}
                   />
                   {errors.city && (
                     <p className="text-red-600">{errors.city.message}</p>
@@ -105,7 +119,6 @@ const EditFormFour: React.FC<EditFormFourProps> = ({ data }) => {
                   <input
                     type="text"
                     {...register("state")}
-                    defaultValue={data?.shop_info?.address?.state}
                     className="form-input"
                     placeholder="State"
                   />
@@ -119,7 +132,6 @@ const EditFormFour: React.FC<EditFormFourProps> = ({ data }) => {
                   <input
                     type="text"
                     {...register("zipcode")}
-                    defaultValue={data?.shop_info?.address?.postal_code}
                     className="form-input"
                     placeholder="Zipcode"
                   />
@@ -169,7 +181,6 @@ const EditFormFour: React.FC<EditFormFourProps> = ({ data }) => {
                   {...register("address")}
                   className="form-input"
                   placeholder="Address"
-                  defaultValue={data?.shop_info?.address?.address_line_1}
                 />
                 {errors.address && (
                   <p className="text-red-600">{errors.address.message}</p>
@@ -184,7 +195,6 @@ const EditFormFour: React.FC<EditFormFourProps> = ({ data }) => {
                     {...register("city")}
                     className="form-input"
                     placeholder="City"
-                    defaultValue={data?.shop_info?.address?.city}
                   />
                   {errors.city && (
                     <p className="text-red-600">{errors.city.message}</p>
@@ -198,7 +208,6 @@ const EditFormFour: React.FC<EditFormFourProps> = ({ data }) => {
                     {...register("state")}
                     className="form-input"
                     placeholder="State"
-                    defaultValue={data?.shop_info?.address?.state}
                   />
                   {errors.state && (
                     <p className="text-red-600">{errors.state.message}</p>
@@ -212,7 +221,6 @@ const EditFormFour: React.FC<EditFormFourProps> = ({ data }) => {
                     {...register("zipcode")}
                     className="form-input"
                     placeholder="Zipcode"
-                    defaultValue={data?.shop_info?.address?.postal_code}
                   />
                   {errors.zipcode && (
                     <p className="text-red-600">{errors.zipcode.message}</p>
@@ -249,7 +257,6 @@ const EditFormFour: React.FC<EditFormFourProps> = ({ data }) => {
                 {...register("zipcode")}
                 className="form-input"
                 placeholder="Zipcode"
-                defaultValue={data?.shop_info?.address?.postal_code}
               />
               {errors.zipcode && (
                 <p className="text-red-600">{errors.zipcode.message}</p>
