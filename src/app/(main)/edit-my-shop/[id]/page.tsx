@@ -1,12 +1,12 @@
 "use client";
 import React, { use, useEffect } from "react";
+import { useEditShop } from "@/Hooks/api/auth_api";
 import { getShopDetails } from "@/Hooks/api/cms_api";
-import { useForm, FormProvider } from "react-hook-form";
 import Container from "@/Components/Common/Container";
+import { useForm, FormProvider } from "react-hook-form";
+import EditFormTwo from "@/Components/PageComponents/EditForm/EditFormTwo";
 import EditFormFour from "@/Components/PageComponents/EditForm/EditFormFour";
 import EditFormThree from "@/Components/PageComponents/EditForm/EditFormThree";
-import EditFormTwo from "@/Components/PageComponents/EditForm/EditFormTwo";
-import { useEditShop } from "@/Hooks/api/auth_api";
 
 type ProfileFormValues = {
   first_name: string;

@@ -494,7 +494,7 @@ const EditFormThree = ({ data }: any) => {
               placeholder: "Type Your Pinterest link here",
               value: data?.shop_info?.social_links?.pinterest_url,
             },
-          ].map(({ icon, field, placeholder, value }) => (
+          ]?.map(({ icon, field, placeholder, value }) => (
             <div key={field} className="flex gap-x-4 items-center">
               {icon}
               <input
