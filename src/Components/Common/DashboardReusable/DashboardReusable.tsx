@@ -37,7 +37,7 @@ const DashboardReusable = () => {
           </h3>
         </div>
         <Link
-          href={`/view-my-shop/${user?.shop_info?.id}`}
+          href={`/view-my-shop/${user?.shop_info?.user_id}`}
           className="px-[20px] lg:px-[58px] py-2 md:py-4 rounded-[8px] bg-[#E48872] text-[14px] md:text-[18px] font-semibold text-[#13141D] cursor-pointer hover:bg-transparent duration-500 ease-in-out border border-[#E48872] text-center"
         >
           Edit Shop

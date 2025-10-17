@@ -420,7 +420,7 @@ const EditFormThree = ({ data }: any) => {
               </div>
               <div className="divide-y divide-gray-200">
                 {fields?.map((field, index) => {
-                  const faq = watch("faqs")[index];
+                  const faq = watch("faqs");
                   return (
                     <div key={field.id} className="px-4 py-3">
                       <div className="grid grid-cols-12 gap-4 items-center">

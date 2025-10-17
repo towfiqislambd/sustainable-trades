@@ -110,7 +110,6 @@ const ShopListing = ({
                 <h3 className="text-secondary-gray md:text-base text-xs font-semibold mb-1.5">
                   Sort By
                 </h3>
-
                 <select
                   onChange={e => setSortBy(e.target.value)}
                   className="border w-full md:w-[192px] md:text-base text-xs rounded-lg px-3 py-1.5 md:py-3 border-gray-400 outline-none text-secondary-gray"
