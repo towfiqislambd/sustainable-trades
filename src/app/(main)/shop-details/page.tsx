@@ -1,7 +1,8 @@
 "use client";
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import {
   AboutShopSkeleton,
+  EditShopBannerSkeleton,
   ShopBannerSkeleton,
   ShopFAQSkeleton,
   ShopPoliciesSkeleton,
@@ -13,6 +14,7 @@ import {
   getProductSubCategoriesClient,
   getShopDetails,
 } from "@/Hooks/api/cms_api";
+import { useSearchParams } from "next/navigation";
 import ShopFAQ from "@/Components/PageComponents/mainPages/shopDetailsComponents/ShopFAQ";
 import AboutShop from "@/Components/PageComponents/mainPages/shopDetailsComponents/AboutShop";
 import ShopBanner from "@/Components/PageComponents/mainPages/shopDetailsComponents/ShopBanner";
@@ -20,14 +22,14 @@ import ShopPolicies from "@/Components/PageComponents/mainPages/shopDetailsCompo
 import ShopListing from "@/Components/PageComponents/mainPages/shopDetailsComponents/ShopListing";
 import ShopReviews from "@/Components/PageComponents/mainPages/shopDetailsComponents/ShopReviews";
 import DetailsTab from "@/Components/PageComponents/mainPages/shopDetailsComponents/DetailsTab";
+import EditShopBanner from "@/Components/PageComponents/mainPages/shopDetailsComponents/EditShopBanner";
 
-interface Props {
-  params: Promise<{ id: string }>;
-}
-
-const page = ({ params }: Props) => {
+const page = () => {
   // Hook
-  const { id } = use(params);
+  const searchParams = useSearchParams();
+  const id = Number(searchParams.get("id"));
+  const listing_id = Number(searchParams.get("listing_id"));
+  const view = String(searchParams.get("view"));
 
   // States
   const [category_id, setCategory] = useState<string>("");
@@ -44,9 +46,9 @@ const page = ({ params }: Props) => {
   const { data: shopDetailsData, isLoading: shopDetailLoading } =
     getShopDetails(id);
   const { data: featuredListings, isLoading: featuredLoading } =
-    getFeaturedListings(id);
+    getFeaturedListings(listing_id);
   const { data: allListings, isLoading: listingsLoading } = getAllListings(
-    id,
+    listing_id,
     category_id,
     sub_category_id,
     short_by,
@@ -57,10 +59,16 @@ const page = ({ params }: Props) => {
   return (
     <>
       {/* Shop Banner */}
-      {shopDetailLoading ? (
-        <ShopBannerSkeleton />
+      {view === "customer" ? (
+        shopDetailLoading ? (
+          <ShopBannerSkeleton />
+        ) : (
+          <ShopBanner data={shopDetailsData?.data} id={id} />
+        )
+      ) : shopDetailLoading ? (
+        <EditShopBannerSkeleton />
       ) : (
-        <ShopBanner data={shopDetailsData?.data} />
+        <EditShopBanner data={shopDetailsData?.data} shop_id={id} />
       )}
 
       {/* Shop Tabs */}

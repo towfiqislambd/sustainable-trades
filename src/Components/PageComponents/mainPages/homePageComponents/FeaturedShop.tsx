@@ -8,6 +8,8 @@ import Container from "@/Components/Common/Container";
 type FeaturedItem = {
   id: number;
   shop_info: {
+    id: number;
+    user_id: number;
     shop_image: string;
     shop_name: string;
     address: {
@@ -20,7 +22,6 @@ interface FeaturedProps {
   data: FeaturedItem[];
   featured: boolean;
 }
-
 
 const FeaturedShops = ({ data, featured }: FeaturedProps) => {
   return (
@@ -35,7 +36,9 @@ const FeaturedShops = ({ data, featured }: FeaturedProps) => {
           {data?.length > 0 ? (
             data?.map(({ id, shop_info }) => (
               <Link
-                href={`/shop-details/${id}`}
+                href={`/shop-details?view=${"customer"}&id=${
+                  shop_info?.user_id
+                }&listing_id=${shop_info?.id}`}
                 key={id}
                 className="text-center space-y-1.5"
               >

@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Image from "next/image";
 import Container from "@/Components/Common/Container";
 
@@ -15,6 +16,8 @@ interface AboutProps {
 }
 
 const AboutShop = ({ data }: AboutProps) => {
+  const [showMore, setShowMore] = useState<boolean>(false);
+
   return (
     <section id="About" className="mt-4 md:mt-8 lg:mt-16">
       <Container>
@@ -51,7 +54,18 @@ const AboutShop = ({ data }: AboutProps) => {
               </h4>
 
               <p className="text-secondary-gray text-xs sm:text-sm md:text-base">
-                {data?.about?.our_story}
+                {showMore
+                  ? data?.about?.our_story
+                  : data?.about?.our_story?.slice(0, 400)}
+
+                {data?.about?.our_story?.length > 400 && (
+                  <button
+                    onClick={() => setShowMore(!showMore)}
+                    className="text-primary-green font-semibold cursor-pointer pl-2"
+                  >
+                    {showMore ? "read less" : "read more...."}
+                  </button>
+                )}
               </p>
             </div>
           </div>

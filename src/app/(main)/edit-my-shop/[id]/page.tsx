@@ -44,7 +44,7 @@ type ProfileFormValues = {
 };
 
 interface Props {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: number }>;
 }
 
 const Page = ({ params }: Props) => {

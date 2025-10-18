@@ -468,6 +468,7 @@ export const MessageSkeleton = ({ isSender = false }) => {
   );
 };
 
+// Trade Offer Skeleton
 export const TradeOfferSkeleton = () => {
   return (
     <div className="animate-pulse space-y-6">
@@ -487,5 +488,51 @@ export const TradeOfferSkeleton = () => {
         <div className="h-10 bg-gray-200 rounded w-full"></div>
       </div>
     </div>
+  );
+};
+
+// Edit Shop Skeleton
+export const EditShopBannerSkeleton = () => {
+  return (
+    <section className="mb-12 animate-pulse">
+      <div className="h-[350px] bg-gray-200 relative">
+        <Container>
+          <div className="flex h-[350px] items-end relative">
+            {/* Profile image placeholder */}
+            <figure className="size-[180px] -mb-10 relative bg-gray-300 rounded-full border-[5px] border-white" />
+          </div>
+        </Container>
+      </div>
+
+      <Container>
+        <div className="flex justify-between items-center mt-14">
+          <div className="flex-1">
+            <div className="h-8 w-60 bg-gray-300 rounded mb-4" />
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-6 h-6 bg-gray-300 rounded-full" />
+              <div className="h-5 w-48 bg-gray-300 rounded" />
+            </div>
+
+            <div className="flex gap-8 items-center">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="flex gap-2 items-center">
+                  <div className="size-7 bg-gray-300 rounded-full" />
+                  <div className="h-5 w-12 bg-gray-300 rounded" />
+                </div>
+              ))}
+              <div className="h-5 w-24 bg-gray-300 rounded" />
+            </div>
+          </div>
+
+          <div className="flex gap-4 items-center">
+            <div>
+              <div className="h-5 w-40 bg-gray-300 rounded mb-2" />
+              <div className="h-4 w-32 bg-gray-200 rounded" />
+            </div>
+            <div className="size-14 bg-gray-300 rounded-full" />
+          </div>
+        </div>
+      </Container>
+    </section>
   );
 };
