@@ -8,7 +8,7 @@ type FormValues = {
   address?: string;
   city?: string;
   state?: string;
-  zipcode?: string;
+  postal_code?: string;
   geoOption?: "exact" | "radius" | "zip";
 };
 
@@ -28,46 +28,48 @@ const EditFormFour: React.FC<EditFormFourProps> = ({ data }) => {
   } = useFormContext<FormValues>();
 
   useEffect(() => {
+    if (!data) return;
+
     const addressLine1 = data?.shop_info?.address?.address_line_1 || "";
     const postalCode = data?.shop_info?.address?.postal_code || "";
+    console.log(postalCode, "postal code");
+
     const city = data?.shop_info?.address?.city || "";
     const state = data?.shop_info?.address?.state || "";
     const displayMyAddress =
       data?.shop_info?.address?.display_my_address || false;
+    const addressRadius = data?.shop_info?.address?.address_10_mile || false;
+    const doNotDisplay = data?.shop_info?.address?.do_not_display || false;
 
-    if (addressLine1.trim() !== "" && displayMyAddress) {
+    // Determine geoOption from flags if you have them
+    if (displayMyAddress) {
       setActiveOption("exact");
       setValue("geoOption", "exact");
-      setValue("address", addressLine1);
-      setValue("city", city);
-      setValue("state", state);
-      setValue("zipcode", postalCode);
-      // Assume country is set elsewhere or default to something like "Bangladesh" based on data
-      setValue("country", "Bangladesh"); // Adjust based on your logic
-    } else if (postalCode.trim() !== "") {
+    } else if (addressRadius) {
+      setActiveOption("radius");
+      setValue("geoOption", "radius");
+    } else if (doNotDisplay) {
       setActiveOption("zip");
       setValue("geoOption", "zip");
-      setValue("address", "Private Location");
-      setValue("zipcode", postalCode);
-      // Optionally set city/state if needed for zip mode
-      setValue("city", city);
-      setValue("state", state);
-      setValue("country", "Bangladesh");
     } else {
       setActiveOption("exact");
       setValue("geoOption", "exact");
-      // Set empty or defaults if no data
     }
+
+    // Set form field values (these update the actual inputs)
+    setValue("address", addressLine1);
+    setValue("postal_code", postalCode);
+    setValue("city", city);
+    setValue("state", state);
+    setValue("country", "Bangladesh");
   }, [data, setValue]);
 
   useEffect(() => {
     if (activeOption === "zip") {
       setValue("address", "Private Location");
-    } else if (activeOption === "radius") {
-      setValue("address", "Private Location (Radius)");
+      setValue("city", "");
+      setValue("state", "");
     }
-    // Note: For radius, you might want to set address to the actual addressLine1 if available
-    // but keep it private in display logic elsewhere
   }, [activeOption, setValue]);
 
   return (
@@ -92,7 +94,7 @@ const EditFormFour: React.FC<EditFormFourProps> = ({ data }) => {
 
           {activeOption === "exact" && (
             <div className="lg:mt-8 mt-5 space-y-4">
-              <div>
+              {/* <div>
                 <p className="form-label font-bold">Country/Region *</p>
                 <input
                   type="text"
@@ -103,7 +105,7 @@ const EditFormFour: React.FC<EditFormFourProps> = ({ data }) => {
                 {errors.country && (
                   <p className="text-red-600">{errors.country.message}</p>
                 )}
-              </div>
+              </div> */}
 
               <div>
                 <p className="form-label font-bold">Address *</p>
@@ -149,12 +151,12 @@ const EditFormFour: React.FC<EditFormFourProps> = ({ data }) => {
                   <p className="form-label font-bold">Zipcode *</p>
                   <input
                     type="text"
-                    {...register("zipcode")}
+                    {...register("postal_code")}
                     className="form-input"
                     placeholder="Zipcode"
                   />
-                  {errors.zipcode && (
-                    <p className="text-red-600">{errors.zipcode.message}</p>
+                  {errors.postal_code && (
+                    <p className="text-red-600">{errors.postal_code.message}</p>
                   )}
                 </div>
               </div>
@@ -179,7 +181,7 @@ const EditFormFour: React.FC<EditFormFourProps> = ({ data }) => {
 
           {activeOption === "radius" && (
             <div className="mt-8 space-y-4">
-              <div>
+              {/* <div>
                 <p className="form-label font-bold">Country/Region *</p>
                 <input
                   type="text"
@@ -190,7 +192,7 @@ const EditFormFour: React.FC<EditFormFourProps> = ({ data }) => {
                 {errors.country && (
                   <p className="text-red-600">{errors.country.message}</p>
                 )}
-              </div>
+              </div> */}
 
               <div>
                 <p className="form-label font-bold">Address *</p>
@@ -236,12 +238,12 @@ const EditFormFour: React.FC<EditFormFourProps> = ({ data }) => {
                   <p className="form-label font-bold">Zipcode *</p>
                   <input
                     type="text"
-                    {...register("zipcode")}
+                    {...register("postal_code")}
                     className="form-input"
                     placeholder="Zipcode"
                   />
-                  {errors.zipcode && (
-                    <p className="text-red-600">{errors.zipcode.message}</p>
+                  {errors.postal_code && (
+                    <p className="text-red-600">{errors.postal_code.message}</p>
                   )}
                 </div>
               </div>
@@ -272,12 +274,12 @@ const EditFormFour: React.FC<EditFormFourProps> = ({ data }) => {
               <p className="form-label font-bold">Zipcode *</p>
               <input
                 type="text"
-                {...register("zipcode")}
+                {...register("postal_code")}
                 className="form-input"
                 placeholder="Zipcode"
               />
-              {errors.zipcode && (
-                <p className="text-red-600">{errors.zipcode.message}</p>
+              {errors.postal_code && (
+                <p className="text-red-600">{errors.postal_code.message}</p>
               )}
             </div>
           )}
