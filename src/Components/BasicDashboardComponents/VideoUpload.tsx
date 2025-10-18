@@ -22,7 +22,7 @@ const VideoUpload = ({ video, setVideo, setValue }: VideoUploadProps) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       setVideo(file);
-      setValue("video", file); // ✅ same type as FormData
+      setValue("video", file);
       setShowPlayButton(true);
       setTimeout(() => videoRef.current?.load(), 0);
     }
@@ -44,7 +44,13 @@ const VideoUpload = ({ video, setVideo, setValue }: VideoUploadProps) => {
         Listing Approval Process
       </h3>
       <p className="text-[16px] text-[#67645F] mt-2 w-full md:max-w-[400px]">
-        Share details about your product via video.
+        To ensure all products and services on Sustainable Trades meet our
+        sustainability standards, each listing must be approved before it goes
+        live. Please upload a short video introducing yourself and your product
+        or service. In the video, share details about how and where your product
+        was made, how your food was grown, and how it aligns with our
+        sustainability guidelines. This helps us maintain the quality and
+        integrity of our marketplace.
       </p>
       <div className="flex gap-4 mt-3 w-full">
         <label className="px-4 md:px-8 py-2.5 md:py-5 bg-[#F0EEE9] rounded-lg cursor-pointer text-[14px] md:text-[16px] text-[#13141D]">

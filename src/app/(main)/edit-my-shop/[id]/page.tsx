@@ -96,7 +96,7 @@ const Page = ({ params }: Props) => {
         address: initialAddress,
         city: shopDetailsData?.data?.shop_info?.address?.city || "",
         state: shopDetailsData?.data?.shop_info?.address?.state || "",
-        zipcode: shopDetailsData?.data?.shop_info?.address?.postal_code || "",
+        zipcode: shopDetailsData?.data?.shop_info?.address?.zip_code || "",
         geoOption: initialAddress === "Private Location" ? "zip" : "exact",
       });
     }

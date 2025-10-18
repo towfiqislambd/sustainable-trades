@@ -25,32 +25,50 @@ const EditFormFour: React.FC<EditFormFourProps> = ({ data }) => {
     register,
     formState: { errors },
     setValue,
-    getValues,
   } = useFormContext<FormValues>();
 
   useEffect(() => {
     const addressLine1 = data?.shop_info?.address?.address_line_1 || "";
     const postalCode = data?.shop_info?.address?.postal_code || "";
-    if (addressLine1.trim() !== "") {
+    const city = data?.shop_info?.address?.city || "";
+    const state = data?.shop_info?.address?.state || "";
+    const displayMyAddress =
+      data?.shop_info?.address?.display_my_address || false;
+
+    if (addressLine1.trim() !== "" && displayMyAddress) {
       setActiveOption("exact");
       setValue("geoOption", "exact");
+      setValue("address", addressLine1);
+      setValue("city", city);
+      setValue("state", state);
+      setValue("zipcode", postalCode);
+      // Assume country is set elsewhere or default to something like "Bangladesh" based on data
+      setValue("country", "Bangladesh"); // Adjust based on your logic
     } else if (postalCode.trim() !== "") {
       setActiveOption("zip");
       setValue("geoOption", "zip");
       setValue("address", "Private Location");
+      setValue("zipcode", postalCode);
+      // Optionally set city/state if needed for zip mode
+      setValue("city", city);
+      setValue("state", state);
+      setValue("country", "Bangladesh");
     } else {
       setActiveOption("exact");
       setValue("geoOption", "exact");
+      // Set empty or defaults if no data
     }
   }, [data, setValue]);
 
-useEffect(() => {
-  if (activeOption === "zip") {
-    setValue("address", "Private Location");
-  } else if (activeOption === "radius") {
-    setValue("address", "Private Location (Radius)");
-  }
-}, [activeOption, setValue]);
+  useEffect(() => {
+    if (activeOption === "zip") {
+      setValue("address", "Private Location");
+    } else if (activeOption === "radius") {
+      setValue("address", "Private Location (Radius)");
+    }
+    // Note: For radius, you might want to set address to the actual addressLine1 if available
+    // but keep it private in display logic elsewhere
+  }, [activeOption, setValue]);
 
   return (
     <div>
