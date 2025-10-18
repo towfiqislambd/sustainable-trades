@@ -61,14 +61,14 @@ const EditFormFour: React.FC<EditFormFourProps> = ({ data }) => {
     setValue("postal_code", postalCode);
     setValue("city", city);
     setValue("state", state);
-    setValue("country", "Bangladesh"); 
+    setValue("country", "Bangladesh");
   }, [data, setValue]);
 
   useEffect(() => {
     if (activeOption === "zip") {
       setValue("address", "Private Location");
-    } else if (activeOption === "radius") {
-      setValue("address", "Private Location (Radius)");
+      setValue("city", "");
+      setValue("state", "");
     }
   }, [activeOption, setValue]);
 
