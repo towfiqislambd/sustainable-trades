@@ -33,7 +33,7 @@ const ShopListing = ({
               <ProductSkeleton key={idx} />
             ))}
           </div>
-        ) : featuredListings?.data?.length === 0 || !featuredListings ? (
+        ) : featuredListings?.length === 0 ? (
           <div className="flex flex-col justify-center items-center gap-3 text-center py-5 md:py-20">
             <AiOutlineFileUnknown className="text-xl md:text-3xl lg:text-6xl text-gray-500" />
             <p className="text-gray-600 text-sm md:text-lg font-semibold">
@@ -158,7 +158,7 @@ const ShopListing = ({
               <ProductSkeleton key={idx} />
             ))}
           </div>
-        ) : allListings?.data?.length === 0 || !allListings ? (
+        ) : allListings?.length === 0 ? (
           <div className="flex flex-col justify-center items-center gap-3 text-center py-5 md:py-20">
             <AiOutlineFileUnknown className="text-xl md:text-3xl lg:text-6xl text-gray-500" />
             <p className="text-gray-600 text-sm md:text-lg font-semibold">

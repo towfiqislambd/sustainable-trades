@@ -11,8 +11,7 @@ import Container from "@/Components/Common/Container";
 import { LocationSvg, StarSvg } from "@/Components/Svg/SvgContainer";
 import Modal from "@/Components/Common/Modal";
 import MessageShopOwner from "@/Components/Modals/MessageShopOwner";
-
-const ShopBanner = ({ data }: any) => {
+const ShopBanner = ({ id, data }: any) => {
   const [msgOpen, setMsgOpen] = useState<boolean>(false);
   const { user } = useAuth();
   const bannerUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${data?.shop_info?.shop_banner}`;
@@ -25,6 +24,9 @@ const ShopBanner = ({ data }: any) => {
     if (!user) {
       return toast.error("Please login first");
     }
+    if (user?.shop_info?.user_id === id) {
+      return toast.error("You can't follow your own shop");
+    }
     followShopMutation();
   };
 
@@ -32,6 +34,9 @@ const ShopBanner = ({ data }: any) => {
   const handleMessage = () => {
     if (!user) {
       return toast.error("Please login first");
+    }
+    if (user?.shop_info?.user_id === id) {
+      return toast.error("You can't message your own shop");
     }
     setMsgOpen(true);
   };
@@ -65,7 +70,7 @@ const ShopBanner = ({ data }: any) => {
                 {data?.shop_info?.shop_name}
               </h3>
 
-              <div className="flex gap-3 items-center">
+              {/* <div className="flex gap-3 items-center">
                 <figure className="size-6 md:size-10 bg-[#D4E2CB] rounded-full grid place-items-center cursor-pointer">
                   <Image
                     src={award}
@@ -81,12 +86,14 @@ const ShopBanner = ({ data }: any) => {
                     className="w-4 h-4 md:w-6 md:h-6"
                   />
                 </figure>
-              </div>
+              </div> */}
             </div>
 
             {/* Description */}
             <p className="md:max-w-[350px] text-accent-white md:text-lg">
-              {data?.shop_info?.about?.statement}
+              {data?.shop_info?.about?.statement?.length > 100
+                ? data?.shop_info?.about?.statement?.slice(0, 100) + "...."
+                : data?.shop_info?.about?.statement}
             </p>
 
             {/* Location */}
@@ -115,6 +122,7 @@ const ShopBanner = ({ data }: any) => {
             <div className="flex flex-col md:flex-row gap-2.5 md:gap-5 items-center md:pt-5">
               <button
                 onClick={handleFollowShop}
+                disabled={isPending}
                 className="px-8 md:py-3.5 rounded-lg cursor-pointer shadow md:text-lg font-semibold text-primary-green bg-[#D4E2CB] duration-300 transition-transform hover:scale-105 w-full md:w-auto py-1.5"
               >
                 {isPending ? (
@@ -140,7 +148,7 @@ const ShopBanner = ({ data }: any) => {
 
           {/* Right - Shop Author Info */}
           <div className="hidden md:block mt-4 md:w-[300px] border border-gray-600 rounded-lg shadow-lg px-6 py-3 bg-black/30 md:self-end">
-            <div className="flex gap-5 items-center justify-between">
+            <div className="flex gap-5 items-center justify-between mb-5">
               <div>
                 <h3 className="text-white font-semibold text-xl mb-1">
                   {data?.first_name} {data?.last_name}
@@ -150,7 +158,7 @@ const ShopBanner = ({ data }: any) => {
                 </p>
               </div>
 
-              <figure className="size-14 rounded-full relative grid place-items-center text-xl text-white font-semibold bg-accent-red">
+              <figure className="size-14 shrink-0 rounded-full relative grid place-items-center text-xl text-white font-semibold bg-accent-red">
                 {data?.avatar ? (
                   <Image
                     src={`${process.env.NEXT_PUBLIC_SITE_URL}/${data?.avatar}`}
@@ -163,10 +171,6 @@ const ShopBanner = ({ data }: any) => {
                 )}
               </figure>
             </div>
-
-            <p className="py-1 w-fit rounded-full font-semibold my-4 px-3 text-sm bg-accent-white text-secondary-black">
-              Veterinarian
-            </p>
 
             <div className="flex gap-2 items-center mb-2">
               <p className="size-5 rounded-full bg-[#D4E2CB]"></p>
