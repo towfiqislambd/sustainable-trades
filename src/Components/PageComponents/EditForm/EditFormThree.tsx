@@ -21,7 +21,7 @@ const EditFormThree = ({ data }: any) => {
     formState: { errors },
   } = useFormContext<any>();
 
-  const { fields, append, remove, update, replace } = useFieldArray({
+  const { fields, append, remove, update } = useFieldArray({
     control,
     name: "faqs",
   });
@@ -99,10 +99,9 @@ const EditFormThree = ({ data }: any) => {
           onClick={() => document.getElementById("profilePhotoInput")?.click()}
         >
           {profilePhotoPreview ? (
-            
             <>
               <img
-                src={profilePhotoPreview} 
+                src={profilePhotoPreview}
                 alt="Profile Preview"
                 className="h-full w-full object-cover"
               />
@@ -111,7 +110,6 @@ const EditFormThree = ({ data }: any) => {
               </div>
             </>
           ) : data?.shop_info?.about?.about_image ? (
-         
             <>
               <img
                 src={`${process.env.NEXT_PUBLIC_SITE_URL}/${data.shop_info?.about?.about_image}`}
@@ -291,7 +289,7 @@ const EditFormThree = ({ data }: any) => {
       </div>
 
       {/* FAQ Section */}
-      {/* <div className="border p-4 rounded mb-4">
+      <div className="border p-4 rounded mb-4">
         <h3 className="text-lg font-semibold mb-2">Add FAQ</h3>
 
         <input
@@ -330,137 +328,155 @@ const EditFormThree = ({ data }: any) => {
             </button>
           )}
         </div>
-      </div> */}
+      </div>
 
       {/* FAQ List */}
-      {/* <div className="mb-4">
-        {fields.map((field, index) => {
-          const faq = watch("faqs")?.[index];
-          return (
-            <div
-              key={field.id || index}
-              className="flex justify-between items-center border-b py-2"
-            >
-              <div>
-                <strong>{index + 1}. </strong> {faq?.question} - {faq?.answer}
-              </div>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleEditFaq(index)}
-                  className="text-green-600"
-                >
-                  ✏️
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleDeleteFaq(index)}
-                  className="text-red-600"
-                >
-                  🗑
-                </button>
+      <div className="mb-4">
+        {fields.length > 0 && (
+          <div className="border border-gray-200 rounded-lg overflow-hidden">
+            <div className="bg-gray-50 px-4 py-3 border-b border-gray-200">
+              <div className="grid grid-cols-12 gap-4 text-sm font-medium text-gray-700">
+                <div className="col-span-1">#</div>
+                <div className="col-span-4">Question</div>
+                <div className="col-span-5">Answer</div>
+                <div className="col-span-2">Actions</div>
               </div>
             </div>
-          );
-        })}
+            <div className="divide-y divide-gray-200">
+              {fields.map((field, index) => {
+                const faq = watch("faqs")?.[index];
+                return (
+                  <div key={field.id || index} className="px-4 py-3">
+                    <div className="grid grid-cols-12 gap-4 items-center">
+                      <div className="col-span-1 text-sm text-gray-600">
+                        {index + 1}
+                      </div>
+                      <div className="col-span-4 text-sm text-gray-900">
+                        {faq?.question}
+                      </div>
+                      <div className="col-span-5 text-sm text-gray-600 truncate">
+                        {faq?.answer}
+                      </div>
+                      <div className="col-span-2 flex gap-2">
+                        <button
+                          type="button"
+                          onClick={() => handleEditFaq(index)}
+                          className="p-1 text-green-600 hover:bg-green-100 rounded cursor-pointer"
+                        >
+                          ✏️
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteFaq(index)}
+                          className="p-1 text-red-600 hover:bg-red-100 rounded cursor-pointer"
+                        >
+                          🗑
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
         <p className="text-sm mt-2 text-gray-600">
           You can add up to 10 FAQs ({fields.length}/10)
         </p>
-      </div> */}
-      <div className="border p-4 rounded mt-6">
-          <h3 className="text-lg font-semibold mb-2">Add FAQ</h3>
-          <input
-            type="text"
-            placeholder="Question"
-            value={newFaq.question}
-            onChange={e => setNewFaq({ ...newFaq, question: e.target.value })}
-            className="border p-2 rounded w-full mb-2"
-          />
-          <textarea
-            placeholder="Answer"
-            value={newFaq.answer}
-            onChange={e => setNewFaq({ ...newFaq, answer: e.target.value })}
-            className="border p-2 rounded w-full mb-2"
-          />
+      </div>
+      {/* <div className="border p-4 rounded mt-6">
+        <h3 className="text-lg font-semibold mb-2">Add FAQ</h3>
+        <input
+          type="text"
+          placeholder="Question"
+          value={newFaq.question}
+          onChange={e => setNewFaq({ ...newFaq, question: e.target.value })}
+          className="border p-2 rounded w-full mb-2"
+        />
+        <textarea
+          placeholder="Answer"
+          value={newFaq.answer}
+          onChange={e => setNewFaq({ ...newFaq, answer: e.target.value })}
+          className="border p-2 rounded w-full mb-2"
+        />
 
-          <div className="flex gap-2">
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={handleSaveFaq}
+            className="bg-blue-600 text-white px-4 py-2 rounded"
+          >
+            {editingFaqIndex !== null ? "Update" : "Save"}
+          </button>
+          {editingFaqIndex !== null && (
             <button
               type="button"
-              onClick={handleSaveFaq}
-              className="bg-blue-600 text-white px-4 py-2 rounded"
+              onClick={() => {
+                setNewFaq({ question: "", answer: "" });
+                setEditingFaqIndex(null);
+              }}
+              className="bg-gray-300 text-gray-800 px-4 py-2 rounded"
             >
-              {editingFaqIndex !== null ? "Update" : "Save"}
+              Cancel Edit
             </button>
-            {editingFaqIndex !== null && (
-              <button
-                type="button"
-                onClick={() => {
-                  setNewFaq({ question: "", answer: "" });
-                  setEditingFaqIndex(null);
-                }}
-                className="bg-gray-300 text-gray-800 px-4 py-2 rounded"
-              >
-                Cancel Edit
-              </button>
-            )}
-          </div>
-        </div>
-
-        {/* FAQ List */}
-        <div className="mt-4">
-          {fields.length > 0 && (
-            <div className="border border-gray-200 rounded-lg overflow-hidden">
-              <div className="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                <div className="grid grid-cols-12 gap-4 text-sm font-medium text-gray-700">
-                  <div className="col-span-1">#</div>
-                  <div className="col-span-4">Question</div>
-                  <div className="col-span-5">Answer</div>
-                  <div className="col-span-2">Actions</div>
-                </div>
-              </div>
-              <div className="divide-y divide-gray-200">
-                {fields?.map((field, index) => {
-                  const faq = watch("faqs")[index];
-                  return (
-                    <div key={field.id} className="px-4 py-3">
-                      <div className="grid grid-cols-12 gap-4 items-center">
-                        <div className="col-span-1 text-sm text-gray-600">
-                          {index + 1}
-                        </div>
-                        <div className="col-span-4 text-sm text-gray-900">
-                          {faq?.question}
-                        </div>
-                        <div className="col-span-5 text-sm text-gray-600 truncate">
-                          {faq?.answer}
-                        </div>
-                        <div className="col-span-2 flex gap-2">
-                          <button
-                            type="button"
-                            onClick={() => handleEditFaq(index)}
-                            className="p-1 text-green-600 hover:bg-green-100 rounded cursor-pointer"
-                          >
-                            ✏️
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => handleDeleteFaq(index)}
-                            className="p-1 text-red-600 hover:bg-red-100 rounded cursor-pointer"
-                          >
-                            🗑
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
           )}
         </div>
+      </div>
 
-        <li className="text-[16px] text-[#4B4A47] font-semibold list-disc mt-2">
-          You can add up to 10 FAQs ({fields.length}/10)
-        </li>
+      <div className="mt-4">
+        {fields.length > 0 && (
+          <div className="border border-gray-200 rounded-lg overflow-hidden">
+            <div className="bg-gray-50 px-4 py-3 border-b border-gray-200">
+              <div className="grid grid-cols-12 gap-4 text-sm font-medium text-gray-700">
+                <div className="col-span-1">#</div>
+                <div className="col-span-4">Question</div>
+                <div className="col-span-5">Answer</div>
+                <div className="col-span-2">Actions</div>
+              </div>
+            </div>
+            <div className="divide-y divide-gray-200">
+              {fields?.map((field, index) => {
+               const faq = watch(`faqs? .${index}`);
+                return (
+                  <div key={field.id} className="px-4 py-3">
+                    <div className="grid grid-cols-12 gap-4 items-center">
+                      <div className="col-span-1 text-sm text-gray-600">
+                        {index + 1}
+                      </div>
+                      <div className="col-span-4 text-sm text-gray-900">
+                        {faq?.question}
+                      </div>
+                      <div className="col-span-5 text-sm text-gray-600 truncate">
+                        {faq?.answer}
+                      </div>
+                      <div className="col-span-2 flex gap-2">
+                        <button
+                          type="button"
+                          onClick={() => handleEditFaq(index)}
+                          className="p-1 text-green-600 hover:bg-green-100 rounded cursor-pointer"
+                        >
+                          ✏️
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteFaq(index)}
+                          className="p-1 text-red-600 hover:bg-red-100 rounded cursor-pointer"
+                        >
+                          🗑
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <li className="text-[16px] text-[#4B4A47] font-semibold list-disc mt-2">
+        You can add up to 10 FAQs ({fields.length}/10)
+      </li> */}
 
       {/* Social Media Links */}
       <div>

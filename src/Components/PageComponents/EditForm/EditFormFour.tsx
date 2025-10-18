@@ -8,7 +8,7 @@ type FormValues = {
   address?: string;
   city?: string;
   state?: string;
-  zipcode?: string;
+  postal_code?: string;
   geoOption?: "exact" | "radius" | "zip";
 };
 
@@ -25,32 +25,52 @@ const EditFormFour: React.FC<EditFormFourProps> = ({ data }) => {
     register,
     formState: { errors },
     setValue,
-    getValues,
   } = useFormContext<FormValues>();
 
   useEffect(() => {
+    if (!data) return;
+
     const addressLine1 = data?.shop_info?.address?.address_line_1 || "";
     const postalCode = data?.shop_info?.address?.postal_code || "";
-    if (addressLine1.trim() !== "") {
+    console.log(postalCode, "postal code");
+
+    const city = data?.shop_info?.address?.city || "";
+    const state = data?.shop_info?.address?.state || "";
+    const displayMyAddress =
+      data?.shop_info?.address?.display_my_address || false;
+    const addressRadius = data?.shop_info?.address?.address_10_mile || false;
+    const doNotDisplay = data?.shop_info?.address?.do_not_display || false;
+
+    // Determine geoOption from flags if you have them
+    if (displayMyAddress) {
       setActiveOption("exact");
       setValue("geoOption", "exact");
-    } else if (postalCode.trim() !== "") {
+    } else if (addressRadius) {
+      setActiveOption("radius");
+      setValue("geoOption", "radius");
+    } else if (doNotDisplay) {
       setActiveOption("zip");
       setValue("geoOption", "zip");
-      setValue("address", "Private Location");
     } else {
       setActiveOption("exact");
       setValue("geoOption", "exact");
     }
+
+    // Set form field values (these update the actual inputs)
+    setValue("address", addressLine1);
+    setValue("postal_code", postalCode);
+    setValue("city", city);
+    setValue("state", state);
+    setValue("country", "Bangladesh");
   }, [data, setValue]);
 
-useEffect(() => {
-  if (activeOption === "zip") {
-    setValue("address", "Private Location");
-  } else if (activeOption === "radius") {
-    setValue("address", "Private Location (Radius)");
-  }
-}, [activeOption, setValue]);
+  useEffect(() => {
+    if (activeOption === "zip") {
+      setValue("address", "Private Location");
+      setValue("city", "");
+      setValue("state", "");
+    }
+  }, [activeOption, setValue]);
 
   return (
     <div>
@@ -74,7 +94,7 @@ useEffect(() => {
 
           {activeOption === "exact" && (
             <div className="lg:mt-8 mt-5 space-y-4">
-              <div>
+              {/* <div>
                 <p className="form-label font-bold">Country/Region *</p>
                 <input
                   type="text"
@@ -85,7 +105,7 @@ useEffect(() => {
                 {errors.country && (
                   <p className="text-red-600">{errors.country.message}</p>
                 )}
-              </div>
+              </div> */}
 
               <div>
                 <p className="form-label font-bold">Address *</p>
@@ -131,12 +151,12 @@ useEffect(() => {
                   <p className="form-label font-bold">Zipcode *</p>
                   <input
                     type="text"
-                    {...register("zipcode")}
+                    {...register("postal_code")}
                     className="form-input"
                     placeholder="Zipcode"
                   />
-                  {errors.zipcode && (
-                    <p className="text-red-600">{errors.zipcode.message}</p>
+                  {errors.postal_code && (
+                    <p className="text-red-600">{errors.postal_code.message}</p>
                   )}
                 </div>
               </div>
@@ -161,7 +181,7 @@ useEffect(() => {
 
           {activeOption === "radius" && (
             <div className="mt-8 space-y-4">
-              <div>
+              {/* <div>
                 <p className="form-label font-bold">Country/Region *</p>
                 <input
                   type="text"
@@ -172,7 +192,7 @@ useEffect(() => {
                 {errors.country && (
                   <p className="text-red-600">{errors.country.message}</p>
                 )}
-              </div>
+              </div> */}
 
               <div>
                 <p className="form-label font-bold">Address *</p>
@@ -218,12 +238,12 @@ useEffect(() => {
                   <p className="form-label font-bold">Zipcode *</p>
                   <input
                     type="text"
-                    {...register("zipcode")}
+                    {...register("postal_code")}
                     className="form-input"
                     placeholder="Zipcode"
                   />
-                  {errors.zipcode && (
-                    <p className="text-red-600">{errors.zipcode.message}</p>
+                  {errors.postal_code && (
+                    <p className="text-red-600">{errors.postal_code.message}</p>
                   )}
                 </div>
               </div>
@@ -254,12 +274,12 @@ useEffect(() => {
               <p className="form-label font-bold">Zipcode *</p>
               <input
                 type="text"
-                {...register("zipcode")}
+                {...register("postal_code")}
                 className="form-input"
                 placeholder="Zipcode"
               />
-              {errors.zipcode && (
-                <p className="text-red-600">{errors.zipcode.message}</p>
+              {errors.postal_code && (
+                <p className="text-red-600">{errors.postal_code.message}</p>
               )}
             </div>
           )}

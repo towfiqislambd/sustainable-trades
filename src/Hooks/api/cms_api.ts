@@ -219,7 +219,7 @@ export const getProductSubCategoriesClient = () => {
 };
 
 // Shop Details
-export const getShopDetails = (id: string) => {
+export const getShopDetails = (id: number) => {
   return useClientApi({
     method: "get",
     isPrivate: true,
@@ -233,7 +233,7 @@ export const getShopDetails = (id: string) => {
 };
 
 // Featured Listings
-export const getFeaturedListings = (id: string) => {
+export const getFeaturedListings = (id: number) => {
   return useClientApi({
     method: "get",
     isPrivate: true,
@@ -248,7 +248,7 @@ export const getFeaturedListings = (id: string) => {
 
 // All Listings
 export const getAllListings = (
-  id: string,
+  id: number,
   category_id?: string,
   sub_category_id?: string,
   short_by?: string,
@@ -478,6 +478,7 @@ export const useUpdateShopBanner = () => {
       "Content-Type": "multipart/form-data",
     },
     onSuccess: (data: any) => {
+      console.log(data);
       if (data?.success) {
         queryClient.invalidateQueries("get-shop-details" as any);
         toast.success(data?.message);

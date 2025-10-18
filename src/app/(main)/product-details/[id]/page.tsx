@@ -13,6 +13,7 @@ import Subscribe from "@/Components/PageComponents/mainPages/homePageComponents/
 import ShopInfo from "@/Components/PageComponents/mainPages/productDetailsComponents/ShopInfo";
 import ProductDescription from "@/Components/PageComponents/mainPages/productDetailsComponents/ProductDescription";
 
+
 interface Props {
   params: Promise<{ id: number }>;
 }

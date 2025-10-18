@@ -18,19 +18,38 @@ import { ImSpinner9 } from "react-icons/im";
 
 const EditShopBanner = ({ shop_id, data }: any) => {
   const bannerUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${data?.shop_info?.shop_banner}`;
-  const [shopProfile, setShopProfile] = useState<any>(null);
-  const [shopCover, setShopCover] = useState<any>(null);
+  const profileUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${data?.shop_info?.shop_image}`;
+  const [previewCover, setPreviewCover] = useState<string | null>(null);
+  const [previewProfile, setPreviewProfile] = useState<string | null>(null);
   const { mutate: updateShopPhoto, isPending: profilePending } =
     useUpdateShopPhoto();
   const { mutate: updateShopBanner, isPending: bannerPending } =
     useUpdateShopBanner();
+
+  const handleBannerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setPreviewCover(URL.createObjectURL(file));
+      updateShopBanner({ shop_banner: file });
+    }
+  };
+
+  const handleProfileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setPreviewProfile(URL.createObjectURL(file));
+      updateShopPhoto({ shop_image: file });
+    }
+  };
 
   return (
     <section className="mb-12">
       {/* Shop Profile and Cover photo */}
       <div
         style={{
-          backgroundImage: `url(${bannerPending ? null : bannerUrl})`,
+          backgroundImage: `url(${
+            bannerPending ? "" : previewCover || bannerUrl
+          })`,
         }}
         className={`h-[350px] bg-no-repeat bg-center bg-cover bg-black/50 bg-blend-overlay relative ${
           bannerPending && "animate-pulse"
@@ -42,7 +61,11 @@ const EditShopBanner = ({ shop_id, data }: any) => {
               htmlFor="cover"
               className="absolute top-10 right-0 bg-primary-green size-10 cursor-pointer rounded-full grid place-items-center z-30 border border-gray-500 shadow"
             >
-              <EditIconDarkSvg />
+              {bannerPending ? (
+                <ImSpinner9 className="animate-spin text-white text-xl" />
+              ) : (
+                <EditIconDarkSvg />
+              )}
             </label>
 
             <input
@@ -50,20 +73,14 @@ const EditShopBanner = ({ shop_id, data }: any) => {
               accept="image/*"
               id="cover"
               className="hidden"
-              onChange={e => {
-                const file = e.target.files?.[0];
-                if (file) {
-                  setShopCover(file);
-                  updateShopBanner({ shop_banner: shopCover });
-                }
-              }}
+              onChange={handleBannerChange}
             />
 
             <figure className="size-[180px] -mb-10 relative bg-gray-300 grid place-items-center rounded-full border-[5px] border-white">
               {!profilePending && (
                 <label
                   htmlFor="profile"
-                  className="absolute right-2 top-1 bg-white size-10 cursor-pointer rounded-full grid place-items-center z-30 border border-gray-200"
+                  className="absolute right-2 top-1 bg-white size-10 cursor-pointer rounded-full grid place-items-center z-50 border border-gray-200"
                 >
                   <EditIconSvg />
                 </label>
@@ -74,22 +91,17 @@ const EditShopBanner = ({ shop_id, data }: any) => {
                 accept="image/*"
                 id="profile"
                 className="hidden"
-                onChange={e => {
-                  const file = e.target.files?.[0];
-                  if (file) {
-                    setShopProfile(file);
-                    updateShopPhoto({ shop_image: shopProfile });
-                  }
-                }}
+                onChange={handleProfileChange}
               />
+
               {profilePending ? (
                 <ImSpinner9 className="animate-spin text-6xl text-primary-blue" />
               ) : (
                 <Image
-                  src={`${process.env.NEXT_PUBLIC_SITE_URL}/${data?.shop_info?.shop_image}`}
+                  src={previewProfile || profileUrl}
                   alt="shop_profile"
                   fill
-                  className="size-full rounded-full"
+                  className="object-cover rounded-full"
                 />
               )}
             </figure>
@@ -106,15 +118,6 @@ const EditShopBanner = ({ shop_id, data }: any) => {
               <h3 className="text-secondary-black text-3xl font-semibold">
                 {data?.shop_info?.shop_name}
               </h3>
-              <div className="flex gap-3 items-center">
-                <figure className="size-10 bg-[#D4E2CB] rounded-full grid place-items-center cursor-pointer">
-                  <Image src={award} alt="award" className="w-6 h-6" />
-                </figure>
-
-                <figure className="size-10 bg-[#E48872] rounded-full grid place-items-center cursor-pointer">
-                  <Image src={badge} alt="badge" className="w-6 h-6" />
-                </figure>
-              </div>
             </div>
 
             {/* Location */}
@@ -168,16 +171,16 @@ const EditShopBanner = ({ shop_id, data }: any) => {
                   {data?.shop_info?.shop_name}
                 </p>
               </div>
-              <figure className="size-14 rounded-full bg-accent-red grid place-items-center font-semibold text-lg">
+              <figure className="size-14 shrink-0 rounded-full bg-accent-red grid place-items-center font-semibold text-lg overflow-hidden">
                 {data?.avatar ? (
                   <Image
                     src={`${process.env.NEXT_PUBLIC_SITE_URL}/${data?.avatar}`}
                     alt="author"
                     fill
-                    className="size-full rounded-full"
+                    className="object-cover rounded-full"
                   />
                 ) : (
-                  <span>{data?.first_name.at(0)}</span>
+                  <span>{data?.first_name?.at(0)}</span>
                 )}
               </figure>
             </div>

@@ -37,14 +37,14 @@ type ProfileFormValues = {
   address?: string;
   city?: string;
   state?: string;
-  zipcode?: string;
+  postal_code?: string;
   geoOption?: "exact" | "radius" | "zip";
   lat?: number;
   lng?: number;
 };
 
 interface Props {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: number }>;
 }
 
 const Page = ({ params }: Props) => {
@@ -58,7 +58,6 @@ const Page = ({ params }: Props) => {
     reset,
     handleSubmit,
     formState: { errors },
-
   } = methods;
 
   useEffect(() => {
@@ -96,14 +95,14 @@ const Page = ({ params }: Props) => {
         address: initialAddress,
         city: shopDetailsData?.data?.shop_info?.address?.city || "",
         state: shopDetailsData?.data?.shop_info?.address?.state || "",
-        zipcode: shopDetailsData?.data?.shop_info?.address?.postal_code || "",
+        postal_code:
+          shopDetailsData?.data?.shop_info?.address?.postal_code || "",
         geoOption: initialAddress === "Private Location" ? "zip" : "exact",
       });
     }
   }, [shopDetailsData, reset]);
 
   const onSubmit = async (data: ProfileFormValues) => {
-
     if (!data.address || data.address.trim() === "") {
       data.address = "Private Location";
     }
@@ -111,7 +110,7 @@ const Page = ({ params }: Props) => {
     const payload = {
       ...data,
       address_line_1: data.address,
-      postal_code: data.zipcode,
+      postal_code: data.postal_code,
       city: data.city,
       state: data.state,
       country: data.country,
