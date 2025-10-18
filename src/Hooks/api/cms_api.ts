@@ -87,7 +87,7 @@ export async function getProductCategories() {
 export async function getAllShops() {
   return useServerApi({
     endpoint: "/api/shops",
-    revalidate: 3600,
+    ssr: true,
   });
 }
 
@@ -98,18 +98,6 @@ export async function getFeaturedShops() {
     ssr: true,
   });
 }
-
-// export async function getFeaturedShops() {
-//   try {
-//     return await useServerApi({
-//       endpoint: "/api/shops/featured",
-//       revalidate: 3600,
-//     });
-//   } catch (error) {
-//     console.warn("Failed to fetch featured shops at build time:", error);
-//     return { data: [] }; // fallback data
-//   }
-// }
 
 // Get Mission Data
 export async function getMissionData() {

@@ -63,7 +63,9 @@ const LocalMagicMarker = ({ address }: Props) => {
                 ) : (
                   shopData?.data?.map((item: any) => (
                     <Link
-                      href={`/shop-details/${item?.shop_info?.user_id}`}
+                      href={`/shop-details?view=${"customer"}&id=${
+                        item?.shop_info?.user_id
+                      }&listing_id=${item?.shop_info?.id}`}
                       key={item?.id}
                       className="flex flex-col md:flex-row gap-2.5 md:gap-5 md:items-center border-b last:border-b-0 border-gray-300 py-3 cursor-pointer hover:bg-green-50"
                       onMouseEnter={() => setHoveredShop(item)}
