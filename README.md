@@ -1,4 +1,4 @@
-# Project Name : Sustainable Trades
+# Project Name : Multi-Vendor E-Commerce Platform (Sustainable Trades)
 
 ## 1. Description:
 
