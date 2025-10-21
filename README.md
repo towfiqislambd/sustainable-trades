@@ -32,7 +32,7 @@ Developed using the latest Next.js features, TypeScript for type safety, and Tan
 
 ## 3. Main Features:
 
-###🔑 Multi-Role System
+### 🔑 Multi-Role System
 
 - **Admin, Basic Vendor, Pro Vendor, Customer, and Guest** – each with their own dashboard and permissions.
 - **Dynamic Role Management** – Role-specific functionalities and UI are rendered conditionally.
