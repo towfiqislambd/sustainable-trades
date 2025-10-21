@@ -2,7 +2,7 @@
 
 ## 1. Description:
 
-Multi-Vendor E-Commerce Platform is a fully dynamic, production-ready, and SEO-friendly marketplace built with Next.js v15, TypeScript, and a modern tech stack.
+**Multi-Vendor E-Commerce Platform** is a fully dynamic, production-ready, and SEO-friendly marketplace built with Next.js v15, TypeScript, and a modern tech stack.
 
 It’s designed for real-world e-commerce operations, supporting five user roles — Admin, Basic Vendor, Pro Vendor, Customer, and Guest — each with their own tailored dashboards and permissions.
 
@@ -14,48 +14,77 @@ Developed using the latest Next.js features, TypeScript for type safety, and Tan
 
 ## 2. Used Technologies:
 
-- Next.js (v15) – with SSR, CSR, SSG, and ISR implementation
-- TypeScript – for type-safe, maintainable code
-- Tailwind CSS v4 – for modern responsive styling
-- ShadCN UI – as a component library for beautiful interfaces
-- Framer Motion – for smooth animations
-- TanStack Query – for real-time, cache-optimized data fetching
-- Axios for API Integration
+- Next.js v15 – Leveraging SSR, CSR, SSG, and ISR for optimized performance and SEO.
+- TypeScript – For robust, type-safe, and maintainable code.
+- Tailwind CSS v4 – To craft a modern, responsive, and clean UI.
+- TanStack Query – For powerful, cache-optimized API data fetching.
+- Pusher.js + Laravel Echo – For real-time chat and notification features.
+- Axios – For API communication.
+- React Hook Form – For form handling and validation.
 - PHP (Backend) – for server-side logic and data management
-- AOS Animations – for engaging UI transitions
-- Lots of modern React ecosystem packages
+- Lucide React Icons – For scalable, elegant icons.
+- Moment.js – For date and time formatting.
+- AOS (Animate on Scroll) – For smooth UI animations.
+- Google Maps API – For location tracking and nearby shop discovery.
+- Lottie React – For beautiful, lightweight animations.
 
 ---
 
 ## 3. Main Features:
 
-- **Fully Responsive Design** – Optimized for desktops, tablets, and mobile
-  devices.
-- **Modern, Eye-Catching UI/UX** – Designed with Tailwind CSS & ShadCN UI.
-- **Fast, Lightweight & SEO-Optimized** – Built for high GTmetrix and Lighthouse
-  scores.
-- **Two Dashboards:**
-  - **User Dashboard** - Meal Planner, My Shared Recipes, My Favorites, and
-    Recipe Management.
-  - **Admin Dashboard** - Manage users, approve recipes, and maintain platform
-    content.
-- **Advanced Recipe Management** – Create, edit, delete, and share recipes with
-  admin approval.
-- **Smart Recipe Discovery** – Search and filter by name, category, tags, or
-  library.
+**🔑 Multi-Role System**
+
+- **Admin, Basic Vendor, Pro Vendor, Customer, and Guest** – each with their own dashboard and permissions.
+- **Dynamic Role Management** – Role-specific functionalities and UI are rendered conditionally.
+
+**🛒 Vendor & Product Management**
+
+- Vendors can add products, which are published only after admin approval.
+- Vendors can upgrade subscriptions between Basic and Pro plans.
+- Vendors can edit profiles, manage listings, discounts, and trades.
+
+**💬 Real-Time Chat**
+
+- Real-time user-to-vendor messaging system powered by Pusher.js and Laravel Echo.
+- Instant updates, typing indicators, and unread message notifications.
+
+**🗺️ Smart Location System**
+
+- Integrated Google Map API for finding shops.
+- The platform captures user’s latitude and longitude and displays nearby shops.
+- Interactive split view: left side shop list, right side live map view.
+- On hover, the shop’s name and photo appear live on the map.
+
+**⭐ Customer Features**
+
+- Browse and filter products by category, subcategory, price, or popularity.
+- Add to Cart, Add to Favorites, and Follow/Unfollow Shops.
+- Write product reviews and view average ratings.
 - **Personalized Meal Planner** – Add, edit, or remove recipes for any day and
   time of the week.
-- **Favorites & Wishlist** – Save and organize favorite recipes for quick
-  access.
-- **Interactive Recipe Details** – Leave reviews, explore nutrition info, and
-  share recipes.
-- **Complete Authentication System** – Includes Sign up, Login, Logout, OTP,
-  Email Verification, and Password Reset.
-- **High Performance Rendering** – Implemented SSR, CSR, SSG, and ISR for
-  ultimate scalability and speed.
-- **Smooth Animations** – Built with Framer Motion and AOS.
-- **Clean, Organized Codebase** – Follows best practices for readability and
-  scalability.
+- Real-time chat with vendors.
+- View shop locations and details.
+- Full authentication system – Login, Register, Logout, Forget Password, Reset Password, and Change Password.
+
+**💼 Dashboard Functionalities**
+
+User Dashboard:
+
+- Orders, Favorites, Cart, Messages, Reviews, Settings
+  
+Basic Vendor Dashboard:
+
+- Listings, Trades, Memberships, Favorites, Membership Spotlights, Notifications, Messages, Settings
+  
+Pro Vendor Dashboard:
+
+- Orders, Trades, Listings, Payments, Accounting, Discounts, Shipping, Favorites, Membership Spotlights, Notifications, Messages, Settings
+
+Admin Dashboard:
+
+- Manage users, shops, products, reviews, CMS content, and platform settings
+
+
 
 ---
 
