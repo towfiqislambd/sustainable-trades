@@ -150,10 +150,10 @@ Developed using the latest Next.js features, TypeScript for type safety, and Tan
 
 ```bash
 # Clone the repository
-git clone https://github.com/towfiqislambd/healthy-recipes.git
+git clone https://github.com/towfiqislambd/sustainable-trades.git
 
 # Navigate into the project
-cd healthy-recipes
+cd sustainable-trades
 
 # Add an env.local file in root
 .env.local = Add secret credentials
