@@ -37,25 +37,25 @@ Developed using the latest Next.js features, TypeScript for type safety, and Tan
 - **Admin, Basic Vendor, Pro Vendor, Customer, and Guest** – each with their own dashboard and permissions.
 - **Dynamic Role Management** – Role-specific functionalities and UI are rendered conditionally.
 
-**🛒 Vendor & Product Management**
+### 🛒 Vendor & Product Management
 
 - Vendors can add products, which are published only after admin approval.
 - Vendors can upgrade subscriptions between Basic and Pro plans.
 - Vendors can edit profiles, manage listings, discounts, and trades.
 
-**💬 Real-Time Chat**
+### 💬 Real-Time Chat
 
 - Real-time user-to-vendor messaging system powered by Pusher.js and Laravel Echo.
 - Instant updates, typing indicators, and unread message notifications.
 
-**🗺️ Smart Location System**
+### 🗺️ Smart Location System
 
 - Integrated Google Map API for finding shops.
 - The platform captures user’s latitude and longitude and displays nearby shops.
 - Interactive split view: left side shop list, right side live map view.
 - On hover, the shop’s name and photo appear live on the map.
 
-**⭐ Customer Features**
+### ⭐ Customer Features
 
 - Browse and filter products by category, subcategory, price, or popularity.
 - Add to Cart, Add to Favorites, and Follow/Unfollow Shops.
@@ -66,52 +66,61 @@ Developed using the latest Next.js features, TypeScript for type safety, and Tan
 - View shop locations and details.
 - Full authentication system – Login, Register, Logout, Forget Password, Reset Password, and Change Password.
 
-**💼 Dashboard Functionalities**
+### 💼 Dashboard Functionalities
 
-User Dashboard:
+**User Dashboard:**
 
 - Orders, Favorites, Cart, Messages, Reviews, Settings
   
-Basic Vendor Dashboard:
+**Basic Vendor Dashboard:**
 
 - Listings, Trades, Memberships, Favorites, Membership Spotlights, Notifications, Messages, Settings
   
-Pro Vendor Dashboard:
+**Pro Vendor Dashboard:**
 
 - Orders, Trades, Listings, Payments, Accounting, Discounts, Shipping, Favorites, Membership Spotlights, Notifications, Messages, Settings
 
-Admin Dashboard:
+**Admin Dashboard:**
 
 - Manage users, shops, products, reviews, CMS content, and platform settings
 
+### ⚙️ CMS & Dynamic Management
 
+- Admin can update and control content dynamically from dashboard.
+- Fully functional CMS for flexible content editing.
 
+### ⚡ Performance & Design
+
+- Modern, beautiful, and lightweight UI.
+- Fully responsive on all screen sizes (mobile, tablet, and desktop).
+- SEO optimized for better visibility
+- Production ready and scalable architecture.
 ---
 
 ## 4. Dependencies:
 
 ```json
 "dependencies": {
-  "@radix-ui/react-avatar": "^1.1.10",
-  "@radix-ui/react-popover": "^1.1.15",
-  "@radix-ui/react-select": "^2.2.6",
+  "@react-google-maps/api": "^2.20.7",
   "@tanstack/react-query": "^5.80.2",
   "aos": "^2.3.4",
   "axios": "^1.9.0",
-  "class-variance-authority": "^0.7.1",
   "clsx": "^2.1.1",
+  "laravel-echo": "^2.2.4",
+  "lottie-react": "^2.4.1",
   "lucide-react": "^0.544.0",
-  "next": "15.3.3",
+  "moment": "^2.30.1",
+  "next": "^15.4.6",
   "postcss": "^8.5.4",
-  "react": "^19.0.0",
-  "react-dom": "^19.0.0",
-  "react-hook-form": "^7.64.0",
+  "pusher-js": "^8.4.0",
+  "react": "^19.1.1",
+  "react-dom": "^19.1.1",
+  "react-hook-form": "^7.62.0",
   "react-hot-toast": "^2.5.2",
   "react-icons": "^5.5.0",
-  "react-loader-spinner": "^7.0.3",
-  "react-otp-input": "^3.1.1",
-  "react-rating": "^2.0.5",
-  "swiper": "^12.0.2",
+  "react-scroll-to-top": "^3.1.0",
+  "react-spinners": "^0.17.0",
+  "swiper": "^11.2.10",
   "tailwind-merge": "^3.3.1"
 }
 ```
@@ -131,8 +140,7 @@ Admin Dashboard:
   "@types/redux-persist": "^4.0.0",
   "autoprefixer": "^10.4.21",
   "tailwindcss": "^4.1.8",
-  "tw-animate-css": "^1.4.0",
-  "typescript": "^5.0.0"
+  "typescript": "^5"
 }
 ```
 
