@@ -65,6 +65,11 @@ const Product = ({
     addToCartMutation({ quantity: 1 });
   };
 
+  // Func for buy now
+  const handleBuyNow = () => {
+    toast.error("Development is ongoing");
+  };
+
   return (
     <div className="rounded-t-lg relative">
       {/* Wishlist btn */}
@@ -131,7 +136,7 @@ const Product = ({
       </Link>
 
       {/* Badge */}
-      {product?.selling_option === "Trader/Barter" && (
+      {product?.selling_option === "Trade/Barter" && (
         <p className="size-6 shrink-0 rounded-full bg-[#D4E2CB] grid place-items-center">
           <SignSvg />
         </p>
@@ -161,16 +166,12 @@ const Product = ({
         {/* Cart btn */}
         {has_cart && (
           <button
-            onClick={handleAddToCart}
+            onClick={user ? handleAddToCart : handleBuyNow}
             disabled={
-              addCardPending ||
-              user?.role === "vendor" ||
-              product?.selling_option === "Trader/Barter"
+              addCardPending || product?.selling_option === "Trader/Barter"
             }
             className={`flex gap-2 items-center px-3 py-1.5 rounded-[5px] border font-semibold text-secondary-gray duration-500 transition-all sm:text-base text-sm ${
-              addCardPending ||
-              user?.role === "vendor" ||
-              product?.selling_option === "Trader/Barter"
+              addCardPending || product?.selling_option === "Trader/Barter"
                 ? "cursor-not-allowed opacity-75 border-gray-400"
                 : "cursor-pointer border-secondary-gray hover:bg-primary-green hover:text-accent-white hover:scale-95"
             }
@@ -183,7 +184,7 @@ const Product = ({
               </p>
             ) : (
               <p className="flex gap-2 items-center">
-                <span>Add to Cart</span>
+                <span>{user ? "Add to Cart" : "Buy Now"}</span>
                 <AddToCartSvg />
               </p>
             )}
