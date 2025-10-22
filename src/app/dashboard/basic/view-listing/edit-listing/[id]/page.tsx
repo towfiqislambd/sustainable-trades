@@ -71,18 +71,18 @@ interface DeleteProductError {
   };
 }
 
-interface DetailsProps {
-  id: string | number;
+interface KeptImage {
+  id: number;
+  relativePath: string;
+  fullPath: string;
 }
 
 const Details = ({ params }: { params: Promise<{ id: string }> }) => {
   const router = useRouter();
   const { user } = useAuth();
-  console.log(user);
 
   const { id } = use(params);
   const { data: listing, isLoading } = useGetSingleListing(id);
-  console.log(id);
 
   const updateProduct = useupdateProduct(id);
   const deleteProduct = useDeleteProduct(id);
@@ -113,10 +113,12 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [existingImages, setExistingImages] = useState<string[]>([]);
   const [videoFile, setVideoFile] = useState<File | null>(null);
-  const [keptImagePaths, setKeptImagePaths] = useState<string[]>([]);
+  const [keptImages, setKeptImages] = useState<KeptImage[]>([]);
   const [keptRelativePaths, setKeptRelativePaths] = useState<string[]>([]);
+  const [keptImagePaths, setKeptImagePaths] = useState<string[]>([]);
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [hasExistingVideo, setHasExistingVideo] = useState(false);
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
 
@@ -136,26 +138,29 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
       productData.meta_tags?.map((tag: { tag: string }) => tag.tag) || []
     );
 
-    const relativePaths =
-      productData.images?.map((img: { image: string }) => {
-        if (img.image.startsWith("http")) {
-          return img.image.replace(`${baseUrl}/`, "");
-        }
-        return img.image;
+    const kept: KeptImage[] =
+      productData.images?.map((img: { id: number; image: string }) => {
+        const rel = img.image.startsWith("http")
+          ? img.image.replace(`${baseUrl}/`, "")
+          : img.image;
+        const full = rel.startsWith("http") ? rel : `${baseUrl}/${rel}`;
+        return { id: img.id, relativePath: rel, fullPath: full };
       }) || [];
 
-    const imageUrls = relativePaths.map(rel =>
-      rel.startsWith("http") ? rel : `${baseUrl}/${rel}`
-    );
-    setExistingImages(imageUrls);
-    setKeptRelativePaths(relativePaths);
-    setKeptImagePaths(imageUrls);
-    setImages(imageUrls);
-    if (imageUrls.length > 0) setMainImage(imageUrls[0]);
+    setKeptImages(kept);
+    setKeptRelativePaths(kept.map(i => i.relativePath));
+    setKeptImagePaths(kept.map(i => i.fullPath));
+    setExistingImages(kept.map(i => i.fullPath));
+    setImages(kept.map(i => i.fullPath));
+    if (kept.length > 0) setMainImage(kept[0].fullPath);
 
-    setVideoUrl(productData.video ? `${baseUrl}/${productData.video}` : null);
-    setShowPlayButton(!productData.video);
-    setVideoFile(null); 
+    const existingVideo = productData.video
+      ? `${baseUrl}/${productData.video}`
+      : null;
+    setVideoUrl(existingVideo);
+    setShowPlayButton(!existingVideo);
+    setVideoFile(null);
+    setHasExistingVideo(!!productData.video);
 
     // ✅ Set Category & Subcategory by ID
     setCategory(productData.category_id?.toString() || "");
@@ -192,6 +197,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
       const objectUrl = URL.createObjectURL(file);
       setVideoUrl(objectUrl);
       setShowPlayButton(true);
+      setHasExistingVideo(false);
 
       setTimeout(() => {
         videoRef.current?.load();
@@ -207,6 +213,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
       );
       if (fileIndex > -1) {
         setImageFiles(prev => prev.filter((_, idx) => idx !== fileIndex));
+        URL.revokeObjectURL(imageUrl); // Clean up memory
       }
 
       // Remove from images array
@@ -218,15 +225,11 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
         setMainImage(updatedImages[0] || null);
       }
     } else {
-      // Remove from kept paths
-      const updatedKept = keptImagePaths.filter(full => full !== imageUrl);
-      setKeptImagePaths(updatedKept);
-
-      const updatedRel = keptRelativePaths.filter(rel => {
-        const full = rel.startsWith("http") ? rel : `${baseUrl}/${rel}`;
-        return full !== imageUrl;
-      });
-      setKeptRelativePaths(updatedRel);
+      // Remove from kept images
+      const updatedKept = keptImages.filter(i => i.fullPath !== imageUrl);
+      setKeptImages(updatedKept);
+      setKeptRelativePaths(updatedKept.map(i => i.relativePath));
+      setKeptImagePaths(updatedKept.map(i => i.fullPath));
 
       // Remove from images array
       const updatedImages = images.filter(url => url !== imageUrl);
@@ -236,6 +239,16 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
       if (mainImage === imageUrl) {
         setMainImage(updatedImages[0] || null);
       }
+    }
+  };
+
+  const handleRemoveVideo = () => {
+    setVideoUrl(null);
+    setVideoFile(null);
+    setShowPlayButton(true);
+    setHasExistingVideo(false);
+    if (videoRef.current?.src.startsWith("blob:")) {
+      URL.revokeObjectURL(videoRef.current.src);
     }
   };
 
@@ -275,6 +288,17 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
   };
 
   const handleUpdateListing = async () => {
+    // Optional: Client-side validation
+    if (keptImages.length === 0 && imageFiles.length === 0) {
+      if (!confirm("This will remove all images from the listing. Continue?")) {
+        return;
+      }
+    }
+    if (!productName.trim()) {
+      alert("Product name is required.");
+      return;
+    }
+
     const formData = new FormData();
 
     // Append text fields
@@ -295,32 +319,32 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
     formData.append("is_featured", Featured ? "1" : "0");
 
     // Meta tags
-    metaTags.forEach((tag, index) => {
+    metaTags.forEach(tag => {
       formData.append(`tags[]`, tag);
     });
 
-    // Existing images to keep (as relative paths / full names)
-    // keptRelativePaths.forEach((relPath) => {
-    //   formData.append(`product_image[]`, relPath);
-    // });
+    // Keep existing images by ID
+    keptImages.forEach(img => {
+      formData.append(`keep_image_ids[]`, img.id.toString());
+    });
 
-    // New image files - using "product_image" as expected by backend
-    imageFiles.forEach((file, index) => {
+    // New image files only
+    imageFiles.forEach(file => {
       formData.append(`product_image[]`, file);
     });
 
-    // Video file if new
+    // Video: append new file or clear if removed
     if (videoFile) {
       formData.append("video", videoFile);
+    } else if (hasExistingVideo) {
+      formData.append("video", ""); // Signal to clear existing video
     }
 
-    // Trigger the mutation with typed callbacks
+    // Trigger the mutation
     updateProduct.mutate(formData, {
       onSuccess: (data: UpdateProductResponse) => {
         console.log("Update successful:", data);
-        // Update local state with the new data
         updateLocalStateWithProductData(data.data);
-        // Optionally redirect or show success message
       },
       onError: (error: UpdateProductError) => {
         console.error("Update failed:", error);
@@ -517,7 +541,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
             <h3 className="text-[17px] md:text-[20px] text-[#13141D] font-semibold">
               Listing Approval Process
             </h3>
-            <p className="text-[16px]] text-[#67645F] mt-2 max-w-[400px]">
+            <p className="text-[16px] text-[#67645F] mt-2 max-w-[400px]">
               In the video, share details about how and where your product was
               made, how your food was grown, and how it aligns with our
               sustainability guidelines. This helps us maintain the quality and
@@ -538,11 +562,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                 {videoUrl && (
                   <button
                     className="px-4 py-2 border rounded-lg"
-                    onClick={() => {
-                      setVideoUrl(null);
-                      setVideoFile(null);
-                      setShowPlayButton(true);
-                    }}
+                    onClick={handleRemoveVideo}
                   >
                     Remove video
                   </button>
@@ -647,7 +667,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
               className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4  outline-0"
             />
           </div>
-          {/* Category Dropdown */}
+
           {/* Category Dropdown */}
           <h3 className="text-[20px] md:text-[24px] font-semibold text-[#13141D]">
             Category
@@ -657,13 +677,13 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
             value={category}
             onChange={e => {
               setCategory(e.target.value);
-              setSubcategory(""); // reset when category changes
+              setSubcategory("");
             }}
           >
             <option value="">Select Category</option>
             {categoriesData?.data?.map((cat: any) => (
               <option key={cat.id} value={String(cat.id)}>
-                {cat.name || cat.category_name} {/* handle both cases */}
+                {cat.name || cat.category_name}
               </option>
             ))}
           </select>
@@ -683,8 +703,8 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                 {subcategoriesData.data
                   ?.filter(
                     (sub: any) =>
-                      String(sub.category_id) === String(category) || // match by parent category
-                      String(sub.id) === String(subcategory) // keep saved subcategory visible
+                      String(sub.category_id) === String(category) ||
+                      String(sub.id) === String(subcategory)
                   )
                   .map((sub: any) => (
                     <option key={sub.id} value={String(sub.id)}>
@@ -733,7 +753,9 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                 type="text"
                 value={newTag}
                 onChange={e => setNewTag(e.target.value)}
+                onKeyPress={e => e.key === "Enter" && handleAddTag()}
                 className="flex-1  border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 pl-10 "
+                placeholder="Add a meta tag"
               />
               <button
                 onClick={handleAddTag}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useRef, useState, useEffect, use } from "react";
+import React, { useRef, useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import { FaAngleRight, FaPlay, FaPlus } from "react-icons/fa";
 import { MdArrowOutward, MdDelete } from "react-icons/md";
@@ -86,7 +86,6 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
 
   const { id } = use(params);
   const { data: listing, isLoading } = useGetSingleListing(id);
-  console.log(id);
 
   const updateProduct = useupdateProduct(id);
   const deleteProduct = useDeleteProduct(id);
