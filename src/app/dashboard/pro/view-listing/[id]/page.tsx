@@ -71,6 +71,12 @@ interface DeleteProductError {
   };
 }
 
+interface KeptImage {
+  id: number;
+  relativePath: string;
+  fullPath: string;
+}
+
 const Details = ({ params }: { params: Promise<{ id: string }> }) => {
   const router = useRouter();
   const { user } = useAuth();
@@ -111,8 +117,9 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [existingImages, setExistingImages] = useState<string[]>([]);
   const [videoFile, setVideoFile] = useState<File | null>(null);
-  const [keptImagePaths, setKeptImagePaths] = useState<string[]>([]);
+  const [keptImages, setKeptImages] = useState<KeptImage[]>([]);
   const [keptRelativePaths, setKeptRelativePaths] = useState<string[]>([]);
+  const [keptImagePaths, setKeptImagePaths] = useState<string[]>([]);
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -134,22 +141,21 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
       productData.meta_tags?.map((tag: { tag: string }) => tag.tag) || []
     );
 
-    const relativePaths =
-      productData.images?.map((img: { image: string }) => {
-        if (img.image.startsWith("http")) {
-          return img.image.replace(`${baseUrl}/`, "");
-        }
-        return img.image;
+    const kept: KeptImage[] =
+      productData.images?.map((img: { id: number; image: string }) => {
+        const rel = img.image.startsWith("http")
+          ? img.image.replace(`${baseUrl}/`, "")
+          : img.image;
+        const full = rel.startsWith("http") ? rel : `${baseUrl}/${rel}`;
+        return { id: img.id, relativePath: rel, fullPath: full };
       }) || [];
 
-    const imageUrls = relativePaths.map(rel =>
-      rel.startsWith("http") ? rel : `${baseUrl}/${rel}`
-    );
-    setExistingImages(imageUrls);
-    setKeptRelativePaths(relativePaths);
-    setKeptImagePaths(imageUrls);
-    setImages(imageUrls);
-    if (imageUrls.length > 0) setMainImage(imageUrls[0]);
+    setKeptImages(kept);
+    setKeptRelativePaths(kept.map(i => i.relativePath));
+    setKeptImagePaths(kept.map(i => i.fullPath));
+    setExistingImages(kept.map(i => i.fullPath));
+    setImages(kept.map(i => i.fullPath));
+    if (kept.length > 0) setMainImage(kept[0].fullPath);
 
     setVideoUrl(productData.video ? `${baseUrl}/${productData.video}` : null);
     setShowPlayButton(!productData.video);
@@ -201,7 +207,9 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
         file => URL.createObjectURL(file) === imageUrl
       );
       if (fileIndex > -1) {
+        const removedFile = imageFiles[fileIndex];
         setImageFiles(prev => prev.filter((_, idx) => idx !== fileIndex));
+        URL.revokeObjectURL(imageUrl); // Clean up memory
       }
 
       // Remove from images array
@@ -213,15 +221,11 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
         setMainImage(updatedImages[0] || null);
       }
     } else {
-      // Remove from kept paths
-      const updatedKept = keptImagePaths.filter(full => full !== imageUrl);
-      setKeptImagePaths(updatedKept);
-
-      const updatedRel = keptRelativePaths.filter(rel => {
-        const full = rel.startsWith("http") ? rel : `${baseUrl}/${rel}`;
-        return full !== imageUrl;
-      });
-      setKeptRelativePaths(updatedRel);
+      // Remove from kept images
+      const updatedKept = keptImages.filter(i => i.fullPath !== imageUrl);
+      setKeptImages(updatedKept);
+      setKeptRelativePaths(updatedKept.map(i => i.relativePath));
+      setKeptImagePaths(updatedKept.map(i => i.fullPath));
 
       // Remove from images array
       const updatedImages = images.filter(url => url !== imageUrl);
@@ -270,6 +274,18 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
   };
 
   const handleUpdateListing = async () => {
+    // Optional: Client-side validation (e.g., require images if backend needs them)
+    if (keptImages.length === 0 && imageFiles.length === 0) {
+      // Warn user if removing all images (customize as needed)
+      if (!confirm("This will remove all images from the listing. Continue?")) {
+        return;
+      }
+    }
+    if (!productName.trim()) {
+      alert("Product name is required."); // Replace with toast library
+      return;
+    }
+
     const formData = new FormData();
 
     // Append text fields
@@ -294,12 +310,12 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
       formData.append(`tags[]`, tag);
     });
 
-    // Existing images to keep (as relative paths / full names)
-    keptRelativePaths.forEach(relPath => {
-      formData.append(`product_image[]`, relPath);
+    // Keep existing images by ID (separate field to avoid mixing with new files)
+    keptImages.forEach(img => {
+      formData.append(`keep_image_ids[]`, img.id.toString());
     });
 
-    // New image files - using "product_image" as expected by backend
+    // New image files only (as files)
     imageFiles.forEach(file => {
       formData.append(`product_image[]`, file);
     });
@@ -315,10 +331,11 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
         console.log("Update successful:", data);
         // Update local state with the new data
         updateLocalStateWithProductData(data.data);
-        // Optionally redirect or show success message
+        // Optionally show success toast: alert("Listing updated successfully!");
       },
       onError: (error: UpdateProductError) => {
         console.error("Update failed:", error);
+        // Optionally show error toast: alert(error.response?.data?.message || "Update failed.");
       },
     });
   };
@@ -337,6 +354,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
       },
       onError: (error: DeleteProductError) => {
         console.error("Delete failed:", error);
+        // Optionally show error toast
       },
     });
   };
@@ -400,6 +418,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
               value={productName}
               onChange={e => setProductName(e.target.value)}
               className="w-full border text-[18px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2 outline-none"
+              aria-label="Product Name"
             />
           </div>
 
@@ -409,7 +428,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
               <div className="w-full relative h-[400px] md:h-[500px] ">
                 <Image
                   src={mainImage}
-                  alt="Main Preview"
+                  alt="Main product preview"
                   fill
                   className="w-full h-full object-cover rounded-lg border"
                 />
@@ -418,7 +437,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
               <div className="w-full relative h-[400px] md:h-[500px] flex items-center justify-center  rounded-lg text-gray-400 outline-none border border-gray-200">
                 <Image
                   src={Preview}
-                  alt="Main Preview"
+                  alt="No preview available"
                   fill
                   className="w-full h-full object-cover rounded-lg border"
                 />
@@ -431,7 +450,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                 <div key={idx} className="relative">
                   <img
                     src={src}
-                    alt="preview"
+                    alt={`Product image ${idx + 1}`}
                     className="w-20 h-20 md:w-24 md:h-24 object-cover rounded-lg border cursor-pointer hover:opacity-80"
                     onClick={() => setMainImage(src)}
                   />
@@ -439,13 +458,14 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                     onClick={() =>
                       handleRemoveImage(src, !keptImagePaths.includes(src))
                     }
-                    className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs"
+                    className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs hover:bg-red-600"
+                    aria-label="Remove image"
                   >
                     x
                   </button>
                 </div>
               ))}
-              <label className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center bg-[#F5F5F5] rounded-lg cursor-pointer">
+              <label className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center bg-[#F5F5F5] rounded-lg cursor-pointer hover:bg-gray-100">
                 <FaPlus />
                 <input
                   type="file"
@@ -453,6 +473,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                   multiple
                   className="hidden"
                   onChange={handleImageUpload}
+                  aria-label="Add images"
                 />
               </label>
             </div>
@@ -471,6 +492,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
               className={`w-full md:w-[350px] border ${
                 !isPro ? "cursor-not-allowed bg-gray-300" : ""
               } border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2 text-[20px] text-[#13141D] font-normal outline-0`}
+              aria-label="Quantity"
             />
             <div className="flex flex-col gap-4 mt-2">
               <label className="flex items-center gap-2 text-[17px] md:text-[20px] text-[#13141D] font-semibold">
@@ -514,7 +536,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
             <h3 className="text-[17px] md:text-[20px] text-[#13141D] font-semibold">
               Listing Approval Process
             </h3>
-            <p className="text-[16px]] text-[#67645F] mt-2 max-w-[400px]">
+            <p className="text-[16px] text-[#67645F] mt-2 max-w-[400px]">
               In the video, share details about how and where your product was
               made, how your food was grown, and how it aligns with our
               sustainability guidelines. This helps us maintain the quality and
@@ -522,23 +544,27 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
             </p>
             <div>
               <div className="flex gap-4 mt-3">
-                <label className="px-4 md:px-8 py-2.5 md:py-5 bg-[#F0EEE9] rounded-lg cursor-pointer text-[16px] text-[#13141D]">
+                <label className="px-4 md:px-8 py-2.5 md:py-5 bg-[#F0EEE9] rounded-lg cursor-pointer text-[16px] text-[#13141D] hover:bg-gray-100">
                   Upload video
                   <input
                     type="file"
                     accept="video/*"
                     className="hidden"
                     onChange={handleVideoUpload}
+                    aria-label="Upload video"
                   />
                 </label>
 
                 {videoUrl && (
                   <button
-                    className="px-4 py-2 border rounded-lg"
+                    className="px-4 py-2 border rounded-lg hover:bg-gray-100"
                     onClick={() => {
                       setVideoUrl(null);
                       setVideoFile(null);
                       setShowPlayButton(true);
+                      if (videoRef.current?.src.startsWith("blob:")) {
+                        URL.revokeObjectURL(videoRef.current.src); // Clean up
+                      }
                     }}
                   >
                     Remove video
@@ -563,6 +589,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                         e.stopPropagation();
                         handlePlay();
                       }}
+                      aria-label="Play video"
                     >
                       <FaPlay className="size-10" />
                     </button>
@@ -571,8 +598,9 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                   {/* Dedicated pause button */}
                   {!showPlayButton && (
                     <button
-                      className="absolute top-2 right-2 px-3 py-1 bg-black text-white rounded"
+                      className="absolute top-2 right-2 px-3 py-1 bg-black text-white rounded hover:bg-gray-800"
                       onClick={handlePause}
+                      aria-label="Pause video"
                     >
                       Pause
                     </button>
@@ -604,7 +632,8 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
               type="text"
               value={price}
               onChange={e => setPrice(e.target.value)}
-              className="w-full border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4  outline-0"
+              className="w-full border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 outline-0"
+              aria-label="Price"
             />
           </div>
           <div>
@@ -618,7 +647,8 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
               onChange={e => setCost(e.target.value)}
               className={`w-full border text-[16px] ${
                 !isPro ? "cursor-not-allowed bg-gray-300" : ""
-              } md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4  outline-0`}
+              } md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 outline-0`}
+              aria-label="Cost"
             />
           </div>
           <div>
@@ -633,6 +663,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
               className={`w-full border text-[16px] ${
                 !isPro ? "cursor-not-allowed bg-gray-300" : ""
               } md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 outline-0`}
+              aria-label="Weight"
             />
           </div>
 
@@ -645,7 +676,8 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
               rows={5}
               value={description}
               onChange={e => setDescription(e.target.value)}
-              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4  outline-0"
+              className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 outline-0"
+              aria-label="Description"
             />
           </div>
           {/* Category Dropdown */}
@@ -659,6 +691,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
               setCategory(e.target.value);
               setSubcategory("");
             }}
+            aria-label="Category"
           >
             <option value="">Select Category</option>
             {categoriesData?.data?.map((cat: any) => (
@@ -678,6 +711,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                 className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2"
                 value={subcategory}
                 onChange={e => setSubcategory(e.target.value)}
+                aria-label="Subcategory"
               >
                 <option value="">Select Subcategory</option>
                 {subcategoriesData.data
@@ -703,6 +737,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
               className="w-full border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2"
               value={fulfillment}
               onChange={e => setFulfillment(e.target.value)}
+              aria-label="Fulfillment"
             >
               <option value="">Select Fulfillment</option>
               <option value="Arrange Local Pickup">Arrange Local Pickup</option>
@@ -724,7 +759,13 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                   className="flex items-center gap-2 bg-gray-200 px-3 py-1 rounded-full text-sm"
                 >
                   {tag}
-                  <button onClick={() => handleRemoveTag(tag)}>x</button>
+                  <button
+                    onClick={() => handleRemoveTag(tag)}
+                    className="text-red-500 hover:text-red-700"
+                    aria-label={`Remove tag ${tag}`}
+                  >
+                    x
+                  </button>
                 </span>
               ))}
             </div>
@@ -733,11 +774,15 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                 type="text"
                 value={newTag}
                 onChange={e => setNewTag(e.target.value)}
-                className="flex-1  border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 md:pl-10 "
+                onKeyPress={e => e.key === "Enter" && handleAddTag()}
+                className="flex-1 border text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 md:pl-10"
+                placeholder="Add a meta tag"
+                aria-label="New meta tag"
               />
               <button
                 onClick={handleAddTag}
-                className="absolute top-1/2 left-5 translate-y-[-50%]  cursor-pointer"
+                className="absolute top-1/2 left-5 -translate-y-1/2 cursor-pointer text-[#274F45] hover:text-[#E48872]"
+                aria-label="Add tag"
               >
                 +
               </button>
@@ -752,6 +797,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
               className="w-full border text-[16px] md:text-[20px] text-[#13141D] border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2"
               value={sellingOption}
               onChange={e => setSellingOption(e.target.value)}
+              aria-label="Selling Option"
             >
               <option value="">Choose Below</option>
               <option value="Trade/Barter">Trade/Barter</option>
@@ -769,7 +815,8 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
         <button
           onClick={handleDeleteListing}
           disabled={deleteProduct.isPending}
-          className="text-red-600 w-full sm:w-fit flex items-center justify-center gap-1 mt-4 cursor-pointer disabled:opacity-50"
+          className="text-red-600 w-full sm:w-fit flex items-center justify-center gap-1 mt-4 cursor-pointer disabled:opacity-50 hover:text-red-700"
+          aria-label="Delete listing"
         >
           <MdDelete />{" "}
           {deleteProduct.isPending ? "Deleting..." : "Delete Listing"}
@@ -778,6 +825,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
           onClick={handleUpdateListing}
           disabled={updateProduct.isPending}
           className="bg-[#E48872] w-full sm:w-fit text-white py-2.5 md:py-5 px-12 cursor-pointer rounded-lg font-semibold hover:bg-[#a34739] mt-3 md:mt-6 disabled:opacity-50"
+          aria-label="Update listing"
         >
           {updateProduct.isPending ? "Updating..." : "Update Listing"}
         </button>
