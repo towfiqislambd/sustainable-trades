@@ -46,7 +46,7 @@ const ShopInfo = ({ data }: shopProps) => {
   return (
     <>
       <div className="flex gap-4 items-center mb-7">
-        <figure className="size-14 rounded-full relative grid place-items-center text-lg font-semibold">
+        <figure className="size-14 rounded-full relative bg-gray-200 grid place-items-center text-xl uppercase font-semibold">
           {data?.shop?.user?.avatar ? (
             <Image
               src={`${process.env.NEXT_PUBLIC_SITE_URL}/${data?.shop?.user?.avatar}`}

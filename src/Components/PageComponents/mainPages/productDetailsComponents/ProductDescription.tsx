@@ -22,6 +22,7 @@ type descriptionItem = {
   product_name: string;
   product_price: string;
   description: string;
+  selling_option: string;
   shop: {
     id: number;
     user_id: number;
@@ -70,6 +71,9 @@ const ProductDescription = ({ data }: descriptionProps) => {
 
   // Func for add to cart
   const handleAddToCart = () => {
+    if (!user) {
+      return toast.error("Please login first to proceed");
+    }
     addToCartMutation({ quantity: quantity });
   };
 
@@ -174,9 +178,12 @@ const ProductDescription = ({ data }: descriptionProps) => {
       </button>
 
       {/* Trade btn */}
-      {user?.role !== "customer" && (
+      {(user?.role !== "customer" || data?.selling_option !== "For Sale") && (
         <button
           onClick={() => {
+            if (!user) {
+              return toast.error("Please login first to proceed");
+            }
             setId(data?.shop?.id);
             setProductId(data?.id);
             setTradeOpen(true);
@@ -188,17 +195,22 @@ const ProductDescription = ({ data }: descriptionProps) => {
       )}
 
       {/* Message btn */}
-      <button
-        onClick={() => {
-          setId(data?.shop?.id);
-          setProductId(data?.id);
-          setMsgOpen(true);
-        }}
-        className="mb-5 w-full text-center duration-500 transition-all border-2 text-lg cursor-pointer py-3 text-primary-green rounded-lg shadow hover:text-accent-white hover:bg-primary-green font-semibold border-primary-green flex gap-2 items-center justify-center"
-      >
-        <MyMsgSvg />
-        <span> Message Seller</span>
-      </button>
+      {user?.shop_info?.user_id !== data?.shop?.user_id && (
+        <button
+          onClick={() => {
+            if (!user) {
+              return toast.error("Please login first to proceed");
+            }
+            setId(data?.shop?.id);
+            setProductId(data?.id);
+            setMsgOpen(true);
+          }}
+          className="mb-5 w-full text-center duration-500 transition-all border-2 text-lg cursor-pointer py-3 text-primary-green rounded-lg shadow hover:text-accent-white hover:bg-primary-green font-semibold border-primary-green flex gap-2 items-center justify-center"
+        >
+          <MyMsgSvg />
+          <span> Message Seller</span>
+        </button>
+      )}
 
       {/* Modals */}
       <Modal open={tradeOpen} onClose={() => setTradeOpen(false)}>

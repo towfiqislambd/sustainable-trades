@@ -131,7 +131,7 @@ const Product = ({
       </Link>
 
       {/* Badge */}
-      {product?.selling_option === "Trader/Barter" && (
+      {product?.selling_option === "Trade/Barter" && (
         <p className="size-6 shrink-0 rounded-full bg-[#D4E2CB] grid place-items-center">
           <SignSvg />
         </p>
@@ -163,14 +163,10 @@ const Product = ({
           <button
             onClick={handleAddToCart}
             disabled={
-              addCardPending ||
-              user?.role === "vendor" ||
-              product?.selling_option === "Trader/Barter"
+              addCardPending || product?.selling_option === "Trader/Barter"
             }
             className={`flex gap-2 items-center px-3 py-1.5 rounded-[5px] border font-semibold text-secondary-gray duration-500 transition-all sm:text-base text-sm ${
-              addCardPending ||
-              user?.role === "vendor" ||
-              product?.selling_option === "Trader/Barter"
+              addCardPending || product?.selling_option === "Trader/Barter"
                 ? "cursor-not-allowed opacity-75 border-gray-400"
                 : "cursor-pointer border-secondary-gray hover:bg-primary-green hover:text-accent-white hover:scale-95"
             }
