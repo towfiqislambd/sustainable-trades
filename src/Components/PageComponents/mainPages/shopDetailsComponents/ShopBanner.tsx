@@ -100,7 +100,11 @@ const ShopBanner = ({ id, data }: any) => {
             <div className="flex gap-3 items-center md:pt-3">
               <LocationSvg />
               <p className="text-accent-white md:text-lg">
-                {data?.shop_info?.address?.address_line_1}
+                {data?.shop_info?.address?.display_my_address
+                  ? data?.shop_info?.address?.address_line_1
+                  : data?.shop_info?.address?.address_10_mile
+                  ? `${data?.shop_info?.address?.city}, ${data?.shop_info?.address?.state}`
+                  : "N/A"}
               </p>
             </div>
 

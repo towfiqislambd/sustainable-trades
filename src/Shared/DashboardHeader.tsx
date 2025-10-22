@@ -132,17 +132,7 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
           )}
 
           {/* Cart */}
-          <Link
-            href={`${
-              user?.role === "customer"
-                ? "/cart"
-                : user?.role === "vendor" &&
-                  user?.membership?.membership_type === "pro"
-                ? "trades"
-                : "trades"
-            }`}
-            className="cursor-pointer"
-          >
+          <Link href="/cart" className="cursor-pointer">
             <CartSvg2 />
           </Link>
 
@@ -212,7 +202,7 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
 
           {user?.role !== "customer" && (
             <Link
-              href={`/shop-details?view=${"owner"}&id=${
+              href={`/shop-details?view=${"customer"}&id=${
                 user?.shop_info?.user_id
               }&listing_id=${user?.shop_info?.id}`}
               className="px-5 py-2  rounded-lg bg-accent-red text-secondary-black cursor-pointer shadow-[0_3px_10px_0_rgba(0,0,0,0.12),_0_3px_8px_0_rgba(0,0,0,0.08)] duration-300 transition-all hover:text-accent-red hover:bg-transparent border border-accent-red hover:scale-95 hidden lg:block"

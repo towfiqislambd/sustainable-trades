@@ -161,8 +161,9 @@ const TradeOfferModal = ({
             <input
               className="border border-gray-300 rounded-md p-2 w-24 text-center"
               value={
-                tradeProducts?.data?.find((p: any) => p?.id === item.product_id)
-                  ?.product_price || ""
+                (tradeProducts?.data?.find(
+                  (p: any) => p?.id === item.product_id
+                )?.product_price || 0) * item.quantity
               }
               readOnly
             />
@@ -204,7 +205,7 @@ const TradeOfferModal = ({
 
       {/* ---------- Their Offer Section ---------- */}
       <div className="border border-gray-200 shadow rounded-xl p-3 mb-5">
-        {requestedItems.map((item, index) => (
+        {requestedItems?.map((item, index) => (
           <div key={index} className="flex items-center gap-3 mb-3">
             <select
               value={item?.product_id || ""}
@@ -237,9 +238,9 @@ const TradeOfferModal = ({
             <input
               className="border border-gray-300 rounded-md p-2 w-24 text-center"
               value={
-                myTradeProducts?.data?.find(
+                (myTradeProducts?.data?.find(
                   (p: any) => p?.id === item.product_id
-                )?.product_price || ""
+                )?.product_price || 0) * item.quantity
               }
               readOnly
             />
