@@ -29,6 +29,10 @@ type descriptionItem = {
     shop_name: string;
     address: {
       address_line_1: string;
+      address_10_mile: string;
+      display_my_address: string;
+      city: string;
+      state: string;
     };
   };
   category: {
@@ -39,6 +43,10 @@ type descriptionItem = {
 interface descriptionProps {
   data: descriptionItem;
 }
+
+const handleBuyNow = () => {
+  toast.error("Development is ongoing");
+};
 
 const ProductDescription = ({ data }: descriptionProps) => {
   // Hook
@@ -111,8 +119,8 @@ const ProductDescription = ({ data }: descriptionProps) => {
         {/* Add To Cart */}
         <button
           disabled={addCardPending}
-          onClick={handleAddToCart}
-          className={`border border-secondary-black rounded-lg px-4 py-2 hover:bg-secondary-black hover:text-accent-white duration-500 transition-all ${
+          onClick={user ? handleAddToCart : handleBuyNow}
+          className={`border border-primary-green rounded-lg px-4 py-2 hover:bg-primary-green hover:text-accent-white duration-500 transition-all ${
             addCardPending ? "cursor-not-allowed" : "cursor-pointer"
           }`}
         >
@@ -123,7 +131,7 @@ const ProductDescription = ({ data }: descriptionProps) => {
             </p>
           ) : (
             <p className="flex gap-2 items-center">
-              <span>Add to Cart</span>
+              <span>{user ? "Add to Cart" : "Buy Now"}</span>
               <AddToCartSvg />
             </p>
           )}
@@ -152,7 +160,13 @@ const ProductDescription = ({ data }: descriptionProps) => {
       {/* Location */}
       <p className="flex gap-2 items-center underline font-semibold text-secondary-black mb-10">
         <MyLocationSvg />
-        <span>{data?.shop?.address?.address_line_1}</span>
+        <span>
+          {data?.shop?.address?.display_my_address
+            ? data?.shop?.address?.address_line_1
+            : data?.shop?.address?.address_10_mile
+            ? `${data?.shop?.address?.city}, ${data?.shop?.address?.state}`
+            : "N/A"}
+        </span>
       </p>
 
       <div className="flex items-center justify-between mb-7">

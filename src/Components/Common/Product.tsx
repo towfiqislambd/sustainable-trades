@@ -65,6 +65,11 @@ const Product = ({
     addToCartMutation({ quantity: 1 });
   };
 
+  // Func for buy now
+  const handleBuyNow = () => {
+    toast.error("Development is ongoing");
+  };
+
   return (
     <div className="rounded-t-lg relative">
       {/* Wishlist btn */}
@@ -161,7 +166,7 @@ const Product = ({
         {/* Cart btn */}
         {has_cart && (
           <button
-            onClick={handleAddToCart}
+            onClick={user ? handleAddToCart : handleBuyNow}
             disabled={
               addCardPending || product?.selling_option === "Trader/Barter"
             }
@@ -179,7 +184,7 @@ const Product = ({
               </p>
             ) : (
               <p className="flex gap-2 items-center">
-                <span>Add to Cart</span>
+                <span>{user ? "Add to Cart" : "Buy Now"}</span>
                 <AddToCartSvg />
               </p>
             )}

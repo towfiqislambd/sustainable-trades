@@ -13,6 +13,10 @@ type shopItem = {
     is_followed: boolean;
     address: {
       address_line_1: string;
+      address_10_mile: string;
+      display_my_address: string;
+      city: string;
+      state: string;
     };
     user: {
       avatar: string;
@@ -55,7 +59,7 @@ const ShopInfo = ({ data }: shopProps) => {
               className="size-full rounded-full"
             />
           ) : (
-            <span>{data?.shop?.user?.first_name?.at(1)}</span>
+            <span>{data?.shop?.user?.first_name?.at(0)}</span>
           )}
         </figure>
 
@@ -63,9 +67,7 @@ const ShopInfo = ({ data }: shopProps) => {
           <h3 className="font-semibold text-xl">
             {data?.shop?.user?.first_name} {data?.shop?.user?.last_name}
           </h3>
-          <p className="text-secondary-gray">
-            {data?.shop?.shop_name}, {data?.shop?.address?.address_line_1}
-          </p>
+          <p className="text-secondary-gray">{data?.shop?.shop_name}</p>
         </div>
       </div>
 
