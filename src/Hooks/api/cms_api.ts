@@ -538,7 +538,7 @@ export const getMembershipSpotlightClient = () => {
 };
 
 // Category Details
-export const getCategoryDetails = (id: string) => {
+export const getCategoryDetails = (id: number) => {
   return useClientApi({
     method: "get",
     isPrivate: true,

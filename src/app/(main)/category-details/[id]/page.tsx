@@ -1,23 +1,142 @@
 "use client";
-import React, { use } from "react";
+import {
+  getCategoryDetails,
+  getMembershipSpotlightClient,
+  getProductCategoriesClient,
+} from "@/Hooks/api/cms_api";
+import "swiper/css";
+import React, { useState } from "react";
+import Image from "next/image";
+import "swiper/css/navigation";
+import { Navigation } from "swiper/modules";
+import { AiOutlineFileUnknown } from "react-icons/ai";
+import { Swiper, SwiperSlide } from "swiper/react";
 import Container from "@/Components/Common/Container";
 import Product from "@/Components/Common/Product";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { ProductSkeleton } from "@/Components/Loader/Loader";
-import { getCategoryDetails } from "@/Hooks/api/cms_api";
-import { AiOutlineFileUnknown } from "react-icons/ai";
+import { SingleShopSkeleton } from "@/Components/Loader/Loader";
+import { FaCheck } from "react-icons/fa6";
+import MagicMarkers from "@/Components/PageComponents/mainPages/homePageComponents/MagicMarkers";
+import Subscribe from "@/Components/PageComponents/mainPages/homePageComponents/Subscribe";
+import CommunityMember from "@/Components/PageComponents/mainPages/homePageComponents/CommunityMember";
+
+type categoryItem = {
+  id: number;
+  name: string;
+  image: string;
+  icon: string;
+};
 
 interface Props {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: number }>;
 }
 
-const page = ({ params }: Props) => {
-  const { id } = use(params);
-  const { data: categoryDetails, isLoading } = getCategoryDetails(id);
+const page = ({ params }: any) => {
+  const id = Number(params?.id);
+  const [categoryId, setCategoryId] = useState<number>(id);
+  const { data: allCategory, isLoading: categoryLoading } =
+    getProductCategoriesClient();
+  const { data: categoryDetails, isLoading } = getCategoryDetails(categoryId);
+  const { data: spotlightData } = getMembershipSpotlightClient();
 
   return (
-    <section className="py-16">
+    <>
+      <MagicMarkers />
+
+      <section className="mb-20">
+        <Container>
+          <h2 className="text-2xl md:text-3xl font-semibold text-secondary-black mb-10 capitalize">
+            Explore Sustainable Products & Services Nearby
+          </h2>
+
+          <div className="relative">
+            <button className="swiper-button-prev-custom absolute left-0 top-1/2 z-10 -translate-y-1/2 shadow-md rounded-full p-3 bg-primary-green text-white transition cursor-pointer">
+              <FaArrowLeft />
+            </button>
+
+            <button className="swiper-button-next-custom absolute right-0 top-1/2 z-10 -translate-y-1/2 shadow-md rounded-full p-3 bg-primary-green text-white transition cursor-pointer">
+              <FaArrowRight />
+            </button>
+
+            <Swiper
+              modules={[Navigation]}
+              spaceBetween={20}
+              navigation={{
+                nextEl: ".swiper-button-next-custom",
+                prevEl: ".swiper-button-prev-custom",
+              }}
+              breakpoints={{
+                320: {
+                  slidesPerView: 1,
+                },
+
+                500: {
+                  slidesPerView: 2,
+                  spaceBetween: 10,
+                },
+                640: {
+                  slidesPerView: 3,
+                  spaceBetween: 20,
+                },
+
+                1024: {
+                  slidesPerView: 4,
+                  spaceBetween: 30,
+                },
+
+                1280: {
+                  slidesPerView: 5,
+                  spaceBetween: 40,
+                },
+              }}
+              className="!mx-10"
+            >
+              {categoryLoading
+                ? Array.from({ length: 7 }).map((_, index) => (
+                    <SwiperSlide key={index}>
+                      <SingleShopSkeleton />
+                    </SwiperSlide>
+                  ))
+                : allCategory?.data?.map((item: categoryItem) => (
+                    <SwiperSlide key={item?.id}>
+                      <div
+                        onClick={() => setCategoryId(item?.id)}
+                        className="text-center"
+                      >
+                        <figure className="size-44 mx-auto cursor-pointer rounded-full overflow-hidden relative">
+                          <Image
+                            src={`${process.env.NEXT_PUBLIC_SITE_URL}/${item?.image}`}
+                            alt="shop_image"
+                            fill
+                            className="size-full rounded-full object-cover hover:scale-105 duration-500 transition-transform"
+                          />
+                          {categoryId === item?.id && (
+                            <div className="absolute inset-0 bg-black/45 grid place-items-center text-4xl text-gray-200">
+                              <FaCheck />
+                            </div>
+                          )}
+                        </figure>
+
+                        <h3 className="mt-4 text-primary-green font-semibold truncate">
+                          {item?.name}
+                        </h3>
+                      </div>
+                    </SwiperSlide>
+                  ))}
+            </Swiper>
+          </div>
+        </Container>
+      </section>
+
       <Container>
-        <h2 className="section_sub_title ">{categoryDetails?.data?.name}</h2>
+        {isLoading ? (
+          <h2 className="w-60 h-6 mb-7 animate-pulse bg-gray-200 rounded"></h2>
+        ) : (
+          <h2 className="text-2xl md:text-3xl font-semibold text-secondary-black mb-7">
+            {categoryDetails?.data?.name}
+          </h2>
+        )}
 
         {isLoading ? (
           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
@@ -41,7 +160,12 @@ const page = ({ params }: Props) => {
           </div>
         )}
       </Container>
-    </section>
+
+      <div className="py-16">
+        <CommunityMember data={spotlightData?.data} has_community={true} />
+      </div>
+      <Subscribe />
+    </>
   );
 };
 

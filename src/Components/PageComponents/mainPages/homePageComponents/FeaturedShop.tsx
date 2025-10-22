@@ -14,6 +14,10 @@ type FeaturedItem = {
     shop_name: string;
     address: {
       address_line_1: string;
+      display_my_address: string;
+      address_10_mile: string;
+      city: string;
+      state: string;
     };
   };
 };
@@ -78,7 +82,11 @@ const FeaturedShops = ({ data, featured }: FeaturedProps) => {
 
                 {/* Shop Address */}
                 <h4 className="text-secondary-black text-xs md:text-[15px]">
-                  {shop_info?.address?.address_line_1}
+                  {shop_info?.address?.display_my_address
+                    ? shop_info?.address?.address_line_1
+                    : shop_info?.address?.address_10_mile
+                    ? `${shop_info?.address?.city}, ${shop_info?.address?.state}`
+                    : "N/A"}
                 </h4>
               </Link>
             ))

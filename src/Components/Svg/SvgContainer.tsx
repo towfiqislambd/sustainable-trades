@@ -2545,16 +2545,16 @@ export function SignSvg() {
       <path
         d="M6.6276 11.9112C6.0316 12.4489 5.27894 12.7695 4.46094 12.7695C2.52794 12.7695 0.960938 10.9785 0.960938 8.76953C0.960938 6.56053 2.52794 4.76953 4.46094 4.76953C6.39394 4.76953 7.46094 6.48386 7.96094 8.76953C8.46094 11.0552 9.52794 12.7695 11.4609 12.7695C13.3939 12.7695 14.9609 10.9785 14.9609 8.76953C14.9609 6.56053 13.3939 4.76953 11.4609 4.76953H10.9609"
         stroke="#274F45"
-        stroke-width="1.13778"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.13778"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M10.9621 3.63188C10.9621 3.38688 10.7078 3.22921 10.4948 3.35021C10.0098 3.62621 9.41746 4.01555 8.99246 4.39421C8.93844 4.44081 8.8951 4.4985 8.8654 4.56336C8.83569 4.62821 8.82031 4.69871 8.82031 4.77005C8.82031 4.84138 8.83569 4.91188 8.8654 4.97674C8.8951 5.0416 8.93844 5.09929 8.99246 5.14588C9.41746 5.52421 10.0098 5.91355 10.4948 6.18921C10.7081 6.31055 10.9621 6.15321 10.9621 5.90788V3.63188Z"
         stroke="#274F45"
-        stroke-width="1.13778"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.13778"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -2738,9 +2738,9 @@ export function GoBackSvg() {
       <path
         d="M12 5.5L7 10L12 14.5"
         stroke="#274f45"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

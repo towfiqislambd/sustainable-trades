@@ -22,12 +22,17 @@ type descriptionItem = {
   product_name: string;
   product_price: string;
   description: string;
+  selling_option: string;
   shop: {
     id: number;
     user_id: number;
     shop_name: string;
     address: {
       address_line_1: string;
+      address_10_mile: string;
+      display_my_address: string;
+      city: string;
+      state: string;
     };
   };
   category: {
@@ -38,6 +43,10 @@ type descriptionItem = {
 interface descriptionProps {
   data: descriptionItem;
 }
+
+const handleBuyNow = () => {
+  toast.error("Development is ongoing");
+};
 
 const ProductDescription = ({ data }: descriptionProps) => {
   // Hook
@@ -70,6 +79,9 @@ const ProductDescription = ({ data }: descriptionProps) => {
 
   // Func for add to cart
   const handleAddToCart = () => {
+    if (!user) {
+      return toast.error("Please login first to proceed");
+    }
     addToCartMutation({ quantity: quantity });
   };
 
@@ -107,8 +119,8 @@ const ProductDescription = ({ data }: descriptionProps) => {
         {/* Add To Cart */}
         <button
           disabled={addCardPending}
-          onClick={handleAddToCart}
-          className={`border border-secondary-black rounded-lg px-4 py-2 hover:bg-secondary-black hover:text-accent-white duration-500 transition-all ${
+          onClick={user ? handleAddToCart : handleBuyNow}
+          className={`border border-primary-green rounded-lg px-4 py-2 hover:bg-primary-green hover:text-accent-white duration-500 transition-all ${
             addCardPending ? "cursor-not-allowed" : "cursor-pointer"
           }`}
         >
@@ -119,7 +131,7 @@ const ProductDescription = ({ data }: descriptionProps) => {
             </p>
           ) : (
             <p className="flex gap-2 items-center">
-              <span>Add to Cart</span>
+              <span>{user ? "Add to Cart" : "Buy Now"}</span>
               <AddToCartSvg />
             </p>
           )}
@@ -148,7 +160,13 @@ const ProductDescription = ({ data }: descriptionProps) => {
       {/* Location */}
       <p className="flex gap-2 items-center underline font-semibold text-secondary-black mb-10">
         <MyLocationSvg />
-        <span>{data?.shop?.address?.address_line_1}</span>
+        <span>
+          {data?.shop?.address?.display_my_address
+            ? data?.shop?.address?.address_line_1
+            : data?.shop?.address?.address_10_mile
+            ? `${data?.shop?.address?.city}, ${data?.shop?.address?.state}`
+            : "N/A"}
+        </span>
       </p>
 
       <div className="flex items-center justify-between mb-7">
@@ -174,9 +192,12 @@ const ProductDescription = ({ data }: descriptionProps) => {
       </button>
 
       {/* Trade btn */}
-      {user?.role !== "customer" && (
+      {(user?.role !== "customer" || data?.selling_option !== "For Sale") && (
         <button
           onClick={() => {
+            if (!user) {
+              return toast.error("Please login first to proceed");
+            }
             setId(data?.shop?.id);
             setProductId(data?.id);
             setTradeOpen(true);
@@ -188,17 +209,22 @@ const ProductDescription = ({ data }: descriptionProps) => {
       )}
 
       {/* Message btn */}
-      <button
-        onClick={() => {
-          setId(data?.shop?.id);
-          setProductId(data?.id);
-          setMsgOpen(true);
-        }}
-        className="mb-5 w-full text-center duration-500 transition-all border-2 text-lg cursor-pointer py-3 text-primary-green rounded-lg shadow hover:text-accent-white hover:bg-primary-green font-semibold border-primary-green flex gap-2 items-center justify-center"
-      >
-        <MyMsgSvg />
-        <span> Message Seller</span>
-      </button>
+      {user?.shop_info?.user_id !== data?.shop?.user_id && (
+        <button
+          onClick={() => {
+            if (!user) {
+              return toast.error("Please login first to proceed");
+            }
+            setId(data?.shop?.id);
+            setProductId(data?.id);
+            setMsgOpen(true);
+          }}
+          className="mb-5 w-full text-center duration-500 transition-all border-2 text-lg cursor-pointer py-3 text-primary-green rounded-lg shadow hover:text-accent-white hover:bg-primary-green font-semibold border-primary-green flex gap-2 items-center justify-center"
+        >
+          <MyMsgSvg />
+          <span> Message Seller</span>
+        </button>
+      )}
 
       {/* Modals */}
       <Modal open={tradeOpen} onClose={() => setTradeOpen(false)}>
