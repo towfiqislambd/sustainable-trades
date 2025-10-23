@@ -7,6 +7,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import EditFormTwo from "@/Components/PageComponents/EditForm/EditFormTwo";
 import EditFormFour from "@/Components/PageComponents/EditForm/EditFormFour";
 import EditFormThree from "@/Components/PageComponents/EditForm/EditFormThree";
+import { PuffLoader } from "react-spinners";
 
 type ProfileFormValues = {
   first_name: string;
@@ -33,14 +34,12 @@ type ProfileFormValues = {
   instagram_url: string;
   pinterest_url: string;
 
-  country?: string;
-  address?: string;
   city?: string;
   state?: string;
   postal_code?: string;
-  geoOption?: "exact" | "radius" | "zip";
   lat?: number;
   lng?: number;
+  address_line_1: string;
 };
 
 interface Props {
@@ -62,9 +61,6 @@ const Page = ({ params }: Props) => {
 
   useEffect(() => {
     if (shopDetailsData?.data) {
-      const initialAddress =
-        shopDetailsData?.data?.shop_info?.address?.address_line_1 ||
-        "Private Location";
       reset({
         first_name: shopDetailsData.data.first_name || "",
         last_name: shopDetailsData.data.last_name || "",
@@ -91,33 +87,73 @@ const Page = ({ params }: Props) => {
           shopDetailsData?.data?.shop_info?.social_links?.pinterest_url || "",
         payment_methods:
           shopDetailsData?.data?.shop_info?.policies?.payment_methods || [],
-        country: shopDetailsData?.data?.shop_info?.address?.country || "",
-        address: initialAddress,
         city: shopDetailsData?.data?.shop_info?.address?.city || "",
         state: shopDetailsData?.data?.shop_info?.address?.state || "",
         postal_code:
           shopDetailsData?.data?.shop_info?.address?.postal_code || "",
-        geoOption: initialAddress === "Private Location" ? "zip" : "exact",
       });
     }
   }, [shopDetailsData, reset]);
 
-  const onSubmit = async (data: ProfileFormValues) => {
-    if (!data.address || data.address.trim() === "") {
-      data.address = "Private Location";
+  const getCoordinates = async (address: string) => {
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+          address
+        )}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY}`
+      );
+      const data = await response.json();
+      if (data.status === "OK" && data.results.length > 0) {
+        return data.results[0].geometry.location;
+      }
+      return null;
+    } catch (err) {
+      console.error("Geocoding failed:", err);
+      return null;
+    }
+  };
+
+  // const onSubmit = async (data: ProfileFormValues) => {
+  //   editShopMutation(data);
+  // };
+
+  const onSubmit = async (formData: ProfileFormValues) => {
+    const previousAddress = shopDetailsData?.data?.shop_info?.address;
+
+    const newAddressString = `${formData.address_line_1 || ""}, ${
+      formData.city || ""
+    }, ${formData.state || ""}, ${formData.postal_code || ""}`;
+    const oldAddressString = `${previousAddress?.address_line_1 || ""}, ${
+      previousAddress?.city || ""
+    }, ${previousAddress?.state || ""}, ${previousAddress?.postal_code || ""}`;
+
+    let finalLat = previousAddress?.latitude;
+    let finalLng = previousAddress?.longitude;
+
+    if (newAddressString.trim() && newAddressString !== oldAddressString) {
+      const location = await getCoordinates(newAddressString);
+      if (location) {
+        finalLat = String(location.lat);
+        finalLng = String(location.lng);
+      }
     }
 
     const payload = {
-      ...data,
-      address_line_1: data.address,
-      postal_code: data.postal_code,
-      city: data.city,
-      state: data.state,
-      country: data.country,
+      ...formData,
+      latitude: finalLat,
+      longitude: finalLng,
     };
 
     editShopMutation(payload);
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-[80vh]">
+        <PuffLoader color="#274F45" />
+      </div>
+    );
+  }
 
   return (
     <section className="pt-[34px] lg:pb-[96px] pb-[40px]">

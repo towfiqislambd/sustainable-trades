@@ -15,6 +15,7 @@ import { LuLoaderPinwheel } from "react-icons/lu";
 import { useAddFavorite, useAddToCart } from "@/Hooks/api/cms_api";
 import TradeOfferModal from "@/Components/Modals/TradeOfferModal";
 import MessageToSellerModal from "@/Components/Modals/MessageToSellerModal";
+import Link from "next/link";
 
 type descriptionItem = {
   id: number;
@@ -145,11 +146,18 @@ const ProductDescription = ({ data }: descriptionProps) => {
 
       <p className="text-secondary-gray mb-5">{data?.description}</p>
 
-      {/* Reviews */}
       <div className="flex gap-3 items-center mb-2">
-        <p className="text-lg underline font-semibold text-secondary-black">
+        {/* Shop Name */}
+        <Link
+          href={`/shop-details?view=${"customer"}&id=${
+            data?.shop?.user_id
+          }&listing_id=${data?.shop?.id}`}
+          className="text-lg underline font-semibold text-secondary-black"
+        >
           {data?.shop?.shop_name}
-        </p>
+        </Link>
+
+        {/* Shop Reviews */}
         <div className="flex gap-1 items-center">
           {Array.from({ length: 5 }).map((_, index) => (
             <FaStar key={index} className="text-primary-green text-sm" />
@@ -163,9 +171,7 @@ const ProductDescription = ({ data }: descriptionProps) => {
         <span>
           {data?.shop?.address?.display_my_address
             ? data?.shop?.address?.address_line_1
-            : data?.shop?.address?.address_10_mile
-            ? `${data?.shop?.address?.city}, ${data?.shop?.address?.state}`
-            : "N/A"}
+            : `${data?.shop?.address?.city}, ${data?.shop?.address?.state}`}
         </span>
       </p>
 
