@@ -178,10 +178,10 @@ const ShopsMap: React.FC<ShopsMapProps> = ({
                   center={{ lat: loc.lat, lng: loc.lng }}
                   radius={804} // 0.5 mile in meters
                   options={{
-                    strokeColor: "#4285F4",
+                    strokeColor: "#4CAF50",
                     strokeOpacity: 0.7,
                     strokeWeight: 2,
-                    fillColor: "#4285F4",
+                    fillColor: "#4CAF50",
                     fillOpacity: 0.25,
                   }}
                   onClick={() => setSelected(loc)}

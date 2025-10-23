@@ -73,7 +73,7 @@ const EditFormFour = ({ data }: any) => {
         Geo-Locator
       </h4>
 
-      <div className="space-y-5 p-5 rounded bg-gray-50">
+      <div className="space-y-5 p-7 rounded border">
         {/* Location Visibility */}
         <div>
           <p className="form-label">Location Visibility *</p>
