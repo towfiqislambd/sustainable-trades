@@ -82,7 +82,6 @@ const ShopsMap: React.FC<ShopsMapProps> = ({
   shopLoading,
 }) => {
   const [selected, setSelected] = useState<SelectedShop | null>(null);
-  const [showPrivateOverlay, setShowPrivateOverlay] = useState(false);
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
@@ -97,7 +96,6 @@ const ShopsMap: React.FC<ShopsMapProps> = ({
 
         const lat = parseFloat(addr.latitude ?? "0");
         const lng = parseFloat(addr.longitude ?? "0");
-
         if (!lat || !lng) return null;
 
         return {
@@ -123,22 +121,18 @@ const ShopsMap: React.FC<ShopsMapProps> = ({
   useEffect(() => {
     const addr = hoveredShop?.shop_info?.address;
     if (!addr) {
-      setShowPrivateOverlay(false);
       setSelected(null);
       return;
     }
 
-    if (addr.do_not_display) {
-      setShowPrivateOverlay(true);
-      setSelected(null);
-      return;
-    }
+    const lat = parseFloat(addr.latitude);
+    const lng = parseFloat(addr.longitude);
 
-    setShowPrivateOverlay(false);
-
-    if (addr.display_my_address || addr.address_10_mile) {
-      const lat = parseFloat(addr.latitude);
-      const lng = parseFloat(addr.longitude);
+    if (
+      addr.display_my_address ||
+      addr.address_10_mile ||
+      addr.do_not_display
+    ) {
       setSelected({
         lat,
         lng,
@@ -161,13 +155,12 @@ const ShopsMap: React.FC<ShopsMapProps> = ({
         center={defaultCenter}
         zoom={12}
       >
-        {/* Render visible shops */}
+        {/* Render shop markers or radius */}
         {locations.map(loc => {
-          const { visibility } = loc;
+          const { displayExact, withinTenMile, hideLocation } = loc.visibility;
 
-          if (visibility.hideLocation) return null;
-
-          if (visibility.displayExact) {
+          // Show exact marker if display_my_address is true
+          if (displayExact) {
             return (
               <Marker
                 key={loc.id}
@@ -177,29 +170,35 @@ const ShopsMap: React.FC<ShopsMapProps> = ({
             );
           }
 
-          if (visibility.withinTenMile) {
+          // Show 0.5-mile (~804m) radius + marker if withinTenMile OR hideLocation is true
+          if (withinTenMile || hideLocation) {
             return (
-              <Circle
-                key={loc.id}
-                center={{ lat: loc.lat, lng: loc.lng }}
-                radius={804.672}
-                options={{
-                  strokeColor: "#4CAF50",
-                  strokeOpacity: 0.8,
-                  strokeWeight: 2,
-                  fillColor: "#4CAF50",
-                  fillOpacity: 0.25,
-                }}
-                onClick={() => setSelected(loc)}
-              />
+              <React.Fragment key={loc.id}>
+                <Circle
+                  center={{ lat: loc.lat, lng: loc.lng }}
+                  radius={804} // 0.5 mile in meters
+                  options={{
+                    strokeColor: "#4285F4",
+                    strokeOpacity: 0.7,
+                    strokeWeight: 2,
+                    fillColor: "#4285F4",
+                    fillOpacity: 0.25,
+                  }}
+                  onClick={() => setSelected(loc)}
+                />
+                <Marker
+                  position={{ lat: loc.lat, lng: loc.lng }}
+                  onClick={() => setSelected(loc)}
+                />
+              </React.Fragment>
             );
           }
 
           return null;
         })}
 
-        {/* InfoWindow */}
-        {selected && !selected.address?.do_not_display && (
+        {/* InfoWindow for selected shop */}
+        {selected && (
           <InfoWindow
             position={{ lat: selected.lat, lng: selected.lng }}
             onCloseClick={() => setSelected(null)}
@@ -226,15 +225,6 @@ const ShopsMap: React.FC<ShopsMapProps> = ({
           </InfoWindow>
         )}
       </GoogleMap>
-
-      {/* Overlay for private shops */}
-      {showPrivateOverlay && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm rounded-xl z-20">
-          <p className="text-white text-lg font-semibold">
-            This shop’s location is private
-          </p>
-        </div>
-      )}
     </div>
   );
 };
