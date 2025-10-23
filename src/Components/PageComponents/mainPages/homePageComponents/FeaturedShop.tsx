@@ -84,9 +84,7 @@ const FeaturedShops = ({ data, featured }: FeaturedProps) => {
                 <h4 className="text-secondary-black text-xs md:text-[15px]">
                   {shop_info?.address?.display_my_address
                     ? shop_info?.address?.address_line_1
-                    : shop_info?.address?.address_10_mile
-                    ? `${shop_info?.address?.city}, ${shop_info?.address?.state}`
-                    : "N/A"}
+                    : `${shop_info?.address?.city}, ${shop_info?.address?.state}`}
                 </h4>
               </Link>
             ))

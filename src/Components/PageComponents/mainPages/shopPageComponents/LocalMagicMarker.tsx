@@ -104,9 +104,7 @@ const LocalMagicMarker = ({ address }: Props) => {
                           <p className="text-secondary-gray font-semibold text-sm">
                             {item?.shop_info?.address?.display_my_address
                               ? item?.shop_info?.address?.address_line_1
-                              : item?.shop_info?.address?.address_10_mile
-                              ? `${item?.shop_info?.address?.city}, ${item?.shop_info?.address?.state}`
-                              : "N/A"}
+                              : `${item?.shop_info?.address?.city}, ${item?.shop_info?.address?.state}`}
                           </p>
                         </div>
                       </div>

@@ -109,9 +109,7 @@ const TopVendors = ({ data, vendorLoading }: vendorProps) => {
                       <h5 className="mt-1 text-secondary-gray text-sm">
                         {item?.shop_info?.address?.display_my_address
                           ? item?.shop_info?.address?.address_line_1
-                          : item?.shop_info?.address?.address_10_mile
-                          ? `${item?.shop_info?.address?.city}, ${item?.shop_info?.address?.state}`
-                          : "N/A"}
+                          : `${item?.shop_info?.address?.city}, ${item?.shop_info?.address?.state}`}
                       </h5>
                     </Link>
                   </SwiperSlide>
