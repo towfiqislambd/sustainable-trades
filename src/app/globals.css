@@ -97,7 +97,7 @@ body {
 }
 
 .review_swiper .swiper-pagination-bullet {
-  @apply bg-white size-2 opacity-80;
+  @apply bg-white size-2 opacity-90;
 }
 
 .review_swiper .swiper-pagination-bullet-active {

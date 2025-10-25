@@ -599,3 +599,31 @@ export const getTopVendors = () => {
     endpoint: `/api/top-vendors`,
   });
 };
+
+// Shop Reviews
+export const getShopReviews = (id: number, page: string) => {
+  return useClientApi({
+    method: "get",
+    key: ["shop-reviews", id, page],
+    enabled: !!id,
+    params: { page },
+    endpoint: `/api/shop-review/${id}`,
+    queryOptions: {
+      retry: false,
+    },
+  });
+};
+
+// Product Reviews
+export const getProductReviews = (id: number, page: string) => {
+  return useClientApi({
+    method: "get",
+    key: ["product-reviews", id, page],
+    enabled: !!id,
+    params: { page },
+    endpoint: `/api/product-review/${id}`,
+    queryOptions: {
+      retry: false,
+    },
+  });
+};

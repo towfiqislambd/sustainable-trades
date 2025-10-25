@@ -11,7 +11,37 @@ import Container from "@/Components/Common/Container";
 import { LocationSvg, StarSvg } from "@/Components/Svg/SvgContainer";
 import Modal from "@/Components/Common/Modal";
 import MessageShopOwner from "@/Components/Modals/MessageShopOwner";
-const ShopBanner = ({ id, data }: any) => {
+
+type BannerItem = {
+  rating_avg: string;
+  is_followed: boolean;
+  first_name: string;
+  last_name: string;
+  avatar: string;
+  shop_info: {
+    id: number;
+    user_id: number;
+    shop_banner: string;
+    shop_image: string;
+    shop_name: string;
+    about: {
+      statement: string;
+    };
+    address: {
+      address_line_1: string;
+      display_my_address: string;
+      city: string;
+      state: string;
+    };
+  };
+};
+
+interface BannerProps {
+  id: number;
+  data: BannerItem;
+}
+
+const ShopBanner = ({ id, data }: BannerProps) => {
   const [msgOpen, setMsgOpen] = useState<boolean>(false);
   const { user } = useAuth();
   const bannerUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${data?.shop_info?.shop_banner}`;
@@ -102,15 +132,13 @@ const ShopBanner = ({ id, data }: any) => {
               <p className="text-accent-white md:text-lg">
                 {data?.shop_info?.address?.display_my_address
                   ? data?.shop_info?.address?.address_line_1
-                  : data?.shop_info?.address?.address_10_mile
-                  ? `${data?.shop_info?.address?.city}, ${data?.shop_info?.address?.state}`
-                  : "N/A"}
+                  : `${data?.shop_info?.address?.city}, ${data?.shop_info?.address?.state}`}
               </p>
             </div>
 
             {/* Reviews */}
-            <div className="flex gap-3 items-center">
-              {Array.from({ length: 5 }).map((_, idx) => (
+            <div className="flex gap-2.5 items-center">
+              {Array.from({ length: +data?.rating_avg }).map((_, idx) => (
                 <p
                   key={idx}
                   className="size-9 shrink-0 shadow border border-gray-600 rounded-full bg-primary-green grid place-items-center"
@@ -119,10 +147,12 @@ const ShopBanner = ({ id, data }: any) => {
                 </p>
               ))}
 
-              <p className="font-semibold text-lg text-gray-200">4.8</p>
+              <p className="font-semibold text-lg text-gray-200">
+                {data?.rating_avg ? Number(data.rating_avg).toFixed(1) : "0.0"}
+              </p>
             </div>
 
-            {/* btns */}
+            {/* Btns */}
             <div className="flex flex-col md:flex-row gap-2.5 md:gap-5 items-center md:pt-5">
               <button
                 onClick={handleFollowShop}
