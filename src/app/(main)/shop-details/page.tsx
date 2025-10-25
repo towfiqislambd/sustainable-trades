@@ -13,6 +13,7 @@ import {
   getProductCategoriesClient,
   getProductSubCategoriesClient,
   getShopDetails,
+  getShopReviews,
 } from "@/Hooks/api/cms_api";
 import { useSearchParams } from "next/navigation";
 import ShopFAQ from "@/Components/PageComponents/mainPages/shopDetailsComponents/ShopFAQ";
@@ -37,6 +38,7 @@ const page = () => {
   const [short_by, setSortBy] = useState<string>("");
   const [search, setSearch] = useState<string>("");
   const [page, setPage] = useState<string>("");
+  const [reviewPage, setReviewPage] = useState<string>("");
 
   // Queries
   const { data: productCategories, isLoading: categoryLoading } =
@@ -47,6 +49,10 @@ const page = () => {
     getShopDetails(id);
   const { data: featuredListings, isLoading: featuredLoading } =
     getFeaturedListings(listing_id);
+  const { data: shopReviews, isLoading: reviewLoading } = getShopReviews(
+    listing_id,
+    reviewPage
+  );
   const { data: allListings, isLoading: listingsLoading } = getAllListings(
     listing_id,
     category_id,
@@ -92,7 +98,11 @@ const page = () => {
       />
 
       {/* Shop Reviews */}
-      <ShopReviews data={shopDetailsData?.data?.shop_info?.reviews} />
+      <ShopReviews
+        data={shopReviews?.data}
+        reviewLoading={reviewLoading}
+        setReviewPage={setReviewPage}
+      />
 
       {/* Shop About */}
       {shopDetailLoading ? (

@@ -536,3 +536,36 @@ export const EditShopBannerSkeleton = () => {
     </section>
   );
 };
+
+// Shop Review Skeleton
+const ShopReviewSkeleton = () => {
+  return (
+    <div className="flex flex-col lg:flex-row gap-5 sm:gap-10 md:gap-20 lg:items-center border-b last:border-b-0 border-gray-200 py-4 md:py-8 animate-pulse">
+      <div className="grow flex flex-col sm:flex-row gap-5 items-start">
+        <figure className="shrink-0 size-16 rounded-full bg-gray-200" />
+        <div className="flex gap-10 w-full">
+          <div className="flex-1">
+            <div className="h-4 w-32 bg-gray-200 rounded mb-2" />
+            <div className="flex gap-1 items-center py-2">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <div key={i} className="size-3 bg-gray-200 rounded" />
+              ))}
+            </div>
+            <div className="space-y-2">
+              <div className="h-3 w-full bg-gray-200 rounded" />
+              <div className="h-3 w-5/6 bg-gray-200 rounded" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="xl:w-[300px] shrink-0">
+        <div className="flex items-center gap-5">
+          <figure className="size-16 rounded-lg bg-gray-200" />
+          <div className="h-4 w-32 bg-gray-200 rounded" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ShopReviewSkeleton;
