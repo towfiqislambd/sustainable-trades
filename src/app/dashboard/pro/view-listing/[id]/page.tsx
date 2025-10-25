@@ -2,6 +2,7 @@
 
 import React, { useRef, useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { FaAngleRight, FaPlay, FaPlus } from "react-icons/fa";
 import { MdArrowOutward, MdDelete } from "react-icons/md";
 import Preview from "../../../../../Assets/fallbackimage.png";
@@ -18,6 +19,8 @@ import {
 } from "@/Hooks/api/cms_api";
 import useAuth from "@/Hooks/useAuth";
 import { PuffLoader } from "react-spinners";
+import toast from "react-hot-toast";
+import useClientApi from "@/Hooks/useClientApi";
 
 // Define types for the API response and error
 interface UpdateProductResponse {
@@ -79,8 +82,8 @@ interface KeptImage {
 
 const Details = ({ params }: { params: Promise<{ id: string }> }) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const { user } = useAuth();
-  console.log(user);
 
   const isPro = user?.membership?.membership_type === "pro";
 
@@ -120,9 +123,25 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
   const [keptRelativePaths, setKeptRelativePaths] = useState<string[]>([]);
   const [keptImagePaths, setKeptImagePaths] = useState<string[]>([]);
 
+  const [deletingIds, setDeletingIds] = useState<Set<number>>(new Set());
+
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
+  // Use the useClientApi hook for deleting image
+  const deleteImageMutation = useClientApi({
+    method: "delete",
+    isPrivate: true,
+    key: ["image-delete"],
+    endpoint: "/api/image-delete",
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        toast.success(data?.message || "Image deleted successfully");
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message || "Failed to delete image");
+    },
+  });
 
   const updateLocalStateWithProductData = (
     productData: UpdateProductResponse["data"]
@@ -142,6 +161,9 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
 
     const kept: KeptImage[] =
       productData.images?.map((img: { id: number; image: string }) => {
+        const baseUrl =
+          process.env.NEXT_PUBLIC_SITE_URL ||
+          "https://melissabooth123.softvencefsd.xyz";
         const rel = img.image.startsWith("http")
           ? img.image.replace(`${baseUrl}/`, "")
           : img.image;
@@ -156,7 +178,13 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
     setImages(kept.map(i => i.fullPath));
     if (kept.length > 0) setMainImage(kept[0].fullPath);
 
-    setVideoUrl(productData.video ? `${baseUrl}/${productData.video}` : null);
+    setVideoUrl(
+      productData.video
+        ? `${
+            process.env.NEXT_PUBLIC_SITE_URL 
+          }/${productData.video}`
+        : null
+    );
     setShowPlayButton(!productData.video);
     setVideoFile(null);
     setCategory(productData.category_id?.toString() || "");
@@ -208,7 +236,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
       if (fileIndex > -1) {
         const removedFile = imageFiles[fileIndex];
         setImageFiles(prev => prev.filter((_, idx) => idx !== fileIndex));
-        URL.revokeObjectURL(imageUrl); // Clean up memory
+        URL.revokeObjectURL(imageUrl);
       }
 
       // Remove from images array
@@ -220,20 +248,57 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
         setMainImage(updatedImages[0] || null);
       }
     } else {
-      // Remove from kept images
-      const updatedKept = keptImages.filter(i => i.fullPath !== imageUrl);
-      setKeptImages(updatedKept);
-      setKeptRelativePaths(updatedKept.map(i => i.relativePath));
-      setKeptImagePaths(updatedKept.map(i => i.fullPath));
-
-      // Remove from images array
-      const updatedImages = images.filter(url => url !== imageUrl);
-      setImages(updatedImages);
-
-      // Update mainImage
-      if (mainImage === imageUrl) {
-        setMainImage(updatedImages[0] || null);
+      // For existing images
+      const img = keptImages.find(i => i.fullPath === imageUrl);
+      if (!img) {
+        console.error("Image not found in keptImages");
+        return;
       }
+
+      console.log("Deleting image with ID:", img.id); // Debug log
+
+      // Set deleting state
+      setDeletingIds(prev => new Set([...prev, img.id]));
+
+      // Now delete from server using the hook
+      deleteImageMutation.mutate(
+        { endpoint: `/api/image-delete/${img.id}` },
+        {
+          onSuccess: () => {
+            // Remove from state on success
+            const updatedKept = keptImages.filter(i => i.id !== img.id);
+            setKeptImages(updatedKept);
+            setKeptRelativePaths(updatedKept.map(i => i.relativePath));
+            setKeptImagePaths(updatedKept.map(i => i.fullPath));
+
+            const updatedImages = images.filter(url => url !== imageUrl);
+            setImages(updatedImages);
+
+            if (mainImage === imageUrl) {
+              setMainImage(updatedImages[0] || null);
+            }
+
+            // Invalidate and refetch the listing query
+            queryClient.invalidateQueries({ queryKey: ["singleListing", id] });
+
+            // Remove from deleting state
+            setDeletingIds(prev => {
+              const newSet = new Set(prev);
+              newSet.delete(img.id);
+              return newSet;
+            });
+          },
+          onError: (error: any) => {
+            console.error("Delete image failed:", error);
+            // Remove from deleting state
+            setDeletingIds(prev => {
+              const newSet = new Set(prev);
+              newSet.delete(img.id);
+              return newSet;
+            });
+          },
+        }
+      );
     }
   };
 
@@ -273,15 +338,13 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
   };
 
   const handleUpdateListing = async () => {
-    // Optional: Client-side validation (e.g., require images if backend needs them)
     if (keptImages.length === 0 && imageFiles.length === 0) {
-      // Warn user if removing all images (customize as needed)
       if (!confirm("This will remove all images from the listing. Continue?")) {
         return;
       }
     }
     if (!productName.trim()) {
-      alert("Product name is required."); // Replace with toast library
+      alert("Product name is required.");
       return;
     }
 
@@ -445,25 +508,40 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
 
             {/* Thumbnails */}
             <div className="flex gap-2 flex-wrap mt-3">
-              {previewImages.map((src, idx) => (
-                <div key={idx} className="relative">
-                  <img
-                    src={src}
-                    alt={`Product image ${idx + 1}`}
-                    className="w-20 h-20 md:w-24 md:h-24 object-cover rounded-lg border cursor-pointer hover:opacity-80"
-                    onClick={() => setMainImage(src)}
-                  />
-                  <button
-                    onClick={() =>
-                      handleRemoveImage(src, !keptImagePaths.includes(src))
-                    }
-                    className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs hover:bg-red-600"
-                    aria-label="Remove image"
-                  >
-                    x
-                  </button>
-                </div>
-              ))}
+              {previewImages.map((src, idx) => {
+                const isNewImage = !keptImagePaths.includes(src);
+                const currentImg = isNewImage
+                  ? null
+                  : keptImages.find(i => i.fullPath === src);
+                const isDeleting =
+                  !!currentImg && deletingIds.has(currentImg.id);
+                return (
+                  <div key={idx} className="relative">
+                    <img
+                      src={src}
+                      alt={`Product image ${idx + 1}`}
+                      className="w-20 h-20 md:w-24 md:h-24 object-cover rounded-lg border cursor-pointer hover:opacity-80"
+                      onClick={() => setMainImage(src)}
+                    />
+                    <button
+                      onClick={() =>
+                        !isDeleting && handleRemoveImage(src, isNewImage)
+                      }
+                      disabled={isDeleting}
+                      className={`absolute top-0 right-0 bg-black text-white rounded-full w-5 h-5 flex items-center justify-center text-xs  ${
+                        isDeleting ? "cursor-not-allowed opacity-50" : ""
+                      }`}
+                      aria-label="Remove image"
+                    >
+                      {isDeleting ? (
+                        <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-white"></div>
+                      ) : (
+                        "x"
+                      )}
+                    </button>
+                  </div>
+                );
+              })}
               <label className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center bg-[#F5F5F5] rounded-lg cursor-pointer hover:bg-gray-100">
                 <FaPlus />
                 <input
@@ -562,7 +640,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                       setVideoFile(null);
                       setShowPlayButton(true);
                       if (videoRef.current?.src.startsWith("blob:")) {
-                        URL.revokeObjectURL(videoRef.current.src); // Clean up
+                        URL.revokeObjectURL(videoRef.current.src);
                       }
                     }}
                   >

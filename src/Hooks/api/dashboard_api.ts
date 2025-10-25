@@ -418,3 +418,23 @@ export const useBulkDeleteDiscount = () => {
     },
   });
 };
+
+// Image Delete Discounts
+export const useImageDelete = (id:any) => {
+  return useClientApi({
+    method: "delete",
+    key: ["image-delete"],
+    isPrivate: true,
+    endpoint: `/image-delete/${id}`,
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        toast.success(data?.message || "image deleted successfully");
+      }
+    },
+    onError: (err: any) => {
+      toast.error(
+        err?.response?.data?.message || "Failed to delete image"
+      );
+    },
+  });
+};

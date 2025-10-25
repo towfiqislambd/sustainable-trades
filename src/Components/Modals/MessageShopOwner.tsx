@@ -1,10 +1,6 @@
 "use client";
 import React from "react";
-import {
-  BackSvg,
-  LocationTwoSvg,
-  MessageSvg,
-} from "@/Components/Svg/SvgContainer";
+import { BackSvg, MessageSvg } from "@/Components/Svg/SvgContainer";
 import toast from "react-hot-toast";
 import { FaStar } from "react-icons/fa";
 import { useForm } from "react-hook-form";
@@ -14,6 +10,7 @@ import { useSendMessage } from "@/Hooks/api/chat_api";
 type messageProps = {
   id: number | null;
   data: {
+    rating_avg: string;
     shop_info: {
       shop_name: string;
       address: {
@@ -57,9 +54,7 @@ const MessageShopOwner = ({ id, data, setMsgOpen }: messageProps) => {
 
   return (
     <>
-      <h3 className="text-light-green font-semibold text-lg mb-2">
-        Trade Offer
-      </h3>
+      <h3 className="text-light-green font-semibold text-lg mb-2">Message</h3>
 
       {/* Shop Name */}
       <h4 className="text-2xl font-semibold text-secondary-black mb-2">
@@ -68,17 +63,9 @@ const MessageShopOwner = ({ id, data, setMsgOpen }: messageProps) => {
 
       {/* Shop Review */}
       <div className="flex gap-1 items-center mb-3">
-        {Array.from({ length: 4 }).map((_, index) => (
+        {Array.from({ length: +data?.rating_avg }).map((_, index) => (
           <FaStar key={index} className="text-primary-green text-sm" />
         ))}
-      </div>
-
-      {/* Shop Location */}
-      <div className="flex gap-1 items-center">
-        <LocationTwoSvg />
-        <span className="text-light-green">
-          {data?.shop_info?.address?.address_line_1}
-        </span>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
