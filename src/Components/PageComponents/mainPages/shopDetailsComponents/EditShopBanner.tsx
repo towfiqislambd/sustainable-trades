@@ -16,7 +16,36 @@ import Container from "@/Components/Common/Container";
 import { useUpdateShopBanner, useUpdateShopPhoto } from "@/Hooks/api/cms_api";
 import { ImSpinner9 } from "react-icons/im";
 
-const EditShopBanner = ({ shop_id, data }: any) => {
+type BannerItem = {
+  rating_avg: string;
+  is_followed: boolean;
+  first_name: string;
+  last_name: string;
+  avatar: string;
+  shop_info: {
+    id: number;
+    user_id: number;
+    shop_banner: string;
+    shop_image: string;
+    shop_name: string;
+    about: {
+      statement: string;
+    };
+    address: {
+      address_line_1: string;
+      display_my_address: string;
+      city: string;
+      state: string;
+    };
+  };
+};
+
+interface BannerProps {
+  shop_id: number;
+  data: BannerItem;
+}
+
+const EditShopBanner = ({ shop_id, data }: BannerProps) => {
   const bannerUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${data?.shop_info?.shop_banner}`;
   const profileUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${data?.shop_info?.shop_image}`;
   const [previewCover, setPreviewCover] = useState<string | null>(null);
@@ -136,7 +165,12 @@ const EditShopBanner = ({ shop_id, data }: any) => {
                 <p className="flex justify-center items-center size-7 rounded-full bg-primary-green">
                   <StarSvg />
                 </p>
-                <p className="text-secondary-black font-semibold">4.8</p>
+                <p className="text-secondary-black font-semibold">
+                  {" "}
+                  {data?.rating_avg
+                    ? Number(data.rating_avg).toFixed(1)
+                    : "0.0"}
+                </p>
               </div>
 
               <div className="flex gap-2 items-center">

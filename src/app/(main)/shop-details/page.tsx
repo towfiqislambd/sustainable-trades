@@ -92,7 +92,7 @@ const page = () => {
       />
 
       {/* Shop Reviews */}
-      <ShopReviews />
+      <ShopReviews data={shopDetailsData?.data?.shop_info?.reviews} />
 
       {/* Shop About */}
       {shopDetailLoading ? (
