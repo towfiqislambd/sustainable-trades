@@ -1,9 +1,9 @@
 "use client";
 import Link from "next/link";
-import React, { use } from "react";
+import React, { use, useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import Container from "@/Components/Common/Container";
-import { getProductDetails } from "@/Hooks/api/cms_api";
+import { getProductDetails, getProductReviews } from "@/Hooks/api/cms_api";
 import { ProductDetailsSkeleton } from "@/Components/Loader/Loader";
 import ProductGallery from "@/Components/PageComponents/mainPages/productDetailsComponents/ProductGallery";
 import ProductReviews from "@/Components/PageComponents/mainPages/productDetailsComponents/ProductReviews";
@@ -18,8 +18,13 @@ interface Props {
 }
 
 const page = ({ params }: Props) => {
+  const [page, setPage] = useState<string>("");
   const { id } = use(params);
   const { data: productDetailsData, isLoading } = getProductDetails(id);
+  const { data: productReviews, isLoading: reviewLoading } = getProductReviews(
+    id,
+    page
+  );
 
   if (isLoading) {
     return <ProductDetailsSkeleton />;
@@ -42,7 +47,17 @@ const page = ({ params }: Props) => {
             <ProductGallery data={productDetailsData?.data?.images} />
 
             {/* Reviews */}
-            <ProductReviews />
+            <ProductReviews
+              reviewCount={
+                productDetailsData?.data?.reviews_count
+                  ? productDetailsData?.data?.reviews_count
+                  : 0
+              }
+              reviewAvg={productDetailsData?.data?.reviews_avg_rating}
+              data={productReviews?.data}
+              reviewLoading={reviewLoading}
+              setPage={setPage}
+            />
           </div>
 
           {/* Right */}
