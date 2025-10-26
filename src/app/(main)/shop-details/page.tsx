@@ -1,5 +1,4 @@
 "use client";
-import React, { useState } from "react";
 import {
   AboutShopSkeleton,
   EditShopBannerSkeleton,
@@ -15,6 +14,7 @@ import {
   getShopDetails,
   getShopReviews,
 } from "@/Hooks/api/cms_api";
+import React, { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import ShopFAQ from "@/Components/PageComponents/mainPages/shopDetailsComponents/ShopFAQ";
 import AboutShop from "@/Components/PageComponents/mainPages/shopDetailsComponents/AboutShop";
