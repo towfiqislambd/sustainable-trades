@@ -224,89 +224,90 @@ export const ShopFAQSkeleton = () => {
 export const ProductDetailsSkeleton = () => {
   return (
     <section className="py-10 animate-pulse">
-      <div className="container mx-auto">
-        {/* Breadcrumb skeleton */}
-        <div className="flex gap-2 items-center mb-5">
-          <div className="h-4 w-16 bg-gray-200 rounded"></div>
-          <div className="h-4 w-4 bg-gray-200 rounded-full"></div>
-          <div className="h-4 w-32 bg-gray-200 rounded"></div>
-        </div>
+      <Container>
+        <div className="mx-auto">
+          {/* Breadcrumb skeleton */}
+          <div className="flex gap-2 items-center mb-5">
+            <div className="h-4 w-16 bg-gray-200 rounded" />
+            <div className="h-4 w-4 bg-gray-200 rounded-full" />
+            <div className="h-4 w-32 bg-gray-200 rounded" />
+          </div>
 
-        <div className="grid grid-cols-2 gap-12 mb-16">
-          {/* Left Side Skeleton */}
-          <div className="space-y-16">
-            {/* Product Gallery */}
-            <div className="flex gap-4">
-              {/* Thumbnails */}
-              <div className="space-y-3">
-                {[...Array(4)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="w-[120px] h-[100px] bg-gray-200 rounded-lg"
-                  ></div>
+          <div className="grid grid-cols-2 gap-12 mb-16">
+            {/* Left Side Skeleton */}
+            <div className="space-y-16">
+              {/* Product Gallery */}
+              <div className="flex gap-4">
+                {/* Thumbnails */}
+                <div className="space-y-3">
+                  {[...Array(4)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="w-[120px] h-[100px] bg-gray-200 rounded-lg"
+                    ></div>
+                  ))}
+                </div>
+
+                {/* Main Image */}
+                <div className="flex-1 h-[445px] bg-gray-200 rounded-xl" />
+              </div>
+
+              {/* Reviews Skeleton */}
+              <div className="space-y-5">
+                <div className="h-8 w-40 bg-gray-200 rounded" />
+                {[...Array(2)].map((_, i) => (
+                  <div key={i} className="space-y-2">
+                    <div className="h-4 w-32 bg-gray-200 rounded" />
+                    <div className="h-3 w-9/12 bg-gray-200 rounded" />
+                  </div>
                 ))}
               </div>
-
-              {/* Main Image */}
-              <div className="flex-1 h-[445px] bg-gray-200 rounded-xl"></div>
             </div>
 
-            {/* Reviews Skeleton */}
-            <div className="space-y-5">
-              <div className="h-8 w-40 bg-gray-200 rounded"></div>
-              {[...Array(3)].map((_, i) => (
-                <div key={i} className="space-y-2">
-                  <div className="h-4 w-32 bg-gray-200 rounded"></div>
-                  <div className="h-3 w-full bg-gray-200 rounded"></div>
-                  <div className="h-3 w-3/4 bg-gray-200 rounded"></div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right Side Skeleton */}
-          <div className="space-y-10">
-            {/* Product Description Section */}
-            <div className="space-y-4">
-              <div className="h-4 w-28 bg-gray-200 rounded"></div>
-              <div className="h-6 w-2/3 bg-gray-200 rounded"></div>
-              <div className="h-20 w-full bg-gray-200 rounded"></div>
-            </div>
-
-            {/* Price & Quantity */}
-            <div className="flex items-center justify-between">
-              <div className="h-8 w-24 bg-gray-200 rounded"></div>
-              <div className="h-12 w-32 bg-gray-200 rounded"></div>
-            </div>
-
-            {/* Buttons */}
-            <div className="space-y-4">
-              <div className="h-12 w-full bg-gray-200 rounded"></div>
-              <div className="h-12 w-full bg-gray-200 rounded"></div>
-              <div className="h-12 w-full bg-gray-200 rounded"></div>
-            </div>
-
-            {/* Shop Info */}
-            <div className="flex items-center gap-4">
-              <div className="size-14 rounded-full bg-gray-200"></div>
-              <div className="space-y-2">
-                <div className="h-4 w-32 bg-gray-200 rounded"></div>
-                <div className="h-4 w-40 bg-gray-200 rounded"></div>
+            {/* Right Side Skeleton */}
+            <div className="space-y-10">
+              {/* Product Description Section */}
+              <div className="space-y-4">
+                <div className="h-4 w-28 bg-gray-200 rounded" />
+                <div className="h-6 w-2/3 bg-gray-200 rounded" />
+                <div className="h-20 w-full bg-gray-200 rounded" />
               </div>
-            </div>
 
-            <div className="h-10 w-40 bg-gray-200 rounded"></div>
+              {/* Price & Quantity */}
+              <div className="flex items-center justify-between">
+                <div className="h-8 w-24 bg-gray-200 rounded" />
+                <div className="h-12 w-32 bg-gray-200 rounded" />
+              </div>
+
+              {/* Buttons */}
+              <div className="space-y-4">
+                <div className="h-12 w-full bg-gray-200 rounded" />
+                <div className="h-12 w-full bg-gray-200 rounded" />
+                <div className="h-12 w-full bg-gray-200 rounded" />
+              </div>
+
+              {/* Shop Info */}
+              <div className="flex items-center gap-4">
+                <div className="size-14 rounded-full bg-gray-200" />
+                <div className="space-y-2">
+                  <div className="h-4 w-32 bg-gray-200 rounded" />
+                  <div className="h-4 w-40 bg-gray-200 rounded" />
+                </div>
+              </div>
+
+              <div className="h-10 w-40 bg-gray-200 rounded" />
+            </div>
+          </div>
+
+          {/* More Products & Subscribe Skeleton */}
+          <div className="h-8 w-48 bg-gray-200 rounded mb-4" />
+          <div className="grid grid-cols-4 gap-6">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="h-60 bg-gray-200 rounded-xl" />
+            ))}
           </div>
         </div>
-
-        {/* More Products & Subscribe Skeleton */}
-        <div className="h-8 w-48 bg-gray-200 rounded mb-4"></div>
-        <div className="grid grid-cols-4 gap-6">
-          {[...Array(4)].map((_, i) => (
-            <div key={i} className="h-60 bg-gray-200 rounded-xl"></div>
-          ))}
-        </div>
-      </div>
+      </Container>
     </section>
   );
 };
@@ -538,7 +539,7 @@ export const EditShopBannerSkeleton = () => {
 };
 
 // Shop Review Skeleton
-const ShopReviewSkeleton = () => {
+export const ShopReviewSkeleton = () => {
   return (
     <div className="flex flex-col lg:flex-row gap-5 sm:gap-10 md:gap-20 lg:items-center border-b last:border-b-0 border-gray-200 py-4 md:py-8 animate-pulse">
       <div className="grow flex flex-col sm:flex-row gap-5 items-start">
@@ -568,4 +569,22 @@ const ShopReviewSkeleton = () => {
   );
 };
 
-export default ShopReviewSkeleton;
+// Product Review Skeleton
+export const ReviewCardSkeleton = () => {
+  return (
+    <div className="border-b last:border-b-0 border-gray-200 py-6 animate-pulse">
+      <div className="flex gap-5 items-center">
+        <div className="h-5 w-48 bg-gray-200 rounded"></div>
+        <div className="flex gap-1 items-center py-2">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="size-3 bg-gray-200 rounded-full"></div>
+          ))}
+        </div>
+      </div>
+      <div className="mt-2 space-y-2">
+        <div className="h-4 w-5/6 bg-gray-200 rounded"></div>
+        <div className="h-4 w-4/6 bg-gray-200 rounded"></div>
+      </div>
+    </div>
+  );
+};
