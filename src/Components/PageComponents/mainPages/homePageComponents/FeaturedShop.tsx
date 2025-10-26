@@ -1,9 +1,13 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import useAuth from "@/Hooks/useAuth";
 import { FaStar } from "react-icons/fa";
 import { IoLink } from "react-icons/io5";
 import Container from "@/Components/Common/Container";
+import { getFeaturedShops } from "@/Hooks/api/cms_api";
+import { ShopCardSkeleton } from "@/Components/Loader/Loader";
 
 type FeaturedItem = {
   id: number;
@@ -22,23 +26,27 @@ type FeaturedItem = {
   };
 };
 
-interface FeaturedProps {
-  data: FeaturedItem[];
-  featured: boolean;
-}
+const FeaturedShops = () => {
+  const { latitude, longitude } = useAuth();
+  const { data: featuredData, isLoading } = getFeaturedShops(
+    latitude,
+    longitude
+  );
 
-const FeaturedShops = ({ data, featured }: FeaturedProps) => {
   return (
     <section className="mt-50 md:mt-0 py-20">
       <Container>
         {/* Title */}
-        <h2 className="section_title md:text-start text-center ">
-          {featured ? "Featured Shops" : "All Shops"}
-        </h2>
+        <h3 className="section_title md:text-start text-center ">
+          Featured Shops
+        </h3>
 
+        {/* Shops */}
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-          {data?.length > 0 ? (
-            data?.map(({ id, shop_info }) => (
+          {isLoading ? (
+            [...Array(4)].map((_, idx) => <ShopCardSkeleton key={idx} />)
+          ) : featuredData?.data?.length > 0 ? (
+            featuredData?.data?.map(({ id, shop_info }: FeaturedItem) => (
               <Link
                 href={`/shop-details?view=${"customer"}&id=${
                   shop_info?.user_id

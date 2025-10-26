@@ -10,8 +10,8 @@ import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Container from "@/Components/Common/Container";
 import { RightArrowSvg } from "@/Components/Svg/SvgContainer";
-import ShopReviewSkeleton from "@/Components/Loader/Loader";
 import { AiOutlineFileUnknown } from "react-icons/ai";
+import { ShopReviewSkeleton } from "@/Components/Loader/Loader";
 
 type ImageItem = {
   image: string;

@@ -24,6 +24,7 @@ type descriptionItem = {
   product_price: string;
   description: string;
   selling_option: string;
+  reviews_avg_rating: string;
   shop: {
     id: number;
     user_id: number;
@@ -159,7 +160,7 @@ const ProductDescription = ({ data }: descriptionProps) => {
 
         {/* Shop Reviews */}
         <div className="flex gap-1 items-center">
-          {Array.from({ length: 5 }).map((_, index) => (
+          {Array.from({ length: +data?.reviews_avg_rating }).map((_, index) => (
             <FaStar key={index} className="text-primary-green text-sm" />
           ))}
         </div>

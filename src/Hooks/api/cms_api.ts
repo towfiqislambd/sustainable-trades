@@ -91,14 +91,6 @@ export async function getAllShops() {
   });
 }
 
-// Featured Shops
-export async function getFeaturedShops() {
-  return useServerApi({
-    endpoint: "/api/shops/featured",
-    ssr: true,
-  });
-}
-
 // Get Mission Data
 export async function getMissionData() {
   return useServerApi({
@@ -153,6 +145,19 @@ export const useNewsletter = () => {
     },
     onError: (err: any) => {
       toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// Featured Shops
+export const getFeaturedShops = (lat: string, lng: string) => {
+  return useClientApi({
+    method: "get",
+    key: ["get-featured-shops", lat, lat],
+    endpoint: "/api/shops/featured",
+    params: { lat, lng },
+    queryOptions: {
+      retry: false,
     },
   });
 };
