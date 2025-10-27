@@ -150,12 +150,12 @@ export const useNewsletter = () => {
 };
 
 // Featured Shops
-export const getFeaturedShops = (lat: string, lng: string) => {
+export const getFeaturedShops = (lat: number, lng: number, radius?: number) => {
   return useClientApi({
     method: "get",
-    key: ["get-featured-shops", lat, lat],
+    key: ["get-featured-shops", lat, lat, radius],
     endpoint: "/api/shops/featured",
-    params: { lat, lng },
+    params: { lat, lng, radius },
     queryOptions: {
       retry: false,
     },
@@ -543,13 +543,19 @@ export const getMembershipSpotlightClient = () => {
 };
 
 // Category Details
-export const getCategoryDetails = (id: number) => {
+export const getCategoryDetails = (
+  id: number | null,
+  lat: number,
+  lng: number,
+  radius?: number
+) => {
   return useClientApi({
     method: "get",
     isPrivate: true,
-    key: ["get-category-details", id],
+    key: ["get-category-details", id, lat, lng, radius],
     enabled: !!id,
     endpoint: `/api/category/${id}`,
+    params: { lat, lng, radius },
     queryOptions: {
       retry: false,
     },

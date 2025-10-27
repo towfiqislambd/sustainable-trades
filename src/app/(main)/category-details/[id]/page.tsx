@@ -20,6 +20,7 @@ import { FaCheck } from "react-icons/fa6";
 import MagicMarkers from "@/Components/PageComponents/mainPages/homePageComponents/MagicMarkers";
 import Subscribe from "@/Components/PageComponents/mainPages/homePageComponents/Subscribe";
 import CommunityMember from "@/Components/PageComponents/mainPages/homePageComponents/CommunityMember";
+import useAuth from "@/Hooks/useAuth";
 
 type categoryItem = {
   id: number;
@@ -28,22 +29,25 @@ type categoryItem = {
   icon: string;
 };
 
-interface Props {
-  params: Promise<{ id: number }>;
-}
-
 const page = ({ params }: any) => {
   const id = Number(params?.id);
+  const { latitude, longitude } = useAuth();
   const [categoryId, setCategoryId] = useState<number>(id);
+  const { data: spotlightData } = getMembershipSpotlightClient();
   const { data: allCategory, isLoading: categoryLoading } =
     getProductCategoriesClient();
-  const { data: categoryDetails, isLoading } = getCategoryDetails(categoryId);
-  const { data: spotlightData } = getMembershipSpotlightClient();
+  const { data: categoryDetails, isLoading } = getCategoryDetails(
+    categoryId,
+    latitude,
+    longitude,
+    10
+  );
 
   return (
     <>
       <MagicMarkers />
 
+      {/* All Categories */}
       <section className="mb-20">
         <Container>
           <h2 className="text-2xl md:text-3xl font-semibold text-secondary-black mb-10 capitalize">
@@ -129,6 +133,7 @@ const page = ({ params }: any) => {
         </Container>
       </section>
 
+      {/* Geographically Closest Listings */}
       <Container>
         {isLoading ? (
           <h2 className="w-60 h-6 mb-7 animate-pulse bg-gray-200 rounded"></h2>
