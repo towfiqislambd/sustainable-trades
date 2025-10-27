@@ -30,7 +30,8 @@ const FeaturedShops = () => {
   const { latitude, longitude } = useAuth();
   const { data: featuredData, isLoading } = getFeaturedShops(
     latitude,
-    longitude
+    longitude,
+    10
   );
 
   return (
