@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { IoLink } from "react-icons/io5";
-import { FaStar } from "react-icons/fa";
+import { FaRegStar, FaStar } from "react-icons/fa";
 import { getAllShops } from "@/Hooks/api/cms_api";
 import Container from "@/Components/Common/Container";
 
@@ -13,6 +13,7 @@ type FeaturedItem = {
     user_id: number;
     shop_image: string;
     shop_name: string;
+    avg_rating: number;
     address: {
       address_line_1: string;
       display_my_address: string;
@@ -65,15 +66,25 @@ const page = async () => {
                 {/* Shop Reviews */}
                 <div className="flex gap-2 items-center justify-center">
                   <div className="flex gap-1 items-center justify-center">
-                    {Array.from({ length: 5 }).map((_, idx) => (
-                      <FaStar
-                        key={idx}
-                        className="text-primary-green text-xs md:text-base"
-                      />
-                    ))}
+                    {Array.from({ length: +shop_info?.avg_rating }).map(
+                      (_, idx) => (
+                        <FaStar
+                          key={idx}
+                          className="text-primary-green text-xs md:text-base"
+                        />
+                      )
+                    )}
+                    {Array.from({ length: 5 - +shop_info?.avg_rating }).map(
+                      (_, index) => (
+                        <FaRegStar
+                          key={index}
+                          className="text-primary-green text-sm"
+                        />
+                      )
+                    )}
                   </div>
                   <p className="text-sm font-semibold text-secondary-black">
-                    (4)
+                    ({shop_info?.avg_rating})
                   </p>
                 </div>
 

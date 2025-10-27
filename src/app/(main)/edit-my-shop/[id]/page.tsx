@@ -8,6 +8,8 @@ import EditFormTwo from "@/Components/PageComponents/EditForm/EditFormTwo";
 import EditFormFour from "@/Components/PageComponents/EditForm/EditFormFour";
 import EditFormThree from "@/Components/PageComponents/EditForm/EditFormThree";
 import { PuffLoader } from "react-spinners";
+import { useRouter } from "next/navigation";
+import useAuth from "@/Hooks/useAuth";
 
 type ProfileFormValues = {
   first_name: string;
@@ -48,7 +50,10 @@ interface Props {
 
 const Page = ({ params }: Props) => {
   // Hook
+  const { user } = useAuth();
+  console.log(user);
   const { id } = use(params);
+  const router = useRouter();
   const { data: shopDetailsData, isLoading } = getShopDetails(id);
   const methods = useForm<ProfileFormValues>();
   const { mutate: editShopMutation, isPending } = useEditShop();
@@ -144,7 +149,15 @@ const Page = ({ params }: Props) => {
       longitude: finalLng,
     };
 
-    editShopMutation(payload);
+    editShopMutation(payload, {
+      onSuccess: (res: any) => {
+        if (res.success) {
+          router.push(
+            `/shop-details?view=owner&id=${user?.shop_info?.user_id}&listing_id=${user?.shop_info?.id}`
+          );
+        }
+      },
+    });
   };
 
   if (isLoading) {

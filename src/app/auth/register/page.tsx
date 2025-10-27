@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
@@ -13,6 +13,8 @@ import {
 } from "@/Components/Svg/SvgContainer";
 import { useRegister } from "@/Hooks/api/auth_api";
 import { CgSpinnerTwo } from "react-icons/cg";
+import { FiEye } from "react-icons/fi";
+import { FiEyeOff } from "react-icons/fi";
 
 type formData = {
   first_name: string;
@@ -26,6 +28,9 @@ type formData = {
 export default function page() {
   const searchParams = useSearchParams();
   const selected_role = searchParams.get("role");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState<boolean>(false);
   const { mutateAsync: registerMutation, isPending } = useRegister();
 
   const {
@@ -119,39 +124,69 @@ export default function page() {
             {/* Password */}
             <div>
               <label className="form-label">Password *</label>
-              <input
-                type="password"
-                className="form-input"
-                placeholder="Password"
-                {...register("password", {
-                  required: "Password is required",
-                })}
-              />
-              {errors.password?.message && (
-                <p className="text-red-600 mt-1 text-sm">
-                  {errors.password.message}
-                </p>
-              )}
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className="form-input !pe-10"
+                  placeholder="Password"
+                  {...register("password", {
+                    required: "Password is required",
+                  })}
+                />
+                {errors.password?.message && (
+                  <p className="text-red-600 mt-1 text-sm">
+                    {errors.password.message}
+                  </p>
+                )}
+                <button
+                  onClick={e => {
+                    e.preventDefault();
+                    setShowPassword(!showPassword);
+                  }}
+                  className="absolute top-4 right-4 cursor-pointer"
+                >
+                  {showPassword ? (
+                    <FiEye className="text-lg" />
+                  ) : (
+                    <FiEyeOff className="text-lg" />
+                  )}
+                </button>
+              </div>
             </div>
 
             {/* Confirm Password */}
             <div>
               <label className="form-label">Confirm Password *</label>
-              <input
-                type="password"
-                className="form-input"
-                placeholder="Password"
-                {...register("password_confirmation", {
-                  required: "Confirm Password is required",
-                  validate: value =>
-                    value === password || "Passwords do not match",
-                })}
-              />
-              {errors.password_confirmation?.message && (
-                <p className="text-red-600 mt-1 text-sm">
-                  {errors.password_confirmation.message}
-                </p>
-              )}
+              <div className="relative">
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  className="form-input !pe-10"
+                  placeholder="Confirm Password"
+                  {...register("password_confirmation", {
+                    required: "Confirm Password is required",
+                    validate: value =>
+                      value === password || "Passwords do not match",
+                  })}
+                />
+                {errors.password_confirmation?.message && (
+                  <p className="text-red-600 mt-1 text-sm">
+                    {errors.password_confirmation.message}
+                  </p>
+                )}
+                <button
+                  onClick={e => {
+                    e.preventDefault();
+                    setShowConfirmPassword(!showConfirmPassword);
+                  }}
+                  className="absolute top-4 right-4 cursor-pointer"
+                >
+                  {showConfirmPassword ? (
+                    <FiEye className="text-lg" />
+                  ) : (
+                    <FiEyeOff className="text-lg" />
+                  )}
+                </button>
+              </div>
             </div>
 
             {/* Terms */}

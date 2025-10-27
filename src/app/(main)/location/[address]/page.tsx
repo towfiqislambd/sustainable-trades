@@ -1,79 +1,184 @@
 "use client";
+import "swiper/css";
+import "swiper/css/navigation";
 import {
-  getFeaturedProducts,
+  getCategoryDetails,
   getMembershipSpotlightClient,
-  getNearbyProducts,
-  getTopVendors,
+  getProductCategoriesClient,
 } from "@/Hooks/api/cms_api";
-import React, { use } from "react";
+import Image from "next/image";
 import useAuth from "@/Hooks/useAuth";
-import Product from "@/Components/Common/Product";
-import Container from "@/Components/Common/Container";
-import { ProductSkeleton } from "@/Components/Loader/Loader";
+import { Navigation } from "swiper/modules";
+import React, { use, useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import Subscribe from "@/Components/PageComponents/mainPages/homePageComponents/Subscribe";
-import TopVendors from "@/Components/PageComponents/mainPages/shopPageComponents/TopVendors";
 import CommunityMember from "@/Components/PageComponents/mainPages/homePageComponents/CommunityMember";
 import LocalMagicMarker from "@/Components/PageComponents/mainPages/shopPageComponents/LocalMagicMarker";
+import Product from "@/Components/Common/Product";
+import Container from "@/Components/Common/Container";
+import { FaArrowLeft, FaArrowRight, FaCheck } from "react-icons/fa";
+import {
+  ProductSkeleton,
+  SingleShopSkeleton,
+} from "@/Components/Loader/Loader";
+import { AiOutlineFileUnknown } from "react-icons/ai";
+
+type categoryItem = {
+  id: number;
+  name: string;
+  image: string;
+  icon: string;
+};
 
 interface Props {
   params: Promise<{ address: string }>;
 }
 
 const page = ({ params }: Props) => {
+  // State
+  const [categoryId, setCategoryId] = useState<number | null>(null);
+
   // Hooks
   const { address } = use(params);
   const { latitude, longitude } = useAuth();
 
   // Queries
   const { data: spotlightData } = getMembershipSpotlightClient();
-  const { data: topVendors, isLoading: vendorLoading } = getTopVendors();
-  const { data: featuredProducts, isLoading: featuredLoading } =
-    getFeaturedProducts();
-  const { data: nearbyProducts, isLoading: nearbyLoading } = getNearbyProducts(
+  const { data: allCategory, isLoading: categoryLoading } =
+    getProductCategoriesClient();
+  const { data: categoryDetails, isLoading } = getCategoryDetails(
+    categoryId,
     latitude,
-    longitude
+    longitude,
+    10
   );
+
+  useEffect(() => {
+    setCategoryId(allCategory?.data[0]?.id);
+  }, [allCategory]);
 
   return (
     <>
       {/* Local Magic Marker */}
       <LocalMagicMarker address={address} />
 
-      {/* Top Local Vendors */}
-      <TopVendors data={topVendors?.data} vendorLoading={vendorLoading} />
+      {/* All Categories */}
+      <section className="mb-20">
+        <Container>
+          <h2 className="text-2xl md:text-3xl font-semibold text-secondary-black mb-10 capitalize">
+            Explore Sustainable Products & Services Nearby
+          </h2>
 
-      {/* Featured Products */}
+          <div className="relative">
+            <button className="swiper-button-prev-custom absolute left-0 top-1/2 z-10 -translate-y-1/2 shadow-md rounded-full p-3 bg-primary-green text-white transition cursor-pointer">
+              <FaArrowLeft />
+            </button>
+
+            <button className="swiper-button-next-custom absolute right-0 top-1/2 z-10 -translate-y-1/2 shadow-md rounded-full p-3 bg-primary-green text-white transition cursor-pointer">
+              <FaArrowRight />
+            </button>
+
+            <Swiper
+              modules={[Navigation]}
+              spaceBetween={20}
+              navigation={{
+                nextEl: ".swiper-button-next-custom",
+                prevEl: ".swiper-button-prev-custom",
+              }}
+              breakpoints={{
+                320: {
+                  slidesPerView: 1,
+                },
+
+                500: {
+                  slidesPerView: 2,
+                  spaceBetween: 10,
+                },
+                640: {
+                  slidesPerView: 3,
+                  spaceBetween: 20,
+                },
+
+                1024: {
+                  slidesPerView: 4,
+                  spaceBetween: 30,
+                },
+
+                1280: {
+                  slidesPerView: 5,
+                  spaceBetween: 40,
+                },
+              }}
+              className="!mx-10"
+            >
+              {categoryLoading
+                ? Array.from({ length: 7 }).map((_, index) => (
+                    <SwiperSlide key={index}>
+                      <SingleShopSkeleton />
+                    </SwiperSlide>
+                  ))
+                : allCategory?.data?.map((item: categoryItem) => (
+                    <SwiperSlide key={item?.id}>
+                      <div
+                        onClick={() => setCategoryId(item?.id)}
+                        className="text-center"
+                      >
+                        <figure className="size-44 mx-auto cursor-pointer rounded-full overflow-hidden relative">
+                          <Image
+                            src={`${process.env.NEXT_PUBLIC_SITE_URL}/${item?.image}`}
+                            alt="shop_image"
+                            fill
+                            className="size-full rounded-full object-cover hover:scale-105 duration-500 transition-transform"
+                          />
+                          {categoryId === item?.id && (
+                            <div className="absolute inset-0 bg-black/45 grid place-items-center text-4xl text-gray-200">
+                              <FaCheck />
+                            </div>
+                          )}
+                        </figure>
+
+                        <h3 className="mt-4 text-primary-green font-semibold truncate">
+                          {item?.name}
+                        </h3>
+                      </div>
+                    </SwiperSlide>
+                  ))}
+            </Swiper>
+          </div>
+        </Container>
+      </section>
+
+      {/* Geographically Closest Listings */}
       <Container>
-        <h3 className="text-2xl md:text-3xl font-semibold text-secondary-black mb-7">
-          Featured Products
-        </h3>
+        {isLoading ? (
+          <h2 className="w-60 h-6 mb-7 animate-pulse bg-gray-200 rounded"></h2>
+        ) : (
+          <h2 className="text-2xl md:text-3xl font-semibold text-secondary-black mb-7">
+            {categoryDetails?.data?.category?.name}
+          </h2>
+        )}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10 mb-22">
-          {featuredLoading
-            ? Array.from({ length: 4 }).map((_, idx) => (
-                <ProductSkeleton key={idx} />
-              ))
-            : featuredProducts?.data?.map((product: any) => (
-                <Product key={product?.id} product={product} />
-              ))}
-        </div>
-      </Container>
-
-      {/* Nearby Products */}
-      <Container>
-        <h3 className="text-2xl md:text-3xl font-semibold text-secondary-black mb-10">
-          Sustainable Products & Services Nearby
-        </h3>
-
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
-          {nearbyLoading
-            ? Array.from({ length: 4 }).map((_, idx) => (
-                <ProductSkeleton key={idx} />
-              ))
-            : nearbyProducts?.data?.map((product: any) => (
-                <Product key={product?.id} product={product} />
-              ))}
-        </div>
+        {isLoading ? (
+          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+            {Array.from({ length: 4 }).map((_, idx) => (
+              <ProductSkeleton key={idx} />
+            ))}
+          </div>
+        ) : categoryDetails?.data?.products?.length === 0 ||
+          !categoryDetails ? (
+          <div className="flex flex-col justify-center items-center gap-3 lg:gap-4 text-center py-5 md:py-20">
+            <AiOutlineFileUnknown className="text-xl md:text-3xl lg:text-6xl text-gray-500" />
+            <p className="text-gray-600 text-sm md:text-lg font-semibold">
+              No products found!!
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+            {categoryDetails?.data?.products?.map((product: any) => (
+              <Product key={product?.id} product={product} />
+            ))}
+          </div>
+        )}
       </Container>
 
       {/* Community Member */}
