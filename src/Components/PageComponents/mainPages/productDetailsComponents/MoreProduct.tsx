@@ -11,6 +11,7 @@ interface moreProductProps {
   data: {
     shop: {
       id: number;
+      user_id: number;
     };
     more_products_from_shop: productItem[];
   };
@@ -46,14 +47,18 @@ const MoreProduct = ({ data }: moreProductProps) => {
       )}
 
       {/* View All Btn */}
-      <div className="flex items-center justify-end mt-8">
-        <Link
-          href={`/shop-details/${data?.shop?.id}`}
-          className="text-primary-green font-semibold text-lg cursor-pointer"
-        >
-          View all....
-        </Link>
-      </div>
+      {data?.more_products_from_shop?.length > 0 && (
+        <div className="flex items-center justify-end mt-8">
+          <Link
+            href={`/shop-details?view=${"customer"}&id=${
+              data?.shop?.user_id
+            }&listing_id=${data?.shop?.id}`}
+            className="text-primary-green font-semibold text-lg cursor-pointer"
+          >
+            View all....
+          </Link>
+        </div>
+      )}
     </section>
   );
 };
