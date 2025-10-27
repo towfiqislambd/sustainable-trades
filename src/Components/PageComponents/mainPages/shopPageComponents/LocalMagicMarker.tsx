@@ -87,13 +87,17 @@ const LocalMagicMarker = ({ address }: Props) => {
                           </h3>
 
                           <div className="flex gap-1 items-center py-2">
-                            {Array.from({ length: 3 }).map((_, index) => (
+                            {Array.from({
+                              length: +item?.shop_info?.avg_rating,
+                            }).map((_, idx) => (
                               <FaStar
-                                key={index}
-                                className="text-primary-green text-sm"
+                                key={idx}
+                                className="text-primary-green text-xs md:text-base"
                               />
                             ))}
-                            {Array.from({ length: 2 }).map((_, index) => (
+                            {Array.from({
+                              length: 5 - +item?.shop_info?.avg_rating,
+                            }).map((_, index) => (
                               <FaRegStar
                                 key={index}
                                 className="text-primary-green text-sm"

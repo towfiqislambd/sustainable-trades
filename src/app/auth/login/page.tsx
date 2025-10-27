@@ -1,17 +1,18 @@
 "use client";
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import loginBg from "@/Assets/login.png";
-import { useForm } from "react-hook-form";
 import {
   AppleLogoSvg,
   FacebookLogoSvg,
   GoogleLogoSvg,
 } from "@/Components/Svg/SvgContainer";
+import React, { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import loginBg from "@/Assets/login.png";
+import { useForm } from "react-hook-form";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { useLogin } from "@/Hooks/api/auth_api";
 import { IoArrowBackOutline } from "react-icons/io5";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 type formData = {
   email: string;
@@ -19,6 +20,7 @@ type formData = {
 };
 
 const Page = () => {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const { mutateAsync: loginMutation, isPending } = useLogin();
 
   const {
@@ -46,7 +48,9 @@ const Page = () => {
               Back to home
             </Link>
           </div>
+
           <h2 className="auth-heading">Welcome Back!</h2>
+
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="flex flex-col sm:flex-row gap-4 xl:gap-8 sm:items-center">
               {/* Email */}
@@ -70,19 +74,34 @@ const Page = () => {
               {/* Password */}
               <div className="flex-1">
                 <label className="form-label">Password *</label>
-                <input
-                  type="password"
-                  className="form-input"
-                  placeholder="Password"
-                  {...register("password", {
-                    required: "Password is required",
-                  })}
-                />
-                {errors.password?.message && (
-                  <p className="text-red-600 mt-1 text-sm">
-                    {errors.password.message}
-                  </p>
-                )}
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    className="form-input !pe-10"
+                    placeholder="Password"
+                    {...register("password", {
+                      required: "Password is required",
+                    })}
+                  />
+                  {errors.password?.message && (
+                    <p className="text-red-600 mt-1 text-sm">
+                      {errors.password.message}
+                    </p>
+                  )}
+                  <button
+                    onClick={e => {
+                      e.preventDefault();
+                      setShowPassword(!showPassword);
+                    }}
+                    className="absolute top-4 right-4 cursor-pointer"
+                  >
+                    {showPassword ? (
+                      <FiEye className="text-lg" />
+                    ) : (
+                      <FiEyeOff className="text-lg" />
+                    )}
+                  </button>
+                </div>
               </div>
             </div>
 
