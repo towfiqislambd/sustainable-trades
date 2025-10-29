@@ -43,9 +43,10 @@ const Navbar = ({ siteSettings, dynamicPage }: any) => {
         )}
 
         {/* Lower Navbar*/}
-        {(!user || (user?.role === "vendor" && !user?.membership)) && (
+        {/* {(!user || (user?.role === "vendor" && !user?.membership)) && (
           <LowerNavbar dynamicPage={dynamicPage} />
-        )}
+        )} */}
+        <LowerNavbar dynamicPage={dynamicPage} />
       </nav>
 
       {/* Scroll to top */}

@@ -5,6 +5,7 @@ import { AiOutlineFileUnknown } from "react-icons/ai";
 
 type productItem = {
   id: number;
+  distance: number;
 };
 
 interface moreProductProps {
