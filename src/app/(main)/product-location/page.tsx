@@ -9,7 +9,7 @@ import {
 import Image from "next/image";
 import useAuth from "@/Hooks/useAuth";
 import { Navigation } from "swiper/modules";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Subscribe from "@/Components/PageComponents/mainPages/homePageComponents/Subscribe";
 import CommunityMember from "@/Components/PageComponents/mainPages/homePageComponents/CommunityMember";
@@ -45,8 +45,7 @@ const page = () => {
   const { data: categoryDetails, isLoading } = getCategoryDetails(
     categoryId,
     latitude,
-    longitude,
-    10
+    longitude
   );
 
   useEffect(() => {
@@ -171,7 +170,7 @@ const page = () => {
         ) : (
           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
             {categoryDetails?.data?.products?.map((product: any) => (
-              <Product key={product?.id} product={product} />
+              <Product key={product?.id} product={product} isMiles={true} />
             ))}
           </div>
         )}

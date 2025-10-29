@@ -150,12 +150,12 @@ export const useNewsletter = () => {
 };
 
 // Featured Shops
-export const getFeaturedShops = (lat: number, lng: number, radius?: number) => {
+export const getFeaturedShops = (lat: number, lng: number) => {
   return useClientApi({
     method: "get",
-    key: ["get-featured-shops", lat, lat, radius],
+    key: ["get-featured-shops", lat, lat],
     endpoint: "/api/shops/featured",
-    params: { lat, lng, radius },
+    params: { lat, lng },
     queryOptions: {
       retry: false,
     },
@@ -546,16 +546,15 @@ export const getMembershipSpotlightClient = () => {
 export const getCategoryDetails = (
   id: number | null,
   lat: number,
-  lng: number,
-  radius?: number
+  lng: number
 ) => {
   return useClientApi({
     method: "get",
     isPrivate: true,
-    key: ["get-category-details", id, lat, lng, radius],
+    key: ["get-category-details", id, lat, lng],
     enabled: !!id,
     endpoint: `/api/category/${id}`,
-    params: { lat, lng, radius },
+    params: { lat, lng },
     queryOptions: {
       retry: false,
     },
@@ -640,13 +639,13 @@ export const getProductReviews = (id: number, page: string) => {
 };
 
 // All Products
-export const getAllProducts = (search: string) => {
+export const getAllProducts = (search: string, lat: number, lng: number) => {
   return useClientApi({
     method: "get",
-    key: ["all-products", search],
+    key: ["all-products", search, lat, lng],
     enabled: !!search,
     endpoint: "/api/all-products",
-    params: { search },
+    params: { search, lat, lng },
     queryOptions: {
       retry: false,
     },

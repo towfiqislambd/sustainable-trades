@@ -39,8 +39,7 @@ const page = ({ params }: any) => {
   const { data: categoryDetails, isLoading } = getCategoryDetails(
     categoryId,
     latitude,
-    longitude,
-    10
+    longitude
   );
 
   return (

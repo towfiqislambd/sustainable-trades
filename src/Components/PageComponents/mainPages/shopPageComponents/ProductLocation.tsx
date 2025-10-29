@@ -12,14 +12,17 @@ import ProductMap from "./ProductMap";
 
 const ProductLocation = () => {
   // Hook
-  const { search } = useAuth();
+  const { search, latitude, longitude } = useAuth();
 
   // States
   const [hoveredProduct, setHoveredProduct] = useState<any>(null);
 
   // Query
-  const { data: allProducts, isLoading: productLoading } =
-    getAllProducts(search);
+  const { data: allProducts, isLoading: productLoading } = getAllProducts(
+    search,
+    latitude,
+    longitude
+  );
 
   return (
     <section className="mt-10 mb-16">
@@ -64,7 +67,7 @@ const ProductLocation = () => {
                         </h3>
 
                         {/* Product Review */}
-                        <div className="flex gap-1 items-center py-2">
+                        <div className="flex gap-1 items-center py-1">
                           {Array.from({
                             length: +product?.reviews_avg_rating,
                           }).map((_, idx) => (
@@ -83,11 +86,14 @@ const ProductLocation = () => {
                           ))}
                         </div>
 
-                        {/* Product Location */}
-                        <p className="text-secondary-gray font-semibold text-sm">
-                          {product?.shop?.address?.display_my_address
-                            ? product?.shop?.address?.address_line_1
-                            : `${product?.shop?.address?.city}, ${product?.shop?.address?.state}`}
+                        {/* Distance */}
+                        <p className="text-secondary-gray font-semibold text-sm mb-0.5">
+                          {product?.distance?.toFixed(0)} mi
+                        </p>
+
+                        {/* Selling Option */}
+                        <p className="text-secondary-gray text-sm">
+                          {product?.selling_option}
                         </p>
                       </div>
                     </div>
