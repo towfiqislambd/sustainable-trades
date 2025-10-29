@@ -638,3 +638,16 @@ export const getProductReviews = (id: number, page: string) => {
     },
   });
 };
+
+// All Products
+export const getAllProducts = (search: string) => {
+  return useClientApi({
+    method: "get",
+    key: ["all-products", search],
+    endpoint: "/api/all-products",
+    params: { search },
+    queryOptions: {
+      retry: false,
+    },
+  });
+};

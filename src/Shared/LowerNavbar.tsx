@@ -6,12 +6,14 @@ import h2 from "@/Assets/h2.svg";
 import h3 from "@/Assets/h3.svg";
 import h4 from "@/Assets/h4.svg";
 import h5 from "@/Assets/h5.svg";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Container from "@/Components/Common/Container";
 import { SearchSvg } from "@/Components/Svg/SvgContainer";
+import useAuth from "@/Hooks/useAuth";
 
 const LowerNavbar = ({ dynamicPage }: any) => {
+  const { setSearch } = useAuth();
   const navLins = [
     { id: 1, label: "Home", path: "/" },
     { id: 2, label: "Shop", path: "/shop" },
@@ -66,6 +68,7 @@ const LowerNavbar = ({ dynamicPage }: any) => {
   ];
 
   const pathname = usePathname();
+  const router = useRouter();
   const [activeSubMenu, setActiveSubMenu] = useState<number>(0);
   const [showMenu, setShowMenu] = useState<boolean>(false);
 
@@ -87,7 +90,7 @@ const LowerNavbar = ({ dynamicPage }: any) => {
         <div className="flex justify-between items-center">
           {/* Left - NavLinks */}
           <div className="hidden lg:flex gap-5 xl:gap-10 items-center relative">
-            {navLins?.map((item) => {
+            {navLins?.map(item => {
               const isActive = pathname === item?.path;
 
               return (
@@ -97,7 +100,7 @@ const LowerNavbar = ({ dynamicPage }: any) => {
                   }`}
                   key={item?.id}
                   href={item?.id == 4 || item?.id == 5 ? "#" : item?.path}
-                  onClick={(e) => {
+                  onClick={e => {
                     e.stopPropagation();
                     if (item?.id == 4 || item?.id == 5) {
                       e.preventDefault();
@@ -113,7 +116,7 @@ const LowerNavbar = ({ dynamicPage }: any) => {
 
             {/* Sub Menu */}
             <div
-              onClick={(e) => e.stopPropagation()}
+              onClick={e => e.stopPropagation()}
               className={`absolute top-12 ${
                 activeSubMenu === 4 ? "-right-32" : "-right-56"
               } bg-white drop-shadow  w-[280px] py-7 px-5 border-gray-50 rounded-lg flex flex-col gap-7 ${
@@ -123,7 +126,7 @@ const LowerNavbar = ({ dynamicPage }: any) => {
               }`}
             >
               {navLins?.map(
-                (item) =>
+                item =>
                   item?.id === activeSubMenu &&
                   item?.sub_menu?.map(
                     ({ id, page_title, page_slug, path, icon, logo }: any) => (
@@ -169,7 +172,11 @@ const LowerNavbar = ({ dynamicPage }: any) => {
             <SearchSvg />
             <input
               type="text"
-              placeholder="Search by product or company name "
+              onChange={e => {
+                setSearch(e.target.value);
+                router.push("/product-location");
+              }}
+              placeholder="Search by product....."
               className="w-full border-none outline-none"
             />
           </div>

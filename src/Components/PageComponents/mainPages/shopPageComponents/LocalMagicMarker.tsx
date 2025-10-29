@@ -117,7 +117,7 @@ const LocalMagicMarker = ({ address }: Props) => {
                 )}
               </div>
             ) : (
-              <div className="flex flex-col justify-center h-full p-2 lg:p-8 bg-[#d4e2cb2f]">
+              <div className="flex flex-col justify-center h-full p-2 lg:p-8 bg-[#d4e2cb2f] rounded-xl">
                 <h3 className="text-2xl lg:text-3xl font-semibold text-secondary-black mb-5">
                   Search to find your local magic makers
                 </h3>

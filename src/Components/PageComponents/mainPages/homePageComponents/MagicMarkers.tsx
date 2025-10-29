@@ -12,7 +12,7 @@ const MagicMarkers = () => {
     if (!search) {
       return toast.error("Please enter location");
     }
-    router.push(`/location/${search}`);
+    router.push(`/shop-location/${search}`);
   };
 
   return (
