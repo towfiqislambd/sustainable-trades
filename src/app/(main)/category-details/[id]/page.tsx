@@ -139,7 +139,7 @@ const page = ({ params }: any) => {
           <h2 className="w-60 h-6 mb-7 animate-pulse bg-gray-200 rounded"></h2>
         ) : (
           <h2 className="text-2xl md:text-3xl font-semibold text-secondary-black mb-7">
-            {categoryDetails?.data?.name}
+            {categoryDetails?.data?.category?.name}
           </h2>
         )}
 

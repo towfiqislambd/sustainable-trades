@@ -16,7 +16,8 @@ import CommunityMember from "@/Components/PageComponents/mainPages/homePageCompo
 import LocalMagicMarker from "@/Components/PageComponents/mainPages/shopPageComponents/LocalMagicMarker";
 import Product from "@/Components/Common/Product";
 import Container from "@/Components/Common/Container";
-import { FaArrowLeft, FaArrowRight, FaCheck } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa6";
 import {
   ProductSkeleton,
   SingleShopSkeleton,
