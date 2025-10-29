@@ -13,7 +13,7 @@ import { SearchSvg } from "@/Components/Svg/SvgContainer";
 import useAuth from "@/Hooks/useAuth";
 
 const LowerNavbar = ({ dynamicPage }: any) => {
-  const { setSearch } = useAuth();
+  const { user, setSearch } = useAuth();
   const navLins = [
     { id: 1, label: "Home", path: "/" },
     { id: 2, label: "Shop", path: "/shop" },
@@ -89,82 +89,104 @@ const LowerNavbar = ({ dynamicPage }: any) => {
       <Container>
         <div className="flex justify-between items-center">
           {/* Left - NavLinks */}
-          <div className="hidden lg:flex gap-5 xl:gap-10 items-center relative">
-            {navLins?.map(item => {
-              const isActive = pathname === item?.path;
-
-              return (
-                <Link
-                  className={`text-base xl:text-lg text-primary-green ${
-                    isActive && "font-semibold "
-                  }`}
-                  key={item?.id}
-                  href={item?.id == 4 || item?.id == 5 ? "#" : item?.path}
-                  onClick={e => {
-                    e.stopPropagation();
-                    if (item?.id == 4 || item?.id == 5) {
-                      e.preventDefault();
-                    }
-                    setShowMenu(true);
-                    setActiveSubMenu(item?.id);
-                  }}
-                >
-                  {item?.label}
-                </Link>
-              );
-            })}
-
-            {/* Sub Menu */}
+          <div>
             <div
-              onClick={e => e.stopPropagation()}
-              className={`absolute top-12 ${
-                activeSubMenu === 4 ? "-right-32" : "-right-56"
-              } bg-white drop-shadow  w-[280px] py-7 px-5 border-gray-50 rounded-lg flex flex-col gap-7 ${
-                showMenu && (activeSubMenu === 4 || activeSubMenu === 5)
-                  ? "block"
-                  : "hidden"
+              className={`gap-5 xl:gap-10 items-center relative ${
+                user ? "hidden" : "hidden lg:flex"
               }`}
             >
-              {navLins?.map(
-                item =>
-                  item?.id === activeSubMenu &&
-                  item?.sub_menu?.map(
-                    ({ id, page_title, page_slug, path, icon, logo }: any) => (
-                      <Link
-                        key={id}
-                        href={`${path ? path : `/about/${page_slug}`}`}
-                        onClick={() => setShowMenu(false)}
-                        className={`flex gap-2.5 items-center text-[#77978F] text-[17px] duration-300 transition-all hover:text-primary-green ${
-                          (pathname === `/about/${page_slug}` ||
-                            pathname === path) &&
-                          "font-semibold text-primary-green"
-                        }
-                        `}
-                      >
-                        <figure className="size-[24px] relative">
-                          {icon ? (
-                            <Image
-                              src={`${process.env.NEXT_PUBLIC_SITE_URL}/${icon}`}
-                              alt="icon"
-                              fill
-                              className="size-full object-cover"
-                            />
-                          ) : (
-                            <Image
-                              src={logo}
-                              alt="logo"
-                              fill
-                              className="size-full object-cover"
-                            />
-                          )}
-                        </figure>
+              {navLins?.map(item => {
+                const isActive = pathname === item?.path;
 
-                        <span>{page_title}</span>
-                      </Link>
+                return (
+                  <Link
+                    className={`text-base xl:text-lg text-primary-green ${
+                      isActive && "font-semibold "
+                    }`}
+                    key={item?.id}
+                    href={item?.id == 4 || item?.id == 5 ? "#" : item?.path}
+                    onClick={e => {
+                      e.stopPropagation();
+                      if (item?.id == 4 || item?.id == 5) {
+                        e.preventDefault();
+                      }
+                      setShowMenu(true);
+                      setActiveSubMenu(item?.id);
+                    }}
+                  >
+                    {item?.label}
+                  </Link>
+                );
+              })}
+
+              {/* Sub Menu */}
+              <div
+                onClick={e => e.stopPropagation()}
+                className={`absolute top-12 ${
+                  activeSubMenu === 4 ? "-right-32" : "-right-56"
+                } bg-white drop-shadow  w-[280px] py-7 px-5 border-gray-50 rounded-lg flex flex-col gap-7 ${
+                  showMenu && (activeSubMenu === 4 || activeSubMenu === 5)
+                    ? "block"
+                    : "hidden"
+                }`}
+              >
+                {navLins?.map(
+                  item =>
+                    item?.id === activeSubMenu &&
+                    item?.sub_menu?.map(
+                      ({
+                        id,
+                        page_title,
+                        page_slug,
+                        path,
+                        icon,
+                        logo,
+                      }: any) => (
+                        <Link
+                          key={id}
+                          href={`${path ? path : `/about/${page_slug}`}`}
+                          onClick={() => setShowMenu(false)}
+                          className={`flex gap-2.5 items-center text-[#77978F] text-[17px] duration-300 transition-all hover:text-primary-green ${
+                            (pathname === `/about/${page_slug}` ||
+                              pathname === path) &&
+                            "font-semibold text-primary-green"
+                          }
+                        `}
+                        >
+                          <figure className="size-[24px] relative">
+                            {icon ? (
+                              <Image
+                                src={`${process.env.NEXT_PUBLIC_SITE_URL}/${icon}`}
+                                alt="icon"
+                                fill
+                                className="size-full object-cover"
+                              />
+                            ) : (
+                              <Image
+                                src={logo}
+                                alt="logo"
+                                fill
+                                className="size-full object-cover"
+                              />
+                            )}
+                          </figure>
+
+                          <span>{page_title}</span>
+                        </Link>
+                      )
                     )
-                  )
-              )}
+                )}
+              </div>
             </div>
+
+            <Link
+              href="/"
+              className={`text-base xl:text-lg text-primary-green font-semibold ${
+                user ? "block" : "hidden"
+              }`}
+            >
+              Home
+            </Link>
           </div>
 
           {/* Right - Searchbar */}
