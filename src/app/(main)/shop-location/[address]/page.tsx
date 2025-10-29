@@ -16,7 +16,8 @@ import CommunityMember from "@/Components/PageComponents/mainPages/homePageCompo
 import LocalMagicMarker from "@/Components/PageComponents/mainPages/shopPageComponents/LocalMagicMarker";
 import Product from "@/Components/Common/Product";
 import Container from "@/Components/Common/Container";
-import { FaArrowLeft, FaArrowRight, FaCheck } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa6";
 import {
   ProductSkeleton,
   SingleShopSkeleton,
@@ -49,8 +50,7 @@ const page = ({ params }: Props) => {
   const { data: categoryDetails, isLoading } = getCategoryDetails(
     categoryId,
     latitude,
-    longitude,
-    10
+    longitude
   );
 
   useEffect(() => {
@@ -175,7 +175,7 @@ const page = ({ params }: Props) => {
         ) : (
           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
             {categoryDetails?.data?.products?.map((product: any) => (
-              <Product key={product?.id} product={product} />
+              <Product isMiles={true} key={product?.id} product={product} />
             ))}
           </div>
         )}
