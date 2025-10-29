@@ -12,7 +12,7 @@ const MagicMarkers = () => {
     if (!search) {
       return toast.error("Please enter location");
     }
-    router.push(`/location/${search}`);
+    router.push(`/shop-location/${search}`);
   };
 
   return (
@@ -21,7 +21,7 @@ const MagicMarkers = () => {
         <div className="h-[500px] relative">
           {/* Iframe */}
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.902653997918!2d90.390686!3d23.750867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b91d0e4a30af%3A0x93dd84c6b9c5f8b1!2sDhaka!5e0!3m2!1sen!2sbd!4v1691261744101!5m2!1sen!2sbd"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d0!2d-97.7431!3d30.2672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8644b54a1f5678ef%3A0x1234567890abcdef!2sAustin%2C%20TX!5e0!3m2!1sen!2sus!4v1691261744101!5m2!1sen!2sus"
             loading="lazy"
             className="h-full w-full border-0"
           ></iframe>

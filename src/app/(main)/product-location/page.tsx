@@ -1,26 +1,28 @@
 "use client";
+import "swiper/css";
+import "swiper/css/navigation";
 import {
   getCategoryDetails,
   getMembershipSpotlightClient,
   getProductCategoriesClient,
 } from "@/Hooks/api/cms_api";
-import "swiper/css";
-import React, { useState } from "react";
 import Image from "next/image";
-import "swiper/css/navigation";
+import useAuth from "@/Hooks/useAuth";
 import { Navigation } from "swiper/modules";
-import { AiOutlineFileUnknown } from "react-icons/ai";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import Container from "@/Components/Common/Container";
-import Product from "@/Components/Common/Product";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { ProductSkeleton } from "@/Components/Loader/Loader";
-import { SingleShopSkeleton } from "@/Components/Loader/Loader";
-import { FaCheck } from "react-icons/fa6";
-import MagicMarkers from "@/Components/PageComponents/mainPages/homePageComponents/MagicMarkers";
 import Subscribe from "@/Components/PageComponents/mainPages/homePageComponents/Subscribe";
 import CommunityMember from "@/Components/PageComponents/mainPages/homePageComponents/CommunityMember";
-import useAuth from "@/Hooks/useAuth";
+import Product from "@/Components/Common/Product";
+import Container from "@/Components/Common/Container";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa6";
+import {
+  ProductSkeleton,
+  SingleShopSkeleton,
+} from "@/Components/Loader/Loader";
+import { AiOutlineFileUnknown } from "react-icons/ai";
+import ProductLocation from "@/Components/PageComponents/mainPages/shopPageComponents/ProductLocation";
 
 type categoryItem = {
   id: number;
@@ -29,10 +31,14 @@ type categoryItem = {
   icon: string;
 };
 
-const page = ({ params }: any) => {
-  const id = Number(params?.id);
+const page = () => {
+  // State
+  const [categoryId, setCategoryId] = useState<number | null>(null);
+
+  // Hooks
   const { latitude, longitude } = useAuth();
-  const [categoryId, setCategoryId] = useState<number>(id);
+
+  // Queries
   const { data: spotlightData } = getMembershipSpotlightClient();
   const { data: allCategory, isLoading: categoryLoading } =
     getProductCategoriesClient();
@@ -42,9 +48,14 @@ const page = ({ params }: any) => {
     longitude
   );
 
+  useEffect(() => {
+    setCategoryId(allCategory?.data[0]?.id);
+  }, [allCategory]);
+
   return (
     <>
-      <MagicMarkers />
+      {/* Product Location */}
+      <ProductLocation />
 
       {/* All Categories */}
       <section className="mb-20">
@@ -159,15 +170,18 @@ const page = ({ params }: any) => {
         ) : (
           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
             {categoryDetails?.data?.products?.map((product: any) => (
-              <Product key={product?.id} product={product} />
+              <Product key={product?.id} product={product} isMiles={true} />
             ))}
           </div>
         )}
       </Container>
 
-      <div className="py-16">
-        <CommunityMember data={spotlightData?.data} has_community={true} />
+      {/* Community Member */}
+      <div className="my-20">
+        <CommunityMember data={spotlightData?.data} />
       </div>
+
+      {/* Subscribe */}
       <Subscribe />
     </>
   );

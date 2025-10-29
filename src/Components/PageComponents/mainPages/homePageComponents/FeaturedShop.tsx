@@ -31,10 +31,8 @@ const FeaturedShops = () => {
   const { latitude, longitude } = useAuth();
   const { data: featuredData, isLoading } = getFeaturedShops(
     latitude,
-    longitude,
-    10
+    longitude
   );
-  console.log(featuredData?.data);
 
   return (
     <section className="mt-50 md:mt-0 py-20">

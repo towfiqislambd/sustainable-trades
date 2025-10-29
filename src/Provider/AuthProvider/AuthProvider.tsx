@@ -4,11 +4,13 @@ import useLocalStorage from "@/Hooks/useLocalStorage";
 import { createContext, ReactNode, useEffect, useState } from "react";
 
 interface AuthContextValue {
+  search: string;
   loading: boolean;
   user: any;
   token: string | null;
   setToken: (token: string | null) => void;
   clearToken: () => void;
+  setSearch: any;
   latitude: any;
   longitude: any;
   setLatitude: any;
@@ -23,6 +25,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const [token, setToken, clearToken] = useLocalStorage("token", null);
   const [latitude, setLatitude] = useLocalStorage("lat", null);
   const [longitude, setLongitude] = useLocalStorage("lng", null);
+  const [search, setSearch] = useState<string>("");
   const { data: userData, isLoading: loadingUserData } = useGetUserData(token);
 
   useEffect(() => {
@@ -49,10 +52,12 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const contextValue: AuthContextValue = {
     loading,
     user,
+    search,
     token,
     latitude,
     longitude,
     setToken,
+    setSearch,
     setLatitude,
     setLongitude,
     clearToken,

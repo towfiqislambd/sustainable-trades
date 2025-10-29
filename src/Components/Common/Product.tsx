@@ -12,7 +12,14 @@ import { CgSpinnerTwo } from "react-icons/cg";
 import { LuLoaderPinwheel } from "react-icons/lu";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useAddFavorite, useAddToCart } from "@/Hooks/api/cms_api";
-import { AddToCartSvg, DollarSvg, SignSvg } from "../Svg/SvgContainer";
+import {
+  AddToCartSvg,
+  DollarSvg,
+  LocationSvg,
+  LocationSvg1,
+  LocationTwoSvg,
+  SignSvg,
+} from "../Svg/SvgContainer";
 
 type imageItem = {
   id: number;
@@ -21,6 +28,7 @@ type imageItem = {
 
 type ProductData = {
   id?: number;
+  distance: number;
   images?: imageItem[];
   product_name?: string;
   product_price?: string;
@@ -35,6 +43,7 @@ type ProductProps = {
   has_wishlist?: boolean;
   has_cart?: boolean;
   has_slider?: boolean;
+  isMiles?: boolean;
 };
 
 const Product = ({
@@ -42,6 +51,7 @@ const Product = ({
   is_feathered = false,
   has_wishlist = true,
   has_cart = true,
+  isMiles = false,
 }: ProductProps) => {
   const { user } = useAuth();
   const { mutate: addFavoriteMutation, isPending } = useAddFavorite();
@@ -135,27 +145,39 @@ const Product = ({
         {product?.product_name}
       </Link>
 
-      {/* Badge */}
-      {product?.selling_option === "Trade/Barter" && (
-        <p className="size-6 shrink-0 rounded-full bg-[#D4E2CB] grid place-items-center">
-          <SignSvg />
-        </p>
-      )}
-      {product?.selling_option === "For Sale" && (
-        <p className="size-6 shrink-0 rounded-full bg-accent-red grid place-items-center">
-          <DollarSvg />
-        </p>
-      )}
-      {product?.selling_option === "For Sale or Trade Barter" && (
-        <div className="flex gap-2 items-center">
-          <p className="size-6 shrink-0 rounded-full bg-accent-red grid place-items-center">
-            <DollarSvg />
-          </p>
-          <p className="size-6 shrink-0 rounded-full bg-[#D4E2CB] grid place-items-center">
-            <SignSvg />
-          </p>
+      <div className="flex gap-2 items-center justify-between mb-3">
+        {/* Selling Option */}
+        <div>
+          {product?.selling_option === "Trade/Barter" && (
+            <p className="size-6 shrink-0 rounded-full bg-[#D4E2CB] grid place-items-center">
+              <SignSvg />
+            </p>
+          )}
+          {product?.selling_option === "For Sale" && (
+            <p className="size-6 shrink-0 rounded-full bg-accent-red grid place-items-center">
+              <DollarSvg />
+            </p>
+          )}
+          {product?.selling_option === "For Sale or Trade Barter" && (
+            <div className="flex gap-2 items-center">
+              <p className="size-6 shrink-0 rounded-full bg-accent-red grid place-items-center">
+                <DollarSvg />
+              </p>
+              <p className="size-6 shrink-0 rounded-full bg-[#D4E2CB] grid place-items-center">
+                <SignSvg />
+              </p>
+            </div>
+          )}
         </div>
-      )}
+
+        {/* Distance */}
+        {isMiles && (
+          <p className="font-semibold text-sm text-secondary-gray flex gap-1.5 items-center">
+            <LocationTwoSvg />
+            {product?.distance.toFixed(0)} miles
+          </p>
+        )}
+      </div>
 
       <div className="flex  justify-between mt-2 items-center">
         {/* Product Price */}

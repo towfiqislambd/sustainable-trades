@@ -12,12 +12,15 @@ import SimilarShop from "@/Components/PageComponents/mainPages/productDetailsCom
 import Subscribe from "@/Components/PageComponents/mainPages/homePageComponents/Subscribe";
 import ShopInfo from "@/Components/PageComponents/mainPages/productDetailsComponents/ShopInfo";
 import ProductDescription from "@/Components/PageComponents/mainPages/productDetailsComponents/ProductDescription";
+import { GoBackSvg } from "@/Components/Svg/SvgContainer";
+import { useRouter } from "next/navigation";
 
 interface Props {
   params: Promise<{ id: number }>;
 }
 
 const page = ({ params }: Props) => {
+  const router = useRouter();
   const [page, setPage] = useState<string>("");
   const { id } = use(params);
   const { data: productDetailsData, isLoading } = getProductDetails(id);
@@ -33,8 +36,19 @@ const page = ({ params }: Props) => {
   return (
     <section className="py-10">
       <Container>
+        {/* Back Btn */}
+        <button
+          onClick={() => router.back()}
+          className="flex gap-1 items-center cursor-pointer font-semibold text-primary-green mb-3 group"
+        >
+          <span className="group-hover:-translate-x-1 duration-300 transition-transform">
+            <GoBackSvg />
+          </span>
+          <span>Back</span>
+        </button>
+
         {/* Breadcrumbs */}
-        <div className="flex gap-2 items-center mb-5 text-gray-600 font-semibold">
+        <div className="flex gap-2 items-center text-gray-600 font-semibold mb-5">
           <Link href="/">Home</Link>
           <MdKeyboardArrowRight className="text-lg" />
           <button>{productDetailsData?.data?.product_name}</button>
