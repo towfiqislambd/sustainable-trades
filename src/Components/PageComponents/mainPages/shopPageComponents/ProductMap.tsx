@@ -22,7 +22,6 @@ interface ProductImage {
   product_id: number;
   image: string;
 }
-
 interface Address {
   id: number;
   shop_info_id: number;
@@ -37,14 +36,12 @@ interface Address {
   address_10_mile: boolean;
   do_not_display: boolean;
 }
-
 interface Shop {
   id: number;
   user_id: number;
   shop_name: string;
   address: Address;
 }
-
 interface Product {
   id: number;
   shop_info_id: number;
@@ -54,12 +51,43 @@ interface Product {
   images: ProductImage[];
   shop: Shop;
 }
-
 interface ProductMapProps {
   products: Product[];
   hoveredProduct?: Product | null;
   productLoading?: boolean;
 }
+
+// Spiderfy positions
+const spiderfyPositions = (lat: number, lng: number, count: number) => {
+  const positions: { lat: number; lng: number }[] = [];
+  if (count <= 8) {
+    const radius = 0.00008 * count;
+    const angleStep = (2 * Math.PI) / count;
+    for (let i = 0; i < count; i++) {
+      positions.push({
+        lat: lat + radius * Math.cos(angleStep * i),
+        lng: lng + radius * Math.sin(angleStep * i),
+      });
+    }
+  } else {
+    const maxPerCircle = 8;
+    let placed = 0;
+    const circles = Math.ceil(count / maxPerCircle);
+    for (let c = 0; c < circles; c++) {
+      const itemsInCircle = Math.min(maxPerCircle, count - placed);
+      const radius = 0.00008 * itemsInCircle;
+      const angleStep = (2 * Math.PI) / itemsInCircle;
+      for (let i = 0; i < itemsInCircle; i++) {
+        positions.push({
+          lat: lat + radius * Math.cos(angleStep * i),
+          lng: lng + radius * Math.sin(angleStep * i),
+        });
+        placed++;
+      }
+    }
+  }
+  return positions;
+};
 
 const ProductMap: React.FC<ProductMapProps> = ({
   products,
@@ -67,28 +95,24 @@ const ProductMap: React.FC<ProductMapProps> = ({
   productLoading,
 }) => {
   const [selected, setSelected] = useState<Product | null>(null);
+  const [selectedMarkerPos, setSelectedMarkerPos] = useState<{
+    lat: number;
+    lng: number;
+  } | null>(null);
   const router = useRouter();
-
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
   });
 
+  // Prepare locations
   const locations = products
     .map(product => {
       const addr = product.shop?.address;
       if (!addr) return null;
-
       const lat = parseFloat(addr.latitude ?? "0");
       const lng = parseFloat(addr.longitude ?? "0");
-
       if (!lat || !lng) return null;
-
-      return {
-        id: product.id,
-        lat,
-        lng,
-        product,
-      };
+      return { id: product.id, lat, lng, product };
     })
     .filter(
       (
@@ -104,23 +128,33 @@ const ProductMap: React.FC<ProductMapProps> = ({
   useEffect(() => {
     if (!hoveredProduct?.shop?.address) {
       setSelected(null);
+      setSelectedMarkerPos(null);
       return;
     }
-
     const addr = hoveredProduct.shop.address;
     const lat = parseFloat(addr.latitude ?? "0");
     const lng = parseFloat(addr.longitude ?? "0");
-
     if (lat && lng) {
       setSelected(hoveredProduct);
+      setSelectedMarkerPos({ lat, lng });
     } else {
       setSelected(null);
+      setSelectedMarkerPos(null);
     }
   }, [hoveredProduct]);
 
-  if (!isLoaded) {
+  if (!isLoaded)
     return <p className="text-center text-gray-500">Loading map...</p>;
-  }
+
+  // Group products by same lat/lng
+  const groupedLocations: {
+    [key: string]: { id: number; lat: number; lng: number; product: Product }[];
+  } = {};
+  locations.forEach(loc => {
+    const key = `${loc.lat}-${loc.lng}`;
+    if (!groupedLocations[key]) groupedLocations[key] = [];
+    groupedLocations[key].push(loc);
+  });
 
   return (
     <div className="relative w-full h-[550px]">
@@ -129,48 +163,56 @@ const ProductMap: React.FC<ProductMapProps> = ({
         center={defaultCenter}
         zoom={11}
       >
-        {locations.map(loc => {
-          const addr = loc.product.shop.address;
-          const { display_my_address, address_10_mile, do_not_display } = addr;
+        {Object.values(groupedLocations).map(group => {
+          const { lat, lng } = group[0];
+          const positions = spiderfyPositions(lat, lng, group.length);
 
-          if (!display_my_address && !address_10_mile && !do_not_display)
-            return null;
+          return group.map((loc, idx) => {
+            const addr = loc.product.shop.address;
+            const { display_my_address, address_10_mile, do_not_display } =
+              addr;
+            if (!display_my_address && !address_10_mile && !do_not_display)
+              return null;
 
-          return (
-            <React.Fragment key={loc.id}>
-              {(address_10_mile || do_not_display) && (
-                <Circle
-                  center={{ lat: loc.lat, lng: loc.lng }}
-                  radius={804}
-                  options={{
-                    strokeColor: "#4CAF50",
-                    strokeOpacity: 0.7,
-                    strokeWeight: 2,
-                    fillColor: "#4CAF50",
-                    fillOpacity: 0.25,
+            const markerPos = positions[idx];
+
+            return (
+              <React.Fragment key={loc.id}>
+                {(address_10_mile || do_not_display) && idx === 0 && (
+                  <Circle
+                    center={{ lat, lng }}
+                    radius={804}
+                    options={{
+                      strokeColor: "#4CAF50",
+                      strokeOpacity: 0.7,
+                      strokeWeight: 2,
+                      fillColor: "#4CAF50",
+                      fillOpacity: 0.25,
+                    }}
+                  />
+                )}
+                <Marker
+                  position={markerPos}
+                  onClick={() => {
+                    setSelected(loc.product);
+                    setSelectedMarkerPos(markerPos);
                   }}
-                  onClick={() => setSelected(loc.product)}
+                  animation={window.google.maps.Animation.DROP}
                 />
-              )}
-              <Marker
-                position={{ lat: loc.lat, lng: loc.lng }}
-                onClick={() => setSelected(loc.product)}
-              />
-            </React.Fragment>
-          );
+              </React.Fragment>
+            );
+          });
         })}
 
         {/* InfoWindow */}
-        {selected && (
+        {selected && selectedMarkerPos && (
           <InfoWindow
-            position={{
-              lat: parseFloat(selected.shop.address.latitude ?? "0"),
-              lng: parseFloat(selected.shop.address.longitude ?? "0"),
+            position={selectedMarkerPos}
+            onCloseClick={() => {
+              setSelected(null);
+              setSelectedMarkerPos(null);
             }}
-            onCloseClick={() => setSelected(null)}
-            options={{
-              pixelOffset: new google.maps.Size(0, -35),
-            }}
+            options={{ pixelOffset: new window.google.maps.Size(0, -35) }}
           >
             <div
               onClick={() => router.push(`/product-details/${selected.id}`)}
@@ -180,22 +222,18 @@ const ProductMap: React.FC<ProductMapProps> = ({
                 <div className="w-full h-24 bg-gray-200 animate-pulse" />
               ) : (
                 <>
-                  {/* Product Image */}
-                  <figure className="size-[70px] overflow-hidden shrink-0 rounded-lg">
+                  <figure className="w-[70px] h-[70px] overflow-hidden shrink-0 rounded-lg">
                     <img
                       src={`${process.env.NEXT_PUBLIC_SITE_URL}/${selected.images?.[0]?.image}`}
                       alt={selected.product_name}
-                      className="size-full object-cover rounded-lg"
+                      className="w-full h-full object-cover rounded-lg"
                     />
                   </figure>
 
                   <div>
-                    {/* Product Name */}
                     <h3 className="text-sm font-semibold text-primary-green truncate group-hover:underline">
                       {selected.product_name}
                     </h3>
-
-                    {/* Reviews */}
                     <div className="flex gap-0.5 items-center py-1">
                       {Array.from({
                         length: +(selected.reviews_avg_rating || 0),
@@ -214,8 +252,6 @@ const ProductMap: React.FC<ProductMapProps> = ({
                         />
                       ))}
                     </div>
-
-                    {/* Location */}
                     <p className="text-secondary-gray font-semibold text-xs">
                       {selected.shop.address.display_my_address
                         ? selected.shop.address.address_line_1

@@ -3,10 +3,11 @@ import React, { useEffect, useState } from "react";
 import {
   GoogleMap,
   Marker,
-  useJsApiLoader,
   InfoWindow,
   Circle,
+  useJsApiLoader,
 } from "@react-google-maps/api";
+import { useRouter } from "next/navigation";
 
 const containerStyle = {
   width: "100%",
@@ -48,105 +49,108 @@ interface Shop {
   shop_info: ShopInfo;
 }
 
-interface LocationData {
-  id: number;
-  name: string;
-  image: string;
-  lat: number;
-  lng: number;
-  visibility: {
-    displayExact: boolean;
-    withinTenMile: boolean;
-    hideLocation: boolean;
-  };
-  address: Address;
-}
-
-interface SelectedShop {
-  lat: number;
-  lng: number;
-  name: string;
-  image?: string;
-  address: Address;
-}
-
 interface ShopsMapProps {
   shops: Shop[];
   hoveredShop?: Shop | null;
   shopLoading?: boolean;
 }
 
+// Spiderfy positions for overlapping markers
+const spiderfyPositions = (lat: number, lng: number, count: number) => {
+  const positions: { lat: number; lng: number }[] = [];
+  if (count <= 8) {
+    const radius = 0.00008 * count;
+    const angleStep = (2 * Math.PI) / count;
+    for (let i = 0; i < count; i++) {
+      positions.push({
+        lat: lat + radius * Math.cos(angleStep * i),
+        lng: lng + radius * Math.sin(angleStep * i),
+      });
+    }
+  } else {
+    const maxPerCircle = 8;
+    let placed = 0;
+    const circles = Math.ceil(count / maxPerCircle);
+    for (let c = 0; c < circles; c++) {
+      const itemsInCircle = Math.min(maxPerCircle, count - placed);
+      const radius = 0.00008 * itemsInCircle;
+      const angleStep = (2 * Math.PI) / itemsInCircle;
+      for (let i = 0; i < itemsInCircle; i++) {
+        positions.push({
+          lat: lat + radius * Math.cos(angleStep * i),
+          lng: lng + radius * Math.sin(angleStep * i),
+        });
+        placed++;
+      }
+    }
+  }
+  return positions;
+};
+
 const ShopsMap: React.FC<ShopsMapProps> = ({
   shops,
   hoveredShop,
   shopLoading,
 }) => {
-  const [selected, setSelected] = useState<SelectedShop | null>(null);
+  const [selected, setSelected] = useState<Shop | null>(null);
+  const [selectedMarkerPos, setSelectedMarkerPos] = useState<{
+    lat: number;
+    lng: number;
+  } | null>(null);
+  const router = useRouter();
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
   });
 
-  const locations: LocationData[] =
-    shops
-      ?.map(shop => {
-        const info = shop.shop_info;
-        const addr = info?.address;
-        if (!addr) return null;
-
-        const lat = parseFloat(addr.latitude ?? "0");
-        const lng = parseFloat(addr.longitude ?? "0");
-        if (!lat || !lng) return null;
-
-        return {
-          id: shop.id,
-          name: info.shop_name,
-          image: info.shop_image,
-          lat,
-          lng,
-          visibility: {
-            displayExact: addr.display_my_address,
-            withinTenMile: addr.address_10_mile,
-            hideLocation: addr.do_not_display,
-          },
-          address: addr,
-        };
-      })
-      ?.filter((item): item is LocationData => item !== null) || [];
+  const locations = shops
+    .map(shop => {
+      const addr = shop.shop_info?.address;
+      if (!addr) return null;
+      const lat = parseFloat(addr.latitude ?? "0");
+      const lng = parseFloat(addr.longitude ?? "0");
+      if (!lat || !lng) return null;
+      return { id: shop.id, lat, lng, shop };
+    })
+    .filter(
+      (item): item is { id: number; lat: number; lng: number; shop: Shop } =>
+        item !== null
+    );
 
   const defaultCenter = locations[0]
     ? { lat: locations[0].lat, lng: locations[0].lng }
     : { lat: 23.78, lng: 90.39 };
 
   useEffect(() => {
-    const addr = hoveredShop?.shop_info?.address;
-    if (!addr) {
+    if (!hoveredShop?.shop_info?.address) {
       setSelected(null);
+      setSelectedMarkerPos(null);
       return;
     }
-
-    const lat = parseFloat(addr.latitude);
-    const lng = parseFloat(addr.longitude);
-
-    if (
-      addr.display_my_address ||
-      addr.address_10_mile ||
-      addr.do_not_display
-    ) {
-      setSelected({
-        lat,
-        lng,
-        name: hoveredShop.shop_info.shop_name,
-        image: hoveredShop.shop_info.shop_image,
-        address: addr,
-      });
+    const addr = hoveredShop.shop_info.address;
+    const lat = parseFloat(addr.latitude ?? "0");
+    const lng = parseFloat(addr.longitude ?? "0");
+    if (lat && lng) {
+      setSelected(hoveredShop);
+      setSelectedMarkerPos({ lat, lng });
     } else {
       setSelected(null);
+      setSelectedMarkerPos(null);
     }
   }, [hoveredShop]);
 
   if (!isLoaded)
     return <p className="text-center text-gray-500">Loading map...</p>;
+
+  // Group shops by same lat/lng
+  const groupedLocations: {
+    [key: string]: { id: number; lat: number; lng: number; shop: Shop }[];
+  } = {};
+  locations.forEach(loc => {
+    const key = `${loc.lat}-${loc.lng}`;
+    if (!groupedLocations[key]) groupedLocations[key] = [];
+    groupedLocations[key].push(loc);
+  });
 
   return (
     <div className="relative w-full h-[550px]">
@@ -155,70 +159,79 @@ const ShopsMap: React.FC<ShopsMapProps> = ({
         center={defaultCenter}
         zoom={12}
       >
-        {/* Render shop markers or radius */}
-        {locations.map(loc => {
-          const { displayExact, withinTenMile, hideLocation } = loc.visibility;
+        {Object.values(groupedLocations).map(group => {
+          const { lat, lng } = group[0];
+          const positions = spiderfyPositions(lat, lng, group.length);
 
-          // Show exact marker if display_my_address is true
-          if (displayExact) {
-            return (
-              <Marker
-                key={loc.id}
-                position={{ lat: loc.lat, lng: loc.lng }}
-                onClick={() => setSelected(loc)}
-              />
-            );
-          }
+          return group.map((loc, idx) => {
+            const addr = loc.shop.shop_info.address;
+            const { display_my_address, address_10_mile, do_not_display } =
+              addr;
+            if (!display_my_address && !address_10_mile && !do_not_display)
+              return null;
 
-          // Show 0.5-mile (~804m) radius + marker if withinTenMile OR hideLocation is true
-          if (withinTenMile || hideLocation) {
+            const markerPos = positions[idx];
+
             return (
               <React.Fragment key={loc.id}>
-                <Circle
-                  center={{ lat: loc.lat, lng: loc.lng }}
-                  radius={804} // 0.5 mile in meters
-                  options={{
-                    strokeColor: "#4CAF50",
-                    strokeOpacity: 0.7,
-                    strokeWeight: 2,
-                    fillColor: "#4CAF50",
-                    fillOpacity: 0.25,
-                  }}
-                  onClick={() => setSelected(loc)}
-                />
+                {(address_10_mile || do_not_display) && idx === 0 && (
+                  <Circle
+                    center={{ lat, lng }}
+                    radius={804} // 0.5 miles
+                    options={{
+                      strokeColor: "#4CAF50",
+                      strokeOpacity: 0.7,
+                      strokeWeight: 2,
+                      fillColor: "#4CAF50",
+                      fillOpacity: 0.25,
+                    }}
+                  />
+                )}
                 <Marker
-                  position={{ lat: loc.lat, lng: loc.lng }}
-                  onClick={() => setSelected(loc)}
+                  position={markerPos}
+                  onClick={() => {
+                    setSelected(loc.shop);
+                    setSelectedMarkerPos(markerPos);
+                  }}
+                  animation={window.google.maps.Animation.DROP}
                 />
               </React.Fragment>
             );
-          }
-
-          return null;
+          });
         })}
 
-        {/* InfoWindow for selected shop */}
-        {selected && (
+        {/* InfoWindow */}
+        {selected && selectedMarkerPos && (
           <InfoWindow
-            position={{ lat: selected.lat, lng: selected.lng }}
-            onCloseClick={() => setSelected(null)}
-            options={{
-              pixelOffset: new google.maps.Size(0, -40),
+            position={selectedMarkerPos}
+            onCloseClick={() => {
+              setSelected(null);
+              setSelectedMarkerPos(null);
             }}
+            options={{ pixelOffset: new window.google.maps.Size(0, -40) }}
           >
-            <div className="flex items-center gap-2">
+            <div
+              onClick={() =>
+                router.push(
+                  `/shop-details?view=customer&id=${selected.shop_info.user_id}&listing_id=${selected.shop_info.id}`
+                )
+              }
+              className="flex items-center gap-2 cursor-pointer group"
+            >
               {shopLoading ? (
                 <div className="w-24 h-12 bg-gray-200 animate-pulse rounded-md" />
               ) : (
                 <>
-                  {selected.image && (
+                  {selected.shop_info.shop_image && (
                     <img
-                      src={`${process.env.NEXT_PUBLIC_SITE_URL}/${selected.image}`}
-                      alt={selected.name}
+                      src={`${process.env.NEXT_PUBLIC_SITE_URL}/${selected.shop_info.shop_image}`}
+                      alt={selected.shop_info.shop_name}
                       className="w-12 h-12 object-cover rounded-md"
                     />
                   )}
-                  <span className="text-sm font-semibold">{selected.name}</span>
+                  <span className="text-sm font-semibold group-hover:underline text-primary-green">
+                    {selected.shop_info.shop_name}
+                  </span>
                 </>
               )}
             </div>
