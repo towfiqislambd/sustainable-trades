@@ -644,6 +644,7 @@ export const getAllProducts = (search: string) => {
   return useClientApi({
     method: "get",
     key: ["all-products", search],
+    enabled: !!search,
     endpoint: "/api/all-products",
     params: { search },
     queryOptions: {
