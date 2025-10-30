@@ -55,6 +55,7 @@ const ProductLocation = () => {
                         src={`${process.env.NEXT_PUBLIC_SITE_URL}/${product?.images[0]?.image}`}
                         alt="product_image"
                         fill
+                        unoptimized
                         className="size-full object-cover rounded-lg"
                       />
                     </figure>
@@ -88,7 +89,7 @@ const ProductLocation = () => {
 
                         {/* Distance */}
                         <p className="text-secondary-gray font-semibold text-sm mb-0.5">
-                          {product?.distance?.toFixed(0)} mi
+                          {product?.distance?.toFixed(1)} mi
                         </p>
 
                         {/* Selling Option */}

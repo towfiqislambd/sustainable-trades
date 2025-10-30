@@ -15,8 +15,6 @@ import { useAddFavorite, useAddToCart } from "@/Hooks/api/cms_api";
 import {
   AddToCartSvg,
   DollarSvg,
-  LocationSvg,
-  LocationSvg1,
   LocationTwoSvg,
   SignSvg,
 } from "../Svg/SvgContainer";
@@ -130,6 +128,7 @@ const Product = ({
                 src={`${process.env.NEXT_PUBLIC_SITE_URL}/${img?.image}`}
                 alt="product image"
                 fill
+                unoptimized
                 className="w-full h-full object-cover rounded-lg"
               />
             </figure>
@@ -174,7 +173,7 @@ const Product = ({
         {isMiles && (
           <p className="font-semibold text-sm text-secondary-gray flex gap-1.5 items-center">
             <LocationTwoSvg />
-            {product?.distance.toFixed(0)} miles
+            {product?.distance.toFixed(1)} miles
           </p>
         )}
       </div>

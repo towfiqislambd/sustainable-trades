@@ -89,6 +89,7 @@ const ShopBanner = ({ id, data }: BannerProps) => {
                   src={`${process.env.NEXT_PUBLIC_SITE_URL}/${data?.shop_info?.shop_image}`}
                   alt="profile image"
                   fill
+                  unoptimized
                   className="size-full rounded-full object-cover"
                 />
               </figure>
@@ -198,6 +199,7 @@ const ShopBanner = ({ id, data }: BannerProps) => {
                     src={`${process.env.NEXT_PUBLIC_SITE_URL}/${data?.avatar}`}
                     alt="author"
                     fill
+                    unoptimized
                     className="size-full rounded-full"
                   />
                 ) : (
@@ -225,6 +227,7 @@ const ShopBanner = ({ id, data }: BannerProps) => {
                   src={`${process.env.NEXT_PUBLIC_SITE_URL}/${data?.avatar}`}
                   alt="author"
                   fill
+                  unoptimized
                   className="size-full rounded-full"
                 />
               ) : (
