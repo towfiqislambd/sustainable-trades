@@ -55,7 +55,7 @@ const page = async () => {
                     alt="shop_image"
                     fill
                     className="rounded-full object-cover"
-                    unoptimized={false}
+                    unoptimized
                   />
                 </figure>
 
