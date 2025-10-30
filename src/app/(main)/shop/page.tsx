@@ -1,108 +1,209 @@
-import React from "react";
-import Link from "next/link";
+"use client";
+import {
+  getCategoryDetails,
+  getMembershipSpotlightClient,
+  getNearbyProducts,
+  getProductCategoriesClient,
+} from "@/Hooks/api/cms_api";
+import "swiper/css";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { IoLink } from "react-icons/io5";
-import { FaRegStar, FaStar } from "react-icons/fa";
-import { getAllShops } from "@/Hooks/api/cms_api";
+import "swiper/css/navigation";
+import useAuth from "@/Hooks/useAuth";
+import { FaCheck } from "react-icons/fa6";
+import { Navigation } from "swiper/modules";
+import { AiOutlineFileUnknown } from "react-icons/ai";
+import { Swiper, SwiperSlide } from "swiper/react";
 import Container from "@/Components/Common/Container";
+import Product from "@/Components/Common/Product";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { ProductSkeleton } from "@/Components/Loader/Loader";
+import { SingleShopSkeleton } from "@/Components/Loader/Loader";
+import MagicMarkers from "@/Components/PageComponents/mainPages/homePageComponents/MagicMarkers";
+import Subscribe from "@/Components/PageComponents/mainPages/homePageComponents/Subscribe";
+import CommunityMember from "@/Components/PageComponents/mainPages/homePageComponents/CommunityMember";
 
-type FeaturedItem = {
+type categoryItem = {
   id: number;
-  shop_info: {
-    id: number;
-    user_id: number;
-    shop_image: string;
-    shop_name: string;
-    avg_rating: number;
-    address: {
-      address_line_1: string;
-      display_my_address: string;
-      address_10_mile: string;
-      city: string;
-      state: string;
-    };
-  };
+  name: string;
+  image: string;
+  icon: string;
 };
 
-const page = async () => {
-  const allShops = await getAllShops();
+const page = () => {
+  const { latitude, longitude } = useAuth();
+  const [categoryId, setCategoryId] = useState<number | null>(null);
+  const { data: spotlightData } = getMembershipSpotlightClient();
+  const { data: allCategory, isLoading: categoryLoading } =
+    getProductCategoriesClient();
+  const { data: categoryDetails, isLoading } = getCategoryDetails(
+    categoryId,
+    latitude,
+    longitude
+  );
+  const { data: nearbyProducts, isLoading: nearbyProductsLoading } =
+    getNearbyProducts(latitude, longitude);
+
+  useEffect(() => {
+    setCategoryId(allCategory?.data[0]?.id);
+  }, [allCategory]);
 
   return (
-    <section className="mt-50 md:mt-0 py-20">
+    <>
+      <MagicMarkers />
+
+      {/* All Categories */}
+      <section className="mb-20">
+        <Container>
+          <h2 className="text-2xl md:text-3xl font-semibold text-secondary-black mb-10 capitalize">
+            Explore Category Wise Sustainable Products Nearby
+          </h2>
+
+          <div className="relative">
+            <button className="swiper-button-prev-custom absolute left-0 top-1/2 z-10 -translate-y-1/2 shadow-md rounded-full p-3 bg-primary-green text-white transition cursor-pointer">
+              <FaArrowLeft />
+            </button>
+
+            <button className="swiper-button-next-custom absolute right-0 top-1/2 z-10 -translate-y-1/2 shadow-md rounded-full p-3 bg-primary-green text-white transition cursor-pointer">
+              <FaArrowRight />
+            </button>
+
+            <Swiper
+              modules={[Navigation]}
+              spaceBetween={20}
+              navigation={{
+                nextEl: ".swiper-button-next-custom",
+                prevEl: ".swiper-button-prev-custom",
+              }}
+              breakpoints={{
+                320: {
+                  slidesPerView: 1,
+                },
+
+                500: {
+                  slidesPerView: 2,
+                  spaceBetween: 10,
+                },
+                640: {
+                  slidesPerView: 3,
+                  spaceBetween: 20,
+                },
+
+                1024: {
+                  slidesPerView: 4,
+                  spaceBetween: 30,
+                },
+
+                1280: {
+                  slidesPerView: 5,
+                  spaceBetween: 40,
+                },
+              }}
+              className="!mx-10"
+            >
+              {categoryLoading
+                ? Array.from({ length: 7 }).map((_, index) => (
+                    <SwiperSlide key={index}>
+                      <SingleShopSkeleton />
+                    </SwiperSlide>
+                  ))
+                : allCategory?.data?.map((item: categoryItem) => (
+                    <SwiperSlide key={item?.id}>
+                      <div
+                        onClick={() => setCategoryId(item?.id)}
+                        className="text-center"
+                      >
+                        <figure className="size-44 mx-auto cursor-pointer rounded-full overflow-hidden relative">
+                          <Image
+                            src={`${process.env.NEXT_PUBLIC_SITE_URL}/${item?.image}`}
+                            alt="shop_image"
+                            fill
+                            className="size-full rounded-full object-cover hover:scale-105 duration-500 transition-transform"
+                          />
+                          {categoryId === item?.id && (
+                            <div className="absolute inset-0 bg-black/45 grid place-items-center text-4xl text-gray-200">
+                              <FaCheck />
+                            </div>
+                          )}
+                        </figure>
+
+                        <h3 className="mt-4 text-primary-green font-semibold truncate">
+                          {item?.name}
+                        </h3>
+                      </div>
+                    </SwiperSlide>
+                  ))}
+            </Swiper>
+          </div>
+        </Container>
+      </section>
+
+      {/* Geographically Closest Listings */}
       <Container>
-        {/* Title */}
-        <h3 className="section_title md:text-start text-center ">All Shops</h3>
+        {isLoading ? (
+          <h2 className="w-60 h-6 mb-7 animate-pulse bg-gray-200 rounded"></h2>
+        ) : (
+          <h2 className="text-2xl md:text-3xl font-semibold text-secondary-black mb-7">
+            {categoryDetails?.data?.category?.name}
+          </h2>
+        )}
 
-        {/* Shops */}
-        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-          {allShops?.data?.length > 0 ? (
-            allShops?.data?.map(({ id, shop_info }: FeaturedItem) => (
-              <Link
-                key={id}
-                className="text-center space-y-1.5"
-                href={`/shop-details?view=${"customer"}&id=${
-                  shop_info?.user_id
-                }&listing_id=${shop_info?.id}`}
-              >
-                {/* Shop Image */}
-                <figure className="size-30 xl:size-64 mx-auto cursor-pointer rounded-full border border-gray-100 group relative">
-                  <div className="absolute bg-black/50 size-full rounded-full inset-0 opacity-0 duration-500 transition-all group-hover:opacity-100 flex justify-center items-center group-hover:backdrop-blur-[1px]">
-                    <IoLink className="text-white text-2xl" />
-                  </div>
-
-                  <Image
-                    src={`${process.env.NEXT_PUBLIC_SITE_URL}/${shop_info?.shop_image}`}
-                    alt="shop_image"
-                    fill
-                    className="rounded-full object-cover"
-                    unoptimized
-                  />
-                </figure>
-
-                {/* Shop Name */}
-                <h3 className="mt-4 text-sm md:text-xl font-semibold text-primary-green">
-                  {shop_info?.shop_name}
-                </h3>
-
-                {/* Shop Reviews */}
-                <div className="flex gap-2 items-center justify-center">
-                  <div className="flex gap-1 items-center justify-center">
-                    {Array.from({ length: +shop_info?.avg_rating }).map(
-                      (_, idx) => (
-                        <FaStar
-                          key={idx}
-                          className="text-primary-green text-xs md:text-base"
-                        />
-                      )
-                    )}
-                    {Array.from({ length: 5 - +shop_info?.avg_rating }).map(
-                      (_, index) => (
-                        <FaRegStar
-                          key={index}
-                          className="text-primary-green text-sm"
-                        />
-                      )
-                    )}
-                  </div>
-                  <p className="text-sm font-semibold text-secondary-black">
-                    ({shop_info?.avg_rating})
-                  </p>
-                </div>
-
-                {/* Shop Address */}
-                <h4 className="text-secondary-black text-xs md:text-[15px]">
-                  {shop_info?.address?.display_my_address
-                    ? shop_info?.address?.address_line_1
-                    : `${shop_info?.address?.city}, ${shop_info?.address?.state}`}
-                </h4>
-              </Link>
-            ))
-          ) : (
-            <p className="text-lg font-semibold text-red-500">No shop found</p>
-          )}
-        </div>
+        {isLoading ? (
+          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+            {Array.from({ length: 4 }).map((_, idx) => (
+              <ProductSkeleton key={idx} />
+            ))}
+          </div>
+        ) : categoryDetails?.data?.products?.length === 0 ||
+          !categoryDetails ? (
+          <div className="flex flex-col justify-center items-center gap-3 lg:gap-4 text-center py-5 md:py-20">
+            <AiOutlineFileUnknown className="text-xl md:text-3xl lg:text-6xl text-gray-500" />
+            <p className="text-gray-600 text-sm md:text-lg font-semibold">
+              No products found!!
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+            {categoryDetails?.data?.products?.map((product: any) => (
+              <Product key={product?.id} product={product} />
+            ))}
+          </div>
+        )}
       </Container>
-    </section>
+
+      {/* Nearby Listings */}
+      <Container>
+        <h2 className="mt-16 text-2xl md:text-3xl font-semibold text-secondary-black mb-10 capitalize">
+          Sustainable Products & Services Nearby
+        </h2>
+
+        {nearbyProductsLoading ? (
+          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+            {Array.from({ length: 4 }).map((_, idx) => (
+              <ProductSkeleton key={idx} />
+            ))}
+          </div>
+        ) : nearbyProducts?.data?.length === 0 || !nearbyProducts ? (
+          <div className="flex flex-col justify-center items-center gap-3 lg:gap-4 text-center py-5 md:py-20">
+            <AiOutlineFileUnknown className="text-xl md:text-3xl lg:text-6xl text-gray-500" />
+            <p className="text-gray-600 text-sm md:text-lg font-semibold">
+              No products found!!
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+            {nearbyProducts?.data?.map((product: any) => (
+              <Product isMiles={true} key={product?.id} product={product} />
+            ))}
+          </div>
+        )}
+      </Container>
+
+      <div className="py-16">
+        <CommunityMember data={spotlightData?.data} has_community={true} />
+      </div>
+      <Subscribe />
+    </>
   );
 };
 

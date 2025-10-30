@@ -22,7 +22,7 @@ type Participant = {
 
 type conversationItem = {
   id: number;
-  unread_message_count: number;
+  unread_messages_count: number;
   participants: Participant[];
   last_message: {
     message: string;
@@ -120,7 +120,7 @@ const InboxMessage = ({ search }: any) => {
                 </p>
 
                 <p className="bg-[#1AA884] text-white font-bold px-2 text-sm py-1 rounded grid place-items-center">
-                  {conversation?.unread_message_count}
+                  {conversation?.unread_messages_count}
                 </p>
               </div>
             </Link>

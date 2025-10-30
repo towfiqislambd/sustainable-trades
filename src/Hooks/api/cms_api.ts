@@ -601,15 +601,6 @@ export const getNearbyProducts = (lat: number, lng: number) => {
   });
 };
 
-// Top Vendors
-export const getTopVendors = () => {
-  return useClientApi({
-    method: "get",
-    key: ["top-vendors"],
-    endpoint: `/api/top-vendors`,
-  });
-};
-
 // Shop Reviews
 export const getShopReviews = (id: number, page: string) => {
   return useClientApi({

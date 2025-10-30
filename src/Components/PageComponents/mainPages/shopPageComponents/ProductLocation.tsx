@@ -89,7 +89,7 @@ const ProductLocation = () => {
 
                         {/* Distance */}
                         <p className="text-secondary-gray font-semibold text-sm mb-0.5">
-                          {product?.distance?.toFixed(0)} mi
+                          {product?.distance?.toFixed(1)} mi
                         </p>
 
                         {/* Selling Option */}
