@@ -4,7 +4,7 @@ import Link from "next/link";
 import echo from "@/lib/echo";
 import Image from "next/image";
 import useAuth from "@/Hooks/useAuth";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { getAllConversation } from "@/Hooks/api/chat_api";
 import { IoChatboxEllipsesOutline } from "react-icons/io5";
@@ -31,10 +31,9 @@ type conversationItem = {
   };
 };
 
-const InboxMessage = ({ search }: any) => {
+const InboxMessage = ({ search, activeTab }: any) => {
   const { user } = useAuth();
   const queryClient = useQueryClient();
-  const [activeTab, setActiveTab] = useState<string>("");
   const { data: allConversation, isLoading } = getAllConversation({
     name: search,
     sent: activeTab === "sent" ? "sent" : "",

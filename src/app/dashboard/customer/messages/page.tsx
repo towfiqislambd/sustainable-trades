@@ -58,7 +58,7 @@ const page = () => {
       {activeTab === "local pickup" ? (
         <LocalPickupMessage />
       ) : (
-        <InboxMessage search={search} />
+        <InboxMessage search={search} activeTab={activeTab} />
       )}
     </>
   );
