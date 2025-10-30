@@ -22,7 +22,7 @@ type Participant = {
 
 type conversationItem = {
   id: number;
-  unread_message_count: number;
+  unread_messages_count: number;
   participants: Participant[];
   last_message: {
     message: string;
@@ -64,17 +64,7 @@ const LocalPickupMessage = () => {
           (conversation: conversationItem) => (
             <Link
               key={conversation?.id}
-              href={`/dashboard/${
-                user?.role === "vendor" &&
-                user?.membership?.membership_type === "pro"
-                  ? "pro"
-                  : user?.role === "vendor" &&
-                    user?.membership?.membership_type === "basic"
-                  ? "basic"
-                  : "customer"
-              }/messages/order-box/${
-                conversation?.participants[0]?.participant_id
-              }`}
+              href={`/dashboard/messages/order-box/${conversation?.participants[0]?.participant_id}`}
               className="border-b-2 border-gray-200 py-7 cursor-pointer duration-300 transition-all hover:bg-gray-100 px-5 flex justify-between items-center"
             >
               {/* Left Section */}
@@ -120,7 +110,7 @@ const LocalPickupMessage = () => {
                 </p>
 
                 <p className="bg-[#1AA884] text-white font-bold px-2 text-sm py-1 rounded grid place-items-center">
-                  {conversation?.unread_message_count}
+                  {conversation?.unread_messages_count}
                 </p>
               </div>
             </Link>

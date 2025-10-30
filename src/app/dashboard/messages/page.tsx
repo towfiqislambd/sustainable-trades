@@ -39,17 +39,17 @@ const page = () => {
 
       {/* Tabs */}
       <div className="flex gap-10 items-center mb-10">
-        {tabs?.map(item => (
+        {tabs?.map(tab => (
           <button
-            key={item?.id}
-            onClick={() => setActiveTab(item?.path)}
+            key={tab?.id}
+            onClick={() => setActiveTab(tab?.path)}
             className={`font-semibold cursor-pointer border-b-2 px-2 text-lg ${
-              activeTab === item?.path
+              activeTab === tab?.path
                 ? "text-secondary-black border-secondary-black"
                 : "text-light-green border-transparent"
             }`}
           >
-            {item?.label}
+            {tab?.label}
           </button>
         ))}
       </div>
@@ -58,7 +58,7 @@ const page = () => {
       {activeTab === "local pickup" ? (
         <LocalPickupMessage />
       ) : (
-        <InboxMessage search={search} />
+        <InboxMessage search={search} activeTab={activeTab} />
       )}
     </>
   );

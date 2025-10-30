@@ -19,10 +19,9 @@ export const getAllConversation = ({
     endpoint: "/api/conversation",
     params: { name, unread, sent },
     queryOptions: {
-      retry: false,
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
-      staleTime: Infinity,
+      retry: false,
     },
   });
 };

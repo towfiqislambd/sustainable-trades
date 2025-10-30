@@ -4,7 +4,7 @@ import Link from "next/link";
 import echo from "@/lib/echo";
 import Image from "next/image";
 import useAuth from "@/Hooks/useAuth";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { getAllConversation } from "@/Hooks/api/chat_api";
 import { IoChatboxEllipsesOutline } from "react-icons/io5";
@@ -22,7 +22,7 @@ type Participant = {
 
 type conversationItem = {
   id: number;
-  unread_message_count: number;
+  unread_messages_count: number;
   participants: Participant[];
   last_message: {
     message: string;
@@ -31,10 +31,9 @@ type conversationItem = {
   };
 };
 
-const InboxMessage = ({ search }: any) => {
+const InboxMessage = ({ search, activeTab }: any) => {
   const { user } = useAuth();
   const queryClient = useQueryClient();
-  const [activeTab, setActiveTab] = useState<string>("");
   const { data: allConversation, isLoading } = getAllConversation({
     name: search,
     sent: activeTab === "sent" ? "sent" : "",
@@ -66,17 +65,7 @@ const InboxMessage = ({ search }: any) => {
           (conversation: conversationItem) => (
             <Link
               key={conversation?.id}
-              href={`/dashboard/${
-                user?.role === "vendor" &&
-                user?.membership?.membership_type === "pro"
-                  ? "pro"
-                  : user?.role === "vendor" &&
-                    user?.membership?.membership_type === "basic"
-                  ? "basic"
-                  : "customer"
-              }/messages/inbox/${
-                conversation?.participants[0]?.participant_id
-              }`}
+              href={`/dashboard/messages/inbox/${conversation?.participants[0]?.participant_id}`}
               className="border-b-2 border-gray-200 py-7 cursor-pointer duration-300 transition-all hover:bg-gray-100 px-5 flex justify-between items-center"
             >
               {/* Left */}
@@ -120,7 +109,7 @@ const InboxMessage = ({ search }: any) => {
                 </p>
 
                 <p className="bg-[#1AA884] text-white font-bold px-2 text-sm py-1 rounded grid place-items-center">
-                  {conversation?.unread_message_count}
+                  {conversation?.unread_messages_count}
                 </p>
               </div>
             </Link>

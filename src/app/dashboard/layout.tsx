@@ -1,7 +1,6 @@
 "use client";
 import React, { ReactNode, useState } from "react";
 import DashboardSidebar from "@/Shared/DashboardSidebar";
-
 import {
   PEightSvg,
   PElevenSvg,
@@ -110,7 +109,7 @@ const proNavLinks = [
   {
     id: 13,
     label: "Messages",
-    path: "/dashboard/pro/messages",
+    path: "/dashboard/messages",
     icon: <PThirteenSvg />,
   },
   {
@@ -179,7 +178,7 @@ const basicNavLinks = [
   {
     id: 24,
     label: "Settings",
-    path: "/dashboard/basic/settings",
+    path: "/dashboard/settings",
     icon: <PFifteenSvg />,
   },
 ];
@@ -206,7 +205,7 @@ const customerNavLinks = [
   {
     id: 28,
     label: "Messages",
-    path: "/dashboard/customer/messages",
+    path: "/dashboard/messages",
     icon: <PThirteenSvg />,
   },
   // {
