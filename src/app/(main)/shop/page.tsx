@@ -50,11 +50,12 @@ const page = async () => {
                     <IoLink className="text-white text-2xl" />
                   </div>
 
-                  <img
+                  <Image
                     src={`${process.env.NEXT_PUBLIC_SITE_URL}/${shop_info?.shop_image}`}
                     alt="shop_image"
-                    // fill
-                    className="size-full rounded-full object-cover"
+                    fill
+                    className="rounded-full object-cover"
+                    unoptimized={false}
                   />
                 </figure>
 
