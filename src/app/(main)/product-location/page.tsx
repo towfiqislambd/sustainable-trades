@@ -123,6 +123,7 @@ const page = () => {
                             src={`${process.env.NEXT_PUBLIC_SITE_URL}/${item?.image}`}
                             alt="shop_image"
                             fill
+                            unoptimized
                             className="size-full rounded-full object-cover hover:scale-105 duration-500 transition-transform"
                           />
                           {categoryId === item?.id && (
