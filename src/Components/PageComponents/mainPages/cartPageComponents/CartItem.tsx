@@ -182,7 +182,7 @@ const CartItem = ({ item }: any) => {
         onClose={() => setShippingOptionsOpen(false)}
       >
         <ShippingOptionsModal
-          userId={item?.user_id}
+          userId={item?.shop?.user_id}
           onProceed={() => {
             setShippingOptionsOpen(false);
             setShippingAddressOpen(true);
