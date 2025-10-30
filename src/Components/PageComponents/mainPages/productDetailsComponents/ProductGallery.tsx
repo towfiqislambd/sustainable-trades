@@ -40,6 +40,7 @@ const ProductGallery = ({ data }: galleryProps) => {
                 src={`${process.env.NEXT_PUBLIC_SITE_URL}/${img?.image}`}
                 alt="thumbnail"
                 fill
+                unoptimized
                 className="w-full h-full object-cover rounded-lg"
               />
             </figure>
@@ -61,6 +62,7 @@ const ProductGallery = ({ data }: galleryProps) => {
               src={`${process.env.NEXT_PUBLIC_SITE_URL}/${img?.image}`}
               alt="main product"
               fill
+              unoptimized
               className="w-full h-full rounded-xl object-cover"
             />
           </SwiperSlide>
