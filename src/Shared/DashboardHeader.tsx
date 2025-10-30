@@ -103,14 +103,7 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
         <div className="flex gap-5 items-center">
           {/* Message */}
           <Link
-            href={`${
-              user?.role === "customer"
-                ? "messages"
-                : user?.role === "vendor" &&
-                  user?.membership?.membership_type === "pro"
-                ? "messages"
-                : "messages"
-            }`}
+            href="/dashboard/messages"
             className="cursor-pointer hidden lg:block text-accent-white"
           >
             <MessageSvg />

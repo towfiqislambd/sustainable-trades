@@ -65,17 +65,7 @@ const InboxMessage = ({ search, activeTab }: any) => {
           (conversation: conversationItem) => (
             <Link
               key={conversation?.id}
-              href={`/dashboard/${
-                user?.role === "vendor" &&
-                user?.membership?.membership_type === "pro"
-                  ? "pro"
-                  : user?.role === "vendor" &&
-                    user?.membership?.membership_type === "basic"
-                  ? "basic"
-                  : "customer"
-              }/messages/inbox/${
-                conversation?.participants[0]?.participant_id
-              }`}
+              href={`/dashboard/messages/inbox/${conversation?.participants[0]?.participant_id}`}
               className="border-b-2 border-gray-200 py-7 cursor-pointer duration-300 transition-all hover:bg-gray-100 px-5 flex justify-between items-center"
             >
               {/* Left */}

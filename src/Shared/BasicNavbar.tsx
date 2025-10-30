@@ -223,14 +223,7 @@ const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
           <div className="flex gap-5 items-center">
             {/* Message */}
             <Link
-              href={`${
-                user?.role === "customer"
-                  ? "dashboard/customer/messages"
-                  : user?.role === "vendor" &&
-                    user?.membership?.membership_type === "pro"
-                  ? "dashboard/pro/messages"
-                  : "dashboard/basic/messages"
-              }`}
+              href="/dashboard/messages"
               className="cursor-pointer text-accent-white"
             >
               <MessageSvg />
