@@ -20,6 +20,7 @@ import {
 } from "@/Components/Svg/SvgContainer";
 import Sidebar from "@/Components/Common/Sidebar";
 
+
 const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
   const navLins = [
     { id: 1, label: "Home", path: "/" },
