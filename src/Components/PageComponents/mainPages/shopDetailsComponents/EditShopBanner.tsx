@@ -130,6 +130,7 @@ const EditShopBanner = ({ shop_id, data }: BannerProps) => {
                   src={previewProfile || profileUrl}
                   alt="shop_profile"
                   fill
+                  unoptimized
                   className="object-cover rounded-full"
                 />
               )}
@@ -213,6 +214,7 @@ const EditShopBanner = ({ shop_id, data }: BannerProps) => {
                     src={`${process.env.NEXT_PUBLIC_SITE_URL}/${data?.avatar}`}
                     alt="author"
                     fill
+                    unoptimized
                     className="object-cover rounded-full"
                   />
                 ) : (

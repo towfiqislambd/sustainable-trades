@@ -79,6 +79,7 @@ const ShopReviews = ({ data, reviewLoading, setReviewPage }: ReviewProps) => {
                         src={`${process.env.NEXT_PUBLIC_SITE_URL}/${item?.user?.avatar}`}
                         alt="author_img"
                         fill
+                        unoptimized
                       />
                     ) : (
                       <span>{item?.user?.first_name?.at(0)}</span>
@@ -153,6 +154,7 @@ const ShopReviews = ({ data, reviewLoading, setReviewPage }: ReviewProps) => {
                                 alt="Reviewed img"
                                 className="w-full h-full rounded-lg"
                                 fill
+                                unoptimized
                               />
                             </figure>
                           </SwiperSlide>
@@ -174,6 +176,7 @@ const ShopReviews = ({ data, reviewLoading, setReviewPage }: ReviewProps) => {
                         alt="product image"
                         className="size-full rounded-lg"
                         fill
+                        unoptimized
                       />
                     </figure>
 
