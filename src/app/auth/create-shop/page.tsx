@@ -10,6 +10,7 @@ import StepTwo from "@/Components/PageComponents/authPages/stepForm/StepTwo";
 import StepFour from "@/Components/PageComponents/authPages/stepForm/StepFour";
 import StepFive from "@/Components/PageComponents/authPages/stepForm/StepFive";
 import StepThree from "@/Components/PageComponents/authPages/stepForm/StepThree";
+import toast from "react-hot-toast";
 
 type StepItem = {
   smLabel: string;
@@ -87,6 +88,14 @@ const page = () => {
   const CurrentStep = steps[step - 1].component;
 
   const onSubmit = async (data: any) => {
+    if (
+      (step === 3 || step === steps.length) &&
+      (!data.faqs || data.faqs.length === 0)
+    ) {
+      toast.error("Please add at least one FAQ before continuing");
+      return;
+    }
+
     if (data.faqs && Array.isArray(data.faqs)) {
       data.questions = data.faqs.map((faq: any) => faq.question);
       data.answers = data.faqs.map((faq: any) => faq.answer);

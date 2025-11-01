@@ -16,6 +16,7 @@ import {
   getProductCategoriesClient,
   getProductSubCategoriesClient,
 } from "@/Hooks/api/cms_api";
+import { useRouter } from "next/navigation";
 
 export type FormData = {
   shop_info_id: string | number;
@@ -49,6 +50,7 @@ type SubCategory = {
 };
 
 const CreateListing = () => {
+  const router = useRouter();
   const { user } = useAuth();
 
   // Determine membership dynamically
@@ -126,7 +128,7 @@ const CreateListing = () => {
     if (video) formData.append("video", video);
 
     addProduct(formData, {
-      onSuccess: () => {
+      onSuccess: (data: any) => {
         reset({
           product_name: "",
           product_price: "",
@@ -149,6 +151,9 @@ const CreateListing = () => {
         setPreviewImages([]);
         setVideo(null);
         setMetaTags([]);
+        if (data?.success) {
+          router.push("/dashboard/pro/view-listing");
+        }
       },
     });
   };

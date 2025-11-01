@@ -384,6 +384,13 @@ const StepThree = ({ step, totalSteps, setStep }: any) => {
               </div>
             </div>
           )}
+
+          {/* ✅ FAQ Required Error */}
+          {fields.length === 0 && (
+            <p className="text-red-600 text-sm mt-2">
+              Please add at least one FAQ before continuing.
+            </p>
+          )}
         </div>
 
         <li className="text-[16px] text-[#4B4A47] font-semibold list-disc mt-2">
