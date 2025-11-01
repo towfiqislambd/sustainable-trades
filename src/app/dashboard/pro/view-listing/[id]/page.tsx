@@ -180,9 +180,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
 
     setVideoUrl(
       productData.video
-        ? `${
-            process.env.NEXT_PUBLIC_SITE_URL 
-          }/${productData.video}`
+        ? `${process.env.NEXT_PUBLIC_SITE_URL}/${productData.video}`
         : null
     );
     setShowPlayButton(!productData.video);
@@ -390,6 +388,9 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
     // Trigger the mutation with typed callbacks
     updateProduct.mutate(formData, {
       onSuccess: (data: UpdateProductResponse) => {
+        if (data?.success) {
+          router.push("/dashboard/pro/view-listing");
+        }
         console.log("Update successful:", data);
         // Update local state with the new data
         updateLocalStateWithProductData(data.data);
@@ -492,6 +493,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                   src={mainImage}
                   alt="Main product preview"
                   fill
+                  unoptimized
                   className="w-full h-full object-cover rounded-lg border"
                 />
               </div>
@@ -501,6 +503,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                   src={Preview}
                   alt="No preview available"
                   fill
+                  unoptimized
                   className="w-full h-full object-cover rounded-lg border"
                 />
               </div>

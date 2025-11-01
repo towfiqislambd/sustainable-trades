@@ -23,6 +23,7 @@ const Community = async () => {
                   src={`${process.env.NEXT_PUBLIC_SITE_URL}/${item?.image}`}
                   alt={item?.shop_name}
                   fill
+                  unoptimized
                   className="w-full h-full rounded-tl-xl rounded-tr-xl lg:rounded-tr-none lg:rounded-l-xl object-cover"
                 />
               </figure>
