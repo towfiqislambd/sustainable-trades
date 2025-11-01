@@ -202,6 +202,7 @@ export default function Page() {
                       alt={p.name}
                       height={60}
                       width={60}
+                      unoptimized
                       className="h-[80px] w-[100px] rounded-lg"
                     />
                     {p.name}
