@@ -1,50 +1,60 @@
 import React from "react";
 import Link from "next/link";
-import p1 from "@/Assets/p1.jpg";
 import Image, { StaticImageData } from "next/image";
-import { DollarSvg, LocationTwoSvg } from "../Svg/SvgContainer";
+import { LocationTwoSvg } from "../Svg/SvgContainer";
 
 type ShopData = {
   id: number;
+  user_id: number;
   shop_image: string | StaticImageData;
   shop_name: string;
-  shop_location: string;
+  address: {
+    display_my_address: boolean;
+    address_line_1: string;
+    city: string;
+    state: string;
+  };
 };
 
 type ShopProps = {
-  shop: ShopData;
+  shop: {
+    shop: ShopData;
+  };
 };
 
 const Shop = ({ shop }: ShopProps) => {
   return (
     <Link
-      href={`/shop-details/1`}
+      href={`/shop-details?view=${"customer"}&id=${
+        shop?.shop?.user_id
+      }&listing_id=${shop?.shop?.id}`}
       className="rounded-t-lg relative block hover:-translate-y-2 duration-400 transition-transform"
     >
       {/* Shop Image */}
-      <figure className="w-full h-[200px] md:h-[250px rounded-lg border border-gray-100 relative">
+      <figure className="w-full h-[200px] md:h-[270px] rounded-lg border border-gray-100 relative">
         <div className="absolute inset-0 bg-black/20 rounded-lg" />
         <Image
-          src={p1}
+          src={`${process.env.NEXT_PUBLIC_SITE_URL}/${shop?.shop?.shop_image}`}
           alt="product image"
+          fill
+          unoptimized
           className="w-full h-full object-cover rounded-lg"
         />
       </figure>
 
       {/* Shop Name */}
       <h3 className="text-primary-green text-xl font-semibold py-1 truncate">
-        {shop?.shop_name}
+        {shop?.shop?.shop_name}
       </h3>
-
-      {/* Badge */}
-      {/* <p className="size-6 rounded-full bg-accent-red grid place-items-center">
-        <DollarSvg />
-      </p> */}
 
       {/* Shop Price */}
       <div className="flex mt-2 gap-2 items-center">
         <LocationTwoSvg />
-        <p className="text-secondary-black">{shop?.shop_location}</p>
+        <p className="text-secondary-black">
+          {shop?.shop?.address?.display_my_address
+            ? shop?.shop?.address?.address_line_1
+            : `${shop?.shop?.address?.city}, ${shop?.shop?.address?.state}`}
+        </p>
       </div>
     </Link>
   );

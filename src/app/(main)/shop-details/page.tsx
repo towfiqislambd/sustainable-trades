@@ -61,6 +61,7 @@ const page = () => {
     search,
     page
   );
+  console.log(allListings);
 
   return (
     <>

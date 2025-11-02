@@ -5,6 +5,21 @@ import Container from "@/Components/Common/Container";
 import { RightSvg } from "@/Components/Svg/SvgContainer";
 import { getSpotlightData } from "@/Hooks/api/cms_api";
 
+type SpotlightItem = {
+  id: number;
+  shop_name: string;
+  image: string;
+  created_at: string;
+  name: string;
+  shop_description: string;
+  user: {
+    shop_info: {
+      id: number;
+      user_id: number;
+    };
+  };
+};
+
 const Community = async () => {
   const spotlightData = await getSpotlightData();
 
@@ -12,9 +27,9 @@ const Community = async () => {
     <section className="py-5 md:py-10">
       <Container>
         <div className="space-y-6">
-          {spotlightData?.data?.map((item: any) => (
+          {spotlightData?.data?.map((item: SpotlightItem) => (
             <div
-              key={item.id}
+              key={item?.id}
               className="rounded-xl flex flex-col lg:flex-row lg:items-center border border-gray-300"
             >
               {/* Left - Spotlight Image */}
@@ -57,7 +72,9 @@ const Community = async () => {
 
                 {/* View Shop Btn */}
                 <Link
-                  href={`/shop-details/${item?.user_id}`}
+                  href={`/shop-details?view=${"customer"}&id=${
+                    item?.user?.shop_info?.user_id
+                  }&listing_id=${item?.user?.shop_info?.id}`}
                   className="px-4 text-[12px] py-2 rounded-lg font-semibold flex gap-2 items-center bg-[#D4E2CB] text-primary-green w-fit cursor-pointer duration-500 transition-transform hover:scale-105"
                 >
                   View Shop
