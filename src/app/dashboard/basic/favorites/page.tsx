@@ -69,15 +69,20 @@ const Favourites = () => {
             wishlistProducts.map((item: any) => (
               <Product
                 key={item?.id}
+                is_feathered={true}
                 product={
                   {
                     id: item?.product?.id,
                     product_name: item?.product?.product_name,
+                    product_quantity: item?.product?.product_quantity,
                     product_price: item?.product?.product_price,
+                    out_of_stock: item?.product?.out_of_stock,
+                    unlimited_stock: item?.product?.unlimited_stock,
+                    is_favorite: item?.product?.is_favorite,
+                    selling_option: item?.product?.selling_option,
                     images: item?.product?.images || [],
                   } as any
                 }
-                is_feathered={true}
               />
             ))
           ) : (
