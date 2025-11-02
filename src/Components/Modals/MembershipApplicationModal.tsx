@@ -142,6 +142,10 @@ const MembershipApplicationModal = ({ setOpen }: any) => {
             placeholder="Write a short description"
             {...register("shop_description", {
               required: "Shop Description is required",
+              maxLength: {
+                value: 600,
+                message: "Description cannot exceed 600 characters",
+              },
             })}
           ></textarea>
           {errors.shop_description && (

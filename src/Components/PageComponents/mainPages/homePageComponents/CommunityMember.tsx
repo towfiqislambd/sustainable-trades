@@ -3,9 +3,9 @@ import Container from "@/Components/Common/Container";
 import Image from "next/image";
 import React, { useState } from "react";
 import Modal from "@/Components/Common/Modal";
-import MembershipApplicationModal from "@/Components/Modals/MembershipApplicationModal";
 import Link from "next/link";
 import useAuth from "@/Hooks/useAuth";
+import MembershipApplicationModal from "@/Components/Modals/MembershipApplicationModal";
 
 type communityItem = {
   id: number;
@@ -14,6 +14,12 @@ type communityItem = {
   user_id: number;
   image: string;
   shop_name: string;
+  user: {
+    shop_info: {
+      id: number;
+      user_id: number;
+    };
+  };
 };
 
 interface CommunityProps {
@@ -42,7 +48,7 @@ const CommunityMember = ({ data, has_community }: CommunityProps) => {
           </div>
 
           {/* Right */}
-          <div className="flex-1 bg-primary-green rounded-br-lg md:rounded-tr-lg md:rounded-br-lg flex flex-col gap-4 justify-center p-5 md:p-10">
+          <div className="flex-1 bg-primary-green rounded-br-lg md:rounded-tr-lg md:rounded-br-lg flex flex-col gap-3 justify-center p-5 md:p-10">
             <h2 className="text-accent-white text-lg md:text-xl lg:text-2xl xl:text-4xl font-semibold">
               Community Member Spotlight
             </h2>
@@ -53,7 +59,7 @@ const CommunityMember = ({ data, has_community }: CommunityProps) => {
             </h3>
 
             {/* Shop Name */}
-            <h3 className="text-accent-white text-xl">
+            <h3 className="text-accent-white text-lg">
               {latestSpotlight?.shop_name}
             </h3>
 
@@ -63,7 +69,9 @@ const CommunityMember = ({ data, has_community }: CommunityProps) => {
             </p>
 
             <Link
-              href={`/shop-details?view=${"customer"}&id=${""}&listing_id=${""}`}
+              href={`/shop-details?view=${"customer"}&id=${
+                latestSpotlight?.user?.shop_info?.user_id
+              }&listing_id=${latestSpotlight?.user?.shop_info?.id}`}
               className="w-full lg:w-[416px] text-center block duration-500 transition-all border text-sm md:text-lg text-secondary-black cursor-pointer md:py-3 py-2 bg-accent-white rounded-lg shadow-lg hover:scale-105"
             >
               View Their Shop

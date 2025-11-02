@@ -33,6 +33,8 @@ type ProductData = {
   is_favorite?: boolean;
   selling_option?: string;
   product_quantity?: number;
+  unlimited_stock?: boolean;
+  out_of_stock?: boolean;
 };
 
 type ProductProps = {
@@ -99,7 +101,11 @@ const Product = ({
       )}
 
       {/* Stock Info */}
-      {product?.product_quantity ? (
+      {product?.unlimited_stock ? (
+        <button className="absolute top-3 left-3 shadow-lg font-medium px-3 py-1 rounded-full bg-primary-green text-white z-10 text-sm">
+          In Stock
+        </button>
+      ) : !product?.out_of_stock && Number(product?.product_quantity) > 0 ? (
         <button className="absolute top-3 left-3 shadow-lg font-medium px-3 py-1 rounded-full bg-primary-green text-white z-10 text-sm">
           In Stock
         </button>
@@ -189,10 +195,16 @@ const Product = ({
           <button
             onClick={user ? handleAddToCart : handleBuyNow}
             disabled={
-              addCardPending || product?.selling_option === "Trader/Barter"
+              addCardPending ||
+              product?.selling_option === "Trader/Barter" ||
+              (!product?.unlimited_stock && product?.out_of_stock) ||
+              (!product?.unlimited_stock && product?.product_quantity === 0)
             }
             className={`flex gap-2 items-center px-3 py-1.5 rounded-[5px] border font-semibold text-secondary-gray duration-500 transition-all sm:text-base text-sm ${
-              addCardPending || product?.selling_option === "Trader/Barter"
+              addCardPending ||
+              product?.selling_option === "Trader/Barter" ||
+              (!product?.unlimited_stock && product?.out_of_stock) ||
+              (!product?.unlimited_stock && product?.product_quantity === 0)
                 ? "cursor-not-allowed opacity-75 border-gray-400"
                 : "cursor-pointer border-secondary-gray hover:bg-primary-green hover:text-accent-white hover:scale-95"
             }
