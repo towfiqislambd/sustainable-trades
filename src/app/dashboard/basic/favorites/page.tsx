@@ -5,6 +5,22 @@ import Product from "@/Components/Common/Product";
 import Shop from "@/Components/Common/Shop";
 import { getAllFollowList, getAllShoplist } from "@/Hooks/api/dashboard_api";
 
+type ShopItem = {
+  id: number;
+  shop: {
+    id: number;
+    user_id: number;
+    shop_image: string;
+    shop_name: string;
+    address: {
+      display_my_address: boolean;
+      address_line_1: string;
+      city: string;
+      state: string;
+    };
+  };
+};
+
 const Favourites = () => {
   const tabs: string[] = ["Follow ShopLists", "WishLists"];
   const [isActive, setIsActive] = useState("Follow ShopLists");
@@ -80,16 +96,8 @@ const Favourites = () => {
               Loading followed shops...
             </p>
           ) : followShops.length > 0 ? (
-            followShops.map((item: any) => (
-              <Shop
-                key={item?.id}
-                shop={{
-                  id: item?.shop?.id,
-                  shop_name: item?.shop?.shop_name,
-                  shop_image: item?.shop?.shop_image,
-                  shop_location: item?.shop?.shop_location,
-                }}
-              />
+            followShops.map((item: ShopItem) => (
+              <Shop key={item?.id} shop={item} />
             ))
           ) : (
             <p className="text-gray-500 text-center col-span-full">
