@@ -23,7 +23,7 @@ const MoreProduct = ({ data }: moreProductProps) => {
     <section className="my-20">
       {/* Title */}
       <h3 className="text-3xl font-semibold text-secondary-black mb-7">
-        More from this Shop
+        More from this shop
       </h3>
 
       {/* Products */}
