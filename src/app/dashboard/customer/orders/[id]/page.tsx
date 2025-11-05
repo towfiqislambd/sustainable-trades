@@ -10,7 +10,7 @@ const OrderDetailsPage = () => {
   const params = useParams();
   const orderId = params.id;
 
-  const order = orders.find((order) => order.id === orderId);
+  const order = orders.find(order => order.id === orderId);
 
   if (!order) {
     return <p className="text-red-500">Order not found</p>;
@@ -134,6 +134,7 @@ const OrderDetailsPage = () => {
                 alt={order.productName}
                 height={117}
                 width={115}
+                unoptimized
               />
               <div className="flex flex-col gap-4 md:gap-y-10">
                 <h5 className="text-[20px] font-bold text-[#000]">

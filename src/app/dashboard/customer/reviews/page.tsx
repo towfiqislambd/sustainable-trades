@@ -9,13 +9,14 @@ const Review = () => {
     <>
       <DashBoardHeader heading="Your Reviews" placeholder="Search" />
       <div className="my-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-        {testimonial.map((item) => (
+        {testimonial.map(item => (
           <div
             key={item.id}
             className="border rounded-xl p-6 shadow-md bg-white flex flex-col items-center text-center"
           >
             <Image
               src={item.avatar}
+              unoptimized
               alt={"ProductImage"}
               className="w-16 h-16 rounded-full mb-4"
             />

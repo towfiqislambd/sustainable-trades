@@ -344,6 +344,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                   src={mainImage}
                   alt="Main Preview"
                   fill
+                  unoptimized
                   className="w-full h-full object-cover rounded-lg border"
                 />
               </div>
@@ -353,6 +354,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                   src={Preview}
                   alt="Main Preview"
                   fill
+                  unoptimized
                   className="w-full h-full object-cover rounded-lg border"
                 />
               </div>

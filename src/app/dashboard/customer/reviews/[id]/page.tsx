@@ -25,7 +25,7 @@ const ReviewDetails = () => {
   if (!product) {
     return <p className="text-red-500">Order not found</p>;
   }
-  
+
   return (
     <>
       <DashBoardHeader heading="Tell Us What You Think!" placeholder="Search" />
@@ -52,6 +52,7 @@ const ReviewDetails = () => {
               alt={product.productName}
               height={117}
               width={115}
+              unoptimized
             />
             <div className="flex flex-col gap-y-10">
               <h5 className="text-[20px] font-bold text-[#000]">

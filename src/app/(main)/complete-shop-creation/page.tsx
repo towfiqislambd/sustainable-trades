@@ -14,7 +14,7 @@ const page = () => {
       <Container>
         <h2 className="auth_title">You’re All Set Up!</h2>
 
-        <Image src={setupBg} alt="setup" className="mx-auto my-9" />
+        <Image src={setupBg} alt="setup" unoptimized className="mx-auto my-9" />
 
         <p className="text-[20px] text-[#67645F] font-bold text-center max-w-[700px] w-full mx-auto">
           Now that we have your preferences all sorted out, it's time to unveil

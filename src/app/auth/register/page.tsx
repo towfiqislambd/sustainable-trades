@@ -283,6 +283,7 @@ export default function page() {
           alt="welcome_img"
           className="object-cover "
           fill
+          unoptimized
           placeholder="blur"
         />
       </div>

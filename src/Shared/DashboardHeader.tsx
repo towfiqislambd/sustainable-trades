@@ -66,6 +66,7 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
                 src={`${process.env.NEXT_PUBLIC_SITE_URL}/${siteSettings?.data?.logo}`}
                 alt="logo"
                 fill
+                unoptimized
                 className="size-full object-cover rounded-full"
               />
             </figure>
@@ -166,6 +167,7 @@ const DashboardHeader = ({ setOpen }: DashboardHeaderProps) => {
                     src={`${process.env.NEXT_PUBLIC_SITE_URL}/${user?.avatar}`}
                     alt="author"
                     fill
+                    unoptimized
                     className="size-full rounded-full"
                   />
                 ) : (

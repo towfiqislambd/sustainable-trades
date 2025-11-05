@@ -6,7 +6,6 @@ import Container from "@/Components/Common/Container";
 import PaymentOptions from "@/Components/PageComponents/mainPages/cartPageComponents/PaymentOptions";
 import ShopLocation from "@/Components/PageComponents/mainPages/cartPageComponents/ShopLocation";
 
-
 const page = () => {
   const { data: cartData, isLoading } = getProductCart();
 
@@ -15,7 +14,6 @@ const page = () => {
       <section className="my-10">
         <Container>
           <PaymentOptions data={cartData?.data} isLoading={isLoading} />
-          {/* <SimilarItems /> */}
           <ShopLocation cartData={cartData?.data} />
         </Container>
       </section>
