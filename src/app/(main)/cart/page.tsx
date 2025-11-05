@@ -8,7 +8,6 @@ import ShopLocation from "@/Components/PageComponents/mainPages/cartPageComponen
 
 const page = () => {
   const { data: cartData, isLoading } = getProductCart();
-
   return (
     <PrivateLayout>
       <section className="my-10">
