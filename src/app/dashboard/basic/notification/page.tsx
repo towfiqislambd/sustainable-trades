@@ -18,6 +18,7 @@ const page = () => {
               alt="Profile"
               height={500}
               width={500}
+              unoptimized
               className="rounded-full w-[50px] h-[50px] md:h-[80px] md:w-[80px]"
             />
             <div className="">
@@ -36,6 +37,7 @@ const page = () => {
               alt="Profile"
               height={500}
               width={500}
+              unoptimized
               className="rounded-full w-[50px] h-[50px] md:h-[80px] md:w-[80px]"
             />
             <div className="">
@@ -54,6 +56,7 @@ const page = () => {
               alt="Profile"
               height={500}
               width={500}
+              unoptimized
               className="rounded-full  w-[50px] h-[50px] md:h-[80px] md:w-[80px]"
             />
             <div className="">
@@ -72,6 +75,7 @@ const page = () => {
               alt="Profile"
               height={500}
               width={500}
+              unoptimized
               className="rounded-full w-[50px] h-[50px] md:h-[80px] md:w-[80px]"
             />
             <div className="">

@@ -189,7 +189,13 @@ const Page = () => {
             <div className="border-t border-b border-[#A7A39C] py-4">
               <div className="flex flex-col sm:flex-row gap-3.5 sm:gap-x-[30px] px-4 sm:items-center">
                 <div className="flex gap-x-2 items-center">
-                  <Image src={Activity} alt="Activity" width={40} height={40} />
+                  <Image
+                    src={Activity}
+                    unoptimized
+                    alt="Activity"
+                    width={40}
+                    height={40}
+                  />
                   <div className="">
                     <h5 className="text-[14px] text-[#000] font-semibold">
                       You
@@ -213,7 +219,13 @@ const Page = () => {
             <div className="py-4">
               <div className="flex flex-col sm:flex-row gap-3.5 sm:gap-x-[30px] px-4 sm:items-center">
                 <div className="flex gap-x-2 items-center">
-                  <Image src={Activity} alt="Activity" width={40} height={40} />
+                  <Image
+                    src={Activity}
+                    unoptimized
+                    alt="Activity"
+                    width={40}
+                    height={40}
+                  />
                   <div className="">
                     <h5 className="text-[14px] text-[#000] font-semibold">
                       Taylor Lesnicki
@@ -237,7 +249,13 @@ const Page = () => {
             <div className="py-4 border-t border-[#A7A39C]">
               <div className="flex flex-col sm:flex-row gap-3.5 sm:gap-x-[30px] px-4 sm:items-center">
                 <div className="flex gap-x-2 items-center">
-                  <Image src={Activity} alt="Activity" width={40} height={40} />
+                  <Image
+                    src={Activity}
+                    unoptimized
+                    alt="Activity"
+                    width={40}
+                    height={40}
+                  />
                   <div className="">
                     <h5 className="text-[14px] text-[#000] font-semibold">
                       Audrey Leitner
@@ -261,7 +279,13 @@ const Page = () => {
             <div className="py-4 border-t border-[#A7A39C]">
               <div className="flex flex-col sm:flex-row gap-3.5 sm:gap-x-[30px] px-4 sm:items-center">
                 <div className="flex gap-x-2 items-center">
-                  <Image src={Activity} alt="Activity" width={40} height={40} />
+                  <Image
+                    unoptimized
+                    src={Activity}
+                    alt="Activity"
+                    width={40}
+                    height={40}
+                  />
                   <div className="">
                     <h5 className="text-[14px] text-[#000] font-semibold">
                       Audrey Leitner
@@ -427,7 +451,13 @@ const Page = () => {
         <div className="py-4">
           <div className="flex  flex-col sm:flex-row justify-between px-4 sm:items-center gap-3.5 sm:gap-0">
             <div className="flex gap-x-2 items-center">
-              <Image src={Activity} alt="Activity" width={40} height={40} />
+              <Image
+                src={Activity}
+                unoptimized
+                alt="Activity"
+                width={40}
+                height={40}
+              />
               <div className="">
                 <h5 className="text-[14px] text-[#000] font-semibold">
                   Taylor Lesnicki
@@ -451,7 +481,13 @@ const Page = () => {
         <div className="py-4 border-t border-[#A7A39C]">
           <div className="flex  flex-col sm:flex-row justify-between px-4 sm:items-center gap-3.5 sm:gap-0">
             <div className="flex gap-x-2 items-center">
-              <Image src={Activity} alt="Activity" width={40} height={40} />
+              <Image
+                src={Activity}
+                alt="Activity"
+                unoptimized
+                width={40}
+                height={40}
+              />
               <div className="">
                 <h5 className="text-[14px] text-[#000] font-semibold">
                   Audrey Leitner

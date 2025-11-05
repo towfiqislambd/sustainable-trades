@@ -198,6 +198,7 @@ const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
                                 src={`${process.env.NEXT_PUBLIC_SITE_URL}/${icon}`}
                                 alt="icon"
                                 fill
+                                unoptimized
                                 className="size-full object-cover"
                               />
                             ) : (
@@ -205,6 +206,7 @@ const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
                                 src={logo}
                                 alt="logo"
                                 fill
+                                unoptimized
                                 className="size-full object-cover"
                               />
                             )}
@@ -286,6 +288,7 @@ const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
                       src={`${process.env.NEXT_PUBLIC_SITE_URL}/${user?.avatar}`}
                       alt="author"
                       fill
+                      unoptimized
                       className="size-full rounded-full"
                     />
                   ) : (

@@ -46,6 +46,7 @@ const CartItem = ({ item }: any) => {
               src={`${process.env.NEXT_PUBLIC_SITE_URL}/${item?.shop?.shop_image}`}
               alt="shop_image"
               fill
+              unoptimized
               className="size-full rounded-full"
             />
           </figure>
@@ -100,6 +101,7 @@ const CartItem = ({ item }: any) => {
                 src={`${process.env.NEXT_PUBLIC_SITE_URL}/${cart?.product?.images[0]?.image}`}
                 alt="product image"
                 fill
+                unoptimized
                 className="w-full h-full object-cover rounded-lg"
               />
             </figure>

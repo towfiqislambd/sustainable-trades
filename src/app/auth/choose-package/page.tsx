@@ -57,6 +57,7 @@ const Page = () => {
           src={welcomeBg}
           alt="welcome_img"
           fill
+          unoptimized
           className="w-full h-full object-cover"
           placeholder="blur"
         />
@@ -67,6 +68,7 @@ const Page = () => {
           src={welcomeBg}
           alt="welcome_img"
           fill
+          unoptimized
           className="w-full h-full object-cover"
           placeholder="blur"
         />
@@ -126,6 +128,7 @@ const Page = () => {
                         <Image
                           src={magic}
                           alt="magic"
+                          unoptimized
                           className="w-full h-full object-cover"
                         />
                       </figure>

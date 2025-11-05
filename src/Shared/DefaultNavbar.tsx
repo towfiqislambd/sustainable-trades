@@ -46,6 +46,7 @@ const DefaultNavbar = ({ user, siteSettings, dynamicPage }: any) => {
                   src={`${process.env.NEXT_PUBLIC_SITE_URL}/${siteSettings?.logo}`}
                   alt="logo"
                   fill
+                  unoptimized
                   className="size-full object-cover rounded-full"
                 />
               </figure>
@@ -58,7 +59,7 @@ const DefaultNavbar = ({ user, siteSettings, dynamicPage }: any) => {
               href="/auth/create-shop"
               className="px-2 lg:px-4 py-1 md:py-2 block rounded-lg bg-accent-red text-secondary-black cursor-pointer shadow-[0_3px_10px_0_rgba(0\,0\,0\,0.12),_0_3px_8px_0_rgba(0\,0\,0\,0.08)] duration-300 transition-all hover:text-accent-red hover:bg-transparent border border-accent-red hover:scale-95 text-[12px] md:text-base"
             >
-              Create a Shops
+              Create a Shop
             </Link>
 
             <button

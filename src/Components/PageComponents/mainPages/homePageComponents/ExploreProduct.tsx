@@ -33,6 +33,7 @@ const ExploreProduct = ({ data }: categoryProps) => {
                 <Image
                   src={`${process.env.NEXT_PUBLIC_SITE_URL}/${image}`}
                   alt="shop_image"
+                  unoptimized
                   fill
                   className="size-full rounded-full object-cover hover:scale-105 duration-500 transition-transform"
                 />

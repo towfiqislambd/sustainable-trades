@@ -25,7 +25,7 @@ const Proorderproduct = () => {
         <div className="flex flex-col">
           <div className="flex flex-col md:flex-row justify-between md:items-center  px-6 py-4">
             <div className="flex flex-col md:flex-row gap-x-6 md:items-center">
-              <Image src={Thumbnail} alt="Thumbnail" />
+              <Image src={Thumbnail} alt="Thumbnail" unoptimized />
               <h3 className="text-[20px] font-semibold text-[#13141D]">
                 Handmade Cocoa Butter
               </h3>
@@ -42,7 +42,7 @@ const Proorderproduct = () => {
           <div className="border border-[#CCCED0]"></div>
           <div className="flex flex-col md:flex-row justify-between md:items-center  px-6 py-4">
             <div className="flex flex-col md:flex-row gap-x-6 md:items-center">
-              <Image src={Thumbnail1} alt="Thumbnail" />
+              <Image src={Thumbnail1} alt="Thumbnail" unoptimized />
               <h3 className="text-[20px] font-semibold text-[#13141D]">
                 Lavender Soap Bars
               </h3>

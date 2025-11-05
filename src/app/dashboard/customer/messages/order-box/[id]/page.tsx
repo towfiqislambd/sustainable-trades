@@ -149,6 +149,7 @@ const page = ({ params }: any) => {
               <Image
                 src={`${process.env.NEXT_PUBLIC_SITE_URL}/${singleConversation?.data?.conversation?.participants[0]?.participant?.avatar}`}
                 fill
+                unoptimized
                 alt="author_img"
                 className="size-full rounded-full"
               />
@@ -208,6 +209,7 @@ const page = ({ params }: any) => {
                       src={`${process.env.NEXT_PUBLIC_SITE_URL}/${msg?.sender?.avatar}`}
                       alt="author"
                       fill
+                      unoptimized
                       className="size-full rounded-full"
                     />
                   ) : (
