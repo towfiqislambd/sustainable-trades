@@ -32,6 +32,7 @@ const Footer = async ({ siteSettings, dynamicPage }: any) => {
             <figure className="size-24 md:size-40">
               <Image
                 src={logo}
+                unoptimized
                 alt="logo"
                 className="w-full h-full object-cover "
               />

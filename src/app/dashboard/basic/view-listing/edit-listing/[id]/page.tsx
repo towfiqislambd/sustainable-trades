@@ -22,7 +22,6 @@ import { PuffLoader } from "react-spinners";
 import toast from "react-hot-toast";
 import useClientApi from "@/Hooks/useClientApi";
 
-
 // Define types for the API response and error
 interface UpdateProductResponse {
   success: boolean;
@@ -133,7 +132,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
     method: "delete",
     isPrivate: true,
     key: ["image-delete"],
-    endpoint: "/api/image-delete", 
+    endpoint: "/api/image-delete",
     onSuccess: (data: any) => {
       if (data?.success) {
         toast.success(data?.message || "Image deleted successfully");
@@ -497,6 +496,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                   src={mainImage}
                   alt="Main Preview"
                   fill
+                  unoptimized
                   className="w-full h-full object-cover rounded-lg border"
                 />
               </div>
@@ -506,6 +506,7 @@ const Details = ({ params }: { params: Promise<{ id: string }> }) => {
                   src={Preview}
                   alt="Main Preview"
                   fill
+                  unoptimized
                   className="w-full h-full object-cover rounded-lg border"
                 />
               </div>

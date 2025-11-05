@@ -78,7 +78,7 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
                 : "text-accent-white bg-transparent"
             }`}
           >
-            {button2}
+            {button1}
           </button>
 
           <button
@@ -94,7 +94,7 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
                 : "text-accent-white bg-transparent"
             }`}
           >
-            {button1}
+            {button2}
           </button>
         </div>
 
