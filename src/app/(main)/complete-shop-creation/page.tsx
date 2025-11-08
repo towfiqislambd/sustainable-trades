@@ -36,8 +36,8 @@ const page = () => {
           <Link
             href={`${
               user?.membership?.membership_type === "basic"
-                ? "/dashboard/basic/create-listing"
-                : "/dashboard/pro/create-listing"
+                ? "/dashboard/basic/addnew-listing"
+                : "/dashboard/pro/addnew-listing"
             }`}
             className="auth-secondary-btn md:mt-0 mt-3 w-full md:w-fit"
           >

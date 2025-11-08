@@ -232,7 +232,6 @@ const EditFormThree = ({ data }: any) => {
                         "Select at least one payment method",
                     })}
                     className="w-4 h-4 text-primary-green"
-                    defaultChecked={selectedMethods.includes(method)}
                   />
                   <span className="text-[#4B4A47]">{method}</span>
                 </label>
