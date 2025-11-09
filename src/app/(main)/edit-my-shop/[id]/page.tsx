@@ -51,7 +51,6 @@ interface Props {
 const Page = ({ params }: Props) => {
   // Hook
   const { user } = useAuth();
-  console.log(user);
   const { id } = use(params);
   const router = useRouter();
   const { data: shopDetailsData, isLoading } = getShopDetails(id);
@@ -63,6 +62,7 @@ const Page = ({ params }: Props) => {
     handleSubmit,
     formState: { errors },
   } = methods;
+  console.log(shopDetailsData?.data?.shop_info?.policies?.payment_methods);
 
   useEffect(() => {
     if (shopDetailsData?.data) {
