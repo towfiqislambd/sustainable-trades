@@ -19,8 +19,10 @@ import {
   NotificationSvg,
 } from "@/Components/Svg/SvgContainer";
 import Sidebar from "@/Components/Common/Sidebar";
+import { getSiteSettingsClient } from "@/Hooks/api/cms_api";
 
-const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
+const BasicNavbar = ({ dynamicPage }: any) => {
+  const { data: siteSettings } = getSiteSettingsClient();
   const navLins = [
     { id: 1, label: "Home", path: "/" },
     { id: 2, label: "Shop", path: "/shop" },
@@ -123,9 +125,10 @@ const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
               <Link href="/">
                 <figure className="size-10 md:size-14 rounded-full relative">
                   <Image
-                    src={`${process.env.NEXT_PUBLIC_SITE_URL}/${siteSettings?.logo}`}
+                    src={`${process.env.NEXT_PUBLIC_SITE_URL}/${siteSettings?.data?.logo}`}
                     alt="logo"
                     fill
+                    unoptimized
                     className="size-full object-cover rounded-full"
                   />
                 </figure>
