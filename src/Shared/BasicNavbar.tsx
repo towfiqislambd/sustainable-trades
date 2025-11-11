@@ -122,11 +122,9 @@ const BasicNavbar = ({ siteSettings, dynamicPage }: any) => {
               />
               <Link href="/">
                 <figure className="size-10 md:size-14 rounded-full relative">
-                  <Image
+                  <img
                     src={`${process.env.NEXT_PUBLIC_SITE_URL}/${siteSettings?.logo}`}
                     alt="logo"
-                    fill
-                    unoptimized
                     className="size-full object-cover rounded-full"
                   />
                 </figure>
