@@ -2,10 +2,17 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Container from "@/Components/Common/Container";
+import { FBSvg, ISSvg } from "@/Components/Svg/SvgContainer";
+import Link from "next/link";
 
 interface AboutProps {
   data: {
     shop_name: string;
+    social_links: {
+      facebook_url: string;
+      instagram_url: string;
+      website_url: string;
+    };
     about: {
       about_image: string;
       tagline: string;
@@ -68,6 +75,40 @@ const AboutShop = ({ data }: AboutProps) => {
                   </button>
                 )}
               </p>
+
+              <div className="flex gap-5 items-center mt-5">
+                {data?.social_links?.website_url && (
+                  <Link
+                    target="_blank"
+                    href={data?.social_links?.website_url}
+                    className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold"
+                  >
+                    {data?.social_links?.website_url}
+                  </Link>
+                )}
+
+                <div className="flex gap-3 items-center">
+                  {data?.social_links?.facebook_url && (
+                    <Link
+                      target="_blank"
+                      href={data?.social_links?.facebook_url}
+                      className="size-9 rounded-full bg-primary-green grid place-items-center"
+                    >
+                      <FBSvg />
+                    </Link>
+                  )}
+
+                  {data?.social_links?.instagram_url && (
+                    <Link
+                      target="_blank"
+                      href={data?.social_links?.instagram_url}
+                      className="size-9 rounded-full bg-primary-green grid place-items-center"
+                    >
+                      <ISSvg />
+                    </Link>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
 
