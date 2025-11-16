@@ -13,16 +13,22 @@ import ShopInfo from "@/Components/PageComponents/mainPages/productDetailsCompon
 import ProductDescription from "@/Components/PageComponents/mainPages/productDetailsComponents/ProductDescription";
 import { GoBackSvg } from "@/Components/Svg/SvgContainer";
 import { useRouter } from "next/navigation";
+import useAuth from "@/Hooks/useAuth";
 
 interface Props {
   params: Promise<{ id: number }>;
 }
 
 const page = ({ params }: Props) => {
+  const { latitude, longitude } = useAuth();
   const router = useRouter();
   const [page, setPage] = useState<string>("");
   const { id } = use(params);
-  const { data: productDetailsData, isLoading } = getProductDetails(id);
+  const { data: productDetailsData, isLoading } = getProductDetails(
+    id,
+    latitude,
+    longitude
+  );
   const { data: productReviews, isLoading: reviewLoading } = getProductReviews(
     id,
     page

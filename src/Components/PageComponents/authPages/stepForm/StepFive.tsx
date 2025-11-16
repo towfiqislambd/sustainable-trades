@@ -7,8 +7,8 @@ const StepFive = ({ step, setStep }: any) => {
       {/* Pricing */}
       <Pricing
         description="Choose What Works Best For You"
-        button1="Monthly"
-        button2="Yearly"
+        button1="Yearly"
+        button2="Monthly"
       />
 
       {/* Btns */}

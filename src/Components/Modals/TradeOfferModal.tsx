@@ -12,6 +12,7 @@ type TradeOfferModalProps = {
   id: number | null;
   productId: number | null;
   shopInfo: {
+    distance_in_miles: number;
     shop: {
       user_id: number;
       shop_name: string;
@@ -122,7 +123,7 @@ const TradeOfferModal = ({
       <div className="flex gap-1 items-center mb-3">
         <LocationTwoSvg />
         <span className="text-light-green">
-          {shopInfo?.shop?.address?.address_line_1}
+          {shopInfo?.distance_in_miles.toFixed(2)} mi
         </span>
       </div>
 

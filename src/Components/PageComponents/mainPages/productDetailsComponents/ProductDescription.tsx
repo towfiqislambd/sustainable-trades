@@ -25,6 +25,7 @@ type descriptionItem = {
   description: string;
   selling_option: string;
   reviews_avg_rating: string;
+  distance_in_miles: number;
   shop: {
     id: number;
     user_id: number;
