@@ -34,8 +34,8 @@ const Page = async () => {
       <CommunityMember data={spotlightData?.data} has_community={true} />
       <Pricing
         description="No matter how you want to manage your shop, we got you covered!"
-        button1="Monthly Billing"
-        button2="Annual Billing"
+        button1="Annual Billing"
+        button2="Monthly Billing"
       />
       <Subscribe />
       <GetUserLocation />

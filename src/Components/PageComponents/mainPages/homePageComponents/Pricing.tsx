@@ -37,7 +37,7 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
   const { user } = useAuth();
 
   // States
-  const [activeTab, setActiveTab] = useState<string>("monthly");
+  const [activeTab, setActiveTab] = useState<string>("yearly");
   const [planId, setPlanId] = useState<number>(0);
 
   // Queries & Mutations
@@ -70,10 +70,10 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
             onClick={e => {
               e.preventDefault();
               e.stopPropagation();
-              setActiveTab("monthly");
+              setActiveTab("yearly");
             }}
             className={`px-2 md:px-5 py-1.5 md:py-2.5 rounded-lg cursor-pointer shadow font-semibold w-full text-sm md:text-base ${
-              activeTab === "monthly"
+              activeTab === "yearly"
                 ? "text-primary-green bg-accent-white"
                 : "text-accent-white bg-transparent"
             }`}
@@ -86,10 +86,10 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
             onClick={e => {
               e.preventDefault();
               e.stopPropagation();
-              setActiveTab("yearly");
+              setActiveTab("monthly");
             }}
             className={`px-2 md:px-5 py-1.5 md:py-2.5 rounded-lg cursor-pointer shadow font-semibold w-full text-sm md:text-base ${
-              activeTab === "yearly"
+              activeTab === "monthly"
                 ? "text-primary-green bg-accent-white"
                 : "text-accent-white bg-transparent"
             }`}
