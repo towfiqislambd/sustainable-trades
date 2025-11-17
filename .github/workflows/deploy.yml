@@ -42,4 +42,4 @@ jobs:
             git pull origin main            # Pull the latest changes from GitHub
             npm install                     # Install any new dependencies
             npm run build                   # Rebuild the app
-            pm2 restart nextjs-app         # Restart the app with PM2
+            pm2 restart nextjs-app         
