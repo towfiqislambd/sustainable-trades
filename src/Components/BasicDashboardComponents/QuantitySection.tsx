@@ -1,5 +1,5 @@
 import { Controller, UseFormReturn } from "react-hook-form";
-import { FormData } from "@/app/dashboard/basic/create-listing/page"; 
+import { FormData } from "@/app/dashboard/basic/create-listing/page";
 
 interface QuantitySectionProps {
   control: UseFormReturn<FormData>["control"];
@@ -27,11 +27,10 @@ const QuantitySection = ({
       }}
       render={({ field }) => (
         <input
-          type="text"
+          type="number"
           {...field}
-          readOnly={isBasicMember}
           className={`w-full lg:w-[350px] border border-[#A7A39C] rounded-lg p-2 md:p-4 mt-2 text-[#13141D] font-normal outline-0 ${
-            isBasicMember ? "bg-gray-100 text-gray-400 cursor-not-allowed" : ""
+            isBasicMember ? "" : ""
           }`}
         />
       )}
