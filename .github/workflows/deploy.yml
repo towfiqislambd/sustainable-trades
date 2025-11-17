@@ -41,5 +41,5 @@ jobs:
             cd /var/www/nextjs              
             git pull origin main            # Pull the latest changes from GitHub
             npm install                     # Install any new dependencies
-            npm run build                   # Rebuild the app
+            npm run build                   
             pm2 restart nextjs-app         
