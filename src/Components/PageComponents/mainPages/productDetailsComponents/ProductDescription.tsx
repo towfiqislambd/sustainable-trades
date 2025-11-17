@@ -200,21 +200,23 @@ const ProductDescription = ({ data }: descriptionProps) => {
       </button>
 
       {/* Trade btn */}
-      {(user?.role !== "customer" || data?.selling_option !== "For Sale") && (
-        <button
-          onClick={() => {
-            if (!user) {
-              return toast.error("Please login first to proceed");
-            }
-            setId(data?.shop?.id);
-            setProductId(data?.id);
-            setTradeOpen(true);
-          }}
-          className="mb-5 block w-full text-center duration-500 transition-all border-2 border-[#D4E2CB] text-lg cursor-pointer py-3 bg-[#D4E2CB] text-primary-green rounded-lg shadow hover:text-primary-green hover:bg-transparent font-semibold"
-        >
-          Trade
-        </button>
-      )}
+      {user?.role !== "customer" &&
+        data?.selling_option !== "For Sale" &&
+        user?.shop_info?.user_id !== data?.shop?.user_id && (
+          <button
+            onClick={() => {
+              if (!user) {
+                return toast.error("Please login first to proceed");
+              }
+              setId(data?.shop?.id);
+              setProductId(data?.id);
+              setTradeOpen(true);
+            }}
+            className="mb-5 block w-full text-center duration-500 transition-all border-2 border-[#D4E2CB] text-lg cursor-pointer py-3 bg-[#D4E2CB] text-primary-green rounded-lg shadow hover:text-primary-green hover:bg-transparent font-semibold"
+          >
+            Trade
+          </button>
+        )}
 
       {/* Message btn */}
       {user?.shop_info?.user_id !== data?.shop?.user_id && (
