@@ -28,9 +28,25 @@ Developed using the latest Next.js features, TypeScript for type safety, and Tan
 
 ## 3. Main Features:
 
-#### Multi-Role System
+#### Multi-Role System:
 - Admin, Basic Vendor, Pro Vendor, Customer, and Guest – each with their own dashboard and permissions.
 - Dynamic Role Management – Role-specific functionalities and UI are rendered conditionally.
+
+#### Vendor & Product Management:
+- Vendors can add products, which are published only after admin approval.
+- Vendors can upgrade subscriptions between Basic and Pro plans.
+- Vendors can edit profiles, manage listings, discounts, and trades.
+
+#### Real-Time Chat:
+- Real-time user-to-vendor messaging system powered by Pusher.js and Laravel Echo.
+- Instant updates, typing indicators, and unread message notifications.
+
+####Smart Location System:
+- Integrated Google Map API for finding shops.
+- The platform captures user’s latitude and longitude and displays nearby shops.
+- Interactive split view: left side shop list, right side live map view.
+- On hover, the shop’s name and photo appear live on the map.
+  
   
 - **Two Dashboards:**
   - **User Dashboard** - Meal Planner, My Shared Recipes, My Favorites, and
