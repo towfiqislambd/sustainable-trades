@@ -3,14 +3,14 @@ name: Deploy Next.js to Server
 on:
   push:
     branches:
-      - main # Trigger deploy when code is pushed to the main branch
+      - main  # Trigger deploy when code is pushed to the main branch
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout the code from GitHub
+      # 1. Checkout the code from GitHub (this step is for GitHub actions workflow)
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -37,8 +37,8 @@ jobs:
           key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }} # The private SSH key
           port: 22
           script: |
-            # Navigate to the correct directory
-             cd /home/softvencealpha-melisabooth/htdocs/melisabooth-next-js.softvencealpha.com
+            # Navigate to the correct directory where the repo is already cloned
+            cd /home/softvencealpha-melisabooth/htdocs/next-js-app
 
             # Pull the latest changes from GitHub
             git pull origin main
