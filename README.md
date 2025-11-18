@@ -59,7 +59,7 @@ Developed using the latest Next.js features, TypeScript for type safety, and Tan
 ##### Customer Features:
 - Orders, Favorites, Cart, Messages, Reviews, Settings
 
-#####Basic Vendor Dashboard::
+##### Basic Vendor Dashboard::
 - Listings, Trades, Memberships, Favorites, Membership Spotlights, Notifications, Messages, Settings
 
 ##### Pro Vendor Dashboard:
