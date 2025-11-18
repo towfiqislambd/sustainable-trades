@@ -38,7 +38,7 @@ jobs:
           port: 22
           script: |
             # Navigate to the correct directory
-            cd /home/softvencealpha-melisabooth/htdocs
+             cd /home/softvencealpha-melisabooth/htdocs/melisabooth-next-js.softvencealpha.com
 
             # Pull the latest changes from GitHub
             git pull origin main
