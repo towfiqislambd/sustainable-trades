@@ -38,7 +38,7 @@ jobs:
           port: 22
           script: |
             # Navigate to the correct directory where the repo is already cloned
-            cd /home/softvencealpha-melisabooth/htdocs/next-js-app
+            cd /home/softvencealpha-melisabooth/htdocs/sustainable-trades
 
             # Pull the latest changes from GitHub
             git pull origin main
