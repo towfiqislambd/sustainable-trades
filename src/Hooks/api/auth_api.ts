@@ -159,3 +159,60 @@ export const useLogout = () => {
     },
   });
 };
+
+// Reset Password
+export const useResetPassword = () => {
+  const router = useRouter();
+  return useClientApi({
+    method: "post",
+    key: ["reset-password"],
+    endpoint: "/api/users/login/reset-password",
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        toast.success(data?.message);
+        router.push("/auth/login");
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// Verify Email
+export const useVerifyEmail = () => {
+  const router = useRouter();
+  return useClientApi({
+    method: "post",
+    key: ["verify-email"],
+    endpoint: "/api/users/login/email-verify",
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        toast.success(data?.message);
+        router.push(`/auth/verify-otp/${data?.data?.email}`);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};
+
+// Verify OTP
+export const useVerifyOTP = () => {
+  const router = useRouter();
+  return useClientApi({
+    method: "post",
+    key: ["verify-otp"],
+    endpoint: "/api/users/login/otp-verify",
+    onSuccess: (data: any) => {
+      if (data?.success) {
+        toast.success(data?.message);
+        router.push(`/auth/reset-password/${data?.data?.email}`);
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message);
+    },
+  });
+};

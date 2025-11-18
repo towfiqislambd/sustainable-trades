@@ -131,6 +131,7 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
                           alt="logo"
                           width={45}
                           height={45}
+                          unoptimized
                         />
                       </figure>
 
@@ -167,6 +168,7 @@ const Pricing = ({ description, button1, button2 }: PricingProps) => {
                                   alt="image"
                                   width={24}
                                   height={24}
+                                  unoptimized
                                 />
                               </figure>
 
