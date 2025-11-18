@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout the code from GitHub (this step is for GitHub actions workflow)
+      # 1. Checkout the code from GitHub
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -32,11 +32,17 @@ jobs:
       - name: Deploy to server
         uses: appleboy/ssh-action@v0.1.5
         with:
-          host: ${{ secrets.SERVER_IP }} # The IP of your server
-          username: ${{ secrets.SERVER_USER }} # The username on your server (e.g., `sultan`)
-          key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }} # The private SSH key
+          host: ${{ secrets.SERVER_IP }}  # The IP of your server
+          username: ${{ secrets.SERVER_USER }}  # The username on your server (e.g., `sultan`)
+          key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}  # The private SSH key
           port: 22
           script: |
+            # Ensure the directory exists
+            if [ ! -d "/home/softvencealpha-melisabooth/htdocs/sustainable-trades" ]; then
+              echo "Directory does not exist, aborting!"
+              exit 1
+            fi
+            
             # Navigate to the correct directory where the repo is already cloned
             cd /home/softvencealpha-melisabooth/htdocs/sustainable-trades
 
