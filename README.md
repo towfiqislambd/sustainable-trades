@@ -46,30 +46,33 @@ Developed using the latest Next.js features, TypeScript for type safety, and Tan
 - The platform captures user’s latitude and longitude and displays nearby shops.
 - Interactive split view: left side shop list, right side live map view.
 - On hover, the shop’s name and photo appear live on the map.
-  
-  
-- **Two Dashboards:**
-  - **User Dashboard** - Meal Planner, My Shared Recipes, My Favorites, and
-    Recipe Management.
-  - **Admin Dashboard** - Manage users, approve recipes, and maintain platform
-    content.
-- **Advanced Recipe Management** – Create, edit, delete, and share recipes with
-  admin approval.
-- **Smart Recipe Discovery** – Search and filter by name, category, tags, or
-  library.
-- **Personalized Meal Planner** – Add, edit, or remove recipes for any day and
-  time of the week.
-- **Favorites & Wishlist** – Save and organize favorite recipes for quick
-  access.
-- **Interactive Recipe Details** – Leave reviews, explore nutrition info, and
-  share recipes.
-- **Complete Authentication System** – Includes Sign up, Login, Logout, OTP,
-  Email Verification, and Password Reset.
-- **High Performance Rendering** – Implemented SSR, CSR, SSG, and ISR for
-  ultimate scalability and speed.
-- **Smooth Animations** – Built with Framer Motion and AOS.
-- **Clean, Organized Codebase** – Follows best practices for readability and
-  scalability.
+
+####Customer Features:
+- Browse and filter products by category, subcategory, price, or popularity.
+- Add to Cart, Add to Favorites, and Follow/Unfollow Shops.
+- Write product reviews and view average ratings.
+- Real-time chat with vendors.
+- View shop locations and details.
+
+####Dashboard Functionalities:
+
+#####Customer Features:
+- Orders, Favorites, Cart, Messages, Reviews, Settings
+
+#####Basic Vendor Dashboard::
+- Listings, Trades, Memberships, Favorites, Membership Spotlights, Notifications, Messages, Settings
+
+#####Pro Vendor Dashboard:
+- Orders, Trades, Listings, Payments, Accounting, Discounts, Shipping, Favorites, Membership Spotlights, Notifications, Messages, Settings
+
+#####Admin Dashboard:
+- Manage users, shops, products, reviews, CMS content, and platform settings
+
+####Performance & Design:
+- Modern, beautiful, and lightweight UI.
+- Fully responsive on all screen sizes (mobile, tablet, and desktop).
+- SEO optimized for better visibility.
+- Production ready and scalable architecture.
 
 ---
 
@@ -77,26 +80,26 @@ Developed using the latest Next.js features, TypeScript for type safety, and Tan
 
 ```json
 "dependencies": {
-  "@radix-ui/react-avatar": "^1.1.10",
-  "@radix-ui/react-popover": "^1.1.15",
-  "@radix-ui/react-select": "^2.2.6",
+  "@react-google-maps/api": "^2.20.7",
   "@tanstack/react-query": "^5.80.2",
   "aos": "^2.3.4",
   "axios": "^1.9.0",
-  "class-variance-authority": "^0.7.1",
   "clsx": "^2.1.1",
+  "laravel-echo": "^2.2.4",
+  "lottie-react": "^2.4.1",
   "lucide-react": "^0.544.0",
-  "next": "15.3.3",
+  "moment": "^2.30.1",
+  "next": "^15.4.6",
   "postcss": "^8.5.4",
-  "react": "^19.0.0",
-  "react-dom": "^19.0.0",
-  "react-hook-form": "^7.64.0",
+  "pusher-js": "^8.4.0",
+  "react": "^19.1.1",
+  "react-dom": "^19.1.1",
+  "react-hook-form": "^7.62.0",
   "react-hot-toast": "^2.5.2",
   "react-icons": "^5.5.0",
-  "react-loader-spinner": "^7.0.3",
-  "react-otp-input": "^3.1.1",
-  "react-rating": "^2.0.5",
-  "swiper": "^12.0.2",
+  "react-scroll-to-top": "^3.1.0",
+  "react-spinners": "^0.17.0",
+  "swiper": "^11.2.10",
   "tailwind-merge": "^3.3.1"
 }
 ```
@@ -116,8 +119,7 @@ Developed using the latest Next.js features, TypeScript for type safety, and Tan
   "@types/redux-persist": "^4.0.0",
   "autoprefixer": "^10.4.21",
   "tailwindcss": "^4.1.8",
-  "tw-animate-css": "^1.4.0",
-  "typescript": "^5.0.0"
+  "typescript": "^5"
 }
 ```
 
@@ -127,10 +129,10 @@ Developed using the latest Next.js features, TypeScript for type safety, and Tan
 
 ```bash
 # Clone the repository
-git clone https://github.com/towfiqislambd/healthy-recipes.git
+git clone https://github.com/towfiqislambd/sustainable-trades
 
 # Navigate into the project
-cd healthy-recipes
+cd sustainable-trades
 
 # Add an env.local file in root
 .env.local = Add secret credentials
