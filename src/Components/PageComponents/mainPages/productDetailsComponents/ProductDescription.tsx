@@ -52,6 +52,7 @@ const handleBuyNow = () => {
 };
 
 const ProductDescription = ({ data }: descriptionProps) => {
+  console.log(data);
   // Hook
   const { user } = useAuth();
 
@@ -208,7 +209,7 @@ const ProductDescription = ({ data }: descriptionProps) => {
               if (!user) {
                 return toast.error("Please login first to proceed");
               }
-              setId(data?.shop?.id);
+              setId(data?.shop?.user_id);
               setProductId(data?.id);
               setTradeOpen(true);
             }}
@@ -225,7 +226,7 @@ const ProductDescription = ({ data }: descriptionProps) => {
             if (!user) {
               return toast.error("Please login first to proceed");
             }
-            setId(data?.shop?.id);
+            setId(data?.shop?.user_id);
             setProductId(data?.id);
             setMsgOpen(true);
           }}
