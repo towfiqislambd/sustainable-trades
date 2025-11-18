@@ -41,34 +41,34 @@ Developed using the latest Next.js features, TypeScript for type safety, and Tan
 - Real-time user-to-vendor messaging system powered by Pusher.js and Laravel Echo.
 - Instant updates, typing indicators, and unread message notifications.
 
-####Smart Location System:
+#### Smart Location System:
 - Integrated Google Map API for finding shops.
 - The platform captures user’s latitude and longitude and displays nearby shops.
 - Interactive split view: left side shop list, right side live map view.
 - On hover, the shop’s name and photo appear live on the map.
 
-####Customer Features:
+#### Customer Features:
 - Browse and filter products by category, subcategory, price, or popularity.
 - Add to Cart, Add to Favorites, and Follow/Unfollow Shops.
 - Write product reviews and view average ratings.
 - Real-time chat with vendors.
 - View shop locations and details.
 
-####Dashboard Functionalities:
+#### Dashboard Functionalities:
 
-#####Customer Features:
+##### Customer Features:
 - Orders, Favorites, Cart, Messages, Reviews, Settings
 
 #####Basic Vendor Dashboard::
 - Listings, Trades, Memberships, Favorites, Membership Spotlights, Notifications, Messages, Settings
 
-#####Pro Vendor Dashboard:
+##### Pro Vendor Dashboard:
 - Orders, Trades, Listings, Payments, Accounting, Discounts, Shipping, Favorites, Membership Spotlights, Notifications, Messages, Settings
 
-#####Admin Dashboard:
+##### Admin Dashboard:
 - Manage users, shops, products, reviews, CMS content, and platform settings
 
-####Performance & Design:
+#### Performance & Design:
 - Modern, beautiful, and lightweight UI.
 - Fully responsive on all screen sizes (mobile, tablet, and desktop).
 - SEO optimized for better visibility.
