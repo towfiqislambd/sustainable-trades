@@ -312,12 +312,13 @@ export const useAddFavorite = () => {
 };
 
 // Product Details
-export const getProductDetails = (id: number) => {
+export const getProductDetails = (id: number, lat: number, lng: number) => {
   return useClientApi({
     method: "get",
     isPrivate: true,
-    key: ["get-product-details", id],
+    key: ["get-product-details", id, lat, lng],
     enabled: !!id,
+    params: { lat, lng },
     endpoint: `/api/product-details/${id}`,
     queryOptions: {
       retry: false,
