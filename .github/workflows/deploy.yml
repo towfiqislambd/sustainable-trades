@@ -3,7 +3,7 @@ name: Deploy Next.js to Server
 on:
   push:
     branches:
-      - main  # Trigger deploy when code is pushed to the main branch
+      - main # Trigger deploy when code is pushed to the main branch
 
 jobs:
   deploy:
@@ -14,11 +14,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # 2. Set up Node.js (version 22, since you're using Node 22
+      # 2. Set up Node.js (version 22, since you're using Node 22)
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '22'  # Use Node.js 22.x (or adjust if you use a different version)
+          node-version: "22" # Use Node.js 22.x (or adjust if you use a different version)
 
       # 3. Install dependencies
       - name: Install dependencies
@@ -32,14 +32,41 @@ jobs:
       - name: Deploy to server
         uses: appleboy/ssh-action@v0.1.5
         with:
-          host: ${{ secrets.SERVER_IP }}         # The IP of your server
-          username: ${{ secrets.SERVER_USER }}   # The username on your server (e.g., `sultan`)
-          key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}  # The private SSH key
+          host: ${{ secrets.SERVER_IP }} # The IP of your server
+          username: ${{ secrets.SERVER_USER }} # The username on your server (e.g., `sultan`)
+          key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }} # The private SSH key
           port: 22
           script: |
             # Navigate to the correct directory
-            cd /home/softvencealpha-melisabooth/htdocs              
-            git pull origin main            # Pull the latest changes from GitHub
-            npm install                     # Install any new dependenciess
-            npm run build                   
-            pm2 restart nextjs-app         
+            cd /home/softvencealpha-melisabooth/htdocs
+
+            # Pull the latest changes from GitHub
+            git pull origin main
+
+            # Install any new dependencies
+            npm install
+
+            # Build the app
+            npm run build
+
+            # Install PM2 if it's not already installed
+            if ! command -v pm2 &> /dev/null
+            then
+              echo "PM2 not found, installing PM2..."
+              npm install -g pm2
+            fi
+
+            # Check if the app is already running with pm2
+            pm2_status=$(pm2 list | grep "nextjs-app" || true)
+
+            if [ -z "$pm2_status" ]; then
+              echo "App is not running. Starting app for the first time..."
+              pm2 start npm --name "nextjs-app" -- start
+
+              # Set up PM2 to start on system reboot (only for the first time)
+              pm2 startup systemd -u $USER --hp /home/$USER
+              pm2 save
+            else
+              echo "App is already running. Restarting app..."
+              pm2 restart nextjs-app
+            fi
