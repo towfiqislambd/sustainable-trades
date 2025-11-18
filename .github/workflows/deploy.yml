@@ -40,6 +40,6 @@ jobs:
             # Navigate to the correct directory
             cd /home/softvencealpha-melisabooth/htdocs              
             git pull origin main            # Pull the latest changes from GitHub
-            npm install                     # Install any new dependencies
+            npm install                     # Install any new dependenciess
             npm run build                   
             pm2 restart nextjs-app         
