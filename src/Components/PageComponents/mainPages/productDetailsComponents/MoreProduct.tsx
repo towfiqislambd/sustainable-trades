@@ -19,6 +19,7 @@ interface moreProductProps {
 }
 
 const MoreProduct = ({ data }: moreProductProps) => {
+  console.log(data);
   return (
     <section className="my-20">
       {/* Title */}
