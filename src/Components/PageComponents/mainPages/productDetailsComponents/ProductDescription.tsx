@@ -52,7 +52,6 @@ const handleBuyNow = () => {
 };
 
 const ProductDescription = ({ data }: descriptionProps) => {
-  console.log(data);
   // Hook
   const { user } = useAuth();
 
@@ -93,7 +92,7 @@ const ProductDescription = ({ data }: descriptionProps) => {
     <>
       <div className="flex items-center justify-between mb-3">
         {/* Product Category */}
-        <h2 className="text-primary-green text-xl font-semibold">
+        <h2 className="text-primary-green text-lg md:text-xl font-semibold">
           {data?.category?.name}
         </h2>
 
@@ -116,7 +115,7 @@ const ProductDescription = ({ data }: descriptionProps) => {
 
       <div className="flex justify-between items-center mb-5">
         {/* Product Name */}
-        <h3 className="text-2xl font-semibold text-secondary-black">
+        <h3 className="text-xl md:text-2xl font-semibold text-secondary-black">
           {data?.product_name}
         </h3>
 
@@ -130,7 +129,7 @@ const ProductDescription = ({ data }: descriptionProps) => {
         >
           {addCardPending ? (
             <p className="flex gap-2 items-center justify-center">
-              <CgSpinnerTwo className="animate-spin text-xl" />
+              <CgSpinnerTwo className="animate-spin text-lg md:text-xl" />
               <span>Adding...</span>
             </p>
           ) : (
@@ -143,7 +142,7 @@ const ProductDescription = ({ data }: descriptionProps) => {
       </div>
 
       {/* Product Description */}
-      <p className="text-primary-green text-xl font-semibold mb-3">
+      <p className="text-primary-green text-lg md:text-xl font-semibold mb-3">
         Product Description
       </p>
 
@@ -155,7 +154,7 @@ const ProductDescription = ({ data }: descriptionProps) => {
           href={`/shop-details?view=${"customer"}&id=${
             data?.shop?.user_id
           }&listing_id=${data?.shop?.id}`}
-          className="text-lg underline font-semibold text-secondary-black"
+          className="md:text-lg underline font-semibold text-secondary-black"
         >
           {data?.shop?.shop_name}
         </Link>
@@ -180,10 +179,10 @@ const ProductDescription = ({ data }: descriptionProps) => {
 
       <div className="flex items-center justify-between mb-7">
         {/* Price */}
-        <p className="text-4xl font-semibold">${data?.product_price}</p>
+        <p className="text-2xl md:text-3xl lg:text-4xl font-semibold">${data?.product_price}</p>
 
         {/* Quantity */}
-        <div className="flex gap-3 items-center border rounded-lg px-7 py-2 font-semibold border-primary-green">
+        <div className="flex gap-3 items-center border rounded-lg px-4 md:px-7 py-2 font-semibold border-primary-green">
           <button onClick={handleDecrease} className="cursor-pointer">
             <MinSvg />
           </button>
@@ -196,7 +195,7 @@ const ProductDescription = ({ data }: descriptionProps) => {
       </div>
 
       {/* Buy btn */}
-      <button className="mb-5 block w-full text-center duration-500 transition-all border-2 text-lg cursor-pointer py-3 bg-primary-green text-accent-white rounded-lg shadow hover:text-primary-green hover:bg-transparent font-semibold border-primary-green">
+      <button className="mb-3 md:mb-5 block w-full text-center duration-500 transition-all border-2 md:text-lg cursor-pointer py-2 md:py-3 bg-primary-green text-accent-white rounded-lg shadow hover:text-primary-green hover:bg-transparent font-semibold border-primary-green">
         Buy it now
       </button>
 
@@ -213,7 +212,7 @@ const ProductDescription = ({ data }: descriptionProps) => {
               setProductId(data?.id);
               setTradeOpen(true);
             }}
-            className="mb-5 block w-full text-center duration-500 transition-all border-2 border-[#D4E2CB] text-lg cursor-pointer py-3 bg-[#D4E2CB] text-primary-green rounded-lg shadow hover:text-primary-green hover:bg-transparent font-semibold"
+            className="mb-3 md:mb-5 block w-full text-center duration-500 transition-all border-2 border-[#D4E2CB] md:text-lg cursor-pointer py-2 md:py-3 bg-[#D4E2CB] text-primary-green rounded-lg shadow hover:text-primary-green hover:bg-transparent font-semibold"
           >
             Trade
           </button>
@@ -230,7 +229,7 @@ const ProductDescription = ({ data }: descriptionProps) => {
             setProductId(data?.id);
             setMsgOpen(true);
           }}
-          className="mb-5 w-full text-center duration-500 transition-all border-2 text-lg cursor-pointer py-3 text-primary-green rounded-lg shadow hover:text-accent-white hover:bg-primary-green font-semibold border-primary-green flex gap-2 items-center justify-center"
+          className="mb-5 w-full text-center duration-500 transition-all border-2 md:text-lg cursor-pointer py-2 md:py-3 text-primary-green rounded-lg shadow hover:text-accent-white hover:bg-primary-green font-semibold border-primary-green flex gap-2 items-center justify-center"
         >
           <MyMsgSvg />
           <span> Message Seller</span>

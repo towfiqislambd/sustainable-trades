@@ -142,7 +142,7 @@ const ShopListing = ({
                   setSubCategory("");
                   setSortBy("");
                 }}
-                className="flex gap-2 items-center cursor-pointer px-4 py-3 rounded-lg border-gray-200 relative duration-300 transition-all hover:bg-secondary-blue hover:text-white border hover:border-transparent text-white bg-primary-green"
+                className="flex gap-2 items-center cursor-pointer px-4 py-2 md:py-3 rounded-lg border-gray-200 relative duration-300 transition-all hover:bg-secondary-blue hover:text-white border hover:border-transparent text-white bg-primary-green"
               >
                 <GrPowerReset />
                 <span>Reset</span>
@@ -153,7 +153,7 @@ const ShopListing = ({
 
         {/* Map */}
         {listingsLoading ? (
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
             {Array.from({ length: 4 }).map((_, idx) => (
               <ProductSkeleton key={idx} />
             ))}
@@ -166,7 +166,7 @@ const ShopListing = ({
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
             {allListings?.data?.map((product: any) => (
               <Product key={product?.id} product={product} />
             ))}

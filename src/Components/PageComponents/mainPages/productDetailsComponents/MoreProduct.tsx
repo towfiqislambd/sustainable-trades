@@ -21,7 +21,7 @@ interface moreProductProps {
 const MoreProduct = ({ data }: moreProductProps) => {
   console.log(data);
   return (
-    <section className="my-20">
+    <section className="my-10 md:my-20">
       {/* Title */}
       <h3 className="text-3xl font-semibold text-secondary-black mb-7">
         More from this shop
@@ -29,7 +29,7 @@ const MoreProduct = ({ data }: moreProductProps) => {
 
       {/* Products */}
       {data?.more_products_from_shop?.length > 0 ? (
-        <div className="grid grid-cols-5 gap-x-5 gap-y-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-5 gap-y-10">
           {data?.more_products_from_shop?.map(product => (
             <Product
               key={product?.id}

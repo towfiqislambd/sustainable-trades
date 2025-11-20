@@ -30,7 +30,7 @@ const ProductLocation = () => {
         <div className="grid lg:grid-cols-2 gap-5 border border-gray-100 rounded-lg p-3">
           {/* Left - Product List */}
           {search ? (
-            <div className="space-y-2 h-[550px] overflow-y-auto">
+            <div className="space-y-2 md:h-[550px] overflow-y-auto">
               {productLoading ? (
                 Array.from({ length: 7 }).map((_, idx) => (
                   <ShopListSkeleton key={idx} />
@@ -45,12 +45,12 @@ const ProductLocation = () => {
                   <Link
                     key={product?.id}
                     href={`/product-details/${product?.id}`}
-                    className="flex flex-col md:flex-row gap-2.5 md:gap-5 md:items-center border-b last:border-b-0 border-gray-300 py-3 cursor-pointer hover:bg-green-50"
+                    className="flex flex-row gap-2.5 md:gap-5 md:items-center border-b last:border-b-0 border-gray-300 py-2 md:py-3 cursor-pointer hover:bg-green-50"
                     onMouseEnter={() => setHoveredProduct(product)}
                     onMouseLeave={() => setHoveredProduct(null)}
                   >
                     {/* Product Image */}
-                    <figure className="size-22 shrink-0 rounded-lg relative">
+                    <figure className="size-16 md:size-22 shrink-0 rounded-lg relative">
                       <Image
                         src={`${process.env.NEXT_PUBLIC_SITE_URL}/${product?.images[0]?.image}`}
                         alt="product_image"
@@ -63,7 +63,7 @@ const ProductLocation = () => {
                     <div className="flex flex-col md:flex-row gap-2.5 md:gap-5 md:items-center grow">
                       <div className="grow">
                         {/* Product Name */}
-                        <h3 className="font-semibold text-primary-green">
+                        <h3 className="font-semibold text-primary-green text-sm md:text-base">
                           {product?.product_name}
                         </h3>
 
@@ -74,7 +74,7 @@ const ProductLocation = () => {
                           }).map((_, idx) => (
                             <FaStar
                               key={idx}
-                              className="text-primary-green text-sm"
+                              className="text-primary-green text-xs md:text-sm"
                             />
                           ))}
                           {Array.from({
@@ -82,18 +82,18 @@ const ProductLocation = () => {
                           }).map((_, index) => (
                             <FaRegStar
                               key={index}
-                              className="text-primary-green text-sm"
+                              className="text-primary-green text-xs md:text-sm"
                             />
                           ))}
                         </div>
 
                         {/* Distance */}
-                        <p className="text-secondary-gray font-semibold text-sm mb-0.5">
+                        <p className="text-secondary-gray font-semibold text-xs md:text-sm mb-0.5">
                           {product?.distance?.toFixed(1)} mi
                         </p>
 
                         {/* Selling Option */}
-                        <p className="text-secondary-gray text-sm">
+                        <p className="text-secondary-gray text-xs md:text-sm">
                           {product?.selling_option}
                         </p>
                       </div>
@@ -110,7 +110,7 @@ const ProductLocation = () => {
           )}
 
           {/* Right - Google Map */}
-          <div className="h-[300px] md:h-[550px]">
+          <div className="md:h-[550px]">
             {allProducts?.data && allProducts?.data?.length > 0 ? (
               <ProductMap
                 products={allProducts?.data}

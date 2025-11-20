@@ -55,7 +55,7 @@ const page = () => {
       {/* All Categories */}
       <section className="mb-20">
         <Container>
-          <h2 className="text-2xl md:text-3xl font-semibold text-secondary-black mb-10 capitalize">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-secondary-black mb-5 md:mb-10 capitalize">
             Explore Category Wise Sustainable Products Nearby
           </h2>
 
@@ -150,7 +150,7 @@ const page = () => {
         )}
 
         {isLoading ? (
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
             {Array.from({ length: 4 }).map((_, idx) => (
               <ProductSkeleton key={idx} />
             ))}
@@ -164,7 +164,7 @@ const page = () => {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
             {categoryDetails?.data?.products?.map((product: any) => (
               <Product key={product?.id} product={product} />
             ))}
@@ -174,12 +174,12 @@ const page = () => {
 
       {/* Nearby Listings */}
       <Container>
-        <h2 className="mt-16 text-2xl md:text-3xl font-semibold text-secondary-black mb-10 capitalize">
+        <h2 className="mt-16 text-xl sm:text-2xl md:text-3xl font-semibold text-secondary-black mb-10 capitalize">
           Sustainable Products & Services Nearby
         </h2>
 
         {nearbyProductsLoading ? (
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
             {Array.from({ length: 4 }).map((_, idx) => (
               <ProductSkeleton key={idx} />
             ))}
@@ -192,7 +192,7 @@ const page = () => {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
             {nearbyProducts?.data?.map((product: any) => (
               <Product isMiles={true} key={product?.id} product={product} />
             ))}
@@ -200,7 +200,7 @@ const page = () => {
         )}
       </Container>
 
-      <div className="py-16">
+      <div className="py-10 md:py-16">
         <CommunityMember data={spotlightData?.data} has_community={true} />
       </div>
       <Subscribe />
