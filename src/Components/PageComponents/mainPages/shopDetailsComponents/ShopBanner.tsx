@@ -81,7 +81,7 @@ const ShopBanner = ({ id, data }: BannerProps) => {
       <Container>
         <div className="flex flex-col md:flex-row justify-between">
           {/* Left - Shop Info */}
-          <div className="space-y-4">
+          <div className="space-y-3 md:space-y-4">
             {/* Shop Profile */}
             <div className="flex md:justify-start justify-center items-center ">
               <figure className="size-22 md:size-[153px] rounded-full relative">
@@ -97,7 +97,7 @@ const ShopBanner = ({ id, data }: BannerProps) => {
 
             <div className="flex flex-col md:flex-row gap-2 md:gap-6 md:items-center">
               {/* Shop Name */}
-              <h3 className="text-white text-3xl lg:text-4xl font-semibold leading-[36px]">
+              <h3 className="text-white text-2xl md:text-3xl lg:text-4xl font-semibold leading-[36px]">
                 {data?.shop_info?.shop_name}
               </h3>
 
