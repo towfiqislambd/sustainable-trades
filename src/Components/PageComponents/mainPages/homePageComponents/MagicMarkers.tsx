@@ -27,7 +27,7 @@ const MagicMarkers = () => {
           ></iframe>
 
           {/* Content */}
-          <div className="absolute -bottom-50 left-1/2 -translate-x-1/2  md:bottom-auto md:left-auto md:right-20 md:top-1/2 md:-translate-x-0 md:-translate-y-1/2 w-[85%] md:w-[560px] bg-[rgba(246,245,240,0.95)] rounded-2xl p-5  md:px-8 md:py-12 shadow-[0_3px_8px_0_rgba(0,0,0,0.09),_0_3px_12px_0_rgba(0,0,0,0.10)]">
+          <div className="absolute  left-1/2 -translate-x-1/2 top-20  md:bottom-auto md:left-auto md:right-20 md:top-1/2 md:-translate-x-0 md:-translate-y-1/2 w-[85%] md:w-[560px] bg-[rgba(246,245,240,0.95)] rounded-2xl p-5 md:px-8 md:py-12 shadow-[0_3px_8px_0_rgba(0,0,0,0.09),_0_3px_12px_0_rgba(0,0,0,0.10)]">
             <h3 className="lg:text-2xl text-lg md:text-xl xl:text-3xl font-semibold text-secondary-black mb-2.5 md:mb-5">
               Find Your Local Magic Makers
             </h3>

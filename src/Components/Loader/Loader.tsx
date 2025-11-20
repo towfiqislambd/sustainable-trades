@@ -314,7 +314,7 @@ export const ProductDetailsSkeleton = () => {
 
 // Pricing Card Skeleton
 export const PricingSkeletonCard = () => (
-  <div className="border border-gray-200 shadow rounded-2xl p-6 w-[400px] flex flex-col justify-between animate-pulse">
+  <div className="border border-gray-200 shadow rounded-2xl p-6  w-full sm:w-[400px] flex flex-col justify-between animate-pulse">
     <div>
       <div className="size-12 rounded-full bg-gray-300 mb-4" />
 

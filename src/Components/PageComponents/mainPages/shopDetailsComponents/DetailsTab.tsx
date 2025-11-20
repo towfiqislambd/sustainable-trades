@@ -34,7 +34,7 @@ const DetailsTab = () => {
                   window.scrollTo({ top: y, behavior: "smooth" });
                 }
               }}
-              className={`flex-1 text-center px-6 md:px-14 py-3 md:py-4 font-semibold
+              className={`flex-1 text-sm md:text-base text-center px-3 md:px-14 py-3 md:py-4 font-semibold
           ${
             activeTab === tab?.id
               ? "bg-[#D4E2CB] text-secondary-black"

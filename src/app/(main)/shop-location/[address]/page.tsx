@@ -154,13 +154,13 @@ const page = ({ params }: Props) => {
         {isLoading ? (
           <h2 className="w-60 h-6 mb-7 animate-pulse bg-gray-200 rounded"></h2>
         ) : (
-          <h2 className="text-2xl md:text-3xl font-semibold text-secondary-black mb-7">
+          <h2 className="text-xl md:text-3xl font-semibold text-secondary-black mb-4 md:mb-7">
             {categoryDetails?.data?.category?.name}
           </h2>
         )}
 
         {isLoading ? (
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
             {Array.from({ length: 4 }).map((_, idx) => (
               <ProductSkeleton key={idx} />
             ))}
@@ -174,7 +174,7 @@ const page = ({ params }: Props) => {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
             {categoryDetails?.data?.products?.map((product: any) => (
               <Product isMiles={true} key={product?.id} product={product} />
             ))}

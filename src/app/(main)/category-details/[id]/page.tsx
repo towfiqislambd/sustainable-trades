@@ -49,7 +49,7 @@ const page = ({ params }: any) => {
       {/* All Categories */}
       <section className="mb-20">
         <Container>
-          <h2 className="text-2xl md:text-3xl font-semibold text-secondary-black mb-10 capitalize">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-secondary-black mb-10 capitalize">
             Explore Sustainable Products & Services Nearby
           </h2>
 
@@ -138,13 +138,13 @@ const page = ({ params }: any) => {
         {isLoading ? (
           <h2 className="w-60 h-6 mb-7 animate-pulse bg-gray-200 rounded"></h2>
         ) : (
-          <h2 className="text-2xl md:text-3xl font-semibold text-secondary-black mb-7">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-secondary-black mb-7">
             {categoryDetails?.data?.category?.name}
           </h2>
         )}
 
         {isLoading ? (
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
             {Array.from({ length: 4 }).map((_, idx) => (
               <ProductSkeleton key={idx} />
             ))}
@@ -158,7 +158,7 @@ const page = ({ params }: any) => {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
             {categoryDetails?.data?.products?.map((product: any) => (
               <Product key={product?.id} product={product} />
             ))}
@@ -166,7 +166,7 @@ const page = ({ params }: any) => {
         )}
       </Container>
 
-      <div className="py-16">
+      <div className="py-10 md:py-16">
         <CommunityMember data={spotlightData?.data} has_community={true} />
       </div>
       <Subscribe />
