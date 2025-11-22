@@ -1,8 +1,8 @@
 import React from "react";
 import Banner from "@/Components/Common/Banner";
 import Container from "@/Components/Common/Container";
-import AboutUsTab from "@/Components/Common/AboutUsTab";
 import { getDynamicPages, getSingleDynamicPage } from "@/Hooks/api/cms_api";
+import AboutUsTab from "@/Components/Common/AboutUsTab";
 
 const page = async ({ params }: any) => {
   const { slug } = params;
