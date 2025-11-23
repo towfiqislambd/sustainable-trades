@@ -164,7 +164,7 @@ const BasicNavbar = ({ dynamicPage }: any) => {
               {/* Sub Menu */}
               <div
                 onClick={e => e.stopPropagation()}
-                className={`absolute top-12 ${
+                className={`absolute z-10 top-12 ${
                   activeSubMenu === 4 ? "-right-32" : "-right-56"
                 } bg-white drop-shadow  w-[280px] py-7 px-5 border-gray-50 rounded-lg flex flex-col gap-7 ${
                   showMenu && (activeSubMenu === 4 || activeSubMenu === 5)
