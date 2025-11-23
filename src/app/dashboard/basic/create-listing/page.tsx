@@ -17,6 +17,7 @@ import PriceSection from "@/Components/BasicDashboardComponents/PriceSection";
 import CategorySection from "@/Components/BasicDashboardComponents/CategorySection";
 import MetaTags from "@/Components/BasicDashboardComponents/MetaTags";
 import FormActions from "@/Components/BasicDashboardComponents/FormActions";
+import { useRouter } from "next/navigation";
 
 export type FormData = {
   shop_info_id: string | number;
@@ -51,6 +52,7 @@ type SubCategory = {
 
 const CreateListing = ({ membershipType = "basic" }: any) => {
   const { user } = useAuth();
+  const router = useRouter();
 
   // ✅ Separate states for files and previews
   const [imageFiles, setImageFiles] = useState<File[]>([]);
@@ -77,8 +79,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
       product_quantity: "",
       weight: "",
       cost: "",
-      description:
-        "...............",
+      description: "...............",
       category_id: "",
       sub_category_id: "",
       fulfillment: "",
@@ -146,6 +147,7 @@ const CreateListing = ({ membershipType = "basic" }: any) => {
         setPreviewImages([]);
         setVideo(null);
         setMetaTags([]);
+        router.push("/dashboard/basic/listings");
       },
     });
   };
